@@ -58,7 +58,9 @@ npm exec --yes --package=vercel@59.23.2 -- vercel --prod --yes --scope zach-2267
 
 Use your own project/scope if deploying a fork. `SITE_URL` overrides the default canonical origin in `astro.config.mjs`; set it to the actual production URL when assigning a different domain. Keep `.vercel`, generated environment files, local plans, and caches ignored. Do not commit credentials.
 
-The Vercel project is connected to the GitHub repository. Production deployments from the CLI do not depend on GitHub Actions minutes. Source commits can also trigger Vercel's own builds. A website-only deployment does not require republishing the CLI to npm.
+The Vercel project is connected to the GitHub repository. Production deployments from the CLI do not depend on GitHub Actions minutes. A website-only deployment does not require republishing the CLI to npm.
+
+At launch, Vercel blocked automatic Git deployments with `TEAM_ACCESS_REQUIRED`: the commit author's linked account did not have deployment permission in the Vercel team. The authenticated CLI production deployment succeeds. Until the account/team mapping is corrected in Vercel, use the CLI command above for releases; pushing alone will not update the live site. No team seats were purchased, collaborators invited, or commit authorship changed to work around this restriction.
 
 ## Formatting
 
