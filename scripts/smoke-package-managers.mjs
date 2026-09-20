@@ -21,7 +21,7 @@ try {
     ['npm', args => npm(['exec', '--yes', `--package=${archive}`, '--', 'just-vibe', ...args], options)],
     ['pnpm 10', args => execFileSync(process.execPath, [join(bootstrap, 'node_modules/pnpm/bin/pnpm.cjs'), `--package=${archive}`, 'dlx', '--', 'just-vibe', ...args], options)],
     ['pnpm 12', args => execFileSync(join(bootstrap, `node_modules/@pnpm/exe.${process.platform}-${process.arch}/pnpm${process.platform === 'win32' ? '.exe' : ''}`), [`--package=${archive}`, 'dlx', '--', 'just-vibe', ...args], options)],
-    ['yarn', args => execFileSync(process.execPath, [join(bootstrap, 'node_modules/@yarnpkg/cli-dist/bin/yarn.js'), 'dlx', '--quiet', '--package', archive, 'just-vibe', ...args], options)],
+    ['yarn', args => execFileSync(process.execPath, [join(bootstrap, 'node_modules/@yarnpkg/cli-dist/bin/yarn.js'), 'dlx', '--quiet', '--package', `just-vibe@file:${archive.replaceAll('\\', '/')}`, 'just-vibe', ...args], options)],
   ];
   let options;
   for (const [name, run] of managers) {
