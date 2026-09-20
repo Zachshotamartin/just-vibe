@@ -44,6 +44,7 @@ Set `WEBSITE_URL` to run browser checks against a deployment instead. Tests do n
 - `src/assets/` contains original image-generated artwork. Astro produces optimized responsive WebP variants and small icons; original PNGs remain downloadable from the brand page.
 - `brand/PROMPTS.md` records the identity direction and exact image-generation prompts. These are maintainer records, not included in deployment uploads.
 - Geist is self-hosted with its OFL license at `/licenses/geist-OFL.txt`.
+- Interface icons use `@lucide/astro` through `src/components/Icon.astro`, rendered as inline SVG with no client runtime or font dependency. Do not substitute emojis or Unicode symbols. Keep accompanying text labels accessible; decorative SVGs are hidden from assistive technology. License notices are included at `/licenses/lucide.txt`.
 
 The website has its own package and lockfile. Its dependencies, images, and output are excluded from the root npm package's publish allowlist.
 

@@ -1,4 +1,5 @@
 ---
+import Icon from '../../components/Icon.astro';
 import Doc from '../../layouts/Doc.astro';
 import Install from '../../components/Install.astro';
 ---
@@ -91,6 +92,9 @@ import Install from '../../components/Install.astro';
   </div>
   <p>
     A dry run does not copy the payload or run host commands. The package manager may still fetch
-    and cache the CLI. <a href="/docs/updates/">Read about updates and diagnostics →</a>
+    and cache the CLI.{' '}
+    <a href="/docs/updates/">
+      Read about updates and diagnostics <Icon name="arrow-right" />
+    </a>
   </p>
 </Doc>

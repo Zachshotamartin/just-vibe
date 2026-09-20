@@ -48,6 +48,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 - Implementing a dialog or modal overlay: [dialog interaction](../../references/scenarios/dialog.md).
 - Implementing selection or autocomplete: [combobox interaction](../../references/scenarios/combobox.md).
 - Implementing a date or range input: [date-picker interaction](../../references/scenarios/date-picker.md).
+- Creating, editing or reviewing frontend UI, copy, states or visual assets: [Frontend iconography](../../references/frontend-icons.md).
 
 ## Decision branches
 

@@ -1,4 +1,5 @@
 ---
+import Icon from './Icon.astro';
 const { id = 'install' } = Astro.props;
 ---
 
@@ -32,7 +33,9 @@ const { id = 'install' } = Astro.props;
   </div>
   <p class="install-note">
     Node.js 22+ · Native plugins required ·{' '}
-    <a href="/docs/installation/">Full installation guide ↗</a>
+    <a href="/docs/installation/">
+      Full installation guide <Icon name="arrow-up-right" />
+    </a>
   </p>
 </div>
 <script>

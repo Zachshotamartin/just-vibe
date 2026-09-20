@@ -1,4 +1,5 @@
 ---
+import Icon from '../../components/Icon.astro';
 import Base from '../../layouts/Base.astro';
 import { Image } from 'astro:assets';
 import board from '../../assets/just-vibe-brandkit.png';
@@ -40,13 +41,13 @@ import hero from '../../assets/just-vibe-hero.png';
       </p>
       <div class="brand-downloads">
         <a class="button button-small" href={mark.src} download="just-vibe-mark.png">
-          Logo ↓
+          Logo <Icon name="download" />
         </a>
         <a class="button button-small" href={board.src} download="just-vibe-brandkit.png">
-          Brand board ↓
+          Brand board <Icon name="download" />
         </a>
         <a class="button button-small" href={hero.src} download="just-vibe-hero.png">
-          Hero artwork ↓
+          Hero artwork <Icon name="download" />
         </a>
       </div>
     </div>

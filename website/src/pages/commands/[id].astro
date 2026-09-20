@@ -1,4 +1,5 @@
 ---
+import Icon from '../../components/Icon.astro';
 import Base from '../../layouts/Base.astro';
 import { commands, packs, packName, version } from '../../lib/catalog.mjs';
 export function getStaticPaths() {
@@ -15,7 +16,7 @@ const related = commands
   <div class="wrap detail-layout">
     <aside class="detail-sidebar">
       <a href={`/commands/?pack=${c.pack}`} class="back-link">
-        ← {packName(c.pack)}
+        <Icon name="arrow-left" /> {packName(c.pack)}
       </a>
       <nav aria-label="On this page">
         <a href="#overview">Overview</a>
@@ -156,7 +157,9 @@ const related = commands
         <h2>Keep exploring</h2>
         <div class="related-links">
           {related.map((command) => (
-            <a href={`/commands/${command.id}/`}>/{command.id} ↗</a>
+            <a href={`/commands/${command.id}/`}>
+              /{command.id} <Icon name="arrow-up-right" />
+            </a>
           ))}
         </div>
       </section>

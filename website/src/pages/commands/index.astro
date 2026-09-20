@@ -1,4 +1,5 @@
 ---
+import Icon from '../../components/Icon.astro';
 import Base from '../../layouts/Base.astro';
 import CatalogBrowser from '../../components/CatalogBrowser.astro';
 import { commands, packs, packName, counts } from '../../lib/catalog.mjs';
@@ -36,7 +37,7 @@ const items = commands.map((c) => ({
       your context. Find the right starting point.
     </p>
     <a class="text-link" href="/docs/usage/">
-      How to use a command ↗
+      How to use a command <Icon name="arrow-up-right" />
     </a>
   </section>
   <section class="wrap catalog-content">

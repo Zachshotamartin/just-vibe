@@ -1,4 +1,5 @@
 ---
+import Icon from '../../components/Icon.astro';
 import Base from '../../layouts/Base.astro';
 import CatalogBrowser from '../../components/CatalogBrowser.astro';
 import { profiles, families, familyName } from '../../lib/catalog.mjs';
@@ -29,7 +30,7 @@ const items = profiles.map((p) => ({
       decision guidance, and checks to your task.
     </p>
     <a class="text-link" href="/docs/profiles/">
-      How profiles work ↗
+      How profiles work <Icon name="arrow-up-right" />
     </a>
   </section>
   <section class="wrap catalog-content">

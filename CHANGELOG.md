@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Default all frontend workflows to no emojis unless explicitly requested; route UI, React, Vite, design, polish, matching and UI copy through shared iconography guidance, including general workflows and role profiles used for frontend work.
+- Replace website text-glyph icons with Lucide SVGs and preserve icon markup when copy-button feedback resets.
 - Add a public website with installation guides, an editable prompt builder, searchable command and role libraries, and catalog-generated scope and verification documentation.
 - Add the just-vibe visual identity, generated logo and brand assets, responsive layouts, static-page/link checks, and browser accessibility and interaction checks.
 - Configure Vercel deployment independently of GitHub Actions and the npm CLI release process.

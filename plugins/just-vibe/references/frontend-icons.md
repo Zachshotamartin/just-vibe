@@ -1,0 +1,9 @@
+# Frontend iconography
+
+Do not introduce emojis into agent-authored frontend interfaces or UI copy unless the user explicitly requests them. This includes navigation, buttons, status and validation messages, empty states, placeholders, decorative artwork and generated UI examples. A request for a playful or friendly design, an emoji in a reference, or a role/profile selection is not an explicit request to use emojis.
+
+Use the project's existing SVG icon components or suitable image assets. If none fit, create a coherent SVG icon or use an appropriate icon package within the dependency constraints. Do not use Unicode arrows, checkmarks, stars or other text glyphs as substitute UI icons; choose an actual asset even when a glyph happens to render monochrome. Keep sizing, stroke weight, alignment and visual treatment consistent.
+
+Explicitly requested emojis are allowed only in the requested scope. For example, an emoji reaction picker permits its reaction content; it does not authorize emoji navigation or status indicators throughout the app. Preserve user-authored content, meaningful Unicode in text/code/math, required product data and existing interfaces outside the task. Do not strip emoji from user messages or turn a bounded change into an unrelated redesign. In inspect mode, report relevant findings rather than editing the interface.
+
+For controls, keep visible or accessible text labels. Hide decorative SVGs from assistive technology and give icon-only controls an accessible name. Check the touched normal, loading, success and error states, including CSS-generated content and feedback that replaces/restores button contents. Verify that icon changes preserve contrast, focus, click targets and layout at the relevant viewports. Preserve icon licenses; do not add a new library merely to replace an asset already available in the project.

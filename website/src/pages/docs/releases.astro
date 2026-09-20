@@ -1,4 +1,5 @@
 ---
+import Icon from '../../components/Icon.astro';
 import Doc from '../../layouts/Doc.astro';
 import { version, counts } from '../../lib/catalog.mjs';
 ---
@@ -11,7 +12,9 @@ import { version, counts } from '../../lib/catalog.mjs';
 >
   <h2>Current package: {version}</h2>
   <p>
-    <a href={`https://www.npmjs.com/package/just-vibe/v/${version}`}>View v{version} on npm ↗</a>
+    <a href={`https://www.npmjs.com/package/just-vibe/v/${version}`}>
+      View v{version} on npm <Icon name="arrow-up-right" />
+    </a>
   </p>
   <p>
     The current catalog includes <strong>{counts.commands} skill names</strong> ({counts.workflows}{' '}

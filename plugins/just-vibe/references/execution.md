@@ -41,6 +41,8 @@ External context can come from a connector/CLI or from relevant supplied artifac
 
 ## Execute and verify
 
+For any frontend work, do not introduce emojis unless the user explicitly requests them. Use real icon assets or components rather than Unicode text icons. Apply [frontend iconography](frontend-icons.md) when creating, editing or reviewing interfaces, including frontend work reached through general-purpose workflows or role profiles.
+
 Read the selected skill's domain runbook; load other workflows only when their scope is necessary. Establish a baseline, perform the smallest coherent task, and verify the original outcome. Use current primary documentation when runtime/library/API behavior depends on versions. Record real command exit statuses, revision identities, dataset/model versions, measurements, and source references as appropriate. Do not replace a missing test, screenshot, profile, deployment check, or experiment with an assertion.
 
 Apply the selected command's technical method: inspect its named evidence, resolve the relevant decision, challenge the listed misdiagnosis and choose its discriminating check. Load matching conditional guides before decisions that depend on them. These methods narrow attention to the actual task; they do not require every possible check for a trivial edit. A role profile supplies priorities, while the selected workflow and references supply the technical procedure. Review and security tasks use the [review selector](security/review.md) to load only the attack surfaces and framework branches present in scope. Scanner findings, source reasoning and exercised regressions are different kinds of evidence; label each honestly.

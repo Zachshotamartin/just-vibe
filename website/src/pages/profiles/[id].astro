@@ -1,4 +1,5 @@
 ---
+import Icon from '../../components/Icon.astro';
 import Base from '../../layouts/Base.astro';
 import { profiles, familyName } from '../../lib/catalog.mjs';
 export function getStaticPaths() {
@@ -11,7 +12,7 @@ const { profile: p } = Astro.props;
   <div class="wrap detail-layout">
     <aside class="detail-sidebar">
       <a class="back-link" href={`/profiles/?family=${p.family}`}>
-        ← {familyName(p.family)}
+        <Icon name="arrow-left" /> {familyName(p.family)}
       </a>
       <nav aria-label="On this page">
         <a href="#overview">Overview</a>
@@ -73,11 +74,15 @@ const { profile: p } = Astro.props;
         <h2>Put it to work</h2>
         <div class="related-links">
           {p.workflows.map((id) => (
-            <a href={`/commands/${id}/`}>/{id} ↗</a>
+            <a href={`/commands/${id}/`}>
+              /{id} <Icon name="arrow-up-right" />
+            </a>
           ))}
         </div>
         <p>
-          <a href="/docs/profiles/">Learn about profile selection, pins, and secondary roles →</a>
+          <a href="/docs/profiles/">
+            Learn about profile selection, pins, and secondary roles <Icon name="arrow-right" />
+          </a>
         </p>
       </section>
     </article>

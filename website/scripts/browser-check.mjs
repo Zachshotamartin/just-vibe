@@ -66,6 +66,20 @@ try {
     'Teach linked lists using a small example.',
   );
   assert.ok(await page.locator('#demo-instruction').isVisible());
+  await page.waitForFunction(
+    () => document.querySelector('#demo-copy')?.textContent?.trim() === 'Copy prompt',
+  );
+  assert.equal(await page.locator('#demo-copy svg').count(), 1, 'Copy feedback restores its SVG');
+  await page.locator('#demo-copy svg').click();
+  await page.waitForFunction(() => document.querySelector('#demo-copy')?.textContent === 'Copied');
+  await page.waitForFunction(
+    () => document.querySelector('#demo-copy')?.textContent?.trim() === 'Copy prompt',
+  );
+  assert.equal(
+    await page.locator('#demo-copy svg').count(),
+    1,
+    'Repeated SVG clicks preserve the control',
+  );
   await visit('/commands/?pack=react');
   assert.equal(await page.locator('#catalog-group').inputValue(), 'react');
   assert.ok((await page.locator('.catalog-item:visible').count()) > 0);

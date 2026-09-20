@@ -1997,7 +1997,14 @@
         "method": "Choose a coherent visual direction tied to the product task, then implement representative states and interactions.",
         "pitfall": "Attractive static composition can conceal inaccessible controls, content overflow or missing recovery states.",
         "check": "Review real rendered output at relevant sizes and complete the main flow using keyboard and pointer."
-      }
+      },
+      "guides": [
+        {
+          "title": "Frontend iconography",
+          "when": "Creating, editing or reviewing frontend UI, copy, states or visual assets",
+          "path": "references/frontend-icons.md"
+        }
+      ]
     },
     {
       "id": "polish",
@@ -2080,7 +2087,14 @@
         "method": "Fix the largest visible inconsistencies while preserving established product behavior and visual intent.",
         "pitfall": "Arbitrary token changes can improve one screen while breaking sibling components or dense content.",
         "check": "Compare matched before/after states and inspect long text, narrow layout and focus/error treatments."
-      }
+      },
+      "guides": [
+        {
+          "title": "Frontend iconography",
+          "when": "Creating, editing or reviewing frontend UI, copy, states or visual assets",
+          "path": "references/frontend-icons.md"
+        }
+      ]
     },
     {
       "id": "responsive",
@@ -2181,7 +2195,14 @@
         "method": "Compare geometry, typography, color and content in matched rendered states; prioritize structural differences before micro-adjustments.",
         "pitfall": "A different viewport or unloaded font can masquerade as implementation error; screenshot similarity does not prove behavior.",
         "check": "Retain comparable images and verify the adjusted UI still handles interaction and responsive states."
-      }
+      },
+      "guides": [
+        {
+          "title": "Frontend iconography",
+          "when": "Creating, editing or reviewing frontend UI, copy, states or visual assets",
+          "path": "references/frontend-icons.md"
+        }
+      ]
     },
     {
       "id": "copy",
@@ -2264,7 +2285,14 @@
         "method": "Write concrete labels and error recovery guidance without promising behavior the product lacks.",
         "pitfall": "Friendly copy that says a failed operation succeeded or hides irreversible consequences misleads users.",
         "check": "Check wording against actual success/error states, truncation and accessible naming, preserving meaning in short labels."
-      }
+      },
+      "guides": [
+        {
+          "title": "Frontend iconography",
+          "when": "Creating, editing or reviewing frontend UI, copy, states or visual assets",
+          "path": "references/frontend-icons.md"
+        }
+      ]
     },
     {
       "id": "review",
@@ -8057,7 +8085,14 @@
         "method": "Adapt the existing build convention; align dev entry, production output and asset resolution using supported version-specific settings.",
         "pitfall": "Copying a config for another major or adding a second package manager can create a setup that only works on one machine.",
         "check": "Verify dev startup, production build and a direct nested route against generated output with the chosen package manager."
-      }
+      },
+      "guides": [
+        {
+          "title": "Frontend iconography",
+          "when": "Creating, editing or reviewing frontend UI, copy, states or visual assets",
+          "path": "references/frontend-icons.md"
+        }
+      ]
     },
     {
       "id": "vite-config",
@@ -8140,7 +8175,14 @@
         "method": "Trace each disputed option to its consuming tool; reconcile TypeScript paths with actual bundler resolution.",
         "pitfall": "A config file can execute arbitrary imports; read-only inspection should not evaluate it just to discover values.",
         "check": "Check the relevant dev and production resolution paths, including case-sensitive filenames and browser-exposed replacements."
-      }
+      },
+      "guides": [
+        {
+          "title": "Frontend iconography",
+          "when": "Creating, editing or reviewing frontend UI, copy, states or visual assets",
+          "path": "references/frontend-icons.md"
+        }
+      ]
     },
     {
       "id": "vite-hmr",
@@ -8223,7 +8265,14 @@
         "method": "Identify the first missing event and repair that layer; inspect proxy and container paths before changing host restrictions.",
         "pitfall": "Full page reload and preserved hot state are different outcomes; disabling host checks is not a generic websocket repair.",
         "check": "Edit a leaf and a shared dependency, verify the expected refresh behavior, and check reconnection after an ordinary dev restart."
-      }
+      },
+      "guides": [
+        {
+          "title": "Frontend iconography",
+          "when": "Creating, editing or reviewing frontend UI, copy, states or visual assets",
+          "path": "references/frontend-icons.md"
+        }
+      ]
     },
     {
       "id": "vite-env",
@@ -8312,6 +8361,11 @@
           "path": "references/security/frameworks.md",
           "title": "Framework-specific review branches",
           "when": "The task depends on framework defaults, middleware, RLS, server/client or deployment behavior"
+        },
+        {
+          "title": "Frontend iconography",
+          "when": "Creating, editing or reviewing frontend UI, copy, states or visual assets",
+          "path": "references/frontend-icons.md"
         }
       ]
     },
@@ -8398,7 +8452,14 @@
         "method": "Attribute large modules to reachable imports and compare raw, compressed and transferred sizes separately.",
         "pitfall": "Removing a named import or counting source file sizes does not prove tree-shaking or network improvement.",
         "check": "Rebuild and exercise representative routes; record comparable bytes and loading behavior, including any new lazy-load waterfall."
-      }
+      },
+      "guides": [
+        {
+          "title": "Frontend iconography",
+          "when": "Creating, editing or reviewing frontend UI, copy, states or visual assets",
+          "path": "references/frontend-icons.md"
+        }
+      ]
     },
     {
       "id": "vite-chunks",
@@ -8481,7 +8542,14 @@
         "method": "Split at meaningful usage boundaries and check initialization order and caching across releases.",
         "pitfall": "A smaller entry chunk can add serial requests or cause a stale HTML document to reference a deleted old chunk.",
         "check": "Test cold navigation, lazy routes and an older open page during deployment; define reload/recovery for missing chunks."
-      }
+      },
+      "guides": [
+        {
+          "title": "Frontend iconography",
+          "when": "Creating, editing or reviewing frontend UI, copy, states or visual assets",
+          "path": "references/frontend-icons.md"
+        }
+      ]
     },
     {
       "id": "vite-assets",
@@ -8574,7 +8642,14 @@
         "method": "Use the correct asset mechanism for build-time imports versus runtime names; inspect emitted URLs under the deployed base.",
         "pitfall": "A leading slash can escape a subpath deployment; a concatenated filename may never enter the build graph.",
         "check": "Check direct nested loads, fonts, CSS images and dynamic assets in production output, not only the dev server."
-      }
+      },
+      "guides": [
+        {
+          "title": "Frontend iconography",
+          "when": "Creating, editing or reviewing frontend UI, copy, states or visual assets",
+          "path": "references/frontend-icons.md"
+        }
+      ]
     },
     {
       "id": "vite-upgrade",
@@ -8657,7 +8732,14 @@
         "method": "Upgrade a coherent toolchain with the project's lockfile; remove obsolete options only after mapping their replacement behavior.",
         "pitfall": "A passing install with ignored peer conflicts does not establish refresh or production compatibility.",
         "check": "Verify dev refresh, build, preview and relevant SSR/test integration; report a plugin blocker instead of forcing an unsupported combination."
-      }
+      },
+      "guides": [
+        {
+          "title": "Frontend iconography",
+          "when": "Creating, editing or reviewing frontend UI, copy, states or visual assets",
+          "path": "references/frontend-icons.md"
+        }
+      ]
     },
     {
       "id": "react-audit",
@@ -8746,6 +8828,11 @@
           "path": "references/security/frameworks.md",
           "title": "Framework-specific review branches",
           "when": "The task depends on framework defaults, middleware, RLS, server/client or deployment behavior"
+        },
+        {
+          "title": "Frontend iconography",
+          "when": "Creating, editing or reviewing frontend UI, copy, states or visual assets",
+          "path": "references/frontend-icons.md"
         }
       ]
     },
@@ -8832,7 +8919,14 @@
         "method": "Locate changing context/prop identities or expensive work, then optimize the measured cause while preserving fresh closures.",
         "pitfall": "Render counts include harmless work and development checks; memoization can retain stale behavior or cost more than recomputation.",
         "check": "Repeat the same interaction and compare duration/responsiveness while checking that updated inputs still reach callbacks."
-      }
+      },
+      "guides": [
+        {
+          "title": "Frontend iconography",
+          "when": "Creating, editing or reviewing frontend UI, copy, states or visual assets",
+          "path": "references/frontend-icons.md"
+        }
+      ]
     },
     {
       "id": "react-effects",
@@ -8919,7 +9013,14 @@
         "method": "Move derived values to render where appropriate; make synchronization cleanup mirror setup and use supported patterns for current values.",
         "pitfall": "Suppressing dependency warnings conceals stale closures; aborting a request cannot undo a completed server mutation.",
         "check": "Exercise changed inputs, remount and unmount with controlled timers/promises and verify listeners, requests and subscriptions are released."
-      }
+      },
+      "guides": [
+        {
+          "title": "Frontend iconography",
+          "when": "Creating, editing or reviewing frontend UI, copy, states or visual assets",
+          "path": "references/frontend-icons.md"
+        }
+      ]
     },
     {
       "id": "react-state",
@@ -9002,7 +9103,14 @@
         "method": "Keep intentional drafts distinct from server values; remove duplicate state only when its synchronization contract is understood.",
         "pitfall": "Copying props into state on every update can erase user edits; a module variable can leak state between instances or server requests.",
         "check": "Test two instances, identity changes, reset and recoverable errors; verify drafts and unrelated state are preserved as intended."
-      }
+      },
+      "guides": [
+        {
+          "title": "Frontend iconography",
+          "when": "Creating, editing or reviewing frontend UI, copy, states or visual assets",
+          "path": "references/frontend-icons.md"
+        }
+      ]
     },
     {
       "id": "react-component",
@@ -9107,6 +9215,11 @@
           "title": "date-picker interaction",
           "when": "Implementing a date or range input",
           "path": "references/scenarios/date-picker.md"
+        },
+        {
+          "title": "Frontend iconography",
+          "when": "Creating, editing or reviewing frontend UI, copy, states or visual assets",
+          "path": "references/frontend-icons.md"
         }
       ],
       "technical": {
@@ -9197,7 +9310,14 @@
         "method": "Preserve draft values on recoverable errors, map field/general errors and handle concurrent or uncertain submissions deliberately.",
         "pitfall": "A disabled button alone does not prevent retries or duplicate server effects; number parsing can turn an empty field into zero.",
         "check": "Test invalid, empty, zero, double-submit, delayed response and retry cases; verify labels, error associations and focus."
-      }
+      },
+      "guides": [
+        {
+          "title": "Frontend iconography",
+          "when": "Creating, editing or reviewing frontend UI, copy, states or visual assets",
+          "path": "references/frontend-icons.md"
+        }
+      ]
     },
     {
       "id": "react-async",
@@ -9290,7 +9410,14 @@
         "method": "Force out-of-order completion and gate writes by current identity or the established query-library guarantee.",
         "pitfall": "Canceling one waiter must not cancel shared work still owned by another; late rejection can delete a newer cache entry.",
         "check": "Resolve B before A, unmount before completion, and reject an old request after new success; visible state must retain the current result."
-      }
+      },
+      "guides": [
+        {
+          "title": "Frontend iconography",
+          "when": "Creating, editing or reviewing frontend UI, copy, states or visual assets",
+          "path": "references/frontend-icons.md"
+        }
+      ]
     },
     {
       "id": "react-hydration",
@@ -9376,7 +9503,14 @@
         "method": "Find the first deterministic divergence; choose server-provided stable inputs or an explicit client-only boundary with appropriate loading behavior.",
         "pitfall": "Suppressing hydration warnings does not repair invalid markup or mismatched event/state attachment.",
         "check": "Load the real SSR page directly with varied timezone or saved state, inspect warnings and verify the affected interaction after hydration."
-      }
+      },
+      "guides": [
+        {
+          "title": "Frontend iconography",
+          "when": "Creating, editing or reviewing frontend UI, copy, states or visual assets",
+          "path": "references/frontend-icons.md"
+        }
+      ]
     },
     {
       "id": "ui-audit",
@@ -9459,7 +9593,14 @@
         "method": "Prioritize hierarchy, discoverability and task completion using concrete observations; separate visual preference from usability failure.",
         "pitfall": "A screenshot cannot establish keyboard behavior, contrast in every state or successful end-to-end completion.",
         "check": "Revisit the same tasks and viewports after changes and cite the remaining unobserved interaction states."
-      }
+      },
+      "guides": [
+        {
+          "title": "Frontend iconography",
+          "when": "Creating, editing or reviewing frontend UI, copy, states or visual assets",
+          "path": "references/frontend-icons.md"
+        }
+      ]
     },
     {
       "id": "ui-system",
@@ -9542,7 +9683,14 @@
         "method": "Define semantic roles and a small consistent scale; migrate consumers incrementally with deliberate exceptions.",
         "pitfall": "Renaming colors without updating focus, disabled, dark-mode or data-visualization states leaves an incomplete system.",
         "check": "Render representative components in each supported theme and verify contrast, overflow and token fallback behavior."
-      }
+      },
+      "guides": [
+        {
+          "title": "Frontend iconography",
+          "when": "Creating, editing or reviewing frontend UI, copy, states or visual assets",
+          "path": "references/frontend-icons.md"
+        }
+      ]
     },
     {
       "id": "ui-states",
@@ -9625,7 +9773,14 @@
         "method": "Preserve useful context and offer the action that can actually recover each failure; distinguish no results from unavailable data.",
         "pitfall": "Replacing failed data with an empty-state message misrepresents the result and can encourage destructive user action.",
         "check": "Trigger loading, empty, partial, failed and recovered states; verify user input, retry ownership and announcements survive transitions."
-      }
+      },
+      "guides": [
+        {
+          "title": "Frontend iconography",
+          "when": "Creating, editing or reviewing frontend UI, copy, states or visual assets",
+          "path": "references/frontend-icons.md"
+        }
+      ]
     },
     {
       "id": "ui-responsive",
@@ -9710,7 +9865,14 @@
         "method": "Repair the constraint causing overflow; choose reflow/order based on task meaning rather than arbitrary device names.",
         "pitfall": "Hiding overflow can conceal controls; hover-only affordances fail on touch or keyboard.",
         "check": "Test narrow and wide layouts, long text, zoom and both pointer/keyboard access without clipped essential content."
-      }
+      },
+      "guides": [
+        {
+          "title": "Frontend iconography",
+          "when": "Creating, editing or reviewing frontend UI, copy, states or visual assets",
+          "path": "references/frontend-icons.md"
+        }
+      ]
     },
     {
       "id": "ui-accessibility",
@@ -9805,7 +9967,14 @@
         "method": "Use native controls first; apply matching APG interaction patterns for custom widgets and test behavior as well as attributes.",
         "pitfall": "Passing an automated checker does not prove keyboard or screen-reader usability; positive tabindex creates fragile ordering.",
         "check": "Complete the main flow using only keyboard, inspect focus visibility/return and announced errors, and report assistive-tech coverage actually exercised."
-      }
+      },
+      "guides": [
+        {
+          "title": "Frontend iconography",
+          "when": "Creating, editing or reviewing frontend UI, copy, states or visual assets",
+          "path": "references/frontend-icons.md"
+        }
+      ]
     },
     {
       "id": "ui-motion",
@@ -9888,7 +10057,14 @@
         "method": "Keep state transitions functional without animation; favor composited properties where appropriate and cancel obsolete animations.",
         "pitfall": "A smooth animation can still hide focus, block input or cause discomfort; reduced motion must preserve outcome and feedback.",
         "check": "Interrupt/reverse transitions, test reduced motion and keyboard focus, and profile the target device interaction for jank."
-      }
+      },
+      "guides": [
+        {
+          "title": "Frontend iconography",
+          "when": "Creating, editing or reviewing frontend UI, copy, states or visual assets",
+          "path": "references/frontend-icons.md"
+        }
+      ]
     },
     {
       "id": "ui-visual-diff",
@@ -9971,7 +10147,14 @@
         "method": "Compare matched states, separating rendering noise from layout/content changes; inspect differences before replacing a baseline.",
         "pitfall": "Approving a new screenshot merely because it differs converts a regression into the expected result.",
         "check": "Reproduce significant differences with stable fonts/data and retain both images plus a reason for accepted changes."
-      }
+      },
+      "guides": [
+        {
+          "title": "Frontend iconography",
+          "when": "Creating, editing or reviewing frontend UI, copy, states or visual assets",
+          "path": "references/frontend-icons.md"
+        }
+      ]
     },
     {
       "id": "ui-flow",
@@ -10054,7 +10237,14 @@
         "method": "Remove unnecessary decisions while retaining needed confirmation and context; define back, refresh and retry semantics.",
         "pitfall": "Optimizing one screen can break cross-screen state or erase work when users navigate backward.",
         "check": "Complete the journey from a fresh start, an interrupted state and a recoverable failure with realistic input methods."
-      }
+      },
+      "guides": [
+        {
+          "title": "Frontend iconography",
+          "when": "Creating, editing or reviewing frontend UI, copy, states or visual assets",
+          "path": "references/frontend-icons.md"
+        }
+      ]
     },
     {
       "id": "backend-service",

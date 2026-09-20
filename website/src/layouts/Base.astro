@@ -1,4 +1,5 @@
 ---
+import Icon from '../components/Icon.astro';
 import '@fontsource-variable/geist';
 import '../styles/global.css';
 import { version } from '../lib/catalog.mjs';
@@ -63,17 +64,25 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
         </a>
       </nav>
       <a class="button button-small header-cta" href="/docs/installation/">
-        Get started <span aria-hidden="true">↗</span>
+        Get started{' '}
+        <span aria-hidden="true">
+          <Icon name="arrow-up-right" />
+        </span>
       </a>
       <details class="mobile-menu">
         <summary aria-label="Open navigation">
-          Menu <span aria-hidden="true">+</span>
+          Menu{' '}
+          <span aria-hidden="true">
+            <Icon name="plus" />
+          </span>
         </summary>
         <nav aria-label="Mobile navigation">
           <a href="/commands/">Commands</a>
           <a href="/profiles/">Profiles</a>
           <a href="/docs/">Docs</a>
-          <a href="/docs/installation/">Get started ↗</a>
+          <a href="/docs/installation/">
+            Get started <Icon name="arrow-up-right" />
+          </a>
         </nav>
       </details>
     </header>
@@ -88,7 +97,10 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
         </a>
         <p>Your ideas. Your code. Your call.</p>
         <a href="/docs/installation/" class="text-link">
-          Start building <span aria-hidden="true">↗</span>
+          Start building{' '}
+          <span aria-hidden="true">
+            <Icon name="arrow-up-right" />
+          </span>
         </a>
       </div>
       <div class="footer-bottom">
@@ -96,13 +108,17 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
         <nav aria-label="Footer">
           <a href="/brand/">Brand</a>
           <a href="/docs/compatibility/">Compatibility</a>
-          <a href="https://www.npmjs.com/package/just-vibe">npm ↗</a>
+          <a href="https://www.npmjs.com/package/just-vibe">
+            npm <Icon name="arrow-up-right" />
+          </a>
           <a href="/docs/releases/">v{version}</a>
         </nav>
       </div>
     </footer>
     <script>
       import { copyText } from '../lib/browser';
+      const originalContents = new WeakMap<HTMLButtonElement, ChildNode[]>();
+      const resetTimers = new WeakMap<HTMLButtonElement, number>();
       document.addEventListener('click', async (event) => {
         const target = (event.target as Element).closest<HTMLButtonElement>(
           '[data-copy], [data-copy-target]',
@@ -112,16 +128,20 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
           target.dataset.copy ||
           document.getElementById(target.dataset.copyTarget || '')?.textContent ||
           '';
-        const label = target.textContent;
+        if (!originalContents.has(target)) originalContents.set(target, [...target.childNodes]);
+        window.clearTimeout(resetTimers.get(target));
         try {
           await copyText(text);
-          target.textContent = 'Copied ✓';
+          target.textContent = 'Copied';
         } catch {
           target.textContent = 'Select text to copy';
         }
-        window.setTimeout(() => {
-          target.textContent = label;
-        }, 2000);
+        resetTimers.set(
+          target,
+          window.setTimeout(() => {
+            target.replaceChildren(...originalContents.get(target)!);
+          }, 2000),
+        );
       });
     </script>
   </body>

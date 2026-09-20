@@ -146,6 +146,23 @@
   }
 }
 @layer components {
+  .icon {
+    display: inline-block;
+    flex-shrink: 0;
+    vertical-align: -0.18em;
+  }
+  .search-input > span > .icon {
+    width: 19px;
+    height: 19px;
+  }
+  .art-caption .icon,
+  .install-note .icon {
+    width: 12px;
+    height: 12px;
+  }
+  .mobile-menu[open] summary .icon {
+    transform: rotate(45deg);
+  }
   .wrap {
     width: min(1280px, calc(100% - 112px));
     margin-inline: auto;

@@ -47,7 +47,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the
 ## Read when relevant
 
 - When a concrete decision or deliverable example would clarify this workflow: [UI and frontend worked example](../../references/examples/ui.md).
-
+- Creating, editing or reviewing frontend UI, copy, states or visual assets: [Frontend iconography](../../references/frontend-icons.md).
 
 ## Decision branches
 

@@ -1,4 +1,5 @@
 ---
+import Icon from './Icon.astro';
 const { items, groups, kind } = Astro.props;
 const noun = kind === 'commands' ? 'commands' : 'profiles';
 ---
@@ -6,7 +7,9 @@ const noun = kind === 'commands' ? 'commands' : 'profiles';
 <div class="catalog-browser" data-catalog data-kind={kind}>
   <form class="catalog-filters" role="search">
     <div class="search-input">
-      <span aria-hidden="true">⌕</span>
+      <span aria-hidden="true">
+        <Icon name="search" />
+      </span>
       <label class="sr-only" for="catalog-search">
         Search {noun}
       </label>
@@ -38,7 +41,7 @@ const noun = kind === 'commands' ? 'commands' : 'profiles';
       {items.length} {noun}
     </p>
     <button type="button" class="reset-button" hidden>
-      Clear filters ×
+      Clear filters <Icon name="x" />
     </button>
   </div>
   <div class="catalog-results">
@@ -61,7 +64,7 @@ const noun = kind === 'commands' ? 'commands' : 'profiles';
           <p>{item.summary}</p>
         </div>
         <span class="item-arrow" aria-hidden="true">
-          ↗
+          <Icon name="arrow-up-right" />
         </span>
       </a>
     ))}
@@ -70,7 +73,7 @@ const noun = kind === 'commands' ? 'commands' : 'profiles';
     <h2>No matches this time.</h2>
     <p>Try a broader term or clear the filters to explore everything.</p>
     <button type="button" class="button" data-reset>
-      Show all {noun} →
+      Show all {noun} <Icon name="arrow-right" />
     </button>
   </div>
   <noscript>

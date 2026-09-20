@@ -1,4 +1,5 @@
 ---
+import Icon from '../components/Icon.astro';
 import Base from '../layouts/Base.astro';
 import Install from '../components/Install.astro';
 import CommandDemo from '../components/CommandDemo.astro';
@@ -30,10 +31,16 @@ const featured = [
       </p>
       <div class="hero-actions">
         <a class="button" href="/docs/installation/">
-          Get just-vibe <span aria-hidden="true">↗</span>
+          Get just-vibe{' '}
+          <span aria-hidden="true">
+            <Icon name="arrow-up-right" />
+          </span>
         </a>
         <a class="text-link" href="/commands/">
-          Explore the commands <span aria-hidden="true">→</span>
+          Explore the commands{' '}
+          <span aria-hidden="true">
+            <Icon name="arrow-right" />
+          </span>
         </a>
       </div>
     </div>
@@ -50,7 +57,9 @@ const featured = [
       />
       <div class="art-caption">
         <span>A little structure.</span>
-        <span>A lot of possibility. ↗</span>
+        <span>
+          A lot of possibility. <Icon name="arrow-up-right" />
+        </span>
       </div>
     </div>
   </section>
@@ -101,7 +110,7 @@ const featured = [
           </h2>
         </div>
         <a class="text-link" href="/commands/">
-          Browse all {counts.commands} commands ↗
+          Browse all {counts.commands} commands <Icon name="arrow-up-right" />
         </a>
       </div>
       <div class="pack-grid">
@@ -110,7 +119,9 @@ const featured = [
             <span class="pack-index">{String(i + 1).padStart(2, '0')}</span>
             <span>{pack.name}</span>
             <span class="pack-count">{commands.filter((c) => c.pack === pack.id).length}</span>
-            <span aria-hidden="true">↗</span>
+            <span aria-hidden="true">
+              <Icon name="arrow-up-right" />
+            </span>
           </a>
         ))}
       </div>
@@ -136,7 +147,7 @@ const featured = [
         Profiles give your agent relevant priorities and verification steps. You keep the decisions.
       </p>
       <a href="/profiles/" class="text-link">
-        Find your profile ↗
+        Find your profile <Icon name="arrow-up-right" />
       </a>
     </div>
     <div class="profile-list">
@@ -152,7 +163,9 @@ const featured = [
                 <h3>{p.name}</h3>
                 <p>{p.priorities[0]}</p>
               </div>
-              <span aria-hidden="true">↗</span>
+              <span aria-hidden="true">
+                <Icon name="arrow-up-right" />
+              </span>
             </a>
           )
         );
@@ -169,7 +182,7 @@ const featured = [
           make the difference.
         </h2>
         <a href="/docs/" class="text-link">
-          Read the field guide ↗
+          Read the field guide <Icon name="arrow-up-right" />
         </a>
       </div>
       <div class="principles">

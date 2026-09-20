@@ -8,6 +8,7 @@
 
 # Website
 
+- Do not use emojis unless the user explicitly requests them. Do not substitute Unicode text arrows, checkmarks or other glyphs for interface icons. Use SVG icons from the shared Lucide-based `Icon.astro` component or purpose-built SVG artwork. Keep user-facing responses free of emojis unless requested too.
 - The website lives in `website/` and deploys from the repository root using `vercel.json`.
 - Production URL: https://just-vibe-tools.vercel.app/
 - Keep the repository private. The npm package and generated website are public.

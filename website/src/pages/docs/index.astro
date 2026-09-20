@@ -1,4 +1,5 @@
 ---
+import Icon from '../../components/Icon.astro';
 import Base from '../../layouts/Base.astro';
 import { docs } from '../../lib/docs.mjs';
 ---
@@ -24,7 +25,9 @@ import { docs } from '../../lib/docs.mjs';
           <h2>{doc.title}</h2>
           <p>{doc.description}</p>
         </div>
-        <span aria-hidden="true">↗</span>
+        <span aria-hidden="true">
+          <Icon name="arrow-up-right" />
+        </span>
       </a>
     ))}
   </section>

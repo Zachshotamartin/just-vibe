@@ -1,4 +1,5 @@
 ---
+import Icon from '../components/Icon.astro';
 import Base from './Base.astro';
 import { docs } from '../lib/docs.mjs';
 const { frontmatter } = Astro.props;
@@ -9,7 +10,7 @@ const { title, description } = frontmatter;
   <div class="wrap detail-layout">
     <aside class="detail-sidebar">
       <a class="back-link" href="/docs/">
-        ← Documentation
+        <Icon name="arrow-left" /> Documentation
       </a>
       <nav aria-label="Documentation">
         {docs.map((doc) => (
