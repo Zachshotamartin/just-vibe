@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "name": "just-vibe",
+  "version": "0.8.1",
+  "registry": "https://registry.npmjs.org/",
+  "sourceCommit": "e5498aea3ef12e67cdd5ca47cb667eadbb336ebf",
+  "sha256": "b33dfefe73894dc89a44bbcb2d0b7035fa49428dd629b2edf457ea53efd04151",
+  "integrity": "sha512-lcQuQuQB49UApPWpSi95RGGvUjtj1DjWJgYZhJ/64klEka0+zio+rpzl+Aoj4Si3Qk6s0vWrTt8leUoC3f9jCA==",
+  "shasum": "89c9b24f66578dda8c0fac5c50c26ab15ffb6bf5",
+  "verifiedAt": "2026-09-20T21:00:46.506Z",
+  "distTag": "latest",
+  "registryExecution": "0.8.1",
+  "ci": {
+    "status": "waived",
+    "authorization": "The maintainer explicitly requested publishing the changes and waiving GitHub Actions because of insufficient minutes.",
+    "reason": "GitHub reported that jobs could not start because recent account payments failed or the spending limit needed to be increased.",
+    "run": "https://github.com/Zachshotamartin/just-vibe/actions/runs/35537114846",
+    "scope": "v0.8.1 only. No CI pass is claimed; the normal release gate is unchanged."
+  },
+  "localValidation": {
+    "tests": 176,
+    "passed": 175,
+    "failed": 0,
+    "skipped": 1,
+    "skipReason": "Windows-only test on macOS",
+    "releaseNode": "v24.21.0",
+    "skillsValidated": 216,
+    "archiveFiles": 596,
+    "archivePackageManagers": [
+      "npm",
+      "pnpm 10.14.0",
+      "pnpm 12.5.1",
+      "Yarn 4.18.0"
+    ],
+    "record": "0.8.1.md"
+  },
+  "publicationNote": "npm accepted the upload before registry metadata propagated. Read-only reconciliation confirmed the original archive; no second upload was attempted."
+}

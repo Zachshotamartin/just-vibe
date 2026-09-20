@@ -24,7 +24,7 @@ v0.8.0 adds working runtime helpers behind natural-language skill requests:
 
 See the [workflow guide](plugins/just-vibe/references/intent-workflows.md) for examples, boundaries and recovery. Users provide ordinary briefs; the agent prepares the helper inputs. These features support judgment rather than claiming an objective quality score.
 
-**Release status:** This checkout prepares v0.8.1. The previous [v0.8.0 publication](evals/releases/0.8.0-publication.json) was verified on npm. For this release, the maintainer again waived unavailable GitHub Actions because of the account minutes limit; local checks and exact-archive verification remain required. See the [v0.8.1 validation record](evals/releases/0.8.1.md).
+**Publication status:** [just-vibe 0.8.1 is published on npm](https://www.npmjs.com/package/just-vibe/v/0.8.1) as `latest`. Registry integrity and fresh-cache execution match the tested archive. GitHub Actions was explicitly waived for this release because its jobs could not start; see the [publication record](evals/releases/0.8.1-publication.json) and [validation record](evals/releases/0.8.1.md).
 
 
 ## Use the workflows
@@ -265,7 +265,7 @@ The [conversation harness](evals/conversation/README.md) records review, selecte
 
 The [v0.6 results](evals/releases/0.6.0.md) record 32 controlled implementation trials and eight revised-command development trials. All passed their bounded checks; this does not rank overall output quality or convenience. The tasks supplied detailed contracts and did not measure user effort or preference. The [command-depth review](docs/command-quality.md#focused-depth-review) explains 27 focused revisions, and the [contextual review guide](docs/command-quality.md#output-quality-and-convenience) covers judgment, clarity, discovery and correction burden. [Benchmark protocol and supporting metrics](evals/benchmark/README.md) remain available for reproduction. External integration, browser and deployment checks require the relevant task environment.
 
-The [technical-guidance validation record](evals/releases/0.8.0-technical-guidance.md) covers the latest command expansion and security controls. The earlier [v0.8 validation record](evals/releases/0.8.0.md) covers the new intent helpers, real browser reports, installation checks and the pending Windows confirmation. GitHub CI remains blocked by account billing. The maintainer waived that gate for the [verified npm publication](evals/releases/0.8.0-publication.json); Windows validation remains pending.
+The [technical-guidance validation record](evals/releases/0.8.0-technical-guidance.md) covers the v0.8.0 command expansion and security controls. The earlier [v0.8 validation record](evals/releases/0.8.0.md) covers the new intent helpers, real browser reports, installation checks and the pending Windows confirmation. GitHub CI remains blocked by account billing. The maintainer waived that gate for the [verified v0.8.1 npm publication](evals/releases/0.8.1-publication.json); Windows validation remains pending.
 
 ### Repository layout
 
