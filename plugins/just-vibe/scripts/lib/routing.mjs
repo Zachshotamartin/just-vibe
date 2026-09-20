@@ -5,6 +5,7 @@ import { readPreferences } from './continuity.mjs';
 
 const starter = ['auto', 'fix', 'explain', 'plan', 'review', 'test', 'teach', 'tools', 'profile', 'checkpoint', 'resume', 'help'];
 const intents = [
+  { test: /\b(?:claude|agents)\.md\b|\b(?:save|remember|persist|preserve)\b.*\b(?:conversation|project instructions|context|decisions|corrections)\b/i, ids: ['remember'], reason: 'Durable project instructions from conversation context' },
   { test: /\b(?:ci|checks?|actions|pipeline)\b.*\b(?:fail|broken|red)|\b(?:fail|broken|red)\w*\b.*\b(?:ci|checks?|actions|pipeline)\b/i, ids: ['github-fix-ci', 'github-actions'], reason: 'Failing CI/checks' },
   { test: /\b(?:refresh|oauth|login|logout|session|password reset|authentication)\b/i, ids: ['backend-auth'], reason: 'Identity or session lifecycle' },
   { test: /\b(?:dialog|combobox|date picker|datepicker|component)\b/i, ids: ['react-component', 'ui-component'], reason: 'Component interaction contract' },

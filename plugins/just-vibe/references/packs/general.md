@@ -8,7 +8,7 @@ For research and decisions, establish hard requirements and evidence dates befor
 
 For visual work, use actual renders at controlled sizes/states. Test keyboard and error/recovery behavior as relevant. If browser access is missing, distinguish code changes from visually verified results; do not fabricate screenshots.
 
-For continuity, record the objective, exact revision/files, constraints, observed results, blockers and next action. Keep checkpoint facts separate from permanent rules. Resume rechecks current state and remote actions before replay. `remember` records only the requested convention at the requested scope; `learn` proposes a bounded lesson without adopting it.
+For continuity, record the objective, exact revision/files, constraints, observed results, blockers and next action. Keep checkpoint facts separate from permanent rules. Resume rechecks current state and remote actions before replay. `remember` merges an explicit convention or accepted decisions from the requested conversation into scoped project instructions; its context mode follows [instruction memory](../instruction-memory.md). `learn` proposes a bounded lesson without adopting it.
 
 For review, read the change and its surrounding behavior, not only modified lines. Findings need an actual trigger, impact, evidence and actionable location. For delivery, prepare accurate summaries from the tested/pushed revision; a local diff is not proof a remote PR or deployment contains it.
 

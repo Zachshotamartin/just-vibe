@@ -50,7 +50,7 @@
 | [checkpoint](../skills/checkpoint/SKILL.md) | apply | Save progress, evidence, and unresolved work |
 | [handoff](../skills/handoff/SKILL.md) | plan | Write a self-contained brief for another session or collaborator |
 | [resume](../skills/resume/SKILL.md) | apply | Read a handoff, verify current state, and continue |
-| [remember](../skills/remember/SKILL.md) | apply | Save an explicit convention with project scope |
+| [remember](../skills/remember/SKILL.md) | apply | Save project instructions from a rule or the current conversation |
 | [learn](../skills/learn/SKILL.md) | plan | Extract a reusable lesson from completed work for review |
 | [skill](../skills/skill/SKILL.md) | apply | Create or improve a workflow skill |
 | [doctor](../skills/doctor/SKILL.md) | inspect | Diagnose installation and configuration problems |

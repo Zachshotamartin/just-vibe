@@ -28,6 +28,20 @@ test('Python manifest context is read as data and supports ML intent', t => {
   assert.equal(recommend(catalog, discoverCapabilities(root), 'Resume training from a checkpoint').recommendations[0].id, 'ml-train');
 });
 
+test('instruction memory routes to remember without taking over runtime memory work', t => {
+  const root = fixture(t), found = discoverCapabilities(root);
+  for (const brief of ['Update CLAUDE.md from this conversation', 'Save our decisions in AGENTS.md for both hosts', 'Preserve this conversation context for next time']) {
+    assert.equal(recommend(catalog, found, brief).recommendations[0].id, 'remember');
+  }
+  for (const brief of ['Fix the application memory leak', 'Reduce GPU memory usage during training']) {
+    assert.notEqual(recommend(catalog, found, brief).recommendations[0]?.id, 'remember');
+  }
+  const brief = 'Fix the stale response from the request. Do not update CLAUDE.md.';
+  const result = recommend(catalog, found, brief);
+  assert.equal(result.brief, brief);
+  assert.equal(result.recommendations[0].id, 'react-async');
+});
+
 test('starter discovery stays small while the full catalog remains accessible', async t => {
   const root = fixture(t), outputs = [];
   assert.equal(await main(['tools', '--root', root, '--json'], { log: x => outputs.push(JSON.parse(x)) }), 0);

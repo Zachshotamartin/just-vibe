@@ -37,6 +37,20 @@ Release testing verified a real native quiz in Claude Code. The tested Codex CLI
 
 Shared host packaging and context behavior follow the [OpenAI skill format](https://developers.openai.com/plugins/build/skills) and [Claude Code skill argument handling](https://code.claude.com/docs/en/skills#pass-arguments-to-skills). No dynamic shell interpolation is used in skill files.
 
+## Remember project instructions
+
+Save decisions and corrections from the current conversation in one invocation:
+
+```text
+/just-vibe:remember context
+/just-vibe:remember context both
+/just-vibe:remember context both, including a checkpoint named checkout for unfinished work
+```
+
+In Codex, select **remember** from just-vibe and append the same brief. The skill updates the established `CLAUDE.md` or `AGENTS.md`, merges existing guidance and saves only explicit instructions and accepted decisions. `both` keeps common rules in `AGENTS.md` with a relative import in `CLAUDE.md`. A checkpoint keeps temporary progress separate. You can also append one specific rule or ask for a preview without writing.
+
+This is an agent workflow using the host's file tools; terminal `project remember` only stores JSON notes. Saved instructions improve continuity but do not guarantee adherence or recover unavailable chat history. See [merging, host loading and examples](plugins/just-vibe/references/instruction-memory.md). This extension is in the current source checkout; previously installed copies require an update from this source.
+
 ## Engineering profiles
 
 Profiles shape the agent's priorities and verification throughout a task. They are separate from commands: a machine learning engineer emphasizes prediction-time data, evaluation and serving parity; a frontend engineer emphasizes state, interactions and rendered behavior. Each of the **112 profiles** has concrete priorities, a decision rule, checks, a scope boundary and candidate workflows.

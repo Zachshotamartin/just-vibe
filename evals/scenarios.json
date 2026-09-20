@@ -1596,31 +1596,34 @@
     {
       "id": "remember",
       "pack": "general",
-      "brief": "Remember this project uses UTC for stored event timestamps.",
+      "brief": "context — update this project's instructions with the decisions and corrections from this conversation.",
       "mode": "apply",
       "requiredEvidence": [
-        "explicit convention, scope, and existing memory destination if any."
+        "a known target project and either an explicit rule or available conversation context."
       ],
       "rubric": [
-        "Project-only preference does not alter global files; conflicting rules are surfaced instead of silently duplicated."
+        "Each new rule traces to an explicit user instruction or accepted decision; its original scope and exceptions survive the merge.",
+        "Unrelated instructions remain intact, duplicates and resolved contradictions are removed, imports resolve within the intended project and no global files or settings changed.",
+        "Re-read the changed files and compare against the request. Check applicable overrides and host loading where observable; a file write alone is not proof it loaded."
       ],
       "stopBehavior": [
-        "Do not store secrets, incidental personal data, or an inferred preference as a permanent rule."
+        "Missing project identity or an ambiguous material conflict blocks only the dependent edit. Do not invent compacted-away context, save secrets or convert unaccepted suggestions into permanent rules.",
+        "Do not replace a whole instruction file from a conversation summary, write through an external symlink or silently edit a user-global rule. Report partial completion if a requested checkpoint or second host file cannot be saved."
       ],
       "cases": [
         {
-          "brief": "Remember this project uses UTC for stored event timestamps.",
+          "brief": "context — update this project's instructions with the decisions and corrections from this conversation.",
           "mode": "apply"
         },
         {
           "kind": "edge",
           "mode": "apply",
-          "brief": "Remember a project-only testing preference without changing global skills."
+          "brief": "context both, including a checkpoint named checkout for unfinished work; preserve existing Claude-specific guidance."
         },
         {
           "kind": "blocked",
           "mode": "inspect",
-          "brief": "Inspect existing guidance without writing when the intended project is unclear."
+          "brief": "Preview what you can save when earlier conversation details are unavailable and an existing rule has an ambiguous conflict."
         }
       ],
       "invariants": [
