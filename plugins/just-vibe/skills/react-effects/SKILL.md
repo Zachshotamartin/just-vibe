@@ -29,8 +29,10 @@ Only the requested local changes; external actions require their exact action an
 
 ## Execute
 
-- Classify synchronization versus derived computation, inspect dependency identity, trace setup/cleanup and races, apply a minimal correction, and exercise remount/update cases.
-- Classify each effect as external synchronization or derived computation; follow dependency changes and setup/cleanup including unmount and rapid identity changes.
+- Classify each effect as synchronization with an external system or a derived computation. Derive render-only values directly where appropriate; do not add state/effects merely to mirror existing props.
+- Trace dependency identity through setup, dependency change, cleanup and unmount. Check development replay/remount behavior against the installed framework version; cleanup must undo the resource acquired by that setup instance.
+- For async synchronization, protect current identity on both fulfillment and rejection and define ownership of any shared work. Avoid suppressing dependency checks or using a permanent once flag to hide an incorrect lifetime.
+- Verify rapid identity changes and repeated setup/cleanup with observable subscriptions, state and resource counts. Distinguish a verified lifecycle fix from a claimed performance improvement that has not been measured.
 
 ## Decision branches
 

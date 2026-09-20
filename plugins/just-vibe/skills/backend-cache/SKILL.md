@@ -29,21 +29,24 @@ None by default. Plan artifacts may be saved when requested.
 
 ## Execute
 
-- Identify authoritative data and mutation paths, include tenant/user/version dimensions, define stale behavior, and test invalidation and cache outages.
-- Define authoritative data, tenant/user/filter/version key dimensions, invalidation ownership and outage/stale behavior before choosing TTLs.
+- Map the source of truth, consumers, authorization scope and every invalidation path. Define the key as an unambiguous identity tuple including relevant tenant, user, filters and representation version; distinguish a cached empty/falsey value from a miss.
+- Specify separate absent, in-flight, successful and failed states. Define whether concurrent callers share work, when the freshness clock starts, the exact expiry boundary and zero-TTL behavior. Choose these from product requirements, not a convenient implementation default.
+- If asynchronous work is shared, assign cancellation ownership: a caller may stop waiting without cancelling shared work needed by other callers. Handle already-aborted callers, synchronous fetch errors, asynchronous rejection and listener cleanup on every terminal path.
+- If invalidation can race with an asynchronous fill, associate each fill with its current entry or generation. Invalidation must detach obsolete work so its late success or failure cannot overwrite or remove a newer entry. Decide explicitly whether existing waiters still receive the detached result.
+- Verify identity isolation, falsey hits, coalescing, expiry, failure/retry, per-caller cancellation and reversed completion after invalidation using a controlled clock and deferred work. Measure hit rate or latency only with an actual representative workload.
 
 ## Decision branches
 
-- **When an authorization change can outlive a cached response:** Include the relevant identity/version or invalidate it; a long TTL is not an access-control policy.
+- **When an authorization change can outlive a cached response:** Invalidate or version the relevant identity boundary; a long TTL cannot substitute for access control.
+- **When multiple consumers share an in-flight fill:** Separate waiter lifetimes from fill ownership. Test cancelling one waiter while another completes, and an old rejection arriving during a newer fill.
 
 ## Deliver and verify
 
-- Cache contract or implementation with freshness/isolation checks.
-- Key schema, freshness/invalidation rules and isolation/update/outage checks.
+- Key and state/lifetime contract, chosen invalidation and cancellation ownership, implementation when requested, and independent isolation/race/failure evidence.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
-- Tenant-specific responses cannot share an unsafe key; source updates invalidate or deliberately age out cached values.
+- A cancelled or obsolete caller cannot poison another consumer or a newer fill; failures are recoverable according to the stated cache policy. Key collisions and valid falsey values do not cause cross-identity reuse or extra fetches.
 
 ## Stop and recover
 
@@ -52,5 +55,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Plan tenant-safe cache keys and invalidation for invoice summaries.
-- **edge (plan):** Fix cached dashboard data leaking between accounts with identical filters.
+- **edge (apply):** Fix cached dashboard data leaking between accounts with identical filters.
 - **blocked (inspect):** Inspect cache logic without flushing production or assuming current hit-rate data.

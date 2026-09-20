@@ -29,8 +29,10 @@ None by default. Plan artifacts may be saved when requested.
 
 ## Execute
 
-- Translate invariants into safe checks, estimate query impact, inspect redacted aggregate/sample evidence, distinguish historical exceptions, and propose prevention/repair.
-- Translate each invariant into bounded counts and redacted examples; distinguish nullable relationships, historical exceptions and actual orphan/duplicate conditions.
+- Translate each explicit business invariant into its row, relationship and transaction boundary. Distinguish nullability and historical exceptions from actual corruption; ambiguous policy remains a question, not a deletion rule.
+- Choose bounded counts and redacted examples against an identified snapshot. Assess scan/lock impact before live queries; use supplied artifacts when they are sufficient and do not infer current production state from stale samples.
+- For preventive changes, separate input validation from shared storage constraints and atomic multi-row checks. Verify type/range, ownership, uniqueness, referential rules and overflow where relevant to the invariant.
+- Propose repair with a selection predicate, expected count, restart behavior and recovery boundary. Implement only within the requested scope; detection does not authorize a live cleanup or schema change.
 
 ## Decision branches
 
@@ -38,12 +40,11 @@ None by default. Plan artifacts may be saved when requested.
 
 ## Deliver and verify
 
-- Integrity findings with counts, scoped examples, and repair options.
-- Invariant/check/snapshot/count table and preventive constraint or repair option.
+- Invariant and snapshot, bounded check/count/example evidence, prevention or scoped repair proposal, and uncertainty from missing policy or live data.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
-- A true orphan is detected; legitimate nullable relationships are not classified as corruption.
+- Checks detect an actual violating example and accept legitimate null/historical cases. Preventive writes cannot leave partial multi-row state on interruption; repair claims name the snapshot and rows actually verified.
 
 ## Stop and recover
 

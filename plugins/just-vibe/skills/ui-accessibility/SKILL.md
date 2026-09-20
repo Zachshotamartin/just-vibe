@@ -29,8 +29,10 @@ None by default. Plan artifacts may be saved when requested.
 
 ## Execute
 
-- Combine structural checks with real interaction, inspect dialogs/dynamic updates/errors, document barriers, and verify fixes using the relevant interaction method.
-- Combine semantics and automated results with keyboard sequences for dialogs, forms and dynamic updates; record the exact interaction and assistive technology actually tested.
+- Choose the actual task/route and interaction states: initial, loading, empty, error, open/closed and recovery where relevant. Inspect semantics, accessible names, relationships and contrast alongside the visible design.
+- Execute the keyboard path and record focus at each transition. For dialogs test entry, containment where appropriate, escape/close and return to the initiating control; if that control disappears, define a sensible surviving destination.
+- Exercise form errors and dynamic updates using the relevant interaction method. Check programmatic error association and announcements without relying on color or duplicate noisy live regions.
+- Use automated scanning as one evidence source, then verify corrected barriers with the actual keyboard or assistive technology tested. State browser/device/AT and uncovered states; an automated pass is not a blanket conformance claim.
 
 ## Decision branches
 
@@ -38,8 +40,7 @@ None by default. Plan artifacts may be saved when requested.
 
 ## Deliver and verify
 
-- Barrier report or patch with methods used and remaining checks.
-- Barrier, affected interaction, reproduction, correction and verification method.
+- Barrier and affected task/state, exact reproduction, correction, actual browser/input/AT evidence and remaining coverage gaps.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

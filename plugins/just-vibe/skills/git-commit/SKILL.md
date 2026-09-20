@@ -29,23 +29,24 @@ Only the requested local changes; external actions require their exact action an
 
 ## Execute
 
-- Inspect existing index and worktree, identify intended hunks, preserve unrelated staging, review the final staged diff, run relevant checks, and create an accurate message.
-- Snapshot the index diff and unrelated work, stage only selected hunks, inspect the entire resulting index and verify the created commit's actual contents.
-- All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
+- Resolve the repository, HEAD, configured user identity and exact requested commit membership. Inspect both the index and worktree, including untracked files; record unrelated staged and unstaged changes before touching the index.
+- Separate intended changes by hunk, not merely path. If a file mixes user staging with the requested fix, use deliberate patch selection or a temporary index based on HEAD; a whole-file add or commit --only can include unrelated worktree content.
+- Review the actual candidate tree and verify it independently when unrelated worktree changes could affect the result. With a temporary index, stage only intended blobs/tests and run the normal commit path with that index so required hooks still run. Preserve a recoverable record of the original real index until post-commit reconciliation succeeds.
+- After committing through a temporary index, reconcile intended committed changes into the real index while retaining unrelated staged hunks. Verify HEAD contains only the intended change, HEAD-to-index retains the user’s staged work, and index-to-worktree retains the user’s unstaged work. Do not blindly restore an old index against the new HEAD.
+- Use the existing user identity and describe the change without agent/model self-attribution or agent Co-authored-by trailers. Inspect actual committed content and message, including hook changes. A failed hook leaves the operation incomplete; inspect state before retrying and never bypass it.
 
 ## Decision branches
 
-- **When unrelated changes are already staged:** Preserve their state and resolve commit membership before committing; do not silently include or unstage them.
+- **When unrelated changes are staged in a file that also contains the requested fix:** Build a candidate that excludes those hunks and verify all three trees afterward. If hunks depend on each other and membership is genuinely ambiguous, preserve the recoverable state and ask only about that dependency.
+- **When the candidate passes in the mixed worktree but fails in isolation:** Identify the undeclared dependency. Do not claim the commit is verified or silently include unrelated user work to make it pass.
 
 ## Deliver and verify
 
-- Commit hash, included scope, checks, and remaining changes.
-- Commit identity, included paths/hunks, checks and preserved unrelated work.
+- Commit hash and included scope, candidate-tree verification, actual message/identity, and evidence that unrelated staged, unstaged and untracked work remains.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
-- Unrelated edits remain outside the commit; a rejected hook stops without bypassing it.
-- Review newly prepared commit/PR/message text, including template or hook additions, for agent self-attribution before submission; verify the resulting artifact when available. Do not silently rewrite existing history or remove human credits.
+- The committed tree contains only the requested change and works without unrelated worktree edits. The user’s unrelated HEAD-to-index and index-to-worktree differences survive. Required hooks and attribution checks pass.
 
 ## Stop and recover
 

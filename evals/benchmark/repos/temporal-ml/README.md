@@ -1,0 +1,12 @@
+# Temporal training dataset
+
+Python standard library only. Run `/usr/bin/python3 -m unittest discover -s test`. features_for() builds count and sum features; prepare() splits and normalizes; report.py consumes the output. Preserve all exported function signatures and report compatibility. Input lists and dictionaries must not be mutated.
+
+Data contract:
+- Every timestamp is an ISO-8601 timestamp with an explicit UTC offset or Z. Compare actual instants, not strings; reject naive timestamps with ValueError. Examples have unique example_id, entity_id and prediction_at. Events have event_id, entity_id, event_at, available_at, integer revision and numeric value.
+- An event can have corrected versions. At prediction time, for each (entity_id,event_id) choose the maximum (available_at,revision) among versions available at or before prediction time. Only after selecting that version, include it if prediction_at-window_days < event_at <= prediction_at. Default window_days is 7. This can exclude an event whose corrected event_at moved outside the window. Exact duplicate versions are harmless. Event IDs from different entities are unrelated. Count each selected event once.
+- features_for() returns one {example_id,count,sum} per input example, in input order; empty history gives count=0,sum=0. Negative or zero values are valid.
+- prepare(examples, events, train_end, validation_end, as_of, window_days=7) excludes examples after as_of. Split prediction times into train (<train_end), validation ([train_end,validation_end)), and test (>=validation_end), preserving input order within each split. An entity may legitimately appear in multiple temporal splits; no entity holdout or arbitrary time gap is requested.
+- A training row is usable only if its label is 0 or 1 and label_observed_at is present and <=train_end and <=as_of. Exclude immature/missing training labels entirely. Validation/test rows remain even when their labels are unknown; use None unless label_observed_at<=as_of. Keep known zero labels as zero.
+- Fit mean and population standard deviation of the sum feature on usable training rows only. With no training rows, use mean=0,scale=1; with constant sums, use scale=1. Apply this scaler to all retained rows as normalized=(sum-mean)/scale. Return train/validation/test lists of {example_id,count,sum,normalized,label}, and scaler={mean,scale}.
+- No training job, new dependency, file output, dataset upload, model tuning or changes to label definitions are requested.

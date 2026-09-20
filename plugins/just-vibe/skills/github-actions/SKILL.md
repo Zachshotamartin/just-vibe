@@ -29,9 +29,10 @@ Only the requested local changes; external actions require their exact action an
 
 ## Execute
 
-- Inspect triggers and trust boundaries, design job dependencies, choose documented action versions, implement safe cache/artifact handling, and validate syntax and scenarios.
-- Trace event, ref and permissions through every job; pin external code deliberately and keep untrusted PR data out of shell source.
-- All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
+- Map each event/ref, actor trust level, token permission and artifact producer/consumer before editing the workflow. Inspect the pinned action/runtime versions and repository policy; consult current primary documentation for changed platform behavior.
+- Keep untrusted PR text out of executable shell source and separate privileged metadata work from untrusted code execution. Validate artifact origin across workflow boundaries and define minimum job permissions.
+- Design job dependencies, cache identity and cancellation by effect: cancelling an obsolete test run differs from interrupting a release halfway through publication. Prevent overlapping destructive jobs without hiding failures or sharing artifacts across untrusted scopes.
+- Validate syntax plus representative trusted/untrusted event paths. Verify required check names remain reachable for applicable branches and that skipped/conditional jobs do not accidentally report an untested release as ready. Describe changes without agent self-attribution.
 
 ## Decision branches
 

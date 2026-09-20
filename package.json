@@ -1,6 +1,6 @@
 {
   "name": "just-vibe",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Tools, skills, and commands for coding agents.",
   "type": "module",
   "bin": {
@@ -21,7 +21,8 @@
     "test:package-managers": "node scripts/smoke-package-managers.mjs",
     "release:prepare": "node scripts/prepare-release.mjs",
     "prepublishOnly": "npm run release:check",
-    "eval:behavior": "node evals/behavior/harness.mjs"
+    "eval:behavior": "node evals/behavior/harness.mjs",
+    "eval:benchmark": "node evals/benchmark/harness.mjs"
   },
   "files": [
     "bin/",

@@ -2540,8 +2540,7 @@
         "intended changes, commit scope, and message preferences. A direct commit request authorizes the bounded commit."
       ],
       "rubric": [
-        "Unrelated edits remain outside the commit; a rejected hook stops without bypassing it.",
-        "Review newly prepared commit/PR/message text, including template or hook additions, for agent self-attribution before submission; verify the resulting artifact when available. Do not silently rewrite existing history or remove human credits."
+        "The committed tree contains only the requested change and works without unrelated worktree edits. The user’s unrelated HEAD-to-index and index-to-worktree differences survive. Required hooks and attribution checks pass."
       ],
       "stopBehavior": [
         "Resolve ambiguous pre-staged content before committing. Never disable hooks or change global identity to force success."
@@ -3310,7 +3309,7 @@
         "candidate deployment, intended production target, health criteria, and previous stable deployment."
       ],
       "rubric": [
-        "Wrong revision blocks readiness; irreversible schema changes prevent claiming instant full rollback."
+        "All readiness evidence applies to the named deployment and revision; unknown health or incompatible recovery is not converted to a pass. No deployment or promotion is implied by an audit."
       ],
       "stopBehavior": [
         "Do not promote or change aliases from a check request. Missing required health evidence means not yet verified."
@@ -3490,7 +3489,7 @@
         "saved build stats/artifacts and size/performance goal; generating a build selects authorized execution."
       ],
       "rubric": [
-        "A reported reduction uses the same build conditions; a removed dependency does not break a lazy route."
+        "Measurements share build/mode/version assumptions, and affected initial and lazy routes still load correctly. Raw bytes are not mislabeled as transfer size or user-perceived performance."
       ],
       "stopBehavior": [
         "Do not equate smaller bytes with faster UX without timing evidence. Missing stats limit numerical conclusions."
@@ -3562,7 +3561,7 @@
         "broken asset URLs, deployment base path, source assets, and target routes."
       ],
       "rubric": [
-        "Images work under the intended subpath; hashed imports and public files retain their respective semantics."
+        "Emitted asset URLs resolve under the requested base and nested routes, with correct content types and no reliance on navigation from the root."
       ],
       "stopBehavior": [
         "Do not hard-code a development origin or copy secret files into public output. Missing deployment evidence is stated separately."
@@ -3850,7 +3849,7 @@
         "async interaction, request/cache layer, and observed race or loading issue."
       ],
       "rubric": [
-        "An older response cannot overwrite newer selection; failed optimistic work restores a consistent state."
+        "Neither an older success nor an older error can replace current state. Disposal releases owned resources and prevents later publication; shared consumers remain independent."
       ],
       "stopBehavior": [
         "Do not assume cancellation undoes server effects. Preserve the existing fetching library unless replacement is explicitly justified in scope."
@@ -3886,7 +3885,7 @@
         "SSR framework, route, server/client output, and logs."
       ],
       "rubric": [
-        "Initial output matches and controls work; locale/time-dependent content does not cause intermittent mismatches."
+        "Server and initial client output agree for the supported contract; interactivity and request isolation survive the repair. Suppressed warnings do not count as evidence."
       ],
       "stopBehavior": [
         "Do not suppress warnings or disable SSR globally as a default fix. Client-only applications receive an applicability explanation."
@@ -4354,7 +4353,7 @@
         "retried operation, effect boundary, request identity, and deduplication lifetime."
       ],
       "rubric": [
-        "Concurrent repeats produce one intended effect; reusing a key for a different payload is handled explicitly."
+        "Equal replay performs no new effect; a conflicting payload cannot inherit an unrelated result. Local rollback removes both partial effects and the claim when the contract permits retry; uncertain external outcomes remain explicitly unresolved."
       ],
       "stopBehavior": [
         "Do not claim exactly-once external delivery without provider support or reconciliation. Cache-only deduplication needs durability justification."
@@ -4390,7 +4389,7 @@
         "race symptom, shared resources, transaction semantics, and concurrency evidence."
       ],
       "rubric": [
-        "Two concurrent reservations cannot exceed capacity; retries after serialization conflict preserve intended effects."
+        "Independent workers preserve the invariant under contention. Failed operations leave owned resources usable, preserve caller-owned work, and cannot return success for an uncommitted or duplicated effect."
       ],
       "stopBehavior": [
         "No live contention experiments implicitly. Do not solve local races with process-local locks when multiple processes share the resource."
@@ -4426,7 +4425,7 @@
         "cached data, freshness tolerance, identity scope, workload, and failure expectations."
       ],
       "rubric": [
-        "Tenant-specific responses cannot share an unsafe key; source updates invalidate or deliberately age out cached values."
+        "A cancelled or obsolete caller cannot poison another consumer or a newer fill; failures are recoverable according to the stated cache policy. Key collisions and valid falsey values do not cause cross-identity reuse or extra fetches."
       ],
       "stopBehavior": [
         "Do not treat caching as a fix for incorrect queries. No production flush or shared-cache changes without explicit scope."
@@ -4438,7 +4437,7 @@
         },
         {
           "kind": "edge",
-          "mode": "plan",
+          "mode": "apply",
           "brief": "Fix cached dashboard data leaking between accounts with identical filters."
         },
         {
@@ -4966,7 +4965,7 @@
         "invariants, schema, data scope, and bounded read permission."
       ],
       "rubric": [
-        "A true orphan is detected; legitimate nullable relationships are not classified as corruption."
+        "Checks detect an actual violating example and accept legitimate null/historical cases. Preventive writes cannot leave partial multi-row state on interruption; repair claims name the snapshot and rows actually verified."
       ],
       "stopBehavior": [
         "Ambiguous business rules prevent destructive recommendations. Large scans need a budget and appropriate execution environment."
@@ -5470,7 +5469,7 @@
         "task, entity/group/time dependencies, deployment regime, and dataset version."
       ],
       "rubric": [
-        "Overlapping windows or linked entities do not leak across forbidden boundaries; future labels cannot enter earlier training snapshots."
+        "No row, label or learned transform contains information unavailable at the simulated fit/prediction moment. Unknown outcomes stay unknown, and permitted known-entity overlap is distinguished from forbidden leakage."
       ],
       "stopBehavior": [
         "Do not use random splitting by habit or repeatedly tune the split to improve scores. Document unsupported generalization claims."
@@ -5544,7 +5543,7 @@
         "task, feature sources, availability timing, baseline, and evaluation protocol."
       ],
       "rubric": [
-        "Historical features exclude future events; unseen categories/missing values behave consistently at inference."
+        "Historical features use only versions available at prediction time. Training transformations exclude held-out and ineligible rows, and preserve the documented empty/constant/missing behavior."
       ],
       "stopBehavior": [
         "No test-set-driven feature selection. Unsupported availability timing blocks claims that a feature is deployable."
@@ -5556,7 +5555,7 @@
         },
         {
           "kind": "edge",
-          "mode": "plan",
+          "mode": "apply",
           "brief": "Build categorical features with unseen values and delayed source updates."
         },
         {
@@ -6516,7 +6515,7 @@
         "desired behavior, representative cases, failure costs, scoring rubric, and run budget."
       ],
       "rubric": [
-        "A known bad response fails for the intended reason; judge disagreement or nondeterminism is visible."
+        "The scorer rejects known bad outputs and accepts known good controls. All attempted trials, failures and unavailable metrics remain visible; comparisons share documented conditions and held-out claims use genuinely unused cases."
       ],
       "stopBehavior": [
         "No sensitive data upload or unlimited inference. A model judge is evidence, not unquestionable ground truth."
@@ -6912,7 +6911,7 @@
         "confirmed bug, reproduction, expected behavior, and fixed/broken revisions where available."
       ],
       "rubric": [
-        "The test fails for the original bug rather than incidental setup; the corrected behavior and adjacent case pass."
+        "The regression reaches the defective path and rejects its behavior; the fixed path and neighboring valid behavior pass. A syntax/setup failure or a test with no effective assertions is not regression evidence."
       ],
       "stopBehavior": [
         "If the old revision cannot run, state that limitation. Do not assert implementation details instead of the user-visible invariant."

@@ -29,8 +29,11 @@ Only the requested local changes; external actions require their exact action an
 
 ## Execute
 
-- Identify stable keys, define payload-conflict semantics, align deduplication with transactions/effect ownership, implement result replay, and test concurrent/reordered requests.
-- Bind a key to tenant, operation and canonical payload digest; claim the key atomically and store terminal result or recoverable pending state with the effect's ownership.
+- Define the business operation, key namespace, payload equivalence, validity/retention window and replay response. Include tenant and operation where they distinguish effects; specify how equal keys with different payloads or pending work are handled.
+- Validate the payload without permissive coercion where the contract requires exact types or bounds. Check ownership, funds/capacity and numeric limits at the boundary that protects against concurrent change.
+- When the effect and deduplication record share a database, make their success/failure atomic using the engine-supported transaction and uniqueness mechanism. Define transaction ownership and make identical concurrent requests converge on the original stored result.
+- For an external effect, walk the crash before send, timeout after possible success and failure before local recording. Use supported provider idempotency or durable reconciliation; a local key alone cannot prove exactly-once external execution.
+- Test equal replay, conflicting payload, separate tenants, simultaneous claims and failure after each durable step. Assert state, stored result and hook/provider call count; verify a retry after rollback can succeed without repeating a completed effect.
 
 ## Decision branches
 
@@ -38,12 +41,11 @@ Only the requested local changes; external actions require their exact action an
 
 ## Deliver and verify
 
-- Idempotency mechanism and duplicate/conflict/failure evidence.
-- Key scope, lifecycle/retention policy and concurrent duplicate/conflicting-payload checks.
+- Operation/key/payload contract, durable ownership and retention policy, failure-window table, and replay/conflict/concurrency/interruption evidence.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
-- Concurrent repeats produce one intended effect; reusing a key for a different payload is handled explicitly.
+- Equal replay performs no new effect; a conflicting payload cannot inherit an unrelated result. Local rollback removes both partial effects and the claim when the contract permits retry; uncertain external outcomes remain explicitly unresolved.
 
 ## Stop and recover
 

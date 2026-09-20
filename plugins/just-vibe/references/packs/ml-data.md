@@ -29,3 +29,15 @@ In a scikit-learn-style workflow, split before learning preprocessing parameters
 ### Leakage report template
 
 Observation and source/rows; prediction/fit-time assumption; confirmed defect, conditional risk or missing evidence; affected evaluation; correction or next evidence. Before delivery, verify every definite statement is established by the cited artifact. Do not convert cautious recommendations into proven facts or claim every score is invalid when only a particular historical simulation is affected.
+
+### Versioned historical feature example
+
+An event first appears inside a feature window, then a correction moves its event timestamp outside that window. At a prediction after the correction became available, choose the latest visible version first and then apply the window. Filtering event versions by the window before choosing a version incorrectly resurrects the old record. A correction arriving after the prediction must not change that historical feature at all.
+
+Write separate event, availability and revision-order fields, the entity/event identity, duplicate policy and exact window endpoints. Compare timezone-aware instants, not lexical timestamp order; explicitly reject or resolve naive timestamps according to the source contract. Test the lower and upper boundaries, late arrivals, moved revisions, tied availability with revision ordering, duplicate versions, cross-entity IDs and valid negative/zero values. State unresolved tie/conflict policy when the source cannot order contradictory versions.
+
+### Training eligibility before preprocessing
+
+A row predicted before the training cutoff can still have an outcome that became known only afterward. Decide eligibility against the simulated model-fit time and available snapshot before fitting any scaler, vocabulary, imputer or sampler. Held-out rows with unknown outcomes may remain useful for inference coverage while being excluded from labeled metrics. Report both row and labeled-row counts; never turn unknown into a negative or drop a legitimate zero label through truthiness.
+
+Use a tiny independently calculated example to check fit membership and transformation values. Verify no eligible training rows, constant training values, future observations, exact split endpoints and input immutability. A fallback for empty training is a documented pipeline behavior, not permission to fit on held-out rows. Keep known-entity forecasting and unseen-entity generalization as distinct questions.

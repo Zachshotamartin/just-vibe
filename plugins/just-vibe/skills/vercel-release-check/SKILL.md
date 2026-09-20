@@ -29,8 +29,10 @@ None by default. Plan artifacts may be saved when requested.
 
 ## Execute
 
-- Verify revision, build/check status, environment names, key paths, observability, and rollback compatibility; identify data changes a deployment rollback cannot reverse.
-- Tie build/check results and environment metadata to the candidate SHA; verify key routes, health, telemetry and compatibility with the previous deployment.
+- Resolve team/project, candidate deployment ID, immutable Git SHA and intended environment from observed metadata. Compare that identity with the tested commit, build output and required configuration names/scopes.
+- Check build completion, representative route/API health, asset content types, access protection and environment-specific behavior. Distinguish a protected preview from an unhealthy deployment; do not use a generic successful homepage as proof of the application journey.
+- Identify the previous known-good deployment and test the proposed recovery against schema/data and external effects. Reverting code may not restore data compatibility or undo published messages.
+- Produce a gate table tied to this candidate: criterion, evidence identity/time, pass/fail/unknown and blocking consequence. Re-read candidate identity before readiness is reported. Promotion, alias/DNS changes and rollback require their own authorized action/target.
 
 ## Decision branches
 
@@ -38,12 +40,11 @@ None by default. Plan artifacts may be saved when requested.
 
 ## Deliver and verify
 
-- Evidence-based go/no-go assessment and exact promotion/recovery steps.
-- Gate/result/evidence matrix and candidate/rollback identities.
+- Candidate identity, evidence-linked release gates, concrete blockers or unknowns, recovery target/limits and readiness for the exact requested action.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
-- Wrong revision blocks readiness; irreversible schema changes prevent claiming instant full rollback.
+- All readiness evidence applies to the named deployment and revision; unknown health or incompatible recovery is not converted to a pass. No deployment or promotion is implied by an audit.
 
 ## Stop and recover
 

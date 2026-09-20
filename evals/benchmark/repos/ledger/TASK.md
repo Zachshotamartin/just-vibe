@@ -1,0 +1,1 @@
+Repair transfer() so interruption and retries cannot lose or duplicate local balances, and enforce the README contract. Add regression coverage. Modify only src/service.py and test/test_regression.py. Preserve the schema and smoke test. Do not commit.

@@ -1,0 +1,11 @@
+import assert from 'node:assert/strict';
+import {pathToFileURL} from 'node:url';
+import {join} from 'node:path';
+const {total,formatLabel,currency}=await import(pathToFileURL(join(process.argv[2],'src/invoice.mjs')));
+assert.equal(total([{price:20,quantity:2}]),40);
+assert.equal(total([{price:20,quantity:2}],null),40);
+assert.equal(total([{price:20,quantity:2}],{amount:0}),40);
+assert.equal(total([{price:20,quantity:2}],{amount:-7}),47);
+assert.equal(total([],{amount:7}),-7);
+assert.equal(formatLabel('a'),'Invoice a');
+assert.equal(currency(),'USD');

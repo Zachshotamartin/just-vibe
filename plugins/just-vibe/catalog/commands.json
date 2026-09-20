@@ -1198,12 +1198,12 @@
       "readScope": "Correct the demonstrated cause and nearby necessary behavior; no broad cleanup.",
       "writeScope": "Only the requested local changes; external actions require their exact action and target in session authorization.",
       "procedure": [
-        "Establish the failure, trace its cause, apply the smallest sound fix, add a meaningful regression check when warranted, and verify related behavior.",
-        "Preserve the initial failing evidence; ensure a new check fails for the actual bug, then rerun the original test without weakening assertions."
+        "Read the behavior contract, nearby callers and existing checks before inferring expected behavior from the defective implementation. Separate the reproduced trigger, intended result and compatibility requirements; record conflicting evidence instead of choosing whichever makes the patch easiest.",
+        "Trace the failing input through validation, state transitions and the observable result. Choose a focused change that corrects the cause and preserves neighboring valid behavior; distinguish missing, null, zero, false and empty values where the contract does.",
+        "Reproduce the original failure, apply the fix and run relevant checks with actual exit statuses. Where a regression test is warranted, derive its expected result independently from the contract and establish that it detects the defect rather than incidental setup failure."
       ],
       "outputs": [
-        "Cause explanation, patch, before/after evidence, and unresolved risks.",
-        "Trigger, causal location, focused change and before/after plus neighboring-case evidence."
+        "Trigger, contract evidence, causal location, focused patch, actual before/after checks and remaining uncertainty."
       ],
       "verification": [
         "The original failure no longer occurs; a neighboring valid case stays correct."
@@ -1249,8 +1249,12 @@
       "selection": "Use when the requested outcome is correcting a demonstrated defect; debug diagnoses without default edits.",
       "branches": [
         {
+          "when": "the written contract disagrees with the current fallback or coercion",
+          "then": "Treat the discrepancy as part of the bug investigation. Check callers and compatibility evidence; do not encode the old fallback into a new test merely because it already exists."
+        },
+        {
           "when": "failure cannot be reproduced",
-          "then": "Compare environments and narrow a discriminating experiment; label any proposed patch's verification limit."
+          "then": "Compare environments and choose a discriminating experiment. Label an unverified patch as partial and state which observation would establish the result."
         }
       ]
     },
@@ -3946,8 +3950,10 @@
       "readScope": "Coupling, cycles, ownership leaks, and misplaced responsibilities; no automatic service extraction.",
       "writeScope": "None by default. Plan artifacts may be saved when requested.",
       "procedure": [
-        "Inspect import/call graphs and data ownership, trace changes crossing boundaries, compare declared rules with behavior, and rank actionable violations.",
-        "Follow a representative change across modules and locate where invariants, writes and authorization are actually owned."
+        "Inventory current responsibilities, data owners and dependency directions from composition roots, imports, schemas, network clients and deployment definitions. Mark inferred or inaccessible edges explicitly.",
+        "Trace a representative change and failure across the proposed boundary. Identify shared transactions, cycles, leaked internals and callers that would need coordinated release; file count alone is not evidence of a bad boundary.",
+        "Propose the smallest interface or ownership correction that reduces the demonstrated coupling. Specify allowed dependencies, compatibility, error semantics and enforcement in the existing build/test architecture.",
+        "Verify the boundary with a consumer-facing contract check and a forbidden-dependency example when appropriate. Estimate migration impact from actual consumers and keep unmeasured organizational benefits conditional."
       ],
       "outputs": [
         "Boundary findings with examples and incremental repair options.",
@@ -4021,12 +4027,13 @@
       "readScope": "Placement of one feature across modules, services, storage, and interfaces.",
       "writeScope": "None by default. Plan artifacts may be saved when requested.",
       "procedure": [
-        "Trace similar features, assign responsibilities, define seams and contracts, compare reuse with new components, and plan an incremental delivery path.",
-        "Map each acceptance condition to an existing owner and interface; compare extending a boundary with introducing a new one under actual operational constraints."
+        "Translate acceptance criteria and quality constraints into responsibilities, data ownership and interfaces. Trace an existing normal and failure path to locate the natural owner before proposing a new component.",
+        "Compare extending the current module, introducing an internal boundary and deploying a separate service. Assess data consistency, latency, independent rollout and operational ownership against demonstrated requirements.",
+        "Specify the chosen contract, compatibility window, failure/retry behavior and observability. Define who writes each datum and who reconciles partial effects; diagrams must distinguish observed code dependencies from proposed runtime edges.",
+        "Plan incremental implementation with a verification and recovery condition for each phase. Identify the smallest experiment that could overturn a material assumption before committing to an expensive boundary."
       ],
       "outputs": [
-        "Component-level design, affected interfaces, data flow, migration needs, and verification plan.",
-        "Responsibility table, interface changes, compatibility phases and end-to-end checks."
+        "Requirement-to-owner map, alternatives and decisive evidence, target contracts/data ownership, phased implementation with checks and recovery limits."
       ],
       "verification": [
         "Existing domain rules stay owned by one clear boundary; error and rollback paths are covered."
@@ -4328,8 +4335,10 @@
       "readScope": "Capacity constraints and targeted scaling strategy; no speculative whole-system rewrite.",
       "writeScope": "None by default. Plan artifacts may be saved when requested.",
       "procedure": [
-        "Identify hot paths and shared limits, quantify available evidence, distinguish throughput from latency, and compare incremental capacity options.",
-        "Model arrival rate, service time, queueing and serialized/shared limits using observed ranges; include peak and degraded modes."
+        "State workload shape, service objectives and measured constraints: arrival rate, service time distribution, concurrency, queue age and resource saturation. Separate observed production data from assumptions or synthetic samples.",
+        "Locate the limiting serial/shared boundary before recommending replicas, caching, queues or extraction. Model steady-state and burst behavior, failure recovery and downstream limits with explicit units.",
+        "Compare options against the bottleneck and consistency requirements. Define admission control/backpressure and degradation before adding unbounded concurrency; scaling callers can overload the shared dependency.",
+        "Propose a bounded measurement or authorized load experiment with rejecting observations and recovery. Report the capacity range established by evidence and what remains unknown; do not invent traffic or throughput."
       ],
       "outputs": [
         "Bottleneck model, assumptions, capacity experiments, scaling sequence, and cost factors.",
@@ -4478,12 +4487,13 @@
       "readScope": "Recommend one bounded choice; no purchase, installation, or commitment.",
       "writeScope": "None by default. Plan artifacts may be saved when requested.",
       "procedure": [
-        "Eliminate infeasible options, compare remaining tradeoffs, expose assumptions, and identify what evidence would change the recommendation.",
-        "State the decision deadline, hard exclusions and current/default option; identify the smallest uncertainty capable of changing the choice."
+        "Write the decision question, outcome, deadline, hard constraints and current/default option. Eliminate confirmed infeasible choices before scoring preferences; unknown feasibility is pending evidence, not a middle score.",
+        "Compare remaining options using evidence with dates and scope. Separate observed facts, estimates and preferences; avoid double-counting correlated criteria or presenting subjective weights as objective truth.",
+        "Identify the assumption capable of changing the recommendation. Vary plausible scores/weights or bounds and report whether the preferred option changes; use a bounded discriminating spike when its information is worth the delay.",
+        "Recommend an option or conditional reversible choice, explain consequences and rejected alternatives, and set an observable revisit trigger. Record adoption only when it occurred; a recommendation does not commit stakeholders or authorize a purchase."
       ],
       "outputs": [
-        "Recommendation, rationale, alternatives rejected, confidence, and next validation step.",
-        "Recommendation, rejected alternatives, decisive evidence and revisit trigger."
+        "Decision and recommendation, feasibility/evidence table, decisive uncertainty or sensitivity, consequences, adoption status and revisit trigger."
       ],
       "verification": [
         "A hard requirement outweighs a cosmetic advantage; insufficient evidence produces a conditional recommendation."
@@ -4933,8 +4943,10 @@
       "readScope": "Design or explicitly run a disposable experiment; no production integration disguised as a spike.",
       "writeScope": "None by default. Plan artifacts may be saved when requested.",
       "procedure": [
-        "Choose the smallest discriminating test, define pass/fail before execution, isolate artifacts, run within budget when authorized, and interpret results.",
-        "Declare competing hypotheses and a rejecting observation before writing the smallest disposable prototype."
+        "Name the decision the spike will inform and the uncertainty that could change it. Define a representative workload/sample and an observable acceptance/rejection criterion before building.",
+        "Set a time/compute/data budget, isolated artifact location and stop rule. Choose the smallest prototype or measurement that can distinguish the alternatives; avoid building production scaffolding that does not test the hypothesis.",
+        "Execute within authorization and record raw observations, versions and deviations from the plan. Preserve failures and resource-limit outcomes; do not change the success threshold after seeing the result.",
+        "Classify supported, rejected or inconclusive. Explain the implication for the original decision and the limits of the sample; prototype success does not establish production readiness."
       ],
       "outputs": [
         "Experiment protocol or results, reusable evidence, and decision implications.",
@@ -5243,17 +5255,17 @@
       "readScope": "Deliberate staging and commit creation; no push, amend, or unrelated content.",
       "writeScope": "Only the requested local changes; external actions require their exact action and target in session authorization.",
       "procedure": [
-        "Inspect existing index and worktree, identify intended hunks, preserve unrelated staging, review the final staged diff, run relevant checks, and create an accurate message.",
-        "Snapshot the index diff and unrelated work, stage only selected hunks, inspect the entire resulting index and verify the created commit's actual contents.",
-        "All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices."
+        "Resolve the repository, HEAD, configured user identity and exact requested commit membership. Inspect both the index and worktree, including untracked files; record unrelated staged and unstaged changes before touching the index.",
+        "Separate intended changes by hunk, not merely path. If a file mixes user staging with the requested fix, use deliberate patch selection or a temporary index based on HEAD; a whole-file add or commit --only can include unrelated worktree content.",
+        "Review the actual candidate tree and verify it independently when unrelated worktree changes could affect the result. With a temporary index, stage only intended blobs/tests and run the normal commit path with that index so required hooks still run. Preserve a recoverable record of the original real index until post-commit reconciliation succeeds.",
+        "After committing through a temporary index, reconcile intended committed changes into the real index while retaining unrelated staged hunks. Verify HEAD contains only the intended change, HEAD-to-index retains the user’s staged work, and index-to-worktree retains the user’s unstaged work. Do not blindly restore an old index against the new HEAD.",
+        "Use the existing user identity and describe the change without agent/model self-attribution or agent Co-authored-by trailers. Inspect actual committed content and message, including hook changes. A failed hook leaves the operation incomplete; inspect state before retrying and never bypass it."
       ],
       "outputs": [
-        "Commit hash, included scope, checks, and remaining changes.",
-        "Commit identity, included paths/hunks, checks and preserved unrelated work."
+        "Commit hash and included scope, candidate-tree verification, actual message/identity, and evidence that unrelated staged, unstaged and untracked work remains."
       ],
       "verification": [
-        "Unrelated edits remain outside the commit; a rejected hook stops without bypassing it.",
-        "Review newly prepared commit/PR/message text, including template or hook additions, for agent self-attribution before submission; verify the resulting artifact when available. Do not silently rewrite existing history or remove human credits."
+        "The committed tree contains only the requested change and works without unrelated worktree edits. The user’s unrelated HEAD-to-index and index-to-worktree differences survive. Required hooks and attribution checks pass."
       ],
       "stopConditions": [
         "Resolve ambiguous pre-staged content before committing. Never disable hooks or change global identity to force success."
@@ -5291,8 +5303,12 @@
       "selection": "Use for an explicit bounded commit; git-split designs several coherent commits.",
       "branches": [
         {
-          "when": "unrelated changes are already staged",
-          "then": "Preserve their state and resolve commit membership before committing; do not silently include or unstage them."
+          "when": "unrelated changes are staged in a file that also contains the requested fix",
+          "then": "Build a candidate that excludes those hunks and verify all three trees afterward. If hunks depend on each other and membership is genuinely ambiguous, preserve the recoverable state and ask only about that dependency."
+        },
+        {
+          "when": "the candidate passes in the mixed worktree but fails in isolation",
+          "then": "Identify the undeclared dependency. Do not claim the commit is verified or silently include unrelated user work to make it pass."
         }
       ]
     },
@@ -5875,13 +5891,13 @@
       "readScope": "PR preparation or explicitly requested creation/update; no merge or unsolicited reviewer messaging.",
       "writeScope": "None by default. Plan artifacts may be saved when requested.",
       "procedure": [
-        "Inspect diff and checks, detect existing PRs, prepare accurate title/body, resolve push authorization if needed, and verify the submitted head/base.",
-        "Resolve owner/repository/head/base, including fork owner; inspect pushed commits and existing matching PRs before deciding to create or update.",
-        "All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices."
+        "Resolve owner/repository, fork owner, head branch/SHA and intended base branch/SHA. Inspect the merge-base diff and existing matching PRs; distinguish local uncommitted work, local unpushed commits and the actual remote head.",
+        "Prepare the title/body from the candidate diff and relevant checks. Explain the trigger, changed behavior and verification limits. Follow the repository template without adding agent attribution, signatures or agent Co-authored-by text.",
+        "Create or update only when the exact remote action is authorized in the session; otherwise finish the concrete draft. Before a retry after timeout, query the exact head/base for an already-created PR so an uncertain response cannot create a duplicate.",
+        "Re-read the resulting PR identity and head/base. Checks for an older SHA do not establish readiness of the current head; if it changed during review, report that and validate the new candidate before claiming readiness."
       ],
       "outputs": [
-        "PR draft or URL, summary, validation, and readiness status.",
-        "Head/base SHAs, accurate title/body, checks and observed PR identity."
+        "Draft or verified PR URL, head/base identity, change summary, checks attached to their tested SHA and explicit readiness limits."
       ],
       "verification": [
         "An existing matching PR is reused; a dirty local file absent from the pushed head is not described as part of the PR.",
@@ -6201,9 +6217,10 @@
       "readScope": "Workflow files, least-required permissions, caching, concurrency, and job structure; no repository secret/admin changes implicitly.",
       "writeScope": "Only the requested local changes; external actions require their exact action and target in session authorization.",
       "procedure": [
-        "Inspect triggers and trust boundaries, design job dependencies, choose documented action versions, implement safe cache/artifact handling, and validate syntax and scenarios.",
-        "Trace event, ref and permissions through every job; pin external code deliberately and keep untrusted PR data out of shell source.",
-        "All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices."
+        "Map each event/ref, actor trust level, token permission and artifact producer/consumer before editing the workflow. Inspect the pinned action/runtime versions and repository policy; consult current primary documentation for changed platform behavior.",
+        "Keep untrusted PR text out of executable shell source and separate privileged metadata work from untrusted code execution. Validate artifact origin across workflow boundaries and define minimum job permissions.",
+        "Design job dependencies, cache identity and cancellation by effect: cancelling an obsolete test run differs from interrupting a release halfway through publication. Prevent overlapping destructive jobs without hiding failures or sharing artifacts across untrusted scopes.",
+        "Validate syntax plus representative trusted/untrusted event paths. Verify required check names remain reachable for applicable branches and that skipped/conditional jobs do not accidentally report an untested release as ready. Describe changes without agent self-attribution."
       ],
       "outputs": [
         "Workflow changes, event/permission rationale, and validation coverage.",
@@ -6434,8 +6451,10 @@
       "readScope": "Repository/build configuration causing the failure; project settings changes require explicit target scope.",
       "writeScope": "Only the requested local changes; external actions require their exact action and target in session authorization.",
       "procedure": [
-        "Locate the causal error, compare runtime/package manager/env-name differences, reproduce in a controlled local build, patch, and verify the affected build path.",
-        "Match the log's exact revision and working directory, locate the first causal error and compare Node/package-manager, dependency installation and environment names."
+        "Identify the failing deployment, SHA, environment and first causal build error. Compare repository/install root, build package, output path, runtime/package manager and resolved dependencies with the successful environment.",
+        "Reproduce the failing boundary locally when possible using the same workspace command and versions. Check case sensitivity, hoisted undeclared dependencies, build-time environment names and generated-file assumptions before patching application behavior.",
+        "Apply a focused fix and verify the corresponding build path. Keep local success separate from remote deployment verification; reuse the existing deployment/project identity and create a new deployment only when requested.",
+        "Report the causal evidence, changed configuration/code, local result and the deployment/revision actually observed remotely. Redact values and do not download secrets as incidental diagnosis."
       ],
       "outputs": [
         "Fix, root-cause explanation, local check results, and deployment verification if authorized.",
@@ -6899,15 +6918,16 @@
       "readScope": "Readiness and promotion/rollback preparation; actual promotion is a separate authorized action.",
       "writeScope": "None by default. Plan artifacts may be saved when requested.",
       "procedure": [
-        "Verify revision, build/check status, environment names, key paths, observability, and rollback compatibility; identify data changes a deployment rollback cannot reverse.",
-        "Tie build/check results and environment metadata to the candidate SHA; verify key routes, health, telemetry and compatibility with the previous deployment."
+        "Resolve team/project, candidate deployment ID, immutable Git SHA and intended environment from observed metadata. Compare that identity with the tested commit, build output and required configuration names/scopes.",
+        "Check build completion, representative route/API health, asset content types, access protection and environment-specific behavior. Distinguish a protected preview from an unhealthy deployment; do not use a generic successful homepage as proof of the application journey.",
+        "Identify the previous known-good deployment and test the proposed recovery against schema/data and external effects. Reverting code may not restore data compatibility or undo published messages.",
+        "Produce a gate table tied to this candidate: criterion, evidence identity/time, pass/fail/unknown and blocking consequence. Re-read candidate identity before readiness is reported. Promotion, alias/DNS changes and rollback require their own authorized action/target."
       ],
       "outputs": [
-        "Evidence-based go/no-go assessment and exact promotion/recovery steps.",
-        "Gate/result/evidence matrix and candidate/rollback identities."
+        "Candidate identity, evidence-linked release gates, concrete blockers or unknowns, recovery target/limits and readiness for the exact requested action."
       ],
       "verification": [
-        "Wrong revision blocks readiness; irreversible schema changes prevent claiming instant full rollback."
+        "All readiness evidence applies to the named deployment and revision; unknown health or incompatible recovery is not converted to a pass. No deployment or promotion is implied by an audit."
       ],
       "stopConditions": [
         "Do not promote or change aliases from a check request. Missing required health evidence means not yet verified."
@@ -7284,15 +7304,17 @@
       "readScope": "Bundle composition and measured reductions, not arbitrary dependency removal.",
       "writeScope": "None by default. Plan artifacts may be saved when requested.",
       "procedure": [
-        "Identify large modules/assets, distinguish raw/compressed/transferred size, trace import paths and tree-shaking barriers, and propose or apply requested optimizations.",
-        "Use existing stats or an authorized comparable build, trace duplicated dependencies/import chains and distinguish emitted, compressed and actually requested bytes."
+        "Record the installed versions, command, mode, route and baseline artifact. Separate raw output, compressed size and actual transferred bytes; compare equivalent build and cache conditions.",
+        "Trace a large or duplicate module to imports and the user journey that loads it. Distinguish startup cost from total application cost and verify whether an existing lazy boundary is defeated by an eager import.",
+        "Choose a focused change based on the observed cost. Splitting a module can add a waterfall or alter side-effect order; avoid generic manual-chunk rules or removing dependencies solely because they are large.",
+        "Build and exercise affected entry/lazy routes, direct navigation and failure recovery. Report comparable before/after measurements plus functional checks; a smaller output file alone does not prove faster interaction."
       ],
       "outputs": [
         "Size breakdown, cause, changes if authorized, and comparable before/after results.",
         "Import path, size metric, loaded route and before/after build conditions."
       ],
       "verification": [
-        "A reported reduction uses the same build conditions; a removed dependency does not break a lazy route."
+        "Measurements share build/mode/version assumptions, and affected initial and lazy routes still load correctly. Raw bytes are not mislabeled as transfer size or user-perceived performance."
       ],
       "stopConditions": [
         "Do not equate smaller bytes with faster UX without timing evidence. Missing stats limit numerical conclusions."
@@ -7438,15 +7460,16 @@
       "readScope": "Imported/public assets, URL construction, and base-path handling; no asset redesign.",
       "writeScope": "Only the requested local changes; external actions require their exact action and target in session authorization.",
       "procedure": [
-        "Trace source-to-output paths, compare dev/build resolution, repair assumptions, and test root, nested, and configured subpath access.",
-        "Distinguish imported hashed assets, public directory files and runtime-generated paths; test the configured base plus nested client routes."
+        "Resolve the actual mode, root, base path and deployment routing. Trace each failing URL from an imported asset, public file, CSS reference or runtime string to emitted output; compare dev and production behavior.",
+        "Repair the owning URL construction using supported installed-version semantics. Keep case-sensitive paths, hashed output and assets consumed by lazy routes distinct; do not fix every route with an unconditional root-relative path.",
+        "Verify root navigation, direct nested navigation, configured subpath base and refresh in a production preview. Check response status and content type: a fallback HTML page with status 200 is still a broken image or module."
       ],
       "outputs": [
         "Asset-path patch and production-build/browser verification.",
         "Source-to-output mapping and root/subpath/nested-route results."
       ],
       "verification": [
-        "Images work under the intended subpath; hashed imports and public files retain their respective semantics."
+        "Emitted asset URLs resolve under the requested base and nested routes, with correct content types and no reliance on navigation from the root."
       ],
       "stopConditions": [
         "Do not hard-code a development origin or copy secret files into public output. Missing deployment evidence is stated separately."
@@ -7753,8 +7776,10 @@
       "readScope": "Effect dependencies, cleanup, stale closures, loops, and external synchronization.",
       "writeScope": "Only the requested local changes; external actions require their exact action and target in session authorization.",
       "procedure": [
-        "Classify synchronization versus derived computation, inspect dependency identity, trace setup/cleanup and races, apply a minimal correction, and exercise remount/update cases.",
-        "Classify each effect as external synchronization or derived computation; follow dependency changes and setup/cleanup including unmount and rapid identity changes."
+        "Classify each effect as synchronization with an external system or a derived computation. Derive render-only values directly where appropriate; do not add state/effects merely to mirror existing props.",
+        "Trace dependency identity through setup, dependency change, cleanup and unmount. Check development replay/remount behavior against the installed framework version; cleanup must undo the resource acquired by that setup instance.",
+        "For async synchronization, protect current identity on both fulfillment and rejection and define ownership of any shared work. Avoid suppressing dependency checks or using a permanent once flag to hide an incorrect lifetime.",
+        "Verify rapid identity changes and repeated setup/cleanup with observable subscriptions, state and resource counts. Distinguish a verified lifecycle fix from a claimed performance improvement that has not been measured."
       ],
       "outputs": [
         "Effect repair and lifecycle/regression evidence.",
@@ -8063,15 +8088,16 @@
       "readScope": "Cancellation, response ownership, loading/error transitions, and optimistic recovery.",
       "writeScope": "Only the requested local changes; external actions require their exact action and target in session authorization.",
       "procedure": [
-        "Trace request identity and state updates, reproduce reversed completion order, define stale-result rules, implement cleanup/recovery, and verify navigation/unmount cases.",
-        "Assign request identity to the selected resource, control completion order in a fixture and define how optimistic state reconciles with concurrent responses."
+        "Trace resource identity, the owner of each request, component lifetime and every state publication path: loading, success, error and optimistic reconciliation. Define which completion is current after navigation, account changes or a new selection.",
+        "Use the existing framework/data layer mechanism to separate stale-result suppression from actual cancellation. Shared requests may outlive one component; cancelling one subscriber must not invalidate another subscriber’s result.",
+        "Guard both success and failure publication against stale identity and disposal. Clean up subscriptions/listeners on all terminal paths and prevent disposed owners from starting further work unless the lifecycle contract explicitly permits reactivation.",
+        "Control completion order in tests: newer success before older success, newer success before older failure, unmount while pending and shared-request cancellation. For optimistic writes, reconcile from authoritative state after ambiguous completion instead of assuming abort undid the server effect."
       ],
       "outputs": [
-        "Async behavior repair with deterministic race tests.",
-        "Request/state transitions, stale-result rule and reversed-completion checks."
+        "Request ownership and state transitions, repair, deterministic stale-success/stale-error/disposal checks and optimistic reconciliation limits."
       ],
       "verification": [
-        "An older response cannot overwrite newer selection; failed optimistic work restores a consistent state."
+        "Neither an older success nor an older error can replace current state. Disposal releases owned resources and prevents later publication; shared consumers remain independent."
       ],
       "stopConditions": [
         "Do not assume cancellation undoes server effects. Preserve the existing fetching library unless replacement is explicitly justified in scope."
@@ -8145,15 +8171,16 @@
       "readScope": "Server/client initial-render consistency and hydration behavior; applicable only to hydrated applications.",
       "writeScope": "Only the requested local changes; external actions require their exact action and target in session authorization.",
       "procedure": [
-        "Reproduce the mismatch, compare initial values/markup, inspect time/random/browser-only sources and invalid nesting, correct the cause, and verify interactivity.",
-        "Compare server output with the first client render before effects, including locale, time, random IDs, browser state and invalid nesting."
+        "Reproduce the exact route and compare server markup with the first client render. Trace request-specific state, timestamps, locale, random values, browser-only APIs and invalid HTML nesting; distinguish parser repair from state mismatch.",
+        "Choose a stable initial contract and move browser-only transitions to the appropriate lifecycle. Ensure request-specific state is isolated across server requests; do not silence hydration warnings or disable rendering broadly to conceal the cause.",
+        "Verify direct server navigation and client navigation under differing locale/timezone and repeated requests where relevant. Confirm the page becomes interactive and retains its intended initial content, not merely that warnings disappeared."
       ],
       "outputs": [
         "Hydration fix with server/client evidence.",
         "Mismatch source, initial-state contract and hydration plus interactivity checks."
       ],
       "verification": [
-        "Initial output matches and controls work; locale/time-dependent content does not cause intermittent mismatches."
+        "Server and initial client output agree for the supported contract; interactivity and request isolation survive the repair. Suppressed warnings do not count as evidence."
       ],
       "stopConditions": [
         "Do not suppress warnings or disable SSR globally as a default fix. Client-only applications receive an applicability explanation."
@@ -8536,12 +8563,13 @@
       "readScope": "Semantic roles, labels, focus sequence, keyboard interactions, contrast, and announcements.",
       "writeScope": "None by default. Plan artifacts may be saved when requested.",
       "procedure": [
-        "Combine structural checks with real interaction, inspect dialogs/dynamic updates/errors, document barriers, and verify fixes using the relevant interaction method.",
-        "Combine semantics and automated results with keyboard sequences for dialogs, forms and dynamic updates; record the exact interaction and assistive technology actually tested."
+        "Choose the actual task/route and interaction states: initial, loading, empty, error, open/closed and recovery where relevant. Inspect semantics, accessible names, relationships and contrast alongside the visible design.",
+        "Execute the keyboard path and record focus at each transition. For dialogs test entry, containment where appropriate, escape/close and return to the initiating control; if that control disappears, define a sensible surviving destination.",
+        "Exercise form errors and dynamic updates using the relevant interaction method. Check programmatic error association and announcements without relying on color or duplicate noisy live regions.",
+        "Use automated scanning as one evidence source, then verify corrected barriers with the actual keyboard or assistive technology tested. State browser/device/AT and uncovered states; an automated pass is not a blanket conformance claim."
       ],
       "outputs": [
-        "Barrier report or patch with methods used and remaining checks.",
-        "Barrier, affected interaction, reproduction, correction and verification method."
+        "Barrier and affected task/state, exact reproduction, correction, actual browser/input/AT evidence and remaining coverage gaps."
       ],
       "verification": [
         "Modal focus returns to its trigger; errors are programmatically associated and usable without color alone."
@@ -9157,15 +9185,17 @@
       "readScope": "Prevent duplicate effects for the specified operation, including concurrent duplicates.",
       "writeScope": "Only the requested local changes; external actions require their exact action and target in session authorization.",
       "procedure": [
-        "Identify stable keys, define payload-conflict semantics, align deduplication with transactions/effect ownership, implement result replay, and test concurrent/reordered requests.",
-        "Bind a key to tenant, operation and canonical payload digest; claim the key atomically and store terminal result or recoverable pending state with the effect's ownership."
+        "Define the business operation, key namespace, payload equivalence, validity/retention window and replay response. Include tenant and operation where they distinguish effects; specify how equal keys with different payloads or pending work are handled.",
+        "Validate the payload without permissive coercion where the contract requires exact types or bounds. Check ownership, funds/capacity and numeric limits at the boundary that protects against concurrent change.",
+        "When the effect and deduplication record share a database, make their success/failure atomic using the engine-supported transaction and uniqueness mechanism. Define transaction ownership and make identical concurrent requests converge on the original stored result.",
+        "For an external effect, walk the crash before send, timeout after possible success and failure before local recording. Use supported provider idempotency or durable reconciliation; a local key alone cannot prove exactly-once external execution.",
+        "Test equal replay, conflicting payload, separate tenants, simultaneous claims and failure after each durable step. Assert state, stored result and hook/provider call count; verify a retry after rollback can succeed without repeating a completed effect."
       ],
       "outputs": [
-        "Idempotency mechanism and duplicate/conflict/failure evidence.",
-        "Key scope, lifecycle/retention policy and concurrent duplicate/conflicting-payload checks."
+        "Operation/key/payload contract, durable ownership and retention policy, failure-window table, and replay/conflict/concurrency/interruption evidence."
       ],
       "verification": [
-        "Concurrent repeats produce one intended effect; reusing a key for a different payload is handled explicitly."
+        "Equal replay performs no new effect; a conflicting payload cannot inherit an unrelated result. Local rollback removes both partial effects and the claim when the contract permits retry; uncertain external outcomes remain explicitly unresolved."
       ],
       "stopConditions": [
         "Do not claim exactly-once external delivery without provider support or reconciliation. Cache-only deduplication needs durability justification."
@@ -9241,15 +9271,16 @@
       "readScope": "Competing updates, locks, isolation, and atomicity; apply for an explicit fix.",
       "writeScope": "None by default. Plan artifacts may be saved when requested.",
       "procedure": [
-        "Model interleavings, identify violated invariants, build a deterministic concurrent scenario when authorized, choose a supported consistency mechanism, and verify contention behavior.",
-        "Enumerate read/decide/write interleavings and enforce the invariant at the shared data boundary using supported transactions, conditional writes or locking."
+        "Write the shared invariant and the read/decide/write interleaving that violates it. Identify every worker/process and the actual shared boundary; list durable writes, external effects and cancellation points separately.",
+        "Choose the narrowest supported atomicity mechanism for that boundary: a conditional write, transaction, version check or shared lock. Define who starts and ends the transaction or lease; never accidentally commit or roll back a caller-owned transaction.",
+        "Validate before irreversible work and keep related invariant checks inside the serialization boundary when their inputs can race. Handle lock acquisition failure, deadlock/serialization conflict and cancellation with bounded retries only when replay is safe.",
+        "Force contention using separate real connections or workers and deterministic coordination. Exercise success, rejection, interruption after partial work and cleanup; assert final state and number of effects, not just the number of returned responses."
       ],
       "outputs": [
-        "Race analysis or fix with invariant-based tests.",
-        "Interleaving, invariant, consistency mechanism and deterministic concurrent test."
+        "Violating interleaving, invariant and ownership boundary, selected mechanism, retry/cleanup behavior, contention and interruption results."
       ],
       "verification": [
-        "Two concurrent reservations cannot exceed capacity; retries after serialization conflict preserve intended effects."
+        "Independent workers preserve the invariant under contention. Failed operations leave owned resources usable, preserve caller-owned work, and cannot return success for an uncommitted or duplicated effect."
       ],
       "stopConditions": [
         "No live contention experiments implicitly. Do not solve local races with process-local locks when multiple processes share the resource."
@@ -9287,8 +9318,12 @@
       "selection": "Use for violated invariants under competing operations; backend-idempotency handles repeat identity.",
       "branches": [
         {
+          "when": "a caller already owns a transaction",
+          "then": "Follow the API contract: participate with documented savepoint semantics or reject before touching it. Do not use unconditional commit/rollback cleanup that can consume unrelated work."
+        },
+        {
           "when": "multiple processes share the resource",
-          "then": "Reject process-local locks as the sole correctness mechanism and test cross-connection contention."
+          "then": "A process-local mutex cannot establish the shared invariant. Verify at the storage or service boundary used by all writers."
         }
       ]
     },
@@ -9318,15 +9353,17 @@
       "readScope": "Key design, invalidation, expiry, stampedes, and fallback; implementation on request.",
       "writeScope": "None by default. Plan artifacts may be saved when requested.",
       "procedure": [
-        "Identify authoritative data and mutation paths, include tenant/user/version dimensions, define stale behavior, and test invalidation and cache outages.",
-        "Define authoritative data, tenant/user/filter/version key dimensions, invalidation ownership and outage/stale behavior before choosing TTLs."
+        "Map the source of truth, consumers, authorization scope and every invalidation path. Define the key as an unambiguous identity tuple including relevant tenant, user, filters and representation version; distinguish a cached empty/falsey value from a miss.",
+        "Specify separate absent, in-flight, successful and failed states. Define whether concurrent callers share work, when the freshness clock starts, the exact expiry boundary and zero-TTL behavior. Choose these from product requirements, not a convenient implementation default.",
+        "If asynchronous work is shared, assign cancellation ownership: a caller may stop waiting without cancelling shared work needed by other callers. Handle already-aborted callers, synchronous fetch errors, asynchronous rejection and listener cleanup on every terminal path.",
+        "If invalidation can race with an asynchronous fill, associate each fill with its current entry or generation. Invalidation must detach obsolete work so its late success or failure cannot overwrite or remove a newer entry. Decide explicitly whether existing waiters still receive the detached result.",
+        "Verify identity isolation, falsey hits, coalescing, expiry, failure/retry, per-caller cancellation and reversed completion after invalidation using a controlled clock and deferred work. Measure hit rate or latency only with an actual representative workload."
       ],
       "outputs": [
-        "Cache contract or implementation with freshness/isolation checks.",
-        "Key schema, freshness/invalidation rules and isolation/update/outage checks."
+        "Key and state/lifetime contract, chosen invalidation and cancellation ownership, implementation when requested, and independent isolation/race/failure evidence."
       ],
       "verification": [
-        "Tenant-specific responses cannot share an unsafe key; source updates invalidate or deliberately age out cached values."
+        "A cancelled or obsolete caller cannot poison another consumer or a newer fill; failures are recoverable according to the stated cache policy. Key collisions and valid falsey values do not cause cross-identity reuse or extra fetches."
       ],
       "stopConditions": [
         "Do not treat caching as a fix for incorrect queries. No production flush or shared-cache changes without explicit scope."
@@ -9338,7 +9375,7 @@
         },
         {
           "kind": "edge",
-          "mode": "plan",
+          "mode": "apply",
           "brief": "Fix cached dashboard data leaking between accounts with identical filters."
         },
         {
@@ -9365,7 +9402,11 @@
       "branches": [
         {
           "when": "an authorization change can outlive a cached response",
-          "then": "Include the relevant identity/version or invalidate it; a long TTL is not an access-control policy."
+          "then": "Invalidate or version the relevant identity boundary; a long TTL cannot substitute for access control."
+        },
+        {
+          "when": "multiple consumers share an in-flight fill",
+          "then": "Separate waiter lifetimes from fill ownership. Test cancelling one waiter while another completes, and an old rejection arriving during a newer fill."
         }
       ]
     },
@@ -10161,8 +10202,10 @@
       "readScope": "Migration design/files when requested; live execution needs the exact environment/action authorization.",
       "writeScope": "None by default. Plan artifacts may be saved when requested.",
       "procedure": [
-        "Inspect existing data and migration conventions, design expand/backfill/contract phases where needed, assess locks, define restartability, and validate on isolated data.",
-        "Inspect engine/version and migration transaction behavior; separate additive schema, resumable backfill, validation and destructive contraction with old/new application compatibility."
+        "Inspect engine/version, migration runner transaction behavior, data shape and old/new application contracts. Record which versions read and write each field during rollout.",
+        "Separate expansion, restartable backfill, validation and contraction. Define lock/downtime bounds, batch identity/checkpoint and interruption handling; estimate impact from evidence rather than row count alone.",
+        "Exercise migration and restart on isolated representative data, including duplicates, nulls and old writers. Verify indexes/constraints are actually valid and semantically match the intended definition; name existence alone is insufficient.",
+        "Define recovery per phase: code rollback, forward repair, and restoration of lost information are different operations. Delay destructive contraction until old readers/writers are retired and the agreed evidence establishes compatibility."
       ],
       "outputs": [
         "Migration plan or files, compatibility evidence, execution conditions, and rollback/forward-recovery limits.",
@@ -10479,15 +10522,16 @@
       "readScope": "Orphans, duplicates, invalid relationships, and constraint gaps; no automatic deletion or repair.",
       "writeScope": "None by default. Plan artifacts may be saved when requested.",
       "procedure": [
-        "Translate invariants into safe checks, estimate query impact, inspect redacted aggregate/sample evidence, distinguish historical exceptions, and propose prevention/repair.",
-        "Translate each invariant into bounded counts and redacted examples; distinguish nullable relationships, historical exceptions and actual orphan/duplicate conditions."
+        "Translate each explicit business invariant into its row, relationship and transaction boundary. Distinguish nullability and historical exceptions from actual corruption; ambiguous policy remains a question, not a deletion rule.",
+        "Choose bounded counts and redacted examples against an identified snapshot. Assess scan/lock impact before live queries; use supplied artifacts when they are sufficient and do not infer current production state from stale samples.",
+        "For preventive changes, separate input validation from shared storage constraints and atomic multi-row checks. Verify type/range, ownership, uniqueness, referential rules and overflow where relevant to the invariant.",
+        "Propose repair with a selection predicate, expected count, restart behavior and recovery boundary. Implement only within the requested scope; detection does not authorize a live cleanup or schema change."
       ],
       "outputs": [
-        "Integrity findings with counts, scoped examples, and repair options.",
-        "Invariant/check/snapshot/count table and preventive constraint or repair option."
+        "Invariant and snapshot, bounded check/count/example evidence, prevention or scoped repair proposal, and uncertainty from missing policy or live data."
       ],
       "verification": [
-        "A true orphan is detected; legitimate nullable relationships are not classified as corruption."
+        "Checks detect an actual violating example and accept legitimate null/historical cases. Preventive writes cannot leave partial multi-row state on interruption; repair claims name the snapshot and rows actually verified."
       ],
       "stopConditions": [
         "Ambiguous business rules prevent destructive recommendations. Large scans need a budget and appropriate execution environment."
@@ -11560,15 +11604,17 @@
       "readScope": "Train/validation/test membership and fitting boundaries; write manifests only when requested.",
       "writeScope": "None by default. Plan artifacts may be saved when requested.",
       "procedure": [
-        "Identify dependent observations, choose time/group separation matching deployment, define purge/gap rules where needed, and verify overlap and label availability.",
-        "Identify the independent unit and deployment target, compare time/group/random strategies and derive purge or embargo needs from actual feature/outcome intervals."
+        "Define deployment population, row/entity dependence, prediction times, model-fit cutoff, outcome horizon and label availability. Decide whether the question concerns future observations of known entities, unseen entities, or separate evaluations of both.",
+        "Specify exact train/validation/test endpoints and an as-of snapshot. Compare timezone-aware instants rather than timestamp strings. Exclude observations that would not yet exist, and distinguish event time from ingestion and label-observation time.",
+        "Determine training eligibility before fitting preprocessing: an otherwise training-period row with an immature outcome must not teach the historical model. Retain unknown held-out labels as unknown where the evaluation contract requires it; zero is a valid observed label.",
+        "Derive group separation, purging or gaps from the stated deployment question and actual dependence/availability evidence. Record deterministic membership and exclusions with reasons; do not invent a universal embargo duration.",
+        "Verify exact boundaries, label maturity, duplicates, relevant group overlap, empty partitions and transform fit membership. Report the number of rows and number with evaluable labels separately."
       ],
       "outputs": [
-        "Split protocol, deterministic membership method, manifests if authorized, and contamination checks.",
-        "Split manifest with entity/time boundaries, rationale and executable overlap assertions."
+        "Deployment question, snapshot and split/eligibility rules, deterministic membership/exclusion evidence, transform fit population and overlap/maturity checks."
       ],
       "verification": [
-        "Overlapping windows or linked entities do not leak across forbidden boundaries; future labels cannot enter earlier training snapshots."
+        "No row, label or learned transform contains information unavailable at the simulated fit/prediction moment. Unknown outcomes stay unknown, and permitted known-entity overlap is distinguished from forbidden leakage."
       ],
       "stopConditions": [
         "Do not use random splitting by habit or repeatedly tune the split to improve scores. Document unsupported generalization claims."
@@ -11734,15 +11780,17 @@
       "readScope": "Predictable, reproducible feature engineering and controlled usefulness checks; implement/run when requested.",
       "writeScope": "None by default. Plan artifacts may be saved when requested.",
       "procedure": [
-        "Define semantics and missing behavior, enforce point-in-time joins, fit transforms only on training data, compare against baseline, and assess inference cost.",
-        "Specify each feature's availability and missing/unseen-category behavior; fit learned transforms on training folds only and share the same transform contract with inference."
+        "Define row grain, entity/event identity, prediction instant, feature event time, source availability time, revision order and missing behavior. Specify timezone and exact window endpoints. Missing availability evidence blocks historical-validity claims.",
+        "For versioned sources, reconstruct the latest version actually available at each prediction instant before applying its event-time window. A later correction can move an event outside the window; filtering versions first can resurrect an obsolete value. Deduplicate by the documented event/version identity, scoped to the entity where required.",
+        "Fit learned transforms only on eligible training rows within each simulated fit or cross-validation fold. Preserve input ordering/identity and define empty, constant, missing and unseen-category behavior; use the same transformation semantics at serving time.",
+        "Verify exact time boundaries, mixed explicit offsets, late arrivals, corrections, duplicates, negative/zero values and no input mutation. Compare engineered features to an independent tiny example before proposing a usefulness experiment.",
+        "Only claim usefulness after a controlled baseline comparison on the chosen evaluation protocol and compute budget. A correct feature builder alone establishes neither predictive gain nor production readiness."
       ],
       "outputs": [
-        "Feature definitions/pipeline or experiment results with provenance and availability checks.",
-        "Feature definition/availability table and train/inference edge-case checks."
+        "Feature/time/identity contract, implementation when requested, eligible fitting population, boundary and revision evidence, and separately measured usefulness results if any."
       ],
       "verification": [
-        "Historical features exclude future events; unseen categories/missing values behave consistently at inference."
+        "Historical features use only versions available at prediction time. Training transformations exclude held-out and ineligible rows, and preserve the documented empty/constant/missing behavior."
       ],
       "stopConditions": [
         "No test-set-driven feature selection. Unsupported availability timing blocks claims that a feature is deployable."
@@ -11754,7 +11802,7 @@
         },
         {
           "kind": "edge",
-          "mode": "plan",
+          "mode": "apply",
           "brief": "Build categorical features with unseen values and delayed source updates."
         },
         {
@@ -11780,8 +11828,12 @@
       "selection": "Use to implement prediction-time feature transformations; ml-labels defines outcomes and ml-leakage audits leakage.",
       "branches": [
         {
-          "when": "historical joins use mutable aggregates",
-          "then": "Reconstruct point-in-time values or exclude the feature from claims of historical validity."
+          "when": "records can be corrected after their original event time",
+          "then": "Use availability and revision semantics to reconstruct the visible version first; never join historical predictions to today’s final mutable table without qualification."
+        },
+        {
+          "when": "no mature training rows remain after eligibility filtering",
+          "then": "Use the documented empty-transform behavior or report the missing training prerequisite. Do not fit preprocessing on validation/test rows to avoid the empty case."
         }
       ]
     },
@@ -13806,15 +13858,17 @@
       "readScope": "Evaluation cases, harness, and reliable scoring; run only under authorized provider/data scope.",
       "writeScope": "None by default. Plan artifacts may be saved when requested.",
       "procedure": [
-        "Build normal/edge/adversarial cases, define objective checks and calibrated human/judge criteria, separate development from held-out cases, and track variance across runs.",
-        "Separate public task artifacts from evaluator-only expected outcomes, define deterministic checks where possible and calibrate subjective judges against human-labeled examples."
+        "Define the task distribution, expected behavior, unacceptable outcomes and a versioned evaluation set. Separate development examples from held-out assessment; record consent/provenance for any real user data.",
+        "Choose independently checkable artifact or outcome assertions first. Where a model judge is necessary, blind/randomize presentation where feasible, calibrate against human or deterministic examples and document judge disagreement and failure modes.",
+        "Freeze model/configuration, prompts, tool availability, retrieval snapshot and budgets for a comparison. Repeat matched cases, preserve every attempt and distinguish answer correctness from tool side effects, scope adherence and unsupported claims.",
+        "Report per-case failures and denominators alongside aggregate results, latency and actual token accounting. Missing traces or usage remain missing; cached tokens are a subset of input and a token count is not automatically a dollar charge.",
+        "Use observed failures for targeted revisions, then evaluate on fresh cases as well as regression examples. Do not call improved scores on the now-known development set evidence of generalization or overall superiority."
       ],
       "outputs": [
-        "Versioned eval set/harness and results when executed, with rubric and limitations.",
-        "Case manifest, rubric, model/prompt versions, repeated results and cost/quality evidence."
+        "Versioned protocol and inputs, scorer-control evidence, per-case outcomes and failure analysis, aggregate denominators, measured resources and limits on generalization."
       ],
       "verification": [
-        "A known bad response fails for the intended reason; judge disagreement or nondeterminism is visible."
+        "The scorer rejects known bad outputs and accepts known good controls. All attempted trials, failures and unavailable metrics remain visible; comparisons share documented conditions and held-out claims use genuinely unused cases."
       ],
       "stopConditions": [
         "No sensitive data upload or unlimited inference. A model judge is evidence, not unquestionable ground truth."
@@ -14194,8 +14248,10 @@
       "readScope": "Model-facing tool contracts and validated execution boundaries; implementation on request.",
       "writeScope": "None by default. Plan artifacts may be saved when requested.",
       "procedure": [
-        "Define narrow typed inputs/outputs, validate targets and authorization outside model text, specify idempotency/timeouts, and test malformed arguments and partial failures.",
-        "Validate typed arguments and target/action authorization outside model text, define idempotency and uncertainty handling, and expose narrow results without excess secrets."
+        "Define each tool’s typed input/output, target identity, permitted action and observable success. Separate planning or proposed arguments from executed effects; untrusted retrieved text cannot grant tool authority.",
+        "Validate schema and business constraints before dispatch, resolve the actual target from authorized context and minimize returned sensitive data. Describe actionable errors without exposing credentials or treating arbitrary output as new instructions.",
+        "For mutating calls, define request identity, idempotency, timeout ambiguity and result reconciliation. Cancellation or a missing response does not prove an external operation failed; check its identity before retrying.",
+        "Test valid calls, invalid inputs, denied targets, unavailable tools, partial success and malicious tool output with controlled fakes. Verify state/effect counts as well as final answers and retain the distinction between simulated and live integration evidence."
       ],
       "outputs": [
         "Tool schemas, executor design/code, error contract, and behavior fixtures.",
@@ -14659,15 +14715,16 @@
       "readScope": "A durable test protecting the actual failure mechanism.",
       "writeScope": "Only the requested local changes; external actions require their exact action and target in session authorization.",
       "procedure": [
-        "Choose the lowest reliable layer, reproduce the trigger, show failure on the broken behavior when feasible, verify the fix, and include a neighboring valid case.",
-        "Preserve the original trigger, show the test fails on broken behavior when feasible and add a nearby valid case that guards against overcorrection."
+        "Identify the original trigger and intended observable behavior from requirements or independent evidence. Choose the lowest layer that can faithfully exercise the boundary; a database mock cannot establish real transaction behavior.",
+        "Construct minimal deterministic inputs and an expected result that does not call the implementation under test. Include the failing boundary and a neighboring valid case; for races, control completion order and assert that the losing path has no forbidden effect.",
+        "Where feasible, run the unchanged test against broken and fixed behavior in an isolated copy or worktree. Preserve unrelated user edits and the real index; do not roll back a dirty working file to perform a sensitivity check.",
+        "Confirm that the negative run fails on the intended assertion, not an import error, missing fixture, timeout or unrelated refactor. Report actual commands and statuses; if the old revision cannot run, explain the remaining evidence gap."
       ],
       "outputs": [
-        "Regression test and before/after evidence.",
-        "Original bug trigger, expected invariant and broken/fixed evidence."
+        "Trigger and independent expected result, test layer, original-defect sensitivity, fixed and neighboring-case results, and unavailable checks."
       ],
       "verification": [
-        "The test fails for the original bug rather than incidental setup; the corrected behavior and adjacent case pass."
+        "The regression reaches the defective path and rejects its behavior; the fixed path and neighboring valid behavior pass. A syntax/setup failure or a test with no effective assertions is not regression evidence."
       ],
       "stopConditions": [
         "If the old revision cannot run, state that limitation. Do not assert implementation details instead of the user-visible invariant."

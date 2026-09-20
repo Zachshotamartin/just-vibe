@@ -12,6 +12,29 @@ Outputs need enough structure to assess correctness: a comparison needs assumpti
 
 Keep generic execution rules in the shared guide. Use current primary documentation when behavior depends on framework/provider version. Do not copy a full manual into every command or turn a particular incident into a universal rule. Short commands are acceptable when the task is simple and the contract is clear.
 
+## Focused depth review
+
+The v0.6 review replaces repeated procedure/output sentences in 27 contracts with decisions that change agent behavior. It improves the shared execution guide for every workflow, but does not claim all 212 canonical workflows have been independently behavior-tested.
+
+| Area | Revised commands | Missing detail addressed |
+| --- | --- | --- |
+| Repair and testing | `fix`, `test-regression` | Read the actual contract; derive expectations independently; preserve user work during negative testing; inspect real exit statuses |
+| Shared backend state | `backend-cache`, `backend-concurrency`, `backend-idempotency`, `db-integrity` | Waiter versus shared-work lifetime, generation invalidation, transaction ownership, strict input/range checks, partial failure and replay |
+| Historical ML data | `ml-features`, `ml-split` | Visible-version selection before window filtering, label maturity before preprocessing, offset-aware instants, unknown versus zero labels |
+| React state/lifecycle | `react-async`, `react-effects`, `react-hydration` | Stale error as well as success, disposal, shared subscribers, matching initial render and request isolation |
+| Git and GitHub | `git-commit`, `github-pr`, `github-actions` | Candidate-tree checks, preservation of three-tree differences, PR identity after uncertain creation, SHA-specific readiness and trust/event paths |
+| Delivery | `db-migrate`, `vercel-build-fix`, `vercel-release-check` | Old/new writer compatibility, restart and recovery limits, first causal build failure, deployment-specific gates |
+| Frontend delivery and interaction | `vite-bundle`, `vite-assets`, `ui-accessibility` | Comparable size/performance evidence, nested/base-path assets and content types, keyboard/focus transitions and actual AT coverage |
+| Architecture | `arch-feature`, `arch-boundaries`, `arch-scale` | Requirement-to-owner reasoning, contracts that enforce boundaries, measured bottlenecks and bounded capacity claims |
+| Decisions | `decide`, `decision-spike` | Unknown feasibility, sensitivity, decisive experiments and thresholds set before observing results |
+| LLM systems | `llm-evals`, `llm-tools` | Scorer controls, retained failures/denominators, held-out limits, typed effects and uncertain-call reconciliation |
+
+The four repeated benchmark tasks cover selected command bundles, not every command in this table. The other revisions are instruction-review improvements with structural and packaging checks. Keep that distinction in release claims.
+
+For future reviews, ask whether a competent agent could follow the guidance without inventing a consequential policy. Add detail when ownership, timing, authority, recovery or verification is ambiguous. Remove text when it merely restates the summary. Prefer a conditional worked example in a pack guide over repeating a full procedure in every related skill.
+
+Useful next evaluations include authenticated deployment recovery in an isolated test project, browser interaction and assistive-technology tasks, API compatibility across consumer versions, and real repository changes under a fixed issue/revision. These require their actual environments; the present laboratory fixtures do not substitute for that evidence.
+
 ## Change process
 
 1. Edit `plugins/just-vibe/catalog/commands.json` and the relevant pack guide.

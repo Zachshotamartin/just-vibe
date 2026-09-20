@@ -29,8 +29,10 @@ None by default. Plan artifacts may be saved when requested.
 
 ## Execute
 
-- Choose the smallest discriminating test, define pass/fail before execution, isolate artifacts, run within budget when authorized, and interpret results.
-- Declare competing hypotheses and a rejecting observation before writing the smallest disposable prototype.
+- Name the decision the spike will inform and the uncertainty that could change it. Define a representative workload/sample and an observable acceptance/rejection criterion before building.
+- Set a time/compute/data budget, isolated artifact location and stop rule. Choose the smallest prototype or measurement that can distinguish the alternatives; avoid building production scaffolding that does not test the hypothesis.
+- Execute within authorization and record raw observations, versions and deviations from the plan. Preserve failures and resource-limit outcomes; do not change the success threshold after seeing the result.
+- Classify supported, rejected or inconclusive. Explain the implication for the original decision and the limits of the sample; prototype success does not establish production readiness.
 
 ## Decision branches
 

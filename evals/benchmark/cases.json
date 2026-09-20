@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 1,
+  "cases": [
+    {"id":"async-cache","commands":["backend-cache","backend-concurrency","react-async"],"profile":"frontend-engineer","allowedWrites":["src/cache.mjs","src/view.mjs","test/regression.test.mjs"],"ecc":["skills/backend-patterns/SKILL.md","skills/react-patterns/SKILL.md"],"language":"node"},
+    {"id":"ledger","commands":["backend-idempotency","backend-concurrency","db-integrity"],"profile":"backend-engineer","allowedWrites":["src/service.py","test/test_regression.py"],"ecc":["skills/backend-patterns/SKILL.md","skills/python-patterns/SKILL.md","skills/database-migrations/SKILL.md"],"language":"python"},
+    {"id":"temporal-ml","commands":["ml-features","ml-leakage","ml-split"],"profile":"machine-learning-engineer","allowedWrites":["src/features.py","src/pipeline.py","test/test_regression.py"],"ecc":["skills/mle-workflow/SKILL.md","agents/mle-reviewer.md"],"language":"python"},
+    {"id":"scoped-commit","commands":["fix","git-commit","test-regression"],"profile":"senior-software-engineer","allowedWrites":["src/invoice.mjs","test/regression.test.mjs"],"ecc":["skills/git-workflow/SKILL.md","skills/tdd-workflow/SKILL.md"],"language":"node","gitCommit":true}
+  ]
+}

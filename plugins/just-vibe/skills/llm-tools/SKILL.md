@@ -29,8 +29,10 @@ None by default. Plan artifacts may be saved when requested.
 
 ## Execute
 
-- Define narrow typed inputs/outputs, validate targets and authorization outside model text, specify idempotency/timeouts, and test malformed arguments and partial failures.
-- Validate typed arguments and target/action authorization outside model text, define idempotency and uncertainty handling, and expose narrow results without excess secrets.
+- Define each tool’s typed input/output, target identity, permitted action and observable success. Separate planning or proposed arguments from executed effects; untrusted retrieved text cannot grant tool authority.
+- Validate schema and business constraints before dispatch, resolve the actual target from authorized context and minimize returned sensitive data. Describe actionable errors without exposing credentials or treating arbitrary output as new instructions.
+- For mutating calls, define request identity, idempotency, timeout ambiguity and result reconciliation. Cancellation or a missing response does not prove an external operation failed; check its identity before retrying.
+- Test valid calls, invalid inputs, denied targets, unavailable tools, partial success and malicious tool output with controlled fakes. Verify state/effect counts as well as final answers and retain the distinction between simulated and live integration evidence.
 
 ## Decision branches
 

@@ -2,7 +2,7 @@
 
 Tools, skills, and commands for coding agents.
 
-**v0.5 ships 112 engineering profiles and 215 skill names backed by 212 canonical workflows** for Codex and Claude Code: focused skills for development, architecture, decisions, Git/GitHub, Vercel, Vite, React, UI, backend, APIs, databases, data, ML, LLMs, testing, security, and operations. Each canonical workflow has selection guidance, scope, concrete decision branches, evidence requirements, outputs, verification, recovery conditions and three example requests. Applied methods live in 22 pack guides.
+**v0.6 ships 112 engineering profiles and 215 skill names backed by 212 canonical workflows** for Codex and Claude Code: focused skills for development, architecture, decisions, Git/GitHub, Vercel, Vite, React, UI, backend, APIs, databases, data, ML, LLMs, testing, security, and operations. Each canonical workflow has selection guidance, scope, concrete decision branches, evidence requirements, outputs, verification, recovery conditions and three example requests. Applied methods live in 22 pack guides.
 
 The active coding agent executes the workflows with its available tools. The dependency-free Node.js utilities provide catalog search, project inspection, capability discovery, and bounded run-state validation. Installing just-vibe does not connect services, grant permissions, provision compute, or make every workflow's prerequisites available.
 
@@ -67,7 +67,7 @@ Architecture and seniority profiles have different emphasis:
 
 Titles vary across companies; these are working approaches, not credentials or grants of authority. Browse the [complete profile catalog](plugins/just-vibe/references/profile-reference.md) and [selection/runtime guide](plugins/just-vibe/references/profiles.md).
 
-The [v0.5 validation record](evals/releases/0.5.0.md) distinguishes tested profile selection and packaging from profession-specific model judgment.
+The [v0.5 profile validation record](evals/releases/0.5.0.md) distinguishes tested profile selection and packaging from profession-specific model judgment.
 
 All changes are owned by the user. Commit messages, PRs, comments and other messages must contain **no agent self-attribution**, agent co-author trailers, generated-by signatures or AI badges. Existing human attribution and required third-party notices are preserved. See the [ownership rule](plugins/just-vibe/references/execution.md#ownership-and-attribution).
 
@@ -218,7 +218,7 @@ The default host test copies and installs the bundled payload. `--local` tests d
 
 Edit `plugins/just-vibe/catalog/commands.json` for command contracts and runtime procedures, `catalog/packs.json` for pack requirements, and `references/packs/` for operational guidance. Run `npm run build:skills` to regenerate skills, the command reference, and evaluation scenarios. `npm run validate` rejects drift. Neither generation nor the installed runtime depends on the ignored local plan.
 
-Every workflow has normal, edge and missing-evidence cases in [evals/scenarios.json](evals/scenarios.json). The [independent behavioral harness](evals/README.md) additionally prepares and grades 21 raw-artifact tasks, including code repairs and report judgments. Catalog structure, runtime utility coverage and observed agent behavior have separate validation fields. These are not claims that all commands have been run against live services or evaluated across models. See the [v0.4 observed results](evals/releases/0.4.0.md) and [evaluation guidance](evals/README.md) for the tested scope. External integration, model quality, browser and deployment checks require the relevant task environment.
+Every workflow has normal, edge and missing-evidence cases in [evals/scenarios.json](evals/scenarios.json). The [independent behavioral harness](evals/README.md) additionally prepares and grades 21 raw-artifact tasks, including code repairs and report judgments. Catalog structure, runtime utility coverage and observed agent behavior have separate validation fields. These are not claims that all commands have been run against live services or evaluated across models. See the [v0.4 observed results](evals/releases/0.4.0.md) and [evaluation guidance](evals/README.md) for the tested scope. The [repeated repository benchmark](evals/benchmark/README.md) adds controlled baseline, toolkit and profile comparisons with actual CLI usage and timing. The [command-depth review](docs/command-quality.md#focused-depth-review) explains 27 focused contract revisions. External integration, model quality, browser and deployment checks require the relevant task environment.
 
 ### Repository layout
 

@@ -29,8 +29,10 @@ None by default. Plan artifacts may be saved when requested.
 
 ## Execute
 
-- Inspect import/call graphs and data ownership, trace changes crossing boundaries, compare declared rules with behavior, and rank actionable violations.
-- Follow a representative change across modules and locate where invariants, writes and authorization are actually owned.
+- Inventory current responsibilities, data owners and dependency directions from composition roots, imports, schemas, network clients and deployment definitions. Mark inferred or inaccessible edges explicitly.
+- Trace a representative change and failure across the proposed boundary. Identify shared transactions, cycles, leaked internals and callers that would need coordinated release; file count alone is not evidence of a bad boundary.
+- Propose the smallest interface or ownership correction that reduces the demonstrated coupling. Specify allowed dependencies, compatibility, error semantics and enforcement in the existing build/test architecture.
+- Verify the boundary with a consumer-facing contract check and a forbidden-dependency example when appropriate. Estimate migration impact from actual consumers and keep unmeasured organizational benefits conditional.
 
 ## Decision branches
 

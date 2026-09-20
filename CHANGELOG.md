@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.6.0
+
+- Replace repeated guidance in 27 command contracts with concrete ownership, timing, failure, recovery and verification decisions across backend, ML, Git/GitHub, React, frontend delivery, architecture, decisions and LLM systems.
+- Require contract-backed expectations and artifact-specific evidence in shared execution guidance. Add worked methods for cache cancellation/generations, transaction ownership, versioned historical features and preserving partially staged commits.
+- Add a repeated four-arm repository benchmark with independent behavior assertions, scorer controls, immutable trial inputs, actual native CLI token/timing capture, profile ablation and retained failures. Separate observed benchmark results from untested live integrations and overall-superiority claims.
+- Preserve original scores when correcting test-report interpretation; compare every arm under the same corrected scorer. Benchmark model calls remain explicitly opt-in and are excluded from normal validation.
+
 ## 0.5.0
 
 - Add 112 task-scoped engineering profiles with distinct priorities, decision rules, verification, boundaries and candidate workflows. Include senior, staff, principal and architecture specialties.

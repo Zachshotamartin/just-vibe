@@ -29,9 +29,10 @@ None by default. Plan artifacts may be saved when requested.
 
 ## Execute
 
-- Inspect diff and checks, detect existing PRs, prepare accurate title/body, resolve push authorization if needed, and verify the submitted head/base.
-- Resolve owner/repository/head/base, including fork owner; inspect pushed commits and existing matching PRs before deciding to create or update.
-- All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
+- Resolve owner/repository, fork owner, head branch/SHA and intended base branch/SHA. Inspect the merge-base diff and existing matching PRs; distinguish local uncommitted work, local unpushed commits and the actual remote head.
+- Prepare the title/body from the candidate diff and relevant checks. Explain the trigger, changed behavior and verification limits. Follow the repository template without adding agent attribution, signatures or agent Co-authored-by text.
+- Create or update only when the exact remote action is authorized in the session; otherwise finish the concrete draft. Before a retry after timeout, query the exact head/base for an already-created PR so an uncertain response cannot create a duplicate.
+- Re-read the resulting PR identity and head/base. Checks for an older SHA do not establish readiness of the current head; if it changed during review, report that and validate the new candidate before claiming readiness.
 
 ## Decision branches
 
@@ -39,8 +40,7 @@ None by default. Plan artifacts may be saved when requested.
 
 ## Deliver and verify
 
-- PR draft or URL, summary, validation, and readiness status.
-- Head/base SHAs, accurate title/body, checks and observed PR identity.
+- Draft or verified PR URL, head/base identity, change summary, checks attached to their tested SHA and explicit readiness limits.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

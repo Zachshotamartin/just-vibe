@@ -29,21 +29,24 @@ None by default. Plan artifacts may be saved when requested.
 
 ## Execute
 
-- Define semantics and missing behavior, enforce point-in-time joins, fit transforms only on training data, compare against baseline, and assess inference cost.
-- Specify each feature's availability and missing/unseen-category behavior; fit learned transforms on training folds only and share the same transform contract with inference.
+- Define row grain, entity/event identity, prediction instant, feature event time, source availability time, revision order and missing behavior. Specify timezone and exact window endpoints. Missing availability evidence blocks historical-validity claims.
+- For versioned sources, reconstruct the latest version actually available at each prediction instant before applying its event-time window. A later correction can move an event outside the window; filtering versions first can resurrect an obsolete value. Deduplicate by the documented event/version identity, scoped to the entity where required.
+- Fit learned transforms only on eligible training rows within each simulated fit or cross-validation fold. Preserve input ordering/identity and define empty, constant, missing and unseen-category behavior; use the same transformation semantics at serving time.
+- Verify exact time boundaries, mixed explicit offsets, late arrivals, corrections, duplicates, negative/zero values and no input mutation. Compare engineered features to an independent tiny example before proposing a usefulness experiment.
+- Only claim usefulness after a controlled baseline comparison on the chosen evaluation protocol and compute budget. A correct feature builder alone establishes neither predictive gain nor production readiness.
 
 ## Decision branches
 
-- **When historical joins use mutable aggregates:** Reconstruct point-in-time values or exclude the feature from claims of historical validity.
+- **When records can be corrected after their original event time:** Use availability and revision semantics to reconstruct the visible version first; never join historical predictions to today’s final mutable table without qualification.
+- **When no mature training rows remain after eligibility filtering:** Use the documented empty-transform behavior or report the missing training prerequisite. Do not fit preprocessing on validation/test rows to avoid the empty case.
 
 ## Deliver and verify
 
-- Feature definitions/pipeline or experiment results with provenance and availability checks.
-- Feature definition/availability table and train/inference edge-case checks.
+- Feature/time/identity contract, implementation when requested, eligible fitting population, boundary and revision evidence, and separately measured usefulness results if any.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
-- Historical features exclude future events; unseen categories/missing values behave consistently at inference.
+- Historical features use only versions available at prediction time. Training transformations exclude held-out and ineligible rows, and preserve the documented empty/constant/missing behavior.
 
 ## Stop and recover
 
@@ -52,5 +55,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Plan point-in-time customer features fitted only on training data.
-- **edge (plan):** Build categorical features with unseen values and delayed source updates.
+- **edge (apply):** Build categorical features with unseen values and delayed source updates.
 - **blocked (inspect):** Design features without trustworthy availability timestamps; do not claim deployability.

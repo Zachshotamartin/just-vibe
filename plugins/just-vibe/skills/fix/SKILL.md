@@ -29,17 +29,18 @@ Only the requested local changes; external actions require their exact action an
 
 ## Execute
 
-- Establish the failure, trace its cause, apply the smallest sound fix, add a meaningful regression check when warranted, and verify related behavior.
-- Preserve the initial failing evidence; ensure a new check fails for the actual bug, then rerun the original test without weakening assertions.
+- Read the behavior contract, nearby callers and existing checks before inferring expected behavior from the defective implementation. Separate the reproduced trigger, intended result and compatibility requirements; record conflicting evidence instead of choosing whichever makes the patch easiest.
+- Trace the failing input through validation, state transitions and the observable result. Choose a focused change that corrects the cause and preserves neighboring valid behavior; distinguish missing, null, zero, false and empty values where the contract does.
+- Reproduce the original failure, apply the fix and run relevant checks with actual exit statuses. Where a regression test is warranted, derive its expected result independently from the contract and establish that it detects the defect rather than incidental setup failure.
 
 ## Decision branches
 
-- **When failure cannot be reproduced:** Compare environments and narrow a discriminating experiment; label any proposed patch's verification limit.
+- **When the written contract disagrees with the current fallback or coercion:** Treat the discrepancy as part of the bug investigation. Check callers and compatibility evidence; do not encode the old fallback into a new test merely because it already exists.
+- **When failure cannot be reproduced:** Compare environments and choose a discriminating experiment. Label an unverified patch as partial and state which observation would establish the result.
 
 ## Deliver and verify
 
-- Cause explanation, patch, before/after evidence, and unresolved risks.
-- Trigger, causal location, focused change and before/after plus neighboring-case evidence.
+- Trigger, contract evidence, causal location, focused patch, actual before/after checks and remaining uncertainty.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

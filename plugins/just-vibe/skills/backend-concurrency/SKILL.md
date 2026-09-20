@@ -29,21 +29,23 @@ None by default. Plan artifacts may be saved when requested.
 
 ## Execute
 
-- Model interleavings, identify violated invariants, build a deterministic concurrent scenario when authorized, choose a supported consistency mechanism, and verify contention behavior.
-- Enumerate read/decide/write interleavings and enforce the invariant at the shared data boundary using supported transactions, conditional writes or locking.
+- Write the shared invariant and the read/decide/write interleaving that violates it. Identify every worker/process and the actual shared boundary; list durable writes, external effects and cancellation points separately.
+- Choose the narrowest supported atomicity mechanism for that boundary: a conditional write, transaction, version check or shared lock. Define who starts and ends the transaction or lease; never accidentally commit or roll back a caller-owned transaction.
+- Validate before irreversible work and keep related invariant checks inside the serialization boundary when their inputs can race. Handle lock acquisition failure, deadlock/serialization conflict and cancellation with bounded retries only when replay is safe.
+- Force contention using separate real connections or workers and deterministic coordination. Exercise success, rejection, interruption after partial work and cleanup; assert final state and number of effects, not just the number of returned responses.
 
 ## Decision branches
 
-- **When multiple processes share the resource:** Reject process-local locks as the sole correctness mechanism and test cross-connection contention.
+- **When a caller already owns a transaction:** Follow the API contract: participate with documented savepoint semantics or reject before touching it. Do not use unconditional commit/rollback cleanup that can consume unrelated work.
+- **When multiple processes share the resource:** A process-local mutex cannot establish the shared invariant. Verify at the storage or service boundary used by all writers.
 
 ## Deliver and verify
 
-- Race analysis or fix with invariant-based tests.
-- Interleaving, invariant, consistency mechanism and deterministic concurrent test.
+- Violating interleaving, invariant and ownership boundary, selected mechanism, retry/cleanup behavior, contention and interruption results.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
-- Two concurrent reservations cannot exceed capacity; retries after serialization conflict preserve intended effects.
+- Independent workers preserve the invariant under contention. Failed operations leave owned resources usable, preserve caller-owned work, and cannot return success for an uncommitted or duplicated effect.
 
 ## Stop and recover
 

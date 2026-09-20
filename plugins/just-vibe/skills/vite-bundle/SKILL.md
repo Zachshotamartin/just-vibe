@@ -29,8 +29,10 @@ None by default. Plan artifacts may be saved when requested.
 
 ## Execute
 
-- Identify large modules/assets, distinguish raw/compressed/transferred size, trace import paths and tree-shaking barriers, and propose or apply requested optimizations.
-- Use existing stats or an authorized comparable build, trace duplicated dependencies/import chains and distinguish emitted, compressed and actually requested bytes.
+- Record the installed versions, command, mode, route and baseline artifact. Separate raw output, compressed size and actual transferred bytes; compare equivalent build and cache conditions.
+- Trace a large or duplicate module to imports and the user journey that loads it. Distinguish startup cost from total application cost and verify whether an existing lazy boundary is defeated by an eager import.
+- Choose a focused change based on the observed cost. Splitting a module can add a waterfall or alter side-effect order; avoid generic manual-chunk rules or removing dependencies solely because they are large.
+- Build and exercise affected entry/lazy routes, direct navigation and failure recovery. Report comparable before/after measurements plus functional checks; a smaller output file alone does not prove faster interaction.
 
 ## Decision branches
 
@@ -43,7 +45,7 @@ None by default. Plan artifacts may be saved when requested.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
-- A reported reduction uses the same build conditions; a removed dependency does not break a lazy route.
+- Measurements share build/mode/version assumptions, and affected initial and lazy routes still load correctly. Raw bytes are not mislabeled as transfer size or user-perceived performance.
 
 ## Stop and recover
 

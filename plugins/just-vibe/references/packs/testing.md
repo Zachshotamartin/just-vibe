@@ -18,6 +18,10 @@ Use a unit test for a pure contract, integration test for a real boundary and en
 
 For a checkout total, calculate a small expected amount from the stated pricing rule rather than calling the same helper as the implementation. Cover null coupon and zero-valued discount separately. A regression test should fail on the actual broken path; setup failure does not demonstrate regression sensitivity. Preserve the original assertion while fixing the implementation.
 
+When checking sensitivity, isolate the broken implementation in a temporary copy or worktree and preserve the real index and unrelated edits. Record the failing assertion or unexpected behavior exception and its causal path. A missing new helper import, parse failure in the test, or timeout before any assertion is inconclusive. An exception raised by the original implementation on a documented valid input can be the actual regression; do not require every useful test failure to have one exception class. For asynchronous tests, bound waits and release deferred resources even when an assertion fails so later checks can finish.
+
+Test evaluators too: known-good controls should pass, seeded defects should fail, missing output and incomplete runs must not become successes. If an evaluator bug is found, retain the original scores, document the correction and rescore every affected arm under the same rule. Never silently alter a rubric for one favored result.
+
 ### Flakes and fixtures
 
 Capture test order, seed, clock and resource identity. Force the suspected interleaving with controlled deferred work instead of arbitrary sleeps. Reproduce at a bounded repeat count and report the observed sample; zero failures does not mathematically prove absence.

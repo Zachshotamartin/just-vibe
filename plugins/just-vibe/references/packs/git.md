@@ -22,6 +22,18 @@ In the selected repository, inspect status --porcelain=v2 --branch, diff --cache
 
 Suppose a file contains a staged logging change and an unstaged bug fix. A request to commit the bug fix does not imply including the logging change. Record both patches, resolve intended membership, and use deliberate hunk selection or an isolated temporary index workflow appropriate to the environment. Review the final complete staged diff before commit and verify the commit afterward. Preserve the user's original staged/unstaged distinction for unrelated work. Never use blanket add/reset as a shortcut.
 
+For a temporary-index approach, start from the current HEAD tree, construct only the intended changed blobs and tests, and inspect that candidate's entire diff. Run the required commit hooks normally against the candidate index; do not bypass them with low-level commit creation. Verify the candidate independently of unrelated worktree changes where they could affect tests. A path-limited commit may still include every worktree hunk in that path.
+
+After the commit, the real index still needs deliberate reconciliation. Preserve the user's unrelated staged content while incorporating the requested committed change; blindly restoring the old index can stage a reversal of the fix against the new HEAD. Compare all three states:
+
+| Comparison | Required outcome |
+| --- | --- |
+| Old HEAD → new HEAD | Only the intended fix and tests, including any reviewed hook changes |
+| New HEAD → real index | The unrelated changes the user had staged |
+| Real index → worktree | The unrelated changes the user had left unstaged |
+
+Keep a recoverable index/patch record until all three comparisons succeed, then remove only the temporary artifacts you created. Preserve staged additions, untracked files, file modes and deletions as well as text hunks. On a failed hook or ambiguous overlapping hunk, inspect the resulting state before retrying; never silently reset the user's work.
+
 ### Conflict and recovery methods
 
 For a merge conflict, inspect base, ours, theirs and the relevant callers; a syntactically clean merge can still discard a legitimate behavior. Regenerate lockfiles from resolved manifests with the repository's package manager instead of arbitrarily choosing a side.

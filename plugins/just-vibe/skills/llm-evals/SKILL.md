@@ -29,8 +29,11 @@ None by default. Plan artifacts may be saved when requested.
 
 ## Execute
 
-- Build normal/edge/adversarial cases, define objective checks and calibrated human/judge criteria, separate development from held-out cases, and track variance across runs.
-- Separate public task artifacts from evaluator-only expected outcomes, define deterministic checks where possible and calibrate subjective judges against human-labeled examples.
+- Define the task distribution, expected behavior, unacceptable outcomes and a versioned evaluation set. Separate development examples from held-out assessment; record consent/provenance for any real user data.
+- Choose independently checkable artifact or outcome assertions first. Where a model judge is necessary, blind/randomize presentation where feasible, calibrate against human or deterministic examples and document judge disagreement and failure modes.
+- Freeze model/configuration, prompts, tool availability, retrieval snapshot and budgets for a comparison. Repeat matched cases, preserve every attempt and distinguish answer correctness from tool side effects, scope adherence and unsupported claims.
+- Report per-case failures and denominators alongside aggregate results, latency and actual token accounting. Missing traces or usage remain missing; cached tokens are a subset of input and a token count is not automatically a dollar charge.
+- Use observed failures for targeted revisions, then evaluate on fresh cases as well as regression examples. Do not call improved scores on the now-known development set evidence of generalization or overall superiority.
 
 ## Decision branches
 
@@ -38,12 +41,11 @@ None by default. Plan artifacts may be saved when requested.
 
 ## Deliver and verify
 
-- Versioned eval set/harness and results when executed, with rubric and limitations.
-- Case manifest, rubric, model/prompt versions, repeated results and cost/quality evidence.
+- Versioned protocol and inputs, scorer-control evidence, per-case outcomes and failure analysis, aggregate denominators, measured resources and limits on generalization.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
-- A known bad response fails for the intended reason; judge disagreement or nondeterminism is visible.
+- The scorer rejects known bad outputs and accepts known good controls. All attempted trials, failures and unavailable metrics remain visible; comparisons share documented conditions and held-out claims use genuinely unused cases.
 
 ## Stop and recover
 

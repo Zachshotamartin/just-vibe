@@ -29,8 +29,10 @@ None by default. Plan artifacts may be saved when requested.
 
 ## Execute
 
-- Inspect existing data and migration conventions, design expand/backfill/contract phases where needed, assess locks, define restartability, and validate on isolated data.
-- Inspect engine/version and migration transaction behavior; separate additive schema, resumable backfill, validation and destructive contraction with old/new application compatibility.
+- Inspect engine/version, migration runner transaction behavior, data shape and old/new application contracts. Record which versions read and write each field during rollout.
+- Separate expansion, restartable backfill, validation and contraction. Define lock/downtime bounds, batch identity/checkpoint and interruption handling; estimate impact from evidence rather than row count alone.
+- Exercise migration and restart on isolated representative data, including duplicates, nulls and old writers. Verify indexes/constraints are actually valid and semantically match the intended definition; name existence alone is insufficient.
+- Define recovery per phase: code rollback, forward repair, and restoration of lost information are different operations. Delay destructive contraction until old readers/writers are retired and the agreed evidence establishes compatibility.
 
 ## Decision branches
 

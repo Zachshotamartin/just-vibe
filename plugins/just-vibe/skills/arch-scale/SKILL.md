@@ -29,8 +29,10 @@ None by default. Plan artifacts may be saved when requested.
 
 ## Execute
 
-- Identify hot paths and shared limits, quantify available evidence, distinguish throughput from latency, and compare incremental capacity options.
-- Model arrival rate, service time, queueing and serialized/shared limits using observed ranges; include peak and degraded modes.
+- State workload shape, service objectives and measured constraints: arrival rate, service time distribution, concurrency, queue age and resource saturation. Separate observed production data from assumptions or synthetic samples.
+- Locate the limiting serial/shared boundary before recommending replicas, caching, queues or extraction. Model steady-state and burst behavior, failure recovery and downstream limits with explicit units.
+- Compare options against the bottleneck and consistency requirements. Define admission control/backpressure and degradation before adding unbounded concurrency; scaling callers can overload the shared dependency.
+- Propose a bounded measurement or authorized load experiment with rejecting observations and recovery. Report the capacity range established by evidence and what remains unknown; do not invent traffic or throughput.
 
 ## Decision branches
 

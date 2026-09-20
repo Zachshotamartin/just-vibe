@@ -29,8 +29,10 @@ Only the requested local changes; external actions require their exact action an
 
 ## Execute
 
-- Trace request identity and state updates, reproduce reversed completion order, define stale-result rules, implement cleanup/recovery, and verify navigation/unmount cases.
-- Assign request identity to the selected resource, control completion order in a fixture and define how optimistic state reconciles with concurrent responses.
+- Trace resource identity, the owner of each request, component lifetime and every state publication path: loading, success, error and optimistic reconciliation. Define which completion is current after navigation, account changes or a new selection.
+- Use the existing framework/data layer mechanism to separate stale-result suppression from actual cancellation. Shared requests may outlive one component; cancelling one subscriber must not invalidate another subscriber’s result.
+- Guard both success and failure publication against stale identity and disposal. Clean up subscriptions/listeners on all terminal paths and prevent disposed owners from starting further work unless the lifecycle contract explicitly permits reactivation.
+- Control completion order in tests: newer success before older success, newer success before older failure, unmount while pending and shared-request cancellation. For optimistic writes, reconcile from authoritative state after ambiguous completion instead of assuming abort undid the server effect.
 
 ## Decision branches
 
@@ -38,12 +40,11 @@ Only the requested local changes; external actions require their exact action an
 
 ## Deliver and verify
 
-- Async behavior repair with deterministic race tests.
-- Request/state transitions, stale-result rule and reversed-completion checks.
+- Request ownership and state transitions, repair, deterministic stale-success/stale-error/disposal checks and optimistic reconciliation limits.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
-- An older response cannot overwrite newer selection; failed optimistic work restores a consistent state.
+- Neither an older success nor an older error can replace current state. Disposal releases owned resources and prevents later publication; shared consumers remain independent.
 
 ## Stop and recover
 

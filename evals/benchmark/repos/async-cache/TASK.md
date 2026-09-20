@@ -1,0 +1,1 @@
+Repair the directory cache and view layer. Switching accounts sometimes shows a stale result; two views can cancel each other's request, and invalidation can resurrect old data. Implement the README contract and add meaningful regression tests. Modify only src/cache.mjs, src/view.mjs, and test/regression.test.mjs. Do not change the supplied smoke test or README. Do not commit.

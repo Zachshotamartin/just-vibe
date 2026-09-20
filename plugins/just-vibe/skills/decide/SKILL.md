@@ -29,8 +29,10 @@ None by default. Plan artifacts may be saved when requested.
 
 ## Execute
 
-- Eliminate infeasible options, compare remaining tradeoffs, expose assumptions, and identify what evidence would change the recommendation.
-- State the decision deadline, hard exclusions and current/default option; identify the smallest uncertainty capable of changing the choice.
+- Write the decision question, outcome, deadline, hard constraints and current/default option. Eliminate confirmed infeasible choices before scoring preferences; unknown feasibility is pending evidence, not a middle score.
+- Compare remaining options using evidence with dates and scope. Separate observed facts, estimates and preferences; avoid double-counting correlated criteria or presenting subjective weights as objective truth.
+- Identify the assumption capable of changing the recommendation. Vary plausible scores/weights or bounds and report whether the preferred option changes; use a bounded discriminating spike when its information is worth the delay.
+- Recommend an option or conditional reversible choice, explain consequences and rejected alternatives, and set an observable revisit trigger. Record adoption only when it occurred; a recommendation does not commit stakeholders or authorize a purchase.
 
 ## Decision branches
 
@@ -38,8 +40,7 @@ None by default. Plan artifacts may be saved when requested.
 
 ## Deliver and verify
 
-- Recommendation, rationale, alternatives rejected, confidence, and next validation step.
-- Recommendation, rejected alternatives, decisive evidence and revisit trigger.
+- Decision and recommendation, feasibility/evidence table, decisive uncertainty or sensitivity, consequences, adoption status and revisit trigger.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

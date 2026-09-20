@@ -29,8 +29,10 @@ Only the requested local changes; external actions require their exact action an
 
 ## Execute
 
-- Locate the causal error, compare runtime/package manager/env-name differences, reproduce in a controlled local build, patch, and verify the affected build path.
-- Match the log's exact revision and working directory, locate the first causal error and compare Node/package-manager, dependency installation and environment names.
+- Identify the failing deployment, SHA, environment and first causal build error. Compare repository/install root, build package, output path, runtime/package manager and resolved dependencies with the successful environment.
+- Reproduce the failing boundary locally when possible using the same workspace command and versions. Check case sensitivity, hoisted undeclared dependencies, build-time environment names and generated-file assumptions before patching application behavior.
+- Apply a focused fix and verify the corresponding build path. Keep local success separate from remote deployment verification; reuse the existing deployment/project identity and create a new deployment only when requested.
+- Report the causal evidence, changed configuration/code, local result and the deployment/revision actually observed remotely. Redact values and do not download secrets as incidental diagnosis.
 
 ## Decision branches
 

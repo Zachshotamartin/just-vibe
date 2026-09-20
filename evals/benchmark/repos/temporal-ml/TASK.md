@@ -1,0 +1,1 @@
+Repair this temporal dataset builder. An offline score improved after new data arrived even though historical predictions should not change. Implement the README contract and add regression tests for meaningful boundaries. Modify only src/features.py, src/pipeline.py and test/test_regression.py. Do not change report.py, README or smoke tests. Do not commit.

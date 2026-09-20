@@ -29,8 +29,10 @@ Only the requested local changes; external actions require their exact action an
 
 ## Execute
 
-- Choose the lowest reliable layer, reproduce the trigger, show failure on the broken behavior when feasible, verify the fix, and include a neighboring valid case.
-- Preserve the original trigger, show the test fails on broken behavior when feasible and add a nearby valid case that guards against overcorrection.
+- Identify the original trigger and intended observable behavior from requirements or independent evidence. Choose the lowest layer that can faithfully exercise the boundary; a database mock cannot establish real transaction behavior.
+- Construct minimal deterministic inputs and an expected result that does not call the implementation under test. Include the failing boundary and a neighboring valid case; for races, control completion order and assert that the losing path has no forbidden effect.
+- Where feasible, run the unchanged test against broken and fixed behavior in an isolated copy or worktree. Preserve unrelated user edits and the real index; do not roll back a dirty working file to perform a sensitivity check.
+- Confirm that the negative run fails on the intended assertion, not an import error, missing fixture, timeout or unrelated refactor. Report actual commands and statuses; if the old revision cannot run, explain the remaining evidence gap.
 
 ## Decision branches
 
@@ -38,12 +40,11 @@ Only the requested local changes; external actions require their exact action an
 
 ## Deliver and verify
 
-- Regression test and before/after evidence.
-- Original bug trigger, expected invariant and broken/fixed evidence.
+- Trigger and independent expected result, test layer, original-defect sensitivity, fixed and neighboring-case results, and unavailable checks.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
-- The test fails for the original bug rather than incidental setup; the corrected behavior and adjacent case pass.
+- The regression reaches the defective path and rejects its behavior; the fixed path and neighboring valid behavior pass. A syntax/setup failure or a test with no effective assertions is not regression evidence.
 
 ## Stop and recover
 

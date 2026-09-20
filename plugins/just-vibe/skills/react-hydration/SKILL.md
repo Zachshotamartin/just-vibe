@@ -29,8 +29,9 @@ Only the requested local changes; external actions require their exact action an
 
 ## Execute
 
-- Reproduce the mismatch, compare initial values/markup, inspect time/random/browser-only sources and invalid nesting, correct the cause, and verify interactivity.
-- Compare server output with the first client render before effects, including locale, time, random IDs, browser state and invalid nesting.
+- Reproduce the exact route and compare server markup with the first client render. Trace request-specific state, timestamps, locale, random values, browser-only APIs and invalid HTML nesting; distinguish parser repair from state mismatch.
+- Choose a stable initial contract and move browser-only transitions to the appropriate lifecycle. Ensure request-specific state is isolated across server requests; do not silence hydration warnings or disable rendering broadly to conceal the cause.
+- Verify direct server navigation and client navigation under differing locale/timezone and repeated requests where relevant. Confirm the page becomes interactive and retains its intended initial content, not merely that warnings disappeared.
 
 ## Decision branches
 
@@ -43,7 +44,7 @@ Only the requested local changes; external actions require their exact action an
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
-- Initial output matches and controls work; locale/time-dependent content does not cause intermittent mismatches.
+- Server and initial client output agree for the supported contract; interactivity and request isolation survive the repair. Suppressed warnings do not count as evidence.
 
 ## Stop and recover
 

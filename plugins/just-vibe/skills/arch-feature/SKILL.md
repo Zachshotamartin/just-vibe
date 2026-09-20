@@ -29,8 +29,10 @@ None by default. Plan artifacts may be saved when requested.
 
 ## Execute
 
-- Trace similar features, assign responsibilities, define seams and contracts, compare reuse with new components, and plan an incremental delivery path.
-- Map each acceptance condition to an existing owner and interface; compare extending a boundary with introducing a new one under actual operational constraints.
+- Translate acceptance criteria and quality constraints into responsibilities, data ownership and interfaces. Trace an existing normal and failure path to locate the natural owner before proposing a new component.
+- Compare extending the current module, introducing an internal boundary and deploying a separate service. Assess data consistency, latency, independent rollout and operational ownership against demonstrated requirements.
+- Specify the chosen contract, compatibility window, failure/retry behavior and observability. Define who writes each datum and who reconciles partial effects; diagrams must distinguish observed code dependencies from proposed runtime edges.
+- Plan incremental implementation with a verification and recovery condition for each phase. Identify the smallest experiment that could overturn a material assumption before committing to an expensive boundary.
 
 ## Decision branches
 
@@ -38,8 +40,7 @@ None by default. Plan artifacts may be saved when requested.
 
 ## Deliver and verify
 
-- Component-level design, affected interfaces, data flow, migration needs, and verification plan.
-- Responsibility table, interface changes, compatibility phases and end-to-end checks.
+- Requirement-to-owner map, alternatives and decisive evidence, target contracts/data ownership, phased implementation with checks and recovery limits.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

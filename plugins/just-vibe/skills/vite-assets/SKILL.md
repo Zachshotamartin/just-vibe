@@ -29,8 +29,9 @@ Only the requested local changes; external actions require their exact action an
 
 ## Execute
 
-- Trace source-to-output paths, compare dev/build resolution, repair assumptions, and test root, nested, and configured subpath access.
-- Distinguish imported hashed assets, public directory files and runtime-generated paths; test the configured base plus nested client routes.
+- Resolve the actual mode, root, base path and deployment routing. Trace each failing URL from an imported asset, public file, CSS reference or runtime string to emitted output; compare dev and production behavior.
+- Repair the owning URL construction using supported installed-version semantics. Keep case-sensitive paths, hashed output and assets consumed by lazy routes distinct; do not fix every route with an unconditional root-relative path.
+- Verify root navigation, direct nested navigation, configured subpath base and refresh in a production preview. Check response status and content type: a fallback HTML page with status 200 is still a broken image or module.
 
 ## Decision branches
 
@@ -43,7 +44,7 @@ Only the requested local changes; external actions require their exact action an
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
-- Images work under the intended subpath; hashed imports and public files retain their respective semantics.
+- Emitted asset URLs resolve under the requested base and nested routes, with correct content types and no reliance on navigation from the root.
 
 ## Stop and recover
 
