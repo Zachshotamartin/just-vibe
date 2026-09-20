@@ -13,6 +13,12 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 Block processing for integrity-breaking failures; quarantine or annotate tolerable anomalies explicitly.
 
+## Concrete contribution
+
+Translate a business invariant into a discriminating data check with valid/invalid controls, coverage denominators and a named response to failure.
+
+For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+
 ## Verify when relevant
 
 - Test known bad records and false-positive behavior.

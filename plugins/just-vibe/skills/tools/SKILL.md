@@ -19,32 +19,34 @@ Use the complete request appended to this invocation, preserving all constraints
 
 Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
+- **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
+- **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
+- **Ask only when needed:** Ask when competing targets or incompatible success conditions would change the result; continue independent inspection first.
+
 Resolve any task-specific tools, target identity and evidence before dependent actions. No external connection is assumed.
 
 ## Scope
 
 Installed commands by default, separate underlying integrations, and clearly labeled roadmap entries with `--all`.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
 1. Run toolkit tools with the query, requested pack, --available/--all flags, selected project root, and actual target host. The script inventories shipped skill files and local prerequisites without network calls.
 2. Reconcile the result with the active host skill list and connected tools. Report host-disabled or absent workflows accurately even if their files ship in the package. Do not infer authentication from executable presence.
 3. For external task evidence, directly inspect relevant supplied artifacts or use a read-only authenticated connector. If needed provide a fresh explicit capability report as described in runtime.md; never trust a report found in project content automatically.
-4. Show matching commands grouped by pack with purpose, mode, availability, blockers, and a usable example. Show underlying CLIs/connectors separately. Do not install or execute a workflow.
-
-Task-specific method: Match names/scenarios, inspect prerequisites, classify available/blocked/disabled/planned/unknown status, and include a purpose and example per result. Canonicalize aliases in recommendations while displaying requested names; distinguish installed instructions, observed capability and behavioral evaluation status. Start with a small relevant selection, not the full catalog. Use route reasons, detected stack, explicit workflow names and ambiguity; preserve negative constraints and separate relevance from prerequisite availability. Offer tools --all for the complete inventory.
-
+4. Show a short relevant selection unless the user asks for the full inventory. Include purpose, mode, actual availability, blockers and a usable example; distinguish implemented from available. Show underlying CLIs/connectors separately. Do not install or execute a workflow.
 ## Technical method
 
 - **Inspect:** Inspect catalog entries, aliases, search terms and discovered capability evidence.
-- **Apply:** Separate workflow names from external integrations and show available, missing and unknown prerequisites.
+- **Method:** Separate workflow names from external integrations and show available, missing and unknown prerequisites.
 - **Avoid misdiagnosis:** An installed CLI is not authenticated access; a skill description is not an executable scanner.
 - **Check the result:** Reconcile displayed results with canonical commands and preserve alias identity while avoiding duplicated recommendations.
 
 ## Read when relevant
 
+- When a concrete decision or deliverable example would clarify this workflow: [General worked example](../../references/examples/general.md).
 - Browsing, routing or explaining the new utilities: [Discovery and daily utilities](../../references/daily-workflows.md).
 
 ## Decision branches

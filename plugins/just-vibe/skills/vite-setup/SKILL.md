@@ -17,7 +17,11 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply; framework, language, project location, deployment shape, and dependency constraints.
 
-project manifests, lockfile, Vite/framework/plugin versions, and existing build scripts. Verify current version-specific documentation when changing configuration. Apply-mode checks may generate build/cache artifacts; inspect mode uses existing evidence.
+project manifests, lockfile, Vite/framework/plugin versions, and existing build scripts. Verify current version-specific documentation when changing configuration. Requested isolated verification may generate disposable build/cache artifacts; inspect their scripts first and preserve product files.
+
+- **Infer from evidence:** Read manifests, lockfile, installed Vite/plugins, entry points, aliases, modes and current build scripts.
+- **Reasonable default:** Preserve existing tooling and base-path conventions; make a local focused change when the brief identifies the behavior.
+- **Ask only when needed:** Ask if the intended serving subpath or deployment target cannot be inferred and would change generated URLs; do not ask for versions present in the lockfile.
 
 Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
@@ -25,19 +29,23 @@ Declared evidence requirements: `project.read`. Use actual host discovery or ade
 
 Vite configuration and required scripts/integration; no app redesign or unrelated toolchain replacement.
 
-Only the requested local changes; external actions require their exact action and target in session authorization.
+Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.
 
 ## Execute
 
-- Inspect existing setup, choose compatible plugins, configure development/build/preview scripts, preserve existing source, and validate basic development and production paths.
-- Inspect package manager, workspace root, framework plugin and Node support; preserve existing entry files and establish dev/build/preview paths using project conventions.
-
+1. Inspect existing setup, choose compatible plugins, configure development/build/preview scripts, preserve existing source, and validate basic development and production paths.
+2. Inspect package manager, workspace root, framework plugin and Node support; preserve existing entry files and establish dev/build/preview paths using project conventions.
 ## Technical method
 
 - **Inspect:** Inspect framework, installed Node/Vite/plugin versions, workspace scripts, module format and deployment base path.
-- **Apply:** Adapt the existing build convention; align dev entry, production output and asset resolution using supported version-specific settings.
+- **Method:** Adapt the existing build convention; align dev entry, production output and asset resolution using supported version-specific settings.
 - **Avoid misdiagnosis:** Copying a config for another major or adding a second package manager can create a setup that only works on one machine.
 - **Check the result:** Verify dev startup, production build and a direct nested route against generated output with the chosen package manager.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [Vite worked example](../../references/examples/vite.md).
+
 
 ## Decision branches
 

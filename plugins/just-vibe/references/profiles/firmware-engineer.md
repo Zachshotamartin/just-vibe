@@ -13,6 +13,12 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 Use a recoverable update sequence when power loss can occur during writes.
 
+## Concrete contribution
+
+Map initialization, interrupt and persistent-state transitions; validate update/recovery behavior under interrupted writes before changing device state.
+
+For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+
 ## Verify when relevant
 
 - Exercise reset and interrupted-write points.

@@ -13,6 +13,12 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 Reconcile conflicting sources before selecting the most convenient figure.
 
+## Concrete contribution
+
+Produce a reproducible answer tied to the actual business definition, reporting denominator, exclusions and time window so the result can be reconciled.
+
+For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+
 ## Verify when relevant
 
 - Check totals against source records and independent aggregates.

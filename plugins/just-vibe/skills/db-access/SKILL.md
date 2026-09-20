@@ -19,28 +19,32 @@ Use the complete request appended to this invocation, preserving all constraints
 
 actual engine/version, schema/migrations, query workload, and explicitly identified environment. Prefer supplied plans, metadata, and isolated fixtures. Even a SELECT can lock, call mutating functions, or overload a database; inspect semantics before execution. Executing an analyzed query is distinct from reading its plan.
 
+- **Infer from evidence:** Read engine/version, ORM/runner, schema and migration history from project artifacts before choosing SQL.
+- **Reasonable default:** Prepare local SQL and isolated fixtures without assuming production size, locks or recovery guarantees.
+- **Ask only when needed:** Ask for environment, downtime or recovery constraints before live/destructive execution when missing; unavailable production access does not block migration files.
+
 Declared evidence requirements: `database.context`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Database privileges, tenant predicates, row-level policies, and bypass paths.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Inspect grants and execution identities, trace connection-role behavior, evaluate policies including writes, and design or run authorized isolated access checks.
-- Trace the actual runtime role and ownership/bypass privileges; inspect read and write predicates with positive and cross-tenant negative cases.
-
+1. Inspect grants and execution identities, trace connection-role behavior, evaluate policies including writes, and design or run authorized isolated access checks.
+2. Trace the actual runtime role and ownership/bypass privileges; inspect read and write predicates with positive and cross-tenant negative cases.
 ## Technical method
 
 - **Inspect:** Read actual connection roles, grants, RLS read/write predicates, owner/bypass privileges and tenant context setup/reset.
-- **Apply:** Test using the application role and transaction/pool lifecycle; distinguish row visibility from INSERT/UPDATE policy enforcement.
+- **Method:** Test using the application role and transaction/pool lifecycle; distinguish row visibility from INSERT/UPDATE policy enforcement.
 - **Avoid misdiagnosis:** Table owners or bypass roles can make policy tests pass incorrectly; pooled session tenant state can leak into the next request.
 - **Check the result:** Alternate tenants on reused connections and test select/insert/update/delete plus indirect views/functions under the intended role.
 
 ## Read when relevant
 
+- When a concrete decision or deliverable example would clarify this workflow: [Databases worked example](../../references/examples/database.md).
 - Identity, ownership, tenant isolation, replay or privilege changes affect the task: [Identity and authorization](../../references/security/identity.md).
 - The task depends on framework defaults, middleware, RLS, server/client or deployment behavior: [Framework-specific review branches](../../references/security/frameworks.md).
 

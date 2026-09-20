@@ -19,28 +19,32 @@ Use the complete request appended to this invocation, preserving all constraints
 
 exact team/project/environment and deployment/revision when applicable; read access to relevant configuration/logs. Verify installed CLI/API support and framework behavior during implementation. Never print environment values or infer promotion authorization from a preview request.
 
+- **Infer from evidence:** Read the linked project, team, framework, environment and deployment SHA from local config and supplied deployment evidence.
+- **Reasonable default:** Diagnose locally with existing build scripts when deployment access is missing; do not infer a production target from a preview URL.
+- **Ask only when needed:** Resolve a missing deployment/team/environment before the dependent remote operation; names and scope suffice without exposing environment values.
+
 Declared evidence requirements: `vercel.context`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Framework detection, root/build/output settings, runtime assumptions, and deployment configuration.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Compare repository scripts/configuration with project settings, inspect recent deployment metadata, and identify drift or unsupported assumptions.
-- Record team/project/revision and compare root directory, build/install command, output directory, framework preset and runtime against the relevant package.
-
+1. Compare repository scripts/configuration with project settings, inspect recent deployment metadata, and identify drift or unsupported assumptions.
+2. Record team/project/revision and compare root directory, build/install command, output directory, framework preset and runtime against the relevant package.
 ## Technical method
 
 - **Inspect:** Read team/project identity, root directory, framework preset, package manager, build/output settings and deployment SHA.
-- **Apply:** Compare each setting to the workspace actually owning the app; distinguish monorepo install root from build root.
+- **Method:** Compare each setting to the workspace actually owning the app; distinguish monorepo install root from build root.
 - **Avoid misdiagnosis:** Relinking to inspect settings mutates project state; local hoisting can conceal undeclared dependencies.
 - **Check the result:** Produce an evidence-backed mismatch list and mark unavailable remote settings unknown instead of assuming local config is authoritative.
 
 ## Read when relevant
 
+- When a concrete decision or deliverable example would clarify this workflow: [Vercel worked example](../../references/examples/vercel.md).
 - The task depends on framework defaults, middleware, RLS, server/client or deployment behavior: [Framework-specific review branches](../../references/security/frameworks.md).
 
 ## Decision branches

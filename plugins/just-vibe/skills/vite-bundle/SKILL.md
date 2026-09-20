@@ -17,7 +17,11 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; saved build stats/artifacts and size/performance goal; generating a build selects authorized execution.
 
-project manifests, lockfile, Vite/framework/plugin versions, and existing build scripts. Verify current version-specific documentation when changing configuration. Apply-mode checks may generate build/cache artifacts; inspect mode uses existing evidence.
+project manifests, lockfile, Vite/framework/plugin versions, and existing build scripts. Verify current version-specific documentation when changing configuration. Requested isolated verification may generate disposable build/cache artifacts; inspect their scripts first and preserve product files.
+
+- **Infer from evidence:** Read manifests, lockfile, installed Vite/plugins, entry points, aliases, modes and current build scripts.
+- **Reasonable default:** Preserve existing tooling and base-path conventions; make a local focused change when the brief identifies the behavior.
+- **Ask only when needed:** Ask if the intended serving subpath or deployment target cannot be inferred and would change generated URLs; do not ask for versions present in the lockfile.
 
 Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
@@ -25,21 +29,25 @@ Declared evidence requirements: `project.read`. Use actual host discovery or ade
 
 Bundle composition and measured reductions, not arbitrary dependency removal.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Record the installed versions, command, mode, route and baseline artifact. Separate raw output, compressed size and actual transferred bytes; compare equivalent build and cache conditions.
-- Trace a large or duplicate module to imports and the user journey that loads it. Distinguish startup cost from total application cost and verify whether an existing lazy boundary is defeated by an eager import.
-- Choose a focused change based on the observed cost. Splitting a module can add a waterfall or alter side-effect order; avoid generic manual-chunk rules or removing dependencies solely because they are large.
-- Build and exercise affected entry/lazy routes, direct navigation and failure recovery. Report comparable before/after measurements plus functional checks; a smaller output file alone does not prove faster interaction.
-
+1. Record the installed versions, command, mode, route and baseline artifact. Separate raw output, compressed size and actual transferred bytes; compare equivalent build and cache conditions.
+2. Trace a large or duplicate module to imports and the user journey that loads it. Distinguish startup cost from total application cost and verify whether an existing lazy boundary is defeated by an eager import.
+3. Choose a focused change based on the observed cost. Splitting a module can add a waterfall or alter side-effect order; avoid generic manual-chunk rules or removing dependencies solely because they are large.
+4. Build and exercise affected entry/lazy routes, direct navigation and failure recovery. Report comparable before/after measurements plus functional checks; a smaller output file alone does not prove faster interaction.
 ## Technical method
 
 - **Inspect:** Read production stats or source maps, entry imports and real route loading with identical build conditions.
-- **Apply:** Attribute large modules to reachable imports and compare raw, compressed and transferred sizes separately.
+- **Method:** Attribute large modules to reachable imports and compare raw, compressed and transferred sizes separately.
 - **Avoid misdiagnosis:** Removing a named import or counting source file sizes does not prove tree-shaking or network improvement.
 - **Check the result:** Rebuild and exercise representative routes; record comparable bytes and loading behavior, including any new lazy-load waterfall.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [Vite worked example](../../references/examples/vite.md).
+
 
 ## Decision branches
 

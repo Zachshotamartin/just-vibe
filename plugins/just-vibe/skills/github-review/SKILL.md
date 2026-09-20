@@ -19,29 +19,33 @@ Use the complete request appended to this invocation, preserving all constraints
 
 exact owner/repository and relevant issue/PR/ref; authenticated read access through an available connector or CLI for remote evidence. External writes require the requested operation, appropriate account permissions, and rechecking target state. Local preparation remains useful without write access.
 
+- **Infer from evidence:** Resolve owner/repository and PR/issue/ref from links, remotes and supplied artifacts; inspect available account and head identity.
+- **Reasonable default:** Prepare local text or analyze supplied evidence if remote access is absent; label its freshness.
+- **Ask only when needed:** Ask only when repository/account/target ambiguity blocks the requested remote action; missing write access does not block local drafting.
+
 Declared evidence requirements: `github.context`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Code review informed by discussion and checks; no automatic review submission.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Fetch the correct diff, read surrounding code and relevant discussion, verify findings against the current head, and distinguish blockers from optional observations.
-- Record head/base SHA, inspect changed and surrounding source, map each finding to a current diff location and revalidate head before requested posting.
-- All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
-
+1. Fetch the correct diff, read surrounding code and relevant discussion, verify findings against the current head, and distinguish blockers from optional observations.
+2. Record head/base SHA, inspect changed and surrounding source, map each finding to a current diff location and revalidate head before requested posting.
+3. All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
 ## Technical method
 
 - **Inspect:** Obtain the exact PR head diff, full changed files, callers, checks and relevant prior discussion.
-- **Apply:** Apply the review selection guide to changed boundaries; require a concrete trigger, reachable bad outcome and verified absence of an upstream guard.
+- **Method:** Apply the review selection guide to changed boundaries; require a concrete trigger, reachable bad outcome and verified absence of an upstream guard.
 - **Avoid misdiagnosis:** Fixed line numbers or findings from an older head can become wrong after force-push; unchanged critical risks need explicit attribution.
 - **Check the result:** Reconfirm head and diff location before any authorized posting; report severity from impact and confidence separately.
 
 ## Read when relevant
 
+- When a concrete decision or deliverable example would clarify this workflow: [GitHub worked example](../../references/examples/github.md).
 - Reviewing code or security boundaries: select and read the matching technical branches before concluding: [Review selection and evidence](../../references/security/review.md).
 - Language/runtime semantics, concurrency or resource ownership can change the result: [Language and runtime review methods](../../references/scenarios/language-review.md).
 

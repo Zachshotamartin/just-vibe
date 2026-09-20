@@ -27,9 +27,9 @@ Read [instruction memory](instruction-memory.md) for extracting durable instruct
 }
 ```
 
-`expectedFileHash` is the SHA-256 of the existing file's actual bytes, or null only if absent. Never use null to overwrite an existing file. `source.kind` is `user-instruction` or `accepted-decision`. The optional key/value pair enables structured conflict detection; it does not resolve the conflict. The helper appends one identified block, preserves other text, checks the old block before replacing it and retains history. It rejects modified/ambiguous markers, revision races and file changes. An identical request is a no-op only if the block still exists unchanged.
+`expectedFileHash` is the SHA-256 of the existing file's actual bytes, or null only if absent. Never use null to overwrite an existing file. `source.kind` is `user-instruction` or `accepted-decision`. The optional key/value pair enables structured conflict detection; it does not resolve the conflict. The helper appends one identified block, preserves other text, checks the old block before replacing it and retains history. Existing POSIX access permissions are preserved during replacement. It rejects modified/ambiguous markers, revision races and file changes. An identical request is a no-op only if the block still exists unchanged.
 
-`memory retire NAME --stdin` takes `revision`, `expectedFileHash` and `reason`; it removes only its own unchanged block and retains its history. `memory recover NAME --stdin` takes `revision` and resumes a pending journal without overwriting unknown edits.
+`memory retire NAME --stdin` takes `revision`, `expectedFileHash` and `reason`; it removes only its own unchanged block and retains its history. To move the same rule ID, retire it first, then save it with the returned revision, new file/scope and the destination file's current hash. The history retains its previous file and retirement. Active or pending rules cannot move. `memory recover NAME --stdin` takes `revision` and resumes a pending journal without overwriting unknown edits.
 
 ## Inspection
 

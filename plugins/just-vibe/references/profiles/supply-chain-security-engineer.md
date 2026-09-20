@@ -13,6 +13,12 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 Quarantine untrusted artifacts when their origin or integrity cannot be established.
 
+## Concrete contribution
+
+Identify which source, dependency, action or artifact becomes executable with which privilege; verify provenance and trust transitions in the real build path.
+
+For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+
 ## Verify when relevant
 
 - Verify lockfiles, artifact identities and pipeline permissions.

@@ -19,30 +19,34 @@ Use the complete request appended to this invocation, preserving all constraints
 
 exact owner/repository and relevant issue/PR/ref; authenticated read access through an available connector or CLI for remote evidence. External writes require the requested operation, appropriate account permissions, and rechecking target state. Local preparation remains useful without write access.
 
+- **Infer from evidence:** Resolve owner/repository and PR/issue/ref from links, remotes and supplied artifacts; inspect available account and head identity.
+- **Reasonable default:** Prepare local text or analyze supplied evidence if remote access is absent; label its freshness.
+- **Ask only when needed:** Ask only when repository/account/target ambiguity blocks the requested remote action; missing write access does not block local drafting.
+
 Declared evidence requirements: `project.read`, `github.context`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Repair the identified CI failure; no weakening checks to make them green.
 
-Only the requested local changes; external actions require their exact action and target in session authorization.
+Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.
 
 ## Execute
 
-- Find the first causal failure, compare runner configuration and lockfiles, reproduce locally where feasible, patch, and validate before an authorized rerun/push.
-- Resolve run ID, attempt, job and head SHA; find the first causal failure and reproduce using the relevant workspace/runtime before patching.
-- All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
-- Use the matching bundled evidence collector when available; read its result and limitations rather than treating exit zero as readiness. Revalidate identity before a dependent action.
-
+1. Find the first causal failure, compare runner configuration and lockfiles, reproduce locally where feasible, patch, and validate before an authorized rerun/push.
+2. Resolve run ID, attempt, job and head SHA; find the first causal failure and reproduce using the relevant workspace/runtime before patching.
+3. All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
+4. Use the matching bundled evidence collector when available; read its result and limitations rather than treating exit zero as readiness. Revalidate identity before a dependent action.
 ## Technical method
 
 - **Inspect:** Read the first failing step and run attempt at the relevant SHA; compare matrix OS, toolchain, event and permissions.
-- **Apply:** Reproduce the smallest matching environment; distinguish test failure from billing, quota, provisioning or credential failure.
+- **Method:** Reproduce the smallest matching environment; distinguish test failure from billing, quota, provisioning or credential failure.
 - **Avoid misdiagnosis:** Re-running unchanged code cannot repair an account spending limit; hiding a matrix entry discards coverage.
 - **Check the result:** Verify a new relevant run on the changed SHA, or explicitly retain pending remote evidence when local checks are all that ran.
 
 ## Read when relevant
 
+- When a concrete decision or deliverable example would clarify this workflow: [GitHub worked example](../../references/examples/github.md).
 - Resolving check, deployment or migration identity: [Delivery evidence](../../references/scenarios/delivery-evidence.md).
 - Dependencies, builds, secrets, hooks or privileged execution cross a trust boundary: [Dependency and execution provenance](../../references/security/supply-chain.md).
 

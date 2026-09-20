@@ -19,28 +19,32 @@ Use the complete request appended to this invocation, preserving all constraints
 
 interface definitions, producer/consumer source, authentication model, versioning constraints, and isolated test endpoints. External API calls must respect environment, credentials, rate limits, and side-effect scope.
 
+- **Infer from evidence:** Read producer/consumer schemas, error contracts, auth conventions and known supported client versions.
+- **Reasonable default:** Keep compatible response and pagination semantics where the brief does not request a breaking change.
+- **Ask only when needed:** Ask when contract sources disagree or an unknown consumer changes compatibility; do not require live credentials to write or test an isolated client.
+
 Resolve any task-specific tools, target identity and evidence before dependent actions. No external connection is assumed.
 
 ## Scope
 
 Endpoint/interface shape, validation, response/error contracts, and evolution.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Inspect domain conventions and existing APIs, define consistent resources and operations, specify normal/error behavior, and check consumer usability and migration needs.
-- Define resource identity, method semantics, validation, authorization, errors and versioning from actual consumer journeys; include one success and failure exchange.
-
+1. Inspect domain conventions and existing APIs, define consistent resources and operations, specify normal/error behavior, and check consumer usability and migration needs.
+2. Define resource identity, method semantics, validation, authorization, errors and versioning from actual consumer journeys; include one success and failure exchange.
 ## Technical method
 
 - **Inspect:** Read consumer needs, resource ownership, identity, transport constraints and current serializer behavior.
-- **Apply:** Specify valid/error exchanges, missing versus null, units, limits, idempotency and authorization before editing handlers.
+- **Method:** Specify valid/error exchanges, missing versus null, units, limits, idempotency and authorization before editing handlers.
 - **Avoid misdiagnosis:** Consistent JSON shape alone does not establish consistent business meaning or access control.
 - **Check the result:** Exercise representative valid, invalid, unauthorized and dependency-failure requests against the actual handler boundary.
 
 ## Read when relevant
 
+- When a concrete decision or deliverable example would clarify this workflow: [APIs worked example](../../references/examples/api.md).
 - Identity, ownership, tenant isolation, replay or privilege changes affect the task: [Identity and authorization](../../references/security/identity.md).
 
 ## Decision branches

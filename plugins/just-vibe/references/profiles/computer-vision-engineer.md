@@ -13,6 +13,12 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 Preserve geometry-sensitive transforms and labels together during augmentation.
 
+## Concrete contribution
+
+Trace image acquisition, annotation and augmentation through evaluation; inspect geometric, lighting and device shifts that can invalidate aggregate metrics.
+
+For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+
 ## Verify when relevant
 
 - Check annotation alignment and prediction overlays.

@@ -17,6 +17,7 @@ import {
   same,
   changed,
   fromBytes,
+  inheritMode,
   readRecord,
   saveRecord,
   expectRevision,
@@ -286,6 +287,8 @@ export async function stopPreview(root, preview) {
   throw Error("Preview has not stopped; retry status before cleanup.");
 }
 function cleanupCoverage(path, head) {
+  if (git(path, ["diff", "--cached", "--name-only", "-z", head, "--"]))
+    throw Error("Workspace contains staged changes; preserve them before cleanup.");
   const excluded = git(path, [
     "ls-files",
     "--others",
@@ -325,19 +328,23 @@ function cleanupCoverage(path, head) {
 export async function cleanupWorkspaces(root, record, expected) {
   if (!expected || typeof expected !== "object" || Array.isArray(expected))
     throw Error(
-      "Provide expected snapshot content hashes from status for every existing workspace.",
+      "Provide full expected snapshots from status for every existing workspace; content hashes alone are not sufficient.",
     );
   const states = workspaceStatus(root, record);
   for (const s of states.filter((s) => s.exists))
-    if (expected[s.id] !== s.snapshot.content || s.snapshot.partial)
-      throw Error(`Workspace changed or incomplete coverage: ${s.id}`);
+    if (compareSnapshot(expected[s.id], s.snapshot).stale)
+      throw Error(`Workspace changed or incomplete coverage: ${s.id}. Supply its full snapshot from a fresh status review.`);
+  // Check every workspace before deleting any, so a staged/ignored edit in a
+  // later variant does not leave an avoidable partially completed cleanup.
+  for (const s of states.filter((s) => s.exists))
+    cleanupCoverage(assertWorkspace(root, record, s), record.base.repo.head);
   for (const v of record.variants)
     if (v.preview) await stopPreview(root, v.preview);
   for (const s of states.filter((s) => s.exists)) {
-    const path = assertWorkspace(root, record, s),
-      current = fingerprint(path);
+    const path = assertWorkspace(root, record, s);
     cleanupCoverage(path, record.base.repo.head);
-    if (current.content !== expected[s.id] || current.partial)
+    const current = fingerprint(path);
+    if (compareSnapshot(expected[s.id], current).stale)
       throw Error("Workspace changed during cleanup.");
     git(root, ["worktree", "remove", "--force", path]);
   }
@@ -533,9 +540,12 @@ export async function labs(root, op, id, input = {}) {
           candidates.map((p) => [p, initialFile(root, r, p)]),
         ),
         paths = changed(candidateBefore, candidateAfter),
-        before = Object.fromEntries(paths.map((p) => [p, candidateBefore[p]])),
-        after = Object.fromEntries(paths.map((p) => [p, candidateAfter[p]]));
-      if (changed(before, fileSet(root, paths)).length)
+        before = fileSet(root, paths),
+        after = Object.fromEntries(
+          paths.map((p) => [p, inheritMode(candidateAfter[p], before[p])]),
+        );
+      const initial = Object.fromEntries(paths.map((p) => [p, candidateBefore[p]]));
+      if (changed(initial, before).length)
         throw Error(
           "Original files overlap the variant; reconcile before applying.",
         );

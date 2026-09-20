@@ -19,25 +19,33 @@ Use the complete request appended to this invocation, preserving all constraints
 
 data source/version, schema/semantics, transformation code, permitted sampling scope, and storage/compute budget. Prefer aggregates and redacted samples; never upload datasets to external services implicitly. Record time zones and snapshot identity for reproducibility.
 
+- **Infer from evidence:** Inspect schema, source snapshot, transformation code, grain, time zones and permitted sample scope.
+- **Reasonable default:** Use bounded synthetic or supplied samples when full data is unavailable; keep unknown values distinct from zero.
+- **Ask only when needed:** Resolve ambiguous entity/grain/time semantics before reconciliation or backfill; obtain missing data/compute limits only for the dependent scan or execution.
+
 Declared evidence requirements: `data.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Missing, duplicated, changed, or aggregated discrepancies; no automatic repair.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Align snapshots/time windows, compare counts and keyed values, normalize only documented transformations, sample discrepancies safely, and explain likely causes.
-- Align snapshot/window and key grain, compare membership before values and normalize only explicitly documented transformations.
-
+1. Align snapshots/time windows, compare counts and keyed values, normalize only documented transformations, sample discrepancies safely, and explain likely causes.
+2. Align snapshot/window and key grain, compare membership before values and normalize only explicitly documented transformations.
 ## Technical method
 
 - **Inspect:** Align source/destination snapshots, key grain, time window, lag, normalization and delete semantics.
-- **Apply:** Compare key membership then per-field values with explicit tolerances; isolate legitimate lag from corruption.
+- **Method:** Compare key membership then per-field values with explicit tolerances; isolate legitimate lag from corruption.
 - **Avoid misdiagnosis:** Equal counts or totals can hide missing and duplicated rows that cancel out.
 - **Check the result:** Use a fixture with equal totals but different membership and verify the report locates discrepancies without exposing sensitive values.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [Data engineering worked example](../../references/examples/data.md).
+
 
 ## Decision branches
 

@@ -19,25 +19,33 @@ Use the complete request appended to this invocation, preserving all constraints
 
 task definition, model/provider configuration, representative permitted data, versioned prompts/corpus where relevant, and explicit token/cost/latency limits for remote calls. Use current provider interfaces during implementation. Retrieved content and model-generated tool arguments remain untrusted.
 
+- **Infer from evidence:** Read current prompt/tool schemas, retrieval boundaries, installed SDK/provider config and permitted examples without reading secret values.
+- **Reasonable default:** Use mocked calls for local contract tests when remote access is absent; do not infer model quality from mocks.
+- **Ask only when needed:** Ask for budget and permitted data/provider before a paid or external run if not already set; local prompt/tool implementation can proceed.
+
 Resolve any task-specific tools, target identity and evidence before dependent actions. No external connection is assumed.
 
 ## Scope
 
 Defensive tests for hostile instructions in retrieved documents, logs, messages, and tool output.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Map data-to-authority boundaries, create benign canary scenarios, run authorized isolated tests, inspect tool actions as well as text, and propose enforceable mitigations.
-- Map untrusted documents and tool results into model context, plant benign canaries and inspect tool actions as well as generated text.
-
+1. Map data-to-authority boundaries, create benign canary scenarios, run authorized isolated tests, inspect tool actions as well as text, and propose enforceable mitigations.
+2. Map untrusted documents and tool results into model context, plant benign canaries and inspect tool actions as well as generated text.
 ## Technical method
 
 - **Inspect:** Identify untrusted surfaces, sensitive capabilities, instruction boundaries and observable tool-call logs.
-- **Apply:** Use synthetic canaries and harmless target changes to test direct/indirect injection; enforce trust and permission boundaries outside generated text.
+- **Method:** Use synthetic canaries and harmless target changes to test direct/indirect injection; enforce trust and permission boundaries outside generated text.
 - **Avoid misdiagnosis:** A refusal in the final response does not prove no unsafe tool call occurred; keyword blocking is not a general defense.
 - **Check the result:** Inspect attempted calls, retrieved context and output for canary exposure; include benign quoted instructions as a false-positive control.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [LLMs and retrieval worked example](../../references/examples/llm.md).
+
 
 ## Decision branches
 

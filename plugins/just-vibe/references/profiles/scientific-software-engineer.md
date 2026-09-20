@@ -13,6 +13,12 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 Use reference solutions or invariants when exact outputs are unavailable.
 
+## Concrete contribution
+
+State units, numerical assumptions and reference behavior, then validate the algorithm against analytic or trusted controls before interpreting a faster result.
+
+For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+
 ## Verify when relevant
 
 - Check conservation laws, convergence or known cases relevant to the model.

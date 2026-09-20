@@ -15,7 +15,7 @@ export function validateProfiles(data, commands = loadCatalog()) {
   for (const p of data.profiles) {
     if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(p.id) || ids.has(p.id) || !families.has(p.family)) throw new Error(`Invalid profile identity: ${p.id}`);
     ids.add(p.id);
-    for (const field of ['name', 'summary', 'decision', 'boundary', 'example']) if (!text(p[field])) throw new Error(`Missing profile ${field}: ${p.id}`);
+    for (const field of ['name', 'summary', 'decision', 'boundary', 'example', 'contribution']) if (!text(p[field])) throw new Error(`Missing profile ${field}: ${p.id}`);
     for (const field of ['priorities', 'verification', 'workflows']) if (!list(p[field])) throw new Error(`Invalid profile ${field}: ${p.id}`);
     if (new Set(p.workflows).size !== p.workflows.length || p.workflows.some(id => !commands.commands.some(c => c.id === id && !c.aliasOf))) throw new Error(`Unknown or duplicate canonical workflow in profile: ${p.id}`);
   }

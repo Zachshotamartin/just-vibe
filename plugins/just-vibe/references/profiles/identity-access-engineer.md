@@ -13,6 +13,12 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 Use explicit resource checks when role membership alone is insufficient.
 
+## Concrete contribution
+
+Model principal, session, tenant and resource ownership separately; test privilege changes, stale sessions and cross-tenant access against the effective policy.
+
+For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+
 ## Verify when relevant
 
 - Test privilege changes, revocation and cross-tenant access.

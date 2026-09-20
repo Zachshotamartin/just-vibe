@@ -19,28 +19,32 @@ Use the complete request appended to this invocation, preserving all constraints
 
 component source, React/framework versions, state/data conventions, and relevant test tooling. Browser/profiler evidence is needed for measured rendering claims. Preserve existing framework and state libraries unless changing them is part of the request.
 
+- **Infer from evidence:** Read component callers, ownership of state, installed React/framework versions and existing interaction tests.
+- **Reasonable default:** Retain the framework and state library; preserve intended loading/error/empty behavior while resolving the named bug.
+- **Ask only when needed:** Ask when product semantics such as persistence, optimistic failure or reset behavior have conflicting evidence; missing profiler access only blocks measured performance claims.
+
 Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Reusable component plus necessary integration/example; no unrelated design-system replacement.
 
-Only the requested local changes; external actions require their exact action and target in session authorization.
+Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.
 
 ## Execute
 
-- Inspect existing primitives and the consumer contract. Choose state ownership, semantics and interaction behavior before implementing the narrow component API.
-- Select only the relevant scenario guide for dialogs, comboboxes or date inputs; implement normal and recovery states, then verify real interactions and parent-controlled updates.
-
+1. Inspect existing primitives and the consumer contract. Choose state ownership, semantics and interaction behavior before implementing the narrow component API.
+2. Select only the relevant scenario guide for dialogs, comboboxes or date inputs; implement normal and recovery states, then verify real interactions and parent-controlled updates.
 ## Technical method
 
 - **Inspect:** Read the semantic interaction contract, controlled/uncontrolled API, state variants and existing component primitive.
-- **Apply:** Use the relevant dialog, combobox or date scenario; prefer a native control or proven primitive when it meets requirements.
+- **Method:** Use the relevant dialog, combobox or date scenario; prefer a native control or proven primitive when it meets requirements.
 - **Avoid misdiagnosis:** ARIA labels alone do not implement keyboard behavior, focus management or controlled value semantics.
 - **Check the result:** Exercise keyboard, pointer, disabled/invalid states and two instances; verify focus return and announced errors where applicable.
 
 ## Read when relevant
 
+- When a concrete decision or deliverable example would clarify this workflow: [React worked example](../../references/examples/react.md).
 - Implementing a dialog or modal overlay: [dialog interaction](../../references/scenarios/dialog.md).
 - Implementing selection or autocomplete: [combobox interaction](../../references/scenarios/combobox.md).
 - Implementing a date or range input: [date-picker interaction](../../references/scenarios/date-picker.md).

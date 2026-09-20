@@ -15,9 +15,13 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 ## Input and mode
 
-Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan; candidate/stable models, target service, evaluation evidence, traffic constraints, and rollback thresholds.
+Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan rollout; apply for requested rollout configuration or an explicitly requested promotion.
 
 versioned model and preprocessing artifacts, input/output schema, runtime/dependencies, operating targets, and authorized environment. Validate artifact trust before loading formats that can execute code. Packaging or writing monitoring configuration does not deploy a model or enable a hosted service.
+
+- **Infer from evidence:** Read artifact format/trust, preprocessing schema, serving runtime, compatibility and existing rollout controls.
+- **Reasonable default:** Prepare packaging/configuration and isolated checks without treating them as a live deployment.
+- **Ask only when needed:** Resolve the target, rollback compatibility and operating limits before rollout or load generation; missing production access does not block packaging.
 
 Resolve any task-specific tools, target identity and evidence before dependent actions. No external connection is assumed.
 
@@ -25,23 +29,28 @@ Resolve any task-specific tools, target identity and evidence before dependent a
 
 Shadow/canary/staged rollout and recovery; execution only on explicitly authorized targets.
 
-None by default. Plan artifacts may be saved when requested.
+Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the requested changes or execute the requested operation within its resolved target and limits. Local preparation does not authorize live, remote, destructive or paid actions; existing explicit session authorization still applies.
 
 ## Execute
 
-- Check package/schema compatibility, define cohort routing and comparison metrics, preserve fallback artifacts, prepare staged gates, and verify authorized transitions against evidence.
-- Check feature/schema/artifact compatibility, define shadow/canary routing and predeclared stop criteria, and preserve a usable fallback plus traffic-switch mechanism.
-
+1. Check package/schema compatibility, define cohort routing and comparison metrics, preserve fallback artifacts, prepare staged gates, and verify authorized transitions against evidence.
+2. Check feature/schema/artifact compatibility, define shadow/canary routing and predeclared stop criteria, and preserve a usable fallback plus traffic-switch mechanism.
 ## Technical method
 
 - **Inspect:** Resolve candidate/baseline models, compatibility, routing identity, shadow side effects and rollback conditions.
-- **Apply:** Compare shadow or canary traffic under a stable assignment policy; define operational stops and enough label maturity for quality claims.
+- **Method:** Compare shadow or canary traffic under a stable assignment policy; define operational stops and enough label maturity for quality claims.
 - **Avoid misdiagnosis:** Shadow requests must not duplicate real effects; early unlabeled traffic only establishes operational behavior.
 - **Check the result:** Exercise rollback with in-flight requests, verify model attribution and keep operational acceptance separate from delayed quality acceptance.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [ML deployment worked example](../../references/examples/ml-deployment.md).
+
 
 ## Decision branches
 
 - **When fallback cannot consume the new schema or features:** Resolve that compatibility before describing rollback as available.
+- **When the request is for local preparation or implementation:** Prepare gates, shadow/canary configuration and recovery checks locally; require target identity and current evidence before promotion.
 
 ## Deliver and verify
 

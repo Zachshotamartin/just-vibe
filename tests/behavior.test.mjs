@@ -17,6 +17,8 @@ test('fixture preparation excludes evaluator answers and refuses reuse of prior 
   const manifest=JSON.parse(readFileSync(join(out,'run.json'),'utf8'));
   assert.ok(Object.keys(manifest.inputs).every(p=>!p.includes('oracles')&&!p.includes('grade.json')));
   assert.ok(manifest.instructions.every(p=>p.startsWith('_instructions/just-vibe/skills/')));
+  assert.ok('_instructions/just-vibe/references/security/review.md' in manifest.inputs);
+  assert.ok('_instructions/just-vibe/references/examples/general.md' in manifest.inputs);
   assert.throws(()=>prepare({id:fixture.id,out}),/fresh output/);
   assert.ok(readFileSync(run.prompt,'utf8').includes('Do not inspect'));
  }

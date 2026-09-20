@@ -19,25 +19,33 @@ Use the complete request appended to this invocation, preserving all constraints
 
 the decision question, constraints, alternatives or permission to identify them, and relevant project evidence. Current vendor claims and prices require current authoritative sources during execution. Scores are decision aids, not facts.
 
+- **Infer from evidence:** Recover hard constraints, the current option, adoption status and stated priorities from the brief and prior decisions.
+- **Reasonable default:** Compare feasible options qualitatively when weights were not supplied; make a reversible conditional recommendation when useful.
+- **Ask only when needed:** Ask only about a missing constraint or preference that could reverse the recommendation; do not demand a complete scoring questionnaire.
+
 Resolve any task-specific tools, target identity and evidence before dependent actions. No external connection is assumed.
 
 ## Scope
 
 Record one architectural decision with status and consequences; no new approval or implementation.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Inspect existing ADR conventions, separate actual agreement from recommendation, capture rationale and tradeoffs, and link superseded decisions.
-- Follow existing numbering/status conventions; include context, alternatives, consequences and links to superseded records without rewriting history.
-
+1. Inspect existing ADR conventions, separate actual agreement from recommendation, capture rationale and tradeoffs, and link superseded decisions.
+2. Follow existing numbering/status conventions; include context, alternatives, consequences and links to superseded records without rewriting history.
 ## Technical method
 
 - **Inspect:** Read the decision context, proposal history, acceptance evidence and affected contracts.
-- **Apply:** Record status, alternatives, consequences, rejected reasons and a concrete revisit trigger without rewriting prior rationale.
+- **Method:** Record status, alternatives, consequences, rejected reasons and a concrete revisit trigger without rewriting prior rationale.
 - **Avoid misdiagnosis:** An agent recommendation is not an adopted organizational decision.
 - **Check the result:** Link each claimed constraint to evidence and distinguish proposed, accepted and superseded records.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [Decisions worked example](../../references/examples/decisions.md).
+
 
 ## Decision branches
 

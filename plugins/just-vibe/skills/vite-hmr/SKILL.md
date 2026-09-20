@@ -17,7 +17,11 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; affected file/component, development environment, and HMR logs or reproduction.
 
-project manifests, lockfile, Vite/framework/plugin versions, and existing build scripts. Verify current version-specific documentation when changing configuration. Apply-mode checks may generate build/cache artifacts; inspect mode uses existing evidence.
+project manifests, lockfile, Vite/framework/plugin versions, and existing build scripts. Verify current version-specific documentation when changing configuration. Requested isolated verification may generate disposable build/cache artifacts; inspect their scripts first and preserve product files.
+
+- **Infer from evidence:** Read manifests, lockfile, installed Vite/plugins, entry points, aliases, modes and current build scripts.
+- **Reasonable default:** Preserve existing tooling and base-path conventions; make a local focused change when the brief identifies the behavior.
+- **Ask only when needed:** Ask if the intended serving subpath or deployment target cannot be inferred and would change generated URLs; do not ask for versions present in the lockfile.
 
 Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
@@ -25,19 +29,23 @@ Declared evidence requirements: `project.read`. Use actual host discovery or ade
 
 Watcher events, module invalidation, framework refresh, and proxy/network transport.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Trace file change to browser update, inspect plugin boundaries and duplicate modules, distinguish full reload from hot replacement, and localize the failure.
-- Follow file watcher to module graph to HMR connection and framework boundary; distinguish transport loss from invalidation and deliberate full reload.
-
+1. Trace file change to browser update, inspect plugin boundaries and duplicate modules, distinguish full reload from hot replacement, and localize the failure.
+2. Follow file watcher to module graph to HMR connection and framework boundary; distinguish transport loss from invalidation and deliberate full reload.
 ## Technical method
 
 - **Inspect:** Observe filesystem watcher, module invalidation, websocket transport and framework refresh boundary.
-- **Apply:** Identify the first missing event and repair that layer; inspect proxy and container paths before changing host restrictions.
+- **Method:** Identify the first missing event and repair that layer; inspect proxy and container paths before changing host restrictions.
 - **Avoid misdiagnosis:** Full page reload and preserved hot state are different outcomes; disabling host checks is not a generic websocket repair.
 - **Check the result:** Edit a leaf and a shared dependency, verify the expected refresh behavior, and check reconnection after an ordinary dev restart.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [Vite worked example](../../references/examples/vite.md).
+
 
 ## Decision branches
 

@@ -19,28 +19,32 @@ Use the complete request appended to this invocation, preserving all constraints
 
 interface definitions, producer/consumer source, authentication model, versioning constraints, and isolated test endpoints. External API calls must respect environment, credentials, rate limits, and side-effect scope.
 
+- **Infer from evidence:** Read producer/consumer schemas, error contracts, auth conventions and known supported client versions.
+- **Reasonable default:** Keep compatible response and pagination semantics where the brief does not request a breaking change.
+- **Ask only when needed:** Ask when contract sources disagree or an unknown consumer changes compatibility; do not require live credentials to write or test an isolated client.
+
 Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Verification, delivery/retry, replay handling, event ordering, and tracking for the specified integration.
 
-Only the requested local changes; external actions require their exact action and target in session authorization.
+Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.
 
 ## Execute
 
-- Validate signatures against correct raw bytes, separate receipt from processing, implement durable deduplication, and test invalid, duplicate, delayed, and reordered messages.
-- Verify signatures using provider-specified raw bytes and time rules, persist receipt identity before acknowledgment and separate deduplication from business processing.
-
+1. Validate signatures against correct raw bytes, separate receipt from processing, implement durable deduplication, and test invalid, duplicate, delayed, and reordered messages.
+2. Verify signatures using provider-specified raw bytes and time rules, persist receipt identity before acknowledgment and separate deduplication from business processing.
 ## Technical method
 
 - **Inspect:** Read the provider's signature contract, raw-body handling, timestamp tolerance, event IDs and retry/order semantics.
-- **Apply:** Verify authentic bytes before side effects, durably deduplicate delivery and business effects, and handle out-of-order versions deliberately.
+- **Method:** Verify authentic bytes before side effects, durably deduplicate delivery and business effects, and handle out-of-order versions deliberately.
 - **Avoid misdiagnosis:** Re-serialized JSON changes signed bytes; a valid signature does not prevent replay or duplicate processing.
 - **Check the result:** Test altered body, invalid/stale signature, concurrent duplicate, reversed event order and a crash before acknowledgment with synthetic fixtures.
 
 ## Read when relevant
 
+- When a concrete decision or deliverable example would clarify this workflow: [APIs worked example](../../references/examples/api.md).
 - Identity, ownership, tenant isolation, replay or privilege changes affect the task: [Identity and authorization](../../references/security/identity.md).
 
 ## Decision branches

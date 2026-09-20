@@ -19,28 +19,32 @@ Use the complete request appended to this invocation, preserving all constraints
 
 service source, data/interface contracts, framework/runtime versions, and test environment. Default apply operations target local code and isolated tests; live infrastructure/data mutations require their own requested scope.
 
+- **Infer from evidence:** Trace service callers, request contracts, authorization, transactions, retries and existing test infrastructure.
+- **Reasonable default:** Use the existing persistence and framework; isolate local tests from live services.
+- **Ask only when needed:** Resolve ambiguous durability, duplication or consistency requirements before encoding them; absent production access does not prevent local implementation.
+
 Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 One service boundary and necessary integration; no unrelated service decomposition.
 
-Only the requested local changes; external actions require their exact action and target in session authorization.
+Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.
 
 ## Execute
 
-- Reuse domain conventions, validate inputs, separate transport from business rules, implement persistence/error handling, and test observable behavior.
-- Identify transaction ownership and domain invariants, keep transport parsing outside business decisions and make dependency failures observable to callers.
-
+1. Reuse domain conventions, validate inputs, separate transport from business rules, implement persistence/error handling, and test observable behavior.
+2. Identify transaction ownership and domain invariants, keep transport parsing outside business decisions and make dependency failures observable to callers.
 ## Technical method
 
 - **Inspect:** Trace transport parsing, validation, domain invariants, transaction ownership and downstream effects.
-- **Apply:** Keep business validation at the owning boundary; represent expected failures separately from infrastructure uncertainty.
+- **Method:** Keep business validation at the owning boundary; represent expected failures separately from infrastructure uncertainty.
 - **Avoid misdiagnosis:** Broad catch-and-success fallbacks can report an order created when its durable write failed.
 - **Check the result:** Exercise valid input, invalid input, authorization failure and a dependency failure after partial progress; verify persisted state as well as response.
 
 ## Read when relevant
 
+- When a concrete decision or deliverable example would clarify this workflow: [Backend worked example](../../references/examples/backend.md).
 - The task depends on framework defaults, middleware, RLS, server/client or deployment behavior: [Framework-specific review branches](../../references/security/frameworks.md).
 - Language/runtime semantics, concurrency or resource ownership can change the result: [Language and runtime review methods](../../references/scenarios/language-review.md).
 

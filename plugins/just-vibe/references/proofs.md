@@ -14,7 +14,7 @@ Declare all relevant source, test, fixture, script, configuration and lockfiles 
 
 ## Collect actual evidence
 
-`proof run NAME --stdin` takes `revision`, `criterion`, argv `command` and optional `timeoutMs` (1–120000). Inspect the command's effects and run a meaningful test of the criterion. A no-op that exits zero is not a behavioral test. The helper stores exit status, bounded output, time and file identities before/after. Source mutations mark the observation stale.
+`proof run NAME --stdin` takes `revision`, `criterion`, argv `command` and optional `timeoutMs` (1–120000). Inspect the command's effects and run a meaningful test of the criterion. A no-op that exits zero is not a behavioral test. The helper stores exit status, bounded output, time and file identities before/after. Source mutations mark the observation stale. Common credentials in structured fields, quoted JSON/log output and sensitive command flags are redacted before persistence without changing execution status. Avoid credentials in command arguments and inspect reports before sharing; redaction cannot identify every kind of private data.
 
 `proof collect NAME --stdin`:
 

@@ -19,28 +19,32 @@ Use the complete request appended to this invocation, preserving all constraints
 
 service source, data/interface contracts, framework/runtime versions, and test environment. Default apply operations target local code and isolated tests; live infrastructure/data mutations require their own requested scope.
 
+- **Infer from evidence:** Trace service callers, request contracts, authorization, transactions, retries and existing test infrastructure.
+- **Reasonable default:** Use the existing persistence and framework; isolate local tests from live services.
+- **Ask only when needed:** Resolve ambiguous durability, duplication or consistency requirements before encoding them; absent production access does not prevent local implementation.
+
 Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Authentication and session lifecycle; resource authorization is separately checked by `backend-permissions`.
 
-None by default. Plan artifacts may be saved when requested.
+Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the requested local implementation and perform relevant bounded checks while preserving unrelated work. Live data changes, remote actions and paid jobs require their resolved target and existing session authorization.
 
 ## Execute
 
-- Identify the provider, session owner, trust boundaries and the actual request: audit or implementation. Trace login, refresh, logout and recovery across browser and server.
-- Read only the matching cookie-session, OAuth callback, refresh-race or recovery scenario. Use the supported provider mechanism, implement the requested boundary and verify the relevant transitions.
-
+1. Identify the provider, session owner, trust boundaries and the actual request: audit or implementation. Trace login, refresh, logout and recovery across browser and server.
+2. Read only the matching cookie-session, OAuth callback, refresh-race or recovery scenario. Use the supported provider mechanism, implement the requested boundary and verify the relevant transitions.
 ## Technical method
 
 - **Inspect:** Resolve provider/version, session storage, cookie topology and token refresh/revocation semantics.
-- **Apply:** Load the matching authentication scenario and identity security guide; trace browser binding, token verification, rotation, recovery and account linking.
+- **Method:** Load the matching authentication scenario and identity security guide; trace browser binding, token verification, rotation, recovery and account linking.
 - **Avoid misdiagnosis:** Decoding a JWT is not signature/issuer/audience validation; accepting an access token as identity can cross protocol boundaries.
 - **Check the result:** Test invalid/expired credentials, wrong flow state, session fixation, concurrent refresh and logout followed by a late refresh result.
 
 ## Read when relevant
 
+- When a concrete decision or deliverable example would clarify this workflow: [Backend worked example](../../references/examples/backend.md).
 - Working on cookie sessions, callbacks, refresh or recovery: [Authentication scenarios](../../references/scenarios/auth.md).
 - Identity, ownership, tenant isolation, replay or privilege changes affect the task: [Identity and authorization](../../references/security/identity.md).
 - The task depends on framework defaults, middleware, RLS, server/client or deployment behavior: [Framework-specific review branches](../../references/security/frameworks.md).

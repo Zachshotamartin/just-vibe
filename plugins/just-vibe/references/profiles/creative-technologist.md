@@ -13,6 +13,12 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 Prototype the novel interaction in isolation before integrating it into the full experience.
 
+## Concrete contribution
+
+Prototype the smallest interaction that tests the visual idea while naming motion, input and reduced-motion constraints; keep experimental rendering isolated from core navigation.
+
+For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+
 ## Verify when relevant
 
 - Check input methods, reduced motion and fallback states.

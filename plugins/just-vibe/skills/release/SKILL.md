@@ -19,26 +19,34 @@ Use the complete request appended to this invocation, preserving all constraints
 
 Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
+- **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
+- **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
+- **Ask only when needed:** Ask when competing targets or incompatible success conditions would change the result; continue independent inspection first.
+
 Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Release notes and readiness; tagging, publication, and deployment require explicit requested actions.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Inspect changes since the verified previous release, group user-facing outcomes, surface breaking changes, and review required checks and migration guidance.
-- Resolve the previous release boundary, identify breaking contracts and migrations, and map artifacts to the exact candidate revision.
-- All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
-
+1. Inspect changes since the verified previous release, group user-facing outcomes, surface breaking changes, and review required checks and migration guidance.
+2. Resolve the previous release boundary, identify breaking contracts and migrations, and map artifacts to the exact candidate revision.
+3. All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
 ## Technical method
 
 - **Inspect:** Resolve version, release range, artifact contents, compatibility and validation records.
-- **Apply:** Prepare notes and readiness gates from actual changes; bind tested artifacts to hashes and identify recovery limits.
+- **Method:** Prepare notes and readiness gates from actual changes; bind tested artifacts to hashes and identify recovery limits.
 - **Avoid misdiagnosis:** Source version changes do not publish a package; a rebuilt archive differs from the one previously tested.
 - **Check the result:** Inspect the exact candidate archive and version/manifest consistency and keep unpublished or pending platform checks explicit.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [General worked example](../../references/examples/general.md).
+
 
 ## Decision branches
 

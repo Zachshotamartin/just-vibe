@@ -13,6 +13,12 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 Reconcile transaction status before resubmitting an uncertain operation.
 
+## Concrete contribution
+
+Trace authorization, state transitions and external calls under adversarial ordering; separate local contract tests from live-chain deployment authority.
+
+For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+
 ## Verify when relevant
 
 - Test replay, reorganization and authorization in an isolated environment.

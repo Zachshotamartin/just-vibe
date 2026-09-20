@@ -11,6 +11,13 @@ export const CAPABILITIES = ['project.read', 'git.repo', 'github.context', 'verc
 
 const aliasIdentity = new Set(['id', 'pack', 'summary', 'aliasOf', 'aliases', 'skillPath', 'searchTerms']);
 
+export function validateInputPolicy(policy, label) {
+  if (!policy || typeof policy !== 'object' || Array.isArray(policy)
+      || Object.keys(policy).sort().join(',') !== 'ask,assume,infer'
+      || Object.values(policy).some(value => typeof value !== 'string' || !value.trim()))
+    throw Error(`Invalid input policy: ${label}`);
+}
+
 export function materializeAliases(catalog) {
   return { ...catalog, commands: catalog.commands.map(command => {
     if (!command.aliasOf) return structuredClone(command);
@@ -27,6 +34,10 @@ export function validateCatalog(catalog, packs) {
   const ids = new Set();
   const groups = new Set(packs.packs.map(p => p.id));
   if (groups.size !== packs.packs.length) throw new Error('Duplicate pack.');
+  for (const pack of packs.packs) {
+    validateInputPolicy(pack.inputPolicy, pack.id);
+    if (pack.workedExample !== `references/examples/${pack.id}.md`) throw Error(`Invalid worked example: ${pack.id}`);
+  }
   for (const c of catalog.commands) {
     if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(c.id) || ids.has(c.id)) throw new Error(`Invalid/duplicate command: ${c.id}`);
     ids.add(c.id);
@@ -38,6 +49,8 @@ export function validateCatalog(catalog, packs) {
       if (!Array.isArray(c[key]) || !c[key].length || c[key].some(s => typeof s !== 'string' || !s.trim())) throw new Error(`Invalid ${key}: ${c.id}`);
     }
     if (typeof c.selection !== 'string' || !c.selection.trim()) throw new Error(`Missing selection boundary: ${c.id}`);
+    validateInputPolicy(c.inputPolicy, c.id);
+    if (c.runtimeSteps !== undefined && (!Array.isArray(c.runtimeSteps) || c.runtimeSteps.length)) throw Error(`Use one canonical procedure, not parallel runtime steps: ${c.id}`);
     if (!c.technical || typeof c.technical !== 'object' || Array.isArray(c.technical)
       || Object.keys(c.technical).sort().join(',') !== 'check,evidence,method,pitfall'
       || Object.values(c.technical).some(value => typeof value !== 'string' || !value.trim())) throw new Error(`Invalid technical method: ${c.id}`);
@@ -69,8 +82,13 @@ export function validateCatalog(catalog, packs) {
 }
 
 export function loadCatalog(root = pluginRoot) {
-  const catalog = materializeAliases(JSON.parse(readFileSync(resolve(root, 'catalog/commands.json'), 'utf8')));
   const packs = JSON.parse(readFileSync(resolve(root, 'catalog/packs.json'), 'utf8'));
+  const source = JSON.parse(readFileSync(resolve(root, 'catalog/commands.json'), 'utf8'));
+  // Resolve defaults before materializing aliases so CLI contracts and generated
+  // skills expose exactly the same effective policy.
+  const catalog = materializeAliases({ ...source, commands: source.commands.map(c => c.aliasOf ? c : {
+    ...c, inputPolicy: c.inputPolicy ?? packs.packs.find(p => p.id === c.pack)?.inputPolicy,
+  }) });
   validateCatalog(catalog, packs);
   return { ...catalog, packs: packs.packs, root };
 }

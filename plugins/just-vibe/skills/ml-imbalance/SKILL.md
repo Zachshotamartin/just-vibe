@@ -19,25 +19,33 @@ Use the complete request appended to this invocation, preserving all constraints
 
 task definition, dataset identity, field semantics, entity/time keys, and permission to inspect bounded data. Record prediction moment, label horizon, sampling, and provenance. Preserve held-out evaluation boundaries; no data upload, label alteration, or feature fitting across splits implicitly.
 
+- **Infer from evidence:** Read prediction moment, label horizon, entity/time keys, split policy and dataset provenance from the task and manifests.
+- **Reasonable default:** Use explicit synthetic examples for design when raw data is unavailable; do not infer missing labels or fit preprocessing across held-out boundaries.
+- **Ask only when needed:** Ask when unresolved label timing, grouping or target semantics would change the split/features; do not demand a full dataset to explain the method.
+
 Declared evidence requirements: `data.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Sampling/weighting, evaluation, and operating-point options for rare outcomes.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Establish naive baselines, inspect per-class/sample counts, choose suitable metrics, compare resampling/weighting only within training folds, and assess deployment prevalence effects.
-- Compute baseline prevalence and class counts by split, choose task-relevant precision/recall measures and restrict resampling to training folds.
-
+1. Establish naive baselines, inspect per-class/sample counts, choose suitable metrics, compare resampling/weighting only within training folds, and assess deployment prevalence effects.
+2. Compute baseline prevalence and class counts by split, choose task-relevant precision/recall measures and restrict resampling to training folds.
 ## Technical method
 
 - **Inspect:** Measure prevalence, minority counts per split, error costs and operational capacity.
-- **Apply:** Apply resampling or weighting only within training folds; evaluate ranking, precision/recall and probability interpretation separately.
+- **Method:** Apply resampling or weighting only within training folds; evaluate ranking, precision/recall and probability interpretation separately.
 - **Avoid misdiagnosis:** Accuracy can hide zero minority recall; resampling changes prevalence and can distort uncorrected probabilities.
 - **Check the result:** Compare with an appropriate naive baseline, retain minority denominators and verify thresholds on untouched selection/evaluation data.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [ML data worked example](../../references/examples/ml-data.md).
+
 
 ## Decision branches
 

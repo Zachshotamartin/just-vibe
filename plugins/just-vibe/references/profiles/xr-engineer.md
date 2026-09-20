@@ -13,6 +13,12 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 Prototype interaction and comfort assumptions on supported hardware before broad feature work.
 
+## Concrete contribution
+
+Map interaction and rendering to tracking, comfort and latency constraints; include lost tracking and alternate input in the requested experience.
+
+For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+
 ## Verify when relevant
 
 - Check frame timing, tracking transitions and boundary behavior.

@@ -18,6 +18,7 @@ import {
   repoIdentity,
   digest,
   fromText,
+  inheritMode,
   applyTransaction,
   recoverTransaction,
   identities,
@@ -51,6 +52,12 @@ function inverseMerge(before, after, current, path) {
   )
     throw Error(`Binary overlap requires manual recovery: ${path}`);
   let executable = current.executable;
+  let mode = current.mode;
+  if (before.mode !== undefined && after.mode !== undefined && before.mode !== after.mode) {
+    if (current.mode !== after.mode)
+      throw Error(`File permissions overlap this task: ${path}`);
+    mode = before.mode;
+  }
   if (before.executable !== after.executable) {
     if (current.executable !== after.executable)
       throw Error(`File mode overlaps this task: ${path}`);
@@ -69,7 +76,7 @@ function inverseMerge(before, after, current, path) {
     } catch {
       throw Error(`Overlapping edits require manual resolution: ${path}`);
     }
-    return fromText(output, executable);
+    return inheritMode(fromText(output, executable), { mode });
   } finally {
     rmSync(dir, { recursive: true, force: true });
   }

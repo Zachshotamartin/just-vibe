@@ -13,6 +13,12 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 Fix the boundary and add a negative regression test when a concrete exploit path is established.
 
+## Concrete contribution
+
+Trace a reachable input through trust transitions to the sensitive operation, with a legitimate control and an actionable correction at the enforcing boundary.
+
+For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+
 ## Verify when relevant
 
 - Verify rejection and legitimate behavior.

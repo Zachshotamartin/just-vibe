@@ -13,6 +13,12 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 Optimize the dominant measured cost before changing bundling or adding memoization.
 
+## Concrete contribution
+
+Deliver a reproducible measurement of the relevant user interaction, identify the dominant resource or main-thread cost, and compare the same state after the change.
+
+For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+
 ## Verify when relevant
 
 - Compare before/after traces under equivalent conditions.

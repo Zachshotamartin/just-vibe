@@ -13,6 +13,12 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 Separate offline and online responsibilities when their consistency and latency requirements differ.
 
+## Concrete contribution
+
+Define dataset, feature, model and serving ownership across the lifecycle, including version compatibility and the evidence required before rollout.
+
+For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+
 ## Verify when relevant
 
 - Walk stale data, drift and model rollback scenarios.

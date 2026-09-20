@@ -15,9 +15,13 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 ## Input and mode
 
-Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan; model/runtime, input distribution, concurrency, hardware, quality floor, and benchmark budget.
+Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Inspect supplied performance evidence or plan measurement; apply for requested benchmark code or bounded runs.
 
 versioned model and preprocessing artifacts, input/output schema, runtime/dependencies, operating targets, and authorized environment. Validate artifact trust before loading formats that can execute code. Packaging or writing monitoring configuration does not deploy a model or enable a hosted service.
+
+- **Infer from evidence:** Read artifact format/trust, preprocessing schema, serving runtime, compatibility and existing rollout controls.
+- **Reasonable default:** Prepare packaging/configuration and isolated checks without treating them as a live deployment.
+- **Ask only when needed:** Resolve the target, rollback compatibility and operating limits before rollout or load generation; missing production access does not block packaging.
 
 Resolve any task-specific tools, target identity and evidence before dependent actions. No external connection is assumed.
 
@@ -25,23 +29,28 @@ Resolve any task-specific tools, target identity and evidence before dependent a
 
 Latency, throughput, memory, batching, warmup, and optimization tradeoffs.
 
-None by default. Plan artifacts may be saved when requested.
+Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the requested changes or execute the requested operation within its resolved target and limits. Local preparation does not authorize live, remote, destructive or paid actions; existing explicit session authorization still applies.
 
 ## Execute
 
-- Define comparable benchmark conditions, separate cold/warm paths, measure bounded authorized workloads, identify bottlenecks, and check quality after optimizations.
-- Specify hardware, precision, batch/concurrency and payload distribution; separate load/warmup from steady-state and measure tail behavior within caps.
-
+1. Define comparable benchmark conditions, separate cold/warm paths, measure bounded authorized workloads, identify bottlenecks, and check quality after optimizations.
+2. Specify hardware, precision, batch/concurrency and payload distribution; separate load/warmup from steady-state and measure tail behavior within caps.
 ## Technical method
 
 - **Inspect:** Measure preprocessing, transfer, model compute, postprocessing, batching and queue time with representative inputs.
-- **Apply:** Compare latency distribution, throughput, memory and quality at the actual workload/concurrency; synchronize device timing where required.
+- **Method:** Compare latency distribution, throughput, memory and quality at the actual workload/concurrency; synchronize device timing where required.
 - **Avoid misdiagnosis:** Timing asynchronous GPU dispatch without synchronization underreports work; throughput gains may violate tail-latency requirements.
 - **Check the result:** Warm up deliberately, retain cold-start evidence and verify optimized predictions against reference tolerances and quality constraints.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [ML deployment worked example](../../references/examples/ml-deployment.md).
+
 
 ## Decision branches
 
 - **When quantization or batching improves speed:** Re-evaluate quality, memory and latency under the same workload before accepting it.
+- **When the request is for local preparation or implementation:** Write the requested benchmark with warmup, workload and correctness controls; report speed claims only for measured hardware and inputs.
 
 ## Deliver and verify
 

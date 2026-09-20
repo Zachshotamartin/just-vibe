@@ -15,9 +15,13 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 ## Input and mode
 
-Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan; branch/PR, project, revision, and preview goal. An explicit create-preview request authorizes that preview deployment.
+Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Inspect an existing preview or plan a proposed one; apply for requested preview configuration or creation.
 
 exact team/project/environment and deployment/revision when applicable; read access to relevant configuration/logs. Verify installed CLI/API support and framework behavior during implementation. Never print environment values or infer promotion authorization from a preview request.
+
+- **Infer from evidence:** Read the linked project, team, framework, environment and deployment SHA from local config and supplied deployment evidence.
+- **Reasonable default:** Diagnose locally with existing build scripts when deployment access is missing; do not infer a production target from a preview URL.
+- **Ask only when needed:** Resolve a missing deployment/team/environment before the dependent remote operation; names and scope suffice without exposing environment values.
 
 Resolve any task-specific tools, target identity and evidence before dependent actions. No external connection is assumed.
 
@@ -25,23 +29,28 @@ Resolve any task-specific tools, target identity and evidence before dependent a
 
 Preview environment only, including authorized smoke checks.
 
-None by default. Plan artifacts may be saved when requested.
+Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the requested changes or execute the requested operation within its resolved target and limits. Local preparation does not authorize live, remote, destructive or paid actions; existing explicit session authorization still applies.
 
 ## Execute
 
-- Resolve project/revision, inspect prerequisites, reuse a matching deployment where suitable, create only when requested, and verify URL, revision, routing, and key behavior.
-- Resolve intended commit and project, reuse a matching deployment if appropriate and verify identity, access protection, routes and representative behavior.
-
+1. Resolve project/revision, inspect prerequisites, reuse a matching deployment where suitable, create only when requested, and verify URL, revision, routing, and key behavior.
+2. Resolve intended commit and project, reuse a matching deployment if appropriate and verify identity, access protection, routes and representative behavior.
 ## Technical method
 
 - **Inspect:** Resolve branch/head SHA, existing matching deployments and access-protection expectations.
-- **Apply:** Reuse an appropriate existing preview or create the requested one; check nested routes, APIs and assets at its immutable deployment identity.
+- **Method:** Reuse an appropriate existing preview or create the requested one; check nested routes, APIs and assets at its immutable deployment identity.
 - **Avoid misdiagnosis:** Anonymous 401/403 from protection is not necessarily app failure; a branch alias may advance while checks run.
 - **Check the result:** Record deployment ID, SHA, URL and actual route observations, including unavailable protected checks.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [Vercel worked example](../../references/examples/vercel.md).
+
 
 ## Decision branches
 
 - **When a deployment request times out:** Query for the intended revision before retrying; distinguish a protected URL from an unhealthy app.
+- **When the request is for local preparation or implementation:** Prepare requested preview configuration locally; submitting a preview requires the intended project/account and source revision, with no implicit production promotion.
 
 ## Deliver and verify
 
@@ -59,5 +68,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Prepare a preview for this branch and project; identify prerequisites first.
-- **edge (plan):** Create a preview after an earlier request returned no deployment ID.
+- **edge (apply):** Create a preview after an earlier request returned no deployment ID.
 - **blocked (inspect):** Plan a preview without provider access; do not invent a URL.

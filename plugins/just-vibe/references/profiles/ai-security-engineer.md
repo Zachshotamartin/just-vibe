@@ -13,6 +13,12 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 Enforce authorization outside model text when tools expose privileged data or actions.
 
+## Concrete contribution
+
+Trace untrusted prompts, retrieved content and tool arguments to effects; use synthetic canaries to test authorization boundaries without exposing real secrets.
+
+For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+
 ## Verify when relevant
 
 - Test indirect injection and cross-user data boundaries.

@@ -19,28 +19,32 @@ Use the complete request appended to this invocation, preserving all constraints
 
 versioned model and preprocessing artifacts, input/output schema, runtime/dependencies, operating targets, and authorized environment. Validate artifact trust before loading formats that can execute code. Packaging or writing monitoring configuration does not deploy a model or enable a hosted service.
 
+- **Infer from evidence:** Read artifact format/trust, preprocessing schema, serving runtime, compatibility and existing rollout controls.
+- **Reasonable default:** Prepare packaging/configuration and isolated checks without treating them as a live deployment.
+- **Ask only when needed:** Resolve the target, rollback compatibility and operating limits before rollout or load generation; missing production access does not block packaging.
+
 Declared evidence requirements: `ml.artifacts`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Reproducible inference package and metadata; no registry upload or deployment implicitly.
 
-Only the requested local changes; external actions require their exact action and target in session authorization.
+Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.
 
 ## Execute
 
-- Verify artifact provenance, bundle preprocessing and schema, pin compatible dependencies, record versions/checksums, and run known-input smoke/parity checks.
-- Bundle preprocessing, feature order/schema, model identity, dependency constraints and known-input expectations; validate fresh-load parity in an isolated supported environment.
-
+1. Verify artifact provenance, bundle preprocessing and schema, pin compatible dependencies, record versions/checksums, and run known-input smoke/parity checks.
+2. Bundle preprocessing, feature order/schema, model identity, dependency constraints and known-input expectations; validate fresh-load parity in an isolated supported environment.
 ## Technical method
 
 - **Inspect:** Inventory model/preprocessor, ordered feature schema, versions, provenance and artifact format.
-- **Apply:** Package the complete inference contract with known-input expectations; inspect executable serialization and trusted origin before loading.
+- **Method:** Package the complete inference contract with known-input expectations; inspect executable serialization and trusted origin before loading.
 - **Avoid misdiagnosis:** Pickle-style loading can execute code; matching a model filename does not establish trusted provenance or preprocessing parity.
 - **Check the result:** Fresh-load a trusted fixture in isolation and compare exact feature order, missing/unseen handling and expected output within tolerance.
 
 ## Read when relevant
 
+- When a concrete decision or deliverable example would clarify this workflow: [ML deployment worked example](../../references/examples/ml-deployment.md).
 - Uploads, filesystem paths, extraction or artifact loading are in scope: [Files and resource limits](../../references/security/files.md).
 
 ## Decision branches

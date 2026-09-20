@@ -19,25 +19,33 @@ Use the complete request appended to this invocation, preserving all constraints
 
 frozen model/artifact, evaluation dataset identity, labels where needed, metric definitions, and task/operating context. Report sample counts and uncertainty appropriate to dependencies; avoid repeated test-set tuning. Exploratory findings need fresh confirmation before strong generalization claims.
 
+- **Infer from evidence:** Read frozen model/data identities, metric definitions, denominators and supplied predictions; separate validation from test use.
+- **Reasonable default:** Compute only supported metrics on permitted samples and label missing labels or subgroup coverage as unknown.
+- **Ask only when needed:** Ask when the operating cost/threshold or population changes the evaluation decision; do not fabricate labels to avoid a question.
+
 Declared evidence requirements: `ml.artifacts`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Accurate model documentation and release assessment; no invented experiments or approval.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Reconcile evidence, describe training/evaluation conditions, summarize baseline and slice results, document limitations and excluded uses, and identify missing release evidence.
-- Reconcile every number with a run and denominator, separate validation selection from independent test evidence and document deployment population/excluded uses.
-
+1. Reconcile evidence, describe training/evaluation conditions, summarize baseline and slice results, document limitations and excluded uses, and identify missing release evidence.
+2. Reconcile every number with a run and denominator, separate validation selection from independent test evidence and document deployment population/excluded uses.
 ## Technical method
 
 - **Inspect:** Collect intended use, dataset provenance, protocol, selected model, metrics, slices and deployment constraints.
-- **Apply:** Separate measured results from anticipated value and list excluded uses plus concrete monitoring/revisit conditions.
+- **Method:** Separate measured results from anticipated value and list excluded uses plus concrete monitoring/revisit conditions.
 - **Avoid misdiagnosis:** Omitting failed runs or weak slices produces a misleading model story even if the best metric is correct.
 - **Check the result:** Trace every numerical claim to an artifact and verify data/model/version identity and unresolved limitations are retained.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [ML evaluation worked example](../../references/examples/ml-evaluation.md).
+
 
 ## Decision branches
 

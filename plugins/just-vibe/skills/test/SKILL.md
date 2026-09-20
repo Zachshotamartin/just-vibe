@@ -19,25 +19,33 @@ Use the complete request appended to this invocation, preserving all constraints
 
 Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
+- **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
+- **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
+- **Ask only when needed:** Ask when competing targets or incompatible success conditions would change the result; continue independent inspection first.
+
 Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Meaningful behavior coverage at the cheapest reliable layer; no arbitrary coverage quota or whole-suite rewrite.
 
-Only the requested local changes; external actions require their exact action and target in session authorization.
+Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.
 
 ## Execute
 
-- Inspect existing tests, identify important gaps, choose unit/integration/end-to-end scope, add representative cases, and run relevant checks.
-- Choose the lowest layer that can observe the contract; retain an independent expected result and demonstrate that the check detects a plausible regression.
-
+1. Inspect existing tests, identify important gaps, choose unit/integration/end-to-end scope, add representative cases, and run relevant checks.
+2. Choose the lowest layer that can observe the contract; retain an independent expected result and demonstrate that the check detects a plausible regression.
 ## Technical method
 
 - **Inspect:** Identify the behavior at risk, existing test layer and independently known expected result.
-- **Apply:** Choose the lowest layer that observes the invariant, load its testing method and include a meaningful failure case.
+- **Method:** Choose the lowest layer that observes the invariant, load its testing method and include a meaningful failure case.
 - **Avoid misdiagnosis:** Mock call assertions or tests mirroring helper logic can pass while behavior is wrong.
 - **Check the result:** Verify a plausible bad implementation fails for the intended reason and that the legitimate path passes.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [General worked example](../../references/examples/general.md).
+
 
 ## Decision branches
 

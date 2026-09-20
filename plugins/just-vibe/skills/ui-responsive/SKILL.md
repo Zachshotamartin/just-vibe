@@ -19,25 +19,33 @@ Use the complete request appended to this invocation, preserving all constraints
 
 target screens/flows, existing design conventions, and runnable UI or supplied references. Visual claims require actual renders; accessibility claims distinguish automated, keyboard, and assistive-technology evidence.
 
+- **Infer from evidence:** Inspect the target flow, existing components/tokens, actual renders or supplied references and current responsive behavior.
+- **Reasonable default:** Reuse established visual conventions and preserve keyboard behavior; label unrendered changes as visually unverified.
+- **Ask only when needed:** Ask about an unresolved interaction or visual direction only when plausible choices materially differ; do not make a missing screenshot block source inspection.
+
 Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Layout adaptation including touch, pointer, zoom, and keyboard effects; shares primitives with `responsive`.
 
-Only the requested local changes; external actions require their exact action and target in session authorization.
+Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.
 
 ## Execute
 
-- Inspect intrinsic sizes and flow, reproduce failures, adjust layout constraints, and verify intermediate widths, long text, and relevant orientation changes.
-- Find the intrinsic width constraint or overflow source, adjust layout at content-driven boundaries and test nearby widths with long text and keyboard focus.
-
+1. Inspect intrinsic sizes and flow, reproduce failures, adjust layout constraints, and verify intermediate widths, long text, and relevant orientation changes.
+2. Find the intrinsic width constraint or overflow source, adjust layout at content-driven boundaries and test nearby widths with long text and keyboard focus.
 ## Technical method
 
 - **Inspect:** Inspect layout constraints, intrinsic content size, breakpoints, zoom, touch targets and input methods.
-- **Apply:** Repair the constraint causing overflow; choose reflow/order based on task meaning rather than arbitrary device names.
+- **Method:** Repair the constraint causing overflow; choose reflow/order based on task meaning rather than arbitrary device names.
 - **Avoid misdiagnosis:** Hiding overflow can conceal controls; hover-only affordances fail on touch or keyboard.
 - **Check the result:** Test narrow and wide layouts, long text, zoom and both pointer/keyboard access without clipped essential content.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [UI and frontend worked example](../../references/examples/ui.md).
+
 
 ## Decision branches
 

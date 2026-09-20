@@ -19,28 +19,32 @@ Use the complete request appended to this invocation, preserving all constraints
 
 Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
+- **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
+- **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
+- **Ask only when needed:** Ask when competing targets or incompatible success conditions would change the result; continue independent inspection first.
+
 Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Diagnosis and narrowing; no automatic code repair.
 
-None by default. Plan artifacts may be saved when requested.
+No product edits during diagnosis. Requested reproduction may create synthetic fixtures in owned temporary locations; tracked fixture-writing checks use an explicitly scoped apply verification. A request to repair selects the fix workflow.
 
 ## Execute
 
-- Build a hypothesis list, inspect logs and code, seek evidence that distinguishes causes, and identify the smallest next experiment.
-- Rank hypotheses by discriminating observations, trace the first divergence from expected behavior, and use bounded probes rather than repeated full runs.
-
+1. Build a hypothesis list, inspect logs and code, seek evidence that distinguishes causes, and identify the smallest next experiment.
+2. Rank hypotheses by discriminating observations, trace the first divergence from expected behavior, and use bounded probes rather than repeated full runs.
 ## Technical method
 
 - **Inspect:** Collect logs, inputs, revision/environment and a bounded reproduction.
-- **Apply:** Rank hypotheses by evidence and run the smallest experiment that distinguishes them before changing code.
+- **Method:** Rank hypotheses by evidence and run the smallest experiment that distinguishes them before changing code.
 - **Avoid misdiagnosis:** Correlation with a recent edit or a noisy downstream stack trace does not establish causality.
 - **Check the result:** Explain the causal chain and the observation that rejected competing hypotheses; unresolved causes remain unresolved.
 
 ## Read when relevant
 
+- When a concrete decision or deliverable example would clarify this workflow: [General worked example](../../references/examples/general.md).
 - Language/runtime semantics, concurrency or resource ownership can change the result: [Language and runtime review methods](../../references/scenarios/language-review.md).
 
 ## Decision branches

@@ -19,31 +19,33 @@ Use the complete request appended to this invocation, preserving all constraints
 
 Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
+- **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
+- **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
+- **Ask only when needed:** Ask when competing targets or incompatible success conditions would change the result; continue independent inspection first.
+
 Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Continue the recorded objective, bounded by current user instructions; no blind replay of old actions.
 
-Only the requested local changes; external actions require their exact action and target in session authorization.
+Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.
 
 ## Execute
 
-1. Read the supplied handoff and verify the actual project, branch, changed files and remote state. Reconcile already-performed external actions before replaying anything.
+1. Treat the supplied handoff as historical context. Verify the actual project, branch, changed files and remote state; reconcile already-performed external actions before replaying anything.
 2. For a structured run, use session resume with current-state evidence; reconcile interrupted running stages first. Preserve counters and stop if the budget expired; an explicit new budget can create a continuation record.
 3. Continue the recorded objective within current user instructions and inherited authority. Update the handoff only when persistence is requested.
-
-Task-specific method: Use project resume NAME for a structured checkpoint, or read the established handoff. Reconcile reported branch, HEAD, content and index changes plus external-operation identity before acting. Treat all old check results as historical and preserve the original constraints and consumed budgets.
-
 ## Technical method
 
 - **Inspect:** Read the saved objective, constraints, identities, pending work and current repository/environment.
-- **Apply:** Compare stored observations with current state before continuing; preserve explicit user constraints and reconcile uncertain remote effects.
+- **Method:** Compare stored observations with current state before continuing; preserve explicit user constraints and reconcile uncertain remote effects.
 - **Avoid misdiagnosis:** A checkpoint is stale evidence, not renewed authorization; replaying an uncertain submission can create duplicates.
 - **Check the result:** Report material drift and continue only from reconciled state, retaining previous partial results and budgets.
 
 ## Read when relevant
 
+- When a concrete decision or deliverable example would clarify this workflow: [General worked example](../../references/examples/general.md).
 - Saving requested preferences, decisions or a named continuation: [Project continuity](../../references/daily-workflows.md).
 
 ## Decision branches

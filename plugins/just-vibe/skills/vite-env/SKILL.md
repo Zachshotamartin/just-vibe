@@ -17,7 +17,11 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; build mode, expected variable names, environment files, and exposure policy.
 
-project manifests, lockfile, Vite/framework/plugin versions, and existing build scripts. Verify current version-specific documentation when changing configuration. Apply-mode checks may generate build/cache artifacts; inspect mode uses existing evidence.
+project manifests, lockfile, Vite/framework/plugin versions, and existing build scripts. Verify current version-specific documentation when changing configuration. Requested isolated verification may generate disposable build/cache artifacts; inspect their scripts first and preserve product files.
+
+- **Infer from evidence:** Read manifests, lockfile, installed Vite/plugins, entry points, aliases, modes and current build scripts.
+- **Reasonable default:** Preserve existing tooling and base-path conventions; make a local focused change when the brief identifies the behavior.
+- **Ask only when needed:** Ask if the intended serving subpath or deployment target cannot be inferred and would change generated URLs; do not ask for versions present in the lockfile.
 
 Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
@@ -25,22 +29,22 @@ Declared evidence requirements: `project.read`. Use actual host discovery or ade
 
 Load precedence, prefixes, build-time replacement, and client/server separation.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Inspect variable references and configuration names, trace which mode supplies them, inspect existing generated bundles for exposure when available, and recommend narrow corrections.
-- Trace import.meta.env usage and configured envPrefix, inspect mode-specific files by names only, and separate build mode from NODE_ENV.
-
+1. Inspect variable references and configuration names, trace which mode supplies them, inspect existing generated bundles for exposure when available, and recommend narrow corrections.
+2. Trace import.meta.env usage and configured envPrefix, inspect mode-specific files by names only, and separate build mode from NODE_ENV.
 ## Technical method
 
 - **Inspect:** Inspect modes, envDir, public prefixes, define substitutions and client import paths using variable names.
-- **Apply:** Trace whether the value is compiled into client output or read only by server code; keep mode distinct from NODE_ENV.
+- **Method:** Trace whether the value is compiled into client output or read only by server code; keep mode distinct from NODE_ENV.
 - **Avoid misdiagnosis:** Prefixing a secret with VITE_ makes it public; booleans read from env may be strings with surprising truthiness.
 - **Check the result:** Build with a synthetic sentinel and inspect intended exposure and parsing without placing real secret values in reports.
 
 ## Read when relevant
 
+- When a concrete decision or deliverable example would clarify this workflow: [Vite worked example](../../references/examples/vite.md).
 - The task depends on framework defaults, middleware, RLS, server/client or deployment behavior: [Framework-specific review branches](../../references/security/frameworks.md).
 
 ## Decision branches

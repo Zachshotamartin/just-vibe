@@ -19,25 +19,33 @@ Use the complete request appended to this invocation, preserving all constraints
 
 exact service/environment, time window, revision/configuration identity, authorized logs/metrics, and operational constraints. Prefer observation before intervention; live restarts, traffic changes, restores, and notifications require the requested target/action. Redact sensitive telemetry.
 
+- **Infer from evidence:** Read service/environment, time window, revision, available telemetry and existing incident or recovery procedure.
+- **Reasonable default:** Start from supplied logs and read-only observation; rank hypotheses without presenting an unexecuted intervention as recovery.
+- **Ask only when needed:** Resolve the precise target and missing authority before restart, restore, notification or traffic changes; continue evidence analysis while waiting.
+
 Declared evidence requirements: `container.context`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Container build context, dependencies, permissions, entrypoint, networking, resources, and health checks.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Compare build/runtime stages and host assumptions, inspect image metadata/logs, reproduce in isolation when authorized, and propose or apply a focused fix.
-- Compare build context, multi-stage copy paths, runtime user, working directory, ports and volume permissions with logs from the intended image digest.
-
+1. Compare build/runtime stages and host assumptions, inspect image metadata/logs, reproduce in isolation when authorized, and propose or apply a focused fix.
+2. Compare build context, multi-stage copy paths, runtime user, working directory, ports and volume permissions with logs from the intended image digest.
 ## Technical method
 
 - **Inspect:** Inspect build stages, image digest, architecture, user, filesystem permissions, entrypoint and signal handling.
-- **Apply:** Separate build-time assets from runtime requirements; use least-needed privileges and remove secrets from build layers.
+- **Method:** Separate build-time assets from runtime requirements; use least-needed privileges and remove secrets from build layers.
 - **Avoid misdiagnosis:** Deleting a secret in a later layer leaves it in earlier layers; a running process does not prove readiness or graceful shutdown.
 - **Check the result:** Build/run an isolated image, exercise readiness, SIGTERM and read-only/non-root requirements, and inspect final-image contents.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [Operations worked example](../../references/examples/operations.md).
+
 
 ## Decision branches
 

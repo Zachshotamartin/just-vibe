@@ -19,36 +19,35 @@ Use the complete request appended to this invocation, preserving all constraints
 
 Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
+- **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
+- **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
+- **Ask only when needed:** Ask when competing targets or incompatible success conditions would change the result; continue independent inspection first.
+
 Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Relevant tests, builds, type checks, and runtime validation; no automatic repairs.
 
-Only the requested local changes; external actions require their exact action and target in session authorization. Requested proof collection may write local .just-vibe evidence/reports and browser artifacts; it does not authorize repairs or external writes.
+Run checks when verification is requested, using existing tooling and owned isolated fixtures. They may create disposable local test/build artifacts. Do not modify product source, install dependencies or contact live systems unless that scope is separately authorized.
 
 ## Execute
 
 1. Read the relevant package scripts and changed behavior before choosing checks. Identify scripts that install, deploy, seed shared databases or make external calls before running them.
-2. Execute the relevant bounded checks with the active host tool and capture actual exit code, revision, output summary and any generated artifacts. Use read-only existing evidence in inspect mode.
-3. Do not repair failures unless the user also requested repair. Keep failed, blocked and unrun checks separate from passes; identify pre-existing failures only with evidence.
-4. When the user requests an evidence report or the task needs durable acceptance tracking, read the proofs guide. Translate the actual acceptance criteria into automated assertions and separate human-review criteria; include all relevant source, tests, configuration and lockfiles in each bounded declared scope.
-5. Create a proof and collect actual targeted command/browser/GitHub/Vercel/migration observations as appropriate. Inspect stored commands and target identity before running them. Source mutations, timeouts, partial output and pending remote state do not pass a criterion.
-6. Capture requested browser screenshots only on authorized non-sensitive targets. A deployed URL needs independent revision identity; local file hashes do not prove which source it serves. Reconcile that limitation in the report.
-7. Record human acceptance only from a real attributed review of the exact file/render identities. An agent cannot fill in user approval, and an attached claim cannot pass an automated criterion. Keep subjective judgment separate from executable evidence.
-8. Recompute freshness and open the generated local HTML report. Explain missing, failed, stale or human-pending criteria and uncovered dependencies; a report is not an objective overall quality score.
-
-Task-specific method: Select checks from project scripts and changed behavior, inspect commands for side effects, run bounded checks, and associate results with the tested revision. Map every criterion to an existing check, inspected artifact or bounded interaction; inspect script side effects and record the revision and environment.
-
+2. Execute the relevant bounded checks with the active host tool and capture actual exit code, revision, output summary and any generated artifacts. Use existing evidence in inspect mode; checks requiring fixture writes need a scoped apply verification. Do not repair failures unless the user requested repair.
+3. Keep failed, blocked and unrun checks separate from passes; identify pre-existing failures only with evidence. Stop repeating a passing check unless a new change or unresolved concern justifies it.
+4. Only when an evidence report or durable acceptance tracking is requested, read the proofs guide and use its criterion, collection and report procedure. Preserve full relevant source/test/configuration identity, actual observations and evidence freshness. A deployed URL needs independent revision identity; local hashes alone cannot establish it. Separate human review from automated assertions and never invent user acceptance.
+5. Report the checks actually completed and remaining limitations. If a proof report was created, recompute its freshness before opening it and include failed, stale, missing and human-pending criteria; ordinary verification requires no saved proof.
 ## Technical method
 
 - **Inspect:** Map requested outcomes to artifact identities and available checks, including any human acceptance.
-- **Apply:** Execute the relevant checks, record actual status/output and preserve requirement-linked evidence without replacing missing observations with assertions.
+- **Method:** Execute the relevant checks, record actual status/output and preserve requirement-linked evidence without replacing missing observations with assertions.
 - **Avoid misdiagnosis:** A green command on another revision or a screenshot of one state cannot establish all acceptance criteria.
 - **Check the result:** Check evidence freshness against files/revisions and report incomplete, blocked or human-accepted criteria distinctly.
 
 ## Read when relevant
 
+- When a concrete decision or deliverable example would clarify this workflow: [General worked example](../../references/examples/general.md).
 - A task needs a reviewable acceptance report or durable evidence: [Requirement evidence](../../references/proofs.md).
 
 ## Decision branches

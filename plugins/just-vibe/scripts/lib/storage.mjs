@@ -1,4 +1,4 @@
-import { existsSync, lstatSync, realpathSync, readFileSync, mkdirSync, openSync, closeSync, writeFileSync, renameSync, unlinkSync, readdirSync } from 'node:fs';
+import { existsSync, lstatSync, realpathSync, readFileSync, readlinkSync, mkdirSync, openSync, closeSync, writeFileSync, renameSync, unlinkSync, readdirSync } from 'node:fs';
 import { resolve, join, relative, sep, dirname, isAbsolute } from 'node:path';
 import { createHash, randomUUID } from 'node:crypto';
 import { gitRead } from './project.mjs';
@@ -62,7 +62,12 @@ export function fingerprint(root) {
       if (++visited > 10000) { partial = true; return; }
       if (['.git', '.just-vibe', 'node_modules', '.venv', 'venv', 'dist', 'build', 'coverage', '.next', '.tmp', '.cache', 'PLAN.md', 'NAMING.md'].includes(entry.name) || privateName(entry.name)) continue;
       const file = join(directory, entry.name);
-      if (entry.isSymbolicLink()) { entries.push([relative(base, file), 'symlink']); continue; }
+      if (entry.isSymbolicLink()) {
+        // Link identity is observed, but its target contents are not covered.
+        partial = true;
+        entries.push([relative(base, file), 'symlink', readlinkSync(file)]);
+        continue;
+      }
       if (entry.isDirectory()) collect(file);
       else if (entry.isFile()) {
         const stat = lstatSync(file);

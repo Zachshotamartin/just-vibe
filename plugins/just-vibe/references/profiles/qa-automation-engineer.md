@@ -13,6 +13,12 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 Choose the lowest layer that can establish the required behavior without hiding integration risk.
 
+## Concrete contribution
+
+Deliver a stable behavioral check that fails for the targeted defect and passes legitimate behavior; separate environment/setup failures from product failures.
+
+For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+
 ## Verify when relevant
 
 - Demonstrate failure on the targeted defect.

@@ -19,13 +19,17 @@ Use the complete request appended to this invocation, preserving all constraints
 
 Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
+- **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
+- **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
+- **Ask only when needed:** Ask when competing targets or incompatible success conditions would change the result; continue independent inspection first.
+
 Resolve any task-specific tools, target identity and evidence before dependent actions. No external connection is assumed.
 
 ## Scope
 
 Smallest useful sequence completing that goal; no extra product work or authority expansion.
 
-Only the requested local changes; external actions require their exact action and target in session authorization.
+Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.
 
 ## Execute
 
@@ -36,18 +40,17 @@ Only the requested local changes; external actions require their exact action an
 5. Use tracked execution for dependent stages, repeated recovery, saved continuation, external mutations or requested detailed records. Create a run through session create and use session start/record/finish around meaningful stages; use session amend for additional effects and session supersede for evidence-backed alternatives.
 6. If quick work grows, carry the original brief, completed work, observations, selected profile and consumed budget into tracked context. Record remaining stages; never fabricate earlier validated transitions or restart a user limit.
 7. Reconcile uncertain external effects before retrying. Keep failures and stop within the applicable stage/attempt/time budget. Finish only when original success conditions are supported; report partial or blocked results plainly.
-
-Task-specific method: Choose the smallest useful workflow and proportionate execution path. Complete authorized work with carried context, meaningful verification and a clear result.
-
+8. Check the original outcome and exclusions before each workflow transition; a new routing suggestion does not expand scope.
 ## Technical method
 
 - **Inspect:** Read the complete goal, exclusions, pinned profile, project evidence and stage dependencies.
-- **Apply:** Choose only the needed workflows, load their technical methods and start a bounded local path; escalate bookkeeping when effects or recovery require it.
+- **Method:** Choose only the needed workflows, load their technical methods and start a bounded local path; escalate bookkeeping when effects or recovery require it.
 - **Avoid misdiagnosis:** Lexical routing is a suggestion, not authorization or a reason to execute every matching command.
 - **Check the result:** Check each selected stage against the original outcome and carry constraints through retries, continuation and workflow changes.
 
 ## Read when relevant
 
+- When a concrete decision or deliverable example would clarify this workflow: [General worked example](../../references/examples/general.md).
 - Choosing quick versus tracked work: [Daily workflow paths](../../references/daily-workflows.md).
 - Selecting saved-rule, alternative, exercise, proof, experiment, undo or decision support: [Intent and evidence workflows](../../references/intent-workflows.md).
 

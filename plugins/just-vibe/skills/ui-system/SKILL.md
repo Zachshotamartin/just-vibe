@@ -19,25 +19,33 @@ Use the complete request appended to this invocation, preserving all constraints
 
 target screens/flows, existing design conventions, and runnable UI or supplied references. Visual claims require actual renders; accessibility claims distinguish automated, keyboard, and assistive-technology evidence.
 
+- **Infer from evidence:** Inspect the target flow, existing components/tokens, actual renders or supplied references and current responsive behavior.
+- **Reasonable default:** Reuse established visual conventions and preserve keyboard behavior; label unrendered changes as visually unverified.
+- **Ask only when needed:** Ask about an unresolved interaction or visual direction only when plausible choices materially differ; do not make a missing screenshot block source inspection.
+
 Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Tokens and component conventions; implementation requires an explicit build/adoption request.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Inventory existing values, identify a coherent scale, define semantic tokens and component states, and plan incremental adoption without visual regressions.
-- Inventory actual repeated values and component states; separate semantic roles from raw scales and define incremental adoption with representative specimens.
-
+1. Inventory existing values, identify a coherent scale, define semantic tokens and component states, and plan incremental adoption without visual regressions.
+2. Inventory actual repeated values and component states; separate semantic roles from raw scales and define incremental adoption with representative specimens.
 ## Technical method
 
 - **Inspect:** Inventory repeated tokens, typography, spacing, component states and existing theme contracts.
-- **Apply:** Define semantic roles and a small consistent scale; migrate consumers incrementally with deliberate exceptions.
+- **Method:** Define semantic roles and a small consistent scale; migrate consumers incrementally with deliberate exceptions.
 - **Avoid misdiagnosis:** Renaming colors without updating focus, disabled, dark-mode or data-visualization states leaves an incomplete system.
 - **Check the result:** Render representative components in each supported theme and verify contrast, overflow and token fallback behavior.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [UI and frontend worked example](../../references/examples/ui.md).
+
 
 ## Decision branches
 

@@ -12,6 +12,7 @@ import {
   mkdtempSync,
   rmSync,
   realpathSync,
+  chmodSync,
 } from "node:fs";
 import { dirname, relative, join } from "node:path";
 import { tmpdir } from "node:os";
@@ -25,7 +26,7 @@ import {
   digest,
   privateName,
 } from "./storage.mjs";
-import { runCommand, redact } from "./process.mjs";
+import { runCommand, redact, redactValue, redactCommand } from "./process.mjs";
 
 export { within, projectRoot, digest, readJson };
 export const MAX_STATE = 8 * 1024 * 1024;
@@ -95,13 +96,25 @@ export function fileState(root, path, options = {}) {
   return {
     sha256: digest(content),
     executable: !!(stat.mode & 0o111),
+    ...(process.platform !== "win32" ? { mode: stat.mode & 0o777 } : {}),
     data: content.toString("base64"),
   };
 }
 export const identity = (state) =>
   state ? { sha256: state.sha256, executable: state.executable } : null;
 export const same = (a, b) =>
-  JSON.stringify(identity(a)) === JSON.stringify(identity(b));
+  JSON.stringify(identity(a)) === JSON.stringify(identity(b)) &&
+  (a?.mode === undefined || b?.mode === undefined || a.mode === b.mode);
+
+// Preserve access permissions while applying the requested executable flag.
+// Git blobs/old records know only that flag; existing files supply the rest.
+export function inheritMode(state, previous) {
+  if (!state || previous?.mode === undefined) return state;
+  const execute = state.executable
+    ? (previous.mode & 0o111) || ((previous.mode & 0o444) >> 2) || 0o100
+    : 0;
+  return { ...state, mode: (previous.mode & ~0o111) | execute };
+}
 export function fileSet(root, paths, options = {}) {
   strings(paths, "paths", 100, true);
   if (new Set(paths).size !== paths.length) throw Error("Duplicate paths.");
@@ -157,13 +170,25 @@ export function writeState(root, path, state, options = {}) {
   const bytes = Buffer.from(state.data, "base64");
   if (digest(bytes) !== state.sha256 || bytes.length > 128 * 1024)
     throw Error("Invalid stored file content.");
+  if (
+    state.mode !== undefined &&
+    (!Number.isInteger(state.mode) || state.mode < 0 || state.mode > 0o777 ||
+      !!(state.mode & 0o111) !== state.executable)
+  )
+    throw Error("Invalid stored file permissions.");
+  // Legacy records retain existing permissions. If the file is gone and no
+  // mode was recorded, restore user-only access rather than guessing broadly.
+  const current = existsSync(full) ? { mode: lstatSync(full).mode & 0o777 } : null;
+  const mode = state.mode ?? inheritMode(state, current).mode ??
+    (state.executable ? 0o700 : 0o600);
   mkdirSync(dirname(full), { recursive: true });
   const temp = `${full}.${randomUUID()}.tmp`;
   try {
     writeFileSync(temp, bytes, {
       flag: "wx",
-      mode: state.executable ? 0o755 : 0o644,
+      mode,
     });
+    if (process.platform !== "win32") chmodSync(temp, mode);
     renameSync(temp, full);
   } finally {
     if (existsSync(temp)) unlinkSync(temp);
@@ -402,9 +427,9 @@ export async function checkCommand(root, command, timeoutMs = 15000) {
     maxBytes: 128 * 1024,
   });
   return {
-    command,
+    command: redactCommand(command),
     observedAt: now(),
-    ...JSON.parse(redact(JSON.stringify(result))),
+    ...redactValue(result),
     result:
       result.status === 0 &&
       !result.timedOut &&

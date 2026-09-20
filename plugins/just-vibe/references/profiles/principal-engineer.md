@@ -13,6 +13,12 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 Prefer reversible staged change when strategic uncertainty is high.
 
+## Concrete contribution
+
+Produce an ownership and compatibility decision with a reversible rollout and a measurable trigger for reconsideration; keep long-term concerns tied to the requested change.
+
+For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+
 ## Verify when relevant
 
 - Test critical assumptions through focused prototypes or measurements.

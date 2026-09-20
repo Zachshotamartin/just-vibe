@@ -1,11 +1,37 @@
 import { spawn } from 'node:child_process';
 import { commandInvocation } from './command.mjs';
 
+const sensitiveName = '(?:password|passwd|token|(?:access|refresh|auth)[_-]?token|secret|(?:client|api)[_-]?secret|api[_-]?key|authorization)';
+const sensitiveKey = new RegExp(`^${sensitiveName}$`, 'i');
+const assignment = new RegExp(String.raw`(\b${sensitiveName}|["']${sensitiveName}["'])(\s*[=:]\s*)("(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|[^\s,;}\]]+)`, 'gi');
+
 export function redact(value) {
-  return String(value).replace(/\b(?:gh[pousr]_[\w]{20,}|github_pat_[\w]{20,}|npm_[\w]{20,})\b/g, '[REDACTED]')
+  const source = String(value);
+  // Logs may themselves contain JSON. Inspect sensitive keys before falling
+  // back to text patterns; never run these patterns on a record's JSON envelope.
+  if (/^\s*[\[{]/.test(source)) {
+    try { return JSON.stringify(redactValue(JSON.parse(source))); } catch { /* Mixed or incomplete log text. */ }
+  }
+  return source.replace(/\b(?:gh[pousr]_[\w]{20,}|github_pat_[\w]{20,}|npm_[\w]{20,})\b/g, '[REDACTED]')
     .replace(/\b(Bearer\s+)[A-Za-z0-9._~+\/-]+/gi, '$1[REDACTED]')
-    .replace(/((?:password|token|secret|api[_-]?key|authorization)\s*[=:]\s*)[^\s,;]+/gi, '$1[REDACTED]')
+    .replace(assignment, (_, key, separator, secret) => {
+      const quote = /^["']/.test(secret) ? secret[0] : '';
+      return `${key}${separator}${quote}[REDACTED]${quote}`;
+    })
     .replace(/(https?:\/\/)[^\s/@]+:[^\s/@]+@/g, '$1[REDACTED]@');
+}
+
+export function redactValue(value) {
+  if (typeof value === 'string') return redact(value);
+  if (Array.isArray(value)) return value.map(redactValue);
+  if (value && typeof value === 'object') return Object.fromEntries(Object.entries(value)
+    .map(([key, entry]) => [key, sensitiveKey.test(key) ? '[REDACTED]' : redactValue(entry)]));
+  return value;
+}
+
+export function redactCommand(command) {
+  return command.map((arg, index) => index > 0 && /^--?/.test(command[index - 1])
+    && sensitiveKey.test(command[index - 1].replace(/^--?/, '')) ? '[REDACTED]' : redact(arg));
 }
 
 export async function runCommand(command, { cwd, timeoutMs = 15000, maxBytes = 512 * 1024, env = process.env } = {}) {

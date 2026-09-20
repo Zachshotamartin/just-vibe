@@ -19,28 +19,32 @@ Use the complete request appended to this invocation, preserving all constraints
 
 defined application boundary, authorized code/environment, relevant trust/access rules, and evidence sources. Default to defensive inspection; active tests use owned or explicitly authorized isolated targets. Minimize sensitive evidence and never print usable credentials.
 
+- **Infer from evidence:** Resolve the requested surface, source/runtime version, reachable callers and actual trust/access boundaries.
+- **Reasonable default:** Start with source analysis and bounded owned fixtures; treat scanner output as leads and preserve legitimate controls.
+- **Ask only when needed:** Ask when target authorization or necessary trust semantics are unresolved before active probing; source inspection need not wait for production access.
+
 Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Authorization bypass, object ownership, privilege escalation, and cross-tenant access.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Trace checks at server/data boundaries, compare alternate endpoints and methods, design negative cases, and execute only permitted isolated probes.
-- Test policy at server/data boundaries across direct IDs, alternate methods, exports and background tasks using synthetic identities and known allowed/denied cases.
-
+1. Trace checks at server/data boundaries, compare alternate endpoints and methods, design negative cases, and execute only permitted isolated probes.
+2. Test policy at server/data boundaries across direct IDs, alternate methods, exports and background tasks using synthetic identities and known allowed/denied cases.
 ## Technical method
 
 - **Inspect:** Inspect identity derivation, subject/action/resource rules, tenant filters and indirect entry points.
-- **Apply:** Use the identity guide to trace object-level and function-level authorization, including mass assignment, exports and workers.
+- **Method:** Use the identity guide to trace object-level and function-level authorization, including mass assignment, exports and workers.
 - **Avoid misdiagnosis:** Authentication middleware proves identity, not ownership; an admin test can bypass the same controls being evaluated.
 - **Check the result:** Verify denied cross-user/cross-tenant requests cause no reads or writes and that legitimate access remains possible using isolated identities.
 
 ## Read when relevant
 
+- When a concrete decision or deliverable example would clarify this workflow: [Security worked example](../../references/examples/security.md).
 - Identity, ownership, tenant isolation, replay or privilege changes affect the task: [Identity and authorization](../../references/security/identity.md).
 
 ## Decision branches

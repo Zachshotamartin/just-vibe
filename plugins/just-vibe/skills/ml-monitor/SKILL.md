@@ -15,9 +15,13 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 ## Input and mode
 
-Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan; serving/batch system, model objectives, telemetry, delayed-label process, and response ownership.
+Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan monitoring; apply for requested instrumentation or configuration in the identified environment.
 
 versioned model and preprocessing artifacts, input/output schema, runtime/dependencies, operating targets, and authorized environment. Validate artifact trust before loading formats that can execute code. Packaging or writing monitoring configuration does not deploy a model or enable a hosted service.
+
+- **Infer from evidence:** Read artifact format/trust, preprocessing schema, serving runtime, compatibility and existing rollout controls.
+- **Reasonable default:** Prepare packaging/configuration and isolated checks without treating them as a live deployment.
+- **Ask only when needed:** Resolve the target, rollback compatibility and operating limits before rollout or load generation; missing production access does not block packaging.
 
 Resolve any task-specific tools, target identity and evidence before dependent actions. No external connection is assumed.
 
@@ -25,23 +29,28 @@ Resolve any task-specific tools, target identity and evidence before dependent a
 
 Operational health, data quality, model performance, and label-arrival monitoring.
 
-None by default. Plan artifacts may be saved when requested.
+Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the requested changes or execute the requested operation within its resolved target and limits. Local preparation does not authorize live, remote, destructive or paid actions; existing explicit session authorization still applies.
 
 ## Execute
 
-- Separate leading signals from outcome metrics, define joins and delay windows, choose thresholds and runbook actions, and implement only requested instrumentation/configuration.
-- Separate service, feature, prediction and delayed-outcome signals; define stable joins, label-lag windows and model-version attribution.
-
+1. Separate leading signals from outcome metrics, define joins and delay windows, choose thresholds and runbook actions, and implement only requested instrumentation/configuration.
+2. Separate service, feature, prediction and delayed-outcome signals; define stable joins, label-lag windows and model-version attribution.
 ## Technical method
 
 - **Inspect:** Trace prediction IDs to model/data versions, outcomes, label delay, errors and operational measurements.
-- **Apply:** Define quality windows based on matured labels and connect each alert to a diagnosis/recovery action.
+- **Method:** Define quality windows based on matured labels and connect each alert to a diagnosis/recovery action.
 - **Avoid misdiagnosis:** Missing outcomes can bias observed accuracy; unchanged inputs do not prove unchanged target relationships.
 - **Check the result:** Simulate delayed/missing labels, a model revision and an outage; verify denominators, routing and unknown-quality states.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [ML deployment worked example](../../references/examples/ml-deployment.md).
+
 
 ## Decision branches
 
 - **When recent predictions have not had time to receive labels:** Exclude them from matured quality denominators and report pending follow-up separately.
+- **When the request is for local preparation or implementation:** Implement drift/quality monitors against synthetic windows; treat unlabeled proxy drift as a signal, not demonstrated accuracy loss.
 
 ## Deliver and verify
 

@@ -19,25 +19,33 @@ Use the complete request appended to this invocation, preserving all constraints
 
 task definition, model/provider configuration, representative permitted data, versioned prompts/corpus where relevant, and explicit token/cost/latency limits for remote calls. Use current provider interfaces during implementation. Retrieved content and model-generated tool arguments remain untrusted.
 
+- **Infer from evidence:** Read current prompt/tool schemas, retrieval boundaries, installed SDK/provider config and permitted examples without reading secret values.
+- **Reasonable default:** Use mocked calls for local contract tests when remote access is absent; do not infer model quality from mocks.
+- **Ask only when needed:** Ask for budget and permitted data/provider before a paid or external run if not already set; local prompt/tool implementation can proceed.
+
 Declared evidence requirements: `ml.artifacts`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Structured generation, semantic validation, refusal/incomplete handling, and bounded recovery.
 
-Only the requested local changes; external actions require their exact action and target in session authorization.
+Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.
 
 ## Execute
 
-- Define schema-compatible requests, validate outputs beyond parsing, separate refusal/truncation from malformed data, implement constrained retries, and test downstream consumption.
-- Resolve supported schema features, validate semantics after parsing and separate refusal, truncation, invalid structure and downstream business rejection.
-
+1. Define schema-compatible requests, validate outputs beyond parsing, separate refusal/truncation from malformed data, implement constrained retries, and test downstream consumption.
+2. Resolve supported schema features, validate semantics after parsing and separate refusal, truncation, invalid structure and downstream business rejection.
 ## Technical method
 
 - **Inspect:** Read the exact schema, provider support, refusal/truncation signals and downstream invariants.
-- **Apply:** Validate syntax, schema and business constraints separately; bound retries and return typed failure when recovery cannot establish validity.
+- **Method:** Validate syntax, schema and business constraints separately; bound retries and return typed failure when recovery cannot establish validity.
 - **Avoid misdiagnosis:** Valid JSON can contain fabricated IDs or inconsistent totals; filling required fields with invented defaults corrupts meaning.
 - **Check the result:** Exercise malformed, schema-valid-but-semantic-invalid, refused and truncated responses alongside a valid control.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [LLMs and retrieval worked example](../../references/examples/llm.md).
+
 
 ## Decision branches
 

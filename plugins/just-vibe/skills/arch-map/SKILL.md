@@ -19,25 +19,33 @@ Use the complete request appended to this invocation, preserving all constraints
 
 readable source, infrastructure/configuration definitions, and any supplied system documentation. Runtime telemetry is optional evidence, never assumed available. Architecture proposals remain plans until implementation is requested.
 
+- **Infer from evidence:** Trace current entry points, data owners, deployment units and documented constraints before proposing boundaries.
+- **Reasonable default:** Prefer extending an existing owner while scale or organizational evidence is absent; mark capacity estimates as assumptions.
+- **Ask only when needed:** Ask for an unresolved consistency, compatibility or ownership requirement only if it changes the design; missing telemetry limits capacity claims, not source mapping.
+
 Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Existing services, stores, deployment units, trust boundaries, and external dependencies.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Reconcile source, deployment configuration, and documentation; identify ownership and protocols; trace a representative request and background process; label inferred edges.
-- Trace one request and one background operation, marking process, network, ownership and trust boundaries independently.
-
+1. Reconcile source, deployment configuration, and documentation; identify ownership and protocols; trace a representative request and background process; label inferred edges.
+2. Trace one request and one background operation, marking process, network, ownership and trust boundaries independently.
 ## Technical method
 
 - **Inspect:** Inspect composition roots, manifests, outbound clients, infrastructure definitions and queue registrations; associate each edge with its source.
-- **Apply:** Separate imports, runtime calls and deployment boundaries. Follow one request into durable storage and one asynchronous continuation.
+- **Method:** Separate imports, runtime calls and deployment boundaries. Follow one request into durable storage and one asynchronous continuation.
 - **Avoid misdiagnosis:** A package dependency does not prove a network call or independently deployed service; missing infrastructure leaves deployment unknown.
 - **Check the result:** Reconcile one diagram path against real entry points and consumers, including an error return; label inferred edges.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [Architecture worked example](../../references/examples/architecture.md).
+
 
 ## Decision branches
 

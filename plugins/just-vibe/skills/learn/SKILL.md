@@ -19,25 +19,33 @@ Use the complete request appended to this invocation, preserving all constraints
 
 Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
+- **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
+- **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
+- **Ask only when needed:** Ask when competing targets or incompatible success conditions would change the result; continue independent inspection first.
+
 Resolve any task-specific tools, target identity and evidence before dependent actions. No external connection is assumed.
 
 ## Scope
 
 Extract a reusable lesson for review; no automatic permanent rule installation.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Identify the actual cause and successful intervention, separate generalizable conditions from accidents, and test the lesson against a counterexample.
-- Link the failure trigger to the successful intervention and test a plausible exception; state when the lesson should not apply.
-
+1. Identify the actual cause and successful intervention, separate generalizable conditions from accidents, and test the lesson against a counterexample.
+2. Link the failure trigger to the successful intervention and test a plausible exception; state when the lesson should not apply.
 ## Technical method
 
 - **Inspect:** Inspect a completed task's actual failure, correction and verified result.
-- **Apply:** Extract a scoped reusable lesson with its trigger and limits; save only when requested in the approved location.
+- **Method:** Extract a scoped reusable lesson with its trigger and limits; save only when requested in the approved location.
 - **Avoid misdiagnosis:** Generalizing one incident into an unconditional global rule can harm unrelated work.
 - **Check the result:** Check the lesson against both the triggering case and a nearby case where it should not apply.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [General worked example](../../references/examples/general.md).
+
 
 ## Decision branches
 

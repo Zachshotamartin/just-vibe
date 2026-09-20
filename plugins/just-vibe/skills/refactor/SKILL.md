@@ -19,28 +19,32 @@ Use the complete request appended to this invocation, preserving all constraints
 
 Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
+- **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
+- **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
+- **Ask only when needed:** Ask when competing targets or incompatible success conditions would change the result; continue independent inspection first.
+
 Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Internal organization with preserved observable behavior; feature changes are separate.
 
-Only the requested local changes; external actions require their exact action and target in session authorization.
+Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.
 
 ## Execute
 
-- Capture relevant behavior, identify seams, transform incrementally, preserve call contracts, and compare results against the baseline.
-- Identify public exports, serialization and error contracts; transform one seam at a time and compare behavior against existing consumer checks.
-
+1. Capture relevant behavior, identify seams, transform incrementally, preserve call contracts, and compare results against the baseline.
+2. Identify public exports, serialization and error contracts; transform one seam at a time and compare behavior against existing consumer checks.
 ## Technical method
 
 - **Inspect:** Identify public contracts, state ownership, side effects and behavior-sensitive tests.
-- **Apply:** Change structure in coherent steps while preserving observable semantics, including error and timing contracts.
+- **Method:** Change structure in coherent steps while preserving observable semantics, including error and timing contracts.
 - **Avoid misdiagnosis:** Renaming a pure helper differs from moving async ownership or transaction boundaries; both cannot use the same evidence bar.
 - **Check the result:** Compare representative success/failure behavior before and after and inspect callers for changed ordering or identity semantics.
 
 ## Read when relevant
 
+- When a concrete decision or deliverable example would clarify this workflow: [General worked example](../../references/examples/general.md).
 - Language/runtime semantics, concurrency or resource ownership can change the result: [Language and runtime review methods](../../references/scenarios/language-review.md).
 
 ## Decision branches

@@ -19,28 +19,32 @@ Use the complete request appended to this invocation, preserving all constraints
 
 Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
+- **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
+- **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
+- **Ask only when needed:** Ask when competing targets or incompatible success conditions would change the result; continue independent inspection first.
+
 Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Dependency health and upgrade proposals; requested updates select apply mode and include lockfiles.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Inspect manifests/resolution, check current release notes and advisories, identify peer/runtime constraints, and group changes by risk.
-- Read resolved versions and peer/runtime ranges; identify why each dependency exists and isolate direct changes from lockfile churn.
-
+1. Inspect manifests/resolution, check current release notes and advisories, identify peer/runtime constraints, and group changes by risk.
+2. Read resolved versions and peer/runtime ranges; identify why each dependency exists and isolate direct changes from lockfile churn.
 ## Technical method
 
 - **Inspect:** Inspect manifests, lockfiles, direct/transitive ownership, advisory evidence and supported versions.
-- **Apply:** Separate security fixes from routine upgrades and assess API/engine/peer compatibility before changing the resolved graph.
+- **Method:** Separate security fixes from routine upgrades and assess API/engine/peer compatibility before changing the resolved graph.
 - **Avoid misdiagnosis:** Forced audit fixes or ignored peer conflicts can replace one issue with a runtime incompatibility.
 - **Check the result:** Inspect the resulting lockfile, run relevant behavior/build checks and retain unresolved advisories or inaccessible registry evidence.
 
 ## Read when relevant
 
+- When a concrete decision or deliverable example would clarify this workflow: [General worked example](../../references/examples/general.md).
 - Dependencies, builds, secrets, hooks or privileged execution cross a trust boundary: [Dependency and execution provenance](../../references/security/supply-chain.md).
 - An available scanner or dependency advisory check can answer the scoped question: [Scanner selection and evidence](../../references/security/scanners.md).
 

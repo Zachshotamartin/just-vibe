@@ -13,6 +13,12 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 Mitigate an active incident before pursuing speculative root causes; preserve evidence.
 
+## Concrete contribution
+
+Connect the observed failure to a user-facing objective and error budget, then propose a bounded mitigation with a measurable recovery condition.
+
+For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+
 ## Verify when relevant
 
 - Validate recovery against user-facing symptoms.

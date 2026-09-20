@@ -19,25 +19,33 @@ Use the complete request appended to this invocation, preserving all constraints
 
 interface definitions, producer/consumer source, authentication model, versioning constraints, and isolated test endpoints. External API calls must respect environment, credentials, rate limits, and side-effect scope.
 
+- **Infer from evidence:** Read producer/consumer schemas, error contracts, auth conventions and known supported client versions.
+- **Reasonable default:** Keep compatible response and pagination semantics where the brief does not request a breaking change.
+- **Ask only when needed:** Ask when contract sources disagree or an unknown consumer changes compatibility; do not require live credentials to write or test an isolated client.
+
 Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Typed client boundary, serialization, errors, pagination, and permitted retries.
 
-Only the requested local changes; external actions require their exact action and target in session authorization.
+Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.
 
 ## Execute
 
-- Verify contract/version, generate or write a narrow client, isolate credentials, preserve useful errors, and exercise controlled successful and failed responses.
-- Resolve version/auth/schema, validate runtime response shape and preserve actionable status, retry-after and request IDs without leaking credentials.
-
+1. Verify contract/version, generate or write a narrow client, isolate credentials, preserve useful errors, and exercise controlled successful and failed responses.
+2. Resolve version/auth/schema, validate runtime response shape and preserve actionable status, retry-after and request IDs without leaking credentials.
 ## Technical method
 
 - **Inspect:** Inspect API version, runtime response shape, token destination, retryable operations and timeout ownership.
-- **Apply:** Separate transport, protocol and domain failures; validate untrusted responses where needed and restrict credential forwarding across redirects/origins.
+- **Method:** Separate transport, protocol and domain failures; validate untrusted responses where needed and restrict credential forwarding across redirects/origins.
 - **Avoid misdiagnosis:** Static types disappear at runtime; automatically retrying every POST can repeat an external effect.
 - **Check the result:** Exercise malformed response, cancellation, rate limit and uncertain mutation, verifying bounded retry, typed failure and no credential leakage.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [APIs worked example](../../references/examples/api.md).
+
 
 ## Decision branches
 

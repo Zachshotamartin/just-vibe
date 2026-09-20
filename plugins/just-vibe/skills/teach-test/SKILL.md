@@ -19,6 +19,10 @@ Use the complete request appended to this invocation, preserving all constraints
 
 Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
+- **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
+- **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
+- **Ask only when needed:** Ask when competing targets or incompatible success conditions would change the result; continue independent inspection first.
+
 Declared evidence requirements: `user.questions`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
@@ -36,15 +40,18 @@ No project or external-service writes. Keep quiz state in session context; save 
 5. For asynchronous tools, retain the quiz as awaiting-answer and wait for a user response; a returned pending tool call or preselected option is not submission. Do not advance, reveal the answer, or end with an inline replacement question while waiting.
 6. Normalize the actual response into questionId, submitted, selection/freeText, skipped/cancelled and call toolkit quiz answer. For a free-text explanation, use quiz review only after assessing its meaning; preserve the actual response and explain the judgment.
 7. Show returned feedback after answers in practice mode; withhold correctness in test mode until finished. Generate the next question using demonstrated misconceptions and remaining budget, then repeat through the native tool. Use quiz report for the final assessment; report sample limits and optional review topics.
-
-Task-specific method: Resolve the topic or recent lesson, select practice by default or test when requested, and set a bounded question count (default five). Identify the native question tool and verify availability and permitted use before preparing the quiz. Ask one clear question with three plausible short choices using the real native question tool. Include prerequisite understanding, a worked-state prediction and an application or tradeoff question as appropriate; shuffle choices and avoid answer-revealing labels or descriptions. Wait for an actual submitted answer. A default/preselected option, an async call returning, a timeout, skip or cancellation is not a correct or incorrect answer. Keep the same pending question until its response is resolved. In practice mode explain the answer after submission and adapt subsequent difficulty/concept to demonstrated understanding. In test mode defer correctness feedback until completion. Evaluate free-text answers fairly against the actual question rather than guessing a clicked option. Finish at the question limit or user cancellation with a bounded assessment, missed concepts and suggested review. Do not claim mastery from a short quiz or save a permanent learner profile without request. Establish question count and practice versus test mode; test one concept per question and keep the answer key out of the presentation payload.
-
+8. Test one concept at a time, mixing a state prediction with an application when useful. Adapt to the specific misconception; a short quiz cannot establish mastery.
 ## Technical method
 
 - **Inspect:** Inspect requested topic, level, previous answers and availability of the host's native question dialog.
-- **Apply:** Ask one discriminating multiple-choice question in the dialog, wait for the answer, explain why choices differ and adapt the next question.
-- **Avoid misdiagnosis:** Inline answer dumps or revealing the correct answer before the response defeat the test; unavailable native UI needs an explicit fallback.
+- **Method:** Ask one discriminating multiple-choice question in the dialog, wait for the answer, explain why choices differ and adapt the next question.
+- **Avoid misdiagnosis:** Inline questions or an early answer key defeat native assessment; if the host forbids quiz dialogs, explain the limit and stop the quiz without disguising it as clarification.
 - **Check the result:** Verify that questions wait for a real answer and that a misconception changes subsequent practice without claiming mastery from one guess.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [General worked example](../../references/examples/general.md).
+
 
 ## Decision branches
 

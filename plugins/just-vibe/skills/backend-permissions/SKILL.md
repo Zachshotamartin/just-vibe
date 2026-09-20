@@ -19,28 +19,32 @@ Use the complete request appended to this invocation, preserving all constraints
 
 service source, data/interface contracts, framework/runtime versions, and test environment. Default apply operations target local code and isolated tests; live infrastructure/data mutations require their own requested scope.
 
+- **Infer from evidence:** Trace service callers, request contracts, authorization, transactions, retries and existing test infrastructure.
+- **Reasonable default:** Use the existing persistence and framework; isolate local tests from live services.
+- **Ask only when needed:** Resolve ambiguous durability, duplication or consistency requirements before encoding them; absent production access does not prevent local implementation.
+
 Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Server-side resource authorization across all relevant entry points.
 
-None by default. Plan artifacts may be saved when requested.
+Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the requested local implementation and perform relevant bounded checks while preserving unrelated work. Live data changes, remote actions and paid jobs require their resolved target and existing session authorization.
 
 ## Execute
 
-- Build an action/resource matrix, identify enforcement boundaries, implement consistent checks when requested, and test cross-user, cross-tenant, and indirect access.
-- Build subject/action/resource/tenant cases, locate server-side enforcement and inspect alternate read/write/export paths and ownership transfers.
-
+1. Build an action/resource matrix, identify enforcement boundaries, implement consistent checks when requested, and test cross-user, cross-tenant, and indirect access.
+2. Build subject/action/resource/tenant cases, locate server-side enforcement and inspect alternate read/write/export paths and ownership transfers.
 ## Technical method
 
 - **Inspect:** Build a subject/action/resource/tenant matrix from the product policy and locate all entry points.
-- **Apply:** Enforce authorization using trusted identity and server-owned resource scope, including workers, downloads and bulk operations.
+- **Method:** Enforce authorization using trusted identity and server-owned resource scope, including workers, downloads and bulk operations.
 - **Avoid misdiagnosis:** A hidden button or unguessable identifier does not enforce permission; an admin in one tenant is not automatically a global admin.
 - **Check the result:** Use two isolated users/tenants and verify denied requests leave no side effects while valid owner/admin requests still work.
 
 ## Read when relevant
 
+- When a concrete decision or deliverable example would clarify this workflow: [Backend worked example](../../references/examples/backend.md).
 - Identity, ownership, tenant isolation, replay or privilege changes affect the task: [Identity and authorization](../../references/security/identity.md).
 
 ## Decision branches
@@ -63,5 +67,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Define read/update/export access rules for organization-owned invoices.
-- **edge (plan):** Add permission checks for direct-ID access and background exports.
+- **edge (apply):** Add permission checks for direct-ID access and background exports.
 - **blocked (inspect):** Audit source without real tenant accounts; use synthetic identities and state assumptions.

@@ -19,26 +19,34 @@ Use the complete request appended to this invocation, preserving all constraints
 
 Git, exact repository/worktree, and readable refs/index. Record branch, HEAD, staged/unstaged/untracked state before mutation. Preserve unrelated edits and never default to broad staging, hard reset, clean, force push, or history rewriting.
 
+- **Infer from evidence:** Read repository root, HEAD, branch, refs and staged/unstaged/untracked distinctions; use the configured human identity.
+- **Reasonable default:** Limit an ambiguous inspection to the current repository and report that scope; preserve all existing changes.
+- **Ask only when needed:** Before mutation, resolve uncertain commit membership, destination ref or history-rewrite intent; do not ask again about already authorized exact actions.
+
 Declared evidence requirements: `git.repo`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Selected changes and their behavioral meaning; no staging or editing.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Resolve refs, inspect rename/binary/submodule metadata, read surrounding context, group by purpose, and identify unrelated edits.
-- Separate index versus HEAD, worktree versus index and branch versus merge-base; resolve the requested comparison before summarizing hunks.
-- All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
-
+1. Resolve refs, inspect rename/binary/submodule metadata, read surrounding context, group by purpose, and identify unrelated edits.
+2. Separate index versus HEAD, worktree versus index and branch versus merge-base; resolve the requested comparison before summarizing hunks.
+3. All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
 ## Technical method
 
 - **Inspect:** Resolve comparison refs and merge-base, then inspect rename, mode, binary and submodule changes as well as text.
-- **Apply:** Summarize user-visible behavior and dependencies between hunks; identify which tree each diff represents.
+- **Method:** Summarize user-visible behavior and dependencies between hunks; identify which tree each diff represents.
 - **Avoid misdiagnosis:** Branch-tip comparison and merge-base comparison answer different questions; text-only review misses executable-bit changes.
 - **Check the result:** Cite a representative hunk for each behavior claim and account for changed files outside ordinary source extensions.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [Git worked example](../../references/examples/git.md).
+
 
 ## Decision branches
 

@@ -19,25 +19,33 @@ Use the complete request appended to this invocation, preserving all constraints
 
 exact service/environment, time window, revision/configuration identity, authorized logs/metrics, and operational constraints. Prefer observation before intervention; live restarts, traffic changes, restores, and notifications require the requested target/action. Redact sensitive telemetry.
 
+- **Infer from evidence:** Read service/environment, time window, revision, available telemetry and existing incident or recovery procedure.
+- **Reasonable default:** Start from supplied logs and read-only observation; rank hypotheses without presenting an unexecuted intervention as recovery.
+- **Ask only when needed:** Resolve the precise target and missing authority before restart, restore, notification or traffic changes; continue evidence analysis while waiting.
+
 Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Actionable alert rules and response guidance; enabling/sending notifications requires an explicit request.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Tie signals to impact, define windows/thresholds and missing-data behavior, test historical/fixture events, include recovery and suppression rules, and identify the responder action.
-- Tie each alert to impact and responder action, define evaluation/recovery windows, missing-data behavior and noise suppression, then test historical or synthetic cases.
-
+1. Tie signals to impact, define windows/thresholds and missing-data behavior, test historical/fixture events, include recovery and suppression rules, and identify the responder action.
+2. Tie each alert to impact and responder action, define evaluation/recovery windows, missing-data behavior and noise suppression, then test historical or synthetic cases.
 ## Technical method
 
 - **Inspect:** Establish user-impact signal, window, baseline, missing-data semantics and response owner.
-- **Apply:** Define actionable thresholds, recovery and deduplication; distinguish page-worthy sustained failure from diagnostic events.
+- **Method:** Define actionable thresholds, recovery and deduplication; distinguish page-worthy sustained failure from diagnostic events.
 - **Avoid misdiagnosis:** A threshold without a responder action creates noise; no samples must not silently become healthy.
 - **Check the result:** Replay healthy, failing, transient and missing-data sequences, checking firing, recovery and notification routing only within requested scope.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [Operations worked example](../../references/examples/operations.md).
+
 
 ## Decision branches
 

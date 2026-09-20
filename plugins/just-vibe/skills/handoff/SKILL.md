@@ -19,29 +19,33 @@ Use the complete request appended to this invocation, preserving all constraints
 
 Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
+- **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
+- **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
+- **Ask only when needed:** Ask when competing targets or incompatible success conditions would change the result; continue independent inspection first.
+
 Resolve any task-specific tools, target identity and evidence before dependent actions. No external connection is assumed.
 
 ## Scope
 
 Produce a self-contained handoff; creating tasks, sending messages, or assigning ownership is separate.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Reconstruct the original objective, summarize verified state, include decisions and constraints, document blockers, and provide actionable continuation steps.
-- Reconstruct the original goal and accepted decisions, separate proposed from completed work, and identify files or artifacts needed for the next step.
-- All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
-
+1. Reconstruct the original objective, summarize verified state, include decisions and constraints, document blockers, and provide actionable continuation steps.
+2. Reconstruct the original goal and accepted decisions, separate proposed from completed work, and identify files or artifacts needed for the next step.
+3. All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
 ## Technical method
 
 - **Inspect:** Resolve current objective, accepted constraints, completed artifacts, evidence and open decisions.
-- **Apply:** Write a self-contained brief with exact paths/revisions and the next actionable step, distinguishing facts from proposals.
+- **Method:** Write a self-contained brief with exact paths/revisions and the next actionable step, distinguishing facts from proposals.
 - **Avoid misdiagnosis:** A conversational narrative without current state forces rediscovery; claiming unavailable checks passed misleads the next session.
 - **Check the result:** Verify links/identities and ensure a reader can continue without relying on hidden conversation context or secret values.
 
 ## Read when relevant
 
+- When a concrete decision or deliverable example would clarify this workflow: [General worked example](../../references/examples/general.md).
 - Saving requested preferences, decisions or a named continuation: [Project continuity](../../references/daily-workflows.md).
 
 ## Decision branches

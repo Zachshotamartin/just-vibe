@@ -13,6 +13,12 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 Use a task guide for execution, reference for lookup and explanation for conceptual understanding.
 
+## Concrete contribution
+
+Produce task-oriented documentation whose commands and examples match the current artifact, and test the reader’s starting assumptions and recovery path.
+
+For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+
 ## Verify when relevant
 
 - Run or independently verify relevant examples.

@@ -19,27 +19,35 @@ Use the complete request appended to this invocation, preserving all constraints
 
 the decision question, constraints, alternatives or permission to identify them, and relevant project evidence. Current vendor claims and prices require current authoritative sources during execution. Scores are decision aids, not facts.
 
+- **Infer from evidence:** Recover hard constraints, the current option, adoption status and stated priorities from the brief and prior decisions.
+- **Reasonable default:** Compare feasible options qualitatively when weights were not supplied; make a reversible conditional recommendation when useful.
+- **Ask only when needed:** Ask only about a missing constraint or preference that could reverse the recommendation; do not demand a complete scoring questionnaire.
+
 Resolve any task-specific tools, target identity and evidence before dependent actions. No external connection is assumed.
 
 ## Scope
 
 Design or explicitly run a disposable experiment; no production integration disguised as a spike.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Name the decision the spike will inform and the uncertainty that could change it. Define a representative workload/sample and an observable acceptance/rejection criterion before building.
-- Set a time/compute/data budget, isolated artifact location and stop rule. Choose the smallest prototype or measurement that can distinguish the alternatives; avoid building production scaffolding that does not test the hypothesis.
-- Execute within authorization and record raw observations, versions and deviations from the plan. Preserve failures and resource-limit outcomes; do not change the success threshold after seeing the result.
-- Classify supported, rejected or inconclusive. Explain the implication for the original decision and the limits of the sample; prototype success does not establish production readiness.
-
+1. Name the decision the spike will inform and the uncertainty that could change it. Define a representative workload/sample and an observable acceptance/rejection criterion before building.
+2. Set a time/compute/data budget, isolated artifact location and stop rule. Choose the smallest prototype or measurement that can distinguish the alternatives; avoid building production scaffolding that does not test the hypothesis.
+3. Execute within authorization and record raw observations, versions and deviations from the plan. Preserve failures and resource-limit outcomes; do not change the success threshold after seeing the result.
+4. Classify supported, rejected or inconclusive. Explain the implication for the original decision and the limits of the sample; prototype success does not establish production readiness.
 ## Technical method
 
 - **Inspect:** Identify one uncertainty, representative input, budget and rejection condition.
-- **Apply:** Run the smallest experiment that separates alternatives; retain failure evidence and mark prototype shortcuts.
+- **Method:** Run the smallest experiment that separates alternatives; retain failure evidence and mark prototype shortcuts.
 - **Avoid misdiagnosis:** Building a polished prototype can consume the budget without testing the disputed assumption.
 - **Check the result:** Apply the predeclared criterion to raw observations, including an inconclusive outcome when the sample cannot distinguish options.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [Decisions worked example](../../references/examples/decisions.md).
+
 
 ## Decision branches
 

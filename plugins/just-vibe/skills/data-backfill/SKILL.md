@@ -15,9 +15,13 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 ## Input and mode
 
-Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan; historical range, transformation/version, target, batch limits, and load budget.
+Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan the backfill; apply for requested backfill code or an explicitly scoped data run.
 
 data source/version, schema/semantics, transformation code, permitted sampling scope, and storage/compute budget. Prefer aggregates and redacted samples; never upload datasets to external services implicitly. Record time zones and snapshot identity for reproducibility.
+
+- **Infer from evidence:** Inspect schema, source snapshot, transformation code, grain, time zones and permitted sample scope.
+- **Reasonable default:** Use bounded synthetic or supplied samples when full data is unavailable; keep unknown values distinct from zero.
+- **Ask only when needed:** Resolve ambiguous entity/grain/time semantics before reconciliation or backfill; obtain missing data/compute limits only for the dependent scan or execution.
 
 Declared evidence requirements: `data.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
@@ -25,23 +29,28 @@ Declared evidence requirements: `data.read`. Use actual host discovery or adequa
 
 Resumable historical recomputation; execution requires the specified data/environment authorization.
 
-None by default. Plan artifacts may be saved when requested.
+Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the requested changes or execute the requested operation within its resolved target and limits. Local preparation does not authorize live, remote, destructive or paid actions; existing explicit session authorization still applies.
 
 ## Execute
 
-- Estimate volume, partition work, define idempotent writes and checkpoints, validate a small authorized batch, reconcile output, and resume within limits.
-- Partition a fixed source snapshot, define idempotent writes and checkpoints, measure a small permitted batch and account for concurrent incremental writers.
-
+1. Estimate volume, partition work, define idempotent writes and checkpoints, validate a small authorized batch, reconcile output, and resume within limits.
+2. Partition a fixed source snapshot, define idempotent writes and checkpoints, measure a small permitted batch and account for concurrent incremental writers.
 ## Technical method
 
 - **Inspect:** Define bounded historical range, target revision, batch key, live-writer policy and resource limits.
-- **Apply:** Make chunks resumable and idempotent; prevent old backfill data from overwriting newer live values.
+- **Method:** Make chunks resumable and idempotent; prevent old backfill data from overwriting newer live values.
 - **Avoid misdiagnosis:** A successful batch counter does not prove all rows were covered, and retrying non-idempotent transforms can corrupt values.
 - **Check the result:** Stop and resume midway while a live update occurs, then reconcile coverage and values at the agreed snapshot boundary.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [Data engineering worked example](../../references/examples/data.md).
+
 
 ## Decision branches
 
 - **When a batch fails or load exceeds the cap:** Pause with its partition identity and reconciliation state so resume cannot duplicate or overwrite good output.
+- **When the request is for local preparation or implementation:** Implement restartable batches, progress and reconciliation using a local fixture; resolve live target, limits and recovery before modifying existing data.
 
 ## Deliver and verify
 

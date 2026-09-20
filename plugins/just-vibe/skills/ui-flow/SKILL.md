@@ -19,25 +19,33 @@ Use the complete request appended to this invocation, preserving all constraints
 
 target screens/flows, existing design conventions, and runnable UI or supplied references. Visual claims require actual renders; accessibility claims distinguish automated, keyboard, and assistive-technology evidence.
 
+- **Infer from evidence:** Inspect the target flow, existing components/tokens, actual renders or supplied references and current responsive behavior.
+- **Reasonable default:** Reuse established visual conventions and preserve keyboard behavior; label unrendered changes as visually unverified.
+- **Ask only when needed:** Ask about an unresolved interaction or visual direction only when plausible choices materially differ; do not make a missing screenshot block source inspection.
+
 Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 One complete journey including cancellation, errors, navigation, and recovery.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Walk the journey, map decisions and state transitions, identify dead ends/friction, propose improvements, and implement only when requested.
-- Trace entry, progress, validation, abandonment, retry and return paths; track which user input and permissions survive each transition.
-
+1. Walk the journey, map decisions and state transitions, identify dead ends/friction, propose improvements, and implement only when requested.
+2. Trace entry, progress, validation, abandonment, retry and return paths; track which user input and permissions survive each transition.
 ## Technical method
 
 - **Inspect:** Map the user's objective, steps, branching choices, saved state and recovery from interruption.
-- **Apply:** Remove unnecessary decisions while retaining needed confirmation and context; define back, refresh and retry semantics.
+- **Method:** Remove unnecessary decisions while retaining needed confirmation and context; define back, refresh and retry semantics.
 - **Avoid misdiagnosis:** Optimizing one screen can break cross-screen state or erase work when users navigate backward.
 - **Check the result:** Complete the journey from a fresh start, an interrupted state and a recoverable failure with realistic input methods.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [UI and frontend worked example](../../references/examples/ui.md).
+
 
 ## Decision branches
 

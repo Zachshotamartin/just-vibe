@@ -17,7 +17,11 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply; unit/behavior, edge cases, and existing test framework.
 
-defined behavior, existing test conventions/runners, isolated fixtures, and relevant dependencies. Execution belongs in apply mode. Never test destructive behavior against production by default; distinguish mocked behavior from real integration evidence.
+defined behavior, existing test conventions/runners, isolated fixtures, and relevant dependencies. Requested bounded verification may use owned isolated fixtures without authorizing product edits or live-system tests. Never test destructive behavior against production by default; distinguish mocked behavior from real integration evidence.
+
+- **Infer from evidence:** Read behavior contracts, existing runners and test conventions; distinguish fixture setup failure from a behavioral failure.
+- **Reasonable default:** Use the smallest existing local runner and isolated synthetic fixtures that distinguish the requested behavior.
+- **Ask only when needed:** Ask about an unresolved contract that changes the expected result, or the target/load limits before external testing; do not ask the user to choose a runner already configured.
 
 Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
@@ -25,19 +29,23 @@ Declared evidence requirements: `project.read`. Use actual host discovery or ade
 
 Isolated contracts and invariants with minimal justified mocks.
 
-Only the requested local changes; external actions require their exact action and target in session authorization.
+Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.
 
 ## Execute
 
-- Identify observable inputs/outputs, choose meaningful boundaries, create focused tests, check error cases, and run the relevant suite.
-- Select a public behavior and independent expected result, use minimal valid fixtures and cover a meaningful invalid or boundary input without asserting private implementation steps.
-
+1. Identify observable inputs/outputs, choose meaningful boundaries, create focused tests, check error cases, and run the relevant suite.
+2. Select a public behavior and independent expected result, use minimal valid fixtures and cover a meaningful invalid or boundary input without asserting private implementation steps.
 ## Technical method
 
 - **Inspect:** Identify the public behavior, pure boundary, dependencies and independently derivable expectations.
-- **Apply:** Choose small examples around equivalence classes and exact boundaries; control clock/randomness rather than sleeping.
+- **Method:** Choose small examples around equivalence classes and exact boundaries; control clock/randomness rather than sleeping.
 - **Avoid misdiagnosis:** Asserting internal helper calls or computing expected results with the implementation repeats its mistakes.
 - **Check the result:** Demonstrate that a plausible wrong result fails an assertion while valid empty/zero/boundary cases pass.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [Testing worked example](../../references/examples/testing.md).
+
 
 ## Decision branches
 

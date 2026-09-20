@@ -13,6 +13,12 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 Choose managed services when their operational tradeoffs fit the explicit constraints.
 
+## Concrete contribution
+
+Map the requested workload to account, region, identity and network boundaries; identify quota and failure-domain constraints before selecting managed resources.
+
+For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+
 ## Verify when relevant
 
 - Validate infrastructure plans and least-privilege access.

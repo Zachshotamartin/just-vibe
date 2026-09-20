@@ -19,25 +19,33 @@ Use the complete request appended to this invocation, preserving all constraints
 
 actual engine/version, schema/migrations, query workload, and explicitly identified environment. Prefer supplied plans, metadata, and isolated fixtures. Even a SELECT can lock, call mutating functions, or overload a database; inspect semantics before execution. Executing an analyzed query is distinct from reading its plan.
 
+- **Infer from evidence:** Read engine/version, ORM/runner, schema and migration history from project artifacts before choosing SQL.
+- **Reasonable default:** Prepare local SQL and isolated fixtures without assuming production size, locks or recovery guarantees.
+- **Ask only when needed:** Ask for environment, downtime or recovery constraints before live/destructive execution when missing; unavailable production access does not block migration files.
+
 Declared evidence requirements: `database.context`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Blocking chains, deadlocks, transaction duration, and contention causes.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Correlate blocked/blocking sessions and queries, inspect transaction boundaries, distinguish transient waits from persistent contention, and propose targeted remedies.
-- Correlate wait and blocker snapshots with transaction age, query identity and application transaction boundaries; follow the root blocker rather than the noisiest victim.
-
+1. Correlate blocked/blocking sessions and queries, inspect transaction boundaries, distinguish transient waits from persistent contention, and propose targeted remedies.
+2. Correlate wait and blocker snapshots with transaction age, query identity and application transaction boundaries; follow the root blocker rather than the noisiest victim.
 ## Technical method
 
 - **Inspect:** Inspect blocking chain, lock modes, transaction age, statements and isolation on the exact database.
-- **Apply:** Find the root blocker and conflicting access order; consider shorter transactions, consistent ordering or bounded retries against the invariant.
+- **Method:** Find the root blocker and conflicting access order; consider shorter transactions, consistent ordering or bounded retries against the invariant.
 - **Avoid misdiagnosis:** The busiest blocked query may be a victim; terminating a session is an operational mutation with rollback consequences.
 - **Check the result:** Reproduce the interleaving with separate isolated connections and verify bounded recovery, not merely lower observed lock counts.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [Databases worked example](../../references/examples/database.md).
+
 
 ## Decision branches
 

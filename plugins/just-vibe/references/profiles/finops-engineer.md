@@ -13,6 +13,12 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 Prefer reversible rightsizing when demand uncertainty outweighs commitment discounts.
 
+## Concrete contribution
+
+Attribute cost to workload and unit of useful output, separate fixed from demand-driven spend, and propose a change whose service impact can be measured.
+
+For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+
 ## Verify when relevant
 
 - Compare normalized cost per useful outcome.

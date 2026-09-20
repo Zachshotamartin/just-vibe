@@ -19,25 +19,33 @@ Use the complete request appended to this invocation, preserving all constraints
 
 versioned model and preprocessing artifacts, input/output schema, runtime/dependencies, operating targets, and authorized environment. Validate artifact trust before loading formats that can execute code. Packaging or writing monitoring configuration does not deploy a model or enable a hosted service.
 
+- **Infer from evidence:** Read artifact format/trust, preprocessing schema, serving runtime, compatibility and existing rollout controls.
+- **Reasonable default:** Prepare packaging/configuration and isolated checks without treating them as a live deployment.
+- **Ask only when needed:** Resolve the target, rollback compatibility and operating limits before rollout or load generation; missing production access does not block packaging.
+
 Resolve any task-specific tools, target identity and evidence before dependent actions. No external connection is assumed.
 
 ## Scope
 
 Resumable batch inference; real dataset execution must be part of the request.
 
-Only the requested local changes; external actions require their exact action and target in session authorization.
+Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.
 
 ## Execute
 
-- Validate schemas, create stable row/partition identities, implement checkpointed writes, track failures and model versions, and test resume/replay on controlled input.
-- Freeze model and input snapshot identity, partition by stable keys, stage outputs and commit a manifest/checkpoint only after durable complete partitions.
-
+1. Validate schemas, create stable row/partition identities, implement checkpointed writes, track failures and model versions, and test resume/replay on controlled input.
+2. Freeze model and input snapshot identity, partition by stable keys, stage outputs and commit a manifest/checkpoint only after durable complete partitions.
 ## Technical method
 
 - **Inspect:** Identify input snapshot, stable record IDs, model version, partitioning and output commit/checkpoint policy.
-- **Apply:** Write resumable idempotent partitions with provenance and reconcile partial output before advancing progress.
+- **Method:** Write resumable idempotent partitions with provenance and reconcile partial output before advancing progress.
 - **Avoid misdiagnosis:** Restarting with a different model under the same output partition silently mixes incompatible predictions.
 - **Check the result:** Interrupt before/after output commit and retry; verify full membership, no duplicate records and consistent model/data identity.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [ML deployment worked example](../../references/examples/ml-deployment.md).
+
 
 ## Decision branches
 

@@ -19,25 +19,33 @@ Use the complete request appended to this invocation, preserving all constraints
 
 Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
+- **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
+- **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
+- **Ask only when needed:** Ask when competing targets or incompatible success conditions would change the result; continue independent inspection first.
+
 Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Minimal reproducer in an agreed scratch/test location; not a product fix.
 
-Only the requested local changes; external actions require their exact action and target in session authorization.
+Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.
 
 ## Execute
 
-- Confirm the symptom, reduce unrelated dependencies and data, preserve the failure trigger, and document exact run/reset steps.
-- Freeze input and environment identity, reduce one dimension at a time, and include a negative control that removes the suspected trigger.
-
+1. Confirm the symptom, reduce unrelated dependencies and data, preserve the failure trigger, and document exact run/reset steps.
+2. Freeze input and environment identity, reduce one dimension at a time, and include a negative control that removes the suspected trigger.
 ## Technical method
 
 - **Inspect:** Capture exact input, environment, revision and the observable failure oracle.
-- **Apply:** Reduce dependencies and data while preserving the causal trigger; keep synthetic substitutes faithful to the failing boundary.
+- **Method:** Reduce dependencies and data while preserving the causal trigger; keep synthetic substitutes faithful to the failing boundary.
 - **Avoid misdiagnosis:** A smaller program with a different failure does not reproduce the original bug.
 - **Check the result:** Run from a clean isolated setup and show the same expected-versus-actual mismatch with bounded execution.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [General worked example](../../references/examples/general.md).
+
 
 ## Decision branches
 

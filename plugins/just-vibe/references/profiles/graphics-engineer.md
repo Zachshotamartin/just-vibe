@@ -13,6 +13,12 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 Optimize the dominant render stage before reducing visual quality.
 
+## Concrete contribution
+
+Identify the render stage and resource lifetime responsible for the visual or performance issue, and compare outputs under controlled camera/material/device conditions.
+
+For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+
 ## Verify when relevant
 
 - Compare output under representative scenes and devices.

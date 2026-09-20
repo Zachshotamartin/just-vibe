@@ -19,25 +19,33 @@ Use the complete request appended to this invocation, preserving all constraints
 
 frozen model/artifact, evaluation dataset identity, labels where needed, metric definitions, and task/operating context. Report sample counts and uncertainty appropriate to dependencies; avoid repeated test-set tuning. Exploratory findings need fresh confirmation before strong generalization claims.
 
+- **Infer from evidence:** Read frozen model/data identities, metric definitions, denominators and supplied predictions; separate validation from test use.
+- **Reasonable default:** Compute only supported metrics on permitted samples and label missing labels or subgroup coverage as unknown.
+- **Ask only when needed:** Ask when the operating cost/threshold or population changes the evaluation decision; do not fabricate labels to avoid a question.
+
 Declared evidence requirements: `ml.artifacts`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Probability reliability assessment; fitting calibration requires a separate held-out calibration protocol and explicit apply request.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Validate probability semantics, inspect reliability by range/cohort, use appropriate scoring measures, and compare any authorized calibrator on untouched evaluation data.
-- Check probability semantics, reliability and proper scoring measures; fit any calibrator on permitted data separate from final evaluation and compare by cohort.
-
+1. Validate probability semantics, inspect reliability by range/cohort, use appropriate scoring measures, and compare any authorized calibrator on untouched evaluation data.
+2. Check probability semantics, reliability and proper scoring measures; fit any calibrator on permitted data separate from final evaluation and compare by cohort.
 ## Technical method
 
 - **Inspect:** Inspect probability outputs, class definition, prevalence, selection split and calibration metric/binning.
-- **Apply:** Fit calibration on permitted selection data and evaluate reliability on separate data; compare proper scoring rules and reliability curves.
+- **Method:** Fit calibration on permitted selection data and evaluate reliability on separate data; compare proper scoring rules and reliability curves.
 - **Avoid misdiagnosis:** Ranking quality does not imply probability accuracy; coarse bins or shifted prevalence can conceal miscalibration.
 - **Check the result:** Check perfect, constant and confidently wrong synthetic predictions, then evaluate held-out calibration with sample support per region.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [ML evaluation worked example](../../references/examples/ml-evaluation.md).
+
 
 ## Decision branches
 

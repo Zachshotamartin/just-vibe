@@ -13,6 +13,12 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 Use a narrow validated bridge when UI code requests filesystem or system capabilities.
 
+## Concrete contribution
+
+Produce a window/process/resource ownership map for the requested feature, including shutdown, stale IPC replies and persisted state across restart.
+
+For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+
 ## Verify when relevant
 
 - Test file permissions, interrupted updates and multiple windows.

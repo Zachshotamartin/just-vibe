@@ -19,25 +19,33 @@ Use the complete request appended to this invocation, preserving all constraints
 
 Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
+- **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
+- **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
+- **Ask only when needed:** Ask when competing targets or incompatible success conditions would change the result; continue independent inspection first.
+
 Resolve any task-specific tools, target identity and evidence before dependent actions. No external connection is assumed.
 
 ## Scope
 
 Resolve the question, not implement a preferred solution.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Form answerable subquestions, inspect project constraints, consult authoritative sources, compare evidence dates, and distinguish facts from inference.
-- Turn the question into compatibility claims; inspect the project's pinned versions and check primary documentation with dates and exact feature boundaries.
-
+1. Form answerable subquestions, inspect project constraints, consult authoritative sources, compare evidence dates, and distinguish facts from inference.
+2. Turn the question into compatibility claims; inspect the project's pinned versions and check primary documentation with dates and exact feature boundaries.
 ## Technical method
 
 - **Inspect:** Resolve the precise question, installed versions, decision constraints and primary source availability.
-- **Apply:** Search authoritative version-relevant material, distinguish quoted facts from inference and compare conflicting evidence.
+- **Method:** Search authoritative version-relevant material, distinguish quoted facts from inference and compare conflicting evidence.
 - **Avoid misdiagnosis:** Current documentation may describe a different major than the project; search snippets alone can omit decisive conditions.
 - **Check the result:** Link claims to supporting passages and identify the uncertainty that remains relevant to the decision.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [General worked example](../../references/examples/general.md).
+
 
 ## Decision branches
 

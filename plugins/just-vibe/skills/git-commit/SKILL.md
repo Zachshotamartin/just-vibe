@@ -19,28 +19,36 @@ Use the complete request appended to this invocation, preserving all constraints
 
 Git, exact repository/worktree, and readable refs/index. Record branch, HEAD, staged/unstaged/untracked state before mutation. Preserve unrelated edits and never default to broad staging, hard reset, clean, force push, or history rewriting.
 
+- **Infer from evidence:** Read repository root, HEAD, branch, refs and staged/unstaged/untracked distinctions; use the configured human identity.
+- **Reasonable default:** Limit an ambiguous inspection to the current repository and report that scope; preserve all existing changes.
+- **Ask only when needed:** Before mutation, resolve uncertain commit membership, destination ref or history-rewrite intent; do not ask again about already authorized exact actions.
+
 Declared evidence requirements: `git.repo`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Deliberate staging and commit creation; no push, amend, or unrelated content.
 
-Only the requested local changes; external actions require their exact action and target in session authorization.
+Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.
 
 ## Execute
 
-- Resolve the repository, HEAD, configured user identity and exact requested commit membership. Inspect both the index and worktree, including untracked files; record unrelated staged and unstaged changes before touching the index.
-- Separate intended changes by hunk, not merely path. If a file mixes user staging with the requested fix, use deliberate patch selection or a temporary index based on HEAD; a whole-file add or commit --only can include unrelated worktree content.
-- Review the actual candidate tree and verify it independently when unrelated worktree changes could affect the result. With a temporary index, stage only intended blobs/tests and run the normal commit path with that index so required hooks still run. Preserve a recoverable record of the original real index until post-commit reconciliation succeeds.
-- After committing through a temporary index, reconcile intended committed changes into the real index while retaining unrelated staged hunks. Verify HEAD contains only the intended change, HEAD-to-index retains the user’s staged work, and index-to-worktree retains the user’s unstaged work. Do not blindly restore an old index against the new HEAD.
-- Use the existing user identity and describe the change without agent/model self-attribution or agent Co-authored-by trailers. Inspect actual committed content and message, including hook changes. A failed hook leaves the operation incomplete; inspect state before retrying and never bypass it.
-
+1. Resolve the repository, HEAD, configured user identity and exact requested commit membership. Inspect both the index and worktree, including untracked files; record unrelated staged and unstaged changes before touching the index.
+2. Separate intended changes by hunk, not merely path. If a file mixes user staging with the requested fix, use deliberate patch selection or a temporary index based on HEAD; a whole-file add or commit --only can include unrelated worktree content.
+3. Review the actual candidate tree and verify it independently when unrelated worktree changes could affect the result. With a temporary index, stage only intended blobs/tests and run the normal commit path with that index so required hooks still run. Preserve a recoverable record of the original real index until post-commit reconciliation succeeds.
+4. After committing through a temporary index, reconcile intended committed changes into the real index while retaining unrelated staged hunks. Verify HEAD contains only the intended change, HEAD-to-index retains the user’s staged work, and index-to-worktree retains the user’s unstaged work. Do not blindly restore an old index against the new HEAD.
+5. Use the existing user identity and describe the change without agent/model self-attribution or agent Co-authored-by trailers. Inspect actual committed content and message, including hook changes. A failed hook leaves the operation incomplete; inspect state before retrying and never bypass it.
 ## Technical method
 
 - **Inspect:** Capture the user's initial index and worktree distinctions and the exact requested commit membership.
-- **Apply:** Use deliberate hunks or the existing temporary-index procedure; inspect the candidate tree and normal hook results before committing.
+- **Method:** Use deliberate hunks or the existing temporary-index procedure; inspect the candidate tree and normal hook results before committing.
 - **Avoid misdiagnosis:** A path-limited commit can include unwanted unstaged hunks, and blindly restoring an old index can stage a reversal.
 - **Check the result:** Compare old HEAD to new HEAD, new HEAD to index and index to worktree; preserve unrelated staging and inspect the resulting author/message.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [Git worked example](../../references/examples/git.md).
+
 
 ## Decision branches
 

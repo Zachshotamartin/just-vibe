@@ -6,6 +6,8 @@ The catalog owns each canonical command's scope, mode, required inputs, selectio
 
 216 names resolve to 213 canonical workflows. `do` inherits `auto`, `responsive` inherits `ui-responsive`, and `a11y` inherits `ui-accessibility`. Alias source records contain identity/search metadata only. Loading materializes the canonical behavior; validation rejects scope, mode, method, evidence or other behavioral drift. Routing collapses matching aliases to one canonical recommendation while preserving matched names.
 
+The [prompt improvements](prompt-improvements.md) add explicit input policies, request variants, conditional worked examples, concrete role contributions and multi-turn validation. Every generated skill uses one canonical procedure; do not reintroduce parallel runtime instructions.
+
 ## Writing useful guidance
 
 Selection should distinguish a nearby workflow: explain versus teach, debug versus fix, local pr drafting versus remote github-pr identity/actions. A task-specific procedure should name the evidence to inspect and the decision it informs. Canonical commands must also supply technical.evidence, technical.method, technical.pitfall and technical.check. These fields appear directly in the skill, CLI contract and evaluation specification; references add conditional depth. A branch should cover a situation that changes the method, such as a partial external operation, incompatible old consumer, stale request completion or missing evaluation labels.
@@ -69,7 +71,7 @@ The schema verifies the presence and shape of this contract, not the quality of 
 
 ## Profiles and ownership
 
-`catalog/profiles.json` owns role guidance independently of action contracts. Maintain a distinct purpose, priorities, a decision rule, relevant verification, a boundary and valid canonical workflow links for each role. Generate the profile index and individual references with the same build command. A title alone is not a useful profile; nearby roles must change emphasis in an explainable way.
+`catalog/profiles.json` owns role guidance independently of action contracts. Maintain a distinct purpose, priorities, a decision rule, relevant verification, a boundary, a concrete task contribution and valid canonical workflow links for each role. Generate the profile index and individual references with the same build command. A title alone is not a useful profile; nearby roles must change emphasis in an explainable way.
 
 Test profile state transitions for pin protection, scope and budget preservation. Keep role discovery separate from activation. Do not claim that structural validation proves role expertise or that previous workflow trials evaluate newly added role guidance.
 

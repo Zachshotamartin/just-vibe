@@ -19,25 +19,33 @@ Use the complete request appended to this invocation, preserving all constraints
 
 actual engine/version, schema/migrations, query workload, and explicitly identified environment. Prefer supplied plans, metadata, and isolated fixtures. Even a SELECT can lock, call mutating functions, or overload a database; inspect semantics before execution. Executing an analyzed query is distinct from reading its plan.
 
+- **Infer from evidence:** Read engine/version, ORM/runner, schema and migration history from project artifacts before choosing SQL.
+- **Reasonable default:** Prepare local SQL and isolated fixtures without assuming production size, locks or recovery guarantees.
+- **Ask only when needed:** Ask for environment, downtime or recovery constraints before live/destructive execution when missing; unavailable production access does not block migration files.
+
 Declared evidence requirements: `database.context`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Evidence-based index design, redundancy, and rollout; no automatic production DDL.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Analyze predicates/order/selectivity, compare existing indexes, estimate write/storage costs from evidence, and design before/after measurement and online-creation strategy where supported.
-- Match equality/range/order predicates and selectivity to existing indexes, account for write/storage cost and compare the exact workload before/after.
-
+1. Analyze predicates/order/selectivity, compare existing indexes, estimate write/storage costs from evidence, and design before/after measurement and online-creation strategy where supported.
+2. Match equality/range/order predicates and selectivity to existing indexes, account for write/storage cost and compare the exact workload before/after.
 ## Technical method
 
 - **Inspect:** Inspect real predicates, ordering, selectivity, existing index definitions and write volume.
-- **Apply:** Choose key order, covering/partial options and rollout method using supported engine behavior and measured plans.
+- **Method:** Choose key order, covering/partial options and rollout method using supported engine behavior and measured plans.
 - **Avoid misdiagnosis:** More indexes increase write/storage cost; an index on a low-selectivity column may not improve the actual workload.
 - **Check the result:** Compare read plans/latency and representative write cost; verify validity after online/concurrent creation before declaring completion.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [Databases worked example](../../references/examples/database.md).
+
 
 ## Decision branches
 

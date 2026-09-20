@@ -19,25 +19,33 @@ Use the complete request appended to this invocation, preserving all constraints
 
 frozen model/artifact, evaluation dataset identity, labels where needed, metric definitions, and task/operating context. Report sample counts and uncertainty appropriate to dependencies; avoid repeated test-set tuning. Exploratory findings need fresh confirmation before strong generalization claims.
 
+- **Infer from evidence:** Read frozen model/data identities, metric definitions, denominators and supplied predictions; separate validation from test use.
+- **Reasonable default:** Compute only supported metrics on permitted samples and label missing labels or subgroup coverage as unknown.
+- **Ask only when needed:** Ask when the operating cost/threshold or population changes the evaluation decision; do not fabricate labels to avoid a question.
+
 Declared evidence requirements: `ml.artifacts`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Appropriate feature/behavior explanation with method limitations; not causal attribution by default.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Choose a method compatible with the model/question, inspect baseline/background dependence, check stability/correlated features, and connect explanations to actual examples.
-- State whether the question concerns one prediction or global behavior, select a compatible method and examine background data and correlated-feature sensitivity.
-
+1. Choose a method compatible with the model/question, inspect baseline/background dependence, check stability/correlated features, and connect explanations to actual examples.
+2. State whether the question concerns one prediction or global behavior, select a compatible method and examine background data and correlated-feature sensitivity.
 ## Technical method
 
 - **Inspect:** Resolve whether the question is global behavior, a local prediction, debugging or causal effect.
-- **Apply:** Use a method compatible with model/data semantics and check explanation stability and plausible feature combinations.
+- **Method:** Use a method compatible with model/data semantics and check explanation stability and plausible feature combinations.
 - **Avoid misdiagnosis:** Attributions are not causal effects; correlated inputs or impossible counterfactuals can make an explanation misleading.
 - **Check the result:** Compare nearby valid inputs or a known simple model and state approximation, background-data and stability limits.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [ML evaluation worked example](../../references/examples/ml-evaluation.md).
+
 
 ## Decision branches
 

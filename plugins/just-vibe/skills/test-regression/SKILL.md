@@ -17,7 +17,11 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply; confirmed bug, reproduction, expected behavior, and fixed/broken revisions where available.
 
-defined behavior, existing test conventions/runners, isolated fixtures, and relevant dependencies. Execution belongs in apply mode. Never test destructive behavior against production by default; distinguish mocked behavior from real integration evidence.
+defined behavior, existing test conventions/runners, isolated fixtures, and relevant dependencies. Requested bounded verification may use owned isolated fixtures without authorizing product edits or live-system tests. Never test destructive behavior against production by default; distinguish mocked behavior from real integration evidence.
+
+- **Infer from evidence:** Read behavior contracts, existing runners and test conventions; distinguish fixture setup failure from a behavioral failure.
+- **Reasonable default:** Use the smallest existing local runner and isolated synthetic fixtures that distinguish the requested behavior.
+- **Ask only when needed:** Ask about an unresolved contract that changes the expected result, or the target/load limits before external testing; do not ask the user to choose a runner already configured.
 
 Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
@@ -25,21 +29,25 @@ Declared evidence requirements: `project.read`. Use actual host discovery or ade
 
 A durable test protecting the actual failure mechanism.
 
-Only the requested local changes; external actions require their exact action and target in session authorization.
+Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.
 
 ## Execute
 
-- Identify the original trigger and intended observable behavior from requirements or independent evidence. Choose the lowest layer that can faithfully exercise the boundary; a database mock cannot establish real transaction behavior.
-- Construct minimal deterministic inputs and an expected result that does not call the implementation under test. Include the failing boundary and a neighboring valid case; for races, control completion order and assert that the losing path has no forbidden effect.
-- Where feasible, run the unchanged test against broken and fixed behavior in an isolated copy or worktree. Preserve unrelated user edits and the real index; do not roll back a dirty working file to perform a sensitivity check.
-- Confirm that the negative run fails on the intended assertion, not an import error, missing fixture, timeout or unrelated refactor. Report actual commands and statuses; if the old revision cannot run, explain the remaining evidence gap.
-
+1. Identify the original trigger and intended observable behavior from requirements or independent evidence. Choose the lowest layer that can faithfully exercise the boundary; a database mock cannot establish real transaction behavior.
+2. Construct minimal deterministic inputs and an expected result that does not call the implementation under test. Include the failing boundary and a neighboring valid case; for races, control completion order and assert that the losing path has no forbidden effect.
+3. Where feasible, run the unchanged test against broken and fixed behavior in an isolated copy or worktree. Preserve unrelated user edits and the real index; do not roll back a dirty working file to perform a sensitivity check.
+4. Confirm that the negative run fails on the intended assertion, not an import error, missing fixture, timeout or unrelated refactor. Report actual commands and statuses; if the old revision cannot run, explain the remaining evidence gap.
 ## Technical method
 
 - **Inspect:** Establish the original trigger, broken revision and expected behavior independent of the proposed patch.
-- **Apply:** Add the lowest-layer check that observes the real failure; verify sensitivity in an isolated broken copy when feasible.
+- **Method:** Add the lowest-layer check that observes the real failure; verify sensitivity in an isolated broken copy when feasible.
 - **Avoid misdiagnosis:** A missing import or setup timeout on the old revision does not establish regression sensitivity.
 - **Check the result:** Record the causal failing assertion or valid-input exception on broken code and a pass on the fix without weakening the expectation.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [Testing worked example](../../references/examples/testing.md).
+
 
 ## Decision branches
 

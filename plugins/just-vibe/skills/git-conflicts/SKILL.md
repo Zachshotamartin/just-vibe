@@ -19,26 +19,34 @@ Use the complete request appended to this invocation, preserving all constraints
 
 Git, exact repository/worktree, and readable refs/index. Record branch, HEAD, staged/unstaged/untracked state before mutation. Preserve unrelated edits and never default to broad staging, hard reset, clean, force push, or history rewriting.
 
+- **Infer from evidence:** Read repository root, HEAD, branch, refs and staged/unstaged/untracked distinctions; use the configured human identity.
+- **Reasonable default:** Limit an ambiguous inspection to the current repository and report that scope; preserve all existing changes.
+- **Ask only when needed:** Before mutation, resolve uncertain commit membership, destination ref or history-rewrite intent; do not ask again about already authorized exact actions.
+
 Declared evidence requirements: `git.repo`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Resolve conflicted paths; continuing/finalizing the Git operation follows the requested scope.
 
-Only the requested local changes; external actions require their exact action and target in session authorization.
+Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.
 
 ## Execute
 
-- Inspect base/ours/theirs and change intent, resolve behavior rather than choose a side wholesale, handle generated files via their source, and verify merged behavior.
-- Read merge base and both sides plus callers; resolve semantic intent, then regenerate derived files from their sources and check the combined behavior.
-- All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
-
+1. Inspect base/ours/theirs and change intent, resolve behavior rather than choose a side wholesale, handle generated files via their source, and verify merged behavior.
+2. Read merge base and both sides plus callers; resolve semantic intent, then regenerate derived files from their sources and check the combined behavior.
+3. All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
 ## Technical method
 
 - **Inspect:** Read merge-base, both sides, callers and whether the operation is merge, rebase or cherry-pick.
-- **Apply:** Reconstruct both intended behaviors; resolve source manifests before regenerating outputs. Explain side identity using the actual operation.
+- **Method:** Reconstruct both intended behaviors; resolve source manifests before regenerating outputs. Explain side identity using the actual operation.
 - **Avoid misdiagnosis:** During rebase, ours/theirs terminology is easy to invert; deleting conflict markers does not establish semantic correctness.
 - **Check the result:** Exercise a behavior contributed by each side and inspect operation state before continuing the requested operation.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [Git worked example](../../references/examples/git.md).
+
 
 ## Decision branches
 

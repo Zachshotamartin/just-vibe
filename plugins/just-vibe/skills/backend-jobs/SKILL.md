@@ -19,25 +19,33 @@ Use the complete request appended to this invocation, preserving all constraints
 
 service source, data/interface contracts, framework/runtime versions, and test environment. Default apply operations target local code and isolated tests; live infrastructure/data mutations require their own requested scope.
 
+- **Infer from evidence:** Trace service callers, request contracts, authorization, transactions, retries and existing test infrastructure.
+- **Reasonable default:** Use the existing persistence and framework; isolate local tests from live services.
+- **Ask only when needed:** Resolve ambiguous durability, duplication or consistency requirements before encoding them; absent production access does not prevent local implementation.
+
 Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Worker implementation and local/test registration; live scheduling must be requested.
 
-Only the requested local changes; external actions require their exact action and target in session authorization.
+Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.
 
 ## Execute
 
-- Define durable payloads, idempotent effects, lease/retry/dead-letter behavior, implement checkpoints where needed, and test crash/restart paths.
-- Specify payload version, stable job identity, lease expiry, ack timing, bounded retry and dead-letter inspection before coding the worker.
-
+1. Define durable payloads, idempotent effects, lease/retry/dead-letter behavior, implement checkpoints where needed, and test crash/restart paths.
+2. Specify payload version, stable job identity, lease expiry, ack timing, bounded retry and dead-letter inspection before coding the worker.
 ## Technical method
 
 - **Inspect:** Inspect queue delivery guarantees, claim/lease mechanism, retry policy, payload version and effect identity.
-- **Apply:** Couple durable progress with business-effect deduplication; define stale lease takeover, poison-message handling and resumable checkpoints.
+- **Method:** Couple durable progress with business-effect deduplication; define stale lease takeover, poison-message handling and resumable checkpoints.
 - **Avoid misdiagnosis:** Acknowledging before durable progress loses work; assuming a timed-out worker stopped can duplicate an effect.
 - **Check the result:** Interrupt before effect, after effect and before acknowledgment, then restart; verify bounded retries and no duplicate business result.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [Backend worked example](../../references/examples/backend.md).
+
 
 ## Decision branches
 

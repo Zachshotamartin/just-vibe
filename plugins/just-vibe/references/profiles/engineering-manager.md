@@ -13,6 +13,12 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 Reduce scope or sequence work when capacity cannot support the stated date.
 
+## Concrete contribution
+
+Identify delivery dependencies, ownership gaps and decision points from the requested work; distinguish a technical recommendation from an actual staffing or priority commitment.
+
+For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+
 ## Verify when relevant
 
 - Check milestones against demonstrable outcomes.

@@ -7,7 +7,7 @@ import { loadProfiles } from '../plugins/just-vibe/scripts/lib/profiles.mjs';
 export function renderSkill(command, pack) {
   if (command.aliasOf) return `---\nname: ${command.id}\ndescription: ${JSON.stringify(`${command.summary} Alias for ${command.aliasOf}.`)}\n---\n\n# ${command.id}\n\nRead [${command.aliasOf}](../${command.aliasOf}/SKILL.md) and execute that single canonical workflow. It owns selection, inputs, mode, scope, methods, outputs, recovery, and verification. Preserve the complete appended request and original invoked name (${command.id}); use ${command.aliasOf} as the canonical command in run records. Do not add a routing stage, change permissions, or reset counters for an alias. This entry deliberately contains no independent behavioral contract.\n`;
   const list = values => values.map(value => `- ${value}`).join('\n');
-  const steps = command.runtimeSteps?.length ? command.runtimeSteps.map((s, i) => `${i + 1}. ${s}`).join('\n') : list(command.procedure);
+  const steps = command.procedure.map((s, i) => `${i + 1}. ${s}`).join('\n');
   const alias = command.aliasOf ? `\nThis is an alias. Read [${command.aliasOf}](../${command.aliasOf}/SKILL.md) and use its implementation and run counters.\n` : '';
   return `---
 name: ${command.id}
@@ -30,6 +30,10 @@ Use the complete request appended to this invocation, preserving all constraints
 
 ${pack.prerequisites}
 
+- **Infer from evidence:** ${command.inputPolicy.infer}
+- **Reasonable default:** ${command.inputPolicy.assume}
+- **Ask only when needed:** ${command.inputPolicy.ask}
+
 ${command.capabilities.length ? `Declared evidence requirements: ${command.capabilities.map(c => `\`${c}\``).join(', ')}. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.` : 'Resolve any task-specific tools, target identity and evidence before dependent actions. No external connection is assumed.'}
 
 ## Scope
@@ -41,15 +45,19 @@ ${command.writeScope}
 ## Execute
 
 ${steps}
-${command.runtimeSteps?.length ? `\nTask-specific method: ${command.procedure.join(' ')}\n` : ''}
 ## Technical method
 
 - **Inspect:** ${command.technical.evidence}
-- **Apply:** ${command.technical.method}
+- **Method:** ${command.technical.method}
 - **Avoid misdiagnosis:** ${command.technical.pitfall}
 - **Check the result:** ${command.technical.check}
 
-${command.guides?.length ? `## Read when relevant\n\n${command.guides.map(g => `- ${g.when}: [${g.title}](../../${g.path}).`).join('\n')}\n\n` : ''}## Decision branches
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [${pack.name} worked example](../../${pack.workedExample}).
+${(command.guides || []).map(g => `- ${g.when}: [${g.title}](../../${g.path}).`).join('\n')}
+
+## Decision branches
 
 ${command.branches.map(b => `- **When ${b.when}:** ${b.then}`).join('\n')}
 
@@ -77,7 +85,7 @@ export function generate({ check = false } = {}) {
   const profiles = loadProfiles();
   outputs.set(resolve(pluginRoot, 'references/profile-reference.md'), '# Engineering profiles\n\n' + profiles.profiles.length + ' task profiles. [Selection, scope and precedence](profiles.md). Read only the roles relevant to the request. Suggested workflows do not imply available tools or authorization.\n\n' + profiles.families.map(f => `## ${f.name}\n\n| Profile | Purpose |\n|---|---|\n` + profiles.profiles.filter(p => p.family === f.id).map(p => `| [${p.name}](profiles/${p.id}.md) | ${p.summary} |`).join('\n')).join('\n\n') + '\n');
   for (const p of profiles.profiles) {
-    outputs.set(resolve(pluginRoot, `references/profiles/${p.id}.md`), `# ${p.name}\n\n${p.summary}\n\nApply [profile scope and precedence](../profiles.md). This role shapes task priorities; it is not a credential, permission grant or independent agent.\n\n## Priorities\n\n${p.priorities.map(v => `- ${v}`).join('\n')}\n\n## Decision rule\n\n${p.decision}\n\n## Verify when relevant\n\n${p.verification.map(v => `- ${v}`).join('\n')}\n\n## Boundary\n\n${p.boundary}\n\n## Candidate workflows\n\n${p.workflows.map(id => `- [${id}](../../skills/${id}/SKILL.md)`).join('\n')}\n\nExample: ${p.example}\n`);
+    outputs.set(resolve(pluginRoot, `references/profiles/${p.id}.md`), `# ${p.name}\n\n${p.summary}\n\nApply [profile scope and precedence](../profiles.md). This role shapes task priorities; it is not a credential, permission grant or independent agent.\n\n## Priorities\n\n${p.priorities.map(v => `- ${v}`).join('\n')}\n\n## Decision rule\n\n${p.decision}\n\n## Concrete contribution\n\n${p.contribution}\n\nFor a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).\n\n## Verify when relevant\n\n${p.verification.map(v => `- ${v}`).join('\n')}\n\n## Boundary\n\n${p.boundary}\n\n## Candidate workflows\n\n${p.workflows.map(id => `- [${id}](../../skills/${id}/SKILL.md)`).join('\n')}\n\nExample: ${p.example}\n`);
   }
   for (const command of catalog.commands) {
     const pack = catalog.packs.find(p => p.id === command.pack);
@@ -89,7 +97,7 @@ export function generate({ check = false } = {}) {
   outputs.set(resolve(repo, 'evals/scenarios.json'), JSON.stringify({ schemaVersion: 1,
     note: 'Evaluation specifications, not claims of completed model runs. Use isolated permitted artifacts and the documented harness.',
     scenarios: catalog.commands.map(c => ({ id: c.id, pack: c.pack, brief: c.examples[0].brief, mode: c.defaultMode,
-      requiredEvidence: c.requiredInputs, rubric: [...c.verification, c.technical.check], technicalMethod: c.technical, stopBehavior: c.stopConditions, cases: c.examples,
+      requiredEvidence: c.requiredInputs, inputPolicy: c.inputPolicy, rubric: [...c.verification, c.technical.check], technicalMethod: c.technical, stopBehavior: c.stopConditions, cases: c.examples,
       invariants: ['Preserve appended constraints and scope.', 'Report unavailable evidence without fabricating success.', 'Do not add unrequested external side effects.'] })) }, null, 2) + '\n');
   for (const [path, content] of outputs) {
     if (check) {

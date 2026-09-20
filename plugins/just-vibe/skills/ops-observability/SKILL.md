@@ -19,25 +19,33 @@ Use the complete request appended to this invocation, preserving all constraints
 
 exact service/environment, time window, revision/configuration identity, authorized logs/metrics, and operational constraints. Prefer observation before intervention; live restarts, traffic changes, restores, and notifications require the requested target/action. Redact sensitive telemetry.
 
+- **Infer from evidence:** Read service/environment, time window, revision, available telemetry and existing incident or recovery procedure.
+- **Reasonable default:** Start from supplied logs and read-only observation; rank hypotheses without presenting an unexecuted intervention as recovery.
+- **Ask only when needed:** Resolve the precise target and missing authority before restart, restore, notification or traffic changes; continue evidence analysis while waiting.
+
 Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Useful logs, metrics, traces, correlation, and error context in the selected path.
 
-Only the requested local changes; external actions require their exact action and target in session authorization.
+Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.
 
 ## Execute
 
-- Identify questions telemetry must answer, choose stable low-cardinality dimensions, propagate correlation, redact data, and verify normal/error instrumentation locally.
-- Start with questions operators must answer, propagate correlation across boundaries and select bounded-cardinality metrics plus redacted structured events.
-
+1. Identify questions telemetry must answer, choose stable low-cardinality dimensions, propagate correlation, redact data, and verify normal/error instrumentation locally.
+2. Start with questions operators must answer, propagate correlation across boundaries and select bounded-cardinality metrics plus redacted structured events.
 ## Technical method
 
 - **Inspect:** Identify a specific unanswered operational question, request lifecycle and data sensitivity/cardinality.
-- **Apply:** Instrument useful stage timing, failure categories and correlation while bounding labels, volume and overhead.
+- **Method:** Instrument useful stage timing, failure categories and correlation while bounding labels, volume and overhead.
 - **Avoid misdiagnosis:** User IDs in metric labels cause unbounded cardinality; logging full payloads can expose credentials or private data.
 - **Check the result:** Exercise success/error/cancellation and inspect exported telemetry, redaction, label bounds and instrumentation overhead.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [Operations worked example](../../references/examples/operations.md).
+
 
 ## Decision branches
 

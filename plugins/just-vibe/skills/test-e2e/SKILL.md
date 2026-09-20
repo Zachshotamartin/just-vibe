@@ -17,7 +17,11 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply; critical journey, environment, test accounts, and external side-effect constraints.
 
-defined behavior, existing test conventions/runners, isolated fixtures, and relevant dependencies. Execution belongs in apply mode. Never test destructive behavior against production by default; distinguish mocked behavior from real integration evidence.
+defined behavior, existing test conventions/runners, isolated fixtures, and relevant dependencies. Requested bounded verification may use owned isolated fixtures without authorizing product edits or live-system tests. Never test destructive behavior against production by default; distinguish mocked behavior from real integration evidence.
+
+- **Infer from evidence:** Read behavior contracts, existing runners and test conventions; distinguish fixture setup failure from a behavioral failure.
+- **Reasonable default:** Use the smallest existing local runner and isolated synthetic fixtures that distinguish the requested behavior.
+- **Ask only when needed:** Ask about an unresolved contract that changes the expected result, or the target/load limits before external testing; do not ask the user to choose a runner already configured.
 
 Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
@@ -25,19 +29,23 @@ Declared evidence requirements: `project.read`. Use actual host discovery or ade
 
 Full user-visible flows including recovery, through real application boundaries available in the test environment.
 
-Only the requested local changes; external actions require their exact action and target in session authorization.
+Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.
 
 ## Execute
 
-- Seed controlled data, use robust user-facing selectors, exercise the journey and failure recovery, assert observable outcomes, and clean up owned data.
-- Define stable setup and cleanup, drive user-visible controls with semantic locators and assert the final meaningful outcome plus a recovery path.
-
+1. Seed controlled data, use robust user-facing selectors, exercise the journey and failure recovery, assert observable outcomes, and clean up owned data.
+2. Define stable setup and cleanup, drive user-visible controls with semantic locators and assert the final meaningful outcome plus a recovery path.
 ## Technical method
 
 - **Inspect:** Define the critical user journey, identities, stable state and permitted side effects.
-- **Apply:** Use semantic locators and user-visible outcomes; isolate accounts and preserve artifacts when the journey fails.
+- **Method:** Use semantic locators and user-visible outcomes; isolate accounts and preserve artifacts when the journey fails.
 - **Avoid misdiagnosis:** A screenshot or HTTP 200 alone does not prove a completed transaction or accessible interaction.
 - **Check the result:** Run the main path and meaningful recovery path, including direct navigation and persisted result where applicable.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [Testing worked example](../../references/examples/testing.md).
+
 
 ## Decision branches
 

@@ -19,25 +19,33 @@ Use the complete request appended to this invocation, preserving all constraints
 
 data source/version, schema/semantics, transformation code, permitted sampling scope, and storage/compute budget. Prefer aggregates and redacted samples; never upload datasets to external services implicitly. Record time zones and snapshot identity for reproducibility.
 
+- **Infer from evidence:** Inspect schema, source snapshot, transformation code, grain, time zones and permitted sample scope.
+- **Reasonable default:** Use bounded synthetic or supplied samples when full data is unavailable; keep unknown values distinct from zero.
+- **Ask only when needed:** Resolve ambiguous entity/grain/time semantics before reconciliation or backfill; obtain missing data/compute limits only for the dependent scan or execution.
+
 Resolve any task-specific tools, target identity and evidence before dependent actions. No external connection is assumed.
 
 ## Scope
 
 Machine-checkable and semantic obligations across a data boundary.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Identify required fields and keys, define ranges/nullability/time semantics, set freshness expectations, and specify versioning and violation handling.
-- Specify grain, keys, types, units, nullability, event/arrival time, freshness and allowed schema evolution from actual consumption paths.
-
+1. Identify required fields and keys, define ranges/nullability/time semantics, set freshness expectations, and specify versioning and violation handling.
+2. Specify grain, keys, types, units, nullability, event/arrival time, freshness and allowed schema evolution from actual consumption paths.
 ## Technical method
 
 - **Inspect:** Identify producer/consumer schema, semantic units, key uniqueness, timeliness and allowed evolution.
-- **Apply:** Specify compatibility and quarantine behavior for missing, late, duplicate and newly introduced values.
+- **Method:** Specify compatibility and quarantine behavior for missing, late, duplicate and newly introduced values.
 - **Avoid misdiagnosis:** Type-valid data can still be wrong in units, timezone or row grain.
 - **Check the result:** Test valid, structurally invalid and semantically wrong records plus a compatible schema evolution with real consumer decoding.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [Data engineering worked example](../../references/examples/data.md).
+
 
 ## Decision branches
 

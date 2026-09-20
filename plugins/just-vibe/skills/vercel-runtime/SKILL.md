@@ -19,29 +19,33 @@ Use the complete request appended to this invocation, preserving all constraints
 
 exact team/project/environment and deployment/revision when applicable; read access to relevant configuration/logs. Verify installed CLI/API support and framework behavior during implementation. Never print environment values or infer promotion authorization from a preview request.
 
+- **Infer from evidence:** Read the linked project, team, framework, environment and deployment SHA from local config and supplied deployment evidence.
+- **Reasonable default:** Diagnose locally with existing build scripts when deployment access is missing; do not infer a production target from a preview URL.
+- **Ask only when needed:** Resolve a missing deployment/team/environment before the dependent remote operation; names and scope suffice without exposing environment values.
+
 Declared evidence requirements: `vercel.context`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Runtime exceptions, timeouts, resource limits, and local/deployed behavior differences.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Correlate logs with revision/runtime, inspect request and dependency boundaries, separate cold-start/resource/network causes, and propose a focused reproduction or fix.
-- Correlate deployment/request/time and inspect handler entry, environment presence, dependency waits and runtime-specific API support.
-- Use the matching bundled evidence collector when available; read its result and limitations rather than treating exit zero as readiness. Revalidate identity before a dependent action.
-
+1. Correlate logs with revision/runtime, inspect request and dependency boundaries, separate cold-start/resource/network causes, and propose a focused reproduction or fix.
+2. Correlate deployment/request/time and inspect handler entry, environment presence, dependency waits and runtime-specific API support.
+3. Use the matching bundled evidence collector when available; read its result and limitations rather than treating exit zero as readiness. Revalidate identity before a dependent action.
 ## Technical method
 
 - **Inspect:** Inspect function logs and request IDs with region, runtime, payload size, duration and dependency timing.
-- **Apply:** Separate cold start, handler CPU, downstream wait and connection acquisition; compare runtime APIs to the deployed function type.
+- **Method:** Separate cold start, handler CPU, downstream wait and connection acquisition; compare runtime APIs to the deployed function type.
 - **Avoid misdiagnosis:** A successful build proves no request health; an Edge/Node API mismatch needs a supported runtime choice, not suppressed errors.
 - **Check the result:** Exercise the original failing route with a controlled request and observe success/error/timeout behavior on the same deployment.
 
 ## Read when relevant
 
+- When a concrete decision or deliverable example would clarify this workflow: [Vercel worked example](../../references/examples/vercel.md).
 - Resolving check, deployment or migration identity: [Delivery evidence](../../references/scenarios/delivery-evidence.md).
 
 ## Decision branches

@@ -13,6 +13,12 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 Report an association when identification assumptions cannot be defended.
 
+## Concrete contribution
+
+State the causal contrast and identification assumptions, inspect confounding/selection, and show sensitivity before interpreting association as intervention effect.
+
+For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+
 ## Verify when relevant
 
 - Check balance, overlap and sensitivity to assumptions.

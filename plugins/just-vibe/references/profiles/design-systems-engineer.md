@@ -13,6 +13,12 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 Promote a pattern when multiple concrete consumers share its behavior; keep one-off layouts local.
 
+## Concrete contribution
+
+Identify which existing component contract should own the requested variation; document states and migration implications before introducing another primitive.
+
+For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+
 ## Verify when relevant
 
 - Test representative consumers and state combinations.

@@ -7,6 +7,7 @@ import {
   identities,
   changed,
   fromText,
+  inheritMode,
   writeState,
   readRecord,
   saveRecord,
@@ -127,7 +128,7 @@ export async function practices(root, op, id, input = {}) {
         writeState(
           exercise,
           edit.path,
-          fromText(edit.content, before?.executable || false),
+          inheritMode(fromText(edit.content, before?.executable || false), before),
         );
       }
       return saveRecord(

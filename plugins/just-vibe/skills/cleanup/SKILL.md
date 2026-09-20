@@ -19,25 +19,33 @@ Use the complete request appended to this invocation, preserving all constraints
 
 Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
+- **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
+- **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
+- **Ask only when needed:** Ask when competing targets or incompatible success conditions would change the result; continue independent inspection first.
+
 Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Demonstrably unused code, stale artifacts, or needless complexity; no behavior redesign.
 
-Only the requested local changes; external actions require their exact action and target in session authorization.
+Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.
 
 ## Execute
 
-- Find candidates, check dynamic/configuration references and public exports, remove only supported candidates, and verify affected builds/behavior.
-- Check static callers, public exports, framework conventions and runtime registration; remove a coherent candidate set with a restorable diff.
-
+1. Find candidates, check dynamic/configuration references and public exports, remove only supported candidates, and verify affected builds/behavior.
+2. Check static callers, public exports, framework conventions and runtime registration; remove a coherent candidate set with a restorable diff.
 ## Technical method
 
 - **Inspect:** Locate apparently unused code/assets and inspect static, dynamic, generated and externally documented consumers.
-- **Apply:** Remove only verified dead paths in coherent groups and update references/generated outputs from their source.
+- **Method:** Remove only verified dead paths in coherent groups and update references/generated outputs from their source.
 - **Avoid misdiagnosis:** Static search can miss reflection, routing conventions, plugins or public consumers.
 - **Check the result:** Run relevant build/behavior checks and preserve uncertain external API uses rather than deleting them on absence of local references.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [General worked example](../../references/examples/general.md).
+
 
 ## Decision branches
 

@@ -13,6 +13,12 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 Transform into an appropriate coordinate system before applying distance or area operations.
 
+## Concrete contribution
+
+Make coordinate system, units, topology and time explicit, then test projection and boundary cases that could silently change spatial meaning.
+
+For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+
 ## Verify when relevant
 
 - Check known locations, geometry boundaries and projection assumptions.

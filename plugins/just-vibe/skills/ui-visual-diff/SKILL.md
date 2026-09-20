@@ -19,25 +19,33 @@ Use the complete request appended to this invocation, preserving all constraints
 
 target screens/flows, existing design conventions, and runnable UI or supplied references. Visual claims require actual renders; accessibility claims distinguish automated, keyboard, and assistive-technology evidence.
 
+- **Infer from evidence:** Inspect the target flow, existing components/tokens, actual renders or supplied references and current responsive behavior.
+- **Reasonable default:** Reuse established visual conventions and preserve keyboard behavior; label unrendered changes as visually unverified.
+- **Ask only when needed:** Ask about an unresolved interaction or visual direction only when plausible choices materially differ; do not make a missing screenshot block source inspection.
+
 Declared evidence requirements: `browser.inspect`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Visual differences and regression classification; automatic fixes belong to `match` or an explicit apply request.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Normalize capture conditions, identify meaningful regions, separate dynamic content noise, and describe differences by user impact.
-- Match viewport, DPR, fonts, content, theme and animation state; mask only justified nondeterminism and inspect changed regions before accepting baselines.
-
+1. Normalize capture conditions, identify meaningful regions, separate dynamic content noise, and describe differences by user impact.
+2. Match viewport, DPR, fonts, content, theme and animation state; mask only justified nondeterminism and inspect changed regions before accepting baselines.
 ## Technical method
 
 - **Inspect:** Record baseline approval, viewport, fonts, data, time and screenshot environment.
-- **Apply:** Compare matched states, separating rendering noise from layout/content changes; inspect differences before replacing a baseline.
+- **Method:** Compare matched states, separating rendering noise from layout/content changes; inspect differences before replacing a baseline.
 - **Avoid misdiagnosis:** Approving a new screenshot merely because it differs converts a regression into the expected result.
 - **Check the result:** Reproduce significant differences with stable fonts/data and retain both images plus a reason for accepted changes.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [UI and frontend worked example](../../references/examples/ui.md).
+
 
 ## Decision branches
 

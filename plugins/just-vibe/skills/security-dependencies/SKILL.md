@@ -19,28 +19,32 @@ Use the complete request appended to this invocation, preserving all constraints
 
 defined application boundary, authorized code/environment, relevant trust/access rules, and evidence sources. Default to defensive inspection; active tests use owned or explicitly authorized isolated targets. Minimize sensitive evidence and never print usable credentials.
 
+- **Infer from evidence:** Resolve the requested surface, source/runtime version, reachable callers and actual trust/access boundaries.
+- **Reasonable default:** Start with source analysis and bounded owned fixtures; treat scanner output as leads and preserve legitimate controls.
+- **Ask only when needed:** Ask when target authorization or necessary trust semantics are unresolved before active probing; source inspection need not wait for production access.
+
 Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Dependency vulnerability relevance and remediation feasibility.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Verify resolved versions against current authoritative advisories, inspect reachable use/configuration, distinguish runtime/dev exposure, and recommend compatible updates or mitigations.
-- Match advisories to resolved versions and configurations, trace deployed/reachable usage and distinguish development-only tooling from production exposure.
-
+1. Verify resolved versions against current authoritative advisories, inspect reachable use/configuration, distinguish runtime/dev exposure, and recommend compatible updates or mitigations.
+2. Match advisories to resolved versions and configurations, trace deployed/reachable usage and distinguish development-only tooling from production exposure.
 ## Technical method
 
 - **Inspect:** Read resolved lockfile versions, ecosystem, installed scanner/version and current authoritative advisories.
-- **Apply:** Distinguish advisory match, deployed reachability and fix compatibility; record tool exit status and advisory freshness with coverage.
+- **Method:** Distinguish advisory match, deployed reachability and fix compatibility; record tool exit status and advisory freshness with coverage.
 - **Avoid misdiagnosis:** An audit error or unsupported lockfile is unknown, not clean; a CVE match alone does not prove the vulnerable function is reachable.
 - **Check the result:** Verify fixed version resolution and the affected behavior after a supported update; retain remaining findings and failed/offline checks.
 
 ## Read when relevant
 
+- When a concrete decision or deliverable example would clarify this workflow: [Security worked example](../../references/examples/security.md).
 - Dependencies, builds, secrets, hooks or privileged execution cross a trust boundary: [Dependency and execution provenance](../../references/security/supply-chain.md).
 - An available scanner or dependency advisory check can answer the scoped question: [Scanner selection and evidence](../../references/security/scanners.md).
 

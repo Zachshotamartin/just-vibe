@@ -19,25 +19,33 @@ Use the complete request appended to this invocation, preserving all constraints
 
 data source/version, schema/semantics, transformation code, permitted sampling scope, and storage/compute budget. Prefer aggregates and redacted samples; never upload datasets to external services implicitly. Record time zones and snapshot identity for reproducibility.
 
+- **Infer from evidence:** Inspect schema, source snapshot, transformation code, grain, time zones and permitted sample scope.
+- **Reasonable default:** Use bounded synthetic or supplied samples when full data is unavailable; keep unknown values distinct from zero.
+- **Ask only when needed:** Resolve ambiguous entity/grain/time semantics before reconciliation or backfill; obtain missing data/compute limits only for the dependent scan or execution.
+
 Declared evidence requirements: `data.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Distributions, missingness, uniqueness, duplicates, ranges, and suspicious values.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Validate schema, select a representative bounded sample or authorized aggregate scan, compute summaries, and flag anomalies relative to declared semantics.
-- Inspect schema and volume before scanning, distinguish nulls from sentinels and sample across relevant time/group strata with stated selection limits.
-
+1. Validate schema, select a representative bounded sample or authorized aggregate scan, compute summaries, and flag anomalies relative to declared semantics.
+2. Inspect schema and volume before scanning, distinguish nulls from sentinels and sample across relevant time/group strata with stated selection limits.
 ## Technical method
 
 - **Inspect:** Establish snapshot, row grain, sample method, units, timezones, sensitive fields and denominator.
-- **Apply:** Report missingness, duplicates and distributions by meaningful group; distinguish sample observations from whole-population claims.
+- **Method:** Report missingness, duplicates and distributions by meaningful group; distinguish sample observations from whole-population claims.
 - **Avoid misdiagnosis:** Converting numeric-looking IDs or imputing during profiling silently changes evidence.
 - **Check the result:** Reconcile row counts and missing-value definitions and inspect bounded anomalies without exporting private rows.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [Data engineering worked example](../../references/examples/data.md).
+
 
 ## Decision branches
 

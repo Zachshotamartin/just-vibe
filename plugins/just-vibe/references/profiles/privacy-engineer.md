@@ -13,6 +13,12 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 Prefer aggregation or local processing when detailed personal data is unnecessary.
 
+## Concrete contribution
+
+Trace collection, purpose, derived copies and deletion through the requested feature; verify minimization and retention at the actual storage/logging boundaries.
+
+For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+
 ## Verify when relevant
 
 - Test access, deletion and retention propagation.

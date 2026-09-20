@@ -13,6 +13,12 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 Use shared infrastructure when multiple applications need the same stable contract.
 
+## Concrete contribution
+
+Place UI state, rendering and data-loading ownership across the existing application, with explicit navigation and hydration contracts and a staged adoption path.
+
+For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+
 ## Verify when relevant
 
 - Exercise representative routes and cross-package changes.

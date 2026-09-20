@@ -19,26 +19,34 @@ Use the complete request appended to this invocation, preserving all constraints
 
 exact owner/repository and relevant issue/PR/ref; authenticated read access through an available connector or CLI for remote evidence. External writes require the requested operation, appropriate account permissions, and rechecking target state. Local preparation remains useful without write access.
 
+- **Infer from evidence:** Resolve owner/repository and PR/issue/ref from links, remotes and supplied artifacts; inspect available account and head identity.
+- **Reasonable default:** Prepare local text or analyze supplied evidence if remote access is absent; label its freshness.
+- **Ask only when needed:** Ask only when repository/account/target ambiguity blocks the requested remote action; missing write access does not block local drafting.
+
 Declared evidence requirements: `project.read`, `github.context`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Implement actionable feedback locally; pushing, replying, and resolving threads follow explicit requested scope.
 
-Only the requested local changes; external actions require their exact action and target in session authorization.
+Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.
 
 ## Execute
 
-- Classify each comment, verify its premise, identify conflicts, implement coherent changes, run relevant checks, and map each change to feedback.
-- Map comments to current code and accepted contracts, resolve conflicting suggestions, and keep a per-comment disposition tied to the final diff.
-- All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
-
+1. Classify each comment, verify its premise, identify conflicts, implement coherent changes, run relevant checks, and map each change to feedback.
+2. Map comments to current code and accepted contracts, resolve conflicting suggestions, and keep a per-comment disposition tied to the final diff.
+3. All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
 ## Technical method
 
 - **Inspect:** Map each comment to its current code and the accepted requirement, including already changed or conflicting requests.
-- **Apply:** Fix the demonstrated issue, preserve scope and track which comments are addressed by evidence versus need clarification.
+- **Method:** Fix the demonstrated issue, preserve scope and track which comments are addressed by evidence versus need clarification.
 - **Avoid misdiagnosis:** A reviewer suggestion can be stale or introduce a regression; resolving a thread is a distinct remote action.
 - **Check the result:** Verify each accepted fix against the original trigger and re-read current review state before requested replies or resolution.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [GitHub worked example](../../references/examples/github.md).
+
 
 ## Decision branches
 

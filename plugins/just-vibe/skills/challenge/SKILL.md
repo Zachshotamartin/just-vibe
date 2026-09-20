@@ -19,25 +19,33 @@ Use the complete request appended to this invocation, preserving all constraints
 
 Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
+- **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
+- **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
+- **Ask only when needed:** Ask when competing targets or incompatible success conditions would change the result; continue independent inspection first.
+
 Resolve any task-specific tools, target identity and evidence before dependent actions. No external connection is assumed.
 
 ## Scope
 
 Test assumptions and failure modes; no adversarial criticism for its own sake and no implementation changes.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Identify critical assumptions, search for disconfirming evidence, construct plausible edge cases, and rank issues by impact and likelihood.
-- Extract falsifiable assumptions and seek counterexamples in current code, workload and constraints; distinguish observed defects from speculative risks.
-
+1. Identify critical assumptions, search for disconfirming evidence, construct plausible edge cases, and rank issues by impact and likelihood.
+2. Extract falsifiable assumptions and seek counterexamples in current code, workload and constraints; distinguish observed defects from speculative risks.
 ## Technical method
 
 - **Inspect:** Inspect the proposal's claimed benefits, assumptions, constraints and failure/recovery model.
-- **Apply:** Construct concrete counterexamples and identify evidence that could falsify the key assumption.
+- **Method:** Construct concrete counterexamples and identify evidence that could falsify the key assumption.
 - **Avoid misdiagnosis:** Contrarian preferences or speculative catastrophes without a mechanism add noise.
 - **Check the result:** Test whether the proposal survives the strongest relevant counterexample and distinguish resolved from open objections.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [General worked example](../../references/examples/general.md).
+
 
 ## Decision branches
 

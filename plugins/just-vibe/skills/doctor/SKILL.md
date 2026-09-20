@@ -19,27 +19,34 @@ Use the complete request appended to this invocation, preserving all constraints
 
 Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
+- **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
+- **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
+- **Ask only when needed:** Ask when competing targets or incompatible success conditions would change the result; continue independent inspection first.
+
 Resolve any task-specific tools, target identity and evidence before dependent actions. No external connection is assumed.
 
 ## Scope
 
 Installation/configuration diagnosis; repairs go through an explicitly requested setup/update operation.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
 1. Resolve the bundled installer, then run its doctor operation for the requested host, source and Claude scope. Infer the active host only when unambiguous; --local means a complete persistent source checkout.
 2. Report actual prerequisite, marketplace, installation and enablement results. Do not run setup/update or edit configuration to make a status question pass. Unknown inventory formats and conflicts remain actionable blockers.
-
-Task-specific method: Check prerequisites, marketplace identity, inventory format, installation and enablement, and report the first actionable mismatch without changing settings. Compare marketplace source, payload version and native enabled state for the selected host and scope; stop at the first actionable identity mismatch.
-
+3. Separate package presence, native registration, enabled state and actual version; recommend a repair for the observed failing layer only.
 ## Technical method
 
 - **Inspect:** Inspect selected host, source/scope, native inventory, enabled state, payload version and supported CLI commands.
-- **Apply:** Distinguish absent, disabled, conflicting source and stale cached payload using read-only evidence.
+- **Method:** Distinguish absent, disabled, conflicting source and stale cached payload using read-only evidence.
 - **Avoid misdiagnosis:** Finding an executable or directory does not prove the plugin is enabled or the current session loaded its latest skills.
 - **Check the result:** Report exact observed status and a target-specific repair; diagnose must not silently become install/update or cache deletion.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [General worked example](../../references/examples/general.md).
+
 
 ## Decision branches
 

@@ -2,7 +2,7 @@
 
 Tools, skills, and commands for coding agents.
 
-**v0.8.0 contains 112 engineering profiles and 216 skill names backed by 213 canonical workflows** for Codex and Claude Code: focused skills for development, architecture, decisions, Git/GitHub, Vercel, Vite, React, UI, backend, APIs, databases, data, ML, LLMs, testing, security, and operations. Each canonical workflow has selection guidance, scope, concrete decision branches, evidence requirements, outputs, verification, recovery conditions and three example requests. Each entry point also contains an authored technical method: evidence to inspect, a procedure, a likely misdiagnosis and a discriminating check. Applied methods live in 22 pack guides.
+**v0.8.1 contains 112 engineering profiles and 216 skill names backed by 213 canonical workflows** for Codex and Claude Code: focused skills for development, architecture, decisions, Git/GitHub, Vercel, Vite, React, UI, backend, APIs, databases, data, ML, LLMs, testing, security, and operations. Each canonical workflow has selection guidance, scope, concrete decision branches, evidence requirements, outputs, verification, recovery conditions and at least three example requests. Each entry point also contains an authored technical method: evidence to inspect, a procedure, a likely misdiagnosis and a discriminating check. Applied methods live in 22 pack guides. The v0.8.1 prompt update adds explicit infer/default/ask policies, a conditional worked example for each pack, and guidance for preserving corrections across turns; see [prompt improvements](docs/prompt-improvements.md).
 
 The [technical audit](docs/technical-audit.md) and [complete coverage inventory](docs/technical-coverage.md) document the latest expansion across every canonical workflow. Review/security commands now route to concrete vulnerability, framework, language and scanner guides. [Security fixture controls](evals/security/README.md) distinguish seeded defects from legitimate behavior; they do not claim model-review accuracy.
 
@@ -24,7 +24,7 @@ v0.8.0 adds working runtime helpers behind natural-language skill requests:
 
 See the [workflow guide](plugins/just-vibe/references/intent-workflows.md) for examples, boundaries and recovery. Users provide ordinary briefs; the agent prepares the helper inputs. These features support judgment rather than claiming an objective quality score.
 
-**Publication status:** [just-vibe 0.8.0 is published on npm](https://www.npmjs.com/package/just-vibe/v/0.8.0) as `latest`. Registry integrity and execution were verified against the tested archive. GitHub Actions was explicitly waived for this release because its runners could not start; see the [publication record](evals/releases/0.8.0-publication.json).
+**Release status:** This checkout prepares v0.8.1. The previous [v0.8.0 publication](evals/releases/0.8.0-publication.json) was verified on npm. For this release, the maintainer again waived unavailable GitHub Actions because of the account minutes limit; local checks and exact-archive verification remain required. See the [v0.8.1 validation record](evals/releases/0.8.1.md).
 
 
 ## Use the workflows
@@ -72,7 +72,7 @@ The host interprets the conversation; the `memory` helper can persist individual
 
 ## Engineering profiles
 
-Profiles shape the agent's priorities and verification throughout a task. They are separate from commands: a machine learning engineer emphasizes prediction-time data, evaluation and serving parity; a frontend engineer emphasizes state, interactions and rendered behavior. Each of the **112 profiles** has concrete priorities, a decision rule, checks, a scope boundary and candidate workflows.
+Profiles shape the agent's priorities and verification throughout a task. They are separate from commands: a machine learning engineer emphasizes prediction-time data, evaluation and serving parity; a frontend engineer emphasizes state, interactions and rendered behavior. Each of the **112 profiles** has concrete priorities, a decision rule, checks, a scope boundary, a concrete task contribution and candidate workflows.
 
 ```text
 /just-vibe:profiles architecture
@@ -257,9 +257,11 @@ The default checks validate catalogs, generated skills, references, manifests an
 
 The default host test copies and installs the bundled payload. `--local` tests direct checkout registration. `--github` installs the published private repository and requires Git access; use it after pushing a release. Both variants execute the cached plugin runtime and check every skill is present, independently of the source checkout.
 
-Edit `plugins/just-vibe/catalog/commands.json` for command contracts and runtime procedures, `catalog/packs.json` for pack requirements, and `references/packs/` for operational guidance. Run `npm run build:skills` to regenerate skills, the command reference, technical coverage inventory, and evaluation scenarios. `npm run validate` rejects drift. Neither generation nor the installed runtime depends on the ignored local plan.
+Edit `plugins/just-vibe/catalog/commands.json` for command contracts and the single canonical procedure, `catalog/packs.json` for pack requirements/input policies, and `references/packs/` plus `references/examples/` for operational guidance. Profile contributions live in `catalog/profiles.json`. Run `npm run build:skills` to regenerate skills, the command reference, technical coverage inventory, and evaluation scenarios. `npm run validate` rejects drift. Neither generation nor the installed runtime depends on the ignored local plan.
 
 Every workflow has normal, edge and missing-evidence cases in [evals/scenarios.json](evals/scenarios.json). The [independent behavioral harness](evals/README.md) additionally prepares and grades 21 raw-artifact tasks, including code repairs and report judgments. Catalog structure, runtime utility coverage and observed agent behavior have separate validation fields. These are not claims that all commands have been run against live services or evaluated across models. See the [v0.4 observed results](evals/releases/0.4.0.md) and [evaluation guidance](evals/README.md) for the tested scope.
+
+The [conversation harness](evals/conversation/README.md) records review, selected repairs and later corrections with separate scope and behavior checks. Its [development record](evals/releases/prompt-improvements.md) describes observed results and limitations.
 
 The [v0.6 results](evals/releases/0.6.0.md) record 32 controlled implementation trials and eight revised-command development trials. All passed their bounded checks; this does not rank overall output quality or convenience. The tasks supplied detailed contracts and did not measure user effort or preference. The [command-depth review](docs/command-quality.md#focused-depth-review) explains 27 focused revisions, and the [contextual review guide](docs/command-quality.md#output-quality-and-convenience) covers judgment, clarity, discovery and correction burden. [Benchmark protocol and supporting metrics](evals/benchmark/README.md) remain available for reproduction. External integration, browser and deployment checks require the relevant task environment.
 

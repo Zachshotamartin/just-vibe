@@ -13,6 +13,12 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 Introduce a shared contract when local fixes create repeated coordination failures.
 
+## Concrete contribution
+
+Map the requested cross-team change to existing owners and interfaces, identify the adoption dependency that can block it, and propose an incremental integration path.
+
+For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+
 ## Verify when relevant
 
 - Validate with representative consumers and rollout constraints.

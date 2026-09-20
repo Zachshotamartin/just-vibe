@@ -13,6 +13,12 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 Use independent enforcement when a component handles untrusted input and privileged operations.
 
+## Concrete contribution
+
+Model the trust boundary and enforcing control for each sensitive flow, then verify that component composition does not bypass those controls.
+
+For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+
 ## Verify when relevant
 
 - Walk abuse cases across boundaries.

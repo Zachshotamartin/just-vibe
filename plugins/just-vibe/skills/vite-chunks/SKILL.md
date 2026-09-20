@@ -17,7 +17,11 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; route/loading behavior, build artifacts, and chunk configuration.
 
-project manifests, lockfile, Vite/framework/plugin versions, and existing build scripts. Verify current version-specific documentation when changing configuration. Apply-mode checks may generate build/cache artifacts; inspect mode uses existing evidence.
+project manifests, lockfile, Vite/framework/plugin versions, and existing build scripts. Verify current version-specific documentation when changing configuration. Requested isolated verification may generate disposable build/cache artifacts; inspect their scripts first and preserve product files.
+
+- **Infer from evidence:** Read manifests, lockfile, installed Vite/plugins, entry points, aliases, modes and current build scripts.
+- **Reasonable default:** Preserve existing tooling and base-path conventions; make a local focused change when the brief identifies the behavior.
+- **Ask only when needed:** Ask if the intended serving subpath or deployment target cannot be inferred and would change generated URLs; do not ask for versions present in the lockfile.
 
 Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
@@ -25,19 +29,23 @@ Declared evidence requirements: `project.read`. Use actual host discovery or ade
 
 Dynamic imports, shared chunks, duplicate modules, and loading boundaries.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Map entry/chunk relationships, inspect waterfalls and dependency duplication, evaluate cache/initial-load tradeoffs, and propose focused splitting changes.
-- Map dynamic imports and shared chunks to representative navigation waterfalls; examine duplication, circular dependencies and cache invalidation costs.
-
+1. Map entry/chunk relationships, inspect waterfalls and dependency duplication, evaluate cache/initial-load tradeoffs, and propose focused splitting changes.
+2. Map dynamic imports and shared chunks to representative navigation waterfalls; examine duplication, circular dependencies and cache invalidation costs.
 ## Technical method
 
 - **Inspect:** Inspect dynamic imports, shared dependencies, manual chunk rules and module side effects.
-- **Apply:** Split at meaningful usage boundaries and check initialization order and caching across releases.
+- **Method:** Split at meaningful usage boundaries and check initialization order and caching across releases.
 - **Avoid misdiagnosis:** A smaller entry chunk can add serial requests or cause a stale HTML document to reference a deleted old chunk.
 - **Check the result:** Test cold navigation, lazy routes and an older open page during deployment; define reload/recovery for missing chunks.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [Vite worked example](../../references/examples/vite.md).
+
 
 ## Decision branches
 

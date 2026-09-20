@@ -19,25 +19,33 @@ Use the complete request appended to this invocation, preserving all constraints
 
 versioned model and preprocessing artifacts, input/output schema, runtime/dependencies, operating targets, and authorized environment. Validate artifact trust before loading formats that can execute code. Packaging or writing monitoring configuration does not deploy a model or enable a hosted service.
 
+- **Infer from evidence:** Read artifact format/trust, preprocessing schema, serving runtime, compatibility and existing rollout controls.
+- **Reasonable default:** Prepare packaging/configuration and isolated checks without treating them as a live deployment.
+- **Ask only when needed:** Resolve the target, rollback compatibility and operating limits before rollout or load generation; missing production access does not block packaging.
+
 Declared evidence requirements: `ml.artifacts`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Distribution-change detection and investigation; no automatic retraining.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Align schemas/windows, choose meaningful per-feature and aggregate checks, account for sample size/seasonality, inspect effect sizes, and define follow-up on signals.
-- Align schema, sampling and seasonal windows, compare effect sizes and support changes and separate data-pipeline changes from population changes.
-
+1. Align schemas/windows, choose meaningful per-feature and aggregate checks, account for sample size/seasonality, inspect effect sizes, and define follow-up on signals.
+2. Align schema, sampling and seasonal windows, compare effect sizes and support changes and separate data-pipeline changes from population changes.
 ## Technical method
 
 - **Inspect:** Establish a reference population, feature semantics, seasonality, sample sizes and missing-data behavior.
-- **Apply:** Monitor meaningful distribution changes with declared windows and thresholds; separate drift alerts from proven quality degradation.
+- **Method:** Monitor meaningful distribution changes with declared windows and thresholds; separate drift alerts from proven quality degradation.
 - **Avoid misdiagnosis:** A small p-value on a huge sample can flag irrelevant change, while missing labels prevent conclusions about accuracy.
 - **Check the result:** Inject a known distribution shift and a stable control, then check alert volume, cohort mix and delayed-label follow-up.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [ML deployment worked example](../../references/examples/ml-deployment.md).
+
 
 ## Decision branches
 

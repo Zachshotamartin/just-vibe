@@ -19,25 +19,33 @@ Use the complete request appended to this invocation, preserving all constraints
 
 interface definitions, producer/consumer source, authentication model, versioning constraints, and isolated test endpoints. External API calls must respect environment, credentials, rate limits, and side-effect scope.
 
+- **Infer from evidence:** Read producer/consumer schemas, error contracts, auth conventions and known supported client versions.
+- **Reasonable default:** Keep compatible response and pagination semantics where the brief does not request a breaking change.
+- **Ask only when needed:** Ask when contract sources disagree or an unknown consumer changes compatibility; do not require live credentials to write or test an isolated client.
+
 Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Reconcile documented paths, schemas, authentication, responses, and examples with actual intended behavior.
 
-Only the requested local changes; external actions require their exact action and target in session authorization.
+Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.
 
 ## Execute
 
-- Inspect routes and serializers, compare schema coverage, resolve documentation-versus-code discrepancies, update the correct source, and validate references/examples.
-- Identify the authoritative schema source, compare serializers and route validators, then check references, required/null distinctions and representative examples.
-
+1. Inspect routes and serializers, compare schema coverage, resolve documentation-versus-code discrepancies, update the correct source, and validate references/examples.
+2. Identify the authoritative schema source, compare serializers and route validators, then check references, required/null distinctions and representative examples.
 ## Technical method
 
 - **Inspect:** Identify OpenAPI version, source-of-truth convention, generators, serializers and client usage.
-- **Apply:** Reconcile path parameters, required/null semantics, security schemes and error responses; regenerate derived artifacts from their source.
+- **Method:** Reconcile path parameters, required/null semantics, security schemes and error responses; regenerate derived artifacts from their source.
 - **Avoid misdiagnosis:** OpenAPI 3.0 and 3.1 null/schema semantics differ; a valid schema can still document behavior the server never emits.
 - **Check the result:** Validate references/examples with the supported tooling and compare representative real requests/responses against the contract.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [APIs worked example](../../references/examples/api.md).
+
 
 ## Decision branches
 

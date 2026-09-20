@@ -19,25 +19,33 @@ Use the complete request appended to this invocation, preserving all constraints
 
 target screens/flows, existing design conventions, and runnable UI or supplied references. Visual claims require actual renders; accessibility claims distinguish automated, keyboard, and assistive-technology evidence.
 
+- **Infer from evidence:** Inspect the target flow, existing components/tokens, actual renders or supplied references and current responsive behavior.
+- **Reasonable default:** Reuse established visual conventions and preserve keyboard behavior; label unrendered changes as visually unverified.
+- **Ask only when needed:** Ask about an unresolved interaction or visual direction only when plausible choices materially differ; do not make a missing screenshot block source inspection.
+
 Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Missing state behavior and presentation for the selected feature.
 
-Only the requested local changes; external actions require their exact action and target in session authorization.
+Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.
 
 ## Execute
 
-- Derive states from data and business rules, define transitions and recovery, implement accessible feedback, and exercise each state with controlled data.
-- Derive loading, empty, partial, stale, failed and success states from the data contract; define retry and back-navigation transitions before rendering them.
-
+1. Derive states from data and business rules, define transitions and recovery, implement accessible feedback, and exercise each state with controlled data.
+2. Derive loading, empty, partial, stale, failed and success states from the data contract; define retry and back-navigation transitions before rendering them.
 ## Technical method
 
 - **Inspect:** Enumerate request/data states and transitions, including partial success and stale content.
-- **Apply:** Preserve useful context and offer the action that can actually recover each failure; distinguish no results from unavailable data.
+- **Method:** Preserve useful context and offer the action that can actually recover each failure; distinguish no results from unavailable data.
 - **Avoid misdiagnosis:** Replacing failed data with an empty-state message misrepresents the result and can encourage destructive user action.
 - **Check the result:** Trigger loading, empty, partial, failed and recovered states; verify user input, retry ownership and announcements survive transitions.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [UI and frontend worked example](../../references/examples/ui.md).
+
 
 ## Decision branches
 

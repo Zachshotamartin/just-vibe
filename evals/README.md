@@ -30,6 +30,10 @@ The grader verifies input/instruction hashes, permitted changed files, independe
 
 `npm run eval:behavior -- list` shows available cases. `npm run check` checks the harness itself against seeded wrong reports, broken code, vacuous tests and correct controls. Those synthetic harness checks are **not** model trials. It does not call models or services.
 
+## Multi-turn behavior
+
+The [conversation harness](conversation/README.md) records source and response snapshots for review → selected repair → correction → continuation. Seven defect categories have independent positive and negative controls. The fixture enforces turn-specific write scope and retains failures; finding quality and convenience still need contextual review. See the [observed development record](releases/prompt-improvements.md).
+
 ## Controlled comparisons
 
 Prepare the same case in three fresh directories with `--arm baseline`, `--arm just-vibe`, or `--arm ecc --ecc-root /path/to/pinned/ECC`. ECC supports cases with a declared matched source file in the manifest. Record the ECC revision before preparation. The comparator supplies that matched guide, not ECC's complete installed hooks/agents/runtime; name this limitation when interpreting results.

@@ -19,28 +19,32 @@ Use the complete request appended to this invocation, preserving all constraints
 
 defined application boundary, authorized code/environment, relevant trust/access rules, and evidence sources. Default to defensive inspection; active tests use owned or explicitly authorized isolated targets. Minimize sensitive evidence and never print usable credentials.
 
+- **Infer from evidence:** Resolve the requested surface, source/runtime version, reachable callers and actual trust/access boundaries.
+- **Reasonable default:** Start with source analysis and bounded owned fixtures; treat scanner output as leads and preserve legitimate controls.
+- **Ask only when needed:** Ask when target authorization or necessary trust semantics are unresolved before active probing; source inspection need not wait for production access.
+
 Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Locate likely exposed secrets and identify containment needs; no implicit credential rotation or history rewrite.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Scan the specified sources with redacted output, distinguish placeholders from plausible secrets, map exposure surfaces, and propose owner/provider-specific remediation.
-- Run approved scanners with redacted output over the requested scope, classify placeholders and locate exposure surfaces without copying values into reports.
-
+1. Scan the specified sources with redacted output, distinguish placeholders from plausible secrets, map exposure surfaces, and propose owner/provider-specific remediation.
+2. Run approved scanners with redacted output over the requested scope, classify placeholders and locate exposure surfaces without copying values into reports.
 ## Technical method
 
 - **Inspect:** Inspect scoped source, tracked history when requested, build outputs and redacted scanner locations.
-- **Apply:** Distinguish placeholders/public identifiers from secret material; report type/location without value and separate remediation from rotation/history changes.
+- **Method:** Distinguish placeholders/public identifiers from secret material; report type/location without value and separate remediation from rotation/history changes.
 - **Avoid misdiagnosis:** Testing a suspected credential against its provider exposes it and exceeds source review; deletion does not revoke an exposed credential.
 - **Check the result:** Use fake canaries and benign placeholders to validate redaction and detection; identify unknown rotation status without trying live keys.
 
 ## Read when relevant
 
+- When a concrete decision or deliverable example would clarify this workflow: [Security worked example](../../references/examples/security.md).
 - Dependencies, builds, secrets, hooks or privileged execution cross a trust boundary: [Dependency and execution provenance](../../references/security/supply-chain.md).
 - An available scanner or dependency advisory check can answer the scoped question: [Scanner selection and evidence](../../references/security/scanners.md).
 

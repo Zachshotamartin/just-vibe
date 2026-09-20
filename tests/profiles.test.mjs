@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtempSync, rmSync, readdirSync } from 'node:fs';
+import { mkdtempSync, rmSync, readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { loadCatalog } from '../plugins/just-vibe/scripts/lib/catalog.mjs';
@@ -11,6 +11,13 @@ import { main } from '../plugins/just-vibe/scripts/toolkit.mjs';
 const roles = loadProfiles(), commands = loadCatalog();
 const user = { primary: 'machine-learning-engineer', secondary: ['mlops-engineer'], selectedBy: 'user', reason: 'User requested ML implementation with operational verification.' };
 const agent = { primary: 'backend-engineer', selectedBy: 'agent', reason: 'The task is a service request with duplicate side effects.' };
+
+test('every generated profile exposes its authored concrete contribution', () => {
+  for (const profile of roles.profiles) {
+    const content = readFileSync(join(commands.root, 'references/profiles', `${profile.id}.md`), 'utf8');
+    assert.ok(content.includes(profile.contribution), profile.id);
+  }
+});
 function root(t) { const path = mkdtempSync(join(tmpdir(), 'just-vibe-profiles-')); t.after(() => rmSync(path, { recursive: true, force: true })); return path; }
 async function cli(args, payload) {
   const lines = [], errors = [];
@@ -34,6 +41,7 @@ test('catalog rejects duplicate roles and unusable workflow links', () => {
     data => { data.profiles[0].workflows = ['do']; },
     data => { data.profiles[0].family = 'unknown'; },
     data => { data.profiles[0].decision = ''; },
+    data => { delete data.profiles[0].contribution; },
   ]) {
     const data = structuredClone(roles); mutate(data);
     assert.throws(() => validateProfiles(data, commands));

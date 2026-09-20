@@ -17,7 +17,11 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply; invariant, valid input domain, boundaries, and existing generator framework.
 
-defined behavior, existing test conventions/runners, isolated fixtures, and relevant dependencies. Execution belongs in apply mode. Never test destructive behavior against production by default; distinguish mocked behavior from real integration evidence.
+defined behavior, existing test conventions/runners, isolated fixtures, and relevant dependencies. Requested bounded verification may use owned isolated fixtures without authorizing product edits or live-system tests. Never test destructive behavior against production by default; distinguish mocked behavior from real integration evidence.
+
+- **Infer from evidence:** Read behavior contracts, existing runners and test conventions; distinguish fixture setup failure from a behavioral failure.
+- **Reasonable default:** Use the smallest existing local runner and isolated synthetic fixtures that distinguish the requested behavior.
+- **Ask only when needed:** Ask about an unresolved contract that changes the expected result, or the target/load limits before external testing; do not ask the user to choose a runner already configured.
 
 Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
@@ -25,19 +29,23 @@ Declared evidence requirements: `project.read`. Use actual host discovery or ade
 
 Generated tests for meaningful algebraic/business properties, not arbitrary random inputs.
 
-Only the requested local changes; external actions require their exact action and target in session authorization.
+Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.
 
 ## Execute
 
-- Define preconditions and generators, implement invariants, bound execution, shrink failures, and preserve a reproducible seed/minimal counterexample.
-- Define preconditions and generators independently of the implementation, include important boundaries and preserve shrunk failures and seeds.
-
+1. Define preconditions and generators, implement invariants, bound execution, shrink failures, and preserve a reproducible seed/minimal counterexample.
+2. Define preconditions and generators independently of the implementation, include important boundaries and preserve shrunk failures and seeds.
 ## Technical method
 
 - **Inspect:** Define an invariant from the contract, constructive valid generators and bounded trial/shrink budgets.
-- **Apply:** Generate meaningful edge distributions and preserve seeds/counterexamples; use an independent oracle where one exists.
+- **Method:** Generate meaningful edge distributions and preserve seeds/counterexamples; use an independent oracle where one exists.
 - **Avoid misdiagnosis:** A round-trip property can pass when encoder and decoder share the same defect; excessive filtering hides hard inputs.
 - **Check the result:** Show a known violating implementation is detected and that shrunk examples still satisfy the generator's preconditions.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [Testing worked example](../../references/examples/testing.md).
+
 
 ## Decision branches
 

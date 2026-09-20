@@ -2,12 +2,12 @@ import { readFileSync, readdirSync, lstatSync, mkdirSync } from 'node:fs';
 import { join, relative } from 'node:path';
 import { createRequire } from 'node:module';
 import { pathToFileURL } from 'node:url';
-import { runCommand, requireResult, redact } from './process.mjs';
+import { runCommand, requireResult, redact, redactValue } from './process.mjs';
 import { within, readJson, projectRoot, digest } from './storage.mjs';
 
 const observed = (kind, target, data) => ({ schemaVersion: 1, kind, target, observedAt: new Date().toISOString(), ...data });
 const parse = source => { try { return JSON.parse(source); } catch { throw Error('Provider returned invalid JSON; update or inspect the installed CLI.'); } };
-const clean = value => JSON.parse(redact(JSON.stringify(value)));
+const clean = redactValue;
 
 export async function githubChecks({ root, repo, pr }, run = runCommand) {
   if (typeof repo !== 'string' || !/^[\w.-]+\/[\w.-]+$/.test(repo) || !/^[1-9]\d*$/.test(String(pr))) throw Error('Specify --repo owner/name and --pr NUMBER.');
@@ -80,6 +80,17 @@ export function migrationEvidence({ root, directory, applied }) {
     limitation: 'Static SQL review signals and supplied history only. Does not connect to a database, parse every SQL dialect, establish lock duration or prove safe execution. ORM-generated migrations must first be rendered to SQL.' });
 }
 
+async function waitForAssertion(check, message) {
+  const deadline = performance.now() + 5000;
+  while (performance.now() < deadline) {
+    const remaining = Math.max(1, Math.ceil(deadline - performance.now()));
+    try { if (await check(remaining)) return; } catch { /* Retry detached or not-yet-present elements within the same deadline. */ }
+    const delay = Math.min(100, deadline - performance.now());
+    if (delay > 0) await new Promise(resolve => setTimeout(resolve, delay));
+  }
+  throw Error(`${message} (not satisfied within 5000 ms).`);
+}
+
 export async function browserEvidence({ root, url, steps, artifactDirectory }, launch) {
   const target = new URL(url);
   if (!['http:', 'https:'].includes(target.protocol) || target.username || target.password || target.search || target.hash) throw Error('Use an HTTP(S) URL without credentials, query parameters or fragment.');
@@ -90,6 +101,7 @@ export async function browserEvidence({ root, url, steps, artifactDirectory }, l
     if (!allowed.has(step.action) || Object.keys(step).some(k => !['action', 'selector', 'value'].includes(k))) throw Error('Unknown browser step.');
     if (!['url', 'title'].includes(step.action) && (typeof step.selector !== 'string' || !step.selector || step.selector.length > 500)) throw Error('Browser step requires a bounded selector.');
     if (['fill', 'press', 'text', 'url'].includes(step.action) && (typeof step.value !== 'string' || step.value.length > 4000)) throw Error('Browser step requires a bounded value.');
+    if (step.action === 'title' && step.value !== undefined && (typeof step.value !== 'string' || step.value.length > 4000)) throw Error('Title assertion requires a bounded value.');
   }
   if (!launch) {
     const require = createRequire(join(projectRoot(root), 'package.json'));
@@ -117,10 +129,13 @@ export async function browserEvidence({ root, url, steps, artifactDirectory }, l
         else if (step.action === 'press') await locator.press(step.value);
         else if (step.action === 'visible') await locator.waitFor({ state: 'visible' });
         else if (step.action === 'hidden') await locator.waitFor({ state: 'hidden' });
-        else if (step.action === 'focused') { if (!(await locator.evaluate(element => element.getRootNode().activeElement === element))) throw Error('Expected element did not own focus.'); }
-        else if (step.action === 'text') { await locator.waitFor({ state: 'visible' }); if (!(await locator.innerText()).includes(step.value)) throw Error('Expected text was not present.'); }
-        else if (step.action === 'url' && page.url() !== new URL(step.value, url).href) throw Error('URL assertion did not match.');
-        else if (step.action === 'title') { const title = await page.title(); if (step.value !== undefined && title !== step.value) throw Error('Title assertion did not match.'); }
+        else if (step.action === 'focused') await waitForAssertion(timeout => locator.evaluate(element => element.getRootNode().activeElement === element, undefined, { timeout }), 'Expected element did not own focus');
+        else if (step.action === 'text') await waitForAssertion(async timeout => (await locator.isVisible()) && (await locator.innerText({ timeout })).includes(step.value), 'Expected text was not present');
+        else if (step.action === 'url') await waitForAssertion(() => page.url() === new URL(step.value, url).href, 'URL assertion did not match');
+        else if (step.action === 'title') {
+          if (step.value === undefined) await page.title();
+          else await waitForAssertion(async () => (await page.title()) === step.value, 'Title assertion did not match');
+        }
         if (artifactDirectory && artifacts.length < 10) { const path = `${artifactDirectory}/step-${index}.png`; await page.screenshot({ path: within(root, path), fullPage: false, timeout: 5000 }); artifacts.push(path); }
         results.push({ index, action: step.action, pass: true });
       } catch (error) { results.push({ index, action: step.action, pass: false, error: redact(error.message).slice(0, 1000) }); break; }

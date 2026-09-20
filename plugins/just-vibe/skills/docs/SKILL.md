@@ -19,25 +19,33 @@ Use the complete request appended to this invocation, preserving all constraints
 
 Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
+- **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
+- **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
+- **Ask only when needed:** Ask when competing targets or incompatible success conditions would change the result; continue independent inspection first.
+
 Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Accurate usage, interfaces, and maintenance guidance; no invented features or changes outside the named documentation scope.
 
-Only the requested local changes; external actions require their exact action and target in session authorization.
+Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.
 
 ## Execute
 
-- Inspect implementation and examples, update explanations and links, keep terminology consistent, and verify executable examples where authorized.
-- Check documented commands, defaults and examples against current implementation; edit source documents rather than generated copies.
-
+1. Inspect implementation and examples, update explanations and links, keep terminology consistent, and verify executable examples where authorized.
+2. Check documented commands, defaults and examples against current implementation; edit source documents rather than generated copies.
 ## Technical method
 
 - **Inspect:** Read actual code, CLI help, examples, generated sources and supported versions.
-- **Apply:** Update the source of truth and cross-links around observable behavior; distinguish setup instructions from evidence of successful execution.
+- **Method:** Update the source of truth and cross-links around observable behavior; distinguish setup instructions from evidence of successful execution.
 - **Avoid misdiagnosis:** Copying stale examples or generated output without rebuilding its source creates drift.
 - **Check the result:** Exercise runnable examples where practical, validate links and ensure documented defaults match the implementation.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [General worked example](../../references/examples/general.md).
+
 
 ## Decision branches
 

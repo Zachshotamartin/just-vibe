@@ -13,6 +13,12 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 Implement the smallest faithful experiment before optimizing infrastructure.
 
+## Concrete contribution
+
+Translate the hypothesis into a controlled implementation, preserving experiment identity and a reproducible reference before optimizing execution.
+
+For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+
 ## Verify when relevant
 
 - Reproduce a baseline and isolate changes with ablations.

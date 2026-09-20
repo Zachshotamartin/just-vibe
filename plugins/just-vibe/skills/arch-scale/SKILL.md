@@ -19,27 +19,35 @@ Use the complete request appended to this invocation, preserving all constraints
 
 readable source, infrastructure/configuration definitions, and any supplied system documentation. Runtime telemetry is optional evidence, never assumed available. Architecture proposals remain plans until implementation is requested.
 
+- **Infer from evidence:** Trace current entry points, data owners, deployment units and documented constraints before proposing boundaries.
+- **Reasonable default:** Prefer extending an existing owner while scale or organizational evidence is absent; mark capacity estimates as assumptions.
+- **Ask only when needed:** Ask for an unresolved consistency, compatibility or ownership requirement only if it changes the design; missing telemetry limits capacity claims, not source mapping.
+
 Resolve any task-specific tools, target identity and evidence before dependent actions. No external connection is assumed.
 
 ## Scope
 
 Capacity constraints and targeted scaling strategy; no speculative whole-system rewrite.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- State workload shape, service objectives and measured constraints: arrival rate, service time distribution, concurrency, queue age and resource saturation. Separate observed production data from assumptions or synthetic samples.
-- Locate the limiting serial/shared boundary before recommending replicas, caching, queues or extraction. Model steady-state and burst behavior, failure recovery and downstream limits with explicit units.
-- Compare options against the bottleneck and consistency requirements. Define admission control/backpressure and degradation before adding unbounded concurrency; scaling callers can overload the shared dependency.
-- Propose a bounded measurement or authorized load experiment with rejecting observations and recovery. Report the capacity range established by evidence and what remains unknown; do not invent traffic or throughput.
-
+1. State workload shape, service objectives and measured constraints: arrival rate, service time distribution, concurrency, queue age and resource saturation. Separate observed production data from assumptions or synthetic samples.
+2. Locate the limiting serial/shared boundary before recommending replicas, caching, queues or extraction. Model steady-state and burst behavior, failure recovery and downstream limits with explicit units.
+3. Compare options against the bottleneck and consistency requirements. Define admission control/backpressure and degradation before adding unbounded concurrency; scaling callers can overload the shared dependency.
+4. Propose a bounded measurement or authorized load experiment with rejecting observations and recovery. Report the capacity range established by evidence and what remains unknown; do not invent traffic or throughput.
 ## Technical method
 
 - **Inspect:** Obtain workload shape, service-time distribution, concurrency limits, queue age and dependency quotas.
-- **Apply:** Locate the first saturated shared resource; estimate concurrency from throughput and mean time only under stated steady-state assumptions, then measure tail behavior.
+- **Method:** Locate the first saturated shared resource; estimate concurrency from throughput and mean time only under stated steady-state assumptions, then measure tail behavior.
 - **Avoid misdiagnosis:** Adding replicas can exhaust a database connection budget or amplify retries before increasing throughput.
 - **Check the result:** Compare a bounded workload at the same mix and revision, including saturation, queue recovery and downstream limits.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [Architecture worked example](../../references/examples/architecture.md).
+
 
 ## Decision branches
 

@@ -19,28 +19,32 @@ Use the complete request appended to this invocation, preserving all constraints
 
 defined application boundary, authorized code/environment, relevant trust/access rules, and evidence sources. Default to defensive inspection; active tests use owned or explicitly authorized isolated targets. Minimize sensitive evidence and never print usable credentials.
 
+- **Infer from evidence:** Resolve the requested surface, source/runtime version, reachable callers and actual trust/access boundaries.
+- **Reasonable default:** Start with source analysis and bounded owned fixtures; treat scanner output as leads and preserve legitimate controls.
+- **Ask only when needed:** Ask when target authorization or necessary trust semantics are unresolved before active probing; source inspection need not wait for production access.
+
 Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Plausible attack paths and proportionate mitigations for this system.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Trace data and privilege boundaries, identify entry points, model misuse scenarios, assess existing controls, and prioritize gaps by realistic impact/exposure.
-- Enumerate assets, actors, entry points and trust transitions, then connect realistic misuse chains to existing controls and observable impact.
-
+1. Trace data and privilege boundaries, identify entry points, model misuse scenarios, assess existing controls, and prioritize gaps by realistic impact/exposure.
+2. Enumerate assets, actors, entry points and trust transitions, then connect realistic misuse chains to existing controls and observable impact.
 ## Technical method
 
 - **Inspect:** Inventory assets, actors, entry points, trust transitions, deployment assumptions and existing controls.
-- **Apply:** Build source-to-effect attack paths with prerequisites; route relevant paths to the vulnerability and framework guides.
+- **Method:** Build source-to-effect attack paths with prerequisites; route relevant paths to the vulnerability and framework guides.
 - **Avoid misdiagnosis:** A generic OWASP list is not a project threat model, and a hypothetical deployment must not become an observed exposure.
 - **Check the result:** Walk a high-impact misuse path and its legitimate control case; distinguish demonstrated, conditional and unknown risks.
 
 ## Read when relevant
 
+- When a concrete decision or deliverable example would clarify this workflow: [Security worked example](../../references/examples/security.md).
 - Reviewing code or security boundaries: select and read the matching technical branches before concluding: [Review selection and evidence](../../references/security/review.md).
 
 ## Decision branches

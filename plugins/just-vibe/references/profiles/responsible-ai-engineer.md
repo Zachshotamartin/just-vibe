@@ -13,6 +13,12 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 Choose controls based on documented harms and deployment constraints rather than one fairness metric.
 
+## Concrete contribution
+
+Identify affected groups, intended use and concrete failure harms, then connect measured limitations to a deployment or mitigation decision.
+
+For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+
 ## Verify when relevant
 
 - Evaluate relevant slices and escalation behavior.

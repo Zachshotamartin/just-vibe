@@ -4,112 +4,244 @@
     {
       "id": "general",
       "name": "General",
-      "prerequisites": "Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them."
+      "prerequisites": "Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.",
+      "inputPolicy": {
+        "infer": "Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.",
+        "assume": "Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.",
+        "ask": "Ask when competing targets or incompatible success conditions would change the result; continue independent inspection first."
+      },
+      "workedExample": "references/examples/general.md"
     },
     {
       "id": "architecture",
       "name": "Architecture",
-      "prerequisites": "readable source, infrastructure/configuration definitions, and any supplied system documentation. Runtime telemetry is optional evidence, never assumed available. Architecture proposals remain plans until implementation is requested."
+      "prerequisites": "readable source, infrastructure/configuration definitions, and any supplied system documentation. Runtime telemetry is optional evidence, never assumed available. Architecture proposals remain plans until implementation is requested.",
+      "inputPolicy": {
+        "infer": "Trace current entry points, data owners, deployment units and documented constraints before proposing boundaries.",
+        "assume": "Prefer extending an existing owner while scale or organizational evidence is absent; mark capacity estimates as assumptions.",
+        "ask": "Ask for an unresolved consistency, compatibility or ownership requirement only if it changes the design; missing telemetry limits capacity claims, not source mapping."
+      },
+      "workedExample": "references/examples/architecture.md"
     },
     {
       "id": "decisions",
       "name": "Decisions",
-      "prerequisites": "the decision question, constraints, alternatives or permission to identify them, and relevant project evidence. Current vendor claims and prices require current authoritative sources during execution. Scores are decision aids, not facts."
+      "prerequisites": "the decision question, constraints, alternatives or permission to identify them, and relevant project evidence. Current vendor claims and prices require current authoritative sources during execution. Scores are decision aids, not facts.",
+      "inputPolicy": {
+        "infer": "Recover hard constraints, the current option, adoption status and stated priorities from the brief and prior decisions.",
+        "assume": "Compare feasible options qualitatively when weights were not supplied; make a reversible conditional recommendation when useful.",
+        "ask": "Ask only about a missing constraint or preference that could reverse the recommendation; do not demand a complete scoring questionnaire."
+      },
+      "workedExample": "references/examples/decisions.md"
     },
     {
       "id": "git",
       "name": "Git",
-      "prerequisites": "Git, exact repository/worktree, and readable refs/index. Record branch, HEAD, staged/unstaged/untracked state before mutation. Preserve unrelated edits and never default to broad staging, hard reset, clean, force push, or history rewriting."
+      "prerequisites": "Git, exact repository/worktree, and readable refs/index. Record branch, HEAD, staged/unstaged/untracked state before mutation. Preserve unrelated edits and never default to broad staging, hard reset, clean, force push, or history rewriting.",
+      "inputPolicy": {
+        "infer": "Read repository root, HEAD, branch, refs and staged/unstaged/untracked distinctions; use the configured human identity.",
+        "assume": "Limit an ambiguous inspection to the current repository and report that scope; preserve all existing changes.",
+        "ask": "Before mutation, resolve uncertain commit membership, destination ref or history-rewrite intent; do not ask again about already authorized exact actions."
+      },
+      "workedExample": "references/examples/git.md"
     },
     {
       "id": "github",
       "name": "GitHub",
-      "prerequisites": "exact owner/repository and relevant issue/PR/ref; authenticated read access through an available connector or CLI for remote evidence. External writes require the requested operation, appropriate account permissions, and rechecking target state. Local preparation remains useful without write access."
+      "prerequisites": "exact owner/repository and relevant issue/PR/ref; authenticated read access through an available connector or CLI for remote evidence. External writes require the requested operation, appropriate account permissions, and rechecking target state. Local preparation remains useful without write access.",
+      "inputPolicy": {
+        "infer": "Resolve owner/repository and PR/issue/ref from links, remotes and supplied artifacts; inspect available account and head identity.",
+        "assume": "Prepare local text or analyze supplied evidence if remote access is absent; label its freshness.",
+        "ask": "Ask only when repository/account/target ambiguity blocks the requested remote action; missing write access does not block local drafting."
+      },
+      "workedExample": "references/examples/github.md"
     },
     {
       "id": "vercel",
       "name": "Vercel",
-      "prerequisites": "exact team/project/environment and deployment/revision when applicable; read access to relevant configuration/logs. Verify installed CLI/API support and framework behavior during implementation. Never print environment values or infer promotion authorization from a preview request."
+      "prerequisites": "exact team/project/environment and deployment/revision when applicable; read access to relevant configuration/logs. Verify installed CLI/API support and framework behavior during implementation. Never print environment values or infer promotion authorization from a preview request.",
+      "inputPolicy": {
+        "infer": "Read the linked project, team, framework, environment and deployment SHA from local config and supplied deployment evidence.",
+        "assume": "Diagnose locally with existing build scripts when deployment access is missing; do not infer a production target from a preview URL.",
+        "ask": "Resolve a missing deployment/team/environment before the dependent remote operation; names and scope suffice without exposing environment values."
+      },
+      "workedExample": "references/examples/vercel.md"
     },
     {
       "id": "vite",
       "name": "Vite",
-      "prerequisites": "project manifests, lockfile, Vite/framework/plugin versions, and existing build scripts. Verify current version-specific documentation when changing configuration. Apply-mode checks may generate build/cache artifacts; inspect mode uses existing evidence."
+      "prerequisites": "project manifests, lockfile, Vite/framework/plugin versions, and existing build scripts. Verify current version-specific documentation when changing configuration. Requested isolated verification may generate disposable build/cache artifacts; inspect their scripts first and preserve product files.",
+      "inputPolicy": {
+        "infer": "Read manifests, lockfile, installed Vite/plugins, entry points, aliases, modes and current build scripts.",
+        "assume": "Preserve existing tooling and base-path conventions; make a local focused change when the brief identifies the behavior.",
+        "ask": "Ask if the intended serving subpath or deployment target cannot be inferred and would change generated URLs; do not ask for versions present in the lockfile."
+      },
+      "workedExample": "references/examples/vite.md"
     },
     {
       "id": "react",
       "name": "React",
-      "prerequisites": "component source, React/framework versions, state/data conventions, and relevant test tooling. Browser/profiler evidence is needed for measured rendering claims. Preserve existing framework and state libraries unless changing them is part of the request."
+      "prerequisites": "component source, React/framework versions, state/data conventions, and relevant test tooling. Browser/profiler evidence is needed for measured rendering claims. Preserve existing framework and state libraries unless changing them is part of the request.",
+      "inputPolicy": {
+        "infer": "Read component callers, ownership of state, installed React/framework versions and existing interaction tests.",
+        "assume": "Retain the framework and state library; preserve intended loading/error/empty behavior while resolving the named bug.",
+        "ask": "Ask when product semantics such as persistence, optimistic failure or reset behavior have conflicting evidence; missing profiler access only blocks measured performance claims."
+      },
+      "workedExample": "references/examples/react.md"
     },
     {
       "id": "ui",
       "name": "UI and frontend",
-      "prerequisites": "target screens/flows, existing design conventions, and runnable UI or supplied references. Visual claims require actual renders; accessibility claims distinguish automated, keyboard, and assistive-technology evidence."
+      "prerequisites": "target screens/flows, existing design conventions, and runnable UI or supplied references. Visual claims require actual renders; accessibility claims distinguish automated, keyboard, and assistive-technology evidence.",
+      "inputPolicy": {
+        "infer": "Inspect the target flow, existing components/tokens, actual renders or supplied references and current responsive behavior.",
+        "assume": "Reuse established visual conventions and preserve keyboard behavior; label unrendered changes as visually unverified.",
+        "ask": "Ask about an unresolved interaction or visual direction only when plausible choices materially differ; do not make a missing screenshot block source inspection."
+      },
+      "workedExample": "references/examples/ui.md"
     },
     {
       "id": "backend",
       "name": "Backend",
-      "prerequisites": "service source, data/interface contracts, framework/runtime versions, and test environment. Default apply operations target local code and isolated tests; live infrastructure/data mutations require their own requested scope."
+      "prerequisites": "service source, data/interface contracts, framework/runtime versions, and test environment. Default apply operations target local code and isolated tests; live infrastructure/data mutations require their own requested scope.",
+      "inputPolicy": {
+        "infer": "Trace service callers, request contracts, authorization, transactions, retries and existing test infrastructure.",
+        "assume": "Use the existing persistence and framework; isolate local tests from live services.",
+        "ask": "Resolve ambiguous durability, duplication or consistency requirements before encoding them; absent production access does not prevent local implementation."
+      },
+      "workedExample": "references/examples/backend.md"
     },
     {
       "id": "api",
       "name": "APIs",
-      "prerequisites": "interface definitions, producer/consumer source, authentication model, versioning constraints, and isolated test endpoints. External API calls must respect environment, credentials, rate limits, and side-effect scope."
+      "prerequisites": "interface definitions, producer/consumer source, authentication model, versioning constraints, and isolated test endpoints. External API calls must respect environment, credentials, rate limits, and side-effect scope.",
+      "inputPolicy": {
+        "infer": "Read producer/consumer schemas, error contracts, auth conventions and known supported client versions.",
+        "assume": "Keep compatible response and pagination semantics where the brief does not request a breaking change.",
+        "ask": "Ask when contract sources disagree or an unknown consumer changes compatibility; do not require live credentials to write or test an isolated client."
+      },
+      "workedExample": "references/examples/api.md"
     },
     {
       "id": "database",
       "name": "Databases",
-      "prerequisites": "actual engine/version, schema/migrations, query workload, and explicitly identified environment. Prefer supplied plans, metadata, and isolated fixtures. Even a SELECT can lock, call mutating functions, or overload a database; inspect semantics before execution. Executing an analyzed query is distinct from reading its plan."
+      "prerequisites": "actual engine/version, schema/migrations, query workload, and explicitly identified environment. Prefer supplied plans, metadata, and isolated fixtures. Even a SELECT can lock, call mutating functions, or overload a database; inspect semantics before execution. Executing an analyzed query is distinct from reading its plan.",
+      "inputPolicy": {
+        "infer": "Read engine/version, ORM/runner, schema and migration history from project artifacts before choosing SQL.",
+        "assume": "Prepare local SQL and isolated fixtures without assuming production size, locks or recovery guarantees.",
+        "ask": "Ask for environment, downtime or recovery constraints before live/destructive execution when missing; unavailable production access does not block migration files."
+      },
+      "workedExample": "references/examples/database.md"
     },
     {
       "id": "data",
       "name": "Data engineering",
-      "prerequisites": "data source/version, schema/semantics, transformation code, permitted sampling scope, and storage/compute budget. Prefer aggregates and redacted samples; never upload datasets to external services implicitly. Record time zones and snapshot identity for reproducibility."
+      "prerequisites": "data source/version, schema/semantics, transformation code, permitted sampling scope, and storage/compute budget. Prefer aggregates and redacted samples; never upload datasets to external services implicitly. Record time zones and snapshot identity for reproducibility.",
+      "inputPolicy": {
+        "infer": "Inspect schema, source snapshot, transformation code, grain, time zones and permitted sample scope.",
+        "assume": "Use bounded synthetic or supplied samples when full data is unavailable; keep unknown values distinct from zero.",
+        "ask": "Resolve ambiguous entity/grain/time semantics before reconciliation or backfill; obtain missing data/compute limits only for the dependent scan or execution."
+      },
+      "workedExample": "references/examples/data.md"
     },
     {
       "id": "ml-data",
       "name": "ML data",
-      "prerequisites": "task definition, dataset identity, field semantics, entity/time keys, and permission to inspect bounded data. Record prediction moment, label horizon, sampling, and provenance. Preserve held-out evaluation boundaries; no data upload, label alteration, or feature fitting across splits implicitly."
+      "prerequisites": "task definition, dataset identity, field semantics, entity/time keys, and permission to inspect bounded data. Record prediction moment, label horizon, sampling, and provenance. Preserve held-out evaluation boundaries; no data upload, label alteration, or feature fitting across splits implicitly.",
+      "inputPolicy": {
+        "infer": "Read prediction moment, label horizon, entity/time keys, split policy and dataset provenance from the task and manifests.",
+        "assume": "Use explicit synthetic examples for design when raw data is unavailable; do not infer missing labels or fit preprocessing across held-out boundaries.",
+        "ask": "Ask when unresolved label timing, grouping or target semantics would change the split/features; do not demand a full dataset to explain the method."
+      },
+      "workedExample": "references/examples/ml-data.md"
     },
     {
       "id": "ml-experiments",
       "name": "ML experimentation",
-      "prerequisites": "dataset/split manifests, fixed objective/metric, environment/dependencies, baseline where applicable, and explicit compute limits. Record code revision, configuration, seeds, artifact paths, and resource use. Local smoke checks do not imply authorization for paid training. Never optimize on the held-out test set."
+      "prerequisites": "dataset/split manifests, fixed objective/metric, environment/dependencies, baseline where applicable, and explicit compute limits. Record code revision, configuration, seeds, artifact paths, and resource use. Local smoke checks do not imply authorization for paid training. Never optimize on the held-out test set.",
+      "inputPolicy": {
+        "infer": "Read framework, training entry point, loss/metric, split manifests and checkpoint conventions from supplied source.",
+        "assume": "Implement requested code and tiny isolated smoke checks with existing tools; leave unmeasured model quality explicit.",
+        "ask": "Ask for unresolved objective/data semantics before encoding them, and environment/resource limits before launching training or a search; implementation alone does not need a hardware purchase decision."
+      },
+      "workedExample": "references/examples/ml-experiments.md"
     },
     {
       "id": "ml-evaluation",
       "name": "ML evaluation",
-      "prerequisites": "frozen model/artifact, evaluation dataset identity, labels where needed, metric definitions, and task/operating context. Report sample counts and uncertainty appropriate to dependencies; avoid repeated test-set tuning. Exploratory findings need fresh confirmation before strong generalization claims."
+      "prerequisites": "frozen model/artifact, evaluation dataset identity, labels where needed, metric definitions, and task/operating context. Report sample counts and uncertainty appropriate to dependencies; avoid repeated test-set tuning. Exploratory findings need fresh confirmation before strong generalization claims.",
+      "inputPolicy": {
+        "infer": "Read frozen model/data identities, metric definitions, denominators and supplied predictions; separate validation from test use.",
+        "assume": "Compute only supported metrics on permitted samples and label missing labels or subgroup coverage as unknown.",
+        "ask": "Ask when the operating cost/threshold or population changes the evaluation decision; do not fabricate labels to avoid a question."
+      },
+      "workedExample": "references/examples/ml-evaluation.md"
     },
     {
       "id": "ml-deployment",
       "name": "ML deployment",
-      "prerequisites": "versioned model and preprocessing artifacts, input/output schema, runtime/dependencies, operating targets, and authorized environment. Validate artifact trust before loading formats that can execute code. Packaging or writing monitoring configuration does not deploy a model or enable a hosted service."
+      "prerequisites": "versioned model and preprocessing artifacts, input/output schema, runtime/dependencies, operating targets, and authorized environment. Validate artifact trust before loading formats that can execute code. Packaging or writing monitoring configuration does not deploy a model or enable a hosted service.",
+      "inputPolicy": {
+        "infer": "Read artifact format/trust, preprocessing schema, serving runtime, compatibility and existing rollout controls.",
+        "assume": "Prepare packaging/configuration and isolated checks without treating them as a live deployment.",
+        "ask": "Resolve the target, rollback compatibility and operating limits before rollout or load generation; missing production access does not block packaging."
+      },
+      "workedExample": "references/examples/ml-deployment.md"
     },
     {
       "id": "llm",
       "name": "LLMs and retrieval",
-      "prerequisites": "task definition, model/provider configuration, representative permitted data, versioned prompts/corpus where relevant, and explicit token/cost/latency limits for remote calls. Use current provider interfaces during implementation. Retrieved content and model-generated tool arguments remain untrusted."
+      "prerequisites": "task definition, model/provider configuration, representative permitted data, versioned prompts/corpus where relevant, and explicit token/cost/latency limits for remote calls. Use current provider interfaces during implementation. Retrieved content and model-generated tool arguments remain untrusted.",
+      "inputPolicy": {
+        "infer": "Read current prompt/tool schemas, retrieval boundaries, installed SDK/provider config and permitted examples without reading secret values.",
+        "assume": "Use mocked calls for local contract tests when remote access is absent; do not infer model quality from mocks.",
+        "ask": "Ask for budget and permitted data/provider before a paid or external run if not already set; local prompt/tool implementation can proceed."
+      },
+      "workedExample": "references/examples/llm.md"
     },
     {
       "id": "testing",
       "name": "Testing",
-      "prerequisites": "defined behavior, existing test conventions/runners, isolated fixtures, and relevant dependencies. Execution belongs in apply mode. Never test destructive behavior against production by default; distinguish mocked behavior from real integration evidence."
+      "prerequisites": "defined behavior, existing test conventions/runners, isolated fixtures, and relevant dependencies. Requested bounded verification may use owned isolated fixtures without authorizing product edits or live-system tests. Never test destructive behavior against production by default; distinguish mocked behavior from real integration evidence.",
+      "inputPolicy": {
+        "infer": "Read behavior contracts, existing runners and test conventions; distinguish fixture setup failure from a behavioral failure.",
+        "assume": "Use the smallest existing local runner and isolated synthetic fixtures that distinguish the requested behavior.",
+        "ask": "Ask about an unresolved contract that changes the expected result, or the target/load limits before external testing; do not ask the user to choose a runner already configured."
+      },
+      "workedExample": "references/examples/testing.md"
     },
     {
       "id": "security",
       "name": "Security",
-      "prerequisites": "defined application boundary, authorized code/environment, relevant trust/access rules, and evidence sources. Default to defensive inspection; active tests use owned or explicitly authorized isolated targets. Minimize sensitive evidence and never print usable credentials."
+      "prerequisites": "defined application boundary, authorized code/environment, relevant trust/access rules, and evidence sources. Default to defensive inspection; active tests use owned or explicitly authorized isolated targets. Minimize sensitive evidence and never print usable credentials.",
+      "inputPolicy": {
+        "infer": "Resolve the requested surface, source/runtime version, reachable callers and actual trust/access boundaries.",
+        "assume": "Start with source analysis and bounded owned fixtures; treat scanner output as leads and preserve legitimate controls.",
+        "ask": "Ask when target authorization or necessary trust semantics are unresolved before active probing; source inspection need not wait for production access."
+      },
+      "workedExample": "references/examples/security.md"
     },
     {
       "id": "operations",
       "name": "Operations",
-      "prerequisites": "exact service/environment, time window, revision/configuration identity, authorized logs/metrics, and operational constraints. Prefer observation before intervention; live restarts, traffic changes, restores, and notifications require the requested target/action. Redact sensitive telemetry."
+      "prerequisites": "exact service/environment, time window, revision/configuration identity, authorized logs/metrics, and operational constraints. Prefer observation before intervention; live restarts, traffic changes, restores, and notifications require the requested target/action. Redact sensitive telemetry.",
+      "inputPolicy": {
+        "infer": "Read service/environment, time window, revision, available telemetry and existing incident or recovery procedure.",
+        "assume": "Start from supplied logs and read-only observation; rank hypotheses without presenting an unexecuted intervention as recovery.",
+        "ask": "Resolve the precise target and missing authority before restart, restore, notification or traffic changes; continue evidence analysis while waiting."
+      },
+      "workedExample": "references/examples/operations.md"
     },
     {
       "id": "installation",
       "name": "Installation",
-      "prerequisites": "Node.js 22+ and the selected host CLI with native plugin support. Git is required only for --github. Use the bundled installer; preserve marketplace and scope checks."
+      "prerequisites": "Node.js 22+ and the selected host CLI with native plugin support. Git is required only for --github. Use the bundled installer; preserve marketplace and scope checks.",
+      "inputPolicy": {
+        "infer": "Inspect selected host, native CLI support, existing source/scope and package version without changing global configuration.",
+        "assume": "Use the documented bundled source and existing host conventions unless the user selects another source.",
+        "ask": "Ask only when multiple host/scope/source choices cannot be resolved from context and would change installation; report an actual missing executable instead of requesting unrelated credentials."
+      },
+      "workedExample": "references/examples/installation.md"
     }
   ]
 }

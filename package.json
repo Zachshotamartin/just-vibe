@@ -1,6 +1,6 @@
 {
   "name": "just-vibe",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "description": "Tools, skills, and commands for coding agents.",
   "type": "module",
   "bin": {
@@ -25,7 +25,8 @@
     "eval:benchmark": "node evals/benchmark/harness.mjs",
     "test:browser": "node scripts/smoke-browser.mjs",
     "release:publish": "node scripts/publish-release.mjs",
-    "eval:security": "node evals/security/run.mjs"
+    "eval:security": "node evals/security/run.mjs",
+    "eval:conversation": "node evals/conversation/harness.mjs"
   },
   "files": [
     "bin/",

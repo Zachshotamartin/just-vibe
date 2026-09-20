@@ -19,25 +19,33 @@ Use the complete request appended to this invocation, preserving all constraints
 
 task definition, model/provider configuration, representative permitted data, versioned prompts/corpus where relevant, and explicit token/cost/latency limits for remote calls. Use current provider interfaces during implementation. Retrieved content and model-generated tool arguments remain untrusted.
 
+- **Infer from evidence:** Read current prompt/tool schemas, retrieval boundaries, installed SDK/provider config and permitted examples without reading secret values.
+- **Reasonable default:** Use mocked calls for local contract tests when remote access is absent; do not infer model quality from mocks.
+- **Ask only when needed:** Ask for budget and permitted data/provider before a paid or external run if not already set; local prompt/tool implementation can proceed.
+
 Declared evidence requirements: `ml.artifacts`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Chunking, candidate recall, ranking, filters, and retrieval latency; generation quality is separate.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Trace query-to-candidate stages, inspect missed relevant passages, compare bounded configurations under the same judgments, and validate access filters independently.
-- Trace a query through normalization, filters, candidates, ranking and final context using known relevance judgments and stable document IDs.
-
+1. Trace query-to-candidate stages, inspect missed relevant passages, compare bounded configurations under the same judgments, and validate access filters independently.
+2. Trace a query through normalization, filters, candidates, ranking and final context using known relevance judgments and stable document IDs.
 ## Technical method
 
 - **Inspect:** Define a query set with relevant document IDs, access labels, corpus version and ranking budget.
-- **Apply:** Measure candidate recall before reranking; inspect normalization, chunk boundaries and filters at the first stage losing relevant evidence.
+- **Method:** Measure candidate recall before reranking; inspect normalization, chunk boundaries and filters at the first stage losing relevant evidence.
 - **Avoid misdiagnosis:** Improving final prose cannot recover a passage never retrieved; aggregate recall can hide access-filter leaks.
 - **Check the result:** Include an exact answer split across chunks and a highly relevant forbidden document; verify both relevance and isolation.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [LLMs and retrieval worked example](../../references/examples/llm.md).
+
 
 ## Decision branches
 

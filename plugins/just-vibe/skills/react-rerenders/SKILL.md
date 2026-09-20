@@ -19,25 +19,33 @@ Use the complete request appended to this invocation, preserving all constraints
 
 component source, React/framework versions, state/data conventions, and relevant test tooling. Browser/profiler evidence is needed for measured rendering claims. Preserve existing framework and state libraries unless changing them is part of the request.
 
+- **Infer from evidence:** Read component callers, ownership of state, installed React/framework versions and existing interaction tests.
+- **Reasonable default:** Retain the framework and state library; preserve intended loading/error/empty behavior while resolving the named bug.
+- **Ask only when needed:** Ask when product semantics such as persistence, optimistic failure or reset behavior have conflicting evidence; missing profiler access only blocks measured performance claims.
+
 Declared evidence requirements: `browser.inspect`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Unnecessary rendering, expensive render work, and state propagation.
 
-None by default. Plan artifacts may be saved when requested.
+Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the requested local implementation and perform relevant bounded checks while preserving unrelated work. Live data changes, remote actions and paid jobs require their resolved target and existing session authorization.
 
 ## Execute
 
-- Establish the interaction baseline, inspect profiler commits, trace changing props/context/identities, fix the measured cause when requested, and compare behavior and timing.
-- Capture the same interaction in a profiler, separate render from commit cost and trace the props/context identity responsible for expensive work.
-
+1. Establish the interaction baseline, inspect profiler commits, trace changing props/context/identities, fix the measured cause when requested, and compare behavior and timing.
+2. Capture the same interaction in a profiler, separate render from commit cost and trace the props/context identity responsible for expensive work.
 ## Technical method
 
 - **Inspect:** Capture a representative interaction in the profiler with fixed data and production-like behavior.
-- **Apply:** Locate changing context/prop identities or expensive work, then optimize the measured cause while preserving fresh closures.
+- **Method:** Locate changing context/prop identities or expensive work, then optimize the measured cause while preserving fresh closures.
 - **Avoid misdiagnosis:** Render counts include harmless work and development checks; memoization can retain stale behavior or cost more than recomputation.
 - **Check the result:** Repeat the same interaction and compare duration/responsiveness while checking that updated inputs still reach callbacks.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [React worked example](../../references/examples/react.md).
+
 
 ## Decision branches
 

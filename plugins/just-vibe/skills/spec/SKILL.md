@@ -19,25 +19,33 @@ Use the complete request appended to this invocation, preserving all constraints
 
 Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
+- **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
+- **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
+- **Ask only when needed:** Ask when competing targets or incompatible success conditions would change the result; continue independent inspection first.
+
 Resolve any task-specific tools, target identity and evidence before dependent actions. No external connection is assumed.
 
 ## Scope
 
 Requirements and observable behavior; no code changes or invented business policy.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Inspect current behavior, identify actors and states, define normal/error paths, record exclusions, and turn ambiguity into explicit assumptions or decisions.
-- Write actors, preconditions, state transitions and observable acceptance examples; separate business decisions from implementation preferences.
-
+1. Inspect current behavior, identify actors and states, define normal/error paths, record exclusions, and turn ambiguity into explicit assumptions or decisions.
+2. Write actors, preconditions, state transitions and observable acceptance examples; separate business decisions from implementation preferences.
 ## Technical method
 
 - **Inspect:** Resolve actors, desired outcomes, existing contracts and meaningful exclusions.
-- **Apply:** Define observable acceptance criteria and state transitions, including invalid, interrupted and recovered behavior where material.
+- **Method:** Define observable acceptance criteria and state transitions, including invalid, interrupted and recovered behavior where material.
 - **Avoid misdiagnosis:** Implementation detail can prematurely constrain a product requirement; vague adjectives cannot establish completion.
 - **Check the result:** Walk a representative user scenario and a failure scenario against the criteria and expose unresolved choices.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [General worked example](../../references/examples/general.md).
+
 
 ## Decision branches
 

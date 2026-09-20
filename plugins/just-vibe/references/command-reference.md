@@ -34,7 +34,7 @@
 | [a11y](../skills/a11y/SKILL.md) | inspect | Inspect semantics, keyboard access, focus, contrast, and announcements (alias of ui-accessibility) |
 | [match](../skills/match/SKILL.md) | apply | Compare an implementation against a visual reference and close gaps |
 | [copy](../skills/copy/SKILL.md) | apply | Improve interface wording and product messaging |
-| [review](../skills/review/SKILL.md) | inspect | Review a change for actionable bugs and regressions |
+| [review](../skills/review/SKILL.md) | inspect | Review a change, selected files, or an entire repository for actionable defects |
 | [test](../skills/test/SKILL.md) | apply | Add meaningful coverage for specified behavior |
 | [verify](../skills/verify/SKILL.md) | apply | Run relevant checks and report supporting evidence |
 | [security](../skills/security/SKILL.md) | inspect | Examine concrete security risks in a defined scope |

@@ -19,25 +19,33 @@ Use the complete request appended to this invocation, preserving all constraints
 
 frozen model/artifact, evaluation dataset identity, labels where needed, metric definitions, and task/operating context. Report sample counts and uncertainty appropriate to dependencies; avoid repeated test-set tuning. Exploratory findings need fresh confirmation before strong generalization claims.
 
+- **Infer from evidence:** Read frozen model/data identities, metric definitions, denominators and supplied predictions; separate validation from test use.
+- **Reasonable default:** Compute only supported metrics on permitted samples and label missing labels or subgroup coverage as unknown.
+- **Ask only when needed:** Ask when the operating cost/threshold or population changes the evaluation decision; do not fabricate labels to avoid a question.
+
 Declared evidence requirements: `ml.artifacts`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Select an operating point or decision policy; no production activation.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Compare threshold tradeoffs, model workload/capacity, handle ties and uncertainty, choose using validation data, and reserve independent confirmation.
-- Compute validation tradeoffs with denominators and tie handling, translate them into expected workload under stated volume/prevalence and reserve independent confirmation.
-
+1. Compare threshold tradeoffs, model workload/capacity, handle ties and uncertainty, choose using validation data, and reserve independent confirmation.
+2. Compute validation tradeoffs with denominators and tie handling, translate them into expected workload under stated volume/prevalence and reserve independent confirmation.
 ## Technical method
 
 - **Inspect:** Obtain score distribution, error costs, review capacity, protected requirements and selection data.
-- **Apply:** Choose an operating point using explicit constraints and uncertainty; keep threshold selection separate from final test reporting.
+- **Method:** Choose an operating point using explicit constraints and uncertainty; keep threshold selection separate from final test reporting.
 - **Avoid misdiagnosis:** A threshold maximizing F1 may violate a daily capacity or false-positive budget.
 - **Check the result:** Compute the confusion matrix and workload at nearby thresholds, including tied scores and changing prevalence assumptions.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [ML evaluation worked example](../../references/examples/ml-evaluation.md).
+
 
 ## Decision branches
 

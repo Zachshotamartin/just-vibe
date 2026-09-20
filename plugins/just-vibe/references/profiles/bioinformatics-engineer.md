@@ -13,6 +13,12 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 Preserve cohort and subject boundaries when related samples could contaminate evaluation.
 
+## Concrete contribution
+
+Record reference assembly, coordinate conventions and sample/provenance identity; validate transformations against biological and file-format controls before interpreting results.
+
+For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+
 ## Verify when relevant
 
 - Check sample mapping, quality controls and workflow reproducibility.

@@ -19,25 +19,33 @@ Use the complete request appended to this invocation, preserving all constraints
 
 Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
+- **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
+- **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
+- **Ask only when needed:** Ask when competing targets or incompatible success conditions would change the result; continue independent inspection first.
+
 Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 One end-to-end execution/data path, including service boundaries; no new instrumentation by default.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Identify the entry point, follow transformations and dispatches, correlate available IDs, and mark async boundaries and missing spans.
-- Start from an identified input or correlation ID; record each hop's input, output, identity propagation and synchronous or asynchronous transition.
-
+1. Identify the entry point, follow transformations and dispatches, correlate available IDs, and mark async boundaries and missing spans.
+2. Start from an identified input or correlation ID; record each hop's input, output, identity propagation and synchronous or asynchronous transition.
 ## Technical method
 
 - **Inspect:** Locate entry point, transformations, asynchronous handoffs, identity propagation and terminal effects.
-- **Apply:** Follow one concrete request/value, recording boundaries and error branches with file or runtime evidence.
+- **Method:** Follow one concrete request/value, recording boundaries and error branches with file or runtime evidence.
 - **Avoid misdiagnosis:** A static call graph does not prove which branch executed; queue handoffs can change identity and ordering.
 - **Check the result:** Reconcile the trace against one success and one failure observation, marking any inaccessible runtime segment.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [General worked example](../../references/examples/general.md).
+
 
 ## Decision branches
 

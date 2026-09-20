@@ -13,6 +13,12 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 Prefer an existing supported capability when it satisfies the decisive requirements.
 
+## Concrete contribution
+
+Map the customer’s concrete integration and operating constraints to a deployable design, documenting assumptions that must be validated before commitment.
+
+For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+
 ## Verify when relevant
 
 - Trace representative business journeys through the proposed system.

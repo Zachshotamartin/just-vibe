@@ -19,28 +19,32 @@ Use the complete request appended to this invocation, preserving all constraints
 
 component source, React/framework versions, state/data conventions, and relevant test tooling. Browser/profiler evidence is needed for measured rendering claims. Preserve existing framework and state libraries unless changing them is part of the request.
 
+- **Infer from evidence:** Read component callers, ownership of state, installed React/framework versions and existing interaction tests.
+- **Reasonable default:** Retain the framework and state library; preserve intended loading/error/empty behavior while resolving the named bug.
+- **Ask only when needed:** Ask when product semantics such as persistence, optimistic failure or reset behavior have conflicting evidence; missing profiler access only blocks measured performance claims.
+
 Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Hooks, ownership, identity, effects, async boundaries, and component contracts.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Trace props/state and lifecycle, identify reachable failure paths, inspect tests and framework constraints, and rank concrete risks.
-- Identify React/framework version and server/client boundary, then trace state ownership, hook order, key identity and reachable interaction states.
-
+1. Trace props/state and lifecycle, identify reachable failure paths, inspect tests and framework constraints, and rank concrete risks.
+2. Identify React/framework version and server/client boundary, then trace state ownership, hook order, key identity and reachable interaction states.
 ## Technical method
 
 - **Inspect:** Inspect component ownership, hook dependencies, keys, server/client boundaries and concrete interactions.
-- **Apply:** Trace props and state across an actual transition; apply security guidance only to changed trust boundaries such as raw HTML or server actions.
+- **Method:** Trace props and state across an actual transition; apply security guidance only to changed trust boundaries such as raw HTML or server actions.
 - **Avoid misdiagnosis:** Missing memoization is not automatically a defect, and ordinary JSX text is escaped by React.
 - **Check the result:** Tie each finding to a reproducible state/trigger and check the caller or framework guard before reporting it.
 
 ## Read when relevant
 
+- When a concrete decision or deliverable example would clarify this workflow: [React worked example](../../references/examples/react.md).
 - The task depends on framework defaults, middleware, RLS, server/client or deployment behavior: [Framework-specific review branches](../../references/security/frameworks.md).
 
 ## Decision branches

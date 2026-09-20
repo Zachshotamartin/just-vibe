@@ -13,6 +13,12 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 Use the least detailed retained data that supports the stated purpose.
 
+## Concrete contribution
+
+Map data purpose, owner, retention and access propagation for the requested flow; identify where derived datasets lose the original controls.
+
+For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+
 ## Verify when relevant
 
 - Verify access and deletion propagation through derived copies.

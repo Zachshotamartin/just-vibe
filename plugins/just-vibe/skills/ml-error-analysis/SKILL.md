@@ -19,25 +19,33 @@ Use the complete request appended to this invocation, preserving all constraints
 
 frozen model/artifact, evaluation dataset identity, labels where needed, metric definitions, and task/operating context. Report sample counts and uncertainty appropriate to dependencies; avoid repeated test-set tuning. Exploratory findings need fresh confirmation before strong generalization claims.
 
+- **Infer from evidence:** Read frozen model/data identities, metric definitions, denominators and supplied predictions; separate validation from test use.
+- **Reasonable default:** Compute only supported metrics on permitted samples and label missing labels or subgroup coverage as unknown.
+- **Ask only when needed:** Ask when the operating cost/threshold or population changes the evaluation decision; do not fabricate labels to avoid a question.
+
 Declared evidence requirements: `ml.artifacts`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Actionable failure patterns; no automatic retraining or relabeling.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Define errors according to task, group by meaningful factors, inspect representative cases and denominators, distinguish label problems, and propose targeted next experiments.
-- Define the error event and denominator, group by meaningful factors and compare representative failures with matched successes and possible label problems.
-
+1. Define errors according to task, group by meaningful factors, inspect representative cases and denominators, distinguish label problems, and propose targeted next experiments.
+2. Define the error event and denominator, group by meaningful factors and compare representative failures with matched successes and possible label problems.
 ## Technical method
 
 - **Inspect:** Inspect representative failures, successes, uncertainty, labels and error severity.
-- **Apply:** Group by plausible mechanism and estimate frequency before proposing a targeted data/model/product change.
+- **Method:** Group by plausible mechanism and estimate frequency before proposing a targeted data/model/product change.
 - **Avoid misdiagnosis:** Anecdotal errors or explanation scores do not establish a causal pattern across the population.
 - **Check the result:** Check the hypothesized group on independent examples and include correct predictions that resemble the failures.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [ML evaluation worked example](../../references/examples/ml-evaluation.md).
+
 
 ## Decision branches
 

@@ -19,25 +19,33 @@ Use the complete request appended to this invocation, preserving all constraints
 
 task definition, dataset identity, field semantics, entity/time keys, and permission to inspect bounded data. Record prediction moment, label horizon, sampling, and provenance. Preserve held-out evaluation boundaries; no data upload, label alteration, or feature fitting across splits implicitly.
 
+- **Infer from evidence:** Read prediction moment, label horizon, entity/time keys, split policy and dataset provenance from the task and manifests.
+- **Reasonable default:** Use explicit synthetic examples for design when raw data is unavailable; do not infer missing labels or fit preprocessing across held-out boundaries.
+- **Ask only when needed:** Ask when unresolved label timing, grouping or target semantics would change the split/features; do not demand a full dataset to explain the method.
+
 Resolve any task-specific tools, target identity and evidence before dependent actions. No external connection is assumed.
 
 ## Scope
 
 Define the modeling problem before selecting algorithms.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Specify unit of analysis, target/label horizon, information available at prediction time, action taken from predictions, baseline, and costs of errors.
-- State one prediction row's entity, timestamp, available information, label horizon and downstream action; compare a rule-based decision before choosing ML.
-
+1. Specify unit of analysis, target/label horizon, information available at prediction time, action taken from predictions, baseline, and costs of errors.
+2. State one prediction row's entity, timestamp, available information, label horizon and downstream action; compare a rule-based decision before choosing ML.
 ## Technical method
 
 - **Inspect:** Establish prediction entity/time, decision being supported, available information, outcome horizon and label maturity.
-- **Apply:** Translate product value into a measurable objective with a naive comparator and deployment population.
+- **Method:** Translate product value into a measurable objective with a naive comparator and deployment population.
 - **Avoid misdiagnosis:** Optimizing an available label can answer a different question from the real decision; missing follow-up is not a negative outcome.
 - **Check the result:** Walk one positive, negative and censored example through feature availability, prediction and eventual label eligibility.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [ML data worked example](../../references/examples/ml-data.md).
+
 
 ## Decision branches
 

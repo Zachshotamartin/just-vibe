@@ -1,6 +1,6 @@
 # Review selection and evidence
 
-Use for a requested code/security review or a specific changed trust boundary. Read the current diff and callers before selecting checks. Resolve language, framework and deployed versions from manifests/lockfiles and supported documentation. A configuration file is evidence to inspect, not code to execute during read-only discovery.
+Use for a requested code/security review or a specific changed trust boundary. Select the requested diff, repository or file scope and read its callers before choosing checks. A broad current-source review needs no base revision. Resolve language, framework and deployed versions from manifests/lockfiles and supported documentation. A configuration file is evidence to inspect, not code to execute during read-only discovery.
 
 ## Select by the actual boundary
 
@@ -21,7 +21,7 @@ Do not load this entire tree for a one-line change. Read matching sections befor
 
 ## Finding procedure
 
-1. Name the expected invariant and cite the changed line plus relevant caller/control. Establish whether the defect is introduced or pre-existing.
+1. Name the expected invariant and cite the relevant line plus caller/control (and the changed line when reviewing a diff). Establish whether the defect is introduced or pre-existing.
 2. Trace attacker/input/state → transformation → sensitive operation → observed or source-established bad result. For logic bugs use the exact state/interleaving that fails.
 3. Try to disprove the finding: earlier middleware, parameter binding, escaping, authorization, fixed constants, a type guarantee or an intentional public capability may explain the pattern.
 4. Establish prerequisites, reachability and impact. Use high severity for demonstrated serious impact, not merely a suspicious function name or a long file. Confidence is separate from impact; uncertain environment assumptions remain conditional.
@@ -29,6 +29,8 @@ Do not load this entire tree for a one-line change. Read matching sections befor
 6. Report location, trigger/prerequisites, evidence type, impact, correction and verification gap. Consolidate the same root cause; zero actionable findings is valid. Recheck head identity before any authorized remote review.
 
 Do not probe real accounts, validate found credentials, post reviews, rotate keys or change live infrastructure merely because an audit is requested. Existing explicit authority still applies; ordinary source analysis and isolated regression work do not require another permission round.
+
+For composed helpers, trace the full input → transformation → effect → persisted state/report path. Relevant examples include redaction before serialization, approval fingerprints covering the Git index as well as worktree bytes, permission preservation through atomic replacement, symlink coverage, asynchronous UI assertions, and lifecycle transitions such as retire then move. Select these only when those boundaries are present; they are not a mandatory checklist for every review.
 
 ## False-positive controls
 

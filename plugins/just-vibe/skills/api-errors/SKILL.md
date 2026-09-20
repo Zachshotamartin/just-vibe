@@ -19,25 +19,33 @@ Use the complete request appended to this invocation, preserving all constraints
 
 interface definitions, producer/consumer source, authentication model, versioning constraints, and isolated test endpoints. External API calls must respect environment, credentials, rate limits, and side-effect scope.
 
+- **Infer from evidence:** Read producer/consumer schemas, error contracts, auth conventions and known supported client versions.
+- **Reasonable default:** Keep compatible response and pagination semantics where the brief does not request a breaking change.
+- **Ask only when needed:** Ask when contract sources disagree or an unknown consumer changes compatibility; do not require live credentials to write or test an isolated client.
+
 Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Error status, machine-readable codes, safe messages, propagation, and trace correlation.
 
-Only the requested local changes; external actions require their exact action and target in session authorization.
+Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.
 
 ## Execute
 
-- Inventory errors, preserve required compatibility, map domain failures deliberately, redact internals, and test representative client/server failures.
-- Inventory existing client-visible codes and shapes, map domain failures intentionally and preserve safe correlation IDs while redacting internal details.
-
+1. Inventory errors, preserve required compatibility, map domain failures deliberately, redact internals, and test representative client/server failures.
+2. Inventory existing client-visible codes and shapes, map domain failures intentionally and preserve safe correlation IDs while redacting internal details.
 ## Technical method
 
 - **Inspect:** Inventory exception sources, status semantics, domain codes, request IDs and retry behavior.
-- **Apply:** Map expected domain failures to stable public errors; redact internal details while retaining correlated server diagnostics.
+- **Method:** Map expected domain failures to stable public errors; redact internal details while retaining correlated server diagnostics.
 - **Avoid misdiagnosis:** Returning 200 with an error-shaped body or retryable status for a permanent denial misleads clients.
 - **Check the result:** Exercise invalid input, forbidden resource, dependency timeout and unexpected exception; verify public redaction and useful internal correlation.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [APIs worked example](../../references/examples/api.md).
+
 
 ## Decision branches
 

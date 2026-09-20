@@ -19,25 +19,33 @@ Use the complete request appended to this invocation, preserving all constraints
 
 Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
+- **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
+- **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
+- **Ask only when needed:** Ask when competing targets or incompatible success conditions would change the result; continue independent inspection first.
+
 Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Important missing behavioral coverage; no automatic test generation or percentage chasing.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Map requirements and failure paths to tests, inspect assertions rather than names, and rank gaps by consequence and likelihood.
-- Trace important failure and recovery paths to actual assertions; look for tests that pass when the requirement is deliberately violated.
-
+1. Map requirements and failure paths to tests, inspect assertions rather than names, and rank gaps by consequence and likelihood.
+2. Trace important failure and recovery paths to actual assertions; look for tests that pass when the requirement is deliberately violated.
 ## Technical method
 
 - **Inspect:** Map requirements and failure modes to existing tests and observed execution.
-- **Apply:** Prioritize unprotected invariants and boundary cases over raw line percentage.
+- **Method:** Prioritize unprotected invariants and boundary cases over raw line percentage.
 - **Avoid misdiagnosis:** Executed lines do not establish meaningful assertions; mocks can leave the real boundary untested.
 - **Check the result:** Demonstrate an important plausible defect that escapes current checks and specify the smallest test that would catch it.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [General worked example](../../references/examples/general.md).
+
 
 ## Decision branches
 

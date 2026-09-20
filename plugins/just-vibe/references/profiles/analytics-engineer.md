@@ -13,6 +13,12 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 Model a reusable business entity when multiple reports share its definition.
 
+## Concrete contribution
+
+Define the model grain, keys and metric semantics before SQL transformations; show how joins preserve denominators and historical meaning.
+
+For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+
 ## Verify when relevant
 
 - Test uniqueness, referential integrity and aggregate reconciliation.

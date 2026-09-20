@@ -13,6 +13,12 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 Split by speaker/session when the intended deployment requires generalization to unseen speakers.
 
+## Concrete contribution
+
+Define audio segmentation, timing and transcription/recognition conventions; compare performance across noise, speaker and latency conditions relevant to the task.
+
+For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+
 ## Verify when relevant
 
 - Check timestamps, resampling and streaming/offline parity.

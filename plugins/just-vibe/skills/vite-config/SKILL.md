@@ -17,7 +17,11 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; configuration files, intended behavior, and observed issue.
 
-project manifests, lockfile, Vite/framework/plugin versions, and existing build scripts. Verify current version-specific documentation when changing configuration. Apply-mode checks may generate build/cache artifacts; inspect mode uses existing evidence.
+project manifests, lockfile, Vite/framework/plugin versions, and existing build scripts. Verify current version-specific documentation when changing configuration. Requested isolated verification may generate disposable build/cache artifacts; inspect their scripts first and preserve product files.
+
+- **Infer from evidence:** Read manifests, lockfile, installed Vite/plugins, entry points, aliases, modes and current build scripts.
+- **Reasonable default:** Preserve existing tooling and base-path conventions; make a local focused change when the brief identifies the behavior.
+- **Ask only when needed:** Ask if the intended serving subpath or deployment target cannot be inferred and would change generated URLs; do not ask for versions present in the lockfile.
 
 Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
@@ -25,19 +29,23 @@ Declared evidence requirements: `project.read`. Use actual host discovery or ade
 
 Aliases, plugins/order, build targets, server options, and environment handling.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Read effective configuration sources and version compatibility, trace conflicting options, compare development/production behavior, and propose focused corrections.
-- Resolve command, mode, root, envDir, aliases and plugin order from the actual invoked script; compare TypeScript resolution with bundler resolution.
-
+1. Read effective configuration sources and version compatibility, trace conflicting options, compare development/production behavior, and propose focused corrections.
+2. Resolve command, mode, root, envDir, aliases and plugin order from the actual invoked script; compare TypeScript resolution with bundler resolution.
 ## Technical method
 
 - **Inspect:** Read effective command/mode, root/envDir, aliases, plugins, define replacements and server restrictions.
-- **Apply:** Trace each disputed option to its consuming tool; reconcile TypeScript paths with actual bundler resolution.
+- **Method:** Trace each disputed option to its consuming tool; reconcile TypeScript paths with actual bundler resolution.
 - **Avoid misdiagnosis:** A config file can execute arbitrary imports; read-only inspection should not evaluate it just to discover values.
 - **Check the result:** Check the relevant dev and production resolution paths, including case-sensitive filenames and browser-exposed replacements.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [Vite worked example](../../references/examples/vite.md).
+
 
 ## Decision branches
 

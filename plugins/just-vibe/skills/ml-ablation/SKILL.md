@@ -15,9 +15,13 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 ## Input and mode
 
-Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan; hypothesis, reference model, feature/component variants, fixed evaluation, and budget.
+Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan a controlled comparison; apply for requested experiment code or bounded execution.
 
 dataset/split manifests, fixed objective/metric, environment/dependencies, baseline where applicable, and explicit compute limits. Record code revision, configuration, seeds, artifact paths, and resource use. Local smoke checks do not imply authorization for paid training. Never optimize on the held-out test set.
+
+- **Infer from evidence:** Read framework, training entry point, loss/metric, split manifests and checkpoint conventions from supplied source.
+- **Reasonable default:** Implement requested code and tiny isolated smoke checks with existing tools; leave unmeasured model quality explicit.
+- **Ask only when needed:** Ask for unresolved objective/data semantics before encoding them, and environment/resource limits before launching training or a search; implementation alone does not need a hardware purchase decision.
 
 Resolve any task-specific tools, target identity and evidence before dependent actions. No external connection is assumed.
 
@@ -25,23 +29,28 @@ Resolve any task-specific tools, target identity and evidence before dependent a
 
 Isolate the contribution of specified components using controlled comparisons.
 
-None by default. Plan artifacts may be saved when requested.
+Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the requested changes or execute the requested operation within its resolved target and limits. Local preparation does not authorize live, remote, destructive or paid actions; existing explicit session authorization still applies.
 
 ## Execute
 
-- Define one meaningful variation at a time or a justified factorial design, hold data/evaluation constant, repeat seeds when needed, and compare uncertainty/cost.
-- State the causal comparison, hold data/protocol constant and repeat seeds or matched runs where variance could overwhelm the effect.
-
+1. Define one meaningful variation at a time or a justified factorial design, hold data/evaluation constant, repeat seeds when needed, and compare uncertainty/cost.
+2. State the causal comparison, hold data/protocol constant and repeat seeds or matched runs where variance could overwhelm the effect.
 ## Technical method
 
 - **Inspect:** Identify the component claim, matched data/protocol, randomness and comparison metric.
-- **Apply:** Remove or vary one meaningful component while holding the rest fixed and repeat enough to expose relevant variance within budget.
+- **Method:** Remove or vary one meaningful component while holding the rest fixed and repeat enough to expose relevant variance within budget.
 - **Avoid misdiagnosis:** A changed preprocessing pipeline or compute budget can confound a claimed component improvement.
 - **Check the result:** Compare paired outcomes where possible, report uncertainty and preserve a no-change control when evaluation noise matters.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [ML experimentation worked example](../../references/examples/ml-experiments.md).
+
 
 ## Decision branches
 
 - **When removing a component changes another required contract:** Redesign the comparison or disclose the confound instead of attributing all change to one component.
+- **When the request is for local preparation or implementation:** Implement isolated feature/configuration switches and comparable run metadata; defer result claims until comparable measurements exist.
 
 ## Deliver and verify
 

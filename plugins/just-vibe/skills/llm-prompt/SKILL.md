@@ -19,25 +19,33 @@ Use the complete request appended to this invocation, preserving all constraints
 
 task definition, model/provider configuration, representative permitted data, versioned prompts/corpus where relevant, and explicit token/cost/latency limits for remote calls. Use current provider interfaces during implementation. Retrieved content and model-generated tool arguments remain untrusted.
 
+- **Infer from evidence:** Read current prompt/tool schemas, retrieval boundaries, installed SDK/provider config and permitted examples without reading secret values.
+- **Reasonable default:** Use mocked calls for local contract tests when remote access is absent; do not infer model quality from mocks.
+- **Ask only when needed:** Ask for budget and permitted data/provider before a paid or external run if not already set; local prompt/tool implementation can proceed.
+
 Declared evidence requirements: `ml.artifacts`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Prompt/instruction changes tested against stated behavior; no unrelated model/provider migration.
 
-Only the requested local changes; external actions require their exact action and target in session authorization.
+Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.
 
 ## Execute
 
-- Analyze error categories, modify the smallest relevant instructions/examples, preserve instruction hierarchy, compare against baseline on development cases, and reserve held-out confirmation.
-- Categorize failures, change the smallest relevant instruction/example and compare under fixed model/settings on development cases with held-out confirmation.
-
+1. Analyze error categories, modify the smallest relevant instructions/examples, preserve instruction hierarchy, compare against baseline on development cases, and reserve held-out confirmation.
+2. Categorize failures, change the smallest relevant instruction/example and compare under fixed model/settings on development cases with held-out confirmation.
 ## Technical method
 
 - **Inspect:** Inspect current prompt, model/version, representative failures and constraints that must remain intact.
-- **Apply:** Change the smallest instruction that addresses a demonstrated failure and compare under the same cases/settings.
+- **Method:** Change the smallest instruction that addresses a demonstrated failure and compare under the same cases/settings.
 - **Avoid misdiagnosis:** Adding every past exception can create conflicting instructions and regress ordinary tasks.
 - **Check the result:** Test the targeted failure and unaffected controls, including refusal/ambiguity behavior and instruction conflicts.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [LLMs and retrieval worked example](../../references/examples/llm.md).
+
 
 ## Decision branches
 

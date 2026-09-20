@@ -10,11 +10,19 @@ Resolve objective, project, scope, environment, success criteria, and authority.
 
 Honor the active task profile using [profile selection](profiles.md). Read only the selected role references. A user may pin a role; the agent may select an unpinned role when it materially helps, but cannot override a user pin. Role priorities never expand the task, grant permissions, change budgets or replace explicit constraints.
 
-- Inspect: read existing evidence without changing project or external state. Even tests, package installation, browser form submission, and analyzed queries may write.
+- Inspect: inspect the requested source and evidence without product edits or service mutations. A requested review may use bounded reproduction with synthetic data in owned temporary fixtures. Inspect test scripts first; dependency installation, production queries and browser form submission are not implied. For tracked execution, record a fixture-writing verification as a separately scoped apply run; inspect-mode stages remain read-only.
 - Plan: inspect and propose; save a planning artifact only when requested.
 - Apply: perform the requested changes and relevant validation. Local implementation does not imply pushing, deploying, purchasing, changing production, or sending messages.
 
 Honor authorization already present in the conversation. Do not ask again for routine reversible work. Before an external/destructive/paid action, resolve its exact target and action from that authorization. If missing, finish the reviewable preparation before requesting only what is needed.
+
+## Carry the task across turns
+
+Keep a compact current task record in conversation: requested outcome, selected findings/paths, exclusions, latest corrections, completed work and next action. A follow-up such as “fix the first two” selects those exact findings from the reviewed result; preserve their IDs/locations rather than selecting a new pair after reordering. “Continue” resumes the remaining authorized work and retains exclusions. A new correction replaces the conflicting earlier assumption without discarding unrelated requirements. Questions and status requests do not cancel the active task. Re-read this task record before editing another file, switching workflows or producing the final result; save it only when persistence is requested.
+
+Use the command’s resolved input policy to separate facts recoverable from artifacts, reversible assumptions and blocking questions. Do not ask the user to repeat known versions, paths, prior approvals or corrections. Ask only about the unresolved decision, and continue useful work that does not depend on it. When a request spans planning, implementation and execution, select the applicable branch for each action; do not let a default planning mode turn a clear implementation request into a planning-only response.
+
+Required inputs name evidence relevant to the chosen outcome, not a questionnaire that must be completed for every variant. For example, writing a training pipeline needs its interface and local conventions; choosing paid hardware is relevant only when launching that run. A missing optional preference can use a stated reversible default. A missing fact that changes correctness, target identity or an irreversible action remains a question.
 
 ## Resolve supporting files and tools
 

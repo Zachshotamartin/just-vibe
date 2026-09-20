@@ -13,6 +13,12 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 Choose a reversible experiment when demand is uncertain; preserve essential accessibility and data integrity.
 
+## Concrete contribution
+
+Turn the stated user outcome into an observable thin slice, name the intentionally deferred cases, and connect any instrumentation to a concrete product decision.
+
+For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+
 ## Verify when relevant
 
 - Exercise the complete journey and its failure exits.

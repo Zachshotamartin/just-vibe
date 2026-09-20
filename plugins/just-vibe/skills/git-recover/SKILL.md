@@ -19,26 +19,34 @@ Use the complete request appended to this invocation, preserving all constraints
 
 Git, exact repository/worktree, and readable refs/index. Record branch, HEAD, staged/unstaged/untracked state before mutation. Preserve unrelated edits and never default to broad staging, hard reset, clean, force push, or history rewriting.
 
+- **Infer from evidence:** Read repository root, HEAD, branch, refs and staged/unstaged/untracked distinctions; use the configured human identity.
+- **Reasonable default:** Limit an ambiguous inspection to the current repository and report that scope; preserve all existing changes.
+- **Ask only when needed:** Before mutation, resolve uncertain commit membership, destination ref or history-rewrite intent; do not ask again about already authorized exact actions.
+
 Declared evidence requirements: `git.repo`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Find recoverable history and prepare non-destructive restoration; no reset by default.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Inspect reflog, refs, stashes, and reachable candidates; compare candidate contents; explain confidence; create a recovery branch/copy only when restoration is requested.
-- Inspect reflog/stash/reachable candidates, compare file contents and preserve the chosen commit with a new ref before any active-branch movement.
-- All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
-
+1. Inspect reflog, refs, stashes, and reachable candidates; compare candidate contents; explain confidence; create a recovery branch/copy only when restoration is requested.
+2. Inspect reflog/stash/reachable candidates, compare file contents and preserve the chosen commit with a new ref before any active-branch movement.
+3. All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
 ## Technical method
 
 - **Inspect:** Inspect reflogs, stashes, reachable refs and candidate object contents before changing active refs.
-- **Apply:** Preserve a verified candidate with a new branch or copy, then explain how it differs from current work.
+- **Method:** Preserve a verified candidate with a new branch or copy, then explain how it differs from current work.
 - **Avoid misdiagnosis:** Reflogs expire and may not exist for another clone; garbage collection can remove the very objects being recovered.
 - **Check the result:** Verify the recovered tree contains the requested content and leaves the original branch, index and worktree recoverable.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [Git worked example](../../references/examples/git.md).
+
 
 ## Decision branches
 

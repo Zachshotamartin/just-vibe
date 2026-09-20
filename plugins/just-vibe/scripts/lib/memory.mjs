@@ -9,6 +9,7 @@ import {
   within,
   fileState,
   fromText,
+  inheritMode,
   readRecord,
   saveRecord,
   listRecords,
@@ -134,7 +135,7 @@ export async function memory(root, op, id, input = {}) {
       op === "save" ? text(input.file, "instruction file", 500) : previous.file;
     validateFile(file);
     safePath(root, file);
-    if (previous && previous.file !== file)
+    if (previous?.status === "active" && previous.file !== file)
       throw Error("Retire the old rule before moving it to another file.");
     const before = fileState(root, file);
     if (input.expectedFileHash !== (before?.sha256 ?? null))
@@ -201,14 +202,17 @@ export async function memory(root, op, id, input = {}) {
     const original = before
       ? Buffer.from(before.data, "base64").toString("utf8")
       : "";
-    const after = fromText(
-      editedText(
-        id,
-        previous,
-        original,
-        op === "retire" ? null : next.renderedRule,
+    const after = inheritMode(
+      fromText(
+        editedText(
+          id,
+          previous,
+          original,
+          op === "retire" ? null : next.renderedRule,
+        ),
+        before?.executable || false,
       ),
-      before?.executable || false,
+      before,
     );
     const history = [
       ...(previous?.history || []),
@@ -218,6 +222,7 @@ export async function memory(root, op, id, input = {}) {
               rule: previous.rule,
               source: previous.source,
               scope: previous.scope,
+              file: previous.file,
               status: previous.status,
               revision: previous.revision,
               replacedAt: now(),

@@ -24,6 +24,22 @@ test('technical contract omissions and alias drift are rejected before generatio
   assert.throws(() => validateCatalog(drift, { schemaVersion: 1, packs: catalog.packs }), /Alias contract drift \(technical\): do/);
 });
 
+test('input policies and one procedure remain canonical across generation and aliases', () => {
+  for (const mutate of [
+    data => { delete data.commands.find(c => c.id === 'review').inputPolicy.ask; },
+    data => { data.commands.find(c => c.id === 'auto').runtimeSteps = ['A second conflicting procedure']; },
+    data => { data.commands.find(c => c.id === 'do').inputPolicy.assume = 'Alias-only default'; },
+  ]) {
+    const data = structuredClone(catalog); mutate(data);
+    assert.throws(() => validateCatalog(data, { schemaVersion: 1, packs: catalog.packs }));
+  }
+  for (const command of catalog.commands.filter(c => !c.aliasOf)) {
+    const rendered = renderSkill(command, catalog.packs.find(p => p.id === command.pack));
+    for (const value of Object.values(command.inputPolicy)) assert.ok(rendered.includes(value));
+    for (const step of command.procedure) assert.equal(rendered.split(step).length - 1, 1, `${command.id}: repeated procedure`);
+  }
+});
+
 test('every generated entry point exposes its canonical technical method without a source-checkout dependency', () => {
   for (const command of catalog.commands.filter(c => !c.aliasOf)) {
     const rendered = renderSkill(command, catalog.packs.find(p => p.id === command.pack));

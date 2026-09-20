@@ -15,9 +15,13 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 ## Input and mode
 
-Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan; claimed result, code/data/artifact identities, environment, tolerance, and budget.
+Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Inspect reproduction evidence or plan the attempt; apply for requested reproduction code or bounded execution.
 
 dataset/split manifests, fixed objective/metric, environment/dependencies, baseline where applicable, and explicit compute limits. Record code revision, configuration, seeds, artifact paths, and resource use. Local smoke checks do not imply authorization for paid training. Never optimize on the held-out test set.
+
+- **Infer from evidence:** Read framework, training entry point, loss/metric, split manifests and checkpoint conventions from supplied source.
+- **Reasonable default:** Implement requested code and tiny isolated smoke checks with existing tools; leave unmeasured model quality explicit.
+- **Ask only when needed:** Ask for unresolved objective/data semantics before encoding them, and environment/resource limits before launching training or a search; implementation alone does not need a hardware purchase decision.
 
 Resolve any task-specific tools, target identity and evidence before dependent actions. No external connection is assumed.
 
@@ -25,23 +29,28 @@ Resolve any task-specific tools, target identity and evidence before dependent a
 
 Re-run a defined result with explicit reproducibility criteria.
 
-None by default. Plan artifacts may be saved when requested.
+Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the requested changes or execute the requested operation within its resolved target and limits. Local preparation does not authorize live, remote, destructive or paid actions; existing explicit session authorization still applies.
 
 ## Execute
 
-- Verify immutable inputs and dependency versions, reconstruct the procedure, run authorized bounded work, compare outputs/metrics within justified tolerance, and isolate deviations.
-- Resolve exact data/artifact/code/dependency identities, reconstruct preprocessing and evaluation, and declare nondeterminism tolerances before execution.
-
+1. Verify immutable inputs and dependency versions, reconstruct the procedure, run authorized bounded work, compare outputs/metrics within justified tolerance, and isolate deviations.
+2. Resolve exact data/artifact/code/dependency identities, reconstruct preprocessing and evaluation, and declare nondeterminism tolerances before execution.
 ## Technical method
 
 - **Inspect:** Resolve code revision, dependencies, artifacts, dataset access, hardware and claimed tolerance.
-- **Apply:** Recreate the stated protocol; document each unavoidable substitution and whether it affects exact reproduction or only qualitative comparison.
+- **Method:** Recreate the stated protocol; document each unavoidable substitution and whether it affects exact reproduction or only qualitative comparison.
 - **Avoid misdiagnosis:** Matching a seed or top-line metric does not establish the same data, selection process or training trajectory.
 - **Check the result:** Compare artifacts and outputs under declared tolerances and preserve failures or inaccessible inputs as limits on the claim.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [ML experimentation worked example](../../references/examples/ml-experiments.md).
+
 
 ## Decision branches
 
 - **When original assets are unavailable and substitutes are necessary:** Label the result a reimplementation or approximate reproduction and list each substitution.
+- **When the request is for local preparation or implementation:** Create the requested environment/configuration and synthetic smoke path; separate pipeline reproduction from matching a reported scientific result.
 
 ## Deliver and verify
 

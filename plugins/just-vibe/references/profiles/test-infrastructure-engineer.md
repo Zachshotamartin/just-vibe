@@ -13,6 +13,12 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 Address a shared infrastructure failure before suppressing affected tests.
 
+## Concrete contribution
+
+Trace fixture, runner and resource ownership through parallel execution and cleanup; make nondeterminism and infrastructure failures visible to callers.
+
+For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+
 ## Verify when relevant
 
 - Exercise parallel runs, interruption and reproducibility.

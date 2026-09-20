@@ -19,25 +19,33 @@ Use the complete request appended to this invocation, preserving all constraints
 
 exact service/environment, time window, revision/configuration identity, authorized logs/metrics, and operational constraints. Prefer observation before intervention; live restarts, traffic changes, restores, and notifications require the requested target/action. Redact sensitive telemetry.
 
+- **Infer from evidence:** Read service/environment, time window, revision, available telemetry and existing incident or recovery procedure.
+- **Reasonable default:** Start from supplied logs and read-only observation; rank hypotheses without presenting an unexecuted intervention as recovery.
+- **Ask only when needed:** Resolve the precise target and missing authority before restart, restore, notification or traffic changes; continue evidence analysis while waiting.
+
 Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Validate restoration and readiness; production replacement requires exact explicit authorization.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Verify backup provenance/completeness, plan target isolation, execute authorized restore, check schema/counts/integrity and application behavior, and record recovery duration/data loss window.
-- Verify backup identity, completeness, keys and destination isolation, then reconcile schema, counts, integrity and application behavior after authorized restoration.
-
+1. Verify backup provenance/completeness, plan target isolation, execute authorized restore, check schema/counts/integrity and application behavior, and record recovery duration/data loss window.
+2. Verify backup identity, completeness, keys and destination isolation, then reconcile schema, counts, integrity and application behavior after authorized restoration.
 ## Technical method
 
 - **Inspect:** Resolve backup identity, encryption access, retention, destination isolation and recovery objectives.
-- **Apply:** Restore into a verified separate target and validate schema, membership, constraints and application behavior.
+- **Method:** Restore into a verified separate target and validate schema, membership, constraints and application behavior.
 - **Avoid misdiagnosis:** A readable archive or backup job success does not prove restoration; testing on production can overwrite current data.
 - **Check the result:** Measure restored data cutoff and elapsed recovery, verify integrity and application checks, and retain the failed-step recovery plan.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [Operations worked example](../../references/examples/operations.md).
+
 
 ## Decision branches
 

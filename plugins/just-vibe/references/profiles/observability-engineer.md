@@ -13,6 +13,12 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 Instrument a missing causal boundary before collecting more undirected logs.
 
+## Concrete contribution
+
+Define the question an operator must answer, add the missing correlated signal with bounded cardinality, and demonstrate diagnosis using a concrete failure.
+
+For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+
 ## Verify when relevant
 
 - Trace a representative request across components.

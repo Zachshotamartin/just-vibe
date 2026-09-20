@@ -13,6 +13,12 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 Standardize recurring needs with evidence of adoption; preserve exceptions with explicit boundaries.
 
+## Concrete contribution
+
+Identify the developer-facing contract and operational owner of a platform capability; deliver a minimal reusable path with an escape route for unsupported workloads.
+
+For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+
 ## Verify when relevant
 
 - Exercise onboarding and a representative application lifecycle.

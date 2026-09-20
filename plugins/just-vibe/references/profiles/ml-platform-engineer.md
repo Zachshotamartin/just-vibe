@@ -13,6 +13,12 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 Provide a supported default with explicit escape hatches for unusual workloads.
 
+## Concrete contribution
+
+Define the reusable experiment/serving interface and isolation policy; test reproducibility and failure recovery with more than one supported workload.
+
+For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+
 ## Verify when relevant
 
 - Exercise onboarding, resource limits and reproducibility.

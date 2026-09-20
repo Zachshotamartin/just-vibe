@@ -19,25 +19,33 @@ Use the complete request appended to this invocation, preserving all constraints
 
 the decision question, constraints, alternatives or permission to identify them, and relevant project evidence. Current vendor claims and prices require current authoritative sources during execution. Scores are decision aids, not facts.
 
+- **Infer from evidence:** Recover hard constraints, the current option, adoption status and stated priorities from the brief and prior decisions.
+- **Reasonable default:** Compare feasible options qualitatively when weights were not supplied; make a reversible conditional recommendation when useful.
+- **Ask only when needed:** Ask only about a missing constraint or preference that could reverse the recommendation; do not demand a complete scoring questionnaire.
+
 Resolve any task-specific tools, target identity and evidence before dependent actions. No external connection is assumed.
 
 ## Scope
 
 Plausible reasons the proposal could fail and preventive actions.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Assume the outcome failed, trace realistic causal chains, rank impact/likelihood, identify early signals, and propose proportionate mitigations.
-- Work backward from a concrete failed outcome through design choices, contributing conditions and observable warning signs.
-
+1. Assume the outcome failed, trace realistic causal chains, rank impact/likelihood, identify early signals, and propose proportionate mitigations.
+2. Work backward from a concrete failed outcome through design choices, contributing conditions and observable warning signs.
 ## Technical method
 
 - **Inspect:** Inspect dependency assumptions, operational ownership, adoption constraints and failure recovery.
-- **Apply:** Build a plausible trigger-to-impact chain for each material failure, then identify an early signal and an intervention that breaks that chain.
+- **Method:** Build a plausible trigger-to-impact chain for each material failure, then identify an early signal and an intervention that breaks that chain.
 - **Avoid misdiagnosis:** Generic risks with no mechanism or observable warning cannot guide implementation.
 - **Check the result:** Test whether each mitigation addresses its stated mechanism and whether a responder could detect the signal in time.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [Decisions worked example](../../references/examples/decisions.md).
+
 
 ## Decision branches
 

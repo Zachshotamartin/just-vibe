@@ -19,25 +19,33 @@ Use the complete request appended to this invocation, preserving all constraints
 
 dataset/split manifests, fixed objective/metric, environment/dependencies, baseline where applicable, and explicit compute limits. Record code revision, configuration, seeds, artifact paths, and resource use. Local smoke checks do not imply authorization for paid training. Never optimize on the held-out test set.
 
+- **Infer from evidence:** Read framework, training entry point, loss/metric, split manifests and checkpoint conventions from supplied source.
+- **Reasonable default:** Implement requested code and tiny isolated smoke checks with existing tools; leave unmeasured model quality explicit.
+- **Ask only when needed:** Ask for unresolved objective/data semantics before encoding them, and environment/resource limits before launching training or a search; implementation alone does not need a hardware purchase decision.
+
 Declared evidence requirements: `ml.artifacts`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Time, memory, utilization, data loading, and cost bottlenecks.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Separate startup/loading/compute/checkpoint time, inspect batch/resource utilization, identify bottlenecks, and propose measured optimizations or bounded profiling.
-- Separate data loading, host-to-device transfer, compute, synchronization and checkpoint time; relate utilization to the same quality target and workload.
-
+1. Separate startup/loading/compute/checkpoint time, inspect batch/resource utilization, identify bottlenecks, and propose measured optimizations or bounded profiling.
+2. Separate data loading, host-to-device transfer, compute, synchronization and checkpoint time; relate utilization to the same quality target and workload.
 ## Technical method
 
 - **Inspect:** Measure data loading, compute, synchronization, memory peaks, checkpointing and failed trials.
-- **Apply:** Profile a representative bounded run; separate throughput from cost per completed useful result and use verified dated rates for money.
+- **Method:** Profile a representative bounded run; separate throughput from cost per completed useful result and use verified dated rates for money.
 - **Avoid misdiagnosis:** GPU utilization alone can hide pipeline stalls; mixed precision or larger batches can change convergence and effective optimization.
 - **Check the result:** Compare end-to-end runtime, peak memory and model-quality protocol under matched conditions, including warmup and failures.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [ML experimentation worked example](../../references/examples/ml-experiments.md).
+
 
 ## Decision branches
 

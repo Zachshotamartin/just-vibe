@@ -19,28 +19,32 @@ Use the complete request appended to this invocation, preserving all constraints
 
 defined application boundary, authorized code/environment, relevant trust/access rules, and evidence sources. Default to defensive inspection; active tests use owned or explicitly authorized isolated targets. Minimize sensitive evidence and never print usable credentials.
 
+- **Infer from evidence:** Resolve the requested surface, source/runtime version, reachable callers and actual trust/access boundaries.
+- **Reasonable default:** Start with source analysis and bounded owned fixtures; treat scanner output as leads and preserve legitimate controls.
+- **Ask only when needed:** Ask when target authorization or necessary trust semantics are unresolved before active probing; source inspection need not wait for production access.
+
 Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Debug settings, permissions, network exposure, cookies/headers, transport assumptions, and default credentials.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Compare effective configuration with intended boundaries, distinguish dev from production requirements, trace high-impact settings, and verify available deployment evidence.
-- Compare declared and effective settings for the exact environment, inspect trust boundaries and distinguish local development exceptions from public production exposure.
-
+1. Compare effective configuration with intended boundaries, distinguish dev from production requirements, trace high-impact settings, and verify available deployment evidence.
+2. Compare declared and effective settings for the exact environment, inspect trust boundaries and distinguish local development exceptions from public production exposure.
 ## Technical method
 
 - **Inspect:** Inspect effective production settings, network exposure, cookie/CORS/proxy rules, container privileges and CI trust paths.
-- **Apply:** Load only the matching framework and deployment branches; compare actual deployed behavior to configuration intent.
+- **Method:** Load only the matching framework and deployment branches; compare actual deployed behavior to configuration intent.
 - **Avoid misdiagnosis:** Debug defaults, broad proxy trust or client-visible secrets can invalidate otherwise safe code; development settings are not production evidence.
 - **Check the result:** Check a trusted and untrusted origin/host/identity where relevant and report inaccessible effective settings as unknown.
 
 ## Read when relevant
 
+- When a concrete decision or deliverable example would clarify this workflow: [Security worked example](../../references/examples/security.md).
 - Dependencies, builds, secrets, hooks or privileged execution cross a trust boundary: [Dependency and execution provenance](../../references/security/supply-chain.md).
 - The task depends on framework defaults, middleware, RLS, server/client or deployment behavior: [Framework-specific review branches](../../references/security/frameworks.md).
 

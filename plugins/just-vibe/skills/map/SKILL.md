@@ -19,25 +19,33 @@ Use the complete request appended to this invocation, preserving all constraints
 
 Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
+- **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
+- **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
+- **Ask only when needed:** Ask when competing targets or incompatible success conditions would change the result; continue independent inspection first.
+
 Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Existing modules and dependencies; deeper distributed architecture questions belong to `arch-map`.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Identify nodes and imports, trace representative relationships, separate declared from observed dependencies, and select a readable level of detail.
-- Identify public entry points and dependency direction; collapse generated/vendor code and distinguish imports, calls and data sharing.
-
+1. Identify nodes and imports, trace representative relationships, separate declared from observed dependencies, and select a readable level of detail.
+2. Identify public entry points and dependency direction; collapse generated/vendor code and distinguish imports, calls and data sharing.
 ## Technical method
 
 - **Inspect:** Inspect imports, composition roots, schemas, network clients and deployment metadata.
-- **Apply:** Choose a diagram level that answers the request and label source coupling separately from runtime topology.
+- **Method:** Choose a diagram level that answers the request and label source coupling separately from runtime topology.
 - **Avoid misdiagnosis:** A large unlabeled graph hides ownership and can imply nonexistent deployed services.
 - **Check the result:** Validate representative edges and data owners against source evidence; flag inferred external components.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [General worked example](../../references/examples/general.md).
+
 
 ## Decision branches
 

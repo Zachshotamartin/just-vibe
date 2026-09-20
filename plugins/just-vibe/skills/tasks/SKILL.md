@@ -19,25 +19,33 @@ Use the complete request appended to this invocation, preserving all constraints
 
 Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
+- **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
+- **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
+- **Ask only when needed:** Ask when competing targets or incompatible success conditions would change the result; continue independent inspection first.
+
 Resolve any task-specific tools, target identity and evidence before dependent actions. No external connection is assumed.
 
 ## Scope
 
 Break work into implementable units; external issue creation is separate and requires a request to submit.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Preserve requirements, map dependencies, define bounded outputs and checks, order the critical path, and flag tasks needing a decision.
-- Assign each task one observable output and dependency edge; keep inseparable schema/client changes together or state their compatibility bridge.
-
+1. Preserve requirements, map dependencies, define bounded outputs and checks, order the critical path, and flag tasks needing a decision.
+2. Assign each task one observable output and dependency edge; keep inseparable schema/client changes together or state their compatibility bridge.
 ## Technical method
 
 - **Inspect:** Read the accepted scope, dependency graph, owners where known and completion evidence.
-- **Apply:** Create tasks with a verifiable outcome and prerequisites; split by coherent behavior rather than arbitrary file count.
+- **Method:** Create tasks with a verifiable outcome and prerequisites; split by coherent behavior rather than arbitrary file count.
 - **Avoid misdiagnosis:** Marking a task complete because its code exists overlooks unrun verification or blocked integration.
 - **Check the result:** Check that all acceptance criteria have an owner task and that dependent tasks cannot complete ahead of missing prerequisites.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [General worked example](../../references/examples/general.md).
+
 
 ## Decision branches
 

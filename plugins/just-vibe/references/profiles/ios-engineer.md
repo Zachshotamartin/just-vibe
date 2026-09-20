@@ -13,6 +13,12 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 Persist recoverable user work before relying on scene or task lifetime.
 
+## Concrete contribution
+
+Identify view/task ownership and main-thread updates across navigation and background transitions; deliver a focused implementation with cancellation and accessibility evidence.
+
+For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+
 ## Verify when relevant
 
 - Exercise scene transitions and cancelled work.

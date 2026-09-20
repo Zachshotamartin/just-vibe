@@ -55,7 +55,7 @@ For `project checkpoint checkout --stdin`:
 }
 ```
 
-`project list` lists checkpoint names. `project resume checkout` compares root, repository, branch, HEAD, index and bounded worktree content against the stored snapshot. Checkpoints keep hashes rather than source patches. Large files or an exhausted scan budget produce partial coverage, which always requires revalidation. Dependencies/build output, local toolkit state and common secret filenames are excluded. They do not restore files, execute the next step, refresh budgets, or certify old test results. Revalidate remote operation identity separately. Updates require the saved revision, so concurrent edits cannot silently overwrite a checkpoint. Symlinked state paths and paths outside the selected project are rejected.
+`project list` lists checkpoint names. `project resume checkout` compares root, repository, branch, HEAD, index and bounded worktree content against the stored snapshot. Checkpoints keep hashes rather than source patches. Large files, symlink targets or an exhausted scan budget produce partial coverage, which always requires revalidation. Dependencies/build output, local toolkit state and common secret filenames are excluded. They do not restore files, execute the next step, refresh budgets, or certify old test results. Revalidate remote operation identity separately. Updates require the saved revision, so concurrent edits cannot silently overwrite a checkpoint. Symlinked state paths and paths outside the selected project are rejected.
 
 ## Evidence collectors
 
@@ -94,7 +94,7 @@ Requires Playwright (or `@playwright/test`) and Chromium installed in the select
 ]}
 ```
 
-Supported actions: `click`, `fill`, `press`, `visible`, `hidden`, `focused`, `text` (contains), `url` (exact, relative to the starting URL) and `title` (optional exact value). Supply stable selectors from the actual app. Click/fill/press can cause application effects: use only interactions authorized for the selected site, preferably isolated local fixtures for tests. The helper never decides that a purchase, send or delete is permitted. It does not evaluate arbitrary JavaScript from step files. Results omit input values and stop after a failed step. A passing navigation-only check does not validate a feature.
+Supported actions: `click`, `fill`, `press`, `visible`, `hidden`, `focused`, `text` (contains), `url` (exact, relative to the starting URL) and `title` (optional exact value). Text, exact URL/title and focus assertions retry for up to five seconds while waiting for the expected state, including asynchronous updates to already-visible elements. They fail if that state never arrives. Supply stable selectors from the actual app. Click/fill/press can cause application effects: use only interactions authorized for the selected site, preferably isolated local fixtures for tests. The helper never decides that a purchase, send or delete is permitted. It does not evaluate arbitrary JavaScript from step files. Results omit input values and stop after a failed step. A passing navigation-only check does not validate a feature.
 
 ### Migrations
 
@@ -128,7 +128,7 @@ Choose a command that exists and is appropriate in the actual project. Review wi
 
 A formatter entry uses one literal `{file}` argument, for example an already-installed formatter executable with arguments for one file. Only files named by an edit event are considered. Files present in the Git index as staged changes are skipped to protect partial staging. Formatters never stage files; avoid commands that format the entire repository or run install scripts. Host edits that do not expose a file path have no formatter action.
 
-Checks run at Stop; formatters run after supported edit events. Each command has a timeout and output limit, the event has a total command-time budget, and identical observed content is deduplicated. An overlap lock avoids simultaneous format/check runs. Failure reports are advisory and retained under `.just-vibe/automation`; they do not force another agent turn. With `saveSummary`, Stop saves a bounded, redacted last response and filesystem identity, never a transcript. Treat it as a continuation hint, not a complete task checkpoint.
+Checks run at Stop; formatters run after supported edit events. Each command has a timeout and output limit, the event has a total command-time budget, and identical fully covered snapshots are deduplicated. Symlink destinations are recorded but their target contents are not scanned; these partial snapshots always require another check. An overlap lock avoids simultaneous format/check runs. Failure reports are advisory and retained under `.just-vibe/automation`; they do not force another agent turn. With `saveSummary`, Stop saves a bounded, redacted last response and filesystem identity, never a transcript. Treat it as a continuation hint, not a complete task checkpoint.
 
 Use `hooks disable` to stop the project automation or `hooks untrust` to revoke local trust. If a killed host leaves an overlap lock, `hooks recover` removes it only after its owning process no longer exists. Read the actual host's hook status after installation; packaging support does not establish every host/version/OS combination. Keep `.just-vibe/automation` out of shared source unless you deliberately want those local records shared.
 

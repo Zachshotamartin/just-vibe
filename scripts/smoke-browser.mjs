@@ -24,7 +24,7 @@ const cli = fileURLToPath(new URL("../bin/just-vibe.mjs", import.meta.url));
 const server = createServer((req, res) => {
   res.writeHead(200, { "Content-Type": "text/html" });
   res.end(
-    '<!doctype html><title>Dialog fixture</title><button id="open">Open</button><dialog id="dialog"><label>Name <input id="name"></label><button id="done">Done</button></dialog><output id="result"></output><script>const d=document.querySelector("dialog"),o=document.querySelector("#open");o.onclick=()=>{d.showModal();document.querySelector("#name").focus()};document.querySelector("#done").onclick=()=>{document.querySelector("#result").textContent=document.querySelector("#name").value;d.close();o.focus()};</script>',
+    '<!doctype html><title>Dialog fixture</title><button id="open">Open</button><dialog id="dialog"><label>Name <input id="name"></label><button id="done">Done</button></dialog><output id="result"></output><button id="async">Load</button><div id="status">Loading</div><input id="async-focus"><script>const d=document.querySelector("dialog"),o=document.querySelector("#open");o.onclick=()=>{d.showModal();document.querySelector("#name").focus()};document.querySelector("#done").onclick=()=>{document.querySelector("#result").textContent=document.querySelector("#name").value;d.close();o.focus()};document.querySelector("#async").onclick=()=>{document.title="Loading";history.replaceState({},"","/");document.querySelector("#status").textContent="Loading";document.querySelector("#async").focus();setTimeout(()=>{document.title="Done";history.replaceState({},"","/done");document.querySelector("#status").textContent="Done";document.querySelector("#async-focus").focus()},300)};</script>',
   );
 });
 await new Promise((done) => server.listen(0, "127.0.0.1", done));
@@ -78,6 +78,16 @@ try {
   assert.equal(positive.status, 0);
   assert.equal(positive.report.result, "passed");
   assert.equal(positive.report.steps.length, 8);
+  const delayedSteps = [
+    { action: "text", selector: "#status", value: "Done" },
+    { action: "url", value: "/done" },
+    { action: "title", value: "Done" },
+    { action: "focused", selector: "#async-focus" },
+  ].flatMap(assertion => [{ action: "click", selector: "#async" }, assertion]);
+  const delayed = await run(delayedSteps);
+  assert.equal(delayed.status, 0);
+  assert.equal(delayed.report.result, "passed");
+  assert.equal(delayed.report.steps.length, 8);
   const negative = await run([{ action: "title", value: "Wrong title" }]);
   assert.equal(negative.status, 2);
   assert.equal(negative.report.result, "failed");
@@ -141,6 +151,7 @@ try {
   console.log(
     "Real Chromium: dialog open/close, input, visible/hidden, focus return and text assertions passed. Deliberately wrong title failed with exit 2.",
   );
+  console.log("Real Chromium: delayed text, URL, title and focus assertions all passed after 300 ms updates.");
 } finally {
   await new Promise((done) => server.close(done));
   rmSync(directory, { recursive: true, force: true });

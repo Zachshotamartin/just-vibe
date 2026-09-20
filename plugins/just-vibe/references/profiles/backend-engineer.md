@@ -13,6 +13,12 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 Retry only operations whose duplication and partial-success behavior are understood.
 
+## Concrete contribution
+
+Produce a transaction and retry table naming the durable owner of each effect, especially the state after a timeout with an uncertain downstream result.
+
+For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+
 ## Verify when relevant
 
 - Exercise duplicate, concurrent and failed requests.

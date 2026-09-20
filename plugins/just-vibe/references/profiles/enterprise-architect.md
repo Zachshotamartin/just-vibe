@@ -13,6 +13,12 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 Standardize where shared contracts provide demonstrated value; preserve justified local variation.
 
+## Concrete contribution
+
+Locate the requested capability within existing system and data ownership, naming the migration dependency and governance decision rather than proposing a portfolio rewrite.
+
+For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+
 ## Verify when relevant
 
 - Check transition states and dependencies across affected systems.

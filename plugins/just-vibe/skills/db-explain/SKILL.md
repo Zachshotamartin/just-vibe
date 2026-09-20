@@ -19,25 +19,33 @@ Use the complete request appended to this invocation, preserving all constraints
 
 actual engine/version, schema/migrations, query workload, and explicitly identified environment. Prefer supplied plans, metadata, and isolated fixtures. Even a SELECT can lock, call mutating functions, or overload a database; inspect semantics before execution. Executing an analyzed query is distinct from reading its plan.
 
+- **Infer from evidence:** Read engine/version, ORM/runner, schema and migration history from project artifacts before choosing SQL.
+- **Reasonable default:** Prepare local SQL and isolated fixtures without assuming production size, locks or recovery guarantees.
+- **Ask only when needed:** Ask for environment, downtime or recovery constraints before live/destructive execution when missing; unavailable production access does not block migration files.
+
 Declared evidence requirements: `database.context`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Plan interpretation, estimates, scans, joins, sorting, and evidence-supported bottlenecks.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Read operators and row estimates, compare actuals when supplied, identify cardinality errors and costly stages, and propose discriminating measurements.
-- Read estimated versus actual rows, loop counts, filters, joins, sorting/spilling and buffers using engine-specific meaning; locate the first large estimation divergence.
-
+1. Read operators and row estimates, compare actuals when supplied, identify cardinality errors and costly stages, and propose discriminating measurements.
+2. Read estimated versus actual rows, loop counts, filters, joins, sorting/spilling and buffers using engine-specific meaning; locate the first large estimation divergence.
 ## Technical method
 
 - **Inspect:** Read engine/version, query bindings, plan format, row estimates, actual counts/loops and available timing.
-- **Apply:** Locate the first major estimation or repeated-work divergence and relate it to predicates, statistics and access paths.
+- **Method:** Locate the first major estimation or repeated-work divergence and relate it to predicates, statistics and access paths.
 - **Avoid misdiagnosis:** Abstract cost is not milliseconds; EXPLAIN ANALYZE executes the statement and may mutate data or consume production resources.
 - **Check the result:** Compare plans under equivalent parameters/data and verify unchanged results; without execution permission, report hypotheses from saved plans only.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [Databases worked example](../../references/examples/database.md).
+
 
 ## Decision branches
 

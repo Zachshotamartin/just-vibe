@@ -1,0 +1,8 @@
+{
+  "prompt": "Use the teach skill at TRIAL/instructions/skills/teach/SKILL.md and its relevant references for this request: \"Teach me linked lists. I know arrays and basic Python. Keep it understandable and show one example.\" Read only these copied instructions. Do not inspect the source repository, evaluator files, other trials or previous outputs. No file changes, network access or further delegation. Give your normal response.",
+  "actor": "/root/prompt_lesson",
+  "instructionHash": "3d683c783177e00d8cda2913bb6774cac43d0c0b8c6fea0ff4832b53bf0b6028",
+  "responseHash": "4d63410696948686a195c6f82e9faa0c3c8139c6ba8679b8af4f2d2bb7c7da51",
+  "instructionsUnchanged": true,
+  "judgment": "Explained node traversal, insertion ordering, O(1) with known predecessor versus O(n) search, edge cases and tradeoffs. No initial questionnaire, exercise worktree or assessment workflow. Ended with an optional inline self-check; this is an ordinary lesson, not evidence for native teach-test dialogs."
+}

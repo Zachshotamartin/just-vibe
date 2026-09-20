@@ -46,7 +46,7 @@ test('migration inventory compares applied hashes and reports drift without exec
 test('browser steps close the browser after failure and omit entered values', async t => {
   const root = fixture(t); writeFileSync(join(root, 'steps.json'), JSON.stringify({ steps: [{ action: 'fill', selector: '#input', value: 'private-value' }, { action: 'text', selector: '#result', value: 'expected' }] }));
   let closed = false;
-  const page = { setDefaultTimeout() {}, on() {}, goto: async () => ({ status: () => 200 }), locator: () => ({ fill: async () => {}, waitFor: async () => {}, innerText: async () => 'different' }) };
+  const page = { setDefaultTimeout() {}, on() {}, goto: async () => ({ status: () => 200 }), locator: () => ({ fill: async () => {}, waitFor: async () => {}, isVisible: async () => true, innerText: async () => 'different' }) };
   const report = await browserEvidence({ root, url: 'http://localhost:5173', steps: 'steps.json' }, async () => ({ newContext: async () => ({ newPage: async () => page }), close: async () => { closed = true; } }));
   assert.equal(report.result, 'failed'); assert.equal(report.steps.length, 2); assert.equal(closed, true);
   assert.ok(!JSON.stringify(report).includes('private-value'));

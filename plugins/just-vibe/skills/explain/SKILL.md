@@ -19,25 +19,33 @@ Use the complete request appended to this invocation, preserving all constraints
 
 Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
+- **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
+- **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
+- **Ask only when needed:** Ask when competing targets or incompatible success conditions would change the result; continue independent inspection first.
+
 Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Explain the selected behavior and its necessary dependencies; no refactoring or unsolicited repository-wide tutorial.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Locate definitions and callers, inspect important branches, distinguish static inference from observed runtime behavior, and adapt terminology to the brief.
-- Locate the definition and a real caller; walk one concrete input through transformations, outputs, side effects and failure handling with file references.
-
+1. Locate definitions and callers, inspect important branches, distinguish static inference from observed runtime behavior, and adapt terminology to the brief.
+2. Locate the definition and a real caller; walk one concrete input through transformations, outputs, side effects and failure handling with file references.
 ## Technical method
 
 - **Inspect:** Read the target definition, at least one caller, data shapes and relevant error handling.
-- **Apply:** Walk one concrete input through state changes, output and side effects at the requested depth.
+- **Method:** Walk one concrete input through state changes, output and side effects at the requested depth.
 - **Avoid misdiagnosis:** Plausible business intent cannot be inferred solely from a function name; configuration-dependent behavior remains conditional.
 - **Check the result:** Reconcile the walkthrough with source branches and show an edge path that changes the outcome.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [General worked example](../../references/examples/general.md).
+
 
 ## Decision branches
 

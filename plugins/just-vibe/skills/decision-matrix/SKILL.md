@@ -19,25 +19,33 @@ Use the complete request appended to this invocation, preserving all constraints
 
 the decision question, constraints, alternatives or permission to identify them, and relevant project evidence. Current vendor claims and prices require current authoritative sources during execution. Scores are decision aids, not facts.
 
+- **Infer from evidence:** Recover hard constraints, the current option, adoption status and stated priorities from the brief and prior decisions.
+- **Reasonable default:** Compare feasible options qualitatively when weights were not supplied; make a reversible conditional recommendation when useful.
+- **Ask only when needed:** Ask only about a missing constraint or preference that could reverse the recommendation; do not demand a complete scoring questionnaire.
+
 Resolve any task-specific tools, target identity and evidence before dependent actions. No external connection is assumed.
 
 ## Scope
 
 Transparent weighted comparison, including hard exclusions and sensitivity analysis.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Define score scales, cite evidence for scores, separate must-haves, normalize weights, and vary uncertain values to test ranking stability.
-- Define score anchors before rating, keep feasibility separate, and vary uncertain weights/scores over plausible ranges.
-
+1. Define score scales, cite evidence for scores, separate must-haves, normalize weights, and vary uncertain values to test ranking stability.
+2. Define score anchors before rating, keep feasibility separate, and vary uncertain weights/scores over plausible ranges.
 ## Technical method
 
 - **Inspect:** Collect criterion definitions, score anchors, weights, evidence ranges and excluded options.
-- **Apply:** Separate feasibility from preference; vary uncertain weights and scores and report ties or rank reversals.
+- **Method:** Separate feasibility from preference; vary uncertain weights and scores and report ties or rank reversals.
 - **Avoid misdiagnosis:** Double-counting correlated criteria can manufacture a winner; unknown evidence is not a neutral numeric score.
 - **Check the result:** Recalculate plausible extremes and explain the smallest assumption change that alters the winner.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [Decisions worked example](../../references/examples/decisions.md).
+
 
 ## Decision branches
 

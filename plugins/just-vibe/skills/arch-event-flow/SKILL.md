@@ -19,25 +19,33 @@ Use the complete request appended to this invocation, preserving all constraints
 
 readable source, infrastructure/configuration definitions, and any supplied system documentation. Runtime telemetry is optional evidence, never assumed available. Architecture proposals remain plans until implementation is requested.
 
+- **Infer from evidence:** Trace current entry points, data owners, deployment units and documented constraints before proposing boundaries.
+- **Reasonable default:** Prefer extending an existing owner while scale or organizational evidence is absent; mark capacity estimates as assumptions.
+- **Ask only when needed:** Ask for an unresolved consistency, compatibility or ownership requirement only if it changes the design; missing telemetry limits capacity claims, not source mapping.
+
 Resolve any task-specific tools, target identity and evidence before dependent actions. No external connection is assumed.
 
 ## Scope
 
 Event ownership, ordering, deduplication, retries, dead letters, and replay.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Trace transaction boundaries, identify loss/duplicate windows, specify identifiers and schemas, and define recovery and observability for each failure point.
-- Draw the write/commit/publish/ack sequence and place a crash between each pair; define replay identity and effect ownership.
-
+1. Trace transaction boundaries, identify loss/duplicate windows, specify identifiers and schemas, and define recovery and observability for each failure point.
+2. Draw the write/commit/publish/ack sequence and place a crash between each pair; define replay identity and effect ownership.
 ## Technical method
 
 - **Inspect:** Locate transaction commit, publish, consumer claim, business effect and acknowledgment boundaries.
-- **Apply:** Draw a crash between each durable step; align outbox publication and consumer deduplication with the business transaction where supported.
+- **Method:** Draw a crash between each durable step; align outbox publication and consumer deduplication with the business transaction where supported.
 - **Avoid misdiagnosis:** Delivery ordering on one partition does not order all entities, and broker acknowledgment does not prove a business effect committed.
 - **Check the result:** Replay a duplicate, deliver versions out of order, and interrupt after the effect before acknowledgment; check one intended effect.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [Architecture worked example](../../references/examples/architecture.md).
+
 
 ## Decision branches
 

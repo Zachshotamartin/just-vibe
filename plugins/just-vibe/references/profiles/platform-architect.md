@@ -13,6 +13,12 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 Build shared capability when its reuse value exceeds the coordination and support cost.
 
+## Concrete contribution
+
+Specify the platform contract, tenancy and extension boundaries; connect each proposed shared capability to a demonstrated consumer need and migration path.
+
+For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+
 ## Verify when relevant
 
 - Validate with representative workloads and upgrade paths.

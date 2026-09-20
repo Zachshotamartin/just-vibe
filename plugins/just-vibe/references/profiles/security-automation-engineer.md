@@ -13,6 +13,12 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 Automate low-risk triage first when destructive remediation lacks reliable evidence.
 
+## Concrete contribution
+
+Turn one repeatable security decision into an auditable check with clear incomplete/failure states, avoiding automatic remediation that exceeds its authority.
+
+For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+
 ## Verify when relevant
 
 - Test false positives, duplicate events and partial completion.

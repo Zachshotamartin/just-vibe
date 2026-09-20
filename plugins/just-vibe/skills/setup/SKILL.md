@@ -19,6 +19,10 @@ Use the complete request appended to this invocation, preserving all constraints
 
 Node.js 22+ and the selected host CLI with native plugin support. Git is required only for --github. Use the bundled installer; preserve marketplace and scope checks.
 
+- **Infer from evidence:** Inspect selected host, native CLI support, existing source/scope and package version without changing global configuration.
+- **Reasonable default:** Use the documented bundled source and existing host conventions unless the user selects another source.
+- **Ask only when needed:** Ask only when multiple host/scope/source choices cannot be resolved from context and would change installation; report an actual missing executable instead of requesting unrelated credentials.
+
 Resolve any task-specific tools, target identity and evidence before dependent actions. No external connection is assumed.
 
 ## Scope
@@ -32,16 +36,18 @@ Selected host plugin registration and its managed just-vibe payload directory on
 1. Resolve scripts/installer.mjs relative to this installed plugin. Choose doctor for a status question, setup for an install request, update for a refresh request, and uninstall only for an explicit removal request.
 2. Honor the host, bundled default / --github / --local source and Claude --scope user|project|local; project/local operations use the requested project directory. Never place tokens in commands or files.
 3. For a requested preview append --dry-run and report conditional steps without claiming installed state was inspected. Preserve all native source/scope/inventory conflict checks.
-4. After success, report actual native state and explain that changed skills load in a fresh conversation. Uninstall retains marketplace registration and persistent data. Do not bypass errors with global edits or cache deletion.
-
-Task-specific method: Resolve host/scope, check prerequisites and marketplace identity, run the bundled installer, preserve conflict checks, verify result, and explain fresh-session loading requirements. Resolve host, scope and source before mutation; inspect the proposed native operations and preserve unrelated marketplace entries and user configuration.
-
+4. Read back native source, scope, enabled state and version after the authorized installation; preserve unrelated plugins and report partial native failures. Explain that changed skills load in a fresh conversation. Uninstall retains marketplace registration and persistent data. Do not bypass errors with global edits or cache deletion.
 ## Technical method
 
 - **Inspect:** Resolve host, scope, source channel, native plugin inventory and candidate bundled version.
-- **Apply:** Use the supported installer lifecycle and persistent payload, reconciling existing source identity before update or removal.
+- **Method:** Use the supported installer lifecycle and persistent payload, reconciling existing source identity before update or removal.
 - **Avoid misdiagnosis:** A package-manager install alone does not register a native plugin; deleting package cache must not break the managed payload.
 - **Check the result:** Exercise install/repeat/doctor/update/uninstall in isolated host roots and verify native enabled state, source identity and payload version.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [Installation worked example](../../references/examples/installation.md).
+
 
 ## Decision branches
 

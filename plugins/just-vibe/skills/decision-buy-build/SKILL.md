@@ -19,25 +19,33 @@ Use the complete request appended to this invocation, preserving all constraints
 
 the decision question, constraints, alternatives or permission to identify them, and relevant project evidence. Current vendor claims and prices require current authoritative sources during execution. Scores are decision aids, not facts.
 
+- **Infer from evidence:** Recover hard constraints, the current option, adoption status and stated priorities from the brief and prior decisions.
+- **Reasonable default:** Compare feasible options qualitatively when weights were not supplied; make a reversible conditional recommendation when useful.
+- **Ask only when needed:** Ask only about a missing constraint or preference that could reverse the recommendation; do not demand a complete scoring questionnaire.
+
 Resolve any task-specific tools, target identity and evidence before dependent actions. No external connection is assumed.
 
 ## Scope
 
 Build, buy, and hybrid options across initial and ongoing ownership.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Compare fit, integration, maintenance, migration, service dependence, and total-cost assumptions; verify current vendor capabilities when relevant.
-- Compare integration, operations, staffing, exit/export and failure ownership over a stated usage horizon; include the current workaround.
-
+1. Compare fit, integration, maintenance, migration, service dependence, and total-cost assumptions; verify current vendor capabilities when relevant.
+2. Compare integration, operations, staffing, exit/export and failure ownership over a stated usage horizon; include the current workaround.
 ## Technical method
 
 - **Inspect:** Establish functional requirements, integration surfaces, support burden, data export and verified pricing terms.
-- **Apply:** Compare lifecycle scenarios including maintenance, incident response, migration and exit; retain uncertainty ranges instead of invented estimates.
+- **Method:** Compare lifecycle scenarios including maintenance, incident response, migration and exit; retain uncertainty ranges instead of invented estimates.
 - **Avoid misdiagnosis:** Vendor feature lists do not prove compatibility with the actual identity, offline or data-residency requirements.
 - **Check the result:** Validate the decisive integration with a bounded example and compare exit costs as well as the happy-path purchase.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [Decisions worked example](../../references/examples/decisions.md).
+
 
 ## Decision branches
 

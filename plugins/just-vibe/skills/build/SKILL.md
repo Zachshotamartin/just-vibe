@@ -19,28 +19,32 @@ Use the complete request appended to this invocation, preserving all constraints
 
 Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
+- **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
+- **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
+- **Ask only when needed:** Ask when competing targets or incompatible success conditions would change the result; continue independent inspection first.
+
 Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Complete the requested feature and necessary integration; no unrelated modernization or automatic publication.
 
-Only the requested local changes; external actions require their exact action and target in session authorization.
+Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.
 
 ## Execute
 
-- Inspect current patterns, resolve critical ambiguity, implement coherent changes, handle error states, and run checks appropriate to the behavior changed.
-- Trace the closest existing journey, implement the smallest complete vertical slice, and exercise failure recovery before expanding optional states.
-
+1. Inspect current patterns, resolve critical ambiguity, implement coherent changes, handle error states, and run checks appropriate to the behavior changed.
+2. Trace the closest existing journey, implement the smallest complete vertical slice, and exercise failure recovery before expanding optional states.
 ## Technical method
 
 - **Inspect:** Inspect the relevant architecture, data/interface contracts, existing conventions and acceptance criteria.
-- **Apply:** Implement one coherent vertical path, load applicable domain guides and verify user-visible behavior plus material failure states.
+- **Method:** Implement one coherent vertical path, load applicable domain guides and verify user-visible behavior plus material failure states.
 - **Avoid misdiagnosis:** Building isolated components without connecting the actual entry point leaves the feature unusable.
 - **Check the result:** Exercise the integrated result and check the exact changed artifacts, preserving explicit gaps when real dependencies are unavailable.
 
 ## Read when relevant
 
+- When a concrete decision or deliverable example would clarify this workflow: [General worked example](../../references/examples/general.md).
 - Language/runtime semantics, concurrency or resource ownership can change the result: [Language and runtime review methods](../../references/scenarios/language-review.md).
 
 ## Decision branches

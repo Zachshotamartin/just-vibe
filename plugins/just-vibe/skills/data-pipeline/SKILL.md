@@ -19,25 +19,33 @@ Use the complete request appended to this invocation, preserving all constraints
 
 data source/version, schema/semantics, transformation code, permitted sampling scope, and storage/compute budget. Prefer aggregates and redacted samples; never upload datasets to external services implicitly. Record time zones and snapshot identity for reproducibility.
 
+- **Infer from evidence:** Inspect schema, source snapshot, transformation code, grain, time zones and permitted sample scope.
+- **Reasonable default:** Use bounded synthetic or supplied samples when full data is unavailable; keep unknown values distinct from zero.
+- **Ask only when needed:** Resolve ambiguous entity/grain/time semantics before reconciliation or backfill; obtain missing data/compute limits only for the dependent scan or execution.
+
 Declared evidence requirements: `data.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Ingestion/transformation implementation and isolated validation; activating production schedules requires that request.
 
-Only the requested local changes; external actions require their exact action and target in session authorization.
+Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.
 
 ## Execute
 
-- Define source identity and keys, validate inputs, implement transformations and atomic/staged writes, expose failures, and test restart and bad-record handling.
-- Establish stable source/output identity, validate transformations with small hand-checked fixtures and stage writes so completion markers follow durable output.
-
+1. Define source identity and keys, validate inputs, implement transformations and atomic/staged writes, expose failures, and test restart and bad-record handling.
+2. Establish stable source/output identity, validate transformations with small hand-checked fixtures and stage writes so completion markers follow durable output.
 ## Technical method
 
 - **Inspect:** Trace source identity, transformations, sink transaction and checkpoint ownership.
-- **Apply:** Make retries deterministic using stable keys and atomically aligned output/progress where possible; retain failed records with reasons.
+- **Method:** Make retries deterministic using stable keys and atomically aligned output/progress where possible; retain failed records with reasons.
 - **Avoid misdiagnosis:** Advancing a checkpoint before committing output silently loses records after a crash.
 - **Check the result:** Interrupt before/after sink commit, replay a batch and compare outputs to a hand-computed small fixture.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [Data engineering worked example](../../references/examples/data.md).
+
 
 ## Decision branches
 

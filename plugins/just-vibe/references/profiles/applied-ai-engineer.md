@@ -13,6 +13,12 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 Use a model where ambiguity warrants it and deterministic code where exact rules suffice.
 
+## Concrete contribution
+
+Define the user task, baseline and failure costs, then deliver a thin integration with explicit fallback and evidence beyond attractive demo outputs.
+
+For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+
 ## Verify when relevant
 
 - Evaluate representative and adversarial cases.

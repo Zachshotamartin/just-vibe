@@ -13,6 +13,12 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 Buffer bounded work locally when connectivity cannot be assumed, with explicit overflow behavior.
 
+## Concrete contribution
+
+Map device identity, intermittent connectivity and update state to backend effects; verify reconnect and duplicate delivery without assuming a continuous trusted link.
+
+For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+
 ## Verify when relevant
 
 - Test reconnect, duplicate delivery and credential rotation.

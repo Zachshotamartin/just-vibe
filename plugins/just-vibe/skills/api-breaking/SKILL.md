@@ -19,25 +19,33 @@ Use the complete request appended to this invocation, preserving all constraints
 
 interface definitions, producer/consumer source, authentication model, versioning constraints, and isolated test endpoints. External API calls must respect environment, credentials, rate limits, and side-effect scope.
 
+- **Infer from evidence:** Read producer/consumer schemas, error contracts, auth conventions and known supported client versions.
+- **Reasonable default:** Keep compatible response and pagination semantics where the brief does not request a breaking change.
+- **Ask only when needed:** Ask when contract sources disagree or an unknown consumer changes compatibility; do not require live credentials to write or test an isolated client.
+
 Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Backward compatibility across schemas, semantics, authentication, errors, and timing/order guarantees.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Diff interfaces, inspect behavioral changes, identify affected consumers, classify compatibility impact, and propose rollout/deprecation steps.
-- Compare field presence/types, enum values, validation, defaults, error/status behavior, pagination and timing guarantees against identified consumers.
-
+1. Diff interfaces, inspect behavioral changes, identify affected consumers, classify compatibility impact, and propose rollout/deprecation steps.
+2. Compare field presence/types, enum values, validation, defaults, error/status behavior, pagination and timing guarantees against identified consumers.
 ## Technical method
 
 - **Inspect:** Compare old/new payloads, enums, validation, errors, pagination and authentication using known consumers.
-- **Apply:** Classify wire, semantic and operational compatibility separately; propose a migration when old clients cannot interpret the new result.
+- **Method:** Classify wire, semantic and operational compatibility separately; propose a migration when old clients cannot interpret the new result.
 - **Avoid misdiagnosis:** An additive enum value or new required permission can break clients even without deleting a field.
 - **Check the result:** Run old consumer fixtures against the proposed provider and identify a deployment sequence that preserves supported versions.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [APIs worked example](../../references/examples/api.md).
+
 
 ## Decision branches
 

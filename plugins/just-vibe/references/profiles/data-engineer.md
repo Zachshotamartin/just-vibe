@@ -13,6 +13,12 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 Use idempotent incremental writes when a pipeline may replay or overlap runs.
 
+## Concrete contribution
+
+Deliver a source-to-target lineage and grain contract, then prove replay/backfill behavior on duplicate, late and partially processed input.
+
+For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+
 ## Verify when relevant
 
 - Reconcile keys and values, not just row counts.

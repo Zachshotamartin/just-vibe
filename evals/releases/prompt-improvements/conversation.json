@@ -1,0 +1,348 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-09-20",
+  "host": "Codex desktop independent subagents",
+  "model": "Inherited parent settings; no explicit override. Exact backend version and usage were not separately observed.",
+  "baseCommit": "7576172e1bd73c7cfc8869854dfb4e4d03004f5a",
+  "arm": "just-vibe",
+  "instructionHash": "6128f26c19e8c15812003ad0c9f305549e93ece6fc3b19188c4296bd257ca822",
+  "limits": "One public development conversation; no baseline/ECC comparison, held-out claims or native Claude trial. Conversation used copied instructions before final wording consolidation; lesson used the later snapshot. The initial oracle hash was not captured; subsequent oracle versions are recorded. Agent-reported temporary check counts are separate from independent evaluator outcomes.",
+  "turns": [
+    {
+      "number": 1,
+      "message": "Please do a general code review of this utility library. Use README.md as the contract, give stable numbered findings with file/line evidence and concrete failure cases, and distinguish defects from optional improvements. Do not change product files.",
+      "allowedWrites": [],
+      "expectedFixed": [],
+      "actor": "/root/prompt_conversation",
+      "responseHash": "90e95951150334e0552dfc3521fb53f07bc05b1614f79850ef19ac6d42c8e553",
+      "oracleHash": null,
+      "integrity": true,
+      "modified": [],
+      "behaviors": [
+        {
+          "id": "cleanup",
+          "status": "failed"
+        },
+        {
+          "id": "privacy",
+          "status": "failed"
+        },
+        {
+          "id": "transcript",
+          "status": "failed"
+        },
+        {
+          "id": "atomic",
+          "status": "failed"
+        },
+        {
+          "id": "fingerprint",
+          "status": "failed"
+        },
+        {
+          "id": "browser",
+          "status": "failed"
+        },
+        {
+          "id": "rules",
+          "status": "failed"
+        }
+      ],
+      "expectedRepairsPass": true,
+      "response": "Found eight existing contract defects, reproduced with local synthetic fixtures. Stable finding numbers:\n\n1. **[P1] Approval tokens ignore index contents.** [cleanup.mjs:6](WORKSPACE/src/cleanup.mjs:6) lists indexed paths but hashes only working-tree bytes. Stage `A`, then stage `B` and restore working-tree `A`: the token remains unchanged despite the changed index. Include index blob IDs, modes, and stages in the token.\n\n2. **[P1] Evidence redaction leaves sensitive values exposed.** [privacy.mjs:3](WORKSPACE/src/privacy.mjs:3) matches `token=value`, whereas JSON uses `\"token\":\"value\"`. Top-level `token` and nested `Password`/`SECRET` values survive unchanged. Unrelated `{note:\"token=hello\"}` instead throws a JSON parse error. Recursively copy JSON values and redact according to property names.\n\n3. **[P1] Secret replacement operates on JSON syntax rather than string values.** [transcript.mjs:3](WORKSPACE/src/transcript.mjs:3) cannot match raw secrets containing quotes, backslashes, or newlines after serialization; those secrets return intact. Secrets such as `\"true\"` or `\"123\"` also replace boolean/number syntax and cause parsing failures. Traverse the original structure and transform string values only.\n\n4. **[P2] Atomic replacement discards existing access permissions.** [atomic.mjs:5](WORKSPACE/src/atomic.mjs:5) always creates the replacement with mode `0600`. Replacing a file with mode `0754` changes its mode to `0600`, removing executable and shared-read permissions. Apply the existing file’s access mode to the temporary file before renaming; retain private permissions for new files.\n\n5. **[P2] Fingerprints falsely report complete coverage when links exist.** [fingerprint.mjs:9](WORKSPACE/src/fingerprint.mjs:9) skips symbolic links, but line 15 always returns `complete:true`. Adding a link to an external target leaves the digest unchanged and still reports complete coverage. Record incomplete coverage whenever a link is encountered, while continuing to avoid following it.\n\n6. **[P2] Eventual assertions neither retry nor enforce their timeout.** [browser.mjs:2](WORKSPACE/src/browser.mjs:2) reads once. A reader returning `\"loading\"` and then `\"ready\"` fails immediately; a reader whose promise never settles remains pending beyond its timeout. Retry mismatches until a deadline and enforce that deadline while awaiting a reader. Preserve reader-error propagation.\n\n7. **[P2] Retired rules cannot be moved.** [rules.mjs:3](WORKSPACE/src/rules.mjs:3) requires `rule.active` when locating the ID. Moving an existing rule with `active:false` throws `Unknown rule`, contrary to the explicit retired-rule contract. Locate by ID and preserve its existing active state.\n\n8. **[P2] Ambiguous hash encoding hides additional file-state changes.** [cleanup.mjs:9](WORKSPACE/src/cleanup.mjs:9) and [fingerprint.mjs:11](WORKSPACE/src/fingerprint.mjs:11) concatenate paths and contents without framing content boundaries. A single file `a` containing `xb<NUL>y` hashes identically to files `a=\"x\"` and `b=\"y\"`. Separately, deleting a tracked file containing exactly `missing` leaves its cleanup token unchanged. Encode lengths and explicit presence/type markers before hashing.\n\nVerification: 28 temporary checks produced **15 failing contract assertions and 13 passing controls**, using Node v26.7.0 and Git 2.43.1. Temporary fixtures were removed; source and README hashes remained unchanged. No network access or commits occurred.\n\nOptional improvement: add a regression suite covering these contracts. None was supplied. Crash durability and non-JSON input support were excluded from the findings because the README does not require them.\n",
+      "artifactHashes": {
+        "src/atomic.mjs": {
+          "type": "file",
+          "hash": "091a3a8ce1440947de06f3a05f4967f1196caacbbb81e73364c1fb734e407fa4",
+          "mode": 420
+        },
+        "src/browser.mjs": {
+          "type": "file",
+          "hash": "0f0af79f070e5b06cea354d9517e1717f94a2588f39fdaa263109a5151812edc",
+          "mode": 420
+        },
+        "src/cleanup.mjs": {
+          "type": "file",
+          "hash": "0f6241bc1b3266ace76e9a6bb620155e1f376452ca7d0e78cb28830b6105effe",
+          "mode": 420
+        },
+        "src/fingerprint.mjs": {
+          "type": "file",
+          "hash": "a2def059594b12c17d91893bfa73683a05be60d0b29d59b0725d88b9ccb31f9e",
+          "mode": 420
+        },
+        "src/privacy.mjs": {
+          "type": "file",
+          "hash": "58594743d3bd6f8f1cf367fbc670a35c60bb7ed3a7e71a6140107f1c1099654f",
+          "mode": 420
+        },
+        "src/rules.mjs": {
+          "type": "file",
+          "hash": "a344f942f67a170c848eae740cfb0ee06c51dca1f020a85090c4af36014bf314",
+          "mode": 420
+        },
+        "src/transcript.mjs": {
+          "type": "file",
+          "hash": "924867cced6bcf7a595b0b8d0f6d13e5efc3546d0613d3527bdbb23dc5ddc29d",
+          "mode": 420
+        }
+      }
+    },
+    {
+      "number": 2,
+      "message": "Fix only findings 1 and 2 from your review, in src/cleanup.mjs and src/privacy.mjs. Keep all other files and findings unchanged. Use temporary local checks and report what you actually verified.",
+      "allowedWrites": [
+        "src/cleanup.mjs",
+        "src/privacy.mjs"
+      ],
+      "expectedFixed": [
+        "cleanup",
+        "privacy"
+      ],
+      "actor": "/root/prompt_conversation",
+      "responseHash": "fab336e47b4ae4773acf8b3520bd02b9741c0681eb25e4e78aacb8765a7746cc",
+      "oracleHash": "1dae529a5ea5498f1e8d6150ae9150d9c1600e6cf7b85bfc99b308a5f7256e73",
+      "integrity": true,
+      "modified": [
+        "src/cleanup.mjs",
+        "src/privacy.mjs"
+      ],
+      "behaviors": [
+        {
+          "id": "cleanup",
+          "status": "passed"
+        },
+        {
+          "id": "privacy",
+          "status": "passed"
+        },
+        {
+          "id": "transcript",
+          "status": "failed"
+        },
+        {
+          "id": "atomic",
+          "status": "failed"
+        },
+        {
+          "id": "fingerprint",
+          "status": "failed"
+        },
+        {
+          "id": "browser",
+          "status": "failed"
+        },
+        {
+          "id": "rules",
+          "status": "failed"
+        }
+      ],
+      "expectedRepairsPass": true,
+      "response": "Fixed only findings **1 and 2**:\n\n- [cleanup.mjs](WORKSPACE/src/cleanup.mjs:8) now hashes Git index entries, covering staged content, modes, membership, and conflict stages.\n- [privacy.mjs](WORKSPACE/src/privacy.mjs:1) now recursively copies JSON and redacts case-insensitive sensitive keys while preserving unrelated data.\n\nVerification: reproduced eight failing assertions before editing; all **15 temporary checks** now pass, plus syntax checks. A 451-file comparison confirmed only these two files changed.\n\nFindings **3–8 remain unchanged**, including both reproduced cleanup-token collisions from finding 8. Temporary fixtures were removed. No commits or network access.\n",
+      "artifactHashes": {
+        "src/atomic.mjs": {
+          "type": "file",
+          "hash": "091a3a8ce1440947de06f3a05f4967f1196caacbbb81e73364c1fb734e407fa4",
+          "mode": 420
+        },
+        "src/browser.mjs": {
+          "type": "file",
+          "hash": "0f0af79f070e5b06cea354d9517e1717f94a2588f39fdaa263109a5151812edc",
+          "mode": 420
+        },
+        "src/cleanup.mjs": {
+          "type": "file",
+          "hash": "e5ac309fda2deb31adef09a945b5768267a0a93754efcaa0f79a0651900acd35",
+          "mode": 420
+        },
+        "src/fingerprint.mjs": {
+          "type": "file",
+          "hash": "a2def059594b12c17d91893bfa73683a05be60d0b29d59b0725d88b9ccb31f9e",
+          "mode": 420
+        },
+        "src/privacy.mjs": {
+          "type": "file",
+          "hash": "8ac82bff5c44c7265029fdf6adcd9dcc5fa2b0f5a27e62df58014ca1493a7d81",
+          "mode": 420
+        },
+        "src/rules.mjs": {
+          "type": "file",
+          "hash": "a344f942f67a170c848eae740cfb0ee06c51dca1f020a85090c4af36014bf314",
+          "mode": 420
+        },
+        "src/transcript.mjs": {
+          "type": "file",
+          "hash": "924867cced6bcf7a595b0b8d0f6d13e5efc3546d0613d3527bdbb23dc5ddc29d",
+          "mode": 420
+        }
+      }
+    },
+    {
+      "number": 3,
+      "message": "Correction: no more repairs, including the extra hashing finding. Keep all remaining findings as review notes. Do not change any files. Summarize verification of the selected changes and their remaining limitations.",
+      "allowedWrites": [],
+      "expectedFixed": [
+        "cleanup",
+        "privacy"
+      ],
+      "actor": "/root/prompt_conversation",
+      "responseHash": "15e4b3549e1f22506f219c02087b3809552ff7adbf305179b246e2fc709bd7fc",
+      "oracleHash": "1dae529a5ea5498f1e8d6150ae9150d9c1600e6cf7b85bfc99b308a5f7256e73",
+      "integrity": true,
+      "modified": [],
+      "behaviors": [
+        {
+          "id": "cleanup",
+          "status": "passed"
+        },
+        {
+          "id": "privacy",
+          "status": "passed"
+        },
+        {
+          "id": "transcript",
+          "status": "failed"
+        },
+        {
+          "id": "atomic",
+          "status": "failed"
+        },
+        {
+          "id": "fingerprint",
+          "status": "failed"
+        },
+        {
+          "id": "browser",
+          "status": "failed"
+        },
+        {
+          "id": "rules",
+          "status": "failed"
+        }
+      ],
+      "expectedRepairsPass": true,
+      "response": "No further files were changed. Only findings **1 and 2** are repaired:\n\n- [cleanup.mjs](WORKSPACE/src/cleanup.mjs) now includes Git index entries in approval tokens.\n- [privacy.mjs](WORKSPACE/src/privacy.mjs) recursively redacts sensitive keys while preserving unrelated JSON data.\n\nVerification reproduced eight failing assertions before editing. All **15 temporary checks** subsequently passed, covering index changes, token stability, recursive redaction, preserved types, independent copies, and unusual property names. Syntax checks passed. A 451-file comparison confirmed that only the two selected files changed.\n\nRemaining review notes are unchanged:\n\n3. Serialized secret replacement can leak secrets or corrupt JSON.\n4. Atomic saves discard existing file permissions.\n5. Fingerprints incorrectly report complete coverage around symbolic links.\n6. Eventual assertions lack retries and a bounded timeout.\n7. Retired rules cannot be moved.\n8. Ambiguous hash encoding allows distinct file states to share a digest.\n\nTwo passing checks specifically confirmed that finding **8’s known collisions remain**; they do not establish hashing correctness. Verification used synthetic local fixtures, not a full library test suite. Temporary checks were removed; no commits or network access occurred.\n",
+      "artifactHashes": {
+        "src/atomic.mjs": {
+          "type": "file",
+          "hash": "091a3a8ce1440947de06f3a05f4967f1196caacbbb81e73364c1fb734e407fa4",
+          "mode": 420
+        },
+        "src/browser.mjs": {
+          "type": "file",
+          "hash": "0f0af79f070e5b06cea354d9517e1717f94a2588f39fdaa263109a5151812edc",
+          "mode": 420
+        },
+        "src/cleanup.mjs": {
+          "type": "file",
+          "hash": "e5ac309fda2deb31adef09a945b5768267a0a93754efcaa0f79a0651900acd35",
+          "mode": 420
+        },
+        "src/fingerprint.mjs": {
+          "type": "file",
+          "hash": "a2def059594b12c17d91893bfa73683a05be60d0b29d59b0725d88b9ccb31f9e",
+          "mode": 420
+        },
+        "src/privacy.mjs": {
+          "type": "file",
+          "hash": "8ac82bff5c44c7265029fdf6adcd9dcc5fa2b0f5a27e62df58014ca1493a7d81",
+          "mode": 420
+        },
+        "src/rules.mjs": {
+          "type": "file",
+          "hash": "a344f942f67a170c848eae740cfb0ee06c51dca1f020a85090c4af36014bf314",
+          "mode": 420
+        },
+        "src/transcript.mjs": {
+          "type": "file",
+          "hash": "924867cced6bcf7a595b0b8d0f6d13e5efc3546d0613d3527bdbb23dc5ddc29d",
+          "mode": 420
+        }
+      }
+    },
+    {
+      "number": 4,
+      "message": "continue",
+      "allowedWrites": [],
+      "expectedFixed": [
+        "cleanup",
+        "privacy"
+      ],
+      "actor": "/root/prompt_conversation",
+      "responseHash": "581005deb9a3037fb7ae42916b7c8a00950fd7a0bf31c79029b1ea5cec402d18",
+      "oracleHash": "1dae529a5ea5498f1e8d6150ae9150d9c1600e6cf7b85bfc99b308a5f7256e73",
+      "integrity": true,
+      "modified": [],
+      "behaviors": [
+        {
+          "id": "cleanup",
+          "status": "passed"
+        },
+        {
+          "id": "privacy",
+          "status": "passed"
+        },
+        {
+          "id": "transcript",
+          "status": "failed"
+        },
+        {
+          "id": "atomic",
+          "status": "failed"
+        },
+        {
+          "id": "fingerprint",
+          "status": "failed"
+        },
+        {
+          "id": "browser",
+          "status": "failed"
+        },
+        {
+          "id": "rules",
+          "status": "failed"
+        }
+      ],
+      "expectedRepairsPass": true,
+      "response": "The selected work is complete; no further files were changed.\n\nFindings **1 and 2** passed the previously run 15 temporary checks and syntax checks. The file comparison confirmed only `cleanup.mjs` and `privacy.mjs` changed.\n\nYour correction remains in effect: findings **3–8**, including the hashing collisions, remain unresolved review notes. No additional repairs or checks were performed.\n",
+      "artifactHashes": {
+        "src/atomic.mjs": {
+          "type": "file",
+          "hash": "091a3a8ce1440947de06f3a05f4967f1196caacbbb81e73364c1fb734e407fa4",
+          "mode": 420
+        },
+        "src/browser.mjs": {
+          "type": "file",
+          "hash": "0f0af79f070e5b06cea354d9517e1717f94a2588f39fdaa263109a5151812edc",
+          "mode": 420
+        },
+        "src/cleanup.mjs": {
+          "type": "file",
+          "hash": "e5ac309fda2deb31adef09a945b5768267a0a93754efcaa0f79a0651900acd35",
+          "mode": 420
+        },
+        "src/fingerprint.mjs": {
+          "type": "file",
+          "hash": "a2def059594b12c17d91893bfa73683a05be60d0b29d59b0725d88b9ccb31f9e",
+          "mode": 420
+        },
+        "src/privacy.mjs": {
+          "type": "file",
+          "hash": "8ac82bff5c44c7265029fdf6adcd9dcc5fa2b0f5a27e62df58014ca1493a7d81",
+          "mode": 420
+        },
+        "src/rules.mjs": {
+          "type": "file",
+          "hash": "a344f942f67a170c848eae740cfb0ee06c51dca1f020a85090c4af36014bf314",
+          "mode": 420
+        },
+        "src/transcript.mjs": {
+          "type": "file",
+          "hash": "924867cced6bcf7a595b0b8d0f6d13e5efc3546d0613d3527bdbb23dc5ddc29d",
+          "mode": 420
+        }
+      }
+    }
+  ],
+  "responseNote": "Response text is retained verbatim except absolute fixture paths normalized to WORKSPACE; response hashes identify original captured text."
+}

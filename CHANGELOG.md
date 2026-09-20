@@ -1,5 +1,22 @@
 # Changelog
 
+## Unreleased
+
+## 0.8.1
+
+- Clarify review/teaching variants and local implementation versus live execution; add effective infer/default/ask policies to every command.
+- Consolidate runtime-backed prompt procedures, make proof reports conditional, and preserve selected findings, exclusions and corrections across turns.
+- Add 22 conditional worked examples with misleading cases and concrete contributions for all 112 profiles, including a same-feature comparison.
+- Add a multi-turn review/repair harness with seven defect categories, working/disabled controls, immutable turn captures and independent scope checks; include linked guides in isolated evaluation payloads.
+
+- Bind lab/practice cleanup to complete reviewed snapshots, reject staged changes, and preflight every workspace before removing any.
+- Redact structured credentials and common sensitive command arguments before recording evidence; preserve output structure and command outcomes for key/value logs.
+- Preserve POSIX file permissions during memory edits, workspace selection, task undo and recovery, with conservative restoration for legacy records.
+- Treat symlink targets as incomplete snapshot coverage so old checks cannot certify changed linked inputs.
+- Retry browser text, URL, title and focus assertions within a bounded deadline for asynchronous UI changes.
+- Allow retired memory rules to move while retaining provenance, current revision checks and destination-file protection.
+- Add regression coverage and delayed-state Chromium smoke checks for the reviewed defects; document cleanup input migration and permission compatibility.
+
 ## 0.8.0
 
 - Expand all 213 canonical workflows with authored technical evidence, methods, misdiagnosis controls and discriminating checks; aliases inherit them.

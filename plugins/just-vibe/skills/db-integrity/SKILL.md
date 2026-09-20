@@ -19,27 +19,35 @@ Use the complete request appended to this invocation, preserving all constraints
 
 actual engine/version, schema/migrations, query workload, and explicitly identified environment. Prefer supplied plans, metadata, and isolated fixtures. Even a SELECT can lock, call mutating functions, or overload a database; inspect semantics before execution. Executing an analyzed query is distinct from reading its plan.
 
+- **Infer from evidence:** Read engine/version, ORM/runner, schema and migration history from project artifacts before choosing SQL.
+- **Reasonable default:** Prepare local SQL and isolated fixtures without assuming production size, locks or recovery guarantees.
+- **Ask only when needed:** Ask for environment, downtime or recovery constraints before live/destructive execution when missing; unavailable production access does not block migration files.
+
 Declared evidence requirements: `database.context`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Orphans, duplicates, invalid relationships, and constraint gaps; no automatic deletion or repair.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Translate each explicit business invariant into its row, relationship and transaction boundary. Distinguish nullability and historical exceptions from actual corruption; ambiguous policy remains a question, not a deletion rule.
-- Choose bounded counts and redacted examples against an identified snapshot. Assess scan/lock impact before live queries; use supplied artifacts when they are sufficient and do not infer current production state from stale samples.
-- For preventive changes, separate input validation from shared storage constraints and atomic multi-row checks. Verify type/range, ownership, uniqueness, referential rules and overflow where relevant to the invariant.
-- Propose repair with a selection predicate, expected count, restart behavior and recovery boundary. Implement only within the requested scope; detection does not authorize a live cleanup or schema change.
-
+1. Translate each explicit business invariant into its row, relationship and transaction boundary. Distinguish nullability and historical exceptions from actual corruption; ambiguous policy remains a question, not a deletion rule.
+2. Choose bounded counts and redacted examples against an identified snapshot. Assess scan/lock impact before live queries; use supplied artifacts when they are sufficient and do not infer current production state from stale samples.
+3. For preventive changes, separate input validation from shared storage constraints and atomic multi-row checks. Verify type/range, ownership, uniqueness, referential rules and overflow where relevant to the invariant.
+4. Propose repair with a selection predicate, expected count, restart behavior and recovery boundary. Implement only within the requested scope; detection does not authorize a live cleanup or schema change.
 ## Technical method
 
 - **Inspect:** Identify claimed invariants, enforcing constraints, existing violation counts and repair ownership.
-- **Apply:** Use bounded aggregate queries and redacted synthetic examples; separate diagnosis, business reconciliation and constraint rollout.
+- **Method:** Use bounded aggregate queries and redacted synthetic examples; separate diagnosis, business reconciliation and constraint rollout.
 - **Avoid misdiagnosis:** Automatically deleting orphans can erase legitimate records awaiting asynchronous completion.
 - **Check the result:** Verify each invariant with both valid and invalid fixtures and show unresolved real-data policy decisions before any live repair.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [Databases worked example](../../references/examples/database.md).
+
 
 ## Decision branches
 

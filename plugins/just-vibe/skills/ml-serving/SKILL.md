@@ -19,25 +19,33 @@ Use the complete request appended to this invocation, preserving all constraints
 
 versioned model and preprocessing artifacts, input/output schema, runtime/dependencies, operating targets, and authorized environment. Validate artifact trust before loading formats that can execute code. Packaging or writing monitoring configuration does not deploy a model or enable a hosted service.
 
+- **Infer from evidence:** Read artifact format/trust, preprocessing schema, serving runtime, compatibility and existing rollout controls.
+- **Reasonable default:** Prepare packaging/configuration and isolated checks without treating them as a live deployment.
+- **Ask only when needed:** Resolve the target, rollback compatibility and operating limits before rollout or load generation; missing production access does not block packaging.
+
 Resolve any task-specific tools, target identity and evidence before dependent actions. No external connection is assumed.
 
 ## Scope
 
 Online inference service code and isolated validation; live hosting requires a deployment request.
 
-Only the requested local changes; external actions require their exact action and target in session authorization.
+Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.
 
 ## Execute
 
-- Validate inputs, manage model lifecycle/readiness, enforce resource/time limits, map errors, add redacted observability, and test concurrent valid/invalid requests.
-- Define readiness for the correct artifact, input bounds, batching/concurrency and deadlines; validate shapes/types before inference and preserve version in responses/telemetry.
-
+1. Validate inputs, manage model lifecycle/readiness, enforce resource/time limits, map errors, add redacted observability, and test concurrent valid/invalid requests.
+2. Define readiness for the correct artifact, input bounds, batching/concurrency and deadlines; validate shapes/types before inference and preserve version in responses/telemetry.
 ## Technical method
 
 - **Inspect:** Resolve request schema, batching, concurrency, model lifecycle, device memory and timeout budget.
-- **Apply:** Validate inputs before inference, bound queues and separate loading failures from invalid requests; define model identity per response/trace.
+- **Method:** Validate inputs before inference, bound queues and separate loading failures from invalid requests; define model identity per response/trace.
 - **Avoid misdiagnosis:** Unbounded batches or concurrent model copies can exhaust memory; returning a default prediction hides infrastructure failure.
 - **Check the result:** Exercise valid/invalid inputs, queue saturation, model-load failure and cancellation; verify bounded resources and typed errors.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [ML deployment worked example](../../references/examples/ml-deployment.md).
+
 
 ## Decision branches
 

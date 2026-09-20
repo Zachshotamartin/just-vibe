@@ -13,6 +13,12 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 Prefer asynchronous coordination when immediate cross-system atomicity is unnecessary and recovery is explicit.
 
+## Concrete contribution
+
+Map source-of-truth ownership and contract evolution across systems, defining reconciliation and incremental cutover before selecting messaging topology.
+
+For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+
 ## Verify when relevant
 
 - Walk duplicate, delayed and partially failed business operations.

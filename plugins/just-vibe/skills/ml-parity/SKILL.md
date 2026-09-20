@@ -19,25 +19,33 @@ Use the complete request appended to this invocation, preserving all constraints
 
 versioned model and preprocessing artifacts, input/output schema, runtime/dependencies, operating targets, and authorized environment. Validate artifact trust before loading formats that can execute code. Packaging or writing monitoring configuration does not deploy a model or enable a hosted service.
 
+- **Infer from evidence:** Read artifact format/trust, preprocessing schema, serving runtime, compatibility and existing rollout controls.
+- **Reasonable default:** Prepare packaging/configuration and isolated checks without treating them as a live deployment.
+- **Ask only when needed:** Resolve the target, rollback compatibility and operating limits before rollout or load generation; missing production access does not block packaging.
+
 Declared evidence requirements: `ml.artifacts`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Preprocessing, feature order, types, defaults, model version, and numerical parity.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Align raw inputs and versions, compare each transformation boundary, localize first divergence, evaluate declared tolerances, and propose or apply requested fixes.
-- Feed identical raw rows through each pipeline and compare schema, feature names/order, transformations and model outputs at each boundary.
-
+1. Align raw inputs and versions, compare each transformation boundary, localize first divergence, evaluate declared tolerances, and propose or apply requested fixes.
+2. Feed identical raw rows through each pipeline and compare schema, feature names/order, transformations and model outputs at each boundary.
 ## Technical method
 
 - **Inspect:** Compare fitted preprocessing, feature ordering, units, categorical vocabularies, missingness and runtime numerics.
-- **Apply:** Send the same golden inputs through training transformation and packaged serving transformation before comparing predictions.
+- **Method:** Send the same golden inputs through training transformation and packaged serving transformation before comparing predictions.
 - **Avoid misdiagnosis:** Equal tensor shape does not imply equal feature meaning; silently reordered columns can produce plausible wrong scores.
 - **Check the result:** Include missing, unseen, zero and boundary inputs and locate the first differing transform rather than comparing only final accuracy.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [ML deployment worked example](../../references/examples/ml-deployment.md).
+
 
 ## Decision branches
 

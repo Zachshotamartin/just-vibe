@@ -19,27 +19,35 @@ Use the complete request appended to this invocation, preserving all constraints
 
 component source, React/framework versions, state/data conventions, and relevant test tooling. Browser/profiler evidence is needed for measured rendering claims. Preserve existing framework and state libraries unless changing them is part of the request.
 
+- **Infer from evidence:** Read component callers, ownership of state, installed React/framework versions and existing interaction tests.
+- **Reasonable default:** Retain the framework and state library; preserve intended loading/error/empty behavior while resolving the named bug.
+- **Ask only when needed:** Ask when product semantics such as persistence, optimistic failure or reset behavior have conflicting evidence; missing profiler access only blocks measured performance claims.
+
 Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Effect dependencies, cleanup, stale closures, loops, and external synchronization.
 
-Only the requested local changes; external actions require their exact action and target in session authorization.
+Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.
 
 ## Execute
 
-- Classify each effect as synchronization with an external system or a derived computation. Derive render-only values directly where appropriate; do not add state/effects merely to mirror existing props.
-- Trace dependency identity through setup, dependency change, cleanup and unmount. Check development replay/remount behavior against the installed framework version; cleanup must undo the resource acquired by that setup instance.
-- For async synchronization, protect current identity on both fulfillment and rejection and define ownership of any shared work. Avoid suppressing dependency checks or using a permanent once flag to hide an incorrect lifetime.
-- Verify rapid identity changes and repeated setup/cleanup with observable subscriptions, state and resource counts. Distinguish a verified lifecycle fix from a claimed performance improvement that has not been measured.
-
+1. Classify each effect as synchronization with an external system or a derived computation. Derive render-only values directly where appropriate; do not add state/effects merely to mirror existing props.
+2. Trace dependency identity through setup, dependency change, cleanup and unmount. Check development replay/remount behavior against the installed framework version; cleanup must undo the resource acquired by that setup instance.
+3. For async synchronization, protect current identity on both fulfillment and rejection and define ownership of any shared work. Avoid suppressing dependency checks or using a permanent once flag to hide an incorrect lifetime.
+4. Verify rapid identity changes and repeated setup/cleanup with observable subscriptions, state and resource counts. Distinguish a verified lifecycle fix from a claimed performance improvement that has not been measured.
 ## Technical method
 
 - **Inspect:** Identify the external system, dependency identities, setup, cleanup and reset semantics of each affected effect.
-- **Apply:** Move derived values to render where appropriate; make synchronization cleanup mirror setup and use supported patterns for current values.
+- **Method:** Move derived values to render where appropriate; make synchronization cleanup mirror setup and use supported patterns for current values.
 - **Avoid misdiagnosis:** Suppressing dependency warnings conceals stale closures; aborting a request cannot undo a completed server mutation.
 - **Check the result:** Exercise changed inputs, remount and unmount with controlled timers/promises and verify listeners, requests and subscriptions are released.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [React worked example](../../references/examples/react.md).
+
 
 ## Decision branches
 

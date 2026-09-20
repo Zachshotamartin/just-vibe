@@ -13,6 +13,12 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 Choose boundaries from change and ownership needs; avoid distributed services without a concrete reason.
 
+## Concrete contribution
+
+Translate requirements into component responsibilities and contracts, walking normal/failure paths to expose duplicated ownership or unhandled partial effects.
+
+For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+
 ## Verify when relevant
 
 - Walk important flows and failure cases across the design.

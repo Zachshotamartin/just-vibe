@@ -19,25 +19,33 @@ Use the complete request appended to this invocation, preserving all constraints
 
 interface definitions, producer/consumer source, authentication model, versioning constraints, and isolated test endpoints. External API calls must respect environment, credentials, rate limits, and side-effect scope.
 
+- **Infer from evidence:** Read producer/consumer schemas, error contracts, auth conventions and known supported client versions.
+- **Reasonable default:** Keep compatible response and pagination semantics where the brief does not request a breaking change.
+- **Ask only when needed:** Ask when contract sources disagree or an unknown consumer changes compatibility; do not require live credentials to write or test an isolated client.
+
 Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Observable cross-boundary contracts; no reliance on live production state.
 
-Only the requested local changes; external actions require their exact action and target in session authorization.
+Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.
 
 ## Execute
 
-- Identify important assumptions, build provider/consumer assertions, control fixtures, verify valid and invalid exchanges, and integrate with relevant checks.
-- Derive assertions from actual consumer assumptions, control fixture identity and verify the real provider boundary when a safe environment exists.
-
+1. Identify important assumptions, build provider/consumer assertions, control fixtures, verify valid and invalid exchanges, and integrate with relevant checks.
+2. Derive assertions from actual consumer assumptions, control fixture identity and verify the real provider boundary when a safe environment exists.
 ## Technical method
 
 - **Inspect:** Identify independently owned provider/consumer expectations and representative boundary fixtures.
-- **Apply:** Exercise real serialization and decoding with valid, absent, null, unknown-field and error cases; keep mocks scoped to what they establish.
+- **Method:** Exercise real serialization and decoding with valid, absent, null, unknown-field and error cases; keep mocks scoped to what they establish.
 - **Avoid misdiagnosis:** A provider-generated mock validating itself is circular evidence of compatibility.
 - **Check the result:** Run a known incompatible response through the consumer and a valid control; record which real boundary and version were exercised.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [APIs worked example](../../references/examples/api.md).
+
 
 ## Decision branches
 

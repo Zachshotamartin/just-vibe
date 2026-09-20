@@ -19,6 +19,10 @@ Use the complete request appended to this invocation, preserving all constraints
 
 Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
+- **Infer from evidence:** Resolve topic versus named workflow from the appended request and recent lesson; read source only when teaching its implementation.
+- **Reasonable default:** Start with an accessible explanation and one concrete example when experience level is unknown; adjust to the next correction.
+- **Ask only when needed:** Ask one focused question only if the topic cannot be identified. Language/level preferences may be inferred or stated as assumptions instead of blocking a lesson.
+
 Resolve any task-specific tools, target identity and evidence before dependent actions. No external connection is assumed.
 
 ## Scope
@@ -29,27 +33,21 @@ None by default. Save lesson notes or example files only when explicitly request
 
 ## Execute
 
-1. Interpret the complete brief first. Explicit requests such as "teach linked lists" are topic lessons. A known workflow ID such as ml-split or git-bisect selects implementation teaching when the user asks how that tool works or how to implement it. If both interpretations fit, state the useful interpretation and cover their connection.
-2. For a workflow lesson use toolkit show with the exact ID and read the referenced implementation files. The catalog supplies purpose and boundaries; the current source supplies actual mechanisms. Never call the workflow itself to obtain a lesson.
-3. Read the teaching guide at ../../references/teaching.md. Choose the minimum prerequisites, adapt to the requested depth/language, explain in readable connected prose, and use a concrete example before broad abstractions.
-4. For a topic lesson, provide the explanation directly. For an implementation lesson, map each prerequisite to the relevant algorithm, data shape, invariant, tool boundary, verification case or source module.
-5. Check the lesson for factual accuracy and hidden assumptions. End an ordinary explanation with optional practice, not a mandatory quiz. Only an explicit exercise request selects the isolated practice steps below; naming a workflow for teaching does not authorize executing that workflow.
-6. An explicit hands-on/exercise request selects the practice guide. Identify a small real project behavior, explain the learning goal, prepare a working solution and focused assessment, and create separate solution/learner worktrees. Ordinary topic teaching still makes no source changes.
-7. Seed a runnable conceptual mistake only in the learner worktree. Protect assessment/runner/config files and validate identical checks: the solution must pass and the starter must fail for the taught reason. Missing tooling, timeout or a vacuous failure is not a valid teaching control.
-8. Open the learner source and present the objective plus exact verification command. Let the learner edit; reveal only the requested hint level. Use practice submit for actual behavior checks and explain failures without silently solving the exercise.
-9. Save progress only when requested, report the measured assertion coverage without claiming mastery, and preserve requested learner work before snapshot-checked cleanup. Use teach-test for native multiple-choice assessment within actual host tool restrictions.
-
-Task-specific method: Resolve whether the user wants a topic lesson or an implementation-focused lesson. Infer experience from context; otherwise start with approachable fundamentals and offer depth without blocking on a questionnaire. For a named just-vibe workflow, read its catalog record, skill and relevant utility source, distinguish implemented behavior from design requirements, and identify the concepts necessary to build it. For a standalone topic, define a concrete learning outcome and choose a useful worked example. Order prerequisites from the minimum foundation to the requested implementation. Explain the purpose, core model, and terminology in connected plain-language prose before introducing complexity. Use an annotated example and trace its state step by step. Relate each concept to a concrete design or implementation decision. Explain alternatives, tradeoffs, failure modes and common misconceptions. Use a small diagram or table only when it clarifies the lesson, and short code examples in the requested language when helpful. End with a concise understanding check or optional exercise and a recommended next step. Keep the explanation useful without requiring the user to answer a quiz; offer hints or an answer when requested. Choose one running example and state its assumptions before deriving the mechanism; distinguish conceptual pseudocode from runnable, version-specific code.
-
+1. Resolve a topic lesson, workflow-implementation lesson or explicitly requested exercise from the full brief. A known workflow name does not authorize executing it.
+2. For a topic lesson, read the teaching guide and explain directly with one running example. Infer level from context; otherwise start accessibly without a mandatory questionnaire. State assumptions, trace a small example, then a misconception and a transfer example.
+3. For a workflow lesson, read its catalog contract and relevant utility source; map concepts to actual algorithms, data shapes, invariants and verification boundaries. Distinguish implemented behavior, conceptual pseudocode and proposed design.
+4. For an explicitly requested hands-on exercise, follow the practice guide: use owned solution/learner worktrees, protect assessment files, and establish passing solution/failing starter controls for the taught behavior before presenting the learner workspace. Keep exercise mechanics out of ordinary lessons.
+5. Give only requested hints and let the learner make the implementation. Save progress only on request and preserve requested work before cleanup. Ordinary lessons may offer practice; native assessment belongs to teach-test under actual host restrictions.
 ## Technical method
 
 - **Inspect:** Resolve the learner's topic or target workflow, existing knowledge and whether a project exercise is wanted.
-- **Apply:** Build a causal mental model, work a small example, then expose a common misconception and a transfer example.
+- **Method:** Build a causal mental model, work a small example, then expose a common misconception and a transfer example.
 - **Avoid misdiagnosis:** Teaching a command does not authorize running it; overwhelming prerequisite lists can obscure the actual concept.
 - **Check the result:** Use a short prediction or explanation prompt to check understanding; keep optional practice separate from unsolicited repo mutation.
 
 ## Read when relevant
 
+- When a concrete decision or deliverable example would clarify this workflow: [General worked example](../../references/examples/general.md).
 - The learner requests hands-on practice using repository code: [Project exercises](../../references/practice.md).
 
 ## Decision branches

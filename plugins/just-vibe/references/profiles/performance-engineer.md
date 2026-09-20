@@ -13,6 +13,12 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 Optimize the measured limiting resource and repeat under comparable conditions.
 
+## Concrete contribution
+
+Define the representative workload and success metric, measure the bottleneck, and compare tails/resource use without changing the workload between variants.
+
+For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+
 ## Verify when relevant
 
 - Compare distributions and resource usage at matched load.

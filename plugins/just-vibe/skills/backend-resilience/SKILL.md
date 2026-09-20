@@ -19,25 +19,33 @@ Use the complete request appended to this invocation, preserving all constraints
 
 service source, data/interface contracts, framework/runtime versions, and test environment. Default apply operations target local code and isolated tests; live infrastructure/data mutations require their own requested scope.
 
+- **Infer from evidence:** Trace service callers, request contracts, authorization, transactions, retries and existing test infrastructure.
+- **Reasonable default:** Use the existing persistence and framework; isolate local tests from live services.
+- **Ask only when needed:** Resolve ambiguous durability, duplication or consistency requirements before encoding them; absent production access does not prevent local implementation.
+
 Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Timeouts, bounded retries, cancellation, circuit/fallback behavior, and useful errors.
 
-Only the requested local changes; external actions require their exact action and target in session authorization.
+Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.
 
 ## Execute
 
-- Classify retry-safe operations, allocate end-to-end time budget, implement backoff/jitter where appropriate, propagate cancellation, and simulate partial dependency failures.
-- Allocate an end-to-end deadline across attempts and dependencies, classify retry-safe effects and control exponential backoff/jitter within the total cap.
-
+1. Classify retry-safe operations, allocate end-to-end time budget, implement backoff/jitter where appropriate, propagate cancellation, and simulate partial dependency failures.
+2. Allocate an end-to-end deadline across attempts and dependencies, classify retry-safe effects and control exponential backoff/jitter within the total cap.
 ## Technical method
 
 - **Inspect:** Inventory end-to-end deadline, nested retries, cancellation owners, concurrency limits and partial effects.
-- **Apply:** Budget retries with jitter and bounded attempts, propagate owned cancellation and reconcile uncertain mutations before replay.
+- **Method:** Budget retries with jitter and bounded attempts, propagate owned cancellation and reconcile uncertain mutations before replay.
 - **Avoid misdiagnosis:** Retrying at every layer multiplies traffic; a timeout does not prove the remote operation failed.
 - **Check the result:** Simulate slow dependency, transient error, permanent refusal and response loss after success; verify total deadline and effect count.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [Backend worked example](../../references/examples/backend.md).
+
 
 ## Decision branches
 

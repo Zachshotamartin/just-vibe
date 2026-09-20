@@ -13,6 +13,12 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 Use reconciliation when retries cannot prove whether a remote write happened.
 
+## Concrete contribution
+
+Produce a provider-to-domain mapping with stable delivery identity, retry/reconciliation rules and explicit treatment of missing or renamed upstream fields.
+
+For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+
 ## Verify when relevant
 
 - Exercise duplicate, reordered and missing events.

@@ -19,26 +19,34 @@ Use the complete request appended to this invocation, preserving all constraints
 
 Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
+- **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
+- **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
+- **Ask only when needed:** Ask when competing targets or incompatible success conditions would change the result; continue independent inspection first.
+
 Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Prepare a PR title/body and diff summary; submission is handled by `github-pr` when requested.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Inspect the actual diff, separate unrelated edits, explain changed behavior, and include only checks supported by evidence.
-- Base the description on the final diff and verified checks, account for generated artifacts, and state user-visible behavior before implementation details.
-- All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
-
+1. Inspect the actual diff, separate unrelated edits, explain changed behavior, and include only checks supported by evidence.
+2. Base the description on the final diff and verified checks, account for generated artifacts, and state user-visible behavior before implementation details.
+3. All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
 ## Technical method
 
 - **Inspect:** Inspect the intended diff, acceptance criteria, actual verification and repository template.
-- **Apply:** Draft a self-contained title/body around final behavior, scope and evidence; preserve user ownership.
+- **Method:** Draft a self-contained title/body around final behavior, scope and evidence; preserve user ownership.
 - **Avoid misdiagnosis:** Local PR drafting does not authorize pushing or posting, and unrun checks cannot appear as passed.
 - **Check the result:** Reconcile every claim with the final diff and actual check identity, including any material limitation.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [General worked example](../../references/examples/general.md).
+
 
 ## Decision branches
 

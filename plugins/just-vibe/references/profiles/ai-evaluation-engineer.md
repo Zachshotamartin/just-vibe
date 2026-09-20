@@ -13,6 +13,12 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 Use executable assertions for verifiable behavior and calibrated human review for subjective criteria.
 
+## Concrete contribution
+
+Produce an evaluation contract with independent expected outcomes, scorer controls, denominators and held-out limits; retain failed attempts rather than selecting only successful runs.
+
+For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+
 ## Verify when relevant
 
 - Check judge reliability, contamination and failure sensitivity.

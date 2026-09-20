@@ -19,25 +19,33 @@ Use the complete request appended to this invocation, preserving all constraints
 
 the decision question, constraints, alternatives or permission to identify them, and relevant project evidence. Current vendor claims and prices require current authoritative sources during execution. Scores are decision aids, not facts.
 
+- **Infer from evidence:** Recover hard constraints, the current option, adoption status and stated priorities from the brief and prior decisions.
+- **Reasonable default:** Compare feasible options qualitatively when weights were not supplied; make a reversible conditional recommendation when useful.
+- **Ask only when needed:** Ask only about a missing constraint or preference that could reverse the recommendation; do not demand a complete scoring questionnaire.
+
 Resolve any task-specific tools, target identity and evidence before dependent actions. No external connection is assumed.
 
 ## Scope
 
 Reversibility, lock-in, exit cost, and staged commitment.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Identify persisted data, external promises, switching mechanisms, and operational costs; classify reversibility with evidence and design cheaper experiments.
-- Inventory persisted data, external promises and dependency adoption; distinguish rollback of code from reversal of consequences.
-
+1. Identify persisted data, external promises, switching mechanisms, and operational costs; classify reversibility with evidence and design cheaper experiments.
+2. Inventory persisted data, external promises and dependency adoption; distinguish rollback of code from reversal of consequences.
 ## Technical method
 
 - **Inspect:** Identify persisted data, external promises, migrations, lock-in and rollback dependencies.
-- **Apply:** Describe reversal steps, time, retained artifacts and irreversible consequences separately from changing a feature flag.
+- **Method:** Describe reversal steps, time, retained artifacts and irreversible consequences separately from changing a feature flag.
 - **Avoid misdiagnosis:** A reversible code change may already have sent messages or transformed data irreversibly.
 - **Check the result:** Walk reversal after partial adoption and identify what the previous version can no longer read or undo.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [Decisions worked example](../../references/examples/decisions.md).
+
 
 ## Decision branches
 

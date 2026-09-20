@@ -15,9 +15,13 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 ## Input and mode
 
-Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan; application, environment/account, artifact/revision, and desired deployment action.
+Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan deployment when asked for a plan; apply for requested deployment preparation or submission to a resolved environment.
 
 Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
+
+- **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
+- **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
+- **Ask only when needed:** Ask when competing targets or incompatible success conditions would change the result; continue independent inspection first.
 
 Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
@@ -25,23 +29,28 @@ Declared evidence requirements: `project.read`. Use actual host discovery or ade
 
 Prepare deployment; execute only the deployment explicitly requested and authorized, including promotion separately when needed.
 
-None by default. Plan artifacts may be saved when requested.
+Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the requested changes or execute the requested operation within its resolved target and limits. Local preparation does not authorize live, remote, destructive or paid actions; existing explicit session authorization still applies.
 
 ## Execute
 
-- Resolve target, inspect prerequisites and checks, identify recovery, execute authorized steps, and verify the deployed revision and health.
-- Confirm immutable artifact/revision, environment and health criteria; resolve schema compatibility and the previous usable target before execution.
-
+1. Resolve target, inspect prerequisites and checks, identify recovery, execute authorized steps, and verify the deployed revision and health.
+2. Confirm immutable artifact/revision, environment and health criteria; resolve schema compatibility and the previous usable target before execution.
 ## Technical method
 
 - **Inspect:** Resolve provider, project/environment, immutable candidate revision, authorization and current live identity.
-- **Apply:** Prepare artifact, environment/schema compatibility and rollback target before the requested deployment action.
+- **Method:** Prepare artifact, environment/schema compatibility and rollback target before the requested deployment action.
 - **Avoid misdiagnosis:** Deploying from a dirty tree or checking a moving alias can disconnect observed success from the intended artifact.
 - **Check the result:** Verify the resulting deployment identity and health at that revision; code rollback limits from data changes remain explicit.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [General worked example](../../references/examples/general.md).
+
 
 ## Decision branches
 
 - **When submission times out with uncertain provider state:** Look up the operation by revision or deployment ID before creating another deployment.
+- **When the request is for local preparation or implementation:** Prepare the requested build/configuration locally; a deployment request authorizes its named submission, while unresolved account, target or paid-resource choices must be settled first.
 
 ## Deliver and verify
 

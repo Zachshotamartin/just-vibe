@@ -19,25 +19,33 @@ Use the complete request appended to this invocation, preserving all constraints
 
 task definition, model/provider configuration, representative permitted data, versioned prompts/corpus where relevant, and explicit token/cost/latency limits for remote calls. Use current provider interfaces during implementation. Retrieved content and model-generated tool arguments remain untrusted.
 
+- **Infer from evidence:** Read current prompt/tool schemas, retrieval boundaries, installed SDK/provider config and permitted examples without reading secret values.
+- **Reasonable default:** Use mocked calls for local contract tests when remote access is absent; do not infer model quality from mocks.
+- **Ask only when needed:** Ask for budget and permitted data/provider before a paid or external run if not already set; local prompt/tool implementation can proceed.
+
 Declared evidence requirements: `ml.artifacts`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Tokens, retries, caching, model routing, concurrency, and cost/quality tradeoffs.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Reconcile billed versus estimated usage, separate input/output/cached tokens, identify expensive failure loops, and propose bounded comparisons preserving task quality.
-- Reconcile provider usage with input/output/cached tokens and retries; verify dated pricing and include failed runs in per-completed-task cost.
-
+1. Reconcile billed versus estimated usage, separate input/output/cached tokens, identify expensive failure loops, and propose bounded comparisons preserving task quality.
+2. Reconcile provider usage with input/output/cached tokens and retries; verify dated pricing and include failed runs in per-completed-task cost.
 ## Technical method
 
 - **Inspect:** Measure all requests, retries, failures, cached/uncached inputs, outputs and latency by task outcome.
-- **Apply:** Compare routes at matched quality requirements using dated verified prices and explicit privacy/transfer constraints.
+- **Method:** Compare routes at matched quality requirements using dated verified prices and explicit privacy/transfer constraints.
 - **Avoid misdiagnosis:** Lower price per call can raise cost per completed task through retries or quality failures.
 - **Check the result:** Reconcile usage totals with actual calls and compare successful outcomes, latency and failure rates under the same cases.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [LLMs and retrieval worked example](../../references/examples/llm.md).
+
 
 ## Decision branches
 

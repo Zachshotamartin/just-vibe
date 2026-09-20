@@ -15,9 +15,13 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 ## Input and mode
 
-Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan when planning is requested or execution details are unresolved. A request to implement training code selects apply for code and bounded local checks; launching training requires the requested environment and resource limits. Do not treat implementation as permission to provision compute.
+Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan the training design; apply for requested pipeline implementation or an authorized bounded run.
 
 dataset/split manifests, fixed objective/metric, environment/dependencies, baseline where applicable, and explicit compute limits. Record code revision, configuration, seeds, artifact paths, and resource use. Local smoke checks do not imply authorization for paid training. Never optimize on the held-out test set.
+
+- **Infer from evidence:** Read framework, training entry point, loss/metric, split manifests and checkpoint conventions from supplied source.
+- **Reasonable default:** Implement requested code and tiny isolated smoke checks with existing tools; leave unmeasured model quality explicit.
+- **Ask only when needed:** Ask for unresolved objective/data semantics before encoding them, and environment/resource limits before launching training or a search; implementation alone does not need a hardware purchase decision.
 
 Resolve any task-specific tools, target identity and evidence before dependent actions. No external connection is assumed.
 
@@ -25,28 +29,28 @@ Resolve any task-specific tools, target identity and evidence before dependent a
 
 Reproducible training with checkpoint/resume and declared stopping criteria.
 
-None by default. Plan artifacts may be saved when requested.
+Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the requested changes or execute the requested operation within its resolved target and limits. Local preparation does not authorize live, remote, destructive or paid actions; existing explicit session authorization still applies.
 
 ## Execute
 
-- Validate shapes and pipeline, run a small smoke test, record configuration/environment, train within bounds, checkpoint, and evaluate only the permitted validation protocol.
-- For resumable training inventory model, optimizer, scheduler, scaler when used, step, RNG and sampler/data position; checkpoint atomically and compare interrupted versus uninterrupted continuation under declared tolerances.
-
+1. Validate shapes and pipeline, run a small smoke test, record configuration/environment, train within bounds, checkpoint, and evaluate only the permitted validation protocol.
+2. For resumable training inventory model, optimizer, scheduler, scaler when used, step, RNG and sampler/data position; checkpoint atomically and compare interrupted versus uninterrupted continuation under declared tolerances.
 ## Technical method
 
 - **Inspect:** Inspect framework/version, shapes, loss semantics, device/dtype, optimizer, scheduler and data/sampler state.
-- **Apply:** Run a bounded smoke batch, then checkpoint at a defined boundary including continuation state; load the training scenario for the actual framework.
+- **Method:** Run a bounded smoke batch, then checkpoint at a defined boundary including continuation state; load the training scenario for the actual framework.
 - **Avoid misdiagnosis:** Restoring weights alone is not exact resume; a seed alone does not guarantee deterministic kernels or data order.
 - **Check the result:** Compare interrupted and uninterrupted short runs under stated tolerances and verify atomic checkpoint recovery after an incomplete write.
 
 ## Read when relevant
 
+- When a concrete decision or deliverable example would clarify this workflow: [ML experimentation worked example](../../references/examples/ml-experiments.md).
 - Selecting classical, tensor or distributed/resumable methods: [Training scenarios](../../references/scenarios/training.md).
 
 ## Decision branches
 
 - **When only weights were saved:** Treat loading as initialization unless all required continuation state is available; label the run a restart rather than exact resume.
-- **When implementation is requested but a training run is not:** Write the pipeline and bounded checks without provisioning or launching a long job; report unmeasured model quality.
+- **When implementation is requested but a training run is not:** Implement configuration, checkpoint and resume paths against local synthetic fixtures; ask for hardware, data access and resource limits only before a real training run.
 - **When distributed training changes workers or accumulation boundaries:** Verify sampler/metric aggregation and checkpoint ownership; declare approximate continuation if exact state cannot be restored.
 
 ## Deliver and verify
@@ -65,5 +69,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Plan checkpointed training on one GPU for at most six hours; do not provision compute.
-- **edge (plan):** Implement checkpointed training that resumes mid-epoch without silently changing sample order.
+- **edge (apply):** Implement checkpointed training that resumes mid-epoch without silently changing sample order.
 - **blocked (inspect):** Plan training with no authorized hardware budget; do not provision or launch a run.

@@ -19,28 +19,32 @@ Use the complete request appended to this invocation, preserving all constraints
 
 dataset/split manifests, fixed objective/metric, environment/dependencies, baseline where applicable, and explicit compute limits. Record code revision, configuration, seeds, artifact paths, and resource use. Local smoke checks do not imply authorization for paid training. Never optimize on the held-out test set.
 
+- **Infer from evidence:** Read framework, training entry point, loss/metric, split manifests and checkpoint conventions from supplied source.
+- **Reasonable default:** Implement requested code and tiny isolated smoke checks with existing tools; leave unmeasured model quality explicit.
+- **Ask only when needed:** Ask for unresolved objective/data semantics before encoding them, and environment/resource limits before launching training or a search; implementation alone does not need a hardware purchase decision.
+
 Declared evidence requirements: `ml.artifacts`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Numerical instability, shape/device issues, data/target mismatch, gradients, and failure to learn.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Check inputs/loss/optimizer state, compare expected scales, isolate a small batch, propose or run authorized overfit/gradient probes, and test the leading cause.
-- Inspect one batch's shapes, labels, scale, loss and gradients, locate the first non-finite value and compare optimizer updates with the intended objective.
-
+1. Check inputs/loss/optimizer state, compare expected scales, isolate a small batch, propose or run authorized overfit/gradient probes, and test the leading cause.
+2. Inspect one batch's shapes, labels, scale, loss and gradients, locate the first non-finite value and compare optimizer updates with the intended objective.
 ## Technical method
 
 - **Inspect:** Capture the first divergent batch, activations/loss, gradient finiteness and parameter update.
-- **Apply:** Check objective/target semantics and preprocessing before tuning; use a tiny-batch overfit probe to distinguish plumbing from generalization.
+- **Method:** Check objective/target semantics and preprocessing before tuning; use a tiny-batch overfit probe to distinguish plumbing from generalization.
 - **Avoid misdiagnosis:** Switching architecture can conceal a detached graph, wrong target scale or optimizer that never updates parameters.
 - **Check the result:** Verify finite forward/backward values and actual parameter changes on the smallest failing input before a longer run.
 
 ## Read when relevant
 
+- When a concrete decision or deliverable example would clarify this workflow: [ML experimentation worked example](../../references/examples/ml-experiments.md).
 - Language/runtime semantics, concurrency or resource ownership can change the result: [Language and runtime review methods](../../references/scenarios/language-review.md).
 
 ## Decision branches

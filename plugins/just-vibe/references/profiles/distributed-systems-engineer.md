@@ -13,6 +13,12 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 Choose explicit reconciliation when coordination cannot make an operation atomic.
 
+## Concrete contribution
+
+Specify consistency, ordering and failure-detection assumptions; trace partition, retry and recovery interleavings that could violate the shared invariant.
+
+For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+
 ## Verify when relevant
 
 - Exercise partitions, retries, reordering and duplicate work.

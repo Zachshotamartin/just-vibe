@@ -15,9 +15,13 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 ## Input and mode
 
-Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan; baseline, search space, objective, fixed splits, trial/time/compute caps, and selection rule.
+Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan a search; apply for requested search code or a run with explicit resource limits.
 
 dataset/split manifests, fixed objective/metric, environment/dependencies, baseline where applicable, and explicit compute limits. Record code revision, configuration, seeds, artifact paths, and resource use. Local smoke checks do not imply authorization for paid training. Never optimize on the held-out test set.
+
+- **Infer from evidence:** Read framework, training entry point, loss/metric, split manifests and checkpoint conventions from supplied source.
+- **Reasonable default:** Implement requested code and tiny isolated smoke checks with existing tools; leave unmeasured model quality explicit.
+- **Ask only when needed:** Ask for unresolved objective/data semantics before encoding them, and environment/resource limits before launching training or a search; implementation alone does not need a hardware purchase decision.
 
 Resolve any task-specific tools, target identity and evidence before dependent actions. No external connection is assumed.
 
@@ -25,23 +29,28 @@ Resolve any task-specific tools, target identity and evidence before dependent a
 
 Bounded hyperparameter search; execution only within authorized resources.
 
-None by default. Plan artifacts may be saved when requested.
+Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the requested changes or execute the requested operation within its resolved target and limits. Local preparation does not authorize live, remote, destructive or paid actions; existing explicit session authorization still applies.
 
 ## Execute
 
-- Validate comparable trials, select search strategy, define pruning/failure behavior, log every trial, and choose by the predeclared validation criterion.
-- Freeze search space, split, objective, trial/resource caps and selection rule; keep failure/pruning records and compare candidates under equal evaluation conditions.
-
+1. Validate comparable trials, select search strategy, define pruning/failure behavior, log every trial, and choose by the predeclared validation criterion.
+2. Freeze search space, split, objective, trial/resource caps and selection rule; keep failure/pruning records and compare candidates under equal evaluation conditions.
 ## Technical method
 
 - **Inspect:** Fix search space, metric direction, split, resource budget, pruning and selection rule.
-- **Apply:** Track every trial including failures and choose using validation only; reserve the held-out test for final evaluation.
+- **Method:** Track every trial including failures and choose using validation only; reserve the held-out test for final evaluation.
 - **Avoid misdiagnosis:** More trials can overfit the validation set; dropping failed runs understates cost and instability.
 - **Check the result:** Enforce trial/time caps and inspect selection provenance; evaluate the chosen configuration once under the reserved protocol.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [ML experimentation worked example](../../references/examples/ml-experiments.md).
+
 
 ## Decision branches
 
 - **When tuning repeatedly consults held-out test results:** Stop that selection loop and define fresh independent confirmation before reporting generalization.
+- **When the request is for local preparation or implementation:** Implement search-space validation, trial accounting and interruption handling locally; do not submit a search job without its dataset and resource limits.
 
 ## Deliver and verify
 

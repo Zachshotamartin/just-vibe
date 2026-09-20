@@ -19,25 +19,33 @@ Use the complete request appended to this invocation, preserving all constraints
 
 the decision question, constraints, alternatives or permission to identify them, and relevant project evidence. Current vendor claims and prices require current authoritative sources during execution. Scores are decision aids, not facts.
 
+- **Infer from evidence:** Recover hard constraints, the current option, adoption status and stated priorities from the brief and prior decisions.
+- **Reasonable default:** Compare feasible options qualitatively when weights were not supplied; make a reversible conditional recommendation when useful.
+- **Ask only when needed:** Ask only about a missing constraint or preference that could reverse the recommendation; do not demand a complete scoring questionnaire.
+
 Resolve any task-specific tools, target identity and evidence before dependent actions. No external connection is assumed.
 
 ## Scope
 
 Reassess a specific choice while preserving its historical rationale.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Identify original assumptions, compare them to current facts, estimate transition consequences, and recommend retaining, modifying, or superseding the decision.
-- Compare original assumptions with current facts and include migration costs, disruption and option value in retaining versus replacing.
-
+1. Identify original assumptions, compare them to current facts, estimate transition consequences, and recommend retaining, modifying, or superseding the decision.
+2. Compare original assumptions with current facts and include migration costs, disruption and option value in retaining versus replacing.
 ## Technical method
 
 - **Inspect:** Read the original premise, accepted status, trigger and new evidence with dates.
-- **Apply:** Change only conclusions affected by the new premise; compare continuing, adapting and replacing, preserving the original record.
+- **Method:** Change only conclusions affected by the new premise; compare continuing, adapting and replacing, preserving the original record.
 - **Avoid misdiagnosis:** A hindsight rewrite loses the information needed to understand why the earlier choice was reasonable.
 - **Check the result:** Show the changed premise, resulting recommendation and migration cost; unchanged conditions should not trigger automatic reversal.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [Decisions worked example](../../references/examples/decisions.md).
+
 
 ## Decision branches
 

@@ -19,6 +19,10 @@ Use the complete request appended to this invocation, preserving all constraints
 
 Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
+- **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
+- **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
+- **Ask only when needed:** Ask when competing targets or incompatible success conditions would change the result; continue independent inspection first.
+
 Resolve any task-specific tools, target identity and evidence before dependent actions. No external connection is assumed.
 
 ## Scope
@@ -31,19 +35,17 @@ Only active task context or a supplied run record returned as JSON. Persist to a
 
 1. Read [profile selection](../../references/profiles.md), then use toolkit profiles and toolkit profile ID to find and inspect relevant roles.
 2. Keep simple selection in task context. With an existing run, call session profile using run and selection; with a new explicit single role, workflow COMMAND --profile ID preserves it. Do not create a fresh run just to evade a prior pin or budget.
-3. State the selected profile briefly once. Apply relevant priorities in subsequent workflows without repeating role claims or forcing every suggested workflow to run.
-
-Task-specific method: Choose one primary role and at most two distinct complementary roles; read only their role references. Use task evidence, not a file extension alone. Explicit user selections are pinned for the current task by default. Agent selections are unpinned and cannot replace or clear a pinned user selection. For auto, an explicit user request first clears the pin, then the agent selects with a concrete reason. Clear removes role emphasis; status reports the current selection without changing it. A profile in project preferences is a candidate, not a pin or permission. Apply it only when it fits the current request and does not conflict with the user’s task selection.
-
+3. State the selected profile and its concrete task contribution briefly once. Apply relevant priorities in subsequent workflows without repeating role claims, changing permissions or scope, overriding a user pin, or forcing every suggested workflow to run.
 ## Technical method
 
 - **Inspect:** Read current selection, explicit user pins, task scope and proposed primary/secondary roles.
-- **Apply:** Preserve pins and apply role priorities through the relevant workflow methods; record selection provenance and conflicts.
+- **Method:** Preserve pins and apply role priorities through the relevant workflow methods; record selection provenance and conflicts.
 - **Avoid misdiagnosis:** Agent inference cannot clear a user pin, and a principal role does not authorize broader architecture changes.
 - **Check the result:** Verify status/change/clear behavior preserves task constraints and that role selection alone starts no unrelated work.
 
 ## Read when relevant
 
+- When a concrete decision or deliverable example would clarify this workflow: [General worked example](../../references/examples/general.md).
 - Saving requested preferences, decisions or a named continuation: [Project continuity](../../references/daily-workflows.md).
 
 ## Decision branches

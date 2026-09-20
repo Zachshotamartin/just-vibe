@@ -19,28 +19,32 @@ Use the complete request appended to this invocation, preserving all constraints
 
 defined application boundary, authorized code/environment, relevant trust/access rules, and evidence sources. Default to defensive inspection; active tests use owned or explicitly authorized isolated targets. Minimize sensitive evidence and never print usable credentials.
 
+- **Infer from evidence:** Resolve the requested surface, source/runtime version, reachable callers and actual trust/access boundaries.
+- **Reasonable default:** Start with source analysis and bounded owned fixtures; treat scanner output as leads and preserve legitimate controls.
+- **Ask only when needed:** Ask when target authorization or necessary trust semantics are unresolved before active probing; source inspection need not wait for production access.
+
 Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Injection, unsafe parsing, traversal, and validation gaps along reachable paths.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Trace untrusted values through transformations to sensitive sinks, assess contextual escaping/parameterization, distinguish validation from authorization, and propose safe regression cases.
-- Trace source, transformations, validation and final sink; assess parameterization or contextual encoding at the actual interpreter boundary.
-
+1. Trace untrusted values through transformations to sensitive sinks, assess contextual escaping/parameterization, distinguish validation from authorization, and propose safe regression cases.
+2. Trace source, transformations, validation and final sink; assess parameterization or contextual encoding at the actual interpreter boundary.
 ## Technical method
 
 - **Inspect:** Identify attacker-controlled sources, transformations and actual SQL/shell/template/URL/parser/path sinks.
-- **Apply:** Load matching vulnerability cards and framework defaults; trace a reachable path and effective parameterization, encoding or allowlist controls.
+- **Method:** Load matching vulnerability cards and framework defaults; trace a reachable path and effective parameterization, encoding or allowlist controls.
 - **Avoid misdiagnosis:** A dangerous-looking API with trusted constants is not automatically exploitable; input validation alone does not make every interpreter safe.
 - **Check the result:** Exercise a safe local regression for the unsafe boundary and a valid control; retain unknown reachability/configuration as conditional.
 
 ## Read when relevant
 
+- When a concrete decision or deliverable example would clarify this workflow: [Security worked example](../../references/examples/security.md).
 - Untrusted values reach queries, commands, rendering, URLs or parsers: [Injection and interpreter boundaries](../../references/security/injection.md).
 - An available scanner or dependency advisory check can answer the scoped question: [Scanner selection and evidence](../../references/security/scanners.md).
 

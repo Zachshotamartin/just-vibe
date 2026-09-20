@@ -13,6 +13,12 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 Change decomposition when communication dominates rather than adding more workers blindly.
 
+## Concrete contribution
+
+Connect decomposition and communication to the measured bottleneck, preserving numerical validity while comparing scaling on the same workload.
+
+For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+
 ## Verify when relevant
 
 - Measure strong or weak scaling under stated conditions.

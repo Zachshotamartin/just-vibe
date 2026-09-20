@@ -19,27 +19,35 @@ Use the complete request appended to this invocation, preserving all constraints
 
 exact team/project/environment and deployment/revision when applicable; read access to relevant configuration/logs. Verify installed CLI/API support and framework behavior during implementation. Never print environment values or infer promotion authorization from a preview request.
 
+- **Infer from evidence:** Read the linked project, team, framework, environment and deployment SHA from local config and supplied deployment evidence.
+- **Reasonable default:** Diagnose locally with existing build scripts when deployment access is missing; do not infer a production target from a preview URL.
+- **Ask only when needed:** Resolve a missing deployment/team/environment before the dependent remote operation; names and scope suffice without exposing environment values.
+
 Resolve any task-specific tools, target identity and evidence before dependent actions. No external connection is assumed.
 
 ## Scope
 
 Readiness and promotion/rollback preparation; actual promotion is a separate authorized action.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Resolve team/project, candidate deployment ID, immutable Git SHA and intended environment from observed metadata. Compare that identity with the tested commit, build output and required configuration names/scopes.
-- Check build completion, representative route/API health, asset content types, access protection and environment-specific behavior. Distinguish a protected preview from an unhealthy deployment; do not use a generic successful homepage as proof of the application journey.
-- Identify the previous known-good deployment and test the proposed recovery against schema/data and external effects. Reverting code may not restore data compatibility or undo published messages.
-- Produce a gate table tied to this candidate: criterion, evidence identity/time, pass/fail/unknown and blocking consequence. Re-read candidate identity before readiness is reported. Promotion, alias/DNS changes and rollback require their own authorized action/target.
-
+1. Resolve team/project, candidate deployment ID, immutable Git SHA and intended environment from observed metadata. Compare that identity with the tested commit, build output and required configuration names/scopes.
+2. Check build completion, representative route/API health, asset content types, access protection and environment-specific behavior. Distinguish a protected preview from an unhealthy deployment; do not use a generic successful homepage as proof of the application journey.
+3. Identify the previous known-good deployment and test the proposed recovery against schema/data and external effects. Reverting code may not restore data compatibility or undo published messages.
+4. Produce a gate table tied to this candidate: criterion, evidence identity/time, pass/fail/unknown and blocking consequence. Re-read candidate identity before readiness is reported. Promotion, alias/DNS changes and rollback require their own authorized action/target.
 ## Technical method
 
 - **Inspect:** Verify immutable candidate SHA, health evidence, environment requirements, compatible schema and previous deployment identity.
-- **Apply:** State promotion gates and a recovery sequence that accounts for data changes and in-flight work.
+- **Method:** State promotion gates and a recovery sequence that accounts for data changes and in-flight work.
 - **Avoid misdiagnosis:** Code rollback may fail once the schema or external effects have changed.
 - **Check the result:** Check the actual promoted alias/deployment after authorized action and preserve pending gates when protected or live evidence is unavailable.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [Vercel worked example](../../references/examples/vercel.md).
+
 
 ## Decision branches
 

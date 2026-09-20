@@ -19,25 +19,33 @@ Use the complete request appended to this invocation, preserving all constraints
 
 exact service/environment, time window, revision/configuration identity, authorized logs/metrics, and operational constraints. Prefer observation before intervention; live restarts, traffic changes, restores, and notifications require the requested target/action. Redact sensitive telemetry.
 
+- **Infer from evidence:** Read service/environment, time window, revision, available telemetry and existing incident or recovery procedure.
+- **Reasonable default:** Start from supplied logs and read-only observation; rank hypotheses without presenting an unexecuted intervention as recovery.
+- **Ask only when needed:** Resolve the precise target and missing authority before restart, restore, notification or traffic changes; continue evidence analysis while waiting.
+
 Declared evidence requirements: `telemetry.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Evidence-based learning and follow-up design; no blame assignment or external publication.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Reconcile times and observations, distinguish trigger from contributing conditions, document detection/recovery gaps, and define specific preventive/detective actions with measurable outcomes.
-- Reconcile timestamps and impact evidence, separate trigger from contributing conditions and tie each proposed action to a documented detection or recovery gap.
-
+1. Reconcile times and observations, distinguish trigger from contributing conditions, document detection/recovery gaps, and define specific preventive/detective actions with measurable outcomes.
+2. Reconcile timestamps and impact evidence, separate trigger from contributing conditions and tie each proposed action to a documented detection or recovery gap.
 ## Technical method
 
 - **Inspect:** Collect timestamped events, impact evidence, hypotheses, interventions and unresolved gaps.
-- **Apply:** Separate trigger, contributing conditions and detection/recovery failures; derive follow-ups from demonstrated mechanisms.
+- **Method:** Separate trigger, contributing conditions and detection/recovery failures; derive follow-ups from demonstrated mechanisms.
 - **Avoid misdiagnosis:** Invented certainty, blame or assigned owners hides uncertainty and cannot support useful prevention.
 - **Check the result:** Link each action to a causal mechanism and observable success condition, preserving unknown impact/root cause where evidence is incomplete.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [Operations worked example](../../references/examples/operations.md).
+
 
 ## Decision branches
 

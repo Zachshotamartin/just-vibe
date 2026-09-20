@@ -19,25 +19,33 @@ Use the complete request appended to this invocation, preserving all constraints
 
 component source, React/framework versions, state/data conventions, and relevant test tooling. Browser/profiler evidence is needed for measured rendering claims. Preserve existing framework and state libraries unless changing them is part of the request.
 
+- **Infer from evidence:** Read component callers, ownership of state, installed React/framework versions and existing interaction tests.
+- **Reasonable default:** Retain the framework and state library; preserve intended loading/error/empty behavior while resolving the named bug.
+- **Ask only when needed:** Ask when product semantics such as persistence, optimistic failure or reset behavior have conflicting evidence; missing profiler access only blocks measured performance claims.
+
 Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Input state, validation, submission, errors, pending/success, and recovery.
 
-Only the requested local changes; external actions require their exact action and target in session authorization.
+Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.
 
 ## Execute
 
-- Reuse form conventions, separate client convenience from server authority, preserve input after failures, prevent unintended duplicates, and verify focus/error announcements.
-- Model editing, validating, submitting, rejected and successful states; preserve entered values and map server field/global errors to usable focus and announcements.
-
+1. Reuse form conventions, separate client convenience from server authority, preserve input after failures, prevent unintended duplicates, and verify focus/error announcements.
+2. Model editing, validating, submitting, rejected and successful states; preserve entered values and map server field/global errors to usable focus and announcements.
 ## Technical method
 
 - **Inspect:** Inspect validation ownership, input types, submission identity, pending state and server error shape.
-- **Apply:** Preserve draft values on recoverable errors, map field/general errors and handle concurrent or uncertain submissions deliberately.
+- **Method:** Preserve draft values on recoverable errors, map field/general errors and handle concurrent or uncertain submissions deliberately.
 - **Avoid misdiagnosis:** A disabled button alone does not prevent retries or duplicate server effects; number parsing can turn an empty field into zero.
 - **Check the result:** Test invalid, empty, zero, double-submit, delayed response and retry cases; verify labels, error associations and focus.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [React worked example](../../references/examples/react.md).
+
 
 ## Decision branches
 

@@ -112,7 +112,7 @@ test("lab preserves starting edits, runs equal checks, selects one and records u
   r = await labs(root, "cleanup", "layout", {
     revision: r.revision,
     expected: Object.fromEntries(
-      status.variants.map((v) => [v.id, v.snapshot.content]),
+      status.variants.map((v) => [v.id, v.snapshot]),
     ),
   });
   assert.equal(r.status, "cleaned");
@@ -194,7 +194,7 @@ test("preview starts a real isolated HTTP server and stops its owned process", a
   await labs(root, "cleanup", "preview", {
     revision: r.revision,
     expected: Object.fromEntries(
-      status.variants.map((v) => [v.id, v.snapshot.content]),
+      status.variants.map((v) => [v.id, v.snapshot]),
     ),
   });
 });
@@ -289,7 +289,7 @@ test("binary selection preserves bytes and cleanup refuses ignored private chang
     labs(root, "cleanup", "binary", {
       revision: r.revision,
       expected: Object.fromEntries(
-        status.variants.map((v) => [v.id, v.snapshot.content]),
+        status.variants.map((v) => [v.id, v.snapshot]),
       ),
     }),
     /outside cleanup coverage/,

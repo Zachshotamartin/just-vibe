@@ -13,6 +13,12 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 Keep a local solution when the abstraction has no demonstrated second consumer.
 
+## Concrete contribution
+
+Deliver a maintainable bounded change with explicit invariants, integration checks and a review of nearby compatibility risks, without expanding the feature.
+
+For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+
 ## Verify when relevant
 
 - Verify end-to-end behavior and affected boundaries.

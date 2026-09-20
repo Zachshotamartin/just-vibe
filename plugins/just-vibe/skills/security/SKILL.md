@@ -19,28 +19,32 @@ Use the complete request appended to this invocation, preserving all constraints
 
 Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
+- **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
+- **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
+- **Ask only when needed:** Ask when competing targets or incompatible success conditions would change the result; continue independent inspection first.
+
 Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Concrete security risks in the specified system; no intrusive remote scanning or automatic remediation.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Identify the requested scope, assets, entry points, trust boundaries and available source/runtime evidence. Read the security methods and review selector, then the matching vulnerability and framework sections.
-- Trace each relevant attacker-controlled source through transformations and existing controls to the sensitive effect. Challenge suspected findings with legitimate controls; use available scanners according to their evidence procedure and keep unknown or skipped coverage explicit.
-
+1. Identify the requested scope, assets, entry points, trust boundaries and available source/runtime evidence. Read the security methods and review selector, then the matching vulnerability and framework sections.
+2. Trace each relevant attacker-controlled source through transformations and existing controls to the sensitive effect. Challenge suspected findings with legitimate controls; use available scanners according to their evidence procedure and keep unknown or skipped coverage explicit.
 ## Technical method
 
 - **Inspect:** Identify scoped assets, attacker-controlled entry points, deployed assumptions and existing trust controls.
-- **Apply:** Read the security review selector, relevant vulnerability cards and matching framework defaults before tracing source to sensitive effect.
+- **Method:** Read the security review selector, relevant vulnerability cards and matching framework defaults before tracing source to sensitive effect.
 - **Avoid misdiagnosis:** A suspicious API or generic checklist entry is not proof of exploitability; unseen deployment defenses remain unknown.
 - **Check the result:** For each finding establish prerequisites, reachable path, missing control and impact, plus a safe rejection/legitimate-control check where feasible.
 
 ## Read when relevant
 
+- When a concrete decision or deliverable example would clarify this workflow: [General worked example](../../references/examples/general.md).
 - Reviewing code or security boundaries: select and read the matching technical branches before concluding: [Review selection and evidence](../../references/security/review.md).
 - Performing the scoped security audit: [Security methods](../../references/packs/security.md).
 - An available scanner or dependency advisory check can answer the scoped question: [Scanner selection and evidence](../../references/security/scanners.md).

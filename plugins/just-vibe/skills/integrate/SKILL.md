@@ -19,28 +19,32 @@ Use the complete request appended to this invocation, preserving all constraints
 
 Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
+- **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
+- **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
+- **Ask only when needed:** Ask when competing targets or incompatible success conditions would change the result; continue independent inspection first.
+
 Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Client/server adapter, configuration names, errors, and tests; no account purchase or live side effects unless requested.
 
-Only the requested local changes; external actions require their exact action and target in session authorization.
+Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.
 
 ## Execute
 
-- Verify compatibility, implement a narrow boundary, protect secrets, add timeout/error behavior, and validate with a sandbox or controlled fixture.
-- Resolve provider version and request/response schemas; implement a controlled fake for success, refusal, timeout and malformed replies before live verification.
-
+1. Verify compatibility, implement a narrow boundary, protect secrets, add timeout/error behavior, and validate with a sandbox or controlled fixture.
+2. Resolve provider version and request/response schemas; implement a controlled fake for success, refusal, timeout and malformed replies before live verification.
 ## Technical method
 
 - **Inspect:** Resolve provider/library version, credentials ownership, request/response contracts and failure semantics.
-- **Apply:** Use the supported client and boundary adaptation, validate external data and reconcile uncertain mutating responses.
+- **Method:** Use the supported client and boundary adaptation, validate external data and reconcile uncertain mutating responses.
 - **Avoid misdiagnosis:** A mock success does not prove provider configuration, and retrying after timeout can duplicate a remote effect.
 - **Check the result:** Exercise a controlled successful exchange, rejected/malformed response and timeout, recording which boundaries were real.
 
 ## Read when relevant
 
+- When a concrete decision or deliverable example would clarify this workflow: [General worked example](../../references/examples/general.md).
 - Language/runtime semantics, concurrency or resource ownership can change the result: [Language and runtime review methods](../../references/scenarios/language-review.md).
 
 ## Decision branches

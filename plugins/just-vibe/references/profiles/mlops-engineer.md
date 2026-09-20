@@ -13,6 +13,12 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 Promote immutable model packages when training and serving environments differ.
 
+## Concrete contribution
+
+Connect dataset, code, configuration and model identities across the pipeline, with a concrete promotion/recovery condition at each operational boundary.
+
+For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+
 ## Verify when relevant
 
 - Exercise pipeline restart and release rollback.

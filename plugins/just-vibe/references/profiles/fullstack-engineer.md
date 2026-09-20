@@ -13,6 +13,12 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 Prefer a complete thin slice when layers are uncertain; split changes when independent rollout is required.
 
+## Concrete contribution
+
+Produce one end-to-end contract trace from user action through authorization and storage to the rendered result, identifying old/new client compatibility before changing any layer.
+
+For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+
 ## Verify when relevant
 
 - Test the end-to-end outcome and negative authorization path.

@@ -19,25 +19,33 @@ Use the complete request appended to this invocation, preserving all constraints
 
 exact team/project/environment and deployment/revision when applicable; read access to relevant configuration/logs. Verify installed CLI/API support and framework behavior during implementation. Never print environment values or infer promotion authorization from a preview request.
 
+- **Infer from evidence:** Read the linked project, team, framework, environment and deployment SHA from local config and supplied deployment evidence.
+- **Reasonable default:** Diagnose locally with existing build scripts when deployment access is missing; do not infer a production target from a preview URL.
+- **Ask only when needed:** Resolve a missing deployment/team/environment before the dependent remote operation; names and scope suffice without exposing environment values.
+
 Declared evidence requirements: `vercel.context`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Server response, cold starts, caching, payloads, and relevant client delivery behavior.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Correlate timing with runtime/cache state, separate server from network/client delays, compare like-for-like requests, and rank optimizations by evidence.
-- Separate cold start, warm handler, dependency, network and browser timing; compare matching regions, payloads and cache states.
-
+1. Correlate timing with runtime/cache state, separate server from network/client delays, compare like-for-like requests, and rank optimizations by evidence.
+2. Separate cold start, warm handler, dependency, network and browser timing; compare matching regions, payloads and cache states.
 ## Technical method
 
 - **Inspect:** Obtain equivalent revision/region/payload samples, cache status and cold/warm conditions.
-- **Apply:** Attribute latency to network, application, data access and cache; optimize the measured dominant stage.
+- **Method:** Attribute latency to network, application, data access and cache; optimize the measured dominant stage.
 - **Avoid misdiagnosis:** Comparing a cold miss before with a warm hit after does not demonstrate an improvement.
 - **Check the result:** Repeat matched conditions, retain error rates and tail latency, and verify cache changes do not mix users or stale personalized content.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [Vercel worked example](../../references/examples/vercel.md).
+
 
 ## Decision branches
 

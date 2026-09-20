@@ -19,25 +19,33 @@ Use the complete request appended to this invocation, preserving all constraints
 
 exact team/project/environment and deployment/revision when applicable; read access to relevant configuration/logs. Verify installed CLI/API support and framework behavior during implementation. Never print environment values or infer promotion authorization from a preview request.
 
+- **Infer from evidence:** Read the linked project, team, framework, environment and deployment SHA from local config and supplied deployment evidence.
+- **Reasonable default:** Diagnose locally with existing build scripts when deployment access is missing; do not infer a production target from a preview URL.
+- **Ask only when needed:** Resolve a missing deployment/team/environment before the dependent remote operation; names and scope suffice without exposing environment values.
+
 Declared evidence requirements: `vercel.context`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Redirects, rewrites, headers, domains, and framework routing interactions.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Inspect precedence and base paths, trace bounded read-only requests, compare preview/production assumptions, and identify loops or unmatched paths.
-- Build a request table with host, path, method and expected handler; trace redirects, rewrites, filesystem and framework routing in effective order.
-
+1. Inspect precedence and base paths, trace bounded read-only requests, compare preview/production assumptions, and identify loops or unmatched paths.
+2. Build a request table with host, path, method and expected handler; trace redirects, rewrites, filesystem and framework routing in effective order.
 ## Technical method
 
 - **Inspect:** Inspect framework routes, platform rewrites/redirects, domain target, base path and effective response headers.
-- **Apply:** Follow one URL through each routing layer; check precedence and loops with redirect following bounded.
+- **Method:** Follow one URL through each routing layer; check precedence and loops with redirect following bounded.
 - **Avoid misdiagnosis:** An SPA fallback returning HTML for JavaScript or API URLs can look like HTTP success while breaking clients.
 - **Check the result:** Test direct nested navigation, asset MIME types, API errors, query preservation and the intended redirect status/method behavior.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [Vercel worked example](../../references/examples/vercel.md).
+
 
 ## Decision branches
 

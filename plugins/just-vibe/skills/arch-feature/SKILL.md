@@ -19,27 +19,35 @@ Use the complete request appended to this invocation, preserving all constraints
 
 readable source, infrastructure/configuration definitions, and any supplied system documentation. Runtime telemetry is optional evidence, never assumed available. Architecture proposals remain plans until implementation is requested.
 
+- **Infer from evidence:** Trace current entry points, data owners, deployment units and documented constraints before proposing boundaries.
+- **Reasonable default:** Prefer extending an existing owner while scale or organizational evidence is absent; mark capacity estimates as assumptions.
+- **Ask only when needed:** Ask for an unresolved consistency, compatibility or ownership requirement only if it changes the design; missing telemetry limits capacity claims, not source mapping.
+
 Resolve any task-specific tools, target identity and evidence before dependent actions. No external connection is assumed.
 
 ## Scope
 
 Placement of one feature across modules, services, storage, and interfaces.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Translate acceptance criteria and quality constraints into responsibilities, data ownership and interfaces. Trace an existing normal and failure path to locate the natural owner before proposing a new component.
-- Compare extending the current module, introducing an internal boundary and deploying a separate service. Assess data consistency, latency, independent rollout and operational ownership against demonstrated requirements.
-- Specify the chosen contract, compatibility window, failure/retry behavior and observability. Define who writes each datum and who reconciles partial effects; diagrams must distinguish observed code dependencies from proposed runtime edges.
-- Plan incremental implementation with a verification and recovery condition for each phase. Identify the smallest experiment that could overturn a material assumption before committing to an expensive boundary.
-
+1. Translate acceptance criteria and quality constraints into responsibilities, data ownership and interfaces. Trace an existing normal and failure path to locate the natural owner before proposing a new component.
+2. Compare extending the current module, introducing an internal boundary and deploying a separate service. Assess data consistency, latency, independent rollout and operational ownership against demonstrated requirements.
+3. Specify the chosen contract, compatibility window, failure/retry behavior and observability. Define who writes each datum and who reconciles partial effects; diagrams must distinguish observed code dependencies from proposed runtime edges.
+4. Plan incremental implementation with a verification and recovery condition for each phase. Identify the smallest experiment that could overturn a material assumption before committing to an expensive boundary.
 ## Technical method
 
 - **Inspect:** Inspect acceptance criteria, existing data owners, extension points and deployment constraints.
-- **Apply:** Place each new behavior with the owner able to enforce its invariant; compare a module extension with a new runtime boundary using actual operational needs.
+- **Method:** Place each new behavior with the owner able to enforce its invariant; compare a module extension with a new runtime boundary using actual operational needs.
 - **Avoid misdiagnosis:** A new service adds network failure and consistency work even when its code is small.
 - **Check the result:** Walk create/read/failure paths through the proposed design and identify every consumer or schema requiring compatibility.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [Architecture worked example](../../references/examples/architecture.md).
+
 
 ## Decision branches
 

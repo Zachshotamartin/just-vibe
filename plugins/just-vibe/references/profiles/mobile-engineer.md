@@ -13,6 +13,12 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 Choose optimistic local state only when conflicts and reconciliation are defined.
 
+## Concrete contribution
+
+Map the feature across foreground, background, offline and reconnection states; identify persisted versus transient state before selecting navigation or synchronization changes.
+
+For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+
 ## Verify when relevant
 
 - Test reconnect, relaunch and interrupted operations.

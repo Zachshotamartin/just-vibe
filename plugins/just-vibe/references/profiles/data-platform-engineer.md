@@ -13,6 +13,12 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 Standardize a capability when multiple workloads share requirements and support costs.
 
+## Concrete contribution
+
+Specify the ingestion/query contract and ownership boundaries across producers and consumers; make schema evolution and isolation observable.
+
+For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+
 ## Verify when relevant
 
 - Exercise onboarding, quotas and failure diagnosis.

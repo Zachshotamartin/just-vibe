@@ -19,26 +19,34 @@ Use the complete request appended to this invocation, preserving all constraints
 
 Git, exact repository/worktree, and readable refs/index. Record branch, HEAD, staged/unstaged/untracked state before mutation. Preserve unrelated edits and never default to broad staging, hard reset, clean, force push, or history rewriting.
 
+- **Infer from evidence:** Read repository root, HEAD, branch, refs and staged/unstaged/untracked distinctions; use the configured human identity.
+- **Reasonable default:** Limit an ambiguous inspection to the current repository and report that scope; preserve all existing changes.
+- **Ask only when needed:** Before mutation, resolve uncertain commit membership, destination ref or history-rewrite intent; do not ask again about already authorized exact actions.
+
 Declared evidence requirements: `git.repo`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Separate coherent changes while preserving content; rewriting published history is a distinct action.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Snapshot current state, map hunks to behaviors, identify dependencies, propose commit ordering, and apply authorized grouping with verification.
-- Map hunks to behavior and dependencies, preserve the original patch/index, and validate each proposed intermediate tree in isolation when feasible.
-- All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
-
+1. Snapshot current state, map hunks to behaviors, identify dependencies, propose commit ordering, and apply authorized grouping with verification.
+2. Map hunks to behavior and dependencies, preserve the original patch/index, and validate each proposed intermediate tree in isolation when feasible.
+3. All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
 ## Technical method
 
 - **Inspect:** Inspect overlapping hunks, generated files, dependency order and pre-existing staged content.
-- **Apply:** Build an ordered series whose intermediate trees are coherent; regenerate derived artifacts from the matching source change.
+- **Method:** Build an ordered series whose intermediate trees are coherent; regenerate derived artifacts from the matching source change.
 - **Avoid misdiagnosis:** Splitting by filename alone can leave a commit importing an API that appears only in the next commit.
 - **Check the result:** Check each candidate tree independently where required, then verify the union matches only the intended changes and preserves unrelated work.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [Git worked example](../../references/examples/git.md).
+
 
 ## Decision branches
 

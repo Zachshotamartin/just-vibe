@@ -19,25 +19,33 @@ Use the complete request appended to this invocation, preserving all constraints
 
 data source/version, schema/semantics, transformation code, permitted sampling scope, and storage/compute budget. Prefer aggregates and redacted samples; never upload datasets to external services implicitly. Record time zones and snapshot identity for reproducibility.
 
+- **Infer from evidence:** Inspect schema, source snapshot, transformation code, grain, time zones and permitted sample scope.
+- **Reasonable default:** Use bounded synthetic or supplied samples when full data is unavailable; keep unknown values distinct from zero.
+- **Ask only when needed:** Resolve ambiguous entity/grain/time semantics before reconciliation or backfill; obtain missing data/compute limits only for the dependent scan or execution.
+
 Declared evidence requirements: `data.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Incremental updates, deduplication, deletes, and resume behavior.
 
-Only the requested local changes; external actions require their exact action and target in session authorization.
+Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.
 
 ## Execute
 
-- Define ordering and checkpoint transactions, handle overlap/late arrivals, make replay safe, and test crashes around write/checkpoint boundaries.
-- Define event versus arrival order, stable keys, deletions and overlap; persist checkpoints only after durable effects and test both sides of that boundary.
-
+1. Define ordering and checkpoint transactions, handle overlap/late arrivals, make replay safe, and test crashes around write/checkpoint boundaries.
+2. Define event versus arrival order, stable keys, deletions and overlap; persist checkpoints only after durable effects and test both sides of that boundary.
 ## Technical method
 
 - **Inspect:** Identify ordering key, watermark meaning, late arrival bound, change/delete events and deduplication identity.
-- **Apply:** Use a stable tie-breaker and explicit overlap/reconciliation window; preserve progress only after durable output.
+- **Method:** Use a stable tie-breaker and explicit overlap/reconciliation window; preserve progress only after durable output.
 - **Avoid misdiagnosis:** A maximum event timestamp alone skips equal-timestamp rows and late arrivals; updates and tombstones need semantics.
 - **Check the result:** Test tied timestamps, late corrections, deletes, duplicate deliveries and restart at a batch boundary without missing or duplicating results.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [Data engineering worked example](../../references/examples/data.md).
+
 
 ## Decision branches
 

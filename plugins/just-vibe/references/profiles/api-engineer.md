@@ -13,6 +13,12 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 Version or stage a breaking change when existing clients cannot migrate atomically.
 
+## Concrete contribution
+
+Deliver the producer/consumer contract with concrete valid and invalid examples, stable error semantics and compatibility checks for existing clients.
+
+For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+
 ## Verify when relevant
 
 - Test contracts and rejection paths.

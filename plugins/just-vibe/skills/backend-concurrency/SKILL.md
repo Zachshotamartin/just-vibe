@@ -19,30 +19,34 @@ Use the complete request appended to this invocation, preserving all constraints
 
 service source, data/interface contracts, framework/runtime versions, and test environment. Default apply operations target local code and isolated tests; live infrastructure/data mutations require their own requested scope.
 
+- **Infer from evidence:** Trace service callers, request contracts, authorization, transactions, retries and existing test infrastructure.
+- **Reasonable default:** Use the existing persistence and framework; isolate local tests from live services.
+- **Ask only when needed:** Resolve ambiguous durability, duplication or consistency requirements before encoding them; absent production access does not prevent local implementation.
+
 Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Competing updates, locks, isolation, and atomicity; apply for an explicit fix.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Write the shared invariant and the read/decide/write interleaving that violates it. Identify every worker/process and the actual shared boundary; list durable writes, external effects and cancellation points separately.
-- Choose the narrowest supported atomicity mechanism for that boundary: a conditional write, transaction, version check or shared lock. Define who starts and ends the transaction or lease; never accidentally commit or roll back a caller-owned transaction.
-- Validate before irreversible work and keep related invariant checks inside the serialization boundary when their inputs can race. Handle lock acquisition failure, deadlock/serialization conflict and cancellation with bounded retries only when replay is safe.
-- Force contention using separate real connections or workers and deterministic coordination. Exercise success, rejection, interruption after partial work and cleanup; assert final state and number of effects, not just the number of returned responses.
-
+1. Write the shared invariant and the read/decide/write interleaving that violates it. Identify every worker/process and the actual shared boundary; list durable writes, external effects and cancellation points separately.
+2. Choose the narrowest supported atomicity mechanism for that boundary: a conditional write, transaction, version check or shared lock. Define who starts and ends the transaction or lease; never accidentally commit or roll back a caller-owned transaction.
+3. Validate before irreversible work and keep related invariant checks inside the serialization boundary when their inputs can race. Handle lock acquisition failure, deadlock/serialization conflict and cancellation with bounded retries only when replay is safe.
+4. Force contention using separate real connections or workers and deterministic coordination. Exercise success, rejection, interruption after partial work and cleanup; assert final state and number of effects, not just the number of returned responses.
 ## Technical method
 
 - **Inspect:** Write the invariant and a concrete violating interleaving; inspect isolation, lock order and actual worker topology.
-- **Apply:** Choose supported conditional updates, version checks or transactions at the shared state boundary; retry whole units only when safe.
+- **Method:** Choose supported conditional updates, version checks or transactions at the shared state boundary; retry whole units only when safe.
 - **Avoid misdiagnosis:** A process mutex does not protect multiple servers, and a pre-transaction balance read can become stale.
 - **Check the result:** Coordinate separate workers/connections at the contested read and verify one valid outcome, bounded retry and rollback after injected failure.
 
 ## Read when relevant
 
+- When a concrete decision or deliverable example would clarify this workflow: [Backend worked example](../../references/examples/backend.md).
 - Language/runtime semantics, concurrency or resource ownership can change the result: [Language and runtime review methods](../../references/scenarios/language-review.md).
 
 ## Decision branches

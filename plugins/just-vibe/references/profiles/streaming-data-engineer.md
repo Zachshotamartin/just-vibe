@@ -13,6 +13,12 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 Choose deduplication and correction rules from business event semantics rather than broker slogans.
 
+## Concrete contribution
+
+Define event-time, watermark, key and replay semantics; demonstrate how late events and duplicate delivery affect the durable result.
+
+For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+
 ## Verify when relevant
 
 - Test out-of-order, duplicate and late events.

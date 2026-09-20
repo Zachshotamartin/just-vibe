@@ -19,25 +19,33 @@ Use the complete request appended to this invocation, preserving all constraints
 
 data source/version, schema/semantics, transformation code, permitted sampling scope, and storage/compute budget. Prefer aggregates and redacted samples; never upload datasets to external services implicitly. Record time zones and snapshot identity for reproducibility.
 
+- **Infer from evidence:** Inspect schema, source snapshot, transformation code, grain, time zones and permitted sample scope.
+- **Reasonable default:** Use bounded synthetic or supplied samples when full data is unavailable; keep unknown values distinct from zero.
+- **Ask only when needed:** Resolve ambiguous entity/grain/time semantics before reconciliation or backfill; obtain missing data/compute limits only for the dependent scan or execution.
+
 Declared evidence requirements: `data.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Freshness, completeness, validity, uniqueness, and cross-field consistency.
 
-None by default. Plan artifacts may be saved when requested.
+No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-- Resolve applicable rules, evaluate against the identified snapshot, separate warnings from failures, compare history where available, and identify likely upstream causes.
-- Freeze applicable thresholds before observing results, evaluate completeness/freshness/validity separately and count excluded or unreadable records.
-
+1. Resolve applicable rules, evaluate against the identified snapshot, separate warnings from failures, compare history where available, and identify likely upstream causes.
+2. Freeze applicable thresholds before observing results, evaluate completeness/freshness/validity separately and count excluded or unreadable records.
 ## Technical method
 
 - **Inspect:** Resolve completeness, freshness, validity and consistency rules with denominators and consumer impact.
-- **Apply:** Separate no data from valid zero volume; define late-arrival windows and missing-check behavior.
+- **Method:** Separate no data from valid zero volume; define late-arrival windows and missing-check behavior.
 - **Avoid misdiagnosis:** A green dashboard can reflect a query that stopped receiving rows rather than healthy data.
 - **Check the result:** Inject missing, stale and inconsistent synthetic batches and a healthy control; verify the right failure reason and recovery condition.
+
+## Read when relevant
+
+- When a concrete decision or deliverable example would clarify this workflow: [Data engineering worked example](../../references/examples/data.md).
+
 
 ## Decision branches
 
