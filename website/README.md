@@ -60,7 +60,7 @@ Use your own project/scope if deploying a fork. `SITE_URL` overrides the default
 
 The Vercel project is connected to the GitHub repository. Production deployments from the CLI do not depend on GitHub Actions minutes. A website-only deployment does not require republishing the CLI to npm.
 
-Vercel checks the commit author's connected account for deployment permission, including CLI deployments after the repository is linked. This repository uses the authenticated owner account, `Zachshotamartin`, with its GitHub-provided noreply email for new commits. The earlier `ZacharySMartin` author mapping was blocked with `TEAM_ACCESS_REQUIRED`. Existing history is preserved; no seats or collaborators were added. If the error returns, verify the repository-local Git identity and the account's Vercel team access instead of assuming that CLI deployment bypasses the check.
+Vercel checks the commit author's connected account for deployment permission, including CLI deployments after the repository is linked. This repository uses Zachary Martin's `zachsm@alumni.stanford.edu` commit email, verified on the authenticated owner account `Zachshotamartin`. GitHub, npm, and Vercel all use the Stanford account. Automatic Vercel deployment succeeded after correcting the earlier work-account author mapping. Existing history is preserved; no seats or collaborators were added. Follow the project identity rules in the root `AGENTS.md`. If `TEAM_ACCESS_REQUIRED` returns, verify the repository-local Git identity and the account's Vercel team access instead of assuming that CLI deployment bypasses the check.
 
 ## Formatting
 
