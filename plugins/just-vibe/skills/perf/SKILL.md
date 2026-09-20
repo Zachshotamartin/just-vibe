@@ -1,0 +1,44 @@
+---
+name: perf
+description: "Measure a performance problem and improve its cause"
+---
+
+# perf
+
+Measure a performance problem and improve its cause
+
+Read [shared execution](../../references/execution.md) for context/mode/authority handling and [General methods](../../references/packs/general.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
+
+## Input and mode
+
+Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply; slow operation, workload, performance objective, and measurement budget.
+
+Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
+
+Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
+
+## Scope
+
+Measured bottlenecks and focused optimization; no blanket rewrites or unbounded production load.
+
+Only the requested local changes; external actions require their exact action and target in session authorization.
+
+## Execute
+
+- Establish repeatable baseline conditions, profile the path, target the dominant cause, and compare latency/resource use and correctness after the change.
+
+## Deliver and verify
+
+- Patch, measurement method, before/after results, and tradeoffs.
+
+Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
+
+- Improvement persists under comparable workloads; optimized behavior remains correct at a relevant boundary.
+
+## Stop and recover
+
+- If measurement is unavailable, provide hypotheses without numerical claims. Stop when noise or resource limits prevent trustworthy conclusions.
+
+## Example request
+
+Measure and fix slow product filtering; preserve search results.

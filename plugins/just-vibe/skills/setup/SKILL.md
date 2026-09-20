@@ -1,18 +1,49 @@
 ---
 name: setup
-description: Install, diagnose, update, or uninstall just-vibe for Codex or Claude Code when the user requests setup or maintenance of this toolkit.
+description: "Install, diagnose, update, or remove just-vibe through native host plugin management."
 ---
 
-# just-vibe setup
+# setup
 
-Use the bundled installer at `../../scripts/installer.mjs`, resolved relative to this skill directory. It is self-contained inside the plugin; do not assume the source repository is available.
+Install, diagnose, update, or remove just-vibe through native host plugin management.
 
-Honor the user's requested host, operation, and Claude scope. Infer the host from the active application when unambiguous. Default to `doctor` for a status question, `setup` for an install request, `update` for an update request, and `uninstall` only for an explicit removal request.
+Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Installation methods](../../references/packs/installation.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
-Run `node <resolved-installer-path> <operation> --target codex` or `--target claude`. Additional context can specify Claude's `--scope user|project|local`. Use the requested project working directory for project/local scope. For a requested preview, append `--dry-run` and stop after reporting the proposed steps.
+## Input and mode
 
-The installer delegates changes to the host's plugin manager and stops on an unexpected marketplace source or conflicting Claude scope. Do not bypass these checks by editing global configuration, deleting caches, or reinstalling another marketplace. Explain the specific conflict and resolve only the scope the user authorized.
+Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply for an installation request; target host, source/local checkout, and Claude scope. A preview request uses the existing `--dry-run` behavior.
 
-Node.js 22+, Git, and the chosen host CLI with plugin support are prerequisites. Report missing prerequisites without claiming an installation succeeded. If the repository is private, the user's Git client needs access; never place tokens in commands or saved files.
+Node.js 22+, Git, and the selected host CLI with native plugin support. Use the bundled installer; preserve marketplace and scope checks.
 
-After success, explain the result and ask the user to start a new conversation to load changed skills. Uninstall retains marketplace registration and persistent plugin data. This version includes setup and help only.
+Resolve any task-specific tools, target identity and evidence before dependent actions. No external connection is assumed.
+
+## Scope
+
+Install/enable just-vibe through the selected host's plugin manager; no unrelated plugin, permission, hook, or integration changes.
+
+Selected host plugin registration only.
+
+## Execute
+
+1. Resolve scripts/installer.mjs relative to this installed plugin. Choose doctor for a status question, setup for an install request, update for a refresh request, and uninstall only for an explicit removal request.
+2. Honor the host, --local source and Claude --scope user|project|local; project/local operations use the requested project directory. Never place tokens in commands or files.
+3. For a requested preview append --dry-run and report conditional steps without claiming installed state was inspected. Preserve all native source/scope/inventory conflict checks.
+4. After success, report actual native state and explain that changed skills load in a fresh conversation. Uninstall retains marketplace registration and persistent data. Do not bypass errors with global edits or cache deletion.
+
+Task-specific method: Resolve host/scope, check prerequisites and marketplace identity, run the bundled installer, preserve conflict checks, verify result, and explain fresh-session loading requirements.
+
+## Deliver and verify
+
+- Installation outcome or precise blocker with host/source/scope and actual verification.
+
+Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
+
+- Repeated setup does not create duplicate registrations; an existing marketplace with another source stops without replacement.
+
+## Stop and recover
+
+- Dry run does not inspect host state and must not imply it did. No manual global-config edits or credentials embedded in commands.
+
+## Example request
+
+Check my just-vibe installation without changing it.

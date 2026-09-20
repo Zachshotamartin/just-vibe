@@ -1,0 +1,44 @@
+---
+name: db-migrate
+description: "Create migrations with compatibility and rollback considerations"
+---
+
+# db-migrate
+
+Create migrations with compatibility and rollback considerations
+
+Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Databases methods](../../references/packs/database.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
+
+## Input and mode
+
+Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan; schema/data change, engine/version, deployment sequence, data volume, and recovery requirements.
+
+actual engine/version, schema/migrations, query workload, and explicitly identified environment. Prefer supplied plans, metadata, and isolated fixtures. Even a SELECT can lock, call mutating functions, or overload a database; inspect semantics before execution. Executing an analyzed query is distinct from reading its plan.
+
+Declared evidence requirements: `database.context`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
+
+## Scope
+
+Migration design/files when requested; live execution needs the exact environment/action authorization.
+
+None by default. Plan artifacts may be saved when requested.
+
+## Execute
+
+- Inspect existing data and migration conventions, design expand/backfill/contract phases where needed, assess locks, define restartability, and validate on isolated data.
+
+## Deliver and verify
+
+- Migration plan or files, compatibility evidence, execution conditions, and rollback/forward-recovery limits.
+
+Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
+
+- Older app versions survive the intended overlap; interruption can resume without duplicated conversion.
+
+## Stop and recover
+
+- Never promise rollback for irreversible data loss. Missing backup/recovery evidence blocks destructive execution.
+
+## Example request
+
+Plan splitting full_name while preserving old-version compatibility and source values.

@@ -1,0 +1,44 @@
+---
+name: git-recover
+description: "Investigate reflog and history to recover lost work"
+---
+
+# git-recover
+
+Investigate reflog and history to recover lost work
+
+Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Git methods](../../references/packs/git.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
+
+## Input and mode
+
+Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; lost commit/file symptom, approximate event, and repository.
+
+Git, exact repository/worktree, and readable refs/index. Record branch, HEAD, staged/unstaged/untracked state before mutation. Preserve unrelated edits and never default to broad staging, hard reset, clean, force push, or history rewriting.
+
+Declared evidence requirements: `git.repo`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
+
+## Scope
+
+Find recoverable history and prepare non-destructive restoration; no reset by default.
+
+None by default. Plan artifacts may be saved when requested.
+
+## Execute
+
+- Inspect reflog, refs, stashes, and reachable candidates; compare candidate contents; explain confidence; create a recovery branch/copy only when restoration is requested.
+
+## Deliver and verify
+
+- Candidate recovery points and exact preservation/restoration steps or recovered artifact.
+
+Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
+
+- A lost commit can be preserved without moving the active branch; absent recovery evidence is not claimed as recoverable.
+
+## Stop and recover
+
+- Do not run garbage collection or destructive cleanup during recovery. Preserve current work before any authorized restore.
+
+## Example request
+
+Find a lost commit in reflog without resetting the current branch.

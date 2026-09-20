@@ -1,0 +1,115 @@
+{
+  "schemaVersion": 1,
+  "packs": [
+    {
+      "id": "general",
+      "name": "General",
+      "prerequisites": "Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them."
+    },
+    {
+      "id": "architecture",
+      "name": "Architecture",
+      "prerequisites": "readable source, infrastructure/configuration definitions, and any supplied system documentation. Runtime telemetry is optional evidence, never assumed available. Architecture proposals remain plans until implementation is requested."
+    },
+    {
+      "id": "decisions",
+      "name": "Decisions",
+      "prerequisites": "the decision question, constraints, alternatives or permission to identify them, and relevant project evidence. Current vendor claims and prices require current authoritative sources during execution. Scores are decision aids, not facts."
+    },
+    {
+      "id": "git",
+      "name": "Git",
+      "prerequisites": "Git, exact repository/worktree, and readable refs/index. Record branch, HEAD, staged/unstaged/untracked state before mutation. Preserve unrelated edits and never default to broad staging, hard reset, clean, force push, or history rewriting."
+    },
+    {
+      "id": "github",
+      "name": "GitHub",
+      "prerequisites": "exact owner/repository and relevant issue/PR/ref; authenticated read access through an available connector or CLI for remote evidence. External writes require the requested operation, appropriate account permissions, and rechecking target state. Local preparation remains useful without write access."
+    },
+    {
+      "id": "vercel",
+      "name": "Vercel",
+      "prerequisites": "exact team/project/environment and deployment/revision when applicable; read access to relevant configuration/logs. Verify installed CLI/API support and framework behavior during implementation. Never print environment values or infer promotion authorization from a preview request."
+    },
+    {
+      "id": "vite",
+      "name": "Vite",
+      "prerequisites": "project manifests, lockfile, Vite/framework/plugin versions, and existing build scripts. Verify current version-specific documentation when changing configuration. Apply-mode checks may generate build/cache artifacts; inspect mode uses existing evidence."
+    },
+    {
+      "id": "react",
+      "name": "React",
+      "prerequisites": "component source, React/framework versions, state/data conventions, and relevant test tooling. Browser/profiler evidence is needed for measured rendering claims. Preserve existing framework and state libraries unless changing them is part of the request."
+    },
+    {
+      "id": "ui",
+      "name": "UI and frontend",
+      "prerequisites": "target screens/flows, existing design conventions, and runnable UI or supplied references. Visual claims require actual renders; accessibility claims distinguish automated, keyboard, and assistive-technology evidence."
+    },
+    {
+      "id": "backend",
+      "name": "Backend",
+      "prerequisites": "service source, data/interface contracts, framework/runtime versions, and test environment. Default apply operations target local code and isolated tests; live infrastructure/data mutations require their own requested scope."
+    },
+    {
+      "id": "api",
+      "name": "APIs",
+      "prerequisites": "interface definitions, producer/consumer source, authentication model, versioning constraints, and isolated test endpoints. External API calls must respect environment, credentials, rate limits, and side-effect scope."
+    },
+    {
+      "id": "database",
+      "name": "Databases",
+      "prerequisites": "actual engine/version, schema/migrations, query workload, and explicitly identified environment. Prefer supplied plans, metadata, and isolated fixtures. Even a SELECT can lock, call mutating functions, or overload a database; inspect semantics before execution. Executing an analyzed query is distinct from reading its plan."
+    },
+    {
+      "id": "data",
+      "name": "Data engineering",
+      "prerequisites": "data source/version, schema/semantics, transformation code, permitted sampling scope, and storage/compute budget. Prefer aggregates and redacted samples; never upload datasets to external services implicitly. Record time zones and snapshot identity for reproducibility."
+    },
+    {
+      "id": "ml-data",
+      "name": "ML data",
+      "prerequisites": "task definition, dataset identity, field semantics, entity/time keys, and permission to inspect bounded data. Record prediction moment, label horizon, sampling, and provenance. Preserve held-out evaluation boundaries; no data upload, label alteration, or feature fitting across splits implicitly."
+    },
+    {
+      "id": "ml-experiments",
+      "name": "ML experimentation",
+      "prerequisites": "dataset/split manifests, fixed objective/metric, environment/dependencies, baseline where applicable, and explicit compute limits. Record code revision, configuration, seeds, artifact paths, and resource use. Local smoke checks do not imply authorization for paid training. Never optimize on the held-out test set."
+    },
+    {
+      "id": "ml-evaluation",
+      "name": "ML evaluation",
+      "prerequisites": "frozen model/artifact, evaluation dataset identity, labels where needed, metric definitions, and task/operating context. Report sample counts and uncertainty appropriate to dependencies; avoid repeated test-set tuning. Exploratory findings need fresh confirmation before strong generalization claims."
+    },
+    {
+      "id": "ml-deployment",
+      "name": "ML deployment",
+      "prerequisites": "versioned model and preprocessing artifacts, input/output schema, runtime/dependencies, operating targets, and authorized environment. Validate artifact trust before loading formats that can execute code. Packaging or writing monitoring configuration does not deploy a model or enable a hosted service."
+    },
+    {
+      "id": "llm",
+      "name": "LLMs and retrieval",
+      "prerequisites": "task definition, model/provider configuration, representative permitted data, versioned prompts/corpus where relevant, and explicit token/cost/latency limits for remote calls. Use current provider interfaces during implementation. Retrieved content and model-generated tool arguments remain untrusted."
+    },
+    {
+      "id": "testing",
+      "name": "Testing",
+      "prerequisites": "defined behavior, existing test conventions/runners, isolated fixtures, and relevant dependencies. Execution belongs in apply mode. Never test destructive behavior against production by default; distinguish mocked behavior from real integration evidence."
+    },
+    {
+      "id": "security",
+      "name": "Security",
+      "prerequisites": "defined application boundary, authorized code/environment, relevant trust/access rules, and evidence sources. Default to defensive inspection; active tests use owned or explicitly authorized isolated targets. Minimize sensitive evidence and never print usable credentials."
+    },
+    {
+      "id": "operations",
+      "name": "Operations",
+      "prerequisites": "exact service/environment, time window, revision/configuration identity, authorized logs/metrics, and operational constraints. Prefer observation before intervention; live restarts, traffic changes, restores, and notifications require the requested target/action. Redact sensitive telemetry."
+    },
+    {
+      "id": "installation",
+      "name": "Installation",
+      "prerequisites": "Node.js 22+, Git, and the selected host CLI with native plugin support. Use the bundled installer; preserve marketplace and scope checks."
+    }
+  ]
+}

@@ -3,6 +3,7 @@ import { spawnSync } from 'node:child_process';
 import { readFileSync, realpathSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { isDirectRun } from './lib/entrypoint.mjs';
 
 export const REPOSITORY = 'Zachshotamartin/just-vibe';
 export const MARKETPLACE = 'just-vibe';
@@ -253,6 +254,6 @@ export function main(args, dependencies = {}) {
   }
 }
 
-if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+if (isDirectRun(import.meta.url)) {
   process.exitCode = main(process.argv.slice(2));
 }

@@ -2,6 +2,8 @@ import assert from 'node:assert/strict';
 import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { loadCatalog, skillFile } from '../plugins/just-vibe/scripts/lib/catalog.mjs';
+import { generate } from './build-skills.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const read = path => JSON.parse(readFileSync(resolve(root, path), 'utf8'));
@@ -24,12 +26,23 @@ for (const path of ['.agents/plugins/marketplace.json', '.claude-plugin/marketpl
 }
 const skillRoot = resolve(root, 'plugins/just-vibe/skills');
 const skills = readdirSync(skillRoot);
-assert.deepEqual(skills.sort(), ['help', 'setup']);
+const catalog = loadCatalog();
+assert.equal(catalog.commands.length, 213);
+assert.deepEqual(skills.sort(), catalog.commands.map(c => c.id).sort());
+assert.equal(catalog.commands.filter(c => c.pack === 'general').length, 52);
+assert.equal(catalog.commands.filter(c => !['general', 'installation'].includes(c.pack)).length, 160);
 for (const name of skills) {
   const content = readFileSync(resolve(skillRoot, name, 'SKILL.md'), 'utf8');
   assert.ok(content.startsWith(`---\nname: ${name}\n`), `Invalid name in ${name}`);
   assert.match(content, /\ndescription: .+\n/);
   assert.doesNotMatch(content, /\[TODO:/);
+  for (const match of content.matchAll(/\]\(([^)]+)\)/g)) {
+    if (/^https?:/.test(match[1])) continue;
+    const target = resolve(skillRoot, name, match[1].split('#')[0]);
+    assert.ok(existsSync(target), `Broken skill reference: ${name} -> ${match[1]}`);
+  }
 }
 assert.ok(existsSync(resolve(skillRoot, 'setup', '../../scripts/installer.mjs')));
-console.log(`Validated both marketplaces, matching v${pkg.version} plugin manifests, and ${skills.length} skills.`);
+for (const c of catalog.commands) assert.ok(existsSync(skillFile(catalog, c)));
+generate({ check: true });
+console.log(`Validated both marketplaces, matching v${pkg.version} manifests, ${skills.length} skills, all references, and reproducible catalog generation.`);

@@ -4,7 +4,7 @@
 
 # Dependencies, builds, and test output
 node_modules/
-coverage/
+/coverage/
 dist/
 *.tgz
 .tmp/

@@ -2,7 +2,57 @@
 
 Tools, skills, and commands for coding agents.
 
-**v0.1 ships the installation foundation:** a dependency-free installer, native Codex and Claude Code plugin packages, and `help` and `setup` skills. The larger development and ML command catalog is not implemented yet.
+**v0.2 ships 212 workflow names plus setup** for Codex and Claude Code: focused skills for development, architecture, decisions, Git/GitHub, Vercel, Vite, React, UI, backend, APIs, databases, data, ML, LLMs, testing, security, and operations. Each has a procedure, scope, evidence requirements, verification, and stopping conditions.
+
+The active coding agent executes the workflows with its available tools. The dependency-free Node.js utilities provide catalog search, project inspection, capability discovery, and bounded run-state validation. Installing just-vibe does not connect services, grant permissions, provision compute, or make every workflow's prerequisites available.
+
+## Use the workflows
+
+In Claude Code, use a command followed by as much context as needed:
+
+```text
+/just-vibe:auto fix checkout, add regression coverage, and verify.
+Keep the existing API. No new dependencies. Do not push.
+
+/just-vibe:tools react
+/just-vibe:tools --available
+/just-vibe:help my model works offline but fails in production
+/just-vibe:teach linked lists, with a worked insertion example
+/just-vibe:teach the concepts I need to implement ml-split
+/just-vibe:teach-test linked lists; five questions, one at a time
+/just-vibe:git-split separate formatting from the checkout fix; show the grouping first
+/just-vibe:vercel-build-fix compare this preview's logs with the local build
+/just-vibe:ml-leakage prediction happens 30 days before cancellation; inspect only
+```
+
+In Codex, select the corresponding skill from the **just-vibe** plugin in the skill picker and append the same brief. `do` aliases `auto`. `tools` browses availability; `help` explains which workflow fits a scenario. Inspect, plan, and apply modes preserve the user's constraints and existing authorization. Read the [full command reference](plugins/just-vibe/references/command-reference.md).
+
+`teach` explains a standalone topic or the prerequisites behind a particular workflow. It adapts to your experience, uses worked examples, connects concepts to actual implementation where available, and offers optional practice. Teaching a tool does not execute it.
+
+`teach-test` uses the host's **native multiple-choice question dialog**, waits for your answer, explains mistakes, and adapts the next question. Request test mode to defer feedback until the end. It requires a question tool available and permitted in the current host/mode; when unavailable, it reports that limitation instead of printing inline quiz questions. [Interactive teaching behavior](plugins/just-vibe/references/teach-test.md) documents the adapters and quiz state.
+
+Release testing verified a real native quiz in Claude Code. The tested Codex CLI session restricted question tools to clarification/planning uses, so it correctly stopped without a quiz. Codex quiz adapters are included, but interactive assessment is not available in that tested mode. See the [v0.2 validation record](evals/releases/0.2.0.md) for the tested workflows and remaining environment limitations.
+
+Shared host packaging and context behavior follow the [OpenAI skill format](https://developers.openai.com/plugins/build/skills) and [Claude Code skill argument handling](https://code.claude.com/docs/en/skills#pass-arguments-to-skills). No dynamic shell interpolation is used in skill files.
+
+## Terminal utilities
+
+From this checkout:
+
+```sh
+node bin/just-vibe.mjs tools
+node bin/just-vibe.mjs tools --pack ml-evaluation --json
+node bin/just-vibe.mjs tools --available --root /path/to/project
+node bin/just-vibe.mjs show auto
+node bin/just-vibe.mjs inspect --root /path/to/project
+node bin/just-vibe.mjs discover --root /path/to/project
+node bin/just-vibe.mjs route --root /path/to/project -- "Investigate failing GitHub checks"
+node bin/just-vibe.mjs workflow fix --root /path/to/project --mode plan -- "Fix checkout; preserve the API"
+```
+
+`route` suggests candidates for the host agent; it does not execute them or call a model. `workflow` creates a JSON context record on stdout. Use `--stdin` or `--brief-file` to preserve multiline context verbatim. The CLI inventories the shipped payload; native host enablement still applies. It never treats a CLI on PATH as proof of authenticated access.
+
+External capabilities stay unknown until the host observes relevant access or supplied evidence. Explicit capability reports expire after 15 minutes and are bound to a project. The [runtime interface](plugins/just-vibe/references/runtime.md) documents their format and `session create/start/record/finish/resume`. These utilities validate bookkeeping; they do not sandbox host tools or independently prove the agent's evidence.
 
 ## Quick install
 
@@ -77,7 +127,7 @@ Use `--scope local` for a project-only installation that is not shared. Pass the
 
 ## Native install without Node.js
 
-The included skills and plugin manifests can be installed directly. Node.js is still required to run the bundled setup/diagnostic utility.
+The included skills and plugin manifests can be installed directly. Node.js 22+ is still required for the bundled installer, discovery, run-state, and quiz utilities.
 
 ```sh
 # Codex
@@ -106,14 +156,23 @@ node bin/just-vibe.mjs setup --local
 
 Switching between local and GitHub sources is deliberate: uninstall from the old source, remove its marketplace with the host CLI, then run setup for the new source. The installer will not silently replace one with the other.
 
-### Tests
+### Tests and generation
 
 ```sh
 npm run check
 npm run test:hosts
+npm run test:hosts -- --github
+npm run eval:runtime
+npm run build:skills
 ```
 
-The default checks validate manifests and packaging and test installer behavior without accessing your host configuration. `test:hosts` is an opt-in native lifecycle test requiring both host CLIs. It runs install, repeat install, doctor, update, uninstall, and reinstall inside temporary `CODEX_HOME` and `CLAUDE_CONFIG_DIR` directories. No model calls or paid inference are needed.
+The default checks validate catalogs, generated skills, references, manifests and packaging; test installer/discovery/run behavior; and exercise context preservation across all command names and both host mappings. They do not access your host configuration or make model calls. `test:hosts` is an opt-in native lifecycle test requiring both host CLIs. It runs install, repeat install, doctor, update, uninstall, and reinstall inside temporary `CODEX_HOME` and `CLAUDE_CONFIG_DIR` directories.
+
+The default host test installs this checkout. `--github` installs the published private repository and requires Git access; use it after pushing a release. Both variants execute the cached plugin runtime and check every skill is present, independently of the source checkout.
+
+Edit `plugins/just-vibe/catalog/commands.json` for command contracts and runtime procedures, `catalog/packs.json` for pack requirements, and `references/packs/` for operational guidance. Run `npm run build:skills` to regenerate skills, the command reference, and evaluation scenarios. `npm run validate` rejects drift. Neither generation nor the installed runtime depends on the ignored local plan.
+
+Every workflow has a realistic scenario and behavior rubric in [evals/scenarios.json](evals/scenarios.json). These are not claims that all 212 workflows have been run against live services or evaluated across models. See [evaluation guidance and isolated fixtures](evals/README.md) for behavioral assessment. External integration, model quality, browser and deployment checks require the relevant task environment.
 
 ### Repository layout
 
@@ -121,10 +180,15 @@ The default checks validate manifests and packaging and test installer behavior 
 |---|---|
 | `bin/just-vibe.mjs` | npm-executable entry point |
 | `plugins/just-vibe/scripts/installer.mjs` | Self-contained installer, also shipped inside the plugin |
-| `plugins/just-vibe/skills/` | Currently implemented setup and help skills |
+| `plugins/just-vibe/scripts/toolkit.mjs` | Search, inspection, discovery, routing candidates, run records, and quiz CLI |
+| `plugins/just-vibe/scripts/lib/` | Catalog, capability, project, run-state, and native quiz adapter modules |
+| `plugins/just-vibe/catalog/` | Canonical command contracts, examples, prerequisites and pack metadata |
+| `plugins/just-vibe/skills/` | 213 installed skill entry points, including the `do` alias and setup |
+| `plugins/just-vibe/references/` | Shared execution rules, runtime interface, domain guidance and command index |
 | `.agents/plugins/marketplace.json` | Codex marketplace |
 | `.claude-plugin/marketplace.json` | Claude Code marketplace |
 | `scripts/` and `tests/` | Validation and lifecycle tests |
+| `evals/` | Behavior scenarios and isolated project/data fixtures |
 
 The installer has no runtime npm dependencies, no lifecycle install scripts, and adds no hooks, MCP servers, rules, or permissions. It uses argument arrays rather than shell interpolation. Host CLIs own installation state and caches. Local planning and naming documents are excluded from both Git and the npm archive.
 

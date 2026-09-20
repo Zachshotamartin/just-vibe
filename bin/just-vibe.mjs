@@ -1,3 +1,3 @@
 #!/usr/bin/env node
-import { main } from '../plugins/just-vibe/scripts/installer.mjs';
-process.exitCode = main(process.argv.slice(2));
+import { main } from '../plugins/just-vibe/scripts/toolkit.mjs';
+process.exitCode = await main(process.argv.slice(2));

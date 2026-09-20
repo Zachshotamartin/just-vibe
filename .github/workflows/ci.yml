@@ -1,4 +1,4 @@
-name: Installer checks
+name: Toolkit checks
 
 on:
   push:

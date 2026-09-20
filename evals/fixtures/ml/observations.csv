@@ -1,0 +1,5 @@
+row_id,machine,line,window_start,window_end,prediction_time,repair_done_time,failure_within_24h,split
+1,m1,line-a,2026-01-01T00:00:00Z,2026-01-01T01:00:00Z,2026-01-01T01:00:00Z,2026-01-02T10:00:00Z,1,train
+2,m1,line-a,2026-01-01T00:30:00Z,2026-01-01T01:30:00Z,2026-01-01T01:30:00Z,2026-01-02T10:00:00Z,1,test
+3,m2,line-a,2026-01-01T00:00:00Z,2026-01-01T01:00:00Z,2026-01-01T01:00:00Z,,,validation
+4,m3,line-b,2026-01-05T00:00:00Z,2026-01-05T01:00:00Z,2026-01-05T01:00:00Z,,0,test

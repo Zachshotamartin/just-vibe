@@ -1,19 +1,48 @@
 ---
 name: help
-description: Explain the installed just-vibe toolkit, available skills, and installation commands when the user asks for just-vibe help or usage.
+description: "Find the right command and show examples"
 ---
 
-# just-vibe help
+# help
 
-This initial release provides two skills: `help` and `setup`. The larger development and ML command catalog is planned, not implemented. Do not present planned commands as callable.
+Find the right command and show examples
 
-Accept the user's question or additional context after invocation. Explain only the relevant capability and next step.
+Read [shared execution](../../references/execution.md) for context/mode/authority handling and [General methods](../../references/packs/general.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
-- `help`: list currently available capabilities or explain usage.
-- `setup`: install, diagnose, update, or uninstall this plugin using its bundled native-host installer.
+## Input and mode
 
-In Claude Code, invoke `/just-vibe:help` or `/just-vibe:setup`, followed by context. In Codex, select the skill from the just-vibe plugin in the skill picker; do not assume Claude slash syntax works in Codex.
+Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; optional command name, scenario, or question. Requires the shipped catalog and actual implementation status.
 
-The terminal installer is `npx github:Zachshotamartin/just-vibe <command> --target codex` (or `--target claude`). Commands are `setup`, `doctor`, `update`, and `uninstall`; append `--dry-run` to preview without running host commands. Node.js 22+, Git, and the chosen host CLI are required. Private repository access must already be configured.
+Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
-For diagnostics or installation work, use the adjacent `setup` skill if available. Never invent an install status; inspect the selected host when needed.
+Resolve any task-specific tools, target identity and evidence before dependent actions. No external connection is assumed.
+
+## Scope
+
+Explain usage and recommend workflows; inventory browsing belongs to `tools`.
+
+None by default. Plan artifacts may be saved when requested.
+
+## Execute
+
+1. Use toolkit tools with the supplied scenario and the actual target host. Read only the matching command contracts with toolkit show; do not load all skills.
+2. Explain the best matching available workflow and give a prefilled invocation preserving the user constraints. If a candidate is unknown or blocked, name the precise missing task evidence or integration.
+3. If the user asks installation questions, use the installed setup skill or the bundled installer help. A help question is not permission to execute the recommended workflow.
+
+Task-specific method: Match intent, identify the best available workflow, explain required context and prerequisites, and provide a prefilled host-appropriate invocation.
+
+## Deliver and verify
+
+- Relevant usage instructions with availability and examples.
+
+Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
+
+- A scenario finds the correct specialist command; a planned command is clearly identified as unavailable.
+
+## Stop and recover
+
+- Do not execute the recommended workflow merely because help was requested. Fall back to installed capabilities when discovery is incomplete.
+
+## Example request
+
+Which command investigates good offline ML scores but poor production results?
