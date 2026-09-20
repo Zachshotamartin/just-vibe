@@ -1,0 +1,20 @@
+{
+  "name": "just-vibe",
+  "version": "0.1.0",
+  "description": "Tools, skills, and commands for coding agents. Initial release: setup and help.",
+  "author": {
+    "name": "Zachary Martin",
+    "url": "https://github.com/Zachshotamartin"
+  },
+  "repository": "https://github.com/Zachshotamartin/just-vibe",
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "just-vibe",
+    "shortDescription": "Set up your coding-agent toolkit.",
+    "longDescription": "Install and maintain just-vibe through native Codex or Claude Code plugin management. This initial release includes setup and help; specialist workflows are under development.",
+    "developerName": "Zachary Martin",
+    "category": "Productivity",
+    "capabilities": [],
+    "defaultPrompt": ["Help me set up just-vibe.", "Show me the available just-vibe skills."]
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "just-vibe",
+  "interface": { "displayName": "just-vibe" },
+  "plugins": [
+    {
+      "name": "just-vibe",
+      "source": { "source": "local", "path": "./plugins/just-vibe" },
+      "policy": { "installation": "AVAILABLE", "authentication": "ON_INSTALL" },
+      "category": "Productivity"
+    }
+  ]
+}

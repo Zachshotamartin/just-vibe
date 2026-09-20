@@ -1,0 +1,19 @@
+{
+  "name": "just-vibe",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Tools, skills, and commands for coding agents.",
+  "type": "module",
+  "bin": { "just-vibe": "bin/just-vibe.mjs" },
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "test": "node --test tests/installer.test.mjs tests/package.test.mjs",
+    "test:hosts": "node scripts/smoke-hosts.mjs",
+    "validate": "node scripts/validate.mjs",
+    "check": "npm run validate && npm test",
+    "setup": "node bin/just-vibe.mjs setup"
+  },
+  "files": ["bin/", "plugins/", ".agents/plugins/marketplace.json", ".claude-plugin/marketplace.json", "README.md"],
+  "repository": { "type": "git", "url": "git+https://github.com/Zachshotamartin/just-vibe.git" },
+  "author": "Zachary Martin"
+}

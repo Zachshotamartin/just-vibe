@@ -1,0 +1,7 @@
+{
+  "name": "just-vibe",
+  "version": "0.1.0",
+  "description": "Tools, skills, and commands for coding agents. Initial release: setup and help.",
+  "author": { "name": "Zachary Martin", "url": "https://github.com/Zachshotamartin" },
+  "repository": "https://github.com/Zachshotamartin/just-vibe"
+}

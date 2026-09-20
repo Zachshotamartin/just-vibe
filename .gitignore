@@ -1,0 +1,18 @@
+# Local planning and naming research
+/PLAN.md
+/NAMING.md
+
+# Dependencies, builds, and test output
+node_modules/
+coverage/
+dist/
+*.tgz
+.tmp/
+
+# Local configuration and credentials
+.env
+.env.*
+!.env.example
+*.local
+.DS_Store
+npm-debug.log*
