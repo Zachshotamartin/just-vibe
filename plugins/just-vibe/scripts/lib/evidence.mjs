@@ -1,4 +1,4 @@
-import { readFileSync, readdirSync, lstatSync } from 'node:fs';
+import { readFileSync, readdirSync, lstatSync, mkdirSync } from 'node:fs';
 import { join, relative } from 'node:path';
 import { createRequire } from 'node:module';
 import { pathToFileURL } from 'node:url';
@@ -80,7 +80,7 @@ export function migrationEvidence({ root, directory, applied }) {
     limitation: 'Static SQL review signals and supplied history only. Does not connect to a database, parse every SQL dialect, establish lock duration or prove safe execution. ORM-generated migrations must first be rendered to SQL.' });
 }
 
-export async function browserEvidence({ root, url, steps }, launch) {
+export async function browserEvidence({ root, url, steps, artifactDirectory }, launch) {
   const target = new URL(url);
   if (!['http:', 'https:'].includes(target.protocol) || target.username || target.password || target.search || target.hash) throw Error('Use an HTTP(S) URL without credentials, query parameters or fragment.');
   const plan = steps ? readJson(within(root, steps)) : { steps: [{ action: 'title' }] };
@@ -100,8 +100,10 @@ export async function browserEvidence({ root, url, steps }, launch) {
     if (!chromium?.launch) throw Error('The installed Playwright package does not expose Chromium.');
     launch = () => chromium.launch({ headless: true, timeout: 15000 });
   }
+  if (artifactDirectory && !/^\.just-vibe\/proofs\/[a-z0-9-]+\/artifacts\/[a-f0-9-]+$/.test(artifactDirectory)) throw Error('Browser artifacts require an owned proof artifact directory.');
+  if (artifactDirectory) mkdirSync(within(root, artifactDirectory), { recursive: true });
   const browser = await launch();
-  const results = [], issues = [];
+  const results = [], issues = [], artifacts = [];
   try {
     const context = await browser.newContext();
     const page = await context.newPage(); page.setDefaultTimeout(5000);
@@ -119,11 +121,12 @@ export async function browserEvidence({ root, url, steps }, launch) {
         else if (step.action === 'text') { await locator.waitFor({ state: 'visible' }); if (!(await locator.innerText()).includes(step.value)) throw Error('Expected text was not present.'); }
         else if (step.action === 'url' && page.url() !== new URL(step.value, url).href) throw Error('URL assertion did not match.');
         else if (step.action === 'title') { const title = await page.title(); if (step.value !== undefined && title !== step.value) throw Error('Title assertion did not match.'); }
+        if (artifactDirectory && artifacts.length < 10) { const path = `${artifactDirectory}/step-${index}.png`; await page.screenshot({ path: within(root, path), fullPage: false, timeout: 5000 }); artifacts.push(path); }
         results.push({ index, action: step.action, pass: true });
       } catch (error) { results.push({ index, action: step.action, pass: false, error: redact(error.message).slice(0, 1000) }); break; }
     }
     const status = response?.status() ?? null;
-    return observed('browser', { url }, { status, steps: results, pageErrors: issues.slice(0, 20), result: results.length === plan.steps.length && results.every(s => s.pass) && status !== null && status < 400 && !issues.length ? 'passed' : 'failed', limitation: 'Fresh headless Chromium session and only the listed interactions. No automatic login, full accessibility audit, visual approval or other-browser coverage.' });
+    return observed('browser', { url }, { status, steps: results, pageErrors: issues.slice(0, 20), artifacts, result: results.length === plan.steps.length && results.every(s => s.pass) && status !== null && status < 400 && !issues.length ? 'passed' : 'failed', limitation: 'Fresh headless Chromium session and only the listed interactions. Optional screenshots capture visible content, at most ten frames. No automatic login, full accessibility audit, visual approval or other-browser coverage.' });
   } finally { await browser.close(); }
 }
 

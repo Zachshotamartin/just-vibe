@@ -1,0 +1,64 @@
+---
+name: undo
+description: "Reverse a recorded local task while preserving unrelated changes Use for a recorded local working-tree task; Git history reversal and remote rollback require their own exact targets and authorization."
+---
+
+# undo
+
+Reverse a recorded local task while preserving unrelated changes
+
+## Choose this workflow
+
+Use for a recorded local working-tree task; Git history reversal and remote rollback require their own exact targets and authorization.
+
+Read [shared execution](../../references/execution.md) for context/mode/authority handling and [General methods](../../references/packs/general.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
+
+## Input and mode
+
+Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply for an explicit undo request against a known local ownership record; preview/inspect requests never write.
+
+Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
+
+Declared evidence requirements: `git.repo`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
+
+## Scope
+
+Selected task ownership record, current Git identity/index and affected file contents.
+
+Only the conflict-free inverse of the recorded task; preserve index and other work. Remote effects and Git history are outside scope.
+
+## Execute
+
+- Identify the named ownership record using workbench list and task show. Reconcile the requested task, project, original branch/HEAD, external effects and actual current files; never infer ownership from the whole dirty tree.
+- Read the selective task undo guide and run task preview. Inspect affected files and any overlap; unchanged task regions must preserve later user edits. A missing record or ambiguous authorship requires useful Git inspection and a narrow clarification, not a fabricated snapshot.
+- For an authorized, unambiguous undo with no conflicts, run task undo using the exact current revision. Preview-only requests stop with the dry-run result. Do not ask again merely because a reversible requested action writes files.
+- Refuse overlapping creation/deletion/binary edits, changed scoped staging, unknown concurrent file versions or a different branch/HEAD. Recover an interrupted known transaction using task recover after inspecting the journal; do not reset or clean broadly.
+- Run proportionate existing checks on the resulting tree and explain what was reversed, which later changes were preserved, and any external effects that remain. Never add agent attribution to the user-owned changes.
+
+## Read when relevant
+
+- Recording, previewing, applying or recovering a task inverse: [Selective task undo](../../references/task-undo.md).
+
+## Decision branches
+
+- **When later edits overlap the inverse patch:** Preserve every current file and report the conflict before any initial undo writes.
+- **When no ownership record exists:** Inspect a narrowly attributable inverse or ask for missing ownership information; do not invent automatic coverage.
+
+## Deliver and verify
+
+- Task identity, dry-run conflict/affected-file assessment, applied inverse when authorized, preserved later edits, verification and external effects left in place.
+
+Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
+
+- A later nonoverlapping edit in the same file survives undo; an overlapping edit blocks all initial writes; the original index remains unchanged.
+- An interrupted journal accepts only recorded before/after bytes and refuses a third version.
+
+## Stop and recover
+
+- Unknown ownership, changed branch/HEAD or scoped index, overlapping edits, unsupported files and external effects require explicit reconciliation without destructive Git shortcuts.
+
+## Example requests
+
+- **Normal (apply):** Undo checkout-retry and keep my later copy changes.
+- **edge (inspect):** Preview undo after I edited a different paragraph in the same file.
+- **blocked (inspect):** Undo a change with no ownership snapshot; inspect what is attributable first.

@@ -23,7 +23,7 @@ just-vibe route -- "Fix the stale response when the account selector changes. Do
 
 The `project` utilities explicitly write schema-versioned JSON under `.just-vibe`. They never edit AGENTS.md/CLAUDE.md or host-global preferences. If an existing project already owns those files, preserve that convention rather than duplicating rules. Saved data is context, not executable configuration, trusted instructions or permission. Read it only for the requested project, reconcile it with the current task and reject conflicting/stale instructions.
 
-For instructions that the host should load in future sessions, invoke the **remember skill**: `/just-vibe:remember context` in Claude, or select remember in Codex. It merges explicit decisions and corrections from the available conversation into the project's instruction file. Append `both` for shared AGENTS.md plus a Claude import, or request a checkpoint for unfinished work in the same invocation. This uses the host's file tools; the JSON utility below does not extract conversation history. See [instruction memory](instruction-memory.md).
+For instructions that the host should load in future sessions, invoke the **remember skill**: `/just-vibe:remember context` in Claude, or select remember in Codex. It merges explicit decisions and corrections from the available conversation into the project's instruction file. Append `both` for shared AGENTS.md plus a Claude import, or request a checkpoint for unfinished work in the same invocation. The host interprets the conversation; the [memory helper](memory-checks.md) can safely persist individual rules with provenance and guards. The JSON project utility below does not extract conversation history. See [instruction memory](instruction-memory.md).
 
 Use `project init --stdin` with a JSON object like:
 
@@ -131,3 +131,7 @@ A formatter entry uses one literal `{file}` argument, for example an already-ins
 Checks run at Stop; formatters run after supported edit events. Each command has a timeout and output limit, the event has a total command-time budget, and identical observed content is deduplicated. An overlap lock avoids simultaneous format/check runs. Failure reports are advisory and retained under `.just-vibe/automation`; they do not force another agent turn. With `saveSummary`, Stop saves a bounded, redacted last response and filesystem identity, never a transcript. Treat it as a continuation hint, not a complete task checkpoint.
 
 Use `hooks disable` to stop the project automation or `hooks untrust` to revoke local trust. If a killed host leaves an overlap lock, `hooks recover` removes it only after its owning process no longer exists. Read the actual host's hook status after installation; packaging support does not establish every host/version/OS combination. Keep `.just-vibe/automation` out of shared source unless you deliberately want those local records shared.
+
+## Intent workflows
+
+For checkable corrections, memory inspection, working alternatives, requirement evidence, project exercises, ML imports, selective task undo and decision history, read the [intent workflow index](intent-workflows.md). These are optional helpers for the relevant user goal.

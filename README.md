@@ -2,11 +2,28 @@
 
 Tools, skills, and commands for coding agents.
 
-**v0.7 ships 112 engineering profiles and 215 skill names backed by 212 canonical workflows** for Codex and Claude Code: focused skills for development, architecture, decisions, Git/GitHub, Vercel, Vite, React, UI, backend, APIs, databases, data, ML, LLMs, testing, security, and operations. Each canonical workflow has selection guidance, scope, concrete decision branches, evidence requirements, outputs, verification, recovery conditions and three example requests. Applied methods live in 22 pack guides.
+**v0.8 source contains 112 engineering profiles and 216 skill names backed by 213 canonical workflows** for Codex and Claude Code: focused skills for development, architecture, decisions, Git/GitHub, Vercel, Vite, React, UI, backend, APIs, databases, data, ML, LLMs, testing, security, and operations. Each canonical workflow has selection guidance, scope, concrete decision branches, evidence requirements, outputs, verification, recovery conditions and three example requests. Applied methods live in 22 pack guides.
 
 The active coding agent executes the workflows with its available tools. The dependency-free Node.js utilities provide catalog search, project inspection, capability discovery, and bounded run-state validation. Installing just-vibe does not connect services, grant permissions, provision compute, or make every workflow's prerequisites available.
 
 v0.7 adds a quick path for simple work, a small starter catalog, contextual routing with reasons, project preferences and checkpoints, explicit evidence collectors, and optional project hooks. Detailed auth, component, training and delivery scenarios load only when relevant. See [daily workflows](plugins/just-vibe/references/daily-workflows.md) for configuration and examples, and the [v0.7 validation record](evals/releases/0.7.0.md) for tested scope and limits.
+
+
+## Intent, evidence and reversible work
+
+The v0.8 source adds working runtime helpers behind natural-language skill requests:
+
+- Remember an explicit correction, inspect instruction provenance/loading, and test a rule with compliant/violating controls.
+- Build two or three alternatives in owned worktrees, run equal checks, preview them, and apply the selected result with an undo record.
+- Tie requirements to actual checks, screenshots and attributed human review in a local HTML report with freshness checks.
+- Learn from isolated exercises in the actual project, with validated controls, progressive hints and real submissions.
+- Import MLflow, W&B or JSON exports; compare binary/regression metrics, slices, identity, feature parity and temporal coverage.
+- Reverse a recorded local task while preserving nonoverlapping later edits; retain decision history with observable reconsideration triggers.
+
+See the [workflow guide](plugins/just-vibe/references/intent-workflows.md) for examples, boundaries and recovery. Users provide ordinary briefs; the agent prepares the helper inputs. These features support judgment rather than claiming an objective quality score.
+
+**Publication status:** v0.8 is source work until separately published; the previously published npm release is v0.7.0. Registry installs do not gain these features until the new release is published.
+
 
 ## Use the workflows
 
@@ -253,7 +270,7 @@ The [v0.6 results](evals/releases/0.6.0.md) record 32 controlled implementation 
 | `plugins/just-vibe/scripts/toolkit.mjs` | Search, inspection, discovery, routing candidates, run records, and quiz CLI |
 | `plugins/just-vibe/scripts/lib/` | Catalog, capability, project, run-state, and native quiz adapter modules |
 | `plugins/just-vibe/catalog/` | Canonical command contracts, 112 role profiles, examples, prerequisites and pack metadata |
-| `plugins/just-vibe/skills/` | 215 installed names, including three canonical aliases and setup |
+| `plugins/just-vibe/skills/` | 216 installed names, including three canonical aliases and setup |
 | `plugins/just-vibe/references/` | Shared execution rules, runtime interface, domain guidance and command index |
 | `.agents/plugins/marketplace.json` | Codex marketplace |
 | `.claude-plugin/marketplace.json` | Claude Code marketplace |

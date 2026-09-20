@@ -25,12 +25,19 @@ Declared evidence requirements: `ml.artifacts`. Use actual host discovery or ade
 
 Compare existing experiments and their compatibility; no automatic reruns.
 
-None by default. Plan artifacts may be saved when requested.
+None by default. Plan artifacts may be saved when requested. Explicit run-import requests permit bounded local experiment records; no training or provider action is implied.
 
 ## Execute
 
 - Reconcile data/split/code/config identities, normalize metric definitions, inspect failed/missing runs, compare quality and resources, and separate incompatible cohorts.
 - Reconcile dataset/split/code/config identities, metric denominator and selection history; include failed/pruned runs in total resource accounting.
+- For supplied binary/regression run exports, follow the experiments guide to import actual provider metadata and aligned prediction rows with dataset/split, code/model identity, preprocessing, seed and feature maps. Keep provider-reported metrics separate from recomputed metrics; do not log into a provider or train merely to import.
+- Compare only fresh compatible task/dataset/split and row/target/slice identities. Suppress deltas when incompatible or stale. Explain overall and per-slice changes together, small denominators, missing dimensions, threshold changes, feature parity mismatches and temporal check coverage.
+- Investigate an aggregate gain with a subgroup regression before making a recommendation. Supplied metadata is attributed evidence, matching feature maps do not execute preprocessing, and observed differences do not establish cause. Reconcile unexported/missing predictions and use project tooling for uncertainty, unsupported tasks or larger data.
+
+## Read when relevant
+
+- Comparing supplied MLflow, W&B or JSON runs with row-level predictions: [Recorded experiment comparisons](../../references/experiments.md).
 
 ## Decision branches
 

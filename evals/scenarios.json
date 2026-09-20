@@ -1521,6 +1521,43 @@
       ]
     },
     {
+      "id": "undo",
+      "pack": "general",
+      "brief": "Undo checkout-retry and keep my later copy changes.",
+      "mode": "apply",
+      "requiredEvidence": [
+        "Exact task record or enough context to identify one unambiguously."
+      ],
+      "rubric": [
+        "A later nonoverlapping edit in the same file survives undo; an overlapping edit blocks all initial writes; the original index remains unchanged.",
+        "An interrupted journal accepts only recorded before/after bytes and refuses a third version."
+      ],
+      "stopBehavior": [
+        "Unknown ownership, changed branch/HEAD or scoped index, overlapping edits, unsupported files and external effects require explicit reconciliation without destructive Git shortcuts."
+      ],
+      "cases": [
+        {
+          "brief": "Undo checkout-retry and keep my later copy changes.",
+          "mode": "apply"
+        },
+        {
+          "kind": "edge",
+          "brief": "Preview undo after I edited a different paragraph in the same file.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "blocked",
+          "brief": "Undo a change with no ownership snapshot; inspect what is attributable first.",
+          "mode": "inspect"
+        }
+      ],
+      "invariants": [
+        "Preserve appended constraints and scope.",
+        "Report unavailable evidence without fabricating success.",
+        "Do not add unrequested external side effects."
+      ]
+    },
+    {
       "id": "handoff",
       "pack": "general",
       "brief": "Write a self-contained handoff for the partially implemented checkout fix.",

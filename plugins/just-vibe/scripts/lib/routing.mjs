@@ -5,6 +5,11 @@ import { readPreferences } from './continuity.mjs';
 
 const starter = ['auto', 'fix', 'explain', 'plan', 'review', 'test', 'teach', 'tools', 'profile', 'checkpoint', 'resume', 'help'];
 const intents = [
+  { test: /\b(?:undo|reverse)\b.*\b(?:task|recorded|later|changes)\b/i, ids: ['undo'], reason: 'Selective local task reversal' },
+  { test: /\b(?:build|implement|try)\b.*\b(?:alternatives|variants|two versions|three versions)\b/i, ids: ['compare'], reason: 'Working alternatives with common requirements' },
+  { test: /\b(?:exercise|practice)\b.*\b(?:project|repo|code)\b/i, ids: ['teach'], reason: 'Hands-on project learning' },
+  { test: /\b(?:mlflow|wandb|w&b)\b.*\b(?:compare|export|runs?|metrics)\b|\bcompare\b.*\b(?:mlflow|wandb)\b/i, ids: ['ml-evaluate'], reason: 'Recorded ML experiment comparison' },
+  { test: /\b(?:evidence report|acceptance report|requirement-linked)\b/i, ids: ['verify'], reason: 'Requirement-linked verification evidence' },
   { test: /\b(?:claude|agents)\.md\b|\b(?:save|remember|persist|preserve)\b.*\b(?:conversation|project instructions|context|decisions|corrections)\b/i, ids: ['remember'], reason: 'Durable project instructions from conversation context' },
   { test: /\b(?:ci|checks?|actions|pipeline)\b.*\b(?:fail|broken|red)|\b(?:fail|broken|red)\w*\b.*\b(?:ci|checks?|actions|pipeline)\b/i, ids: ['github-fix-ci', 'github-actions'], reason: 'Failing CI/checks' },
   { test: /\b(?:refresh|oauth|login|logout|session|password reset|authentication)\b/i, ids: ['backend-auth'], reason: 'Identity or session lifecycle' },

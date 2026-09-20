@@ -12,6 +12,7 @@ import { routeContext, starterIds } from './lib/routing.mjs';
 import { continuity } from './lib/continuity.mjs';
 import { collectEvidence } from './lib/evidence.mjs';
 import { manageHooks } from './lib/automation.mjs';
+import { INTENT_OPERATIONS, validateIntentArgs, intentRuntime } from './lib/intent-runtime.mjs';
 
 export const HELP = `${INSTALLER_HELP}
 Workflow utilities:
@@ -34,6 +35,17 @@ Workflow utilities:
   evidence <collector>  github, vercel, browser, migrations
   hooks <operation>     status, configure, trust, untrust, disable, recover
                         Inactive until configured and explicitly trusted
+  memory <op> [name]    save, retire, recover, inspect: instruction provenance
+  guard <op> <name>     create, check, show: validated correction checks
+  task <op> <name>      begin, capture, preview, undo, recover, show
+  lab <op> <name>       create, check, preview, stop, select, recover, cleanup, show, report
+  proof <op> <name>     create, run, collect, attach, show, report
+  practice <op> <name>  create, validate, submit, hint, cleanup, show
+  experiment <op> <id>  import, compare, show: local ML exports and predictions
+  decision <op> <name>  save, revisit, show: assumptions and evidence
+  workbench list       List all saved work; recover removes a dead owner's lock
+                        Writes/check execution use --stdin JSON with revision.
+                        Read references/intent-workflows.md for schemas.
 
 Options:
   --root <directory>    Project to inspect (default: current directory)
@@ -62,7 +74,7 @@ the active Codex/Claude agent. This CLI does not launch a model or execute
 candidate workflows. Use show to inspect a workflow and invoke it in your host.
 `;
 
-const operations = new Set(['tools', 'show', 'profiles', 'profile', 'inspect', 'discover', 'route', 'workflow', 'session', 'quiz', 'project', 'evidence', 'hooks']);
+const operations = new Set(['tools', 'show', 'profiles', 'profile', 'inspect', 'discover', 'route', 'workflow', 'session', 'quiz', 'project', 'evidence', 'hooks', ...Object.keys(INTENT_OPERATIONS)]);
 const booleans = new Set(['--json', '--available', '--all', '--stdin']);
 const values = new Set(['--root', '--target', '--pack', '--capabilities', '--mode', '--scope', '--profile', '--brief-file', '--limit', '--repo', '--pr', '--deployment', '--team', '--url', '--steps', '--directory', '--applied']);
 
@@ -98,6 +110,7 @@ export function parseToolkitArgs(args) {
     workflow: ['json', 'root', 'target', 'mode', 'scope', 'profile', 'stdin', 'brief-file'], session: ['json', 'target', 'stdin'], quiz: ['json', 'stdin'],
     project: ['json', 'root', 'stdin'], hooks: ['json', 'root', 'stdin'],
     evidence: ['json', 'root', 'repo', 'pr', 'deployment', 'team', 'url', 'steps', 'directory', 'applied'],
+    ...Object.fromEntries(Object.keys(INTENT_OPERATIONS).map(op => [op, ['json', 'root', 'stdin']])),
   };
   for (const flag of seen) if (!allowed[operation].includes(flag.slice(2))) throw new Error(`${flag} does not apply to ${operation}.`);
   if (['inspect', 'discover'].includes(operation) && options.positionals.length) throw new Error(`${operation} takes no positional arguments.`);
@@ -113,6 +126,7 @@ export function parseToolkitArgs(args) {
     if (writes.includes(options.positionals[0]) && !options.stdin) throw Error('This operation requires --stdin JSON.');
     if (!writes.includes(options.positionals[0]) && options.stdin) throw Error('--stdin does not apply to this operation.');
   }
+  if (Object.hasOwn(INTENT_OPERATIONS, operation)) validateIntentArgs(options);
   return options;
 }
 
@@ -184,6 +198,7 @@ export async function main(args, { log = console.log, error = console.error, inp
     else if (options.operation === 'project') result = continuity(options.root, options.positionals[0], options.stdin ? JSON.parse(await input()) : {}, options.positionals[1]);
     else if (options.operation === 'hooks') result = manageHooks(options.root, options.positionals[0], options.stdin ? JSON.parse(await input()) : {});
     else if (options.operation === 'evidence') result = await collectEvidence(options.positionals[0], { ...options, scope: options.team });
+    else if (Object.hasOwn(INTENT_OPERATIONS, options.operation)) result = await intentRuntime(options.operation, options.root, options.positionals[0], options.positionals[1], options.stdin ? JSON.parse(await input()) : {});
     else if (options.operation === 'workflow') {
       const [id, ...words] = options.positionals;
       if (!id) throw new Error('workflow requires a command ID.');
@@ -218,7 +233,7 @@ export async function main(args, { log = console.log, error = console.error, inp
     else if (options.operation === 'profile' && !options.json) log(`${result.name}\n${result.summary}\n\nPriorities:\n${result.priorities.map(p => `- ${p}`).join('\n')}\n\nDecision: ${result.decision}\n\nVerify:\n${result.verification.map(p => `- ${p}`).join('\n')}\n\nBoundary: ${result.boundary}\nWorkflows: ${result.workflows.join(', ')}\nExample: ${result.example}`);
     else if (options.operation === 'show' && !options.json) log(result.instructions);
     else log(JSON.stringify(result, null, 2));
-    return options.operation === 'evidence' && ['failed', 'stale', 'incomplete', 'drift'].includes(result.result) ? 2 : 0;
+    return (options.operation === 'evidence' || Object.hasOwn(INTENT_OPERATIONS, options.operation)) && ['failed', 'stale', 'incomplete', 'drift', 'conflict', 'invalid', 'incomparable', 'unverified', 'unknown'].includes(result.result) ? 2 : 0;
   } catch (failure) { error(`just-vibe: ${failure.message}`); return 1; }
 }
 

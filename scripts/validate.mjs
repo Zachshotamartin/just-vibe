@@ -28,9 +28,9 @@ for (const path of ['.agents/plugins/marketplace.json', '.claude-plugin/marketpl
 const skillRoot = resolve(root, 'plugins/just-vibe/skills');
 const skills = readdirSync(skillRoot);
 const catalog = loadCatalog();
-assert.equal(catalog.commands.length, 215);
+assert.equal(catalog.commands.length, 216);
 assert.deepEqual(skills.sort(), catalog.commands.map(c => c.id).sort());
-assert.equal(catalog.commands.filter(c => c.pack === 'general').length, 54);
+assert.equal(catalog.commands.filter(c => c.pack === 'general').length, 55);
 assert.equal(catalog.commands.filter(c => !['general', 'installation'].includes(c.pack)).length, 160);
 for (const name of skills) {
   const content = readFileSync(resolve(skillRoot, name, 'SKILL.md'), 'utf8');

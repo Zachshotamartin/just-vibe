@@ -1,6 +1,6 @@
 # Command reference
 
-215 shipped skill names; 3 aliases inherit canonical implementations. Commands run in the active host agent. Availability depends on task evidence and host permissions.
+216 shipped skill names; 3 aliases inherit canonical implementations. Commands run in the active host agent. Availability depends on task evidence and host permissions.
 
 ## General
 
@@ -48,9 +48,10 @@
 | [deps](../skills/deps/SKILL.md) | inspect | Assess dependency updates and compatibility |
 | [deploy](../skills/deploy/SKILL.md) | plan | Prepare or perform deployment within the requested authorization |
 | [checkpoint](../skills/checkpoint/SKILL.md) | apply | Save progress, evidence, and unresolved work |
+| [undo](../skills/undo/SKILL.md) | apply | Reverse a recorded local task while preserving unrelated changes |
 | [handoff](../skills/handoff/SKILL.md) | plan | Write a self-contained brief for another session or collaborator |
 | [resume](../skills/resume/SKILL.md) | apply | Read a handoff, verify current state, and continue |
-| [remember](../skills/remember/SKILL.md) | apply | Save project instructions from a rule or the current conversation |
+| [remember](../skills/remember/SKILL.md) | apply | Save project instructions, inspect their loading, and make explicit rules checkable |
 | [learn](../skills/learn/SKILL.md) | plan | Extract a reusable lesson from completed work for review |
 | [skill](../skills/skill/SKILL.md) | apply | Create or improve a workflow skill |
 | [doctor](../skills/doctor/SKILL.md) | inspect | Diagnose installation and configuration problems |

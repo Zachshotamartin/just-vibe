@@ -25,7 +25,7 @@ Resolve any task-specific tools, target identity and evidence before dependent a
 
 Recommend one bounded choice; no purchase, installation, or commitment.
 
-None by default. Plan artifacts may be saved when requested.
+None by default. Plan artifacts may be saved when requested. Explicit save/revisit requests permit local decision records/history, not architecture changes.
 
 ## Execute
 
@@ -33,14 +33,23 @@ None by default. Plan artifacts may be saved when requested.
 - Compare remaining options using evidence with dates and scope. Separate observed facts, estimates and preferences; avoid double-counting correlated criteria or presenting subjective weights as objective truth.
 - Identify the assumption capable of changing the recommendation. Vary plausible scores/weights or bounds and report whether the preferred option changes; use a bounded discriminating spike when its information is worth the delay.
 - Recommend an option or conditional reversible choice, explain consequences and rejected alternatives, and set an observable revisit trigger. Record adoption only when it occurred; a recommendation does not commit stakeholders or authorize a purchase.
+- When the user asks to save an adopted decision, use decision save with actual rationale, rejected alternatives and assumptions tied to watched files or numeric reconsideration triggers. A recommendation alone is not adoption; do not fabricate agreement.
+- For revisit requests, load the original record and history, gather actual fresh observations with sources and units, and run decision revisit. Missing/expired metrics remain unknown; changed watched files and hit thresholds identify reasons to review, not permission to change architecture.
+- Explain the decisive changed assumption and whether the current choice remains appropriate. Preserve earlier reasoning when recording an authorized replacement. Do not schedule monitoring, buy services or implement the new architecture without that task scope.
+
+## Read when relevant
+
+- Saving an adopted choice or revisiting earlier assumptions: [Decision history](../../references/decision-history.md).
 
 ## Decision branches
 
 - **When evidence cannot distinguish feasible options:** Make a reversible conditional choice or propose a discriminating spike rather than fake certainty.
+- **When a saved assumption may no longer hold:** Evaluate fresh attributed observations and watched files against the original triggers; preserve history and separate reconsideration from implementation.
 
 ## Deliver and verify
 
 - Decision and recommendation, feasibility/evidence table, decisive uncertainty or sensitivity, consequences, adoption status and revisit trigger.
+- Adopted decision record when requested, retained history, observable triggers and attributed revisit findings.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

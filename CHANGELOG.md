@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.8.0
+
+- Add explicit rule provenance, managed instruction edits, loading/conflict inspection, and control-validated text/import guards.
+- Add working-alternative labs with Git worktrees, shared checks, leased previews, comparison reports, journaled selection and reviewed cleanup.
+- Add requirement-linked verification records, freshness checks, browser screenshots and local HTML reports; human acceptance remains attributed.
+- Add repository exercises with solution/starter controls, protected test identities, hints, optional progress and real submissions.
+- Add bounded JSON/MLflow/W&B imports and binary/regression comparison with slice, parity, temporal and identity diagnostics.
+- Add selective local task undo and journal recovery, plus the new undo skill.
+- Add decision histories with watched assumptions, numeric reconsideration triggers and timestamped reviews.
+- Expand relevant command contracts and publish focused workflow guides; no new runtime dependencies or automatic remote actions.
+
+
 ## 0.7.0
 
 - Extend remember to merge explicit rules or current conversation decisions into CLAUDE.md/AGENTS.md, with shared instructions for both hosts, preview mode and optional named checkpoints in one invocation. Preserve existing guidance, user corrections and scope; distinguish saved files from verified host loading.

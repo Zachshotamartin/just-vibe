@@ -28,6 +28,9 @@ test('npm archive contains the runnable installer and both complete plugin manif
     'plugins/just-vibe/hooks/hooks.json', 'plugins/just-vibe/scripts/hooks.mjs',
     'plugins/just-vibe/scripts/lib/continuity.mjs', 'plugins/just-vibe/scripts/lib/evidence.mjs',
     'plugins/just-vibe/references/daily-workflows.md',
+    ...['workbench','memory','workspaces','proof','practice','experiments','tasks','decisions','intent-runtime'].map(n=>`plugins/just-vibe/scripts/lib/${n}.mjs`),
+    'plugins/just-vibe/scripts/preview-worker.mjs',
+    ...['intent-workflows','memory-checks','working-alternatives','proofs','practice','experiments','decision-history','task-undo'].map(n=>`plugins/just-vibe/references/${n}.md`),
   ]) assert.ok(paths.includes(required), `Missing from archive: ${required}`);
   const catalog = loadCatalog();
   for (const c of catalog.commands) assert.ok(paths.includes(`plugins/just-vibe/${c.skillPath}`), `Missing packaged workflow: ${c.id}`);
@@ -97,6 +100,11 @@ test('packed CLI and every skill work without the source checkout, plan or depen
   assert.equal(resumed.preferences.preferences.detail, 'concise');
   const hookStatus = JSON.parse(execFileSync(process.execPath, [cli, 'hooks', 'status', '--root', dir], { encoding: 'utf8' }));
   assert.equal(hookStatus.trusted, false);
+  const memory = JSON.parse(execFileSync(process.execPath, [cli, 'memory', 'save', 'package-rule', '--root', dir, '--stdin'], { input: JSON.stringify({revision:0,rule:'Preserve user changes.',scope:'.',file:'AGENTS.md',expectedFileHash:null,source:{kind:'user-instruction',excerpt:'Preserve user changes.'}}), encoding:'utf8' }));
+  assert.equal(memory.status,'active');
+  const inspection=JSON.parse(execFileSync(process.execPath,[cli,'memory','inspect','--root',dir],{encoding:'utf8'}));
+  assert.equal(inspection.rules[0].persisted,true);
+  assert.equal(JSON.parse(execFileSync(process.execPath,[cli,'workbench','list','--root',dir],{encoding:'utf8'})).memory[0],'package-rule');
   assert.equal(existsSync(join(dir, 'package/PLAN.md')), false);
   assert.equal(existsSync(join(dir, 'package/node_modules')), false);
 });

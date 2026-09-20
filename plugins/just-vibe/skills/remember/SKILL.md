@@ -1,11 +1,11 @@
 ---
 name: remember
-description: "Save project instructions from a rule or the current conversation Use to build or update project instructions from this conversation or save an explicit convention; checkpoint saves progress, while learn proposes lessons for adoption."
+description: "Save project instructions, inspect their loading, and make explicit rules checkable Use to build or update project instructions from this conversation or save an explicit convention; checkpoint saves progress, while learn proposes lessons for adoption."
 ---
 
 # remember
 
-Save project instructions from a rule or the current conversation
+Save project instructions, inspect their loading, and make explicit rules checkable
 
 ## Choose this workflow
 
@@ -34,23 +34,30 @@ Update the requested project CLAUDE.md, AGENTS.md or established scoped instruct
 - Merge concise rules into the relevant existing sections. Deduplicate equivalent rules and apply clear user corrections to the superseded rule. Use a narrow patch, re-read the diff and reconcile concurrent edits. A repeated invocation with no new decisions should make no change.
 - For context both, keep common rules in AGENTS.md and use a relative @ import from CLAUDE.md when needed, preserving existing content. When unfinished work is requested too, save a named checkpoint in the same invocation and add only a conditional continuation pointer to the instruction file.
 - Report the exact saved rules, paths, scope and any omitted or unresolved context. Distinguish a successful file write from verified host loading and from guaranteed future adherence. Structured project notes are optional data storage, not a substitute for host-loaded instructions.
+- For inspect/loading/conflict requests, read the memory-checks guide and run memory inspect for the selected host and scope without writing. Distinguish an applicable candidate file, its persisted rule and a host-reported loading observation; no observation means loading unknown.
+- For a new managed explicit rule, read the current file bytes and rule revision, then use memory save with its source excerpt, exact scope and expected file hash. Preserve unrelated prose. Store narrower scope in the instruction itself and retain history. Use the instruction-memory workflow for established shared imports/context sections; never duplicate the same rule in competing mechanisms.
+- When enforcement is requested, choose an assertion the runtime can actually test. Literal/import guards need representative positive and negative controls and a matching rule scope. For semantic behavior, implement a focused project test with a meaningful failure control instead of claiming a string scanner proves it.
+- Inspect saved state and read the written block back. Run the guard and report its covered files, failures or incomplete coverage. A changed/retired/missing rule makes its guard stale. Integrate automatic enforcement into existing CI or explicitly trusted hooks only when requested.
 
 ## Read when relevant
 
 - Building or updating CLAUDE.md/AGENTS.md from an explicit rule or conversation context: [Instruction memory](../../references/instruction-memory.md).
 - Saving requested preferences, decisions or a named continuation: [Project continuity](../../references/daily-workflows.md).
+- Inspecting instruction loading or saving a checkable correction: [Rules, provenance and guards](../../references/memory-checks.md).
 
 ## Decision branches
 
 - **When the user supplies no appended brief, or asks to remember the current context:** Use the available conversation and known project. Persist explicit decisions and corrections; say when there is nothing new to save. Ask only if project identity or a material conflict cannot be resolved.
 - **When the latest explicit user correction replaces an older project convention:** Update the superseded convention within the authorized scope instead of appending contradictory text or asking for permission again. If the intended replacement is ambiguous, resolve that conflict before changing it.
 - **When the user requests both Claude and Codex support or unfinished-work continuity:** Follow the shared-file and optional checkpoint recipes in the instruction-memory guide. Never assume two instruction files both load automatically or that every new session should resume an old task.
+- **When an explicit correction should become an executable check:** Save its provenance and scope, demonstrate compliant and violating controls, then check actual files; report semantic limits.
 
 ## Deliver and verify
 
 - Concise saved instructions with exact file paths and project or directory scope, or a no-change result.
 - When requested, a named checkpoint and continuation pointer; otherwise no task-progress dump in durable instructions.
 - Unresolved conflicts, unavailable context and any host reload or loading verification still needed.
+- Rule provenance, persisted instruction path, loading uncertainty, conflicts and optional control-validated guard evidence.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

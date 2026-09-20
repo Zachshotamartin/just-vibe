@@ -26,7 +26,7 @@ export function readJson(path, limit = 512 * 1024) {
   return JSON.parse(readFileSync(path, 'utf8'));
 }
 
-export function atomicJson(root, relativePath, value, expectedRevision) {
+export function atomicJson(root, relativePath, value, expectedRevision, maxBytes = 512 * 1024) {
   const path = within(root, relativePath);
   within(root, dirname(path));
   mkdirSync(dirname(path), { recursive: true });
@@ -35,11 +35,12 @@ export function atomicJson(root, relativePath, value, expectedRevision) {
   try { handle = openSync(lock, 'wx', 0o600); } catch { throw Error('State is being updated; retry after the current writer finishes.'); }
   const temporary = `${path}.${randomUUID()}.tmp`;
   try {
-    const previous = existsSync(path) ? readJson(path) : null;
+    writeFileSync(handle, JSON.stringify({ pid: process.pid, createdAt: new Date().toISOString() }));
+    const previous = existsSync(path) ? readJson(path, maxBytes) : null;
     if ((previous?.revision ?? 0) !== expectedRevision) throw Error('State revision changed. Read it again before updating.');
     const record = { ...value, revision: expectedRevision + 1 };
     const text = JSON.stringify(record, null, 2) + '\n';
-    if (Buffer.byteLength(text) > 512 * 1024) throw Error('State exceeds 512 KiB.');
+    if (Buffer.byteLength(text) > maxBytes) throw Error(`State exceeds ${maxBytes} bytes.`);
     writeFileSync(temporary, text, { flag: 'wx', mode: 0o600 });
     renameSync(temporary, path);
     return record;
