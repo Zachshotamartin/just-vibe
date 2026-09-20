@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {mkdtempSync,mkdirSync,rmSync,cpSync,readFileSync,writeFileSync,existsSync,chmodSync} from 'node:fs';
 import {tmpdir} from 'node:os';
 import {join,resolve} from 'node:path';
-import {execFileSync} from 'node:child_process';
+import {execFileSync,spawnSync} from 'node:child_process';
 import {prepareTrial,prepareStudy,gradeTrial,parseEvents,regressionSensitivity,runTrial,runStudy,options,cases} from '../evals/benchmark/harness.mjs';
 import {summarize,paired,exportStudy} from '../evals/benchmark/report.mjs';
 const fixtureRoot=resolve('tests/fixtures/benchmark');
@@ -26,9 +26,17 @@ test('regression sensitivity retains completed assertions but rejects setup fail
   assert.equal(regressionSensitivity('node',{status:1,stdout:"not ok 1\ncode: 'ERR_ASSERTION'\n",error:{code:'ETIMEDOUT'}}),true);
   assert.equal(regressionSensitivity('node',{status:1,stdout:'SyntaxError: unexpected token'}),false);
   assert.equal(regressionSensitivity('node',{status:null,stdout:'',error:{code:'ETIMEDOUT'}}),false);
-  assert.equal(regressionSensitivity('python',{stdout:JSON.stringify({tests:2,failures:[{exception:'ValueError',behavior_failure:true}]})}),true);
+  assert.equal(regressionSensitivity('python',{status:1,stdout:JSON.stringify({tests:2,failures:[{exception:'ValueError',behavior_failure:true}]})}),true);
+  assert.equal(regressionSensitivity('python',{status:0,stdout:JSON.stringify({tests:2,failures:[{exception:'ValueError',behavior_failure:true}]})}),false);
   assert.equal(regressionSensitivity('python',{stdout:JSON.stringify({tests:1,failures:[{exception:'ImportError',behavior_failure:false}]})}),false);
   assert.equal(regressionSensitivity('python',{stdout:'not a result'}),false);
+});
+test('Python emits real assertion evidence before a later test hangs',t=>{
+  const root=temporary(t);mkdirSync(join(root,'test'));
+  writeFileSync(join(root,'test/test_regression.py'),"import unittest, time\nclass Checks(unittest.TestCase):\n def test_a(self): self.assertEqual(1,2)\n def test_z(self): time.sleep(60)\n");
+  const binary=process.env.JUST_VIBE_PYTHON||(process.platform==='darwin'?'/usr/bin/python3':process.platform==='win32'?'python':'python3');
+  const result=spawnSync(binary,[resolve('evals/benchmark/support/python-test-report.py'),'--stream'],{cwd:root,encoding:'utf8',timeout:1500});
+  assert.equal(result.error?.code,'ETIMEDOUT');assert.equal(regressionSensitivity('python',result),true,result.stdout+result.stderr);
 });
 test('comparison reporting retains failed denominators and unavailable metrics',()=>{
   const rows=[{arm:'baseline',case:'a',repetition:1,correct:true,artifactCorrect:true,metrics:{turnCompleted:true,exitCode:0,wallMs:100,usage:{input_tokens:20,cached_input_tokens:10,output_tokens:4}}},{arm:'baseline',case:'a',repetition:2,correct:false,metrics:null},{arm:'just-vibe',case:'a',repetition:1,correct:false,metrics:{timedOut:true,wallMs:200,usage:null}}];

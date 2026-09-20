@@ -90,8 +90,14 @@ export function parseEvents(text){
 function cleanEnv(){const env={...process.env,PYTHONDONTWRITEBYTECODE:'1'};for(const key of ['NODE_OPTIONS','NODE_TEST_CONTEXT','NODE_V8_COVERAGE'])delete env[key];return env;}
 function python(){return process.env.JUST_VIBE_PYTHON||(process.platform==='darwin'?'/usr/bin/python3':process.platform==='win32'?'python':'python3');}
 export function regressionSensitivity(language,result){
+  if(result.status===0||result.status===undefined)return false;
   if(language==='python'){
-    try{const report=JSON.parse(result.stdout);return report.tests>0&&report.failures.some(f=>f.behavior_failure===true);}catch{return false;}
+    for(const line of (result.stdout||'').split('\n'))try{
+      const report=JSON.parse(line);
+      if(report.type==='regression-failure'&&report.behavior_failure===true)return true;
+      if(report.tests>0&&report.failures?.some(f=>f.behavior_failure===true))return true;
+    }catch{}
+    return false;
   }
   // TAP emits completed assertion evidence immediately, even if a later test hangs.
   return result.status!==0&&/code: ['"]ERR_ASSERTION['"]/.test(result.stdout||'');
@@ -125,9 +131,9 @@ export function gradeTrial(directory){
       if(fixture.gitCommit)original=original.replace('`Invoice ${id}`','`Receipt ${id}`').replace("return 'USD'","return 'EUR'");
       writeFileSync(join(mutation,p),original);
     }
-    const mutantArgs=fixture.language==='python'?[join(here,'support/python-test-report.py')]:args;
+    const mutantArgs=fixture.language==='python'?[join(here,'support/python-test-report.py'),'--stream']:args;
     const mutant=spawnSync(fixture.language==='python'?python():process.execPath,mutantArgs,{cwd:mutation,encoding:'utf8',timeout:15000,env:cleanEnv()});
-    save(join(root,'test-evidence.json'),{scorerVersion:2,fixed:{status:result.status,error:result.error?.message,stdout:result.stdout,stderr:result.stderr},original:{status:mutant.status,error:mutant.error?.message,stdout:mutant.stdout,stderr:mutant.stderr}});
+    save(join(root,'test-evidence.json'),{scorerVersion:3,fixed:{status:result.status,error:result.error?.message,stdout:result.stdout,stderr:result.stderr},original:{status:mutant.status,error:mutant.error?.message,stdout:mutant.stdout,stderr:mutant.stderr}});
     checks.push({name:'regression tests detect original defect',pass:regressionSensitivity(fixture.language,mutant),detail:mutant.status===0?'Original defective code passed authored tests':mutant.error?.message});
     rmSync(mutation,{recursive:true,force:true});
   }
@@ -158,8 +164,8 @@ export function gradeTrial(directory){
   const metrics=existsSync(join(root,'metrics.json'))?json(join(root,'metrics.json')):null;
   const artifactCorrect=checks.every(c=>c.pass);
   checks.push({name:'agent turn completed within limit',pass:Boolean(metrics?.turnCompleted&&metrics.exitCode===0&&!metrics.timedOut&&!metrics.cancelled&&!metrics.spawnError)});
-  const result={schemaVersion:1,scorerVersion:2,case:manifest.case,arm:manifest.arm,repetition:manifest.repetition,changed,checks,artifactCorrect,correct:checks.every(c=>c.pass),metrics,gradedAt:new Date().toISOString(),promptSha256:manifest.promptSha256,instructionHashes:Object.fromEntries(Object.entries(manifest.inputs).filter(([p])=>p.startsWith('_instructions/')))};
-  if(existsSync(join(root,'grade.json'))&&!existsSync(join(root,'grade-v1.json'))&&!json(join(root,'grade.json')).scorerVersion)cpSync(join(root,'grade.json'),join(root,'grade-v1.json'));
+  const result={schemaVersion:1,scorerVersion:3,case:manifest.case,arm:manifest.arm,repetition:manifest.repetition,changed,checks,artifactCorrect,correct:checks.every(c=>c.pass),metrics,gradedAt:new Date().toISOString(),promptSha256:manifest.promptSha256,instructionHashes:Object.fromEntries(Object.entries(manifest.inputs).filter(([p])=>p.startsWith('_instructions/')))};
+  if(existsSync(join(root,'grade.json'))){const version=json(join(root,'grade.json')).scorerVersion??1;if(version<3&&!existsSync(join(root,`grade-v${version}.json`)))cpSync(join(root,'grade.json'),join(root,`grade-v${version}.json`));}
   save(join(root,'grade.json'),result);return result;
 }
 export async function runTrial(directory,{codex,authHome,model,effort='medium',seconds=240,signal}){

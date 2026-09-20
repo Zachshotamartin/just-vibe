@@ -21,9 +21,12 @@ class Result(unittest.TestResult):
         in_implementation = any(root / 'src' in Path(f.filename).resolve().parents
                                 for f in frames)
         setup_error = issubclass(error[0], (ImportError, SyntaxError, NameError))
-        self.evidence.append(dict(test=str(test), exception=error[0].__name__,
-                                  behavior_failure=in_test and not setup_error
-                                  and (assertion or in_implementation)))
+        evidence=dict(test=str(test), exception=error[0].__name__,
+                      behavior_failure=in_test and not setup_error
+                      and (assertion or in_implementation))
+        self.evidence.append(evidence)
+        if '--stream' in sys.argv:
+            print(json.dumps(dict(type='regression-failure', **evidence)), flush=True)
 
     def addFailure(self, test, error):
         super().addFailure(test, error)

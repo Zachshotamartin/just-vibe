@@ -44,12 +44,13 @@ export function exportStudy(directory,{regrade=false}={}){
     trials.push({case:job.id,arm:job.arm,repetition:job.repetition,sourceVersion:manifest.sourceVersion,profile:manifest.profile,
       correct:grade.correct,artifactCorrect:grade.artifactCorrect,scorerVersion:grade.scorerVersion??1,
       priorScore:existsSync(join(root,'grade-v1.json'))?{scorerVersion:1,correct:json(join(root,'grade-v1.json')).correct}:null,
+      priorScores:[1,2].filter(v=>existsSync(join(root,`grade-v${v}.json`))).map(v=>({scorerVersion:v,correct:json(join(root,`grade-v${v}.json`)).correct})),
       checks:grade.checks.map(({name,pass})=>({name,pass})),metrics:grade.metrics,
       instructionBundleSha256:hash(JSON.stringify(instructionHashes)),instructionFileCount:Object.keys(instructionHashes).length,
       selectedInstructions:manifest.instructions.map(path=>({path,sha256:manifest.inputs[path]})),artifactHashes:hashes});
   }
   const source=fileURLToPath(new URL('./',import.meta.url));
-  return {schemaVersion:1,exportedAt:new Date().toISOString(),scorer:{version:2,files:Object.fromEntries(['harness.mjs','oracles/node.mjs','oracles/python.py','support/python-test-report.py','support/commit-tree.mjs'].map(p=>[p,hash(readFileSync(join(source,p)))]))},protocol:{...plan,order:undefined},summary:summarize(trials),
+  return {schemaVersion:1,exportedAt:new Date().toISOString(),scorer:{version:3,files:Object.fromEntries(['harness.mjs','oracles/node.mjs','oracles/python.py','support/python-test-report.py','support/commit-tree.mjs'].map(p=>[p,hash(readFileSync(join(source,p)))]))},protocol:{...plan,order:undefined},summary:summarize(trials),
     paired:[['just-vibe','baseline'],['just-vibe','ecc'],['just-vibe-profile','just-vibe']].map(([a,b])=>paired(trials,a,b)).filter(p=>p.pairs),trials,
     limitations:['Newly authored bounded fixture repositories, not third-party production repositories.','Matched supplied ECC instructions at a pinned snapshot; native hooks/memory integrations are excluded.','Two repeats per original case/arm are insufficient to establish general superiority.','No monetary charge is reported by this authenticated CLI; cached input is a subset of input.','A stable model name does not guarantee an immutable service backend.','See the protocol for pilots and the uniform scorer correction; original scores are retained.']};
 }
