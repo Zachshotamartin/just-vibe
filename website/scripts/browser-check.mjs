@@ -27,6 +27,12 @@ const visit = async (path) => {
   const response = await page.goto(base + path);
   assert.equal(response.status(), 200, path);
   await page.evaluate(() => document.fonts.ready);
+  await page.evaluate(async () => {
+    await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+    await Promise.all(
+      document.getAnimations().map((animation) => animation.finished.catch(() => {})),
+    );
+  });
 };
 try {
   await visit('/');
@@ -134,6 +140,7 @@ try {
   await page.screenshot({ path: screenshots + 'home-mobile.png', fullPage: true });
   await page.locator('.mobile-menu summary').click();
   await page.locator('.mobile-menu nav a[href="/docs/"]').click();
+  await page.waitForURL('**/docs/');
   assert.equal(new URL(page.url()).pathname, '/docs/');
   const missing = await page.goto(base + '/missing-page-for-test/');
   assert.equal(missing.status(), 404);

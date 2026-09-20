@@ -22,7 +22,7 @@ const { profile: p } = Astro.props;
       </nav>
     </aside>
     <article class="detail-body prose">
-      <header id="overview">
+      <header id="overview" data-reveal>
         <p class="eyebrow">{familyName(p.family)}</p>
         <h1>{p.name}</h1>
         <p class="detail-lede">{p.summary}</p>

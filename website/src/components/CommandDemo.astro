@@ -88,33 +88,45 @@ const choices = [
   </div>
 </div>
 <script>
-  const demo = document.querySelector<HTMLElement>('[data-demo]');
-  if (demo) {
-    let command = 'auto';
-    const brief = demo.querySelector<HTMLTextAreaElement>('#demo-brief')!;
-    const host = demo.querySelector<HTMLSelectElement>('#demo-host')!;
-    const update = () => {
-      const claude = host.value === 'claude';
-      demo.querySelector<HTMLElement>('#demo-command')!.hidden = !claude;
-      demo.querySelector<HTMLElement>('#demo-command')!.textContent = `/just-vibe:${command}`;
-      demo.querySelector<HTMLElement>('#demo-instruction')!.hidden = claude;
-      demo.querySelector<HTMLElement>('#demo-skill')!.textContent = command;
-      demo.querySelector<HTMLButtonElement>('#demo-copy')!.dataset.copy = claude
-        ? `/just-vibe:${command} ${brief.value}`
-        : brief.value;
-      demo.querySelector<HTMLAnchorElement>('#demo-detail')!.href = `/commands/${command}/`;
-    };
-    demo.querySelectorAll<HTMLButtonElement>('[data-command]').forEach((button) =>
-      button.addEventListener('click', () => {
-        command = button.dataset.command!;
-        brief.value = button.dataset.brief!;
-        demo
-          .querySelectorAll('[data-command]')
-          .forEach((b) => b.setAttribute('aria-pressed', String(b === button)));
+  import { onPageLoad } from '../lib/lifecycle';
+  import { animateChange } from '../lib/motion';
+  onPageLoad(() => {
+    const demo = document.querySelector<HTMLElement>('[data-demo]');
+    if (demo) {
+      let command = 'auto';
+      const brief = demo.querySelector<HTMLTextAreaElement>('#demo-brief')!;
+      const host = demo.querySelector<HTMLSelectElement>('#demo-host')!;
+      const update = () => {
+        const claude = host.value === 'claude';
+        demo.querySelector<HTMLElement>('#demo-command')!.hidden = !claude;
+        demo.querySelector<HTMLElement>('#demo-command')!.textContent = `/just-vibe:${command}`;
+        demo.querySelector<HTMLElement>('#demo-instruction')!.hidden = claude;
+        demo.querySelector<HTMLElement>('#demo-skill')!.textContent = command;
+        demo.querySelector<HTMLButtonElement>('#demo-copy')!.dataset.copy = claude
+          ? `/just-vibe:${command} ${brief.value}`
+          : brief.value;
+        demo.querySelector<HTMLAnchorElement>('#demo-detail')!.href = `/commands/${command}/`;
+      };
+      demo.querySelectorAll<HTMLButtonElement>('[data-command]').forEach((button) =>
+        button.addEventListener('click', () => {
+          command = button.dataset.command!;
+          brief.value = button.dataset.brief!;
+          demo
+            .querySelectorAll('[data-command]')
+            .forEach((b) => b.setAttribute('aria-pressed', String(b === button)));
+          update();
+          animateChange(
+            demo.querySelector<HTMLElement>(
+              host.value === 'claude' ? '#demo-command' : '#demo-instruction',
+            )!,
+          );
+        }),
+      );
+      brief.addEventListener('input', update);
+      host.addEventListener('change', () => {
         update();
-      }),
-    );
-    brief.addEventListener('input', update);
-    host.addEventListener('change', update);
-  }
+        animateChange(demo.querySelector<HTMLElement>('.demo-editor')!);
+      });
+    }
+  });
 </script>

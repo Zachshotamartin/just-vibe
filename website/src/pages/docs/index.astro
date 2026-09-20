@@ -9,7 +9,7 @@ import { docs } from '../../lib/docs.mjs';
   section="docs"
   description="Installation, commands, profiles, memory, machine learning, and practical guides for just-vibe."
 >
-  <section class="wrap page-intro">
+  <section class="wrap page-intro" data-reveal>
     <p class="eyebrow">The field guide</p>
     <h1>
       Less guessing.
@@ -20,7 +20,7 @@ import { docs } from '../../lib/docs.mjs';
   </section>
   <section class="wrap docs-grid">
     {docs.map((doc) => (
-      <a class="docs-card" href={`/docs/${doc.slug}/`}>
+      <a class="docs-card" data-reveal href={`/docs/${doc.slug}/`}>
         <div>
           <h2>{doc.title}</h2>
           <p>{doc.description}</p>

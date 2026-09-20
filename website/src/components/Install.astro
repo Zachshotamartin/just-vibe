@@ -39,15 +39,20 @@ const { id = 'install' } = Astro.props;
   </p>
 </div>
 <script>
-  document.querySelectorAll<HTMLElement>('[data-install]').forEach((widget, i) => {
-    const code = widget.querySelector<HTMLElement>('[data-install-code]')!;
-    const button = widget.querySelector<HTMLButtonElement>('[data-copy-target]')!;
-    code.id = `install-code-${i}`;
-    button.dataset.copyTarget = code.id;
-    widget.addEventListener('change', () => {
-      const manager = widget.querySelector<HTMLInputElement>('input:checked')!.value;
-      const host = widget.querySelector('select')!.value;
-      code.textContent = `${manager === 'npm' ? 'npx' : manager + ' dlx'} just-vibe@latest setup${host === 'claude' ? ' --target claude' : ''}`;
+  import { onPageLoad } from '../lib/lifecycle';
+  import { animateChange } from '../lib/motion';
+  onPageLoad(() => {
+    document.querySelectorAll<HTMLElement>('[data-install]').forEach((widget, i) => {
+      const code = widget.querySelector<HTMLElement>('[data-install-code]')!;
+      const button = widget.querySelector<HTMLButtonElement>('[data-copy-target]')!;
+      code.id = `install-code-${i}`;
+      button.dataset.copyTarget = code.id;
+      widget.addEventListener('change', () => {
+        const manager = widget.querySelector<HTMLInputElement>('input:checked')!.value;
+        const host = widget.querySelector('select')!.value;
+        code.textContent = `${manager === 'npm' ? 'npx' : manager + ' dlx'} just-vibe@latest setup${host === 'claude' ? ' --target claude' : ''}`;
+        animateChange(code);
+      });
     });
   });
 </script>

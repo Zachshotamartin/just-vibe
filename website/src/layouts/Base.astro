@@ -1,5 +1,6 @@
 ---
 import Icon from '../components/Icon.astro';
+import { ClientRouter, fade } from 'astro:transitions';
 import '@fontsource-variable/geist';
 import '../styles/global.css';
 import { version } from '../lib/catalog.mjs';
@@ -42,6 +43,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={new URL('/brand/just-vibe-social.png', Astro.site)} />
     <meta name="twitter:card" content="summary_large_image" />
+    <ClientRouter />
   </head>
   <body>
     <a class="skip-link" href="#main">
@@ -72,9 +74,22 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
       <details class="mobile-menu">
         <summary aria-label="Open navigation">
           Menu{' '}
-          <span aria-hidden="true">
-            <Icon name="plus" />
-          </span>
+          <svg
+            class="menu-icon"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.7"
+            stroke-linecap="round"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path d="M4 6h16" />
+            <path d="M4 12h16" />
+            <path d="M4 18h16" />
+          </svg>
         </summary>
         <nav aria-label="Mobile navigation">
           <a href="/commands/">Commands</a>
@@ -86,7 +101,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
         </nav>
       </details>
     </header>
-    <main id="main">
+    <main id="main" transition:name="page" transition:animate={fade({ duration: '220ms' })}>
       <slot />
     </main>
     <footer class="site-footer wrap">
@@ -117,6 +132,13 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     </footer>
     <script>
       import { copyText } from '../lib/browser';
+      import { initMotion, animateChange } from '../lib/motion';
+      import { onPageLoad } from '../lib/lifecycle';
+      import { initMenu } from '../lib/menu';
+      onPageLoad((signal) => {
+        initMotion(signal);
+        initMenu(signal);
+      });
       const originalContents = new WeakMap<HTMLButtonElement, ChildNode[]>();
       const resetTimers = new WeakMap<HTMLButtonElement, number>();
       document.addEventListener('click', async (event) => {
@@ -133,13 +155,18 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
         try {
           await copyText(text);
           target.textContent = 'Copied';
+          target.dataset.copyState = 'success';
         } catch {
           target.textContent = 'Select text to copy';
+          target.dataset.copyState = 'error';
         }
+        animateChange(target);
         resetTimers.set(
           target,
           window.setTimeout(() => {
             target.replaceChildren(...originalContents.get(target)!);
+            delete target.dataset.copyState;
+            animateChange(target);
           }, 2000),
         );
       });

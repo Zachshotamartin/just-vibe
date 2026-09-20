@@ -84,77 +84,86 @@ const noun = kind === 'commands' ? 'commands' : 'profiles';
   </noscript>
 </div>
 <script>
-  const root = document.querySelector<HTMLElement>('[data-catalog]');
-  if (root) {
-    const form = root.querySelector('form')!;
-    const search = root.querySelector<HTMLInputElement>('input[type=search]')!;
-    const group = root.querySelector<HTMLSelectElement>('select')!;
-    const cards = Array.from(root.querySelectorAll<HTMLElement>('[data-search]'));
-    const count = root.querySelector<HTMLElement>('#result-count')!;
-    const clear = root.querySelector<HTMLButtonElement>('.reset-button')!;
-    const empty = root.querySelector<HTMLElement>('.empty-state')!;
-    const update = (writeUrl = true) => {
-      const tokens = search.value
-        .trim()
-        .toLowerCase()
-        .replace(/^\/just-vibe:/, '')
-        .split(/\s+/)
-        .filter(Boolean);
-      let total = 0;
-      cards.forEach((card) => {
-        const visible =
-          (!group.value || card.dataset.group === group.value) &&
-          tokens.every((t) => card.dataset.search!.includes(t));
-        card.hidden = !visible;
-        if (visible) total++;
-      });
-      count.textContent = `${total} ${root.dataset.kind}${tokens.length || group.value ? ' found' : ''}`;
-      clear.hidden = !search.value && !group.value;
-      empty.hidden = total !== 0;
-      if (writeUrl) {
-        const url = new URL(location.href);
-        if (search.value) url.searchParams.set('q', search.value);
-        else url.searchParams.delete('q');
-        if (group.value) url.searchParams.set(group.name, group.value);
-        else url.searchParams.delete(group.name);
-        history.replaceState(null, '', url);
-      }
-    };
-    const restore = () => {
-      const params = new URLSearchParams(location.search);
-      search.value = params.get('q') || '';
-      group.value = params.get(group.name) || '';
-      update(false);
-    };
-    restore();
-    window.addEventListener('popstate', restore);
-    search.addEventListener('input', () => update());
-    group.addEventListener('change', () => update());
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      update();
-    });
-    root.querySelectorAll('button').forEach((b) =>
-      b.addEventListener('click', () => {
-        search.value = '';
-        group.value = '';
+  import { onPageLoad } from '../lib/lifecycle';
+  import { animateChange } from '../lib/motion';
+  onPageLoad((signal) => {
+    const root = document.querySelector<HTMLElement>('[data-catalog]');
+    if (root) {
+      const form = root.querySelector('form')!;
+      const search = root.querySelector<HTMLInputElement>('input[type=search]')!;
+      const group = root.querySelector<HTMLSelectElement>('select')!;
+      const cards = Array.from(root.querySelectorAll<HTMLElement>('[data-search]'));
+      const count = root.querySelector<HTMLElement>('#result-count')!;
+      const clear = root.querySelector<HTMLButtonElement>('.reset-button')!;
+      const empty = root.querySelector<HTMLElement>('.empty-state')!;
+      const update = (writeUrl = true) => {
+        const tokens = search.value
+          .trim()
+          .toLowerCase()
+          .replace(/^\/just-vibe:/, '')
+          .split(/\s+/)
+          .filter(Boolean);
+        let total = 0;
+        cards.forEach((card) => {
+          const visible =
+            (!group.value || card.dataset.group === group.value) &&
+            tokens.every((t) => card.dataset.search!.includes(t));
+          card.hidden = !visible;
+          if (visible) total++;
+        });
+        count.textContent = `${total} ${root.dataset.kind}${tokens.length || group.value ? ' found' : ''}`;
+        clear.hidden = !search.value && !group.value;
+        empty.hidden = total !== 0;
+        if (writeUrl) {
+          animateChange(total ? root.querySelector<HTMLElement>('.catalog-results')! : empty);
+          const url = new URL(location.href);
+          if (search.value) url.searchParams.set('q', search.value);
+          else url.searchParams.delete('q');
+          if (group.value) url.searchParams.set(group.name, group.value);
+          else url.searchParams.delete(group.name);
+          history.replaceState(history.state, '', url);
+        }
+      };
+      const restore = () => {
+        const params = new URLSearchParams(location.search);
+        search.value = params.get('q') || '';
+        group.value = params.get(group.name) || '';
+        update(false);
+      };
+      restore();
+      window.addEventListener('popstate', restore, { signal });
+      search.addEventListener('input', () => update());
+      group.addEventListener('change', () => update());
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
         update();
-        search.focus();
-      }),
-    );
-    document.addEventListener('keydown', (event) => {
-      const target = event.target as HTMLElement;
-      if (
-        event.key === '/' &&
-        !event.ctrlKey &&
-        !event.metaKey &&
-        !event.altKey &&
-        !target.matches('input, textarea, select') &&
-        !target.isContentEditable
-      ) {
-        event.preventDefault();
-        search.focus();
-      }
-    });
-  }
+      });
+      root.querySelectorAll('button').forEach((b) =>
+        b.addEventListener('click', () => {
+          search.value = '';
+          group.value = '';
+          update();
+          search.focus();
+        }),
+      );
+      document.addEventListener(
+        'keydown',
+        (event) => {
+          const target = event.target as HTMLElement;
+          if (
+            event.key === '/' &&
+            !event.ctrlKey &&
+            !event.metaKey &&
+            !event.altKey &&
+            !target.matches('input, textarea, select') &&
+            !target.isContentEditable
+          ) {
+            event.preventDefault();
+            search.focus();
+          }
+        },
+        { signal },
+      );
+    }
+  });
 </script>

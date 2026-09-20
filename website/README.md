@@ -29,11 +29,25 @@ With the preview server running on port 4321, run in another terminal:
 cd website
 npx playwright install chromium
 npm run test:browser
+npm run test:layout
+npm run test:motion
 ```
 
 The browser check exercises six package-manager/host installation combinations, clipboard copying, the editable prompt builder, search/filter URLs, empty and reset states, mobile navigation, keyboard focus, no-JavaScript content, 404 behavior, responsive overflow, and automated WCAG checks. Screenshots go to the ignored `.tmp/website-qa/` directory. It does not claim a full assistive-technology audit or production agent-host verification.
 
 Set `WEBSITE_URL` to run browser checks against a deployment instead. Tests do not submit any external forms or run commands from the website.
+
+The layout check measures overflow and overlapping layout regions across every page template at 15 viewport widths, including breakpoint boundaries. It also visits all 338 command, profile, and guide pages at 320px and 768px, and checks expanded text spacing. These geometry checks complement visual browser review; they cannot certify every possible text collision.
+
+The motion check exercises internal navigation, history and filter restoration, control initialization after navigation, keyboard dropdown selection, interrupted menu transitions, Escape, outside clicks, viewport changes, clipboard failure/reset, and reduced-motion behavior.
+
+## Motion and spacing
+
+- [Astro's ClientRouter](https://docs.astro.build/en/guides/view-transitions/) supplies short page fades and accessible route announcements. `src/lib/lifecycle.ts` initializes page controls after each navigation and aborts old document listeners before the DOM changes. Preserve router history state when updating filters.
+- `src/lib/motion.ts` provides finite section entrances and selection feedback. Content remains visible if JavaScript or animation is unavailable. Animations respect reduced motion, stop when focus enters animated content, and do not run while editing a prompt.
+- The mobile menu uses a custom SVG hamburger-to-close transition and an opaque panel reveal. It supports Escape, outside click, quick reversal, and closing on navigation or desktop resize. Native details behavior remains available without JavaScript.
+- Dropdowns retain native select semantics. [Customizable select CSS](https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Forms/Customizable_select) animates their picker and SVG indicator in supporting browsers; other browsers retain their native picker. Do not replace keyboard or screen-reader behavior merely to force animation.
+- Use flexible grids, wrapping controls, and real column gaps. Catalog spacing must remain consistent after filtering. Keep readable paragraph widths, avoid fixed text heights, and allow long command names and slash-separated phrases to wrap. Embedded installers need their own spacing inside prose.
 
 ## Content model
 

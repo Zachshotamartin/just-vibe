@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Refine website spacing and long-text wrapping across the full catalog; add page transitions, section entrances, animated menus and pickers, state feedback, reduced-motion handling, and layout/navigation regression checks.
 - Default all frontend workflows to no emojis unless explicitly requested; route UI, React, Vite, design, polish, matching and UI copy through shared iconography guidance, including general workflows and role profiles used for frontend work.
 - Replace website text-glyph icons with Lucide SVGs and preserve icon markup when copy-button feedback resets.
 - Add a public website with installation guides, an editable prompt builder, searchable command and role libraries, and catalog-generated scope and verification documentation.
