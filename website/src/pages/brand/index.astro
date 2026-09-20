@@ -1,0 +1,75 @@
+---
+import Base from '../../layouts/Base.astro';
+import { Image } from 'astro:assets';
+import board from '../../assets/just-vibe-brandkit.png';
+import mark from '../../assets/just-vibe-mark.png';
+import hero from '../../assets/just-vibe-hero.png';
+---
+
+<Base
+  title="Brand identity — just-vibe"
+  description="The just-vibe identity: a deliberate path, a clear point of view, and a little lime."
+>
+  <section class="wrap page-intro">
+    <p class="eyebrow">The just-vibe identity</p>
+    <h1>
+      A little structure.
+      <br />A lot of possibility.
+    </h1>
+    <p>
+      A deliberate path from intention to implementation. The j/v mark brings that idea into one
+      simple gesture.
+    </p>
+  </section>
+  <figure class="wrap brand-board">
+    <Image
+      src={board}
+      widths={[640, 1024, 1536]}
+      sizes="(max-width: 600px) 100vw, 90vw"
+      format="webp"
+      quality={90}
+      alt="just-vibe brand board showing the j/v logo, lime and charcoal palette, Geist typography, stationery, and sculptural mark"
+    />
+  </figure>
+  <section class="wrap brand-assets">
+    <div>
+      <h2>The essentials.</h2>
+      <p>
+        The primary mark, identity board, and hero artwork were created with image generation,
+        guided by the brandkit workflow. Download the original PNG assets.
+      </p>
+      <div class="brand-downloads">
+        <a class="button button-small" href={mark.src} download="just-vibe-mark.png">
+          Logo ↓
+        </a>
+        <a class="button button-small" href={board.src} download="just-vibe-brandkit.png">
+          Brand board ↓
+        </a>
+        <a class="button button-small" href={hero.src} download="just-vibe-hero.png">
+          Hero artwork ↓
+        </a>
+      </div>
+    </div>
+    <div>
+      <h2>Quiet base. Clear signal.</h2>
+      <p>
+        Warm paper, charcoal, and lime. Geist for the interface, with monospace accents for
+        commands.
+      </p>
+      <div class="swatches">
+        <div class="swatch">
+          <div style="background:#f5f5ee"></div>
+          <span>#F5F5EE</span>
+        </div>
+        <div class="swatch">
+          <div style="background:#20221e"></div>
+          <span>#20221E</span>
+        </div>
+        <div class="swatch">
+          <div style="background:#d7fb52"></div>
+          <span>#D7FB52</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

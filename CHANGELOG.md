@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Add a public website with installation guides, an editable prompt builder, searchable command and role libraries, and catalog-generated scope and verification documentation.
+- Add the just-vibe visual identity, generated logo and brand assets, responsive layouts, static-page/link checks, and browser accessibility and interaction checks.
+- Configure Vercel deployment independently of GitHub Actions and the npm CLI release process.
+
 ## 0.8.1
 
 - Clarify review/teaching variants and local implementation versus live execution; add effective infer/default/ask policies to every command.

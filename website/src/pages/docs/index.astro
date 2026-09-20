@@ -1,0 +1,31 @@
+---
+import Base from '../../layouts/Base.astro';
+import { docs } from '../../lib/docs.mjs';
+---
+
+<Base
+  title="Documentation — just-vibe"
+  section="docs"
+  description="Installation, commands, profiles, memory, machine learning, and practical guides for just-vibe."
+>
+  <section class="wrap page-intro">
+    <p class="eyebrow">The field guide</p>
+    <h1>
+      Less guessing.
+      <br />
+      More getting somewhere.
+    </h1>
+    <p>Everything you need to install just-vibe and make it part of the way you work.</p>
+  </section>
+  <section class="wrap docs-grid">
+    {docs.map((doc) => (
+      <a class="docs-card" href={`/docs/${doc.slug}/`}>
+        <div>
+          <h2>{doc.title}</h2>
+          <p>{doc.description}</p>
+        </div>
+        <span aria-hidden="true">↗</span>
+      </a>
+    ))}
+  </section>
+</Base>

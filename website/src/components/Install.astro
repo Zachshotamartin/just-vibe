@@ -1,0 +1,50 @@
+---
+const { id = 'install' } = Astro.props;
+---
+
+<div class="install-widget" data-install>
+  <div class="install-controls">
+    <fieldset class="segmented">
+      <legend class="sr-only">Package manager</legend>
+      {['pnpm', 'npm', 'yarn'].map((manager, i) => (
+        <label>
+          <input type="radio" name={`${id}-manager`} value={manager} checked={i === 0} />
+          <span>{manager}</span>
+        </label>
+      ))}
+    </fieldset>
+    <label class="host-select">
+      <span class="sr-only">Coding agent</span>
+      <select aria-label="Coding agent">
+        <option value="codex">Codex</option>
+        <option value="claude">Claude Code</option>
+      </select>
+    </label>
+  </div>
+  <div class="install-command">
+    <span class="terminal-prompt" aria-hidden="true">
+      $
+    </span>
+    <code data-install-code>pnpm dlx just-vibe@latest setup</code>
+    <button type="button" class="copy-button" aria-live="polite" data-copy-target={`${id}-code`}>
+      Copy
+    </button>
+  </div>
+  <p class="install-note">
+    Node.js 22+ · Native plugins required ·{' '}
+    <a href="/docs/installation/">Full installation guide ↗</a>
+  </p>
+</div>
+<script>
+  document.querySelectorAll<HTMLElement>('[data-install]').forEach((widget, i) => {
+    const code = widget.querySelector<HTMLElement>('[data-install-code]')!;
+    const button = widget.querySelector<HTMLButtonElement>('[data-copy-target]')!;
+    code.id = `install-code-${i}`;
+    button.dataset.copyTarget = code.id;
+    widget.addEventListener('change', () => {
+      const manager = widget.querySelector<HTMLInputElement>('input:checked')!.value;
+      const host = widget.querySelector('select')!.value;
+      code.textContent = `${manager === 'npm' ? 'npx' : manager + ' dlx'} just-vibe@latest setup${host === 'claude' ? ' --target claude' : ''}`;
+    });
+  });
+</script>

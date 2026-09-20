@@ -1,0 +1,15 @@
+.git
+.tmp
+.just-vibe
+.env*
+PLAN.md
+NAMING.md
+node_modules
+website/node_modules
+website/dist
+website/.astro
+website/brand
+evals
+tests
+coverage
+*.tgz

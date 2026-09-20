@@ -1,0 +1,96 @@
+---
+import Doc from '../../layouts/Doc.astro';
+import Install from '../../components/Install.astro';
+---
+
+<Doc
+  frontmatter={{
+    title: 'Install just-vibe',
+    description: 'One npm package. Your package manager. Your coding agent.',
+  }}
+>
+  <h2>Before you start</h2>
+  <p>
+    You need <strong>Node.js 22 or newer</strong> and <strong>Codex CLI or Claude Code</strong> with
+    native plugin support on your PATH. External workflows use your own service accounts and tools.
+  </p>
+  <h2>1. Run the installer</h2>
+  <p>
+    Select your package manager and host, then run this in your terminal. The default target is
+    Codex.
+  </p>
+  <Install id="docs-install" />
+  <p>
+    The installer copies the bundled plugin into a persistent directory under{' '}
+    <code>~/.just-vibe</code> and registers it with the host’s native plugin manager. It survives
+    package-manager cache cleanup. The default installation requires no GitHub access.
+  </p>
+  <h2>2. Start a new conversation</h2>
+  <p>In Claude Code, run:</p>
+  <div class="code-block">
+    <code id="claude-help">/just-vibe:help what is available?</code>
+    <button type="button" class="copy-button" data-copy-target="claude-help" aria-live="polite">
+      Copy
+    </button>
+  </div>
+  <p>
+    In Codex, select the <strong>help</strong> skill from the just-vibe plugin and add your request.
+    The Claude slash syntax is not the Codex skill-picker syntax.
+  </p>
+  <h2>3. Bring a real task</h2>
+  <p>
+    Start with <a href="/commands/auto/">auto</a> when you know the outcome you want,{' '}
+    <a href="/commands/orient/">orient</a> for an unfamiliar repository, or{' '}
+    <a href="/commands/tools/">tools</a> to discover a specific workflow.
+  </p>
+  <h2>Prefer a project dependency?</h2>
+  <p>
+    Install the same package locally, then run its CLI. Installing the npm dependency alone does not
+    register the plugin.
+  </p>
+  <div class="code-block">
+    <code>
+      npm install -D just-vibe
+      <br />
+      npx just-vibe setup
+    </code>
+  </div>
+  <div class="code-block">
+    <code>
+      pnpm add -D just-vibe
+      <br />
+      pnpm exec just-vibe setup
+    </code>
+  </div>
+  <div class="code-block">
+    <code>
+      yarn add -D just-vibe
+      <br />
+      yarn just-vibe setup
+    </code>
+  </div>
+  <p>
+    Append <code>--target claude</code> to the setup command for Claude Code. Modern Yarn uses{' '}
+    <code>yarn dlx</code>; a local dependency is also an option.
+  </p>
+  <h2>Claude installation scope</h2>
+  <p>
+    Claude defaults to user scope. From a project directory, use the following for shared project
+    enablement. Each teammate still installs their own local marketplace.
+  </p>
+  <div class="code-block">
+    <code>pnpm dlx just-vibe@latest setup --target claude --scope project</code>
+  </div>
+  <p>
+    Use <code>--scope local</code> for unshared project enablement. Keep the same scope for future
+    operations. Codex does not take Claude’s scope option.
+  </p>
+  <h2>Preview before installation</h2>
+  <div class="code-block">
+    <code>pnpm dlx just-vibe@latest setup --dry-run</code>
+  </div>
+  <p>
+    A dry run does not copy the payload or run host commands. The package manager may still fetch
+    and cache the CLI. <a href="/docs/updates/">Read about updates and diagnostics →</a>
+  </p>
+</Doc>

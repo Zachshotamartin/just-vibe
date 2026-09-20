@@ -1,0 +1,218 @@
+---
+import Base from '../layouts/Base.astro';
+import Install from '../components/Install.astro';
+import CommandDemo from '../components/CommandDemo.astro';
+import { Image } from 'astro:assets';
+import heroImage from '../assets/just-vibe-hero.png';
+import { counts, commands, profiles, packs } from '../lib/catalog.mjs';
+const featured = [
+  'frontend-engineer',
+  'machine-learning-engineer',
+  'principal-engineer',
+  'application-security-engineer',
+];
+---
+
+<Base>
+  <section class="hero wrap">
+    <div class="hero-copy">
+      <p class="eyebrow">
+        <span class="status-dot"></span> For Codex & Claude Code
+      </p>
+      <h1>
+        More intent.
+        <br />
+        <span class="soft-text">Less prompting.</span>
+      </h1>
+      <p class="hero-description">
+        Give your coding agent the workflows, context, and engineering judgment to move your ideas
+        forward.
+      </p>
+      <div class="hero-actions">
+        <a class="button" href="/docs/installation/">
+          Get just-vibe <span aria-hidden="true">↗</span>
+        </a>
+        <a class="text-link" href="/commands/">
+          Explore the commands <span aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+    <div class="hero-art">
+      <Image
+        src={heroImage}
+        widths={[480, 800, 1200]}
+        sizes="(max-width: 600px) 100vw, 50vw"
+        format="webp"
+        quality={85}
+        loading="eager"
+        fetchpriority="high"
+        alt="The just-vibe mark rendered as a sculptural lime-green path"
+      />
+      <div class="art-caption">
+        <span>A little structure.</span>
+        <span>A lot of possibility. ↗</span>
+      </div>
+    </div>
+  </section>
+  <div class="facts-strip wrap" aria-label="Toolkit at a glance">
+    <div>
+      <strong>{counts.workflows}</strong>
+      <span>purposeful workflows</span>
+    </div>
+    <div>
+      <strong>{counts.profiles}</strong>
+      <span>engineering profiles</span>
+    </div>
+    <div>
+      <strong>{counts.packs}</strong>
+      <span>specialist packs</span>
+    </div>
+    <div>
+      <strong>Yours.</strong>
+      <span>MIT licensed. User owned.</span>
+    </div>
+  </div>
+  <section class="section wrap" id="in-action">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Go from intention to action</p>
+        <h2>
+          Say what you need.
+          <br />
+          Keep your context.
+        </h2>
+      </div>
+      <p>
+        Pick a workflow. Add the details that matter. Each command gives your agent a method, a
+        scope, and a way to check its work.
+      </p>
+    </div>
+    <CommandDemo />
+  </section>
+  <section class="catalog-section section">
+    <div class="wrap">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Built for the work behind the work</p>
+          <h2>
+            From the first component
+            <br />
+            to the next model.
+          </h2>
+        </div>
+        <a class="text-link" href="/commands/">
+          Browse all {counts.commands} commands ↗
+        </a>
+      </div>
+      <div class="pack-grid">
+        {packs.map((pack, i) => (
+          <a class="pack-link" href={`/commands/?pack=${pack.id}`}>
+            <span class="pack-index">{String(i + 1).padStart(2, '0')}</span>
+            <span>{pack.name}</span>
+            <span class="pack-count">{commands.filter((c) => c.pack === pack.id).length}</span>
+            <span aria-hidden="true">↗</span>
+          </a>
+        ))}
+      </div>
+      <p class="fine-print">
+        {counts.workflows} workflows + {counts.commands - counts.workflows} convenient aliases. The
+        catalog is generated from the shipped package.
+      </p>
+    </div>
+  </section>
+  <section class="section wrap profile-feature">
+    <div class="profile-feature-copy">
+      <p class="eyebrow">A different lens for every task</p>
+      <h2>
+        Same agent.
+        <br />
+        Sharper perspective.
+      </h2>
+      <p>
+        A frontend engineer checks interaction and state. An ML engineer checks splits and
+        reproducibility. A principal engineer checks the boundaries.
+      </p>
+      <p>
+        Profiles give your agent relevant priorities and verification steps. You keep the decisions.
+      </p>
+      <a href="/profiles/" class="text-link">
+        Find your profile ↗
+      </a>
+    </div>
+    <div class="profile-list">
+      {featured.map((id) => {
+        const p = profiles.find((p) => p.id === id);
+        return (
+          p && (
+            <a href={`/profiles/${p.id}/`}>
+              <div>
+                <span class="eyebrow">
+                  {p.family === 'ml' ? 'Machine learning' : p.family.replaceAll('-', ' ')}
+                </span>
+                <h3>{p.name}</h3>
+                <p>{p.priorities[0]}</p>
+              </div>
+              <span aria-hidden="true">↗</span>
+            </a>
+          )
+        );
+      })}
+    </div>
+  </section>
+  <section class="intent-section">
+    <div class="wrap intent-inner">
+      <div class="intent-title">
+        <p class="eyebrow">A toolkit with follow-through</p>
+        <h2>
+          The details
+          <br />
+          make the difference.
+        </h2>
+        <a href="/docs/" class="text-link">
+          Read the field guide ↗
+        </a>
+      </div>
+      <div class="principles">
+        <article>
+          <span>01</span>
+          <div>
+            <h3>Keep what you’ve learned.</h3>
+            <p>
+              Save decisions and corrections into project instructions with{' '}
+              <a href="/commands/remember/">remember</a>. Check for conflicts as the work changes.
+            </p>
+          </div>
+        </article>
+        <article>
+          <span>02</span>
+          <div>
+            <h3>Show the work behind “done.”</h3>
+            <p>
+              Workflows call for relevant verification and honest coverage limits.{' '}
+              <a href="/commands/verify/">Proof</a> organizes the evidence your agent actually
+              collected.
+            </p>
+          </div>
+        </article>
+        <article>
+          <span>03</span>
+          <div>
+            <h3>Learn something along the way.</h3>
+            <p>
+              Use <a href="/commands/teach/">teach</a> to understand a topic or a workflow’s
+              implementation, with worked examples and optional practice.
+            </p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+  <section class="section wrap start-section">
+    <div>
+      <p class="eyebrow">One install. A new starting point.</p>
+      <h2>Bring your next idea.</h2>
+      <p>Install the toolkit, start a new conversation, and put it to work.</p>
+    </div>
+    <Install id="home-install" />
+  </section>
+</Base>

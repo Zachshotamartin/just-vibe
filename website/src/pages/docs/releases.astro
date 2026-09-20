@@ -1,0 +1,47 @@
+---
+import Doc from '../../layouts/Doc.astro';
+import { version, counts } from '../../lib/catalog.mjs';
+---
+
+<Doc
+  frontmatter={{
+    title: 'Release notes',
+    description: 'The website follows the version and catalogs in the just-vibe package.',
+  }}
+>
+  <h2>Current package: {version}</h2>
+  <p>
+    <a href={`https://www.npmjs.com/package/just-vibe/v/${version}`}>View v{version} on npm ↗</a>
+  </p>
+  <p>
+    The current catalog includes <strong>{counts.commands} skill names</strong> ({counts.workflows}{' '}
+    workflows and {counts.commands - counts.workflows} aliases),{' '}
+    <strong>{counts.profiles} role profiles</strong>, and{' '}
+    <strong>{counts.packs} specialist packs</strong>.
+  </p>
+  <h2>In the 0.8 series</h2>
+  <ul>
+    <li>
+      Intent workflows for durable memory, working alternatives, requirement evidence, exercises,
+      experiment comparison, and selective task undo.
+    </li>
+    <li>Command-specific technical guidance, scope, and verification contracts.</li>
+    <li>
+      Conversation and teaching guidance for clearer explanations, useful context recovery, and
+      focused clarifications.
+    </li>
+    <li>Runtime and output-handling fixes, with targeted tests and release checks.</li>
+  </ul>
+  <h2>Update an existing installation</h2>
+  <div class="code-block">
+    <code>pnpm dlx just-vibe@latest update</code>
+  </div>
+  <p>
+    Append <code>--target claude</code> for Claude Code, then start a new conversation.{' '}
+    <a href="/docs/updates/">See the update guide.</a>
+  </p>
+  <p>
+    The npm package includes CHANGELOG.md with the complete package change history. Website updates
+    can ship independently of the CLI version.
+  </p>
+</Doc>

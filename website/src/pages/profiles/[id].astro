@@ -1,0 +1,85 @@
+---
+import Base from '../../layouts/Base.astro';
+import { profiles, familyName } from '../../lib/catalog.mjs';
+export function getStaticPaths() {
+  return profiles.map((profile) => ({ params: { id: profile.id }, props: { profile } }));
+}
+const { profile: p } = Astro.props;
+---
+
+<Base title={`${p.name} — just-vibe profile`} description={p.summary} section="profiles">
+  <div class="wrap detail-layout">
+    <aside class="detail-sidebar">
+      <a class="back-link" href={`/profiles/?family=${p.family}`}>
+        ← {familyName(p.family)}
+      </a>
+      <nav aria-label="On this page">
+        <a href="#overview">Overview</a>
+        <a href="#priorities">Priorities</a>
+        <a href="#verification">Verification</a>
+        <a href="#workflows">Related commands</a>
+      </nav>
+    </aside>
+    <article class="detail-body prose">
+      <header id="overview">
+        <p class="eyebrow">{familyName(p.family)}</p>
+        <h1>{p.name}</h1>
+        <p class="detail-lede">{p.summary}</p>
+      </header>
+      <section>
+        <h2>Bring this perspective to your task.</h2>
+        <div class="code-block">
+          <code id="profile-example">
+            /just-vibe:profile Set {p.id} for this task. {p.example}
+          </code>
+          <button
+            class="copy-button"
+            type="button"
+            data-copy-target="profile-example"
+            aria-live="polite"
+          >
+            Copy
+          </button>
+        </div>
+        <p>
+          In Codex, select the <strong>profile</strong> skill from just-vibe and give it the role
+          and task above. Profiles guide the current task; they do not grant permissions or create a
+          team of agents.
+        </p>
+      </section>
+      <section id="priorities">
+        <h2>What this role pays attention to</h2>
+        <ul>
+          {p.priorities.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+        <h3>Decision guidance</h3>
+        <p>{p.decision}</p>
+        <h3>Concrete contribution</h3>
+        <p>{p.contribution}</p>
+        <h3>Scope boundary</h3>
+        <p>{p.boundary}</p>
+      </section>
+      <section id="verification">
+        <h2>Relevant checks</h2>
+        <ul>
+          {p.verification.map((check) => (
+            <li>{check}</li>
+          ))}
+        </ul>
+      </section>
+      <section id="workflows">
+        <h2>Put it to work</h2>
+        <div class="related-links">
+          {p.workflows.map((id) => (
+            <a href={`/commands/${id}/`}>/{id} ↗</a>
+          ))}
+        </div>
+        <p>
+          <a href="/docs/profiles/">Learn about profile selection, pins, and secondary roles →</a>
+        </p>
+      </section>
+    </article>
+  </div>
+</Base>

@@ -1,0 +1,165 @@
+---
+import Base from '../../layouts/Base.astro';
+import { commands, packs, packName, version } from '../../lib/catalog.mjs';
+export function getStaticPaths() {
+  return commands.map((command) => ({ params: { id: command.id }, props: { command } }));
+}
+const { command: c } = Astro.props;
+const pack = packs.find((p) => p.id === c.pack)!;
+const related = commands
+  .filter((x) => x.pack === c.pack && x.id !== c.id && !x.aliasOf)
+  .slice(0, 6);
+---
+
+<Base title={`${c.id} — just-vibe command`} description={c.summary} section="commands">
+  <div class="wrap detail-layout">
+    <aside class="detail-sidebar">
+      <a href={`/commands/?pack=${c.pack}`} class="back-link">
+        ← {packName(c.pack)}
+      </a>
+      <nav aria-label="On this page">
+        <a href="#overview">Overview</a>
+        <a href="#examples">Examples</a>
+        <a href="#method">Method & scope</a>
+        <a href="#checks">Verification</a>
+        <a href="#technical">Technical guidance</a>
+      </nav>
+      <p class="fine-print">From the v{version} command catalog.</p>
+    </aside>
+    <article class="detail-body prose">
+      <header id="overview">
+        <p class="eyebrow">
+          {packName(c.pack)} · {c.defaultMode} by default
+        </p>
+        <h1>
+          <span class="slash">/</span>
+          {c.id}
+        </h1>
+        <p class="detail-lede">{c.summary}</p>
+        {c.aliasOf && (
+          <p class="callout">
+            This is an alias of <a href={`/commands/${c.aliasOf}/`}>{c.aliasOf}</a> and inherits its
+            full workflow.
+          </p>
+        )}
+        <p>{c.selection}</p>
+      </header>
+      <section id="examples">
+        <h2>Make it your own.</h2>
+        <p>
+          In Claude Code, use the slash command and add your context. In Codex, select{' '}
+          <strong>{c.id}</strong> from the just-vibe skill picker, then send the same brief.
+        </p>
+        {c.examples.map((example, i) => (
+          <div class="example">
+            <span class="eyebrow">
+              {example.kind || 'Example'} · {example.mode}
+            </span>
+            <div class="code-block">
+              <code id={`example-${i}`}>
+                /just-vibe:{c.id} {example.brief}
+              </code>
+              <button
+                class="copy-button"
+                type="button"
+                data-copy-target={`example-${i}`}
+                aria-live="polite"
+              >
+                Copy
+              </button>
+            </div>
+          </div>
+        ))}
+      </section>
+      <section id="method">
+        <h2>What the agent does</h2>
+        <ol>
+          {c.procedure.map((step) => (
+            <li>{step}</li>
+          ))}
+        </ol>
+        <h3>Inputs</h3>
+        <ul>
+          {c.requiredInputs.map((input) => (
+            <li>{input}</li>
+          ))}
+        </ul>
+        <p>
+          <strong>Optional context:</strong> {c.optionalInputs.join(', ')}.
+        </p>
+        <h3>Scope</h3>
+        <dl class="contract">
+          <dt>Reads</dt>
+          <dd>{c.readScope}</dd>
+          <dt>Writes</dt>
+          <dd>{c.writeScope}</dd>
+          <dt>Mode</dt>
+          <dd>{c.modePolicy}</dd>
+          <dt>Prerequisites</dt>
+          <dd>{pack.prerequisites}</dd>
+        </dl>
+        <h3>Expected output</h3>
+        <ul>
+          {c.outputs.map((output) => (
+            <li>{output}</li>
+          ))}
+        </ul>
+      </section>
+      <section id="checks">
+        <h2>How the work is checked</h2>
+        <ul>
+          {c.verification.map((check) => (
+            <li>{check}</li>
+          ))}
+        </ul>
+        <h3>When to stop or clarify</h3>
+        <ul>
+          {c.stopConditions.map((stop) => (
+            <li>{stop}</li>
+          ))}
+        </ul>
+        <h3>Handling missing context</h3>
+        <dl class="contract">
+          <dt>Infer</dt>
+          <dd>{c.inputPolicy.infer}</dd>
+          <dt>Assume</dt>
+          <dd>{c.inputPolicy.assume}</dd>
+          <dt>Ask</dt>
+          <dd>{c.inputPolicy.ask}</dd>
+        </dl>
+      </section>
+      <section id="technical">
+        <h2>Technical guidance</h2>
+        <dl class="contract">
+          <dt>Evidence</dt>
+          <dd>{c.technical.evidence}</dd>
+          <dt>Method</dt>
+          <dd>{c.technical.method}</dd>
+          <dt>Pitfall</dt>
+          <dd>{c.technical.pitfall}</dd>
+          <dt>Check</dt>
+          <dd>{c.technical.check}</dd>
+        </dl>
+        <h3>Situational decisions</h3>
+        {c.branches.map((branch) => (
+          <p>
+            <strong>When {branch.when}:</strong> {branch.then}
+          </p>
+        ))}
+        <p class="callout">
+          The coding agent follows this workflow using its available tools. Installation does not
+          grant service access or guarantee an outcome.{' '}
+          <a href="/docs/compatibility/">Read the compatibility notes.</a>
+        </p>
+      </section>
+      <section>
+        <h2>Keep exploring</h2>
+        <div class="related-links">
+          {related.map((command) => (
+            <a href={`/commands/${command.id}/`}>/{command.id} ↗</a>
+          ))}
+        </div>
+      </section>
+    </article>
+  </div>
+</Base>

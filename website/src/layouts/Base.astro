@@ -1,0 +1,128 @@
+---
+import '@fontsource-variable/geist';
+import '../styles/global.css';
+import { version } from '../lib/catalog.mjs';
+import { getImage } from 'astro:assets';
+import mark from '../assets/just-vibe-mark.png';
+const navMark = await getImage({ src: mark, width: 96, format: 'webp' });
+const favicon = await getImage({ src: mark, width: 64, format: 'png' });
+const touchIcon = await getImage({ src: mark, width: 180, format: 'png' });
+interface Props {
+  title?: string;
+  description?: string;
+  section?: string;
+  noindex?: boolean;
+}
+const {
+  title = 'just-vibe — More intent. Less prompting.',
+  description = '213 workflows and 112 engineering profiles for Codex and Claude Code. Install once. Bring your context. Build with intent.',
+  section,
+  noindex = false,
+} = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f5f5ee" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/png" href={favicon.src} />
+    <link rel="apple-touch-icon" href={touchIcon.src} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="just-vibe" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL('/brand/just-vibe-social.png', Astro.site)} />
+    <meta name="twitter:card" content="summary_large_image" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">
+      Skip to content
+    </a>
+    <header class="site-header wrap">
+      <a class="wordmark" href="/" aria-label="just-vibe home">
+        <img src={navMark.src} width="40" height="40" alt="" />
+        just-vibe<span class="wordmark-dot">.</span>
+      </a>
+      <nav class="desktop-nav" aria-label="Main navigation">
+        <a href="/commands/" aria-current={section === 'commands' ? 'page' : undefined}>
+          Commands
+        </a>
+        <a href="/profiles/" aria-current={section === 'profiles' ? 'page' : undefined}>
+          Profiles
+        </a>
+        <a href="/docs/" aria-current={section === 'docs' ? 'page' : undefined}>
+          Docs
+        </a>
+      </nav>
+      <a class="button button-small header-cta" href="/docs/installation/">
+        Get started <span aria-hidden="true">↗</span>
+      </a>
+      <details class="mobile-menu">
+        <summary aria-label="Open navigation">
+          Menu <span aria-hidden="true">+</span>
+        </summary>
+        <nav aria-label="Mobile navigation">
+          <a href="/commands/">Commands</a>
+          <a href="/profiles/">Profiles</a>
+          <a href="/docs/">Docs</a>
+          <a href="/docs/installation/">Get started ↗</a>
+        </nav>
+      </details>
+    </header>
+    <main id="main">
+      <slot />
+    </main>
+    <footer class="site-footer wrap">
+      <div class="footer-top">
+        <a class="wordmark" href="/">
+          <img src={navMark.src} width="40" height="40" alt="" />
+          just-vibe.
+        </a>
+        <p>Your ideas. Your code. Your call.</p>
+        <a href="/docs/installation/" class="text-link">
+          Start building <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+      <div class="footer-bottom">
+        <span>Made by Zachary Martin · MIT licensed</span>
+        <nav aria-label="Footer">
+          <a href="/brand/">Brand</a>
+          <a href="/docs/compatibility/">Compatibility</a>
+          <a href="https://www.npmjs.com/package/just-vibe">npm ↗</a>
+          <a href="/docs/releases/">v{version}</a>
+        </nav>
+      </div>
+    </footer>
+    <script>
+      import { copyText } from '../lib/browser';
+      document.addEventListener('click', async (event) => {
+        const target = (event.target as Element).closest<HTMLButtonElement>(
+          '[data-copy], [data-copy-target]',
+        );
+        if (!target) return;
+        const text =
+          target.dataset.copy ||
+          document.getElementById(target.dataset.copyTarget || '')?.textContent ||
+          '';
+        const label = target.textContent;
+        try {
+          await copyText(text);
+          target.textContent = 'Copied ✓';
+        } catch {
+          target.textContent = 'Select text to copy';
+        }
+        window.setTimeout(() => {
+          target.textContent = label;
+        }, 2000);
+      });
+    </script>
+  </body>
+</html>

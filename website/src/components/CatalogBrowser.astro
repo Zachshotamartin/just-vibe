@@ -1,0 +1,157 @@
+---
+const { items, groups, kind } = Astro.props;
+const noun = kind === 'commands' ? 'commands' : 'profiles';
+---
+
+<div class="catalog-browser" data-catalog data-kind={kind}>
+  <form class="catalog-filters" role="search">
+    <div class="search-input">
+      <span aria-hidden="true">⌕</span>
+      <label class="sr-only" for="catalog-search">
+        Search {noun}
+      </label>
+      <input
+        id="catalog-search"
+        type="search"
+        name="q"
+        placeholder={
+          kind === 'commands'
+            ? 'Try “React”, “review”, or “data leakage”…'
+            : 'Find a role, discipline, or specialty…'
+        }
+        autocomplete="off"
+      />
+      <kbd aria-hidden="true">/</kbd>
+    </div>
+    <label class="sr-only" for="catalog-group">
+      {kind === 'commands' ? 'Command pack' : 'Profile family'}
+    </label>
+    <select id="catalog-group" name={kind === 'commands' ? 'pack' : 'family'}>
+      <option value="">{kind === 'commands' ? 'All packs' : 'All families'}</option>
+      {groups.map((g) => (
+        <option value={g.id}>{g.name}</option>
+      ))}
+    </select>
+  </form>
+  <div class="catalog-result-bar">
+    <p role="status" aria-live="polite" id="result-count">
+      {items.length} {noun}
+    </p>
+    <button type="button" class="reset-button" hidden>
+      Clear filters ×
+    </button>
+  </div>
+  <div class="catalog-results">
+    {items.map((item) => (
+      <a
+        class="catalog-item"
+        href={`/${kind}/${item.id}/`}
+        data-search={item.search.toLowerCase()}
+        data-group={item.group}
+      >
+        <div>
+          <span class="eyebrow">
+            {item.groupName}
+            {item.aliasOf ? ` · alias of ${item.aliasOf}` : ''}
+          </span>
+          <h2>
+            {kind === 'commands' && <span class="slash">/</span>}
+            {item.name}
+          </h2>
+          <p>{item.summary}</p>
+        </div>
+        <span class="item-arrow" aria-hidden="true">
+          ↗
+        </span>
+      </a>
+    ))}
+  </div>
+  <div class="empty-state" hidden>
+    <h2>No matches this time.</h2>
+    <p>Try a broader term or clear the filters to explore everything.</p>
+    <button type="button" class="button" data-reset>
+      Show all {noun} →
+    </button>
+  </div>
+  <noscript>
+    <p class="callout">
+      Search needs JavaScript. Every {kind === 'commands' ? 'command' : 'profile'} is listed below,
+      and all detail pages work without it.
+    </p>
+  </noscript>
+</div>
+<script>
+  const root = document.querySelector<HTMLElement>('[data-catalog]');
+  if (root) {
+    const form = root.querySelector('form')!;
+    const search = root.querySelector<HTMLInputElement>('input[type=search]')!;
+    const group = root.querySelector<HTMLSelectElement>('select')!;
+    const cards = Array.from(root.querySelectorAll<HTMLElement>('[data-search]'));
+    const count = root.querySelector<HTMLElement>('#result-count')!;
+    const clear = root.querySelector<HTMLButtonElement>('.reset-button')!;
+    const empty = root.querySelector<HTMLElement>('.empty-state')!;
+    const update = (writeUrl = true) => {
+      const tokens = search.value
+        .trim()
+        .toLowerCase()
+        .replace(/^\/just-vibe:/, '')
+        .split(/\s+/)
+        .filter(Boolean);
+      let total = 0;
+      cards.forEach((card) => {
+        const visible =
+          (!group.value || card.dataset.group === group.value) &&
+          tokens.every((t) => card.dataset.search!.includes(t));
+        card.hidden = !visible;
+        if (visible) total++;
+      });
+      count.textContent = `${total} ${root.dataset.kind}${tokens.length || group.value ? ' found' : ''}`;
+      clear.hidden = !search.value && !group.value;
+      empty.hidden = total !== 0;
+      if (writeUrl) {
+        const url = new URL(location.href);
+        if (search.value) url.searchParams.set('q', search.value);
+        else url.searchParams.delete('q');
+        if (group.value) url.searchParams.set(group.name, group.value);
+        else url.searchParams.delete(group.name);
+        history.replaceState(null, '', url);
+      }
+    };
+    const restore = () => {
+      const params = new URLSearchParams(location.search);
+      search.value = params.get('q') || '';
+      group.value = params.get(group.name) || '';
+      update(false);
+    };
+    restore();
+    window.addEventListener('popstate', restore);
+    search.addEventListener('input', () => update());
+    group.addEventListener('change', () => update());
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      update();
+    });
+    root.querySelectorAll('button').forEach((b) =>
+      b.addEventListener('click', () => {
+        search.value = '';
+        group.value = '';
+        update();
+        search.focus();
+      }),
+    );
+    document.addEventListener('keydown', (event) => {
+      const target = event.target as HTMLElement;
+      if (
+        event.key === '/' &&
+        !event.ctrlKey &&
+        !event.metaKey &&
+        !event.altKey &&
+        !target.matches('input, textarea, select') &&
+        !target.isContentEditable
+      ) {
+        event.preventDefault();
+        search.focus();
+      }
+    });
+  }
+</script>

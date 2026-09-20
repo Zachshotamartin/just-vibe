@@ -1,0 +1,45 @@
+---
+import Base from '../../layouts/Base.astro';
+import CatalogBrowser from '../../components/CatalogBrowser.astro';
+import { commands, packs, packName, counts } from '../../lib/catalog.mjs';
+const items = commands.map((c) => ({
+  ...c,
+  name: c.id,
+  group: c.pack,
+  groupName: packName(c.pack),
+  search: [
+    c.id,
+    c.summary,
+    c.pack,
+    packName(c.pack),
+    ...c.searchTerms,
+    ...c.procedure,
+    ...c.examples.map((e) => e.brief),
+  ].join(' '),
+}));
+---
+
+<Base
+  title="Commands — just-vibe"
+  section="commands"
+  description="Explore every just-vibe command: engineering workflows for frontend, backend, machine learning, architecture, Git, deployment, and more."
+>
+  <section class="wrap page-intro">
+    <p class="eyebrow">The command library</p>
+    <h1>
+      There’s a workflow
+      <br />
+      for that.
+    </h1>
+    <p>
+      {counts.workflows} workflows, {counts.commands - counts.workflows} aliases, and room for all
+      your context. Find the right starting point.
+    </p>
+    <a class="text-link" href="/docs/usage/">
+      How to use a command ↗
+    </a>
+  </section>
+  <section class="wrap catalog-content">
+    <CatalogBrowser items={items} groups={packs} kind="commands" />
+  </section>
+</Base>

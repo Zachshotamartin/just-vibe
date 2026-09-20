@@ -1,0 +1,114 @@
+---
+const choices = [
+  {
+    id: 'auto',
+    label: 'Build something',
+    brief: 'Fix the checkout bug, add regression coverage, and verify. No new dependencies.',
+  },
+  {
+    id: 'review',
+    label: 'Review your code',
+    brief: 'Review this branch against main for behavioral regressions.',
+  },
+  {
+    id: 'teach',
+    label: 'Learn as you go',
+    brief: 'Teach me linked lists in TypeScript. Start with a small worked example.',
+  },
+  {
+    id: 'ml-train',
+    label: 'Work on a model',
+    brief: 'Plan checkpointed training on one GPU for at most six hours. Do not provision compute.',
+  },
+  {
+    id: 'remember',
+    label: 'Keep the context',
+    brief: 'context both — preserve the decisions and corrections from this conversation.',
+  },
+];
+---
+
+<div class="command-demo" data-demo>
+  <div class="demo-options" role="group" aria-label="Example workflow">
+    {choices.map((choice, i) => (
+      <button
+        type="button"
+        aria-pressed={i === 0 ? 'true' : 'false'}
+        data-command={choice.id}
+        data-brief={choice.brief}
+      >
+        <span class="demo-number">0{i + 1}</span>
+        {choice.label}
+        <span aria-hidden="true">↗</span>
+      </button>
+    ))}
+  </div>
+  <div class="demo-editor">
+    <div class="demo-editor-top">
+      <span class="eyebrow">A little context goes a long way</span>
+      <label class="sr-only" for="demo-host">
+        Example host
+      </label>
+      <select id="demo-host">
+        <option value="claude">Claude Code</option>
+        <option value="codex">Codex</option>
+      </select>
+    </div>
+    <p id="demo-instruction" class="muted" hidden>
+      Select the <strong id="demo-skill">auto</strong> skill from just-vibe, then send this brief.
+    </p>
+    <label class="sr-only" for="demo-brief">
+      Your context
+    </label>
+    <span class="demo-command" id="demo-command">
+      /just-vibe:auto
+    </span>
+    <textarea id="demo-brief" rows="4" maxlength="2000">{choices[0].brief}</textarea>
+    <div class="demo-editor-bottom">
+      <a id="demo-detail" href="/commands/auto/">
+        See how it works ↗
+      </a>
+      <button
+        type="button"
+        class="button button-lime"
+        id="demo-copy"
+        aria-live="polite"
+        data-copy={`/just-vibe:auto ${choices[0].brief}`}
+      >
+        Copy prompt <span aria-hidden="true">↗</span>
+      </button>
+    </div>
+    <p class="fine-print">A prompt builder. Your coding agent runs the workflow in your project.</p>
+  </div>
+</div>
+<script>
+  const demo = document.querySelector<HTMLElement>('[data-demo]');
+  if (demo) {
+    let command = 'auto';
+    const brief = demo.querySelector<HTMLTextAreaElement>('#demo-brief')!;
+    const host = demo.querySelector<HTMLSelectElement>('#demo-host')!;
+    const update = () => {
+      const claude = host.value === 'claude';
+      demo.querySelector<HTMLElement>('#demo-command')!.hidden = !claude;
+      demo.querySelector<HTMLElement>('#demo-command')!.textContent = `/just-vibe:${command}`;
+      demo.querySelector<HTMLElement>('#demo-instruction')!.hidden = claude;
+      demo.querySelector<HTMLElement>('#demo-skill')!.textContent = command;
+      demo.querySelector<HTMLButtonElement>('#demo-copy')!.dataset.copy = claude
+        ? `/just-vibe:${command} ${brief.value}`
+        : brief.value;
+      demo.querySelector<HTMLAnchorElement>('#demo-detail')!.href = `/commands/${command}/`;
+    };
+    demo.querySelectorAll<HTMLButtonElement>('[data-command]').forEach((button) =>
+      button.addEventListener('click', () => {
+        command = button.dataset.command!;
+        brief.value = button.dataset.brief!;
+        demo
+          .querySelectorAll('[data-command]')
+          .forEach((b) => b.setAttribute('aria-pressed', String(b === button)));
+        update();
+      }),
+    );
+    brief.addEventListener('input', update);
+    host.addEventListener('change', update);
+  }
+</script>

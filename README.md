@@ -2,6 +2,8 @@
 
 Tools, skills, and commands for coding agents.
 
+[Website](https://just-vibe-tools.vercel.app/) · [Documentation](https://just-vibe-tools.vercel.app/docs/) · [Command library](https://just-vibe-tools.vercel.app/commands/) · [Engineering profiles](https://just-vibe-tools.vercel.app/profiles/)
+
 **v0.8.1 contains 112 engineering profiles and 216 skill names backed by 213 canonical workflows** for Codex and Claude Code: focused skills for development, architecture, decisions, Git/GitHub, Vercel, Vite, React, UI, backend, APIs, databases, data, ML, LLMs, testing, security, and operations. Each canonical workflow has selection guidance, scope, concrete decision branches, evidence requirements, outputs, verification, recovery conditions and at least three example requests. Each entry point also contains an authored technical method: evidence to inspect, a procedure, a likely misdiagnosis and a discriminating check. Applied methods live in 22 pack guides. The v0.8.1 prompt update adds explicit infer/default/ask policies, a conditional worked example for each pack, and guidance for preserving corrections across turns; see [prompt improvements](docs/prompt-improvements.md).
 
 The [technical audit](docs/technical-audit.md) and [complete coverage inventory](docs/technical-coverage.md) document the latest expansion across every canonical workflow. Review/security commands now route to concrete vulnerability, framework, language and scanner guides. [Security fixture controls](evals/security/README.md) distinguish seeded defects from legitimate behavior; they do not claim model-review accuracy.
