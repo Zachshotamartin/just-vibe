@@ -12,6 +12,9 @@ mkdirSync(destination, { recursive: true });
 const [packed] = JSON.parse(npm(['pack', '--json', '--ignore-scripts', '--pack-destination', destination], { cwd: root, encoding: 'utf8' }));
 const archive = resolve(destination, packed.filename);
 execFileSync(process.execPath, [resolve(root, 'scripts/smoke-package-managers.mjs'), archive], { cwd: root, stdio: 'inherit' });
+// An absolute path avoids npm interpreting a bare dir/file argument as GitHub shorthand.
+npm(['publish', archive, '--dry-run', '--ignore-scripts', '--json'], { cwd: root, stdio: 'pipe' });
+console.log('npm publication dry run accepted the verified local archive.');
 const digest = createHash('sha256').update(readFileSync(archive)).digest('hex');
 writeFileSync(resolve(destination, `${packed.filename}.sha256`), `${digest}  ${packed.filename}\n`);
 console.log(`Verified release artifact: ${archive}\nSHA-256: ${digest}`);

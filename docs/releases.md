@@ -25,7 +25,7 @@ The `prepublishOnly` hook runs `release:check` for directory-based `npm publish`
 1. Create/sign into the npm account that will own `just-vibe` and enable 2FA. Check name availability again immediately before publishing.
 2. Review the MIT license and release notes, commit the release, and wait for every CI job at that commit to pass. Native host validation is recorded separately; CI does not log in to agent accounts.
 3. Run `npm login`, then `npm whoami`. Do not paste tokens into the repository or chat.
-4. Run `npm run release:prepare`, review the archive, and publish that exact `dist/just-vibe-VERSION.tgz` with `npm publish dist/just-vibe-VERSION.tgz --access public`. Complete npm's authentication prompt.
+4. Run `npm run release:prepare`, review the archive, and publish that exact `dist/just-vibe-VERSION.tgz` with `npm publish ./dist/just-vibe-VERSION.tgz --access public`. Complete npm's authentication prompt.
 5. Verify the exact version using `npm exec --yes --package=just-vibe@VERSION -- just-vibe --version`; test setup in a clean host profile, then create the matching `vVERSION` Git tag.
 
 Only publish code/assets you have the rights to distribute. Retain third-party notices if third-party code is added later. The current npm package has no runtime dependencies. All included code and workflow documents are covered by the included MIT notice unless a file states otherwise.

@@ -51,7 +51,7 @@ jobs:
           const path = `dist/${name}-${version}.tgz`;
           const expected = fs.readFileSync(`${path}.sha256`, 'utf8').split(' ')[0];
           if (createHash('sha256').update(fs.readFileSync(path)).digest('hex') !== expected) throw new Error('Release artifact changed after verification.');
-          execFileSync('npm', ['publish', path, '--access', 'public', '--ignore-scripts'], { stdio: 'inherit' });
+          execFileSync('npm', ['publish', fs.realpathSync(path), '--access', 'public', '--ignore-scripts'], { stdio: 'inherit' });
           JS
       - name: Verify published version
         if: inputs.publish

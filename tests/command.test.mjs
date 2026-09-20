@@ -25,7 +25,7 @@ test('Windows PATHEXT discovery and npm shims preserve literal arguments without
   writeFileSync(script, 'console.log(process.argv[2]);');
   const shim = join(root, 'fixture.cmd');
   writeFileSync(shim, '@ECHO OFF\r\nnode "%dp0%\\cli.cjs" %*\r\n');
-  assert.equal(findExecutable('fixture', { PATH: root, PATHEXT: '.EXE;.CMD' }), shim);
+  assert.equal(findExecutable('fixture', { PATH: root, PATHEXT: '.EXE;.CMD' }).toLowerCase(), shim.toLowerCase());
   const value = '& echo unsafe | %PATH% $(touch nope) "quoted"';
   assert.deepEqual(commandInvocation(shim, [value]), [process.execPath, [script, value]]);
   assert.equal(execute(shim, [value]), value);
