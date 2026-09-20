@@ -3,7 +3,7 @@ import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
 import { npm } from './lib/npm.mjs';
-import { verifyPreparedRelease } from './lib/publication.mjs';
+import { verifyPreparedRelease, verifyRegistryExecution } from './lib/publication.mjs';
 
 const args = process.argv.slice(2);
 if (args.length > 1 || (args.length && !['--check', '--publish'].includes(args[0]))) throw Error('Use --check (default) or --publish.');
@@ -30,7 +30,6 @@ else {
     catch { if (publishedIntegrity() !== verified.integrity) throw Error('Publication did not verify. Inspect npm authentication and registry state before retrying; no automatic retry was made.'); }
   }
   if (publishedIntegrity() !== verified.integrity) throw Error('Registry has not confirmed this exact archive. Do not republish blindly.');
-  const version = npm(['exec', '--yes', `--package=${pkg.name}@${pkg.version}`, ...registry, '--', pkg.name, '--version'], options).trim();
-  if (version !== pkg.version) throw Error('Registry execution returned an unexpected version.');
+  const version = verifyRegistryExecution(pkg);
   console.log(`Published and verified registry execution: ${pkg.name}@${version}`);
 }

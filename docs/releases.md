@@ -49,3 +49,9 @@ Push the release commit and matching `vVERSION` tag. Run **Publish npm package**
 If publication fails, check whether that exact version already exists before retrying. A successful upload followed by a failed verification still consumes the version. If a bad release is already live, publish a corrected new version and deprecate the affected one with a clear explanation.
 
 Official references: [npm publishing](https://docs.npmjs.com/creating-and-publishing-unscoped-public-packages/), [trusted publishing](https://docs.npmjs.com/trusted-publishers/), [semantic versioning](https://docs.npmjs.com/about-semantic-versioning/).
+
+## Maintainer exception for unavailable CI
+
+The default publisher still requires successful CI. An explicit maintainer instruction can waive unavailable CI for a specific release without recording a fictitious pass or disabling Actions globally. Keep the local checks and exact-archive verification: match the clean source commit, package/manifests, SHA-256 release record and tested tarball; check whether that version already exists before publication. Publish only those verified bytes, complete npm account verification, then compare registry integrity and execute the exact version from a fresh temporary directory/cache outside the source checkout. `npm exec` inside the package checkout can select the local package and fail to resolve its bin.
+
+Record the reason, maintainer authorization, source commit, artifact hashes, local checks and outstanding platform coverage. Tag the actual published source revision. Never overwrite a published version or weaken the normal CI check for future releases. The [0.8.0 publication record](../evals/releases/0.8.0-publication.json) documents this release-specific exception.

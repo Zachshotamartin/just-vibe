@@ -1,7 +1,28 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
-import { verifyPreparedRelease } from '../scripts/lib/publication.mjs';
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
+import { verifyPreparedRelease, verifyRegistryExecution } from '../scripts/lib/publication.mjs';
+
+test('registry execution cannot resolve this source checkout and cleans up on success or failure', () => {
+  const pkg = { name: 'just-vibe', version: '0.8.0' };
+  for (const outcome of ['0.8.0', '0.7.0', new Error('registry unavailable')]) {
+    let directory;
+    const run = (args, options) => {
+      directory = options.cwd;
+      assert.notEqual(directory, process.cwd());
+      assert.equal(existsSync(join(directory, 'package.json')), false);
+      assert.ok(args.includes('--package=just-vibe@0.8.0'));
+      assert.equal(options.env.npm_config_cache, join(directory, 'cache'));
+      if (outcome instanceof Error) throw outcome;
+      return `${outcome}\n`;
+    };
+    if (outcome === pkg.version) assert.equal(verifyRegistryExecution(pkg, { run }), pkg.version);
+    else assert.throws(() => verifyRegistryExecution(pkg, { run }));
+    assert.equal(existsSync(directory), false);
+  }
+});
 
 test('publication binds archive bytes, package identity, clean source and completed CI', () => {
   const archive = Buffer.from('prepared archive'), checksum = createHash('sha256').update(archive).digest('hex');

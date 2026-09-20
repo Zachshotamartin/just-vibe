@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "name": "just-vibe",
+  "version": "0.8.0",
+  "registry": "https://registry.npmjs.org/",
+  "sourceCommit": "77c80fb9b863accaf3e418f4adcefbe16cde2e80",
+  "sha256": "227fb96e21d4e2acb741c3011722409b082030d657c8b62b0fbce8f2aff2bb42",
+  "integrity": "sha512-p9tGaC6yg2v3NfgMbbOa24V0btgnlPa1Af9+ZHFTvxIBnu6LPHUDwGPgK0wPEtWBSjxZnquADAbtKFK3wuVyLQ==",
+  "shasum": "2cb4bb39667dda0408c3826ca9908d3e18be4abd",
+  "verifiedAt": "2026-09-20T18:10:22.609Z",
+  "distTag": "latest",
+  "registryExecution": "0.8.0",
+  "ci": {
+    "status": "waived",
+    "authorization": "The maintainer explicitly requested bypassing unavailable Actions and publishing this release.",
+    "reason": "GitHub Actions jobs could not start because of account billing/spending-limit restrictions.",
+    "run": "https://github.com/Zachshotamartin/just-vibe/actions/runs/35527775534",
+    "scope": "This publication only; no CI success is claimed and the default release gate remains intact."
+  },
+  "localValidation": {
+    "tests": 159,
+    "passed": 158,
+    "failed": 0,
+    "skipped": 1,
+    "skipReason": "Windows-only test on macOS",
+    "skillsValidated": 216,
+    "archivePackageManagers": [
+      "npm",
+      "pnpm 10",
+      "pnpm 12",
+      "Yarn 4"
+    ],
+    "record": "0.8.0-technical-guidance.md"
+  }
+}

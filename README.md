@@ -2,7 +2,7 @@
 
 Tools, skills, and commands for coding agents.
 
-**v0.8 source contains 112 engineering profiles and 216 skill names backed by 213 canonical workflows** for Codex and Claude Code: focused skills for development, architecture, decisions, Git/GitHub, Vercel, Vite, React, UI, backend, APIs, databases, data, ML, LLMs, testing, security, and operations. Each canonical workflow has selection guidance, scope, concrete decision branches, evidence requirements, outputs, verification, recovery conditions and three example requests. Each entry point also contains an authored technical method: evidence to inspect, a procedure, a likely misdiagnosis and a discriminating check. Applied methods live in 22 pack guides.
+**v0.8.0 contains 112 engineering profiles and 216 skill names backed by 213 canonical workflows** for Codex and Claude Code: focused skills for development, architecture, decisions, Git/GitHub, Vercel, Vite, React, UI, backend, APIs, databases, data, ML, LLMs, testing, security, and operations. Each canonical workflow has selection guidance, scope, concrete decision branches, evidence requirements, outputs, verification, recovery conditions and three example requests. Each entry point also contains an authored technical method: evidence to inspect, a procedure, a likely misdiagnosis and a discriminating check. Applied methods live in 22 pack guides.
 
 The [technical audit](docs/technical-audit.md) and [complete coverage inventory](docs/technical-coverage.md) document the latest expansion across every canonical workflow. Review/security commands now route to concrete vulnerability, framework, language and scanner guides. [Security fixture controls](evals/security/README.md) distinguish seeded defects from legitimate behavior; they do not claim model-review accuracy.
 
@@ -13,7 +13,7 @@ v0.7 adds a quick path for simple work, a small starter catalog, contextual rout
 
 ## Intent, evidence and reversible work
 
-The v0.8 source adds working runtime helpers behind natural-language skill requests:
+v0.8.0 adds working runtime helpers behind natural-language skill requests:
 
 - Remember an explicit correction, inspect instruction provenance/loading, and test a rule with compliant/violating controls.
 - Build two or three alternatives in owned worktrees, run equal checks, preview them, and apply the selected result with an undo record.
@@ -24,7 +24,7 @@ The v0.8 source adds working runtime helpers behind natural-language skill reque
 
 See the [workflow guide](plugins/just-vibe/references/intent-workflows.md) for examples, boundaries and recovery. Users provide ordinary briefs; the agent prepares the helper inputs. These features support judgment rather than claiming an objective quality score.
 
-**Publication status:** v0.8 is source work until separately published; the previously published npm release is v0.7.0. Registry installs do not gain these features until the new release is published.
+**Publication status:** [just-vibe 0.8.0 is published on npm](https://www.npmjs.com/package/just-vibe/v/0.8.0) as `latest`. Registry integrity and execution were verified against the tested archive. GitHub Actions was explicitly waived for this release because its runners could not start; see the [publication record](evals/releases/0.8.0-publication.json).
 
 
 ## Use the workflows
@@ -263,7 +263,7 @@ Every workflow has normal, edge and missing-evidence cases in [evals/scenarios.j
 
 The [v0.6 results](evals/releases/0.6.0.md) record 32 controlled implementation trials and eight revised-command development trials. All passed their bounded checks; this does not rank overall output quality or convenience. The tasks supplied detailed contracts and did not measure user effort or preference. The [command-depth review](docs/command-quality.md#focused-depth-review) explains 27 focused revisions, and the [contextual review guide](docs/command-quality.md#output-quality-and-convenience) covers judgment, clarity, discovery and correction burden. [Benchmark protocol and supporting metrics](evals/benchmark/README.md) remain available for reproduction. External integration, browser and deployment checks require the relevant task environment.
 
-The [technical-guidance validation record](evals/releases/0.8.0-technical-guidance.md) covers the latest command expansion and security controls. The earlier [v0.8 validation record](evals/releases/0.8.0.md) covers the new intent helpers, real browser reports, installation checks and the pending Windows confirmation. Final CI is blocked by GitHub account billing; source and archive preparation do not establish npm publication.
+The [technical-guidance validation record](evals/releases/0.8.0-technical-guidance.md) covers the latest command expansion and security controls. The earlier [v0.8 validation record](evals/releases/0.8.0.md) covers the new intent helpers, real browser reports, installation checks and the pending Windows confirmation. GitHub CI remains blocked by account billing. The maintainer waived that gate for the [verified npm publication](evals/releases/0.8.0-publication.json); Windows validation remains pending.
 
 ### Repository layout
 
