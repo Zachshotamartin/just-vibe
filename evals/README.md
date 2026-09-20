@@ -6,7 +6,7 @@ Validation has three separate dimensions in the catalog:
 - `runtime: fixtures-tested | not-applicable`: deterministic utilities have relevant fixture coverage. This does not measure an agent's judgment.
 - `behavioral: not-evaluated | passed-fixtures | partial-fixtures`: observed agent outcomes on named bounded fixtures. Evaluated entries name an evidence record; no label means universal reliability or host parity.
 
-The generated [scenarios.json](scenarios.json) supplies normal, edge and missing-evidence invocations plus evidence requirements and a rubric for all 215 skill names. These are specifications, not completed model runs. Aliases inherit their canonical contract and validation.
+The generated [scenarios.json](scenarios.json) supplies normal, edge and missing-evidence invocations plus evidence requirements and a rubric for all 216 skill names. These are specifications, not completed model runs. Aliases inherit their canonical contract and validation.
 
 ## Independent behavioral fixtures
 
@@ -39,6 +39,8 @@ Keep model, effort, host tools, task artifacts, action permissions and budget eq
 Results should distinguish task correctness, unsupported claims, unrequested edits, completion, elapsed execution time, tokens and verified cost. Unsupported metrics remain unavailable. Keep development fixtures separate from future held-out benchmark tasks; public fixtures are useful regressions but are not a durable blind benchmark.
 
 ## Existing evidence and limits
+
+The [v0.8 record](releases/0.8.0.md) describes current runtime, browser, package and native installation checks, including the pending Windows CI confirmation. These helper tests are separate from the historical model trials below; new instruction branches have not received independent model evaluations.
 
 The [repeated repository benchmark](benchmark/README.md) adds fresh multi-file tasks, matched baseline/just-vibe/profile/ECC arms, randomized repeated runs and native CLI usage/timing capture. Its controlled correct/defective implementations test the scorer without model calls. Run model trials explicitly; `npm run check` does not consume account usage. These new fixture repositories are authored test environments, not a production-repository benchmark or a full native ECC installation.
 

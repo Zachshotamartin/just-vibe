@@ -66,7 +66,7 @@ Save decisions and corrections from the current conversation in one invocation:
 
 In Codex, select **remember** from just-vibe and append the same brief. The skill updates the established `CLAUDE.md` or `AGENTS.md`, merges existing guidance and saves only explicit instructions and accepted decisions. `both` keeps common rules in `AGENTS.md` with a relative import in `CLAUDE.md`. A checkpoint keeps temporary progress separate. You can also append one specific rule or ask for a preview without writing.
 
-This is an agent workflow using the host's file tools; terminal `project remember` only stores JSON notes. Saved instructions improve continuity but do not guarantee adherence or recover unavailable chat history. See [merging, host loading and examples](plugins/just-vibe/references/instruction-memory.md). Update older installations to receive this extension.
+The host interprets the conversation; the `memory` helper can persist individual rules with provenance and file-hash checks, while the agent merges established context sections and shared imports. Terminal `project remember` only stores JSON notes. See [rule checks and memory inspection](plugins/just-vibe/references/memory-checks.md) for the new helper. Saved instructions improve continuity but do not guarantee adherence or recover unavailable chat history. See [merging, host loading and examples](plugins/just-vibe/references/instruction-memory.md). Update older installations to receive this extension.
 
 ## Engineering profiles
 
@@ -212,7 +212,7 @@ Use the equivalent `--local` flag when switching from a development checkout. Gi
 
 ## Native install without Node.js
 
-The included skills and plugin manifests can be installed directly. Node.js 22+ is still required for the bundled installer, discovery, run-state, and quiz utilities.
+The included skills and plugin manifests can be installed directly. Node.js 22+ is still required for all bundled CLI helpers, including installation, discovery, sessions, quizzes and the intent workflows.
 
 ```sh
 # Codex
@@ -261,14 +261,16 @@ Every workflow has normal, edge and missing-evidence cases in [evals/scenarios.j
 
 The [v0.6 results](evals/releases/0.6.0.md) record 32 controlled implementation trials and eight revised-command development trials. All passed their bounded checks; this does not rank overall output quality or convenience. The tasks supplied detailed contracts and did not measure user effort or preference. The [command-depth review](docs/command-quality.md#focused-depth-review) explains 27 focused revisions, and the [contextual review guide](docs/command-quality.md#output-quality-and-convenience) covers judgment, clarity, discovery and correction burden. [Benchmark protocol and supporting metrics](evals/benchmark/README.md) remain available for reproduction. External integration, browser and deployment checks require the relevant task environment.
 
+The [v0.8 validation record](evals/releases/0.8.0.md) covers the new intent helpers, real browser reports, installation checks and the pending Windows confirmation. Final CI is blocked by GitHub account billing; source and archive preparation do not establish npm publication.
+
 ### Repository layout
 
 | Path | Purpose |
 |---|---|
 | `bin/just-vibe.mjs` | npm-executable entry point |
 | `plugins/just-vibe/scripts/installer.mjs` | Self-contained installer, also shipped inside the plugin |
-| `plugins/just-vibe/scripts/toolkit.mjs` | Search, inspection, discovery, routing candidates, run records, and quiz CLI |
-| `plugins/just-vibe/scripts/lib/` | Catalog, capability, project, run-state, and native quiz adapter modules |
+| `plugins/just-vibe/scripts/toolkit.mjs` | Discovery, routing, sessions, quizzes and persistent intent workflow CLI |
+| `plugins/just-vibe/scripts/lib/` | Catalog, capability, session, quiz, memory, guard, task, lab, proof, practice, experiment and decision modules |
 | `plugins/just-vibe/catalog/` | Canonical command contracts, 112 role profiles, examples, prerequisites and pack metadata |
 | `plugins/just-vibe/skills/` | 216 installed names, including three canonical aliases and setup |
 | `plugins/just-vibe/references/` | Shared execution rules, runtime interface, domain guidance and command index |

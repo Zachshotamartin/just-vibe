@@ -1,6 +1,6 @@
 # Save instructions from a conversation
 
-Use with `remember` when the user wants project instructions to survive context compaction or a new session. The host agent reads the available conversation and edits Markdown with its file tools. The terminal `project remember` utility only saves JSON notes; it cannot see chat history or update host instruction files.
+Use with `remember` when the user wants project instructions to survive context compaction or a new session. The host agent reads the available conversation. It can save individual managed rules through the [memory helper](memory-checks.md), or merge established Markdown sections and shared imports with its file tools. The terminal `project remember` utility only saves JSON notes; it cannot see chat history or update host instruction files.
 
 ## One invocation
 
@@ -60,6 +60,8 @@ This is an illustration, not text to insert verbatim. If the established Claude 
 When both files already contain rules, merge only the requested rules and their clearly superseded equivalents into the appropriate source. Preserve unrelated rules and Claude-specific sections; do not migrate or rewrite the entire instruction layout. Never replace AGENTS.md with a bare `@CLAUDE.md` directive: Claude import syntax is not a portable Codex instruction-loading mechanism.
 
 ## Merge and verify
+
+For managed rules, use `memory save` with explicit provenance, scope, the current record revision and the current instruction-file hash. Update or retire its existing block through the helper; do not edit its markers behind the record or duplicate the rule in another context section. For established unmarked guidance, preserve the existing section layout. The [rule guide](memory-checks.md) also covers positive/negative guard controls, inspection and recovery. Neither helper extracts the conversation automatically.
 
 Use existing relevant sections and small patches. Equivalent rules should appear once; a clear correction should replace the old rule, including a duplicated old copy in another requested instruction file. A genuinely ambiguous conflict should remain unresolved until clarified, while independent requested updates can proceed. Re-read the destination before writing if other edits occurred; do not overwrite concurrent changes.
 

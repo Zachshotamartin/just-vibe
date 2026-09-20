@@ -2,6 +2,12 @@
 
 The utilities are dependency-free Node.js 22+ modules. Their paths and manifests resolve relative to the installed plugin. They never read PLAN.md.
 
+## Choose the runtime interface
+
+Use [daily workflows](daily-workflows.md) for project preferences/checkpoints, evidence collectors and explicitly configured hooks. Use the [intent workflow index](intent-workflows.md) for managed rules and guards, memory inspection, working alternatives, requirement proofs, project exercises, ML imports/comparisons, task undo and decision history. Those guides define each operation's JSON input, limits, persistent files and recovery behavior.
+
+Persistent intent operations run as `node toolkit.mjs NAMESPACE OPERATION [NAME] --root PROJECT`, with `--stdin` for the operations that accept JSON. Mutations require the current record revision; new records use zero. Unlike the session state machine below, these helpers can write local state/files and execute explicitly requested checks or previews. They do not launch a model or treat a saved command as fresh permission.
+
 ## Capability observations
 
 `discover` probes only project readability, Git repository identity, and executable presence. Network access, authentication, browser inspection, database data, artifacts, and telemetry remain unknown until the host actually observes relevant access. Capability names describe task evidence, not permission grants.

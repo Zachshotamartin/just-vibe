@@ -1,5 +1,15 @@
 # Validation scope
 
+## Current v0.8 source
+
+The payload contains 216 skill names and 213 canonical workflows. Local release validation passed 154 tests with one Windows-only skip on macOS. The new intent helpers also received actual Git/filesystem, preview process, browser report, native installation and package-manager checks. The [v0.8 validation record](https://github.com/Zachshotamartin/just-vibe/blob/main/evals/releases/0.8.0.md) describes exact coverage and limits; the [workflow index](intent-workflows.md) describes use.
+
+The initial CI matrix passed on Linux/macOS and found a Windows path-identity issue. A fix is committed and passes affected local tests. GitHub account billing blocked the follow-up matrix before any jobs started, so Windows confirmation remains pending. The source version is 0.8.0; the published npm version remains 0.7.0.
+
+Runtime tests do not prove host-agent compliance, actual instruction loading or subjective output quality. The new instruction branches have no independent model trials. Historical behavioral labels refer only to the named fixtures and evidence below; they do not certify every new mode.
+
+## Historical v0.4 behavior trials
+
 For v0.4.0, structural validation, deterministic runtime tests and observed agent behavior are separate catalog fields. `passed-fixtures` means the named bounded tasks passed with directly supplied instructions in Codex collaboration agents. It does not mean every command, host or live integration was evaluated.
 
 Twenty-one independent task trials passed, covering 23 selected command names. The cases include code repair, a stale-response race, in-process idempotency, migration inspection, query cardinality, data reconciliation, ML split/leakage/checkpoint/evaluation/parity analysis, retrieval boundaries, test quality, tenant authorization, log interpretation, event failure windows and a constrained decision matrix. Some cases load two complementary skills together; they do not establish each skill's standalone success rate.
