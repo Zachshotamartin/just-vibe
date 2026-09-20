@@ -2,6 +2,12 @@
 
 This study tests implementation behavior on four newly authored multi-file repositories. They exercise asynchronous cache ownership, SQLite transfers, temporal ML data preparation and a scoped Git commit. These are bounded laboratory tasks, not unfamiliar third-party production repositories. Every graded requirement is visible in the task or project contract. Correct control implementations and original-defect rejection tests validate the graders in the development test suite.
 
+## What the results can answer
+
+Output quality and convenience are the product goals. The checks here answer a narrower question: did an implementation meet these explicit contracts, preserve unrelated work and include meaningful regression coverage? Passing does not establish good architectural judgment in general, useful communication or an easier user experience. Equal pass counts do not establish equal products.
+
+The supplied contracts remove much of the user's context preparation and the agent's discovery work. These automated trials have no participating user whose effort or preference could be measured. Zero user interventions means none were supplied under the protocol, not that none would have been useful. Token and timing data are retained as secondary operational observations, not as quality scores. The [contextual review guide](../../docs/command-quality.md#output-quality-and-convenience) describes complementary review of real tasks. This interpretation leaves the registered arms, requirements and captured metrics below unchanged.
+
 ## Registered first study
 
 Before inspecting counted results or changing command guidance, prepare 32 fresh trials: four cases × four instruction arms × two repetitions, deterministically shuffled with seed 5192026. The arms are an unassisted baseline, just-vibe v0.5.0 without profiles, the same instructions with a selected task profile, and matched ECC instructions at revision `934195f955cf0da847d59fcd6f68856bce112d8b`. The exact entry points are in [cases.json](cases.json). The generated study manifest freezes every workspace and instruction hash and the oracle hashes before execution.

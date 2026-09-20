@@ -1,0 +1,1307 @@
+{
+  "schemaVersion": 1,
+  "exportedAt": "2026-09-20T05:57:11.569Z",
+  "scorer": {
+    "version": 3,
+    "files": {
+      "harness.mjs": "420d327b8bf6fa624674eabc96330ed23ec6a7048f28914e62d05e621fb1fa17",
+      "oracles/node.mjs": "d3834ed66845b9f1e6a449df22c70c09225784af139d83c154dd4afaebd1afa0",
+      "oracles/python.py": "1c11ad48f970d40c91c2cbe20d44d7593282bd728a50dcc62c2e3752f44d030c",
+      "support/python-test-report.py": "5c20557d12792055a7855066ea46b0c8af099fabe9eeec4e47cdd48387d5de1b",
+      "support/commit-tree.mjs": "58cd033e6d8c62ebc70733ca07704bcea388a60c8bfc719dc91d29d9f91203ff"
+    }
+  },
+  "protocol": {
+    "schemaVersion": 1,
+    "preparedAt": "2026-09-20T05:37:29.435Z",
+    "seed": 5192027,
+    "repetitions": 1,
+    "sourceRevision": "68c1ac23d9d4496f14ca78042f9ea0f224e4314f",
+    "sourceDirty": true,
+    "eccRevision": null,
+    "cases": [
+      "async-cache",
+      "ledger",
+      "temporal-ml",
+      "scoped-commit"
+    ],
+    "arms": [
+      "just-vibe",
+      "just-vibe-profile"
+    ],
+    "oracleHashes": {
+      "node.mjs": "d3834ed66845b9f1e6a449df22c70c09225784af139d83c154dd4afaebd1afa0",
+      "python.py": "1c11ad48f970d40c91c2cbe20d44d7593282bd728a50dcc62c2e3752f44d030c"
+    },
+    "fixtureHashes": {
+      "async-cache/README.md": "8fbc7fa5973cc7198b734663ad9b5349ea94fccfcba72140b0ed75d062671dff",
+      "async-cache/TASK.md": "983b6fb0b0793089cdda4d018b320aedc49be106059dbd87cdcbe4cb94019ac2",
+      "async-cache/package.json": "de318e5a8b84c2ff52f66f104f5e08cca9cf5591fe0a889997914d0b217b084c",
+      "async-cache/src/cache.mjs": "709790e64a79e518c780e5c6c8769ab01baba07038dd9771974ed3030ee05797",
+      "async-cache/src/view.mjs": "10b5cf41b51018c73c0dd3b6561c0f3bd23119a53b8aa5f879a089657d805afd",
+      "async-cache/test/smoke.test.mjs": "ecbccb9b5656dc25e4f702cdd0cd86f85c0ebaca1ef9c576cb457c41eb56e0b1",
+      "ledger/README.md": "742cc270241357a0fd087f832a54f19f6371d5415f97ee2892780faf2bf22f0c",
+      "ledger/TASK.md": "ebe45c67879749a49c287cc3347f7e8465db7b0db93eb3906e467d4c2430f62e",
+      "ledger/src/service.py": "829552e42bfde0cf6d68ca184eeb35336ad7b5186c1df7dddd95455c59e682b6",
+      "ledger/src/store.py": "89a9d25f50add85ca8c674d7199c50f7fdc032ff73b9ac938e07e011b2ecf8a4",
+      "ledger/test/test_smoke.py": "9d474f96bb26bbae08dca155f6434d930f95497aba7f8c34138339f19e6734e5",
+      "scoped-commit/README.md": "573ab14673d6b42cda49b8dd553fc9fa934065c6586255bd35c5ef858178164c",
+      "scoped-commit/TASK.md": "32f3f0221ff65d490c48e4703ad51d25989763d0b3e6eeb4478434682163e39d",
+      "scoped-commit/package.json": "3f664875afb7212ad9cf0ab854233eb311cc185f839f874286e58d3c558e0a39",
+      "scoped-commit/src/invoice.mjs": "09b4f6a0f01123c1675f4b439407a937b778ee07991741f7e6557bc42ce25aed",
+      "scoped-commit/test/invoice.test.mjs": "6ebaa3fec759ec2cf2584b92dc90f81781f64a9b352bf142f10964fcf06e3cd5",
+      "temporal-ml/README.md": "d5a5ec1cd3d0a3d3efd00e50273eadfefa8b701479ecc5df0a3f5bdd03648277",
+      "temporal-ml/TASK.md": "3929892e02a8bdf818f5202cb60c4eae6b464be9643ec3dbdb64188f49553a98",
+      "temporal-ml/src/features.py": "7a38416ea486692a683e2b144f50bbe1b2745cdfe13a0ea6ded6633a3be28ac5",
+      "temporal-ml/src/pipeline.py": "f27a9dd5415c357848f160bfeec3b4beb5b51ad3ff0f71bae928901c84b2c08b",
+      "temporal-ml/src/report.py": "35431e4b7cfbec8085a6f28c2a1617de5aa3ea5a94901aad46d68a353d5a1088",
+      "temporal-ml/test/test_smoke.py": "38f26de9e323d330aac9c83dad478627aff8785656370c342292f0bdb36618ac"
+    },
+    "harnessSha256": "40ea490ef003b2da1ce3b3c4838b0b662f23194c32bcba1edcfdf505c8974436",
+    "note": "Author-created multi-file fixture repositories; supplied instructions, not full native plugin hooks. Fresh contexts, randomized order and immutable trial inputs. Public tasks are not a permanent blind benchmark."
+  },
+  "summary": {
+    "just-vibe-profile": {
+      "passed": 4,
+      "trials": 4,
+      "artifactPassed": 4,
+      "completed": 4,
+      "timeouts": 0,
+      "medianWallMs": 189693,
+      "wallTimeAvailableTrials": 4,
+      "toolCalls": 44,
+      "failedCommands": 4,
+      "userInterventions": 0,
+      "countMetricsAvailableTrials": {
+        "toolCalls": 4,
+        "failedCommands": 4,
+        "userInterventions": 4
+      },
+      "usage": {
+        "input_tokens": {
+          "sumAvailable": 600937,
+          "availableTrials": 4
+        },
+        "cached_input_tokens": {
+          "sumAvailable": 502016,
+          "availableTrials": 4
+        },
+        "output_tokens": {
+          "sumAvailable": 18307,
+          "availableTrials": 4
+        },
+        "reasoning_output_tokens": {
+          "sumAvailable": 1040,
+          "availableTrials": 4
+        }
+      },
+      "costUsd": null
+    },
+    "just-vibe": {
+      "passed": 4,
+      "trials": 4,
+      "artifactPassed": 4,
+      "completed": 4,
+      "timeouts": 0,
+      "medianWallMs": 163369.5,
+      "wallTimeAvailableTrials": 4,
+      "toolCalls": 41,
+      "failedCommands": 3,
+      "userInterventions": 0,
+      "countMetricsAvailableTrials": {
+        "toolCalls": 4,
+        "failedCommands": 4,
+        "userInterventions": 4
+      },
+      "usage": {
+        "input_tokens": {
+          "sumAvailable": 557715,
+          "availableTrials": 4
+        },
+        "cached_input_tokens": {
+          "sumAvailable": 472064,
+          "availableTrials": 4
+        },
+        "output_tokens": {
+          "sumAvailable": 17689,
+          "availableTrials": 4
+        },
+        "reasoning_output_tokens": {
+          "sumAvailable": 920,
+          "availableTrials": 4
+        }
+      },
+      "costUsd": null
+    }
+  },
+  "paired": [
+    {
+      "left": "just-vibe-profile",
+      "right": "just-vibe",
+      "pairs": 4,
+      "bothPass": 4,
+      "leftOnly": 0,
+      "rightOnly": 0,
+      "neither": 0,
+      "comparisons": [
+        {
+          "case": "ledger",
+          "repetition": 1,
+          "left": true,
+          "right": true
+        },
+        {
+          "case": "temporal-ml",
+          "repetition": 1,
+          "left": true,
+          "right": true
+        },
+        {
+          "case": "async-cache",
+          "repetition": 1,
+          "left": true,
+          "right": true
+        },
+        {
+          "case": "scoped-commit",
+          "repetition": 1,
+          "left": true,
+          "right": true
+        }
+      ]
+    }
+  ],
+  "trials": [
+    {
+      "case": "ledger",
+      "arm": "just-vibe-profile",
+      "repetition": 1,
+      "sourceVersion": "0.6.0",
+      "profile": "backend-engineer",
+      "correct": true,
+      "artifactCorrect": true,
+      "scorerVersion": 3,
+      "priorScore": null,
+      "priorScores": [
+        {
+          "scorerVersion": 2,
+          "correct": true
+        }
+      ],
+      "checks": [
+        {
+          "name": "only permitted files changed",
+          "pass": true
+        },
+        {
+          "name": "no symlink artifacts",
+          "pass": true
+        },
+        {
+          "name": "no unrequested commits",
+          "pass": true
+        },
+        {
+          "name": "interruption rolls back all state and permits retry",
+          "pass": true
+        },
+        {
+          "name": "payload conflicts and tenant-scoped replay",
+          "pass": true
+        },
+        {
+          "name": "exact integer amount validation without writes",
+          "pass": true
+        },
+        {
+          "name": "account ownership, funds and credit overflow",
+          "pass": true
+        },
+        {
+          "name": "caller-owned transaction remains untouched",
+          "pass": true
+        },
+        {
+          "name": "concurrent connections serialize one effect",
+          "pass": true
+        },
+        {
+          "name": "oracle process completed consistently",
+          "pass": true
+        },
+        {
+          "name": "regression test artifact exists",
+          "pass": true
+        },
+        {
+          "name": "project and authored regression tests pass",
+          "pass": true
+        },
+        {
+          "name": "regression tests detect original defect",
+          "pass": true
+        },
+        {
+          "name": "agent turn completed within limit",
+          "pass": true
+        }
+      ],
+      "metrics": {
+        "model": "gpt-6-astra",
+        "effort": "medium",
+        "startedAt": "2026-09-20T05:37:29.657Z",
+        "finishedAt": "2026-09-20T05:40:42.373Z",
+        "wallMs": 192716,
+        "exitCode": 0,
+        "exitSignal": null,
+        "timedOut": false,
+        "cancelled": false,
+        "usage": {
+          "input_tokens": 182507,
+          "cached_input_tokens": 152448,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 5309,
+          "reasoning_output_tokens": 470
+        },
+        "turnCompleted": true,
+        "invalidEventLines": 0,
+        "toolCalls": 11,
+        "failedCommands": 2,
+        "errors": [],
+        "userInterventions": 0,
+        "costUsd": null,
+        "costReason": "CLI reports tokens, not a verified per-run monetary charge.",
+        "host": {
+          "cli": "codex-cli 0.155.1",
+          "sandbox": "workspace-write",
+          "writableGitMetadata": true,
+          "externalTools": false,
+          "plugins": false,
+          "hostSkillDiscovery": false
+        }
+      },
+      "instructionBundleSha256": "0cfa5fdcac13c6d6c2103c110fb11b36d33e10ad26e54006e38d1444dd538a12",
+      "instructionFileCount": 376,
+      "selectedInstructions": [
+        {
+          "path": "_instructions/just-vibe/skills/backend-idempotency/SKILL.md",
+          "sha256": "b9c7735adf288ea0142762bbd1ed4ad089a18867fc62897c4c24a78b26d350f0"
+        },
+        {
+          "path": "_instructions/just-vibe/skills/backend-concurrency/SKILL.md",
+          "sha256": "86b14cfac0c0a764eaa15b66a173ce1a04cc9b4167e35e1f60737b3fb52a554f"
+        },
+        {
+          "path": "_instructions/just-vibe/skills/db-integrity/SKILL.md",
+          "sha256": "4db38cde6380d122a2ae776b7cc0cbd2486019c2ddb2503879a04bf1b22ecb4d"
+        },
+        {
+          "path": "_instructions/just-vibe/references/profiles/backend-engineer.md",
+          "sha256": "04929733fceaea01f274057054ee7e89395989ace7ac1830e84f6d2e56252e8f"
+        }
+      ],
+      "artifactHashes": {
+        "prompt.txt": "2d86aafda4109f0dc772d11557181a0eeea15a34c6a8c22b7d1063507f07a7a8",
+        "events.jsonl": "50f3941843ac4010a339ed96eb8a45ba89b831521b3d3ba7ed949c7323f82a38",
+        "answer.md": "069f8fc610297db832aa74557215c77e46d5d5420a15b0e19f1b68548c0cf53c",
+        "run.json": "5e187cb17b8219b9ba515a479ef1e1538cd9c5a5825407311dc1342dbb3374e4",
+        "test-evidence.json": "1be8396cf69b1ba7c42021ce9afe3c3d241217ccb05f895825b6769a86ab2686"
+      }
+    },
+    {
+      "case": "async-cache",
+      "arm": "just-vibe",
+      "repetition": 1,
+      "sourceVersion": "0.6.0",
+      "profile": null,
+      "correct": true,
+      "artifactCorrect": true,
+      "scorerVersion": 3,
+      "priorScore": null,
+      "priorScores": [
+        {
+          "scorerVersion": 2,
+          "correct": true
+        }
+      ],
+      "checks": [
+        {
+          "name": "only permitted files changed",
+          "pass": true
+        },
+        {
+          "name": "no symlink artifacts",
+          "pass": true
+        },
+        {
+          "name": "no unrequested commits",
+          "pass": true
+        },
+        {
+          "name": "tenant identity, delimiter collisions and falsey values",
+          "pass": true
+        },
+        {
+          "name": "pending coalescing and expiry measured from completion",
+          "pass": true
+        },
+        {
+          "name": "one waiter cancellation cannot poison shared work",
+          "pass": true
+        },
+        {
+          "name": "pre-abort and listener cleanup on settlement",
+          "pass": true
+        },
+        {
+          "name": "detached old success cannot overwrite or delete new generation",
+          "pass": true
+        },
+        {
+          "name": "detached old failure cannot clear newer pending work",
+          "pass": true
+        },
+        {
+          "name": "synchronous failures and asynchronous failures are retryable",
+          "pass": true
+        },
+        {
+          "name": "latest view result, stale failure and permanent disposal",
+          "pass": true
+        },
+        {
+          "name": "oracle process completed consistently",
+          "pass": true
+        },
+        {
+          "name": "regression test artifact exists",
+          "pass": true
+        },
+        {
+          "name": "project and authored regression tests pass",
+          "pass": true
+        },
+        {
+          "name": "regression tests detect original defect",
+          "pass": true
+        },
+        {
+          "name": "agent turn completed within limit",
+          "pass": true
+        }
+      ],
+      "metrics": {
+        "model": "gpt-6-astra",
+        "effort": "medium",
+        "startedAt": "2026-09-20T05:37:29.733Z",
+        "finishedAt": "2026-09-20T05:40:26.155Z",
+        "wallMs": 176422,
+        "exitCode": 0,
+        "exitSignal": null,
+        "timedOut": false,
+        "cancelled": false,
+        "usage": {
+          "input_tokens": 115840,
+          "cached_input_tokens": 89600,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 4945,
+          "reasoning_output_tokens": 170
+        },
+        "turnCompleted": true,
+        "invalidEventLines": 0,
+        "toolCalls": 8,
+        "failedCommands": 0,
+        "errors": [],
+        "userInterventions": 0,
+        "costUsd": null,
+        "costReason": "CLI reports tokens, not a verified per-run monetary charge.",
+        "host": {
+          "cli": "codex-cli 0.155.1",
+          "sandbox": "workspace-write",
+          "writableGitMetadata": true,
+          "externalTools": false,
+          "plugins": false,
+          "hostSkillDiscovery": false
+        }
+      },
+      "instructionBundleSha256": "0cfa5fdcac13c6d6c2103c110fb11b36d33e10ad26e54006e38d1444dd538a12",
+      "instructionFileCount": 376,
+      "selectedInstructions": [
+        {
+          "path": "_instructions/just-vibe/skills/backend-cache/SKILL.md",
+          "sha256": "4086e504a0eefcdc260425fea45302d0fc6ab4172952e47c6710fb5ff14fbc5c"
+        },
+        {
+          "path": "_instructions/just-vibe/skills/backend-concurrency/SKILL.md",
+          "sha256": "86b14cfac0c0a764eaa15b66a173ce1a04cc9b4167e35e1f60737b3fb52a554f"
+        },
+        {
+          "path": "_instructions/just-vibe/skills/react-async/SKILL.md",
+          "sha256": "c388f3f827d0d921b53abaf1d2da5bbc0b9d9bca3e66f6117afa6483ed1abf7d"
+        }
+      ],
+      "artifactHashes": {
+        "prompt.txt": "228ea303d42c00676bb64d5e3d665a5dff97d8ebc73cefd2940c55b74cd493eb",
+        "events.jsonl": "32f32baef1dcb63468624fa9706475c8a2623da04882c0ff6b44cee44f923f9e",
+        "answer.md": "abb8acaaf8e51031c8d0fcf1a23e0861a4cbb0e4ba11c9e9642676a19174074f",
+        "run.json": "d7b3ec1a755096c74de38d36021d5b4c97f49deb0ab4d135ec666851d1029a07",
+        "test-evidence.json": "337d46297890237818d83933e354391bec541d04f73920078c16452a8d6667de"
+      }
+    },
+    {
+      "case": "temporal-ml",
+      "arm": "just-vibe",
+      "repetition": 1,
+      "sourceVersion": "0.6.0",
+      "profile": null,
+      "correct": true,
+      "artifactCorrect": true,
+      "scorerVersion": 3,
+      "priorScore": null,
+      "priorScores": [
+        {
+          "scorerVersion": 2,
+          "correct": true
+        }
+      ],
+      "checks": [
+        {
+          "name": "only permitted files changed",
+          "pass": true
+        },
+        {
+          "name": "no symlink artifacts",
+          "pass": true
+        },
+        {
+          "name": "no unrequested commits",
+          "pass": true
+        },
+        {
+          "name": "window bounds and event availability",
+          "pass": true
+        },
+        {
+          "name": "revision selection before window filtering and deduplication",
+          "pass": true
+        },
+        {
+          "name": "offset-aware instant comparisons and naive rejection",
+          "pass": true
+        },
+        {
+          "name": "mature training membership and train-only scaler",
+          "pass": true
+        },
+        {
+          "name": "zero labels, unknown labels and future examples",
+          "pass": true
+        },
+        {
+          "name": "input order and immutability",
+          "pass": true
+        },
+        {
+          "name": "empty and constant training fallback",
+          "pass": true
+        },
+        {
+          "name": "oracle process completed consistently",
+          "pass": true
+        },
+        {
+          "name": "regression test artifact exists",
+          "pass": true
+        },
+        {
+          "name": "project and authored regression tests pass",
+          "pass": true
+        },
+        {
+          "name": "regression tests detect original defect",
+          "pass": true
+        },
+        {
+          "name": "agent turn completed within limit",
+          "pass": true
+        }
+      ],
+      "metrics": {
+        "model": "gpt-6-astra",
+        "effort": "medium",
+        "startedAt": "2026-09-20T05:40:42.371Z",
+        "finishedAt": "2026-09-20T05:43:12.688Z",
+        "wallMs": 150317,
+        "exitCode": 0,
+        "exitSignal": null,
+        "timedOut": false,
+        "cancelled": false,
+        "usage": {
+          "input_tokens": 114775,
+          "cached_input_tokens": 97280,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 4410,
+          "reasoning_output_tokens": 119
+        },
+        "turnCompleted": true,
+        "invalidEventLines": 0,
+        "toolCalls": 9,
+        "failedCommands": 0,
+        "errors": [],
+        "userInterventions": 0,
+        "costUsd": null,
+        "costReason": "CLI reports tokens, not a verified per-run monetary charge.",
+        "host": {
+          "cli": "codex-cli 0.155.1",
+          "sandbox": "workspace-write",
+          "writableGitMetadata": true,
+          "externalTools": false,
+          "plugins": false,
+          "hostSkillDiscovery": false
+        }
+      },
+      "instructionBundleSha256": "0cfa5fdcac13c6d6c2103c110fb11b36d33e10ad26e54006e38d1444dd538a12",
+      "instructionFileCount": 376,
+      "selectedInstructions": [
+        {
+          "path": "_instructions/just-vibe/skills/ml-features/SKILL.md",
+          "sha256": "0fc1c6628d5525cd377d9920cb11d99c27a0205a9dd45c86a6071f11f8bf7b37"
+        },
+        {
+          "path": "_instructions/just-vibe/skills/ml-leakage/SKILL.md",
+          "sha256": "40e953aabc397101c39d85f5a76441a8f84bb1303ad0bceba8be614b7ac15bb3"
+        },
+        {
+          "path": "_instructions/just-vibe/skills/ml-split/SKILL.md",
+          "sha256": "796a50f3f7d6b69fb30392a536d883c3a550fa25cc1ad632b6a7205cd1c70ba5"
+        }
+      ],
+      "artifactHashes": {
+        "prompt.txt": "84b5675d13d2122254370a304887e3c0175c7def02f76302f5842e671959d0d8",
+        "events.jsonl": "1ad743ffadb270048c2289349707684e47bc2209e380e2c66b870b441051e805",
+        "answer.md": "b42e6cd1996250a1fbd2705fc43b60946738e879f694b8ccd1dec2f9be18d8f4",
+        "run.json": "63137b1bfbaec4220687d35c411fb570db285f54eab4fba15461a328d07458b8",
+        "test-evidence.json": "e487555abb303281c2f227c85903f0b3b573b6a35fa065759124be50735a553f"
+      }
+    },
+    {
+      "case": "temporal-ml",
+      "arm": "just-vibe-profile",
+      "repetition": 1,
+      "sourceVersion": "0.6.0",
+      "profile": "machine-learning-engineer",
+      "correct": true,
+      "artifactCorrect": true,
+      "scorerVersion": 3,
+      "priorScore": null,
+      "priorScores": [
+        {
+          "scorerVersion": 2,
+          "correct": true
+        }
+      ],
+      "checks": [
+        {
+          "name": "only permitted files changed",
+          "pass": true
+        },
+        {
+          "name": "no symlink artifacts",
+          "pass": true
+        },
+        {
+          "name": "no unrequested commits",
+          "pass": true
+        },
+        {
+          "name": "window bounds and event availability",
+          "pass": true
+        },
+        {
+          "name": "revision selection before window filtering and deduplication",
+          "pass": true
+        },
+        {
+          "name": "offset-aware instant comparisons and naive rejection",
+          "pass": true
+        },
+        {
+          "name": "mature training membership and train-only scaler",
+          "pass": true
+        },
+        {
+          "name": "zero labels, unknown labels and future examples",
+          "pass": true
+        },
+        {
+          "name": "input order and immutability",
+          "pass": true
+        },
+        {
+          "name": "empty and constant training fallback",
+          "pass": true
+        },
+        {
+          "name": "oracle process completed consistently",
+          "pass": true
+        },
+        {
+          "name": "regression test artifact exists",
+          "pass": true
+        },
+        {
+          "name": "project and authored regression tests pass",
+          "pass": true
+        },
+        {
+          "name": "regression tests detect original defect",
+          "pass": true
+        },
+        {
+          "name": "agent turn completed within limit",
+          "pass": true
+        }
+      ],
+      "metrics": {
+        "model": "gpt-6-astra",
+        "effort": "medium",
+        "startedAt": "2026-09-20T05:40:42.863Z",
+        "finishedAt": "2026-09-20T05:43:49.532Z",
+        "wallMs": 186670,
+        "exitCode": 0,
+        "exitSignal": null,
+        "timedOut": false,
+        "cancelled": false,
+        "usage": {
+          "input_tokens": 122328,
+          "cached_input_tokens": 102528,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 5330,
+          "reasoning_output_tokens": 175
+        },
+        "turnCompleted": true,
+        "invalidEventLines": 0,
+        "toolCalls": 9,
+        "failedCommands": 1,
+        "errors": [],
+        "userInterventions": 0,
+        "costUsd": null,
+        "costReason": "CLI reports tokens, not a verified per-run monetary charge.",
+        "host": {
+          "cli": "codex-cli 0.155.1",
+          "sandbox": "workspace-write",
+          "writableGitMetadata": true,
+          "externalTools": false,
+          "plugins": false,
+          "hostSkillDiscovery": false
+        }
+      },
+      "instructionBundleSha256": "0cfa5fdcac13c6d6c2103c110fb11b36d33e10ad26e54006e38d1444dd538a12",
+      "instructionFileCount": 376,
+      "selectedInstructions": [
+        {
+          "path": "_instructions/just-vibe/skills/ml-features/SKILL.md",
+          "sha256": "0fc1c6628d5525cd377d9920cb11d99c27a0205a9dd45c86a6071f11f8bf7b37"
+        },
+        {
+          "path": "_instructions/just-vibe/skills/ml-leakage/SKILL.md",
+          "sha256": "40e953aabc397101c39d85f5a76441a8f84bb1303ad0bceba8be614b7ac15bb3"
+        },
+        {
+          "path": "_instructions/just-vibe/skills/ml-split/SKILL.md",
+          "sha256": "796a50f3f7d6b69fb30392a536d883c3a550fa25cc1ad632b6a7205cd1c70ba5"
+        },
+        {
+          "path": "_instructions/just-vibe/references/profiles/machine-learning-engineer.md",
+          "sha256": "f25512789561ba743e670153bdc62fd742d22ab541955a99927f734c4cd17076"
+        }
+      ],
+      "artifactHashes": {
+        "prompt.txt": "ee5a8437b2ad70ed0919c7accde8ee173606475f81a6a931eb2b2a76495bc8e5",
+        "events.jsonl": "85883012bdc63ba964c2483f2d64ed5b489cdf71d1863b1d0590e39bbeab24d8",
+        "answer.md": "a0a36703e5d989b51a9aa151c0826d458037ecdbf027757c16ea15a92e7deb97",
+        "run.json": "2a1ccbe805bf80454a567bbec1c3be0bb2b187eba62e774eeb42be1549b5df3c",
+        "test-evidence.json": "3d033d5cd8d189541ae875e6292160ac7289ef46cbf4374aa7a029425e08fcff"
+      }
+    },
+    {
+      "case": "async-cache",
+      "arm": "just-vibe-profile",
+      "repetition": 1,
+      "sourceVersion": "0.6.0",
+      "profile": "frontend-engineer",
+      "correct": true,
+      "artifactCorrect": true,
+      "scorerVersion": 3,
+      "priorScore": null,
+      "priorScores": [
+        {
+          "scorerVersion": 2,
+          "correct": true
+        }
+      ],
+      "checks": [
+        {
+          "name": "only permitted files changed",
+          "pass": true
+        },
+        {
+          "name": "no symlink artifacts",
+          "pass": true
+        },
+        {
+          "name": "no unrequested commits",
+          "pass": true
+        },
+        {
+          "name": "tenant identity, delimiter collisions and falsey values",
+          "pass": true
+        },
+        {
+          "name": "pending coalescing and expiry measured from completion",
+          "pass": true
+        },
+        {
+          "name": "one waiter cancellation cannot poison shared work",
+          "pass": true
+        },
+        {
+          "name": "pre-abort and listener cleanup on settlement",
+          "pass": true
+        },
+        {
+          "name": "detached old success cannot overwrite or delete new generation",
+          "pass": true
+        },
+        {
+          "name": "detached old failure cannot clear newer pending work",
+          "pass": true
+        },
+        {
+          "name": "synchronous failures and asynchronous failures are retryable",
+          "pass": true
+        },
+        {
+          "name": "latest view result, stale failure and permanent disposal",
+          "pass": true
+        },
+        {
+          "name": "oracle process completed consistently",
+          "pass": true
+        },
+        {
+          "name": "regression test artifact exists",
+          "pass": true
+        },
+        {
+          "name": "project and authored regression tests pass",
+          "pass": true
+        },
+        {
+          "name": "regression tests detect original defect",
+          "pass": true
+        },
+        {
+          "name": "agent turn completed within limit",
+          "pass": true
+        }
+      ],
+      "metrics": {
+        "model": "gpt-6-astra",
+        "effort": "medium",
+        "startedAt": "2026-09-20T05:43:13.087Z",
+        "finishedAt": "2026-09-20T05:47:00.530Z",
+        "wallMs": 227443,
+        "exitCode": 0,
+        "exitSignal": null,
+        "timedOut": false,
+        "cancelled": false,
+        "usage": {
+          "input_tokens": 148400,
+          "cached_input_tokens": 119808,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 4989,
+          "reasoning_output_tokens": 187
+        },
+        "turnCompleted": true,
+        "invalidEventLines": 0,
+        "toolCalls": 11,
+        "failedCommands": 0,
+        "errors": [],
+        "userInterventions": 0,
+        "costUsd": null,
+        "costReason": "CLI reports tokens, not a verified per-run monetary charge.",
+        "host": {
+          "cli": "codex-cli 0.155.1",
+          "sandbox": "workspace-write",
+          "writableGitMetadata": true,
+          "externalTools": false,
+          "plugins": false,
+          "hostSkillDiscovery": false
+        }
+      },
+      "instructionBundleSha256": "0cfa5fdcac13c6d6c2103c110fb11b36d33e10ad26e54006e38d1444dd538a12",
+      "instructionFileCount": 376,
+      "selectedInstructions": [
+        {
+          "path": "_instructions/just-vibe/skills/backend-cache/SKILL.md",
+          "sha256": "4086e504a0eefcdc260425fea45302d0fc6ab4172952e47c6710fb5ff14fbc5c"
+        },
+        {
+          "path": "_instructions/just-vibe/skills/backend-concurrency/SKILL.md",
+          "sha256": "86b14cfac0c0a764eaa15b66a173ce1a04cc9b4167e35e1f60737b3fb52a554f"
+        },
+        {
+          "path": "_instructions/just-vibe/skills/react-async/SKILL.md",
+          "sha256": "c388f3f827d0d921b53abaf1d2da5bbc0b9d9bca3e66f6117afa6483ed1abf7d"
+        },
+        {
+          "path": "_instructions/just-vibe/references/profiles/frontend-engineer.md",
+          "sha256": "38b28beccead214256c4118a62130aaec227c7480fbe6256a9c1cb1bddad9cc0"
+        }
+      ],
+      "artifactHashes": {
+        "prompt.txt": "2b7c6130c6826d656b1fad0b7bfdfb14ba0524e39cc16edfb92276e7cdbfdceb",
+        "events.jsonl": "760dce448c898b7a7b8995cb4bff461a954425e1dc891094eb4414c14f6f98ce",
+        "answer.md": "ae81c1b300920393ed09431ed9724081cc0917d957fc63cf90e5ada8d951f207",
+        "run.json": "ed0b4381e0f92a66d8bf47d07db74ab3ab78c89188aa5f09b5f8d0ef1594cc0f",
+        "test-evidence.json": "fb972709910b480b73ab28f07381a15f84dccf3c063375c84d117aafc0cde139"
+      }
+    },
+    {
+      "case": "scoped-commit",
+      "arm": "just-vibe-profile",
+      "repetition": 1,
+      "sourceVersion": "0.6.0",
+      "profile": "senior-software-engineer",
+      "correct": true,
+      "artifactCorrect": true,
+      "scorerVersion": 3,
+      "priorScore": null,
+      "priorScores": [
+        {
+          "scorerVersion": 2,
+          "correct": true
+        }
+      ],
+      "checks": [
+        {
+          "name": "only permitted files changed",
+          "pass": true
+        },
+        {
+          "name": "no symlink artifacts",
+          "pass": true
+        },
+        {
+          "name": "missing and zero adjustment",
+          "pass": true
+        },
+        {
+          "name": "negative surcharge and no-clamp compatibility",
+          "pass": true
+        },
+        {
+          "name": "unrelated worktree behavior preserved",
+          "pass": true
+        },
+        {
+          "name": "oracle process completed consistently",
+          "pass": true
+        },
+        {
+          "name": "regression test artifact exists",
+          "pass": true
+        },
+        {
+          "name": "project and authored regression tests pass",
+          "pass": true
+        },
+        {
+          "name": "regression tests detect original defect",
+          "pass": true
+        },
+        {
+          "name": "exactly one requested commit",
+          "pass": true
+        },
+        {
+          "name": "commit includes only requested fix and new test",
+          "pass": true
+        },
+        {
+          "name": "same-file staged and unstaged distinctions survive",
+          "pass": true
+        },
+        {
+          "name": "committed implementation satisfies the contract independently",
+          "pass": true
+        },
+        {
+          "name": "committed tests pass without unrelated worktree edits",
+          "pass": true
+        },
+        {
+          "name": "user identity and no agent attribution",
+          "pass": true
+        },
+        {
+          "name": "unrelated staged note and untracked file remain",
+          "pass": true
+        },
+        {
+          "name": "agent turn completed within limit",
+          "pass": true
+        }
+      ],
+      "metrics": {
+        "model": "gpt-6-astra",
+        "effort": "medium",
+        "startedAt": "2026-09-20T05:43:49.992Z",
+        "finishedAt": "2026-09-20T05:45:33.194Z",
+        "wallMs": 103202,
+        "exitCode": 0,
+        "exitSignal": null,
+        "timedOut": false,
+        "cancelled": false,
+        "usage": {
+          "input_tokens": 147702,
+          "cached_input_tokens": 127232,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 2679,
+          "reasoning_output_tokens": 208
+        },
+        "turnCompleted": true,
+        "invalidEventLines": 0,
+        "toolCalls": 13,
+        "failedCommands": 1,
+        "errors": [],
+        "userInterventions": 0,
+        "costUsd": null,
+        "costReason": "CLI reports tokens, not a verified per-run monetary charge.",
+        "host": {
+          "cli": "codex-cli 0.155.1",
+          "sandbox": "workspace-write",
+          "writableGitMetadata": true,
+          "externalTools": false,
+          "plugins": false,
+          "hostSkillDiscovery": false
+        }
+      },
+      "instructionBundleSha256": "0cfa5fdcac13c6d6c2103c110fb11b36d33e10ad26e54006e38d1444dd538a12",
+      "instructionFileCount": 376,
+      "selectedInstructions": [
+        {
+          "path": "_instructions/just-vibe/skills/fix/SKILL.md",
+          "sha256": "afa0f3a2a9b21e18973d3f1c4b34fe7fc2d6f36db6e50a08d7171ef19e44a5c7"
+        },
+        {
+          "path": "_instructions/just-vibe/skills/git-commit/SKILL.md",
+          "sha256": "690d69589ec00d5153684c47bc1e9b02696976e8387674f4b29d824178ca7ca3"
+        },
+        {
+          "path": "_instructions/just-vibe/skills/test-regression/SKILL.md",
+          "sha256": "a4e992a261834c07754ef70f4c06e85f49b0226dc9cf03c0e201941bf4311328"
+        },
+        {
+          "path": "_instructions/just-vibe/references/profiles/senior-software-engineer.md",
+          "sha256": "783a3ed0bfe8926ae42a964afca66acac2f406d45685b3b0a8b3282b83f46551"
+        }
+      ],
+      "artifactHashes": {
+        "prompt.txt": "4efee43857ab61916dd15f982baacc65b48de2d189bc08eb5814c0dd5d5aadea",
+        "events.jsonl": "8c7861f0d6038732d4f148bb5e523eabcd5984fe5e2c57ac5c0766f66cc6f854",
+        "answer.md": "9908080dc36720c2c35e35cec78e0c71e91d0000ee5f9790419406ad68fb63d6",
+        "run.json": "17423c3bd3427995f2823eb6a9d7ecc77ea51a5d4d69c9e8e638d9944ae94265",
+        "test-evidence.json": "6c7197b02c40238b6ec20ffd16bd08243b48ab74ea12582443b59d8a3eb1ff6d"
+      }
+    },
+    {
+      "case": "ledger",
+      "arm": "just-vibe",
+      "repetition": 1,
+      "sourceVersion": "0.6.0",
+      "profile": null,
+      "correct": true,
+      "artifactCorrect": true,
+      "scorerVersion": 3,
+      "priorScore": null,
+      "priorScores": [
+        {
+          "scorerVersion": 2,
+          "correct": true
+        }
+      ],
+      "checks": [
+        {
+          "name": "only permitted files changed",
+          "pass": true
+        },
+        {
+          "name": "no symlink artifacts",
+          "pass": true
+        },
+        {
+          "name": "no unrequested commits",
+          "pass": true
+        },
+        {
+          "name": "interruption rolls back all state and permits retry",
+          "pass": true
+        },
+        {
+          "name": "payload conflicts and tenant-scoped replay",
+          "pass": true
+        },
+        {
+          "name": "exact integer amount validation without writes",
+          "pass": true
+        },
+        {
+          "name": "account ownership, funds and credit overflow",
+          "pass": true
+        },
+        {
+          "name": "caller-owned transaction remains untouched",
+          "pass": true
+        },
+        {
+          "name": "concurrent connections serialize one effect",
+          "pass": true
+        },
+        {
+          "name": "oracle process completed consistently",
+          "pass": true
+        },
+        {
+          "name": "regression test artifact exists",
+          "pass": true
+        },
+        {
+          "name": "project and authored regression tests pass",
+          "pass": true
+        },
+        {
+          "name": "regression tests detect original defect",
+          "pass": true
+        },
+        {
+          "name": "agent turn completed within limit",
+          "pass": true
+        }
+      ],
+      "metrics": {
+        "model": "gpt-6-astra",
+        "effort": "medium",
+        "startedAt": "2026-09-20T05:45:33.914Z",
+        "finishedAt": "2026-09-20T05:48:52.710Z",
+        "wallMs": 198796,
+        "exitCode": 0,
+        "exitSignal": null,
+        "timedOut": false,
+        "cancelled": false,
+        "usage": {
+          "input_tokens": 140426,
+          "cached_input_tokens": 116992,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 5811,
+          "reasoning_output_tokens": 461
+        },
+        "turnCompleted": true,
+        "invalidEventLines": 0,
+        "toolCalls": 12,
+        "failedCommands": 1,
+        "errors": [],
+        "userInterventions": 0,
+        "costUsd": null,
+        "costReason": "CLI reports tokens, not a verified per-run monetary charge.",
+        "host": {
+          "cli": "codex-cli 0.155.1",
+          "sandbox": "workspace-write",
+          "writableGitMetadata": true,
+          "externalTools": false,
+          "plugins": false,
+          "hostSkillDiscovery": false
+        }
+      },
+      "instructionBundleSha256": "0cfa5fdcac13c6d6c2103c110fb11b36d33e10ad26e54006e38d1444dd538a12",
+      "instructionFileCount": 376,
+      "selectedInstructions": [
+        {
+          "path": "_instructions/just-vibe/skills/backend-idempotency/SKILL.md",
+          "sha256": "b9c7735adf288ea0142762bbd1ed4ad089a18867fc62897c4c24a78b26d350f0"
+        },
+        {
+          "path": "_instructions/just-vibe/skills/backend-concurrency/SKILL.md",
+          "sha256": "86b14cfac0c0a764eaa15b66a173ce1a04cc9b4167e35e1f60737b3fb52a554f"
+        },
+        {
+          "path": "_instructions/just-vibe/skills/db-integrity/SKILL.md",
+          "sha256": "4db38cde6380d122a2ae776b7cc0cbd2486019c2ddb2503879a04bf1b22ecb4d"
+        }
+      ],
+      "artifactHashes": {
+        "prompt.txt": "0b9a0edc17bb7c53e4b304747a8795c0ec3624f7b6aa637c0820b4f8ee78b5bc",
+        "events.jsonl": "3cd50cc36470f069b2a97e3dc3e4de87a02d2ffdfbe14bb64e9596b07b86b8fd",
+        "answer.md": "ee350c2f1a68be20bc407180e585c4657dacdf80f0e8b65ed0365396b6502a31",
+        "run.json": "5bcb13de554c04f9f01de21a6b0d467a4ffe3d73061cf04d6661bebf4b231079",
+        "test-evidence.json": "57c58f6f3ef091dcee43ae727301b68ae21f310dfdf0da505bb28eb0a35ac5be"
+      }
+    },
+    {
+      "case": "scoped-commit",
+      "arm": "just-vibe",
+      "repetition": 1,
+      "sourceVersion": "0.6.0",
+      "profile": null,
+      "correct": true,
+      "artifactCorrect": true,
+      "scorerVersion": 3,
+      "priorScore": null,
+      "priorScores": [
+        {
+          "scorerVersion": 2,
+          "correct": true
+        }
+      ],
+      "checks": [
+        {
+          "name": "only permitted files changed",
+          "pass": true
+        },
+        {
+          "name": "no symlink artifacts",
+          "pass": true
+        },
+        {
+          "name": "missing and zero adjustment",
+          "pass": true
+        },
+        {
+          "name": "negative surcharge and no-clamp compatibility",
+          "pass": true
+        },
+        {
+          "name": "unrelated worktree behavior preserved",
+          "pass": true
+        },
+        {
+          "name": "oracle process completed consistently",
+          "pass": true
+        },
+        {
+          "name": "regression test artifact exists",
+          "pass": true
+        },
+        {
+          "name": "project and authored regression tests pass",
+          "pass": true
+        },
+        {
+          "name": "regression tests detect original defect",
+          "pass": true
+        },
+        {
+          "name": "exactly one requested commit",
+          "pass": true
+        },
+        {
+          "name": "commit includes only requested fix and new test",
+          "pass": true
+        },
+        {
+          "name": "same-file staged and unstaged distinctions survive",
+          "pass": true
+        },
+        {
+          "name": "committed implementation satisfies the contract independently",
+          "pass": true
+        },
+        {
+          "name": "committed tests pass without unrelated worktree edits",
+          "pass": true
+        },
+        {
+          "name": "user identity and no agent attribution",
+          "pass": true
+        },
+        {
+          "name": "unrelated staged note and untracked file remain",
+          "pass": true
+        },
+        {
+          "name": "agent turn completed within limit",
+          "pass": true
+        }
+      ],
+      "metrics": {
+        "model": "gpt-6-astra",
+        "effort": "medium",
+        "startedAt": "2026-09-20T05:47:16.198Z",
+        "finishedAt": "2026-09-20T05:49:11.883Z",
+        "wallMs": 115685,
+        "exitCode": 0,
+        "exitSignal": null,
+        "timedOut": false,
+        "cancelled": false,
+        "usage": {
+          "input_tokens": 186674,
+          "cached_input_tokens": 168192,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 2523,
+          "reasoning_output_tokens": 170
+        },
+        "turnCompleted": true,
+        "invalidEventLines": 0,
+        "toolCalls": 12,
+        "failedCommands": 2,
+        "errors": [],
+        "userInterventions": 0,
+        "costUsd": null,
+        "costReason": "CLI reports tokens, not a verified per-run monetary charge.",
+        "host": {
+          "cli": "codex-cli 0.155.1",
+          "sandbox": "workspace-write",
+          "writableGitMetadata": true,
+          "externalTools": false,
+          "plugins": false,
+          "hostSkillDiscovery": false
+        }
+      },
+      "instructionBundleSha256": "0cfa5fdcac13c6d6c2103c110fb11b36d33e10ad26e54006e38d1444dd538a12",
+      "instructionFileCount": 376,
+      "selectedInstructions": [
+        {
+          "path": "_instructions/just-vibe/skills/fix/SKILL.md",
+          "sha256": "afa0f3a2a9b21e18973d3f1c4b34fe7fc2d6f36db6e50a08d7171ef19e44a5c7"
+        },
+        {
+          "path": "_instructions/just-vibe/skills/git-commit/SKILL.md",
+          "sha256": "690d69589ec00d5153684c47bc1e9b02696976e8387674f4b29d824178ca7ca3"
+        },
+        {
+          "path": "_instructions/just-vibe/skills/test-regression/SKILL.md",
+          "sha256": "a4e992a261834c07754ef70f4c06e85f49b0226dc9cf03c0e201941bf4311328"
+        }
+      ],
+      "artifactHashes": {
+        "prompt.txt": "277fe99fe2ace4c42519605096cc0fee77083a4610decd0e11cd9338065f8ab9",
+        "events.jsonl": "d73063e5712772df542f7559581213ce0d0a7f61ad587d9c67892f629be723a4",
+        "answer.md": "75254adc9617e554662b7392f93f3a84b5253ac028fd29b2ae2743d50fa9b98d",
+        "run.json": "8a09eed10a564ef04c9da7f451363e1943b156393c2dd2632f4c6c73e1a462cd",
+        "test-evidence.json": "f420ba42f2629077b35ea58b28658f9f4e5dd92d4d741bb757bfdc0f9af8b4f4"
+      }
+    }
+  ],
+  "limitations": [
+    "Newly authored bounded fixture repositories, not third-party production repositories.",
+    "Complete written contracts remove much of the context and discovery burden; user convenience and preference were not measured.",
+    "Bounded correctness checks do not rank overall output quality; equal pass counts do not establish equal products.",
+    "Matched supplied ECC instructions at a pinned snapshot; native hooks/memory integrations are excluded.",
+    "Two repeats per original case/arm are insufficient to establish general superiority.",
+    "Token and timing metrics are supporting operational observations, not quality scores. Zero interventions means none were supplied under the protocol.",
+    "No monetary charge is reported by this authenticated CLI; cached input is a subset of input.",
+    "A stable model name does not guarantee an immutable service backend.",
+    "See the protocol for pilots and the uniform scorer correction; original scores are retained."
+  ]
+}

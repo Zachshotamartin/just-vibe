@@ -12,6 +12,25 @@ Outputs need enough structure to assess correctness: a comparison needs assumpti
 
 Keep generic execution rules in the shared guide. Use current primary documentation when behavior depends on framework/provider version. Do not copy a full manual into every command or turn a particular incident into a universal rule. Short commands are acceptable when the task is simple and the contract is clear.
 
+## Output quality and convenience
+
+The product question is whether a workflow helps someone get useful work done with less preparation and correction. Correctness checks can establish specific behavior; they cannot fully score architectural judgment, communication or convenience. More instructions, commands, tests or tokens are not evidence of a better experience by themselves.
+
+Use contextual review alongside executable checks. Record concrete examples and the reviewer's task and preferences; avoid converting unlike judgments into an overall product score.
+
+| Dimension | Review the actual experience | Useful evidence |
+| --- | --- | --- |
+| Task fit and judgment | Did the agent address the real need with proportionate scope and sensible tradeoffs? | Accepted result, unnecessary work, assumptions and decisions the user changed |
+| Maintainability | Does the implementation fit the repository and remain understandable to its maintainers? | Reviewer comments tied to code and existing conventions |
+| Clarity | Can the user understand what changed, why and what remains uncertain? | Statements checked against artifacts; confusing or missing explanations |
+| Discovery | Could the user find a suitable command or profile without learning the catalog? | Initial request, route selected, search detours and mistaken selections |
+| Context and correction burden | How much did the user have to specify, repeat or repair? | Starting brief, consequential follow-ups and corrections, with their reasons |
+| Defaults and control | Did the workflow choose helpful defaults while honoring the user's boundaries? | Decisions accepted or overridden, avoidable interruptions and scope changes |
+
+For a practical comparison, use the same realistic starting brief, model and repository revision; let each toolkit use its documented native setup. Include routine and unfamiliar tasks with the amount of context a user would normally provide. Evaluate both first use and repeat use: setup and discovery costs can differ from day-to-day usefulness. Preserve failed attempts and corrections. Where feasible, review anonymized outputs before revealing the toolkit, then collect the user's preference and reasons. Identify the reviewer and task context without publishing private information. Counts of follow-ups or elapsed time are supporting observations: a necessary clarification can improve quality, and a shorter interaction can hide a bad assumption.
+
+The [v0.6 repository study](../evals/releases/0.6.0.md) supplied complete written contracts, so it barely exercised discovery or context burden. It provides narrow implementation evidence and no measured user preference or convenience result. Token usage is supporting operational data, not the objective or a quality score.
+
 ## Focused depth review
 
 The v0.6 review replaces repeated procedure/output sentences in 27 contracts with decisions that change agent behavior. It improves the shared execution guide for every workflow, but does not claim all 212 canonical workflows have been independently behavior-tested.

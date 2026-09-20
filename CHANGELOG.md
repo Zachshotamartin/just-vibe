@@ -4,7 +4,7 @@
 
 - Replace repeated guidance in 27 command contracts with concrete ownership, timing, failure, recovery and verification decisions across backend, ML, Git/GitHub, React, frontend delivery, architecture, decisions and LLM systems.
 - Require contract-backed expectations and artifact-specific evidence in shared execution guidance. Add worked methods for cache cancellation/generations, transaction ownership, versioned historical features and preserving partially staged commits.
-- Add a repeated four-arm repository benchmark with independent behavior assertions, scorer controls, immutable trial inputs, actual native CLI token/timing capture, profile ablation and retained failures. Separate observed benchmark results from untested live integrations and overall-superiority claims.
+- Add a repeated four-arm repository benchmark with independent behavior assertions, scorer controls, immutable trial inputs, profile ablation and retained failures. Record 32 original and eight development trials, with token/timing data as supporting observations. Distinguish narrow correctness from overall output quality and convenience; add a contextual review guide for judgment, clarity, discovery and correction burden.
 - Preserve original scores when correcting test-report interpretation; compare every arm under the same corrected scorer. Benchmark model calls remain explicitly opt-in and are excluded from normal validation.
 
 ## 0.5.0

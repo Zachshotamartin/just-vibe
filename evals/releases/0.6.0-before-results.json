@@ -1,0 +1,4850 @@
+{
+  "schemaVersion": 1,
+  "exportedAt": "2026-09-20T05:57:11.497Z",
+  "scorer": {
+    "version": 3,
+    "files": {
+      "harness.mjs": "420d327b8bf6fa624674eabc96330ed23ec6a7048f28914e62d05e621fb1fa17",
+      "oracles/node.mjs": "d3834ed66845b9f1e6a449df22c70c09225784af139d83c154dd4afaebd1afa0",
+      "oracles/python.py": "1c11ad48f970d40c91c2cbe20d44d7593282bd728a50dcc62c2e3752f44d030c",
+      "support/python-test-report.py": "5c20557d12792055a7855066ea46b0c8af099fabe9eeec4e47cdd48387d5de1b",
+      "support/commit-tree.mjs": "58cd033e6d8c62ebc70733ca07704bcea388a60c8bfc719dc91d29d9f91203ff"
+    }
+  },
+  "protocol": {
+    "schemaVersion": 1,
+    "preparedAt": "2026-09-20T04:55:41.027Z",
+    "seed": 5192026,
+    "repetitions": 2,
+    "sourceRevision": "8ed8fcb5b2c690dcff2409268c1d4e3079f59823",
+    "eccRevision": "934195f955cf0da847d59fcd6f68856bce112d8b",
+    "cases": [
+      "async-cache",
+      "ledger",
+      "temporal-ml",
+      "scoped-commit"
+    ],
+    "arms": [
+      "baseline",
+      "just-vibe",
+      "just-vibe-profile",
+      "ecc"
+    ],
+    "oracleHashes": {
+      "node.mjs": "d3834ed66845b9f1e6a449df22c70c09225784af139d83c154dd4afaebd1afa0",
+      "python.py": "1968467c1b6703cf99c75857f36fcb71a6959db37e9aca23461e6042dd78a660"
+    },
+    "fixtureHashes": {
+      "async-cache/README.md": "8fbc7fa5973cc7198b734663ad9b5349ea94fccfcba72140b0ed75d062671dff",
+      "async-cache/TASK.md": "983b6fb0b0793089cdda4d018b320aedc49be106059dbd87cdcbe4cb94019ac2",
+      "async-cache/package.json": "de318e5a8b84c2ff52f66f104f5e08cca9cf5591fe0a889997914d0b217b084c",
+      "async-cache/src/cache.mjs": "709790e64a79e518c780e5c6c8769ab01baba07038dd9771974ed3030ee05797",
+      "async-cache/src/view.mjs": "10b5cf41b51018c73c0dd3b6561c0f3bd23119a53b8aa5f879a089657d805afd",
+      "async-cache/test/smoke.test.mjs": "ecbccb9b5656dc25e4f702cdd0cd86f85c0ebaca1ef9c576cb457c41eb56e0b1",
+      "ledger/README.md": "742cc270241357a0fd087f832a54f19f6371d5415f97ee2892780faf2bf22f0c",
+      "ledger/TASK.md": "ebe45c67879749a49c287cc3347f7e8465db7b0db93eb3906e467d4c2430f62e",
+      "ledger/src/service.py": "829552e42bfde0cf6d68ca184eeb35336ad7b5186c1df7dddd95455c59e682b6",
+      "ledger/src/store.py": "89a9d25f50add85ca8c674d7199c50f7fdc032ff73b9ac938e07e011b2ecf8a4",
+      "ledger/test/test_smoke.py": "9d474f96bb26bbae08dca155f6434d930f95497aba7f8c34138339f19e6734e5",
+      "scoped-commit/README.md": "573ab14673d6b42cda49b8dd553fc9fa934065c6586255bd35c5ef858178164c",
+      "scoped-commit/TASK.md": "32f3f0221ff65d490c48e4703ad51d25989763d0b3e6eeb4478434682163e39d",
+      "scoped-commit/package.json": "3f664875afb7212ad9cf0ab854233eb311cc185f839f874286e58d3c558e0a39",
+      "scoped-commit/src/invoice.mjs": "09b4f6a0f01123c1675f4b439407a937b778ee07991741f7e6557bc42ce25aed",
+      "scoped-commit/test/invoice.test.mjs": "6ebaa3fec759ec2cf2584b92dc90f81781f64a9b352bf142f10964fcf06e3cd5",
+      "temporal-ml/README.md": "d5a5ec1cd3d0a3d3efd00e50273eadfefa8b701479ecc5df0a3f5bdd03648277",
+      "temporal-ml/TASK.md": "3929892e02a8bdf818f5202cb60c4eae6b464be9643ec3dbdb64188f49553a98",
+      "temporal-ml/src/features.py": "7a38416ea486692a683e2b144f50bbe1b2745cdfe13a0ea6ded6633a3be28ac5",
+      "temporal-ml/src/pipeline.py": "f27a9dd5415c357848f160bfeec3b4beb5b51ad3ff0f71bae928901c84b2c08b",
+      "temporal-ml/src/report.py": "35431e4b7cfbec8085a6f28c2a1617de5aa3ea5a94901aad46d68a353d5a1088",
+      "temporal-ml/test/test_smoke.py": "38f26de9e323d330aac9c83dad478627aff8785656370c342292f0bdb36618ac"
+    },
+    "harnessSha256": "4824a74d4b62082dd2677c54b87caede67d30c9a82404d37549fb1de77fdf752",
+    "note": "Author-created multi-file fixture repositories; supplied instructions, not full native plugin hooks. Fresh contexts, randomized order and immutable trial inputs. Public tasks are not a permanent blind benchmark."
+  },
+  "summary": {
+    "baseline": {
+      "passed": 8,
+      "trials": 8,
+      "artifactPassed": 8,
+      "completed": 8,
+      "timeouts": 0,
+      "medianWallMs": 146957.5,
+      "wallTimeAvailableTrials": 8,
+      "toolCalls": 47,
+      "failedCommands": 6,
+      "userInterventions": 0,
+      "countMetricsAvailableTrials": {
+        "toolCalls": 8,
+        "failedCommands": 8,
+        "userInterventions": 8
+      },
+      "usage": {
+        "input_tokens": {
+          "sumAvailable": 723179,
+          "availableTrials": 8
+        },
+        "cached_input_tokens": {
+          "sumAvailable": 541312,
+          "availableTrials": 8
+        },
+        "output_tokens": {
+          "sumAvailable": 31627,
+          "availableTrials": 8
+        },
+        "reasoning_output_tokens": {
+          "sumAvailable": 1979,
+          "availableTrials": 8
+        }
+      },
+      "costUsd": null
+    },
+    "ecc": {
+      "passed": 8,
+      "trials": 8,
+      "artifactPassed": 8,
+      "completed": 8,
+      "timeouts": 0,
+      "medianWallMs": 144498,
+      "wallTimeAvailableTrials": 8,
+      "toolCalls": 58,
+      "failedCommands": 9,
+      "userInterventions": 0,
+      "countMetricsAvailableTrials": {
+        "toolCalls": 8,
+        "failedCommands": 8,
+        "userInterventions": 8
+      },
+      "usage": {
+        "input_tokens": {
+          "sumAvailable": 1142256,
+          "availableTrials": 8
+        },
+        "cached_input_tokens": {
+          "sumAvailable": 916864,
+          "availableTrials": 8
+        },
+        "output_tokens": {
+          "sumAvailable": 31801,
+          "availableTrials": 8
+        },
+        "reasoning_output_tokens": {
+          "sumAvailable": 1630,
+          "availableTrials": 8
+        }
+      },
+      "costUsd": null
+    },
+    "just-vibe-profile": {
+      "passed": 8,
+      "trials": 8,
+      "artifactPassed": 8,
+      "completed": 8,
+      "timeouts": 0,
+      "medianWallMs": 158840.5,
+      "wallTimeAvailableTrials": 8,
+      "toolCalls": 76,
+      "failedCommands": 7,
+      "userInterventions": 0,
+      "countMetricsAvailableTrials": {
+        "toolCalls": 8,
+        "failedCommands": 8,
+        "userInterventions": 8
+      },
+      "usage": {
+        "input_tokens": {
+          "sumAvailable": 1116010,
+          "availableTrials": 8
+        },
+        "cached_input_tokens": {
+          "sumAvailable": 892928,
+          "availableTrials": 8
+        },
+        "output_tokens": {
+          "sumAvailable": 35641,
+          "availableTrials": 8
+        },
+        "reasoning_output_tokens": {
+          "sumAvailable": 1007,
+          "availableTrials": 8
+        }
+      },
+      "costUsd": null
+    },
+    "just-vibe": {
+      "passed": 8,
+      "trials": 8,
+      "artifactPassed": 8,
+      "completed": 8,
+      "timeouts": 0,
+      "medianWallMs": 153749,
+      "wallTimeAvailableTrials": 8,
+      "toolCalls": 70,
+      "failedCommands": 8,
+      "userInterventions": 0,
+      "countMetricsAvailableTrials": {
+        "toolCalls": 8,
+        "failedCommands": 8,
+        "userInterventions": 8
+      },
+      "usage": {
+        "input_tokens": {
+          "sumAvailable": 956052,
+          "availableTrials": 8
+        },
+        "cached_input_tokens": {
+          "sumAvailable": 785792,
+          "availableTrials": 8
+        },
+        "output_tokens": {
+          "sumAvailable": 33968,
+          "availableTrials": 8
+        },
+        "reasoning_output_tokens": {
+          "sumAvailable": 1125,
+          "availableTrials": 8
+        }
+      },
+      "costUsd": null
+    }
+  },
+  "paired": [
+    {
+      "left": "just-vibe",
+      "right": "baseline",
+      "pairs": 8,
+      "bothPass": 8,
+      "leftOnly": 0,
+      "rightOnly": 0,
+      "neither": 0,
+      "comparisons": [
+        {
+          "case": "ledger",
+          "repetition": 1,
+          "left": true,
+          "right": true
+        },
+        {
+          "case": "ledger",
+          "repetition": 2,
+          "left": true,
+          "right": true
+        },
+        {
+          "case": "scoped-commit",
+          "repetition": 2,
+          "left": true,
+          "right": true
+        },
+        {
+          "case": "temporal-ml",
+          "repetition": 2,
+          "left": true,
+          "right": true
+        },
+        {
+          "case": "scoped-commit",
+          "repetition": 1,
+          "left": true,
+          "right": true
+        },
+        {
+          "case": "async-cache",
+          "repetition": 2,
+          "left": true,
+          "right": true
+        },
+        {
+          "case": "async-cache",
+          "repetition": 1,
+          "left": true,
+          "right": true
+        },
+        {
+          "case": "temporal-ml",
+          "repetition": 1,
+          "left": true,
+          "right": true
+        }
+      ]
+    },
+    {
+      "left": "just-vibe",
+      "right": "ecc",
+      "pairs": 8,
+      "bothPass": 8,
+      "leftOnly": 0,
+      "rightOnly": 0,
+      "neither": 0,
+      "comparisons": [
+        {
+          "case": "ledger",
+          "repetition": 1,
+          "left": true,
+          "right": true
+        },
+        {
+          "case": "ledger",
+          "repetition": 2,
+          "left": true,
+          "right": true
+        },
+        {
+          "case": "scoped-commit",
+          "repetition": 2,
+          "left": true,
+          "right": true
+        },
+        {
+          "case": "temporal-ml",
+          "repetition": 2,
+          "left": true,
+          "right": true
+        },
+        {
+          "case": "scoped-commit",
+          "repetition": 1,
+          "left": true,
+          "right": true
+        },
+        {
+          "case": "async-cache",
+          "repetition": 2,
+          "left": true,
+          "right": true
+        },
+        {
+          "case": "async-cache",
+          "repetition": 1,
+          "left": true,
+          "right": true
+        },
+        {
+          "case": "temporal-ml",
+          "repetition": 1,
+          "left": true,
+          "right": true
+        }
+      ]
+    },
+    {
+      "left": "just-vibe-profile",
+      "right": "just-vibe",
+      "pairs": 8,
+      "bothPass": 8,
+      "leftOnly": 0,
+      "rightOnly": 0,
+      "neither": 0,
+      "comparisons": [
+        {
+          "case": "temporal-ml",
+          "repetition": 2,
+          "left": true,
+          "right": true
+        },
+        {
+          "case": "ledger",
+          "repetition": 2,
+          "left": true,
+          "right": true
+        },
+        {
+          "case": "ledger",
+          "repetition": 1,
+          "left": true,
+          "right": true
+        },
+        {
+          "case": "temporal-ml",
+          "repetition": 1,
+          "left": true,
+          "right": true
+        },
+        {
+          "case": "async-cache",
+          "repetition": 2,
+          "left": true,
+          "right": true
+        },
+        {
+          "case": "async-cache",
+          "repetition": 1,
+          "left": true,
+          "right": true
+        },
+        {
+          "case": "scoped-commit",
+          "repetition": 1,
+          "left": true,
+          "right": true
+        },
+        {
+          "case": "scoped-commit",
+          "repetition": 2,
+          "left": true,
+          "right": true
+        }
+      ]
+    }
+  ],
+  "trials": [
+    {
+      "case": "scoped-commit",
+      "arm": "baseline",
+      "repetition": 1,
+      "sourceVersion": "0.5.0",
+      "profile": null,
+      "correct": true,
+      "artifactCorrect": true,
+      "scorerVersion": 3,
+      "priorScore": {
+        "scorerVersion": 1,
+        "correct": true
+      },
+      "priorScores": [
+        {
+          "scorerVersion": 1,
+          "correct": true
+        },
+        {
+          "scorerVersion": 2,
+          "correct": true
+        }
+      ],
+      "checks": [
+        {
+          "name": "only permitted files changed",
+          "pass": true
+        },
+        {
+          "name": "no symlink artifacts",
+          "pass": true
+        },
+        {
+          "name": "missing and zero adjustment",
+          "pass": true
+        },
+        {
+          "name": "negative surcharge and no-clamp compatibility",
+          "pass": true
+        },
+        {
+          "name": "unrelated worktree behavior preserved",
+          "pass": true
+        },
+        {
+          "name": "oracle process completed consistently",
+          "pass": true
+        },
+        {
+          "name": "regression test artifact exists",
+          "pass": true
+        },
+        {
+          "name": "project and authored regression tests pass",
+          "pass": true
+        },
+        {
+          "name": "regression tests detect original defect",
+          "pass": true
+        },
+        {
+          "name": "exactly one requested commit",
+          "pass": true
+        },
+        {
+          "name": "commit includes only requested fix and new test",
+          "pass": true
+        },
+        {
+          "name": "same-file staged and unstaged distinctions survive",
+          "pass": true
+        },
+        {
+          "name": "committed implementation satisfies the contract independently",
+          "pass": true
+        },
+        {
+          "name": "committed tests pass without unrelated worktree edits",
+          "pass": true
+        },
+        {
+          "name": "user identity and no agent attribution",
+          "pass": true
+        },
+        {
+          "name": "unrelated staged note and untracked file remain",
+          "pass": true
+        },
+        {
+          "name": "agent turn completed within limit",
+          "pass": true
+        }
+      ],
+      "metrics": {
+        "model": "gpt-6-astra",
+        "effort": "medium",
+        "startedAt": "2026-09-20T04:55:41.084Z",
+        "finishedAt": "2026-09-20T04:56:54.806Z",
+        "wallMs": 73722,
+        "exitCode": 0,
+        "timedOut": false,
+        "usage": {
+          "input_tokens": 99356,
+          "cached_input_tokens": 74368,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 1885,
+          "reasoning_output_tokens": 190
+        },
+        "turnCompleted": true,
+        "toolCalls": 8,
+        "failedCommands": 1,
+        "errors": [],
+        "userInterventions": 0,
+        "costUsd": null,
+        "costReason": "ChatGPT-authenticated CLI reports tokens, not a per-run monetary charge.",
+        "host": {
+          "cli": "codex-cli 0.155.1",
+          "sandbox": "workspace-write",
+          "writableGitMetadata": true,
+          "externalTools": false,
+          "plugins": false,
+          "hostSkillDiscovery": false
+        }
+      },
+      "instructionBundleSha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "instructionFileCount": 0,
+      "selectedInstructions": [],
+      "artifactHashes": {
+        "prompt.txt": "e2e3fbbc6ba18a8319d207f6d1d31c36942355c959c8c9490ad5b72e72fe14d2",
+        "events.jsonl": "0740ab136874c9eef78c044a7332e0c421c9698bcbbcfaa8c4af6fd0ebb8a100",
+        "answer.md": "3c371b2b14835024d1db999072432825203ff79fe89fe3710ec94ab0d7af0d56",
+        "run.json": "5707b83b9e9446adc67989936d527772fe4e911d4545345f57066da279603e20",
+        "test-evidence.json": "ce08861aa20ef2bb504e3f1b8b2971686637e8f476e8bde19a9e55f6a6c7bb38"
+      }
+    },
+    {
+      "case": "temporal-ml",
+      "arm": "baseline",
+      "repetition": 1,
+      "sourceVersion": "0.5.0",
+      "profile": null,
+      "correct": true,
+      "artifactCorrect": true,
+      "scorerVersion": 3,
+      "priorScore": {
+        "scorerVersion": 1,
+        "correct": false
+      },
+      "priorScores": [
+        {
+          "scorerVersion": 1,
+          "correct": false
+        },
+        {
+          "scorerVersion": 2,
+          "correct": true
+        }
+      ],
+      "checks": [
+        {
+          "name": "only permitted files changed",
+          "pass": true
+        },
+        {
+          "name": "no symlink artifacts",
+          "pass": true
+        },
+        {
+          "name": "no unrequested commits",
+          "pass": true
+        },
+        {
+          "name": "window bounds and event availability",
+          "pass": true
+        },
+        {
+          "name": "revision selection before window filtering and deduplication",
+          "pass": true
+        },
+        {
+          "name": "offset-aware instant comparisons and naive rejection",
+          "pass": true
+        },
+        {
+          "name": "mature training membership and train-only scaler",
+          "pass": true
+        },
+        {
+          "name": "zero labels, unknown labels and future examples",
+          "pass": true
+        },
+        {
+          "name": "input order and immutability",
+          "pass": true
+        },
+        {
+          "name": "empty and constant training fallback",
+          "pass": true
+        },
+        {
+          "name": "oracle process completed consistently",
+          "pass": true
+        },
+        {
+          "name": "regression test artifact exists",
+          "pass": true
+        },
+        {
+          "name": "project and authored regression tests pass",
+          "pass": true
+        },
+        {
+          "name": "regression tests detect original defect",
+          "pass": true
+        },
+        {
+          "name": "agent turn completed within limit",
+          "pass": true
+        }
+      ],
+      "metrics": {
+        "model": "gpt-6-astra",
+        "effort": "medium",
+        "startedAt": "2026-09-20T04:55:41.088Z",
+        "finishedAt": "2026-09-20T04:58:27.550Z",
+        "wallMs": 166464,
+        "exitCode": 0,
+        "timedOut": false,
+        "usage": {
+          "input_tokens": 90768,
+          "cached_input_tokens": 73984,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 5105,
+          "reasoning_output_tokens": 201
+        },
+        "turnCompleted": true,
+        "toolCalls": 6,
+        "failedCommands": 0,
+        "errors": [],
+        "userInterventions": 0,
+        "costUsd": null,
+        "costReason": "ChatGPT-authenticated CLI reports tokens, not a per-run monetary charge.",
+        "host": {
+          "cli": "codex-cli 0.155.1",
+          "sandbox": "workspace-write",
+          "writableGitMetadata": true,
+          "externalTools": false,
+          "plugins": false,
+          "hostSkillDiscovery": false
+        }
+      },
+      "instructionBundleSha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "instructionFileCount": 0,
+      "selectedInstructions": [],
+      "artifactHashes": {
+        "prompt.txt": "3f4f3a668c54ca85a8e1dfb586ebb0b3144e038c64dc10717696b8221bfcc804",
+        "events.jsonl": "7e2b52cb46e56e8a17a1c325a8237f0d91d1d735d608a0709ed76e53e12937b1",
+        "answer.md": "375f68c7106ca314314293b62b23ffe802dcc1d0333ab3889689524dc2a43b13",
+        "run.json": "13d70c9e16f83f8b28fb703a76c022d34148e630b43eb4fd721564d42a400c95",
+        "test-evidence.json": "c1ced509f4ee21b0e038ac2e4b61a214b3f3fd8ce3a2b21fe5a3edf9acad6e80"
+      }
+    },
+    {
+      "case": "async-cache",
+      "arm": "baseline",
+      "repetition": 2,
+      "sourceVersion": "0.5.0",
+      "profile": null,
+      "correct": true,
+      "artifactCorrect": true,
+      "scorerVersion": 3,
+      "priorScore": {
+        "scorerVersion": 1,
+        "correct": false
+      },
+      "priorScores": [
+        {
+          "scorerVersion": 1,
+          "correct": false
+        },
+        {
+          "scorerVersion": 2,
+          "correct": true
+        }
+      ],
+      "checks": [
+        {
+          "name": "only permitted files changed",
+          "pass": true
+        },
+        {
+          "name": "no symlink artifacts",
+          "pass": true
+        },
+        {
+          "name": "no unrequested commits",
+          "pass": true
+        },
+        {
+          "name": "tenant identity, delimiter collisions and falsey values",
+          "pass": true
+        },
+        {
+          "name": "pending coalescing and expiry measured from completion",
+          "pass": true
+        },
+        {
+          "name": "one waiter cancellation cannot poison shared work",
+          "pass": true
+        },
+        {
+          "name": "pre-abort and listener cleanup on settlement",
+          "pass": true
+        },
+        {
+          "name": "detached old success cannot overwrite or delete new generation",
+          "pass": true
+        },
+        {
+          "name": "detached old failure cannot clear newer pending work",
+          "pass": true
+        },
+        {
+          "name": "synchronous failures and asynchronous failures are retryable",
+          "pass": true
+        },
+        {
+          "name": "latest view result, stale failure and permanent disposal",
+          "pass": true
+        },
+        {
+          "name": "oracle process completed consistently",
+          "pass": true
+        },
+        {
+          "name": "regression test artifact exists",
+          "pass": true
+        },
+        {
+          "name": "project and authored regression tests pass",
+          "pass": true
+        },
+        {
+          "name": "regression tests detect original defect",
+          "pass": true
+        },
+        {
+          "name": "agent turn completed within limit",
+          "pass": true
+        }
+      ],
+      "metrics": {
+        "model": "gpt-6-astra",
+        "effort": "medium",
+        "startedAt": "2026-09-20T04:56:55.213Z",
+        "finishedAt": "2026-09-20T04:59:30.660Z",
+        "wallMs": 155448,
+        "exitCode": 0,
+        "timedOut": false,
+        "usage": {
+          "input_tokens": 88909,
+          "cached_input_tokens": 59520,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 4497,
+          "reasoning_output_tokens": 181
+        },
+        "turnCompleted": true,
+        "toolCalls": 5,
+        "failedCommands": 1,
+        "errors": [],
+        "userInterventions": 0,
+        "costUsd": null,
+        "costReason": "ChatGPT-authenticated CLI reports tokens, not a per-run monetary charge.",
+        "host": {
+          "cli": "codex-cli 0.155.1",
+          "sandbox": "workspace-write",
+          "writableGitMetadata": true,
+          "externalTools": false,
+          "plugins": false,
+          "hostSkillDiscovery": false
+        }
+      },
+      "instructionBundleSha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "instructionFileCount": 0,
+      "selectedInstructions": [],
+      "artifactHashes": {
+        "prompt.txt": "b18d760c8babaa95d450f681e3c08354d85cee1a633d41888a62299b09b7b800",
+        "events.jsonl": "93403d186fdd323e5a5a485f951f9a099707521e4aa25fc2b9745d8931d8da79",
+        "answer.md": "714a5a3e97cfccb965117edb42404ec9c630ede5745bb51a22e73eede298d202",
+        "run.json": "a943d1764616ac6b96aec1a062d90d412838fc612cb727959d6e5d426dafe0d2",
+        "test-evidence.json": "bb80b5fe91e5b1674639b3ea39385d6ff6f94f35472b3f5b5faa6a19c04ea88a"
+      }
+    },
+    {
+      "case": "async-cache",
+      "arm": "ecc",
+      "repetition": 2,
+      "sourceVersion": "0.5.0",
+      "profile": null,
+      "correct": true,
+      "artifactCorrect": true,
+      "scorerVersion": 3,
+      "priorScore": {
+        "scorerVersion": 1,
+        "correct": false
+      },
+      "priorScores": [
+        {
+          "scorerVersion": 1,
+          "correct": false
+        },
+        {
+          "scorerVersion": 2,
+          "correct": true
+        }
+      ],
+      "checks": [
+        {
+          "name": "only permitted files changed",
+          "pass": true
+        },
+        {
+          "name": "no symlink artifacts",
+          "pass": true
+        },
+        {
+          "name": "no unrequested commits",
+          "pass": true
+        },
+        {
+          "name": "tenant identity, delimiter collisions and falsey values",
+          "pass": true
+        },
+        {
+          "name": "pending coalescing and expiry measured from completion",
+          "pass": true
+        },
+        {
+          "name": "one waiter cancellation cannot poison shared work",
+          "pass": true
+        },
+        {
+          "name": "pre-abort and listener cleanup on settlement",
+          "pass": true
+        },
+        {
+          "name": "detached old success cannot overwrite or delete new generation",
+          "pass": true
+        },
+        {
+          "name": "detached old failure cannot clear newer pending work",
+          "pass": true
+        },
+        {
+          "name": "synchronous failures and asynchronous failures are retryable",
+          "pass": true
+        },
+        {
+          "name": "latest view result, stale failure and permanent disposal",
+          "pass": true
+        },
+        {
+          "name": "oracle process completed consistently",
+          "pass": true
+        },
+        {
+          "name": "regression test artifact exists",
+          "pass": true
+        },
+        {
+          "name": "project and authored regression tests pass",
+          "pass": true
+        },
+        {
+          "name": "regression tests detect original defect",
+          "pass": true
+        },
+        {
+          "name": "agent turn completed within limit",
+          "pass": true
+        }
+      ],
+      "metrics": {
+        "model": "gpt-6-astra",
+        "effort": "medium",
+        "startedAt": "2026-09-20T04:58:27.869Z",
+        "finishedAt": "2026-09-20T05:01:37.572Z",
+        "wallMs": 189704,
+        "exitCode": 0,
+        "timedOut": false,
+        "usage": {
+          "input_tokens": 124489,
+          "cached_input_tokens": 96128,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 5076,
+          "reasoning_output_tokens": 231
+        },
+        "turnCompleted": true,
+        "toolCalls": 8,
+        "failedCommands": 1,
+        "errors": [],
+        "userInterventions": 0,
+        "costUsd": null,
+        "costReason": "ChatGPT-authenticated CLI reports tokens, not a per-run monetary charge.",
+        "host": {
+          "cli": "codex-cli 0.155.1",
+          "sandbox": "workspace-write",
+          "writableGitMetadata": true,
+          "externalTools": false,
+          "plugins": false,
+          "hostSkillDiscovery": false
+        }
+      },
+      "instructionBundleSha256": "3493a12ea7e800c74d38160d475b7e5356fe69918274c82d862732f5035401e6",
+      "instructionFileCount": 3,
+      "selectedInstructions": [
+        {
+          "path": "_instructions/ecc/skills/backend-patterns/SKILL.md",
+          "sha256": "9b983d0297a983110fdfda8dce55d19b750ca3e53ef155d75a3eff740d3874b8"
+        },
+        {
+          "path": "_instructions/ecc/skills/react-patterns/SKILL.md",
+          "sha256": "f3208d44a5d553038c42e046cec4dc16e4a3d90a9dbf931f883a2e21919a64a9"
+        }
+      ],
+      "artifactHashes": {
+        "prompt.txt": "c30e2db18286bc63e1d824dd3fa95d282c93a80b203e905301f8a2b1ccd819da",
+        "events.jsonl": "12b8da1cf328290e702e7ba356bc2155eddc984647d2fcfb78752d3bc95783ae",
+        "answer.md": "3c0d04ec06c791c68b02f9f28736b6b82f9b3b4eabdde0d7632412c229676b6e",
+        "run.json": "157fac3bf33cea7f6d066c66a2cf384b16c9dc1134108cea40bdd1b3858cc1c2",
+        "test-evidence.json": "0ec21520db203345a73761de25437df68da86040d174662c28f963fbc86645ff"
+      }
+    },
+    {
+      "case": "ledger",
+      "arm": "baseline",
+      "repetition": 1,
+      "sourceVersion": "0.5.0",
+      "profile": null,
+      "correct": true,
+      "artifactCorrect": true,
+      "scorerVersion": 3,
+      "priorScore": {
+        "scorerVersion": 1,
+        "correct": true
+      },
+      "priorScores": [
+        {
+          "scorerVersion": 1,
+          "correct": true
+        },
+        {
+          "scorerVersion": 2,
+          "correct": true
+        }
+      ],
+      "checks": [
+        {
+          "name": "only permitted files changed",
+          "pass": true
+        },
+        {
+          "name": "no symlink artifacts",
+          "pass": true
+        },
+        {
+          "name": "no unrequested commits",
+          "pass": true
+        },
+        {
+          "name": "interruption rolls back all state and permits retry",
+          "pass": true
+        },
+        {
+          "name": "payload conflicts and tenant-scoped replay",
+          "pass": true
+        },
+        {
+          "name": "exact integer amount validation without writes",
+          "pass": true
+        },
+        {
+          "name": "account ownership, funds and credit overflow",
+          "pass": true
+        },
+        {
+          "name": "caller-owned transaction remains untouched",
+          "pass": true
+        },
+        {
+          "name": "concurrent connections serialize one effect",
+          "pass": true
+        },
+        {
+          "name": "oracle process completed consistently",
+          "pass": true
+        },
+        {
+          "name": "regression test artifact exists",
+          "pass": true
+        },
+        {
+          "name": "project and authored regression tests pass",
+          "pass": true
+        },
+        {
+          "name": "regression tests detect original defect",
+          "pass": true
+        },
+        {
+          "name": "agent turn completed within limit",
+          "pass": true
+        }
+      ],
+      "metrics": {
+        "model": "gpt-6-astra",
+        "effort": "medium",
+        "startedAt": "2026-09-20T04:59:46.193Z",
+        "finishedAt": "2026-09-20T05:02:12.636Z",
+        "wallMs": 146444,
+        "exitCode": 0,
+        "timedOut": false,
+        "usage": {
+          "input_tokens": 106293,
+          "cached_input_tokens": 86144,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 4473,
+          "reasoning_output_tokens": 246
+        },
+        "turnCompleted": true,
+        "toolCalls": 6,
+        "failedCommands": 1,
+        "errors": [],
+        "userInterventions": 0,
+        "costUsd": null,
+        "costReason": "ChatGPT-authenticated CLI reports tokens, not a per-run monetary charge.",
+        "host": {
+          "cli": "codex-cli 0.155.1",
+          "sandbox": "workspace-write",
+          "writableGitMetadata": true,
+          "externalTools": false,
+          "plugins": false,
+          "hostSkillDiscovery": false
+        }
+      },
+      "instructionBundleSha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "instructionFileCount": 0,
+      "selectedInstructions": [],
+      "artifactHashes": {
+        "prompt.txt": "629cc8c65448eed540bebe9a5224e682de8b9cf7dd29a2476d55eb1085796262",
+        "events.jsonl": "9609880c97f8ccd06631ec5521766754e12035bf00db37e9930372e849b07c25",
+        "answer.md": "db5d2959cefa0b00d6b545a2567e4e776fa64615819ce64beac369bde7599efc",
+        "run.json": "aa8b609c9bc36fc37edb7d266895693967a47b97a8f2d8ca2de43ee9871ad10f",
+        "test-evidence.json": "db36bafd9ed65fa6097f02d927665f50eaee2f1fd217d6a59a0b6c6e45c2d7de"
+      }
+    },
+    {
+      "case": "temporal-ml",
+      "arm": "ecc",
+      "repetition": 1,
+      "sourceVersion": "0.5.0",
+      "profile": null,
+      "correct": true,
+      "artifactCorrect": true,
+      "scorerVersion": 3,
+      "priorScore": {
+        "scorerVersion": 1,
+        "correct": true
+      },
+      "priorScores": [
+        {
+          "scorerVersion": 1,
+          "correct": true
+        },
+        {
+          "scorerVersion": 2,
+          "correct": true
+        }
+      ],
+      "checks": [
+        {
+          "name": "only permitted files changed",
+          "pass": true
+        },
+        {
+          "name": "no symlink artifacts",
+          "pass": true
+        },
+        {
+          "name": "no unrequested commits",
+          "pass": true
+        },
+        {
+          "name": "window bounds and event availability",
+          "pass": true
+        },
+        {
+          "name": "revision selection before window filtering and deduplication",
+          "pass": true
+        },
+        {
+          "name": "offset-aware instant comparisons and naive rejection",
+          "pass": true
+        },
+        {
+          "name": "mature training membership and train-only scaler",
+          "pass": true
+        },
+        {
+          "name": "zero labels, unknown labels and future examples",
+          "pass": true
+        },
+        {
+          "name": "input order and immutability",
+          "pass": true
+        },
+        {
+          "name": "empty and constant training fallback",
+          "pass": true
+        },
+        {
+          "name": "oracle process completed consistently",
+          "pass": true
+        },
+        {
+          "name": "regression test artifact exists",
+          "pass": true
+        },
+        {
+          "name": "project and authored regression tests pass",
+          "pass": true
+        },
+        {
+          "name": "regression tests detect original defect",
+          "pass": true
+        },
+        {
+          "name": "agent turn completed within limit",
+          "pass": true
+        }
+      ],
+      "metrics": {
+        "model": "gpt-6-astra",
+        "effort": "medium",
+        "startedAt": "2026-09-20T05:01:53.119Z",
+        "finishedAt": "2026-09-20T05:04:31.062Z",
+        "wallMs": 157944,
+        "exitCode": 0,
+        "timedOut": false,
+        "usage": {
+          "input_tokens": 126814,
+          "cached_input_tokens": 106624,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 4719,
+          "reasoning_output_tokens": 149
+        },
+        "turnCompleted": true,
+        "toolCalls": 8,
+        "failedCommands": 1,
+        "errors": [],
+        "userInterventions": 0,
+        "costUsd": null,
+        "costReason": "ChatGPT-authenticated CLI reports tokens, not a per-run monetary charge.",
+        "host": {
+          "cli": "codex-cli 0.155.1",
+          "sandbox": "workspace-write",
+          "writableGitMetadata": true,
+          "externalTools": false,
+          "plugins": false,
+          "hostSkillDiscovery": false
+        }
+      },
+      "instructionBundleSha256": "d2dd2376d7f768b6e05e0b7fc59b0a108959afa38a4f1f3e8d3066a24082e5b0",
+      "instructionFileCount": 3,
+      "selectedInstructions": [
+        {
+          "path": "_instructions/ecc/skills/mle-workflow/SKILL.md",
+          "sha256": "2497888dd543ca7bdf5d0cb4d90fce023eb2c1c14f860f0af8e8be42423131b4"
+        },
+        {
+          "path": "_instructions/ecc/agents/mle-reviewer.md",
+          "sha256": "c505be5fccea9d067775b86fed76bc4b84e63e17090855ac135694adbc83a7f8"
+        }
+      ],
+      "artifactHashes": {
+        "prompt.txt": "b7858c08491a385986bdbb0ecabfc0b37803f9439a9e70f58b8597fda84b2eaf",
+        "events.jsonl": "d92ede149b9ac38eb3c9f299c54627704962f35b102b3308e7da6d2213223962",
+        "answer.md": "c47b9322b8f9db57caab254089369ef4181533ea04882835a458fe75f1fb1da0",
+        "run.json": "3a5965618a735fcfd3fecc25d059bc1a6eaf5750b0740c854c7773c4e9c415d7",
+        "test-evidence.json": "facd356e859fad8baa45de47079edcaaafadd5b1ed9e4f5ea438d046ed25d2cb"
+      }
+    },
+    {
+      "case": "ledger",
+      "arm": "ecc",
+      "repetition": 1,
+      "sourceVersion": "0.5.0",
+      "profile": null,
+      "correct": true,
+      "artifactCorrect": true,
+      "scorerVersion": 3,
+      "priorScore": {
+        "scorerVersion": 1,
+        "correct": true
+      },
+      "priorScores": [
+        {
+          "scorerVersion": 1,
+          "correct": true
+        },
+        {
+          "scorerVersion": 2,
+          "correct": true
+        }
+      ],
+      "checks": [
+        {
+          "name": "only permitted files changed",
+          "pass": true
+        },
+        {
+          "name": "no symlink artifacts",
+          "pass": true
+        },
+        {
+          "name": "no unrequested commits",
+          "pass": true
+        },
+        {
+          "name": "interruption rolls back all state and permits retry",
+          "pass": true
+        },
+        {
+          "name": "payload conflicts and tenant-scoped replay",
+          "pass": true
+        },
+        {
+          "name": "exact integer amount validation without writes",
+          "pass": true
+        },
+        {
+          "name": "account ownership, funds and credit overflow",
+          "pass": true
+        },
+        {
+          "name": "caller-owned transaction remains untouched",
+          "pass": true
+        },
+        {
+          "name": "concurrent connections serialize one effect",
+          "pass": true
+        },
+        {
+          "name": "oracle process completed consistently",
+          "pass": true
+        },
+        {
+          "name": "regression test artifact exists",
+          "pass": true
+        },
+        {
+          "name": "project and authored regression tests pass",
+          "pass": true
+        },
+        {
+          "name": "regression tests detect original defect",
+          "pass": true
+        },
+        {
+          "name": "agent turn completed within limit",
+          "pass": true
+        }
+      ],
+      "metrics": {
+        "model": "gpt-6-astra",
+        "effort": "medium",
+        "startedAt": "2026-09-20T05:02:12.999Z",
+        "finishedAt": "2026-09-20T05:04:51.077Z",
+        "wallMs": 158080,
+        "exitCode": 0,
+        "timedOut": false,
+        "usage": {
+          "input_tokens": 164493,
+          "cached_input_tokens": 129408,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 4583,
+          "reasoning_output_tokens": 95
+        },
+        "turnCompleted": true,
+        "toolCalls": 8,
+        "failedCommands": 2,
+        "errors": [],
+        "userInterventions": 0,
+        "costUsd": null,
+        "costReason": "ChatGPT-authenticated CLI reports tokens, not a per-run monetary charge.",
+        "host": {
+          "cli": "codex-cli 0.155.1",
+          "sandbox": "workspace-write",
+          "writableGitMetadata": true,
+          "externalTools": false,
+          "plugins": false,
+          "hostSkillDiscovery": false
+        }
+      },
+      "instructionBundleSha256": "708b1085650f8060a10631911ef0ca7befcea6d31f16f886afb85a295064ba06",
+      "instructionFileCount": 4,
+      "selectedInstructions": [
+        {
+          "path": "_instructions/ecc/skills/backend-patterns/SKILL.md",
+          "sha256": "9b983d0297a983110fdfda8dce55d19b750ca3e53ef155d75a3eff740d3874b8"
+        },
+        {
+          "path": "_instructions/ecc/skills/python-patterns/SKILL.md",
+          "sha256": "103e0130dac33a49d26705fc5a2df804980fcab6a0138d65bc7f370a987d49f6"
+        },
+        {
+          "path": "_instructions/ecc/skills/database-migrations/SKILL.md",
+          "sha256": "ad7f2f04ca03e592a16e2a539d8c6e90bf4e08892408820ce99a53e9d07775de"
+        }
+      ],
+      "artifactHashes": {
+        "prompt.txt": "969b58c5eb30264d77841639f8266e6797d0d6417ffa4f43ac578179ef650c94",
+        "events.jsonl": "6bf43574ae56c8783534ae356878e5c528814245e32e19a6c6f76cf28eb0e796",
+        "answer.md": "7071d90e1be0ba6d7191bd0e03fb4ed0b19853fcc41eedbe79c8dd57ad35aa4c",
+        "run.json": "2b336a7bc250ee8d9112d89fe6821eb2497d686c8015f04746b486dee5c6a790",
+        "test-evidence.json": "fbf76438e81e0f74bec974c41668aea55fa69022dd477411e577f8cbbfb24a90"
+      }
+    },
+    {
+      "case": "temporal-ml",
+      "arm": "just-vibe-profile",
+      "repetition": 2,
+      "sourceVersion": "0.5.0",
+      "profile": "machine-learning-engineer",
+      "correct": true,
+      "artifactCorrect": true,
+      "scorerVersion": 3,
+      "priorScore": {
+        "scorerVersion": 1,
+        "correct": true
+      },
+      "priorScores": [
+        {
+          "scorerVersion": 1,
+          "correct": true
+        },
+        {
+          "scorerVersion": 2,
+          "correct": true
+        }
+      ],
+      "checks": [
+        {
+          "name": "only permitted files changed",
+          "pass": true
+        },
+        {
+          "name": "no symlink artifacts",
+          "pass": true
+        },
+        {
+          "name": "no unrequested commits",
+          "pass": true
+        },
+        {
+          "name": "window bounds and event availability",
+          "pass": true
+        },
+        {
+          "name": "revision selection before window filtering and deduplication",
+          "pass": true
+        },
+        {
+          "name": "offset-aware instant comparisons and naive rejection",
+          "pass": true
+        },
+        {
+          "name": "mature training membership and train-only scaler",
+          "pass": true
+        },
+        {
+          "name": "zero labels, unknown labels and future examples",
+          "pass": true
+        },
+        {
+          "name": "input order and immutability",
+          "pass": true
+        },
+        {
+          "name": "empty and constant training fallback",
+          "pass": true
+        },
+        {
+          "name": "oracle process completed consistently",
+          "pass": true
+        },
+        {
+          "name": "regression test artifact exists",
+          "pass": true
+        },
+        {
+          "name": "project and authored regression tests pass",
+          "pass": true
+        },
+        {
+          "name": "regression tests detect original defect",
+          "pass": true
+        },
+        {
+          "name": "agent turn completed within limit",
+          "pass": true
+        }
+      ],
+      "metrics": {
+        "model": "gpt-6-astra",
+        "effort": "medium",
+        "startedAt": "2026-09-20T05:04:31.403Z",
+        "finishedAt": "2026-09-20T05:07:20.234Z",
+        "wallMs": 168833,
+        "exitCode": 0,
+        "timedOut": false,
+        "usage": {
+          "input_tokens": 117496,
+          "cached_input_tokens": 90752,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 5043,
+          "reasoning_output_tokens": 130
+        },
+        "turnCompleted": true,
+        "toolCalls": 9,
+        "failedCommands": 1,
+        "errors": [],
+        "userInterventions": 0,
+        "costUsd": null,
+        "costReason": "ChatGPT-authenticated CLI reports tokens, not a per-run monetary charge.",
+        "host": {
+          "cli": "codex-cli 0.155.1",
+          "sandbox": "workspace-write",
+          "writableGitMetadata": true,
+          "externalTools": false,
+          "plugins": false,
+          "hostSkillDiscovery": false
+        }
+      },
+      "instructionBundleSha256": "56ec56183127a86307b445d4b3a74d2f267d5920d01023766239f1f640f243cd",
+      "instructionFileCount": 376,
+      "selectedInstructions": [
+        {
+          "path": "_instructions/just-vibe/skills/ml-features/SKILL.md",
+          "sha256": "60ae4f875f43a32afbec4fa460629edf06876c072eb057b6c23c007f34ba36ad"
+        },
+        {
+          "path": "_instructions/just-vibe/skills/ml-leakage/SKILL.md",
+          "sha256": "40e953aabc397101c39d85f5a76441a8f84bb1303ad0bceba8be614b7ac15bb3"
+        },
+        {
+          "path": "_instructions/just-vibe/skills/ml-split/SKILL.md",
+          "sha256": "c4ad250b110d4a37253f453a85e7321077551ac2a313d9ff902ccdd5baea3e3b"
+        },
+        {
+          "path": "_instructions/just-vibe/references/profiles/machine-learning-engineer.md",
+          "sha256": "f25512789561ba743e670153bdc62fd742d22ab541955a99927f734c4cd17076"
+        }
+      ],
+      "artifactHashes": {
+        "prompt.txt": "9e3bd2b00c6c01066efc9a0fedefea3297290127cfc12ff0b50469b5deb4c8d8",
+        "events.jsonl": "827a161591907f0e7bf4f1220255596b387fc039dd6d9c8ebdee89ef32cdfd44",
+        "answer.md": "6630210815ad74b35bec92a035a50e04168f16c26f28e9d51d31e95a2bcbf3f7",
+        "run.json": "0f4e87f5e6671a6a7666bff215d8ea732871220066b6e1f11fa8c372cf4912de",
+        "test-evidence.json": "55a265956d39da8a9d52535274bc51c6d56d48991e457515b80f1d7c043a72d1"
+      }
+    },
+    {
+      "case": "async-cache",
+      "arm": "baseline",
+      "repetition": 1,
+      "sourceVersion": "0.5.0",
+      "profile": null,
+      "correct": true,
+      "artifactCorrect": true,
+      "scorerVersion": 3,
+      "priorScore": {
+        "scorerVersion": 1,
+        "correct": false
+      },
+      "priorScores": [
+        {
+          "scorerVersion": 1,
+          "correct": false
+        },
+        {
+          "scorerVersion": 2,
+          "correct": true
+        }
+      ],
+      "checks": [
+        {
+          "name": "only permitted files changed",
+          "pass": true
+        },
+        {
+          "name": "no symlink artifacts",
+          "pass": true
+        },
+        {
+          "name": "no unrequested commits",
+          "pass": true
+        },
+        {
+          "name": "tenant identity, delimiter collisions and falsey values",
+          "pass": true
+        },
+        {
+          "name": "pending coalescing and expiry measured from completion",
+          "pass": true
+        },
+        {
+          "name": "one waiter cancellation cannot poison shared work",
+          "pass": true
+        },
+        {
+          "name": "pre-abort and listener cleanup on settlement",
+          "pass": true
+        },
+        {
+          "name": "detached old success cannot overwrite or delete new generation",
+          "pass": true
+        },
+        {
+          "name": "detached old failure cannot clear newer pending work",
+          "pass": true
+        },
+        {
+          "name": "synchronous failures and asynchronous failures are retryable",
+          "pass": true
+        },
+        {
+          "name": "latest view result, stale failure and permanent disposal",
+          "pass": true
+        },
+        {
+          "name": "oracle process completed consistently",
+          "pass": true
+        },
+        {
+          "name": "regression test artifact exists",
+          "pass": true
+        },
+        {
+          "name": "project and authored regression tests pass",
+          "pass": true
+        },
+        {
+          "name": "regression tests detect original defect",
+          "pass": true
+        },
+        {
+          "name": "agent turn completed within limit",
+          "pass": true
+        }
+      ],
+      "metrics": {
+        "model": "gpt-6-astra",
+        "effort": "medium",
+        "startedAt": "2026-09-20T05:04:51.517Z",
+        "finishedAt": "2026-09-20T05:07:42.337Z",
+        "wallMs": 170821,
+        "exitCode": 0,
+        "timedOut": false,
+        "usage": {
+          "input_tokens": 76054,
+          "cached_input_tokens": 63744,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 5179,
+          "reasoning_output_tokens": 455
+        },
+        "turnCompleted": true,
+        "toolCalls": 5,
+        "failedCommands": 0,
+        "errors": [],
+        "userInterventions": 0,
+        "costUsd": null,
+        "costReason": "ChatGPT-authenticated CLI reports tokens, not a per-run monetary charge.",
+        "host": {
+          "cli": "codex-cli 0.155.1",
+          "sandbox": "workspace-write",
+          "writableGitMetadata": true,
+          "externalTools": false,
+          "plugins": false,
+          "hostSkillDiscovery": false
+        }
+      },
+      "instructionBundleSha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "instructionFileCount": 0,
+      "selectedInstructions": [],
+      "artifactHashes": {
+        "prompt.txt": "17a7761a148d92d26fcc397519636c9cfcd6bbcc6eee9a1f3e2e321926b22173",
+        "events.jsonl": "adf4628de4d0b35d13d96806eafbfd71dd97557fc31e15c37f8e4ed18401649f",
+        "answer.md": "30b65440cb8d4bb9096538efbfe2c12e1d9399c4066bf53d792321da3378e5e8",
+        "run.json": "5d31340a9f1878e0c6632355170d435493a39c3869cd7213cfae8ffafcd06dea",
+        "test-evidence.json": "8d78d0432ac7973193247921ff1d7712f15bae5944977d27ce401e0d6d8a5391"
+      }
+    },
+    {
+      "case": "ledger",
+      "arm": "just-vibe",
+      "repetition": 1,
+      "sourceVersion": "0.5.0",
+      "profile": null,
+      "correct": true,
+      "artifactCorrect": true,
+      "scorerVersion": 3,
+      "priorScore": {
+        "scorerVersion": 1,
+        "correct": true
+      },
+      "priorScores": [
+        {
+          "scorerVersion": 1,
+          "correct": true
+        },
+        {
+          "scorerVersion": 2,
+          "correct": true
+        }
+      ],
+      "checks": [
+        {
+          "name": "only permitted files changed",
+          "pass": true
+        },
+        {
+          "name": "no symlink artifacts",
+          "pass": true
+        },
+        {
+          "name": "no unrequested commits",
+          "pass": true
+        },
+        {
+          "name": "interruption rolls back all state and permits retry",
+          "pass": true
+        },
+        {
+          "name": "payload conflicts and tenant-scoped replay",
+          "pass": true
+        },
+        {
+          "name": "exact integer amount validation without writes",
+          "pass": true
+        },
+        {
+          "name": "account ownership, funds and credit overflow",
+          "pass": true
+        },
+        {
+          "name": "caller-owned transaction remains untouched",
+          "pass": true
+        },
+        {
+          "name": "concurrent connections serialize one effect",
+          "pass": true
+        },
+        {
+          "name": "oracle process completed consistently",
+          "pass": true
+        },
+        {
+          "name": "regression test artifact exists",
+          "pass": true
+        },
+        {
+          "name": "project and authored regression tests pass",
+          "pass": true
+        },
+        {
+          "name": "regression tests detect original defect",
+          "pass": true
+        },
+        {
+          "name": "agent turn completed within limit",
+          "pass": true
+        }
+      ],
+      "metrics": {
+        "model": "gpt-6-astra",
+        "effort": "medium",
+        "startedAt": "2026-09-20T05:07:20.639Z",
+        "finishedAt": "2026-09-20T05:10:16.135Z",
+        "wallMs": 175498,
+        "exitCode": 0,
+        "timedOut": false,
+        "usage": {
+          "input_tokens": 129599,
+          "cached_input_tokens": 104704,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 5055,
+          "reasoning_output_tokens": 134
+        },
+        "turnCompleted": true,
+        "toolCalls": 7,
+        "failedCommands": 1,
+        "errors": [],
+        "userInterventions": 0,
+        "costUsd": null,
+        "costReason": "ChatGPT-authenticated CLI reports tokens, not a per-run monetary charge.",
+        "host": {
+          "cli": "codex-cli 0.155.1",
+          "sandbox": "workspace-write",
+          "writableGitMetadata": true,
+          "externalTools": false,
+          "plugins": false,
+          "hostSkillDiscovery": false
+        }
+      },
+      "instructionBundleSha256": "56ec56183127a86307b445d4b3a74d2f267d5920d01023766239f1f640f243cd",
+      "instructionFileCount": 376,
+      "selectedInstructions": [
+        {
+          "path": "_instructions/just-vibe/skills/backend-idempotency/SKILL.md",
+          "sha256": "6bbbb67397be345081452f9937b2827c5dbbe790ef585cb4bea40b8aee54c3a3"
+        },
+        {
+          "path": "_instructions/just-vibe/skills/backend-concurrency/SKILL.md",
+          "sha256": "2a41562dd2b0b7f9eef8eaea83aeb83b51accd4a96f5cb7acee02906858cb6d9"
+        },
+        {
+          "path": "_instructions/just-vibe/skills/db-integrity/SKILL.md",
+          "sha256": "af0436d62633bd09e0310d7a7e508790492bcb825e5f2ff2efe86ecd1ce67162"
+        }
+      ],
+      "artifactHashes": {
+        "prompt.txt": "ec65ca80d426908d8b084e4a67a2486931aa5d4bb4041c6729e0215b7f5daaf1",
+        "events.jsonl": "a2a1ad73aa272cbeaa53a0c75feb79ff8820ba93c04e539369970d276fffdca3",
+        "answer.md": "0968bfb22633e0cc577c68641be991f0f5ede0cf93d068ee598cee51c8af0d4d",
+        "run.json": "34aa7212ac08c3a4792900bb9ce7d5d9f48c9df4dd51a6ecd3114465f82a1ab7",
+        "test-evidence.json": "82a6aa9f394991ce0d4f1d3bb6af6a79a8f9df7a4f9c852b899fc84001bb1aa1"
+      }
+    },
+    {
+      "case": "ledger",
+      "arm": "baseline",
+      "repetition": 2,
+      "sourceVersion": "0.5.0",
+      "profile": null,
+      "correct": true,
+      "artifactCorrect": true,
+      "scorerVersion": 3,
+      "priorScore": {
+        "scorerVersion": 1,
+        "correct": true
+      },
+      "priorScores": [
+        {
+          "scorerVersion": 1,
+          "correct": true
+        },
+        {
+          "scorerVersion": 2,
+          "correct": true
+        }
+      ],
+      "checks": [
+        {
+          "name": "only permitted files changed",
+          "pass": true
+        },
+        {
+          "name": "no symlink artifacts",
+          "pass": true
+        },
+        {
+          "name": "no unrequested commits",
+          "pass": true
+        },
+        {
+          "name": "interruption rolls back all state and permits retry",
+          "pass": true
+        },
+        {
+          "name": "payload conflicts and tenant-scoped replay",
+          "pass": true
+        },
+        {
+          "name": "exact integer amount validation without writes",
+          "pass": true
+        },
+        {
+          "name": "account ownership, funds and credit overflow",
+          "pass": true
+        },
+        {
+          "name": "caller-owned transaction remains untouched",
+          "pass": true
+        },
+        {
+          "name": "concurrent connections serialize one effect",
+          "pass": true
+        },
+        {
+          "name": "oracle process completed consistently",
+          "pass": true
+        },
+        {
+          "name": "regression test artifact exists",
+          "pass": true
+        },
+        {
+          "name": "project and authored regression tests pass",
+          "pass": true
+        },
+        {
+          "name": "regression tests detect original defect",
+          "pass": true
+        },
+        {
+          "name": "agent turn completed within limit",
+          "pass": true
+        }
+      ],
+      "metrics": {
+        "model": "gpt-6-astra",
+        "effort": "medium",
+        "startedAt": "2026-09-20T05:07:57.867Z",
+        "finishedAt": "2026-09-20T05:10:10.731Z",
+        "wallMs": 132865,
+        "exitCode": 0,
+        "timedOut": false,
+        "usage": {
+          "input_tokens": 86471,
+          "cached_input_tokens": 68096,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 3977,
+          "reasoning_output_tokens": 237
+        },
+        "turnCompleted": true,
+        "toolCalls": 5,
+        "failedCommands": 0,
+        "errors": [],
+        "userInterventions": 0,
+        "costUsd": null,
+        "costReason": "ChatGPT-authenticated CLI reports tokens, not a per-run monetary charge.",
+        "host": {
+          "cli": "codex-cli 0.155.1",
+          "sandbox": "workspace-write",
+          "writableGitMetadata": true,
+          "externalTools": false,
+          "plugins": false,
+          "hostSkillDiscovery": false
+        }
+      },
+      "instructionBundleSha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "instructionFileCount": 0,
+      "selectedInstructions": [],
+      "artifactHashes": {
+        "prompt.txt": "8f10dbf8b2ff96c84d7b5c2d77df03e33f1172a6059914f8f0be67220e7386cd",
+        "events.jsonl": "a1776ca437710f1e861fef76065ca396c57fb840250e95d4939a2548c59bff13",
+        "answer.md": "b2ee42994a25409694f55e6a01cf17861bc48ad94a5c954ea58566dd12535161",
+        "run.json": "4c78c95aaa21c673ac028efd629791d6ee36e4f1aa9a9fbf2bd5b703bf8eb31e",
+        "test-evidence.json": "e9f3d9247c21feaa06ad388361d77aff65422e64d9cc47587a434273379ddb2d"
+      }
+    },
+    {
+      "case": "ledger",
+      "arm": "just-vibe-profile",
+      "repetition": 2,
+      "sourceVersion": "0.5.0",
+      "profile": "backend-engineer",
+      "correct": true,
+      "artifactCorrect": true,
+      "scorerVersion": 3,
+      "priorScore": {
+        "scorerVersion": 1,
+        "correct": true
+      },
+      "priorScores": [
+        {
+          "scorerVersion": 1,
+          "correct": true
+        },
+        {
+          "scorerVersion": 2,
+          "correct": true
+        }
+      ],
+      "checks": [
+        {
+          "name": "only permitted files changed",
+          "pass": true
+        },
+        {
+          "name": "no symlink artifacts",
+          "pass": true
+        },
+        {
+          "name": "no unrequested commits",
+          "pass": true
+        },
+        {
+          "name": "interruption rolls back all state and permits retry",
+          "pass": true
+        },
+        {
+          "name": "payload conflicts and tenant-scoped replay",
+          "pass": true
+        },
+        {
+          "name": "exact integer amount validation without writes",
+          "pass": true
+        },
+        {
+          "name": "account ownership, funds and credit overflow",
+          "pass": true
+        },
+        {
+          "name": "caller-owned transaction remains untouched",
+          "pass": true
+        },
+        {
+          "name": "concurrent connections serialize one effect",
+          "pass": true
+        },
+        {
+          "name": "oracle process completed consistently",
+          "pass": true
+        },
+        {
+          "name": "regression test artifact exists",
+          "pass": true
+        },
+        {
+          "name": "project and authored regression tests pass",
+          "pass": true
+        },
+        {
+          "name": "regression tests detect original defect",
+          "pass": true
+        },
+        {
+          "name": "agent turn completed within limit",
+          "pass": true
+        }
+      ],
+      "metrics": {
+        "model": "gpt-6-astra",
+        "effort": "medium",
+        "startedAt": "2026-09-20T05:10:16.134Z",
+        "finishedAt": "2026-09-20T05:13:14.919Z",
+        "wallMs": 178787,
+        "exitCode": 0,
+        "timedOut": false,
+        "usage": {
+          "input_tokens": 115062,
+          "cached_input_tokens": 89472,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 5117,
+          "reasoning_output_tokens": 187
+        },
+        "turnCompleted": true,
+        "toolCalls": 11,
+        "failedCommands": 0,
+        "errors": [],
+        "userInterventions": 0,
+        "costUsd": null,
+        "costReason": "ChatGPT-authenticated CLI reports tokens, not a per-run monetary charge.",
+        "host": {
+          "cli": "codex-cli 0.155.1",
+          "sandbox": "workspace-write",
+          "writableGitMetadata": true,
+          "externalTools": false,
+          "plugins": false,
+          "hostSkillDiscovery": false
+        }
+      },
+      "instructionBundleSha256": "56ec56183127a86307b445d4b3a74d2f267d5920d01023766239f1f640f243cd",
+      "instructionFileCount": 376,
+      "selectedInstructions": [
+        {
+          "path": "_instructions/just-vibe/skills/backend-idempotency/SKILL.md",
+          "sha256": "6bbbb67397be345081452f9937b2827c5dbbe790ef585cb4bea40b8aee54c3a3"
+        },
+        {
+          "path": "_instructions/just-vibe/skills/backend-concurrency/SKILL.md",
+          "sha256": "2a41562dd2b0b7f9eef8eaea83aeb83b51accd4a96f5cb7acee02906858cb6d9"
+        },
+        {
+          "path": "_instructions/just-vibe/skills/db-integrity/SKILL.md",
+          "sha256": "af0436d62633bd09e0310d7a7e508790492bcb825e5f2ff2efe86ecd1ce67162"
+        },
+        {
+          "path": "_instructions/just-vibe/references/profiles/backend-engineer.md",
+          "sha256": "04929733fceaea01f274057054ee7e89395989ace7ac1830e84f6d2e56252e8f"
+        }
+      ],
+      "artifactHashes": {
+        "prompt.txt": "218f5d08510bb95bd7170461e56a55707fbb57a9b99c2995fed143b3e410aa3a",
+        "events.jsonl": "8d327fbca53e205ff7402d59801390888281fb3e83437960ed5e2f10be32d6ca",
+        "answer.md": "edec7dc08fe4ce6b85f5dca47d239f616e27dd3f662c3db6e84c702907f73477",
+        "run.json": "9b651d1a20f182b76261c07942e75efd659df9c24fb2c0cbcf260c2c8bdd437d",
+        "test-evidence.json": "1508a7675dd5767c677057167852035b97301f381e1ab6a5c83d7d7923c904bb"
+      }
+    },
+    {
+      "case": "ledger",
+      "arm": "just-vibe-profile",
+      "repetition": 1,
+      "sourceVersion": "0.5.0",
+      "profile": "backend-engineer",
+      "correct": true,
+      "artifactCorrect": true,
+      "scorerVersion": 3,
+      "priorScore": {
+        "scorerVersion": 1,
+        "correct": false
+      },
+      "priorScores": [
+        {
+          "scorerVersion": 1,
+          "correct": false
+        },
+        {
+          "scorerVersion": 2,
+          "correct": false
+        }
+      ],
+      "checks": [
+        {
+          "name": "only permitted files changed",
+          "pass": true
+        },
+        {
+          "name": "no symlink artifacts",
+          "pass": true
+        },
+        {
+          "name": "no unrequested commits",
+          "pass": true
+        },
+        {
+          "name": "interruption rolls back all state and permits retry",
+          "pass": true
+        },
+        {
+          "name": "payload conflicts and tenant-scoped replay",
+          "pass": true
+        },
+        {
+          "name": "exact integer amount validation without writes",
+          "pass": true
+        },
+        {
+          "name": "account ownership, funds and credit overflow",
+          "pass": true
+        },
+        {
+          "name": "caller-owned transaction remains untouched",
+          "pass": true
+        },
+        {
+          "name": "concurrent connections serialize one effect",
+          "pass": true
+        },
+        {
+          "name": "oracle process completed consistently",
+          "pass": true
+        },
+        {
+          "name": "regression test artifact exists",
+          "pass": true
+        },
+        {
+          "name": "project and authored regression tests pass",
+          "pass": true
+        },
+        {
+          "name": "regression tests detect original defect",
+          "pass": true
+        },
+        {
+          "name": "agent turn completed within limit",
+          "pass": true
+        }
+      ],
+      "metrics": {
+        "model": "gpt-6-astra",
+        "effort": "medium",
+        "startedAt": "2026-09-20T05:10:25.751Z",
+        "finishedAt": "2026-09-20T05:12:59.479Z",
+        "wallMs": 153729,
+        "exitCode": 0,
+        "timedOut": false,
+        "usage": {
+          "input_tokens": 114088,
+          "cached_input_tokens": 88832,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 4659,
+          "reasoning_output_tokens": 97
+        },
+        "turnCompleted": true,
+        "toolCalls": 6,
+        "failedCommands": 0,
+        "errors": [],
+        "userInterventions": 0,
+        "costUsd": null,
+        "costReason": "ChatGPT-authenticated CLI reports tokens, not a per-run monetary charge.",
+        "host": {
+          "cli": "codex-cli 0.155.1",
+          "sandbox": "workspace-write",
+          "writableGitMetadata": true,
+          "externalTools": false,
+          "plugins": false,
+          "hostSkillDiscovery": false
+        }
+      },
+      "instructionBundleSha256": "56ec56183127a86307b445d4b3a74d2f267d5920d01023766239f1f640f243cd",
+      "instructionFileCount": 376,
+      "selectedInstructions": [
+        {
+          "path": "_instructions/just-vibe/skills/backend-idempotency/SKILL.md",
+          "sha256": "6bbbb67397be345081452f9937b2827c5dbbe790ef585cb4bea40b8aee54c3a3"
+        },
+        {
+          "path": "_instructions/just-vibe/skills/backend-concurrency/SKILL.md",
+          "sha256": "2a41562dd2b0b7f9eef8eaea83aeb83b51accd4a96f5cb7acee02906858cb6d9"
+        },
+        {
+          "path": "_instructions/just-vibe/skills/db-integrity/SKILL.md",
+          "sha256": "af0436d62633bd09e0310d7a7e508790492bcb825e5f2ff2efe86ecd1ce67162"
+        },
+        {
+          "path": "_instructions/just-vibe/references/profiles/backend-engineer.md",
+          "sha256": "04929733fceaea01f274057054ee7e89395989ace7ac1830e84f6d2e56252e8f"
+        }
+      ],
+      "artifactHashes": {
+        "prompt.txt": "7cf768768de9c88c43ff5662c15640a57f688e6f6ab0a0e2e80faba366a0970e",
+        "events.jsonl": "25d19e3cc3ad769368b5d9edd40ea346d545ad3c6d677bcccd443d20838b7160",
+        "answer.md": "4658936e95d45356c190fb7af607c29f9b5f4f462fe30c9c014bdcacac3dab54",
+        "run.json": "e6f2cc3c8604182ca801d929a7eebccc763c80daa9e4d3da9c1f0405629d6dbd",
+        "test-evidence.json": "a997851859d0cfe7d0382db70211cb41dd7fbe88c12cd6a5a5359263712ea648"
+      }
+    },
+    {
+      "case": "ledger",
+      "arm": "just-vibe",
+      "repetition": 2,
+      "sourceVersion": "0.5.0",
+      "profile": null,
+      "correct": true,
+      "artifactCorrect": true,
+      "scorerVersion": 3,
+      "priorScore": {
+        "scorerVersion": 1,
+        "correct": true
+      },
+      "priorScores": [
+        {
+          "scorerVersion": 1,
+          "correct": true
+        },
+        {
+          "scorerVersion": 2,
+          "correct": true
+        }
+      ],
+      "checks": [
+        {
+          "name": "only permitted files changed",
+          "pass": true
+        },
+        {
+          "name": "no symlink artifacts",
+          "pass": true
+        },
+        {
+          "name": "no unrequested commits",
+          "pass": true
+        },
+        {
+          "name": "interruption rolls back all state and permits retry",
+          "pass": true
+        },
+        {
+          "name": "payload conflicts and tenant-scoped replay",
+          "pass": true
+        },
+        {
+          "name": "exact integer amount validation without writes",
+          "pass": true
+        },
+        {
+          "name": "account ownership, funds and credit overflow",
+          "pass": true
+        },
+        {
+          "name": "caller-owned transaction remains untouched",
+          "pass": true
+        },
+        {
+          "name": "concurrent connections serialize one effect",
+          "pass": true
+        },
+        {
+          "name": "oracle process completed consistently",
+          "pass": true
+        },
+        {
+          "name": "regression test artifact exists",
+          "pass": true
+        },
+        {
+          "name": "project and authored regression tests pass",
+          "pass": true
+        },
+        {
+          "name": "regression tests detect original defect",
+          "pass": true
+        },
+        {
+          "name": "agent turn completed within limit",
+          "pass": true
+        }
+      ],
+      "metrics": {
+        "model": "gpt-6-astra",
+        "effort": "medium",
+        "startedAt": "2026-09-20T05:13:14.918Z",
+        "finishedAt": "2026-09-20T05:15:48.734Z",
+        "wallMs": 153818,
+        "exitCode": 0,
+        "timedOut": false,
+        "usage": {
+          "input_tokens": 109223,
+          "cached_input_tokens": 93184,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 4601,
+          "reasoning_output_tokens": 168
+        },
+        "turnCompleted": true,
+        "toolCalls": 8,
+        "failedCommands": 1,
+        "errors": [],
+        "userInterventions": 0,
+        "costUsd": null,
+        "costReason": "ChatGPT-authenticated CLI reports tokens, not a per-run monetary charge.",
+        "host": {
+          "cli": "codex-cli 0.155.1",
+          "sandbox": "workspace-write",
+          "writableGitMetadata": true,
+          "externalTools": false,
+          "plugins": false,
+          "hostSkillDiscovery": false
+        }
+      },
+      "instructionBundleSha256": "56ec56183127a86307b445d4b3a74d2f267d5920d01023766239f1f640f243cd",
+      "instructionFileCount": 376,
+      "selectedInstructions": [
+        {
+          "path": "_instructions/just-vibe/skills/backend-idempotency/SKILL.md",
+          "sha256": "6bbbb67397be345081452f9937b2827c5dbbe790ef585cb4bea40b8aee54c3a3"
+        },
+        {
+          "path": "_instructions/just-vibe/skills/backend-concurrency/SKILL.md",
+          "sha256": "2a41562dd2b0b7f9eef8eaea83aeb83b51accd4a96f5cb7acee02906858cb6d9"
+        },
+        {
+          "path": "_instructions/just-vibe/skills/db-integrity/SKILL.md",
+          "sha256": "af0436d62633bd09e0310d7a7e508790492bcb825e5f2ff2efe86ecd1ce67162"
+        }
+      ],
+      "artifactHashes": {
+        "prompt.txt": "9bc4ecb5f263d86b9e4f660a33e8612977928cd8f1a461b69b2cc5b7f6073560",
+        "events.jsonl": "3caf7b252114487bdd94e2c88aaae77d7bc7afad16990b2a2df4d9d7af9fb11c",
+        "answer.md": "3a700733fdfcbbbafdd2e57126fa49d9071f0abfac733ae35e262600f5ee244c",
+        "run.json": "9f2d7e97d8efc6ae5a1fca451ad6381571ed1358d31afc15f90ff12c37807808",
+        "test-evidence.json": "1a70026f0680abcfe53ddc48ce4f31db1b99686782105d45e0d2d5c05b3b9978"
+      }
+    },
+    {
+      "case": "temporal-ml",
+      "arm": "baseline",
+      "repetition": 2,
+      "sourceVersion": "0.5.0",
+      "profile": null,
+      "correct": true,
+      "artifactCorrect": true,
+      "scorerVersion": 3,
+      "priorScore": {
+        "scorerVersion": 1,
+        "correct": true
+      },
+      "priorScores": [
+        {
+          "scorerVersion": 1,
+          "correct": true
+        },
+        {
+          "scorerVersion": 2,
+          "correct": true
+        }
+      ],
+      "checks": [
+        {
+          "name": "only permitted files changed",
+          "pass": true
+        },
+        {
+          "name": "no symlink artifacts",
+          "pass": true
+        },
+        {
+          "name": "no unrequested commits",
+          "pass": true
+        },
+        {
+          "name": "window bounds and event availability",
+          "pass": true
+        },
+        {
+          "name": "revision selection before window filtering and deduplication",
+          "pass": true
+        },
+        {
+          "name": "offset-aware instant comparisons and naive rejection",
+          "pass": true
+        },
+        {
+          "name": "mature training membership and train-only scaler",
+          "pass": true
+        },
+        {
+          "name": "zero labels, unknown labels and future examples",
+          "pass": true
+        },
+        {
+          "name": "input order and immutability",
+          "pass": true
+        },
+        {
+          "name": "empty and constant training fallback",
+          "pass": true
+        },
+        {
+          "name": "oracle process completed consistently",
+          "pass": true
+        },
+        {
+          "name": "regression test artifact exists",
+          "pass": true
+        },
+        {
+          "name": "project and authored regression tests pass",
+          "pass": true
+        },
+        {
+          "name": "regression tests detect original defect",
+          "pass": true
+        },
+        {
+          "name": "agent turn completed within limit",
+          "pass": true
+        }
+      ],
+      "metrics": {
+        "model": "gpt-6-astra",
+        "effort": "medium",
+        "startedAt": "2026-09-20T05:13:15.545Z",
+        "finishedAt": "2026-09-20T05:15:43.015Z",
+        "wallMs": 147471,
+        "exitCode": 0,
+        "timedOut": false,
+        "usage": {
+          "input_tokens": 88798,
+          "cached_input_tokens": 45824,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 4387,
+          "reasoning_output_tokens": 235
+        },
+        "turnCompleted": true,
+        "toolCalls": 5,
+        "failedCommands": 1,
+        "errors": [],
+        "userInterventions": 0,
+        "costUsd": null,
+        "costReason": "ChatGPT-authenticated CLI reports tokens, not a per-run monetary charge.",
+        "host": {
+          "cli": "codex-cli 0.155.1",
+          "sandbox": "workspace-write",
+          "writableGitMetadata": true,
+          "externalTools": false,
+          "plugins": false,
+          "hostSkillDiscovery": false
+        }
+      },
+      "instructionBundleSha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "instructionFileCount": 0,
+      "selectedInstructions": [],
+      "artifactHashes": {
+        "prompt.txt": "2b05ee0ad0afa53c0bc5c71aaa479a150554be7f9ffa9a42e98c860a56b8b443",
+        "events.jsonl": "c69fcb6b698ecc324a07f3e91464cf465d1d81a337bce340f6c50ce5b3291b29",
+        "answer.md": "8a97b80859e5b17e02988ce2621999a801993af43b48cbb101be158f6598f9e6",
+        "run.json": "3f06b83daba0ee8e82dad9f19aaecc8aa3e4e79a72d141b5691174e0d915eac1",
+        "test-evidence.json": "7170cc572c6d5f95fadb6b460c8179890d794457e20232b92c2a83e4769f1a79"
+      }
+    },
+    {
+      "case": "scoped-commit",
+      "arm": "just-vibe",
+      "repetition": 2,
+      "sourceVersion": "0.5.0",
+      "profile": null,
+      "correct": true,
+      "artifactCorrect": true,
+      "scorerVersion": 3,
+      "priorScore": {
+        "scorerVersion": 1,
+        "correct": true
+      },
+      "priorScores": [
+        {
+          "scorerVersion": 1,
+          "correct": true
+        },
+        {
+          "scorerVersion": 2,
+          "correct": true
+        }
+      ],
+      "checks": [
+        {
+          "name": "only permitted files changed",
+          "pass": true
+        },
+        {
+          "name": "no symlink artifacts",
+          "pass": true
+        },
+        {
+          "name": "missing and zero adjustment",
+          "pass": true
+        },
+        {
+          "name": "negative surcharge and no-clamp compatibility",
+          "pass": true
+        },
+        {
+          "name": "unrelated worktree behavior preserved",
+          "pass": true
+        },
+        {
+          "name": "oracle process completed consistently",
+          "pass": true
+        },
+        {
+          "name": "regression test artifact exists",
+          "pass": true
+        },
+        {
+          "name": "project and authored regression tests pass",
+          "pass": true
+        },
+        {
+          "name": "regression tests detect original defect",
+          "pass": true
+        },
+        {
+          "name": "exactly one requested commit",
+          "pass": true
+        },
+        {
+          "name": "commit includes only requested fix and new test",
+          "pass": true
+        },
+        {
+          "name": "same-file staged and unstaged distinctions survive",
+          "pass": true
+        },
+        {
+          "name": "committed implementation satisfies the contract independently",
+          "pass": true
+        },
+        {
+          "name": "committed tests pass without unrelated worktree edits",
+          "pass": true
+        },
+        {
+          "name": "user identity and no agent attribution",
+          "pass": true
+        },
+        {
+          "name": "unrelated staged note and untracked file remain",
+          "pass": true
+        },
+        {
+          "name": "agent turn completed within limit",
+          "pass": true
+        }
+      ],
+      "metrics": {
+        "model": "gpt-6-astra",
+        "effort": "medium",
+        "startedAt": "2026-09-20T05:15:43.338Z",
+        "finishedAt": "2026-09-20T05:17:32.944Z",
+        "wallMs": 109608,
+        "exitCode": 0,
+        "timedOut": false,
+        "usage": {
+          "input_tokens": 139583,
+          "cached_input_tokens": 113280,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 2950,
+          "reasoning_output_tokens": 227
+        },
+        "turnCompleted": true,
+        "toolCalls": 11,
+        "failedCommands": 2,
+        "errors": [],
+        "userInterventions": 0,
+        "costUsd": null,
+        "costReason": "ChatGPT-authenticated CLI reports tokens, not a per-run monetary charge.",
+        "host": {
+          "cli": "codex-cli 0.155.1",
+          "sandbox": "workspace-write",
+          "writableGitMetadata": true,
+          "externalTools": false,
+          "plugins": false,
+          "hostSkillDiscovery": false
+        }
+      },
+      "instructionBundleSha256": "56ec56183127a86307b445d4b3a74d2f267d5920d01023766239f1f640f243cd",
+      "instructionFileCount": 376,
+      "selectedInstructions": [
+        {
+          "path": "_instructions/just-vibe/skills/fix/SKILL.md",
+          "sha256": "05bb98757686c98858e03a8ccb1f15b3674977587a1b13293918a3fff8b57ab3"
+        },
+        {
+          "path": "_instructions/just-vibe/skills/git-commit/SKILL.md",
+          "sha256": "b7e97de28bb6446839ae16068d3144f777032bec73af5572039519e39aea3ae6"
+        },
+        {
+          "path": "_instructions/just-vibe/skills/test-regression/SKILL.md",
+          "sha256": "6a6d8e225c93a4d78be37196f8c468dd9f2f9cdc8157732c9a5a0fb074fbc2b4"
+        }
+      ],
+      "artifactHashes": {
+        "prompt.txt": "d061d3cc7648821d1efbdf19d0990f344766a49d75b1fe9db3073118d63dfe22",
+        "events.jsonl": "f50a5076a0efa6976eebeaffa8b706dfe228216190193351a6104f5aff2c0c10",
+        "answer.md": "e520237e095e425269b70cd4908c6229216a79432c4c7d6b431c558f08c1e9f6",
+        "run.json": "fe70d00e11708c3cf257c8833932e258c8a2b4fe263ae5b8eff5ef6f7cc19043",
+        "test-evidence.json": "ff71d3edb7d56de1907932c9252601bf39e773c0c62dbe6a8db94294337ca6d6"
+      }
+    },
+    {
+      "case": "temporal-ml",
+      "arm": "just-vibe-profile",
+      "repetition": 1,
+      "sourceVersion": "0.5.0",
+      "profile": "machine-learning-engineer",
+      "correct": true,
+      "artifactCorrect": true,
+      "scorerVersion": 3,
+      "priorScore": {
+        "scorerVersion": 1,
+        "correct": true
+      },
+      "priorScores": [
+        {
+          "scorerVersion": 1,
+          "correct": true
+        },
+        {
+          "scorerVersion": 2,
+          "correct": true
+        }
+      ],
+      "checks": [
+        {
+          "name": "only permitted files changed",
+          "pass": true
+        },
+        {
+          "name": "no symlink artifacts",
+          "pass": true
+        },
+        {
+          "name": "no unrequested commits",
+          "pass": true
+        },
+        {
+          "name": "window bounds and event availability",
+          "pass": true
+        },
+        {
+          "name": "revision selection before window filtering and deduplication",
+          "pass": true
+        },
+        {
+          "name": "offset-aware instant comparisons and naive rejection",
+          "pass": true
+        },
+        {
+          "name": "mature training membership and train-only scaler",
+          "pass": true
+        },
+        {
+          "name": "zero labels, unknown labels and future examples",
+          "pass": true
+        },
+        {
+          "name": "input order and immutability",
+          "pass": true
+        },
+        {
+          "name": "empty and constant training fallback",
+          "pass": true
+        },
+        {
+          "name": "oracle process completed consistently",
+          "pass": true
+        },
+        {
+          "name": "regression test artifact exists",
+          "pass": true
+        },
+        {
+          "name": "project and authored regression tests pass",
+          "pass": true
+        },
+        {
+          "name": "regression tests detect original defect",
+          "pass": true
+        },
+        {
+          "name": "agent turn completed within limit",
+          "pass": true
+        }
+      ],
+      "metrics": {
+        "model": "gpt-6-astra",
+        "effort": "medium",
+        "startedAt": "2026-09-20T05:15:58.517Z",
+        "finishedAt": "2026-09-20T05:18:42.467Z",
+        "wallMs": 163952,
+        "exitCode": 0,
+        "timedOut": false,
+        "usage": {
+          "input_tokens": 117017,
+          "cached_input_tokens": 86656,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 4993,
+          "reasoning_output_tokens": 105
+        },
+        "turnCompleted": true,
+        "toolCalls": 8,
+        "failedCommands": 0,
+        "errors": [],
+        "userInterventions": 0,
+        "costUsd": null,
+        "costReason": "ChatGPT-authenticated CLI reports tokens, not a per-run monetary charge.",
+        "host": {
+          "cli": "codex-cli 0.155.1",
+          "sandbox": "workspace-write",
+          "writableGitMetadata": true,
+          "externalTools": false,
+          "plugins": false,
+          "hostSkillDiscovery": false
+        }
+      },
+      "instructionBundleSha256": "56ec56183127a86307b445d4b3a74d2f267d5920d01023766239f1f640f243cd",
+      "instructionFileCount": 376,
+      "selectedInstructions": [
+        {
+          "path": "_instructions/just-vibe/skills/ml-features/SKILL.md",
+          "sha256": "60ae4f875f43a32afbec4fa460629edf06876c072eb057b6c23c007f34ba36ad"
+        },
+        {
+          "path": "_instructions/just-vibe/skills/ml-leakage/SKILL.md",
+          "sha256": "40e953aabc397101c39d85f5a76441a8f84bb1303ad0bceba8be614b7ac15bb3"
+        },
+        {
+          "path": "_instructions/just-vibe/skills/ml-split/SKILL.md",
+          "sha256": "c4ad250b110d4a37253f453a85e7321077551ac2a313d9ff902ccdd5baea3e3b"
+        },
+        {
+          "path": "_instructions/just-vibe/references/profiles/machine-learning-engineer.md",
+          "sha256": "f25512789561ba743e670153bdc62fd742d22ab541955a99927f734c4cd17076"
+        }
+      ],
+      "artifactHashes": {
+        "prompt.txt": "4048e066a6e875061f59ffd9100661f8f1683e816152b411eb1cb881b0a0f70a",
+        "events.jsonl": "e28a2e512accf304e8e9b69917f82184bd1d41479668d4cf2b57fb0426aff797",
+        "answer.md": "6567d4904eaf898df894952f59e17b6af21d9db735c4df1c67a8765d6929e3bb",
+        "run.json": "f905cd98267cede6cb98fc02e0447ce965a8bf96af478f780a0cca28440f0be0",
+        "test-evidence.json": "f0285157b0d5ee5f1ebcfb2e5d5626c24911ea3a8174fb9e88e08eba479f5d55"
+      }
+    },
+    {
+      "case": "temporal-ml",
+      "arm": "just-vibe",
+      "repetition": 2,
+      "sourceVersion": "0.5.0",
+      "profile": null,
+      "correct": true,
+      "artifactCorrect": true,
+      "scorerVersion": 3,
+      "priorScore": {
+        "scorerVersion": 1,
+        "correct": true
+      },
+      "priorScores": [
+        {
+          "scorerVersion": 1,
+          "correct": true
+        },
+        {
+          "scorerVersion": 2,
+          "correct": true
+        }
+      ],
+      "checks": [
+        {
+          "name": "only permitted files changed",
+          "pass": true
+        },
+        {
+          "name": "no symlink artifacts",
+          "pass": true
+        },
+        {
+          "name": "no unrequested commits",
+          "pass": true
+        },
+        {
+          "name": "window bounds and event availability",
+          "pass": true
+        },
+        {
+          "name": "revision selection before window filtering and deduplication",
+          "pass": true
+        },
+        {
+          "name": "offset-aware instant comparisons and naive rejection",
+          "pass": true
+        },
+        {
+          "name": "mature training membership and train-only scaler",
+          "pass": true
+        },
+        {
+          "name": "zero labels, unknown labels and future examples",
+          "pass": true
+        },
+        {
+          "name": "input order and immutability",
+          "pass": true
+        },
+        {
+          "name": "empty and constant training fallback",
+          "pass": true
+        },
+        {
+          "name": "oracle process completed consistently",
+          "pass": true
+        },
+        {
+          "name": "regression test artifact exists",
+          "pass": true
+        },
+        {
+          "name": "project and authored regression tests pass",
+          "pass": true
+        },
+        {
+          "name": "regression tests detect original defect",
+          "pass": true
+        },
+        {
+          "name": "agent turn completed within limit",
+          "pass": true
+        }
+      ],
+      "metrics": {
+        "model": "gpt-6-astra",
+        "effort": "medium",
+        "startedAt": "2026-09-20T05:17:33.437Z",
+        "finishedAt": "2026-09-20T05:20:06.043Z",
+        "wallMs": 152607,
+        "exitCode": 0,
+        "timedOut": false,
+        "usage": {
+          "input_tokens": 110643,
+          "cached_input_tokens": 85888,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 4536,
+          "reasoning_output_tokens": 32
+        },
+        "turnCompleted": true,
+        "toolCalls": 8,
+        "failedCommands": 0,
+        "errors": [],
+        "userInterventions": 0,
+        "costUsd": null,
+        "costReason": "ChatGPT-authenticated CLI reports tokens, not a per-run monetary charge.",
+        "host": {
+          "cli": "codex-cli 0.155.1",
+          "sandbox": "workspace-write",
+          "writableGitMetadata": true,
+          "externalTools": false,
+          "plugins": false,
+          "hostSkillDiscovery": false
+        }
+      },
+      "instructionBundleSha256": "56ec56183127a86307b445d4b3a74d2f267d5920d01023766239f1f640f243cd",
+      "instructionFileCount": 376,
+      "selectedInstructions": [
+        {
+          "path": "_instructions/just-vibe/skills/ml-features/SKILL.md",
+          "sha256": "60ae4f875f43a32afbec4fa460629edf06876c072eb057b6c23c007f34ba36ad"
+        },
+        {
+          "path": "_instructions/just-vibe/skills/ml-leakage/SKILL.md",
+          "sha256": "40e953aabc397101c39d85f5a76441a8f84bb1303ad0bceba8be614b7ac15bb3"
+        },
+        {
+          "path": "_instructions/just-vibe/skills/ml-split/SKILL.md",
+          "sha256": "c4ad250b110d4a37253f453a85e7321077551ac2a313d9ff902ccdd5baea3e3b"
+        }
+      ],
+      "artifactHashes": {
+        "prompt.txt": "a63d55e16c91b2a75b74b29b440adc05ec13891e70dce90059f7349ece66f20a",
+        "events.jsonl": "73f63cb42f6aa7bfdde0d589c8ae6910bb8f0fa749dcf3da9fae0aeb15b44b91",
+        "answer.md": "77cefdae6dcb95dc9b19261b187664d05c95ea6992ad3ba479658843ebb98a66",
+        "run.json": "c0c40b51adf8d7b085044c64310dfd50d8d5950b7986d90c05b833733b29eeab",
+        "test-evidence.json": "ba1b9c09df1c943f884c82b525c9e0990ca4dc9c5cbbc3056cb0b54af7e1c7f8"
+      }
+    },
+    {
+      "case": "async-cache",
+      "arm": "just-vibe-profile",
+      "repetition": 2,
+      "sourceVersion": "0.5.0",
+      "profile": "frontend-engineer",
+      "correct": true,
+      "artifactCorrect": true,
+      "scorerVersion": 3,
+      "priorScore": {
+        "scorerVersion": 1,
+        "correct": false
+      },
+      "priorScores": [
+        {
+          "scorerVersion": 1,
+          "correct": false
+        },
+        {
+          "scorerVersion": 2,
+          "correct": true
+        }
+      ],
+      "checks": [
+        {
+          "name": "only permitted files changed",
+          "pass": true
+        },
+        {
+          "name": "no symlink artifacts",
+          "pass": true
+        },
+        {
+          "name": "no unrequested commits",
+          "pass": true
+        },
+        {
+          "name": "tenant identity, delimiter collisions and falsey values",
+          "pass": true
+        },
+        {
+          "name": "pending coalescing and expiry measured from completion",
+          "pass": true
+        },
+        {
+          "name": "one waiter cancellation cannot poison shared work",
+          "pass": true
+        },
+        {
+          "name": "pre-abort and listener cleanup on settlement",
+          "pass": true
+        },
+        {
+          "name": "detached old success cannot overwrite or delete new generation",
+          "pass": true
+        },
+        {
+          "name": "detached old failure cannot clear newer pending work",
+          "pass": true
+        },
+        {
+          "name": "synchronous failures and asynchronous failures are retryable",
+          "pass": true
+        },
+        {
+          "name": "latest view result, stale failure and permanent disposal",
+          "pass": true
+        },
+        {
+          "name": "oracle process completed consistently",
+          "pass": true
+        },
+        {
+          "name": "regression test artifact exists",
+          "pass": true
+        },
+        {
+          "name": "project and authored regression tests pass",
+          "pass": true
+        },
+        {
+          "name": "regression tests detect original defect",
+          "pass": true
+        },
+        {
+          "name": "agent turn completed within limit",
+          "pass": true
+        }
+      ],
+      "metrics": {
+        "model": "gpt-6-astra",
+        "effort": "medium",
+        "startedAt": "2026-09-20T05:18:42.882Z",
+        "finishedAt": "2026-09-20T05:21:31.119Z",
+        "wallMs": 168239,
+        "exitCode": 0,
+        "timedOut": false,
+        "usage": {
+          "input_tokens": 117143,
+          "cached_input_tokens": 90112,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 5293,
+          "reasoning_output_tokens": 225
+        },
+        "turnCompleted": true,
+        "toolCalls": 9,
+        "failedCommands": 1,
+        "errors": [],
+        "userInterventions": 0,
+        "costUsd": null,
+        "costReason": "ChatGPT-authenticated CLI reports tokens, not a per-run monetary charge.",
+        "host": {
+          "cli": "codex-cli 0.155.1",
+          "sandbox": "workspace-write",
+          "writableGitMetadata": true,
+          "externalTools": false,
+          "plugins": false,
+          "hostSkillDiscovery": false
+        }
+      },
+      "instructionBundleSha256": "56ec56183127a86307b445d4b3a74d2f267d5920d01023766239f1f640f243cd",
+      "instructionFileCount": 376,
+      "selectedInstructions": [
+        {
+          "path": "_instructions/just-vibe/skills/backend-cache/SKILL.md",
+          "sha256": "f19352ed5682b58df80e7e953f9b3d4b4bc357a0cfe856f666606f5bdd108759"
+        },
+        {
+          "path": "_instructions/just-vibe/skills/backend-concurrency/SKILL.md",
+          "sha256": "2a41562dd2b0b7f9eef8eaea83aeb83b51accd4a96f5cb7acee02906858cb6d9"
+        },
+        {
+          "path": "_instructions/just-vibe/skills/react-async/SKILL.md",
+          "sha256": "8bb07f668c55df1e70cee87521a0217537ff7f90d414c3a8f232030d48c86be4"
+        },
+        {
+          "path": "_instructions/just-vibe/references/profiles/frontend-engineer.md",
+          "sha256": "38b28beccead214256c4118a62130aaec227c7480fbe6256a9c1cb1bddad9cc0"
+        }
+      ],
+      "artifactHashes": {
+        "prompt.txt": "6262db476c421423ecfb06e7198f3732df59d495ea6a3138cadd8b57b6da9c81",
+        "events.jsonl": "abccd563222471fbbb0b773805414be00d99304e35cf6661b75092df03e1a1bc",
+        "answer.md": "ae3dc982e0e1c182eb829c1567f43d83840261b5c17308dca37b4e6f2b6e6c1c",
+        "run.json": "411d69c33271bc4ecb8668d744cbf0b4fd31701867837de0509b9a733d88b213",
+        "test-evidence.json": "2cd35bb8126b0e50eef29827db54c70b1e67e0317b68a344bf3cf0b48eba6ce8"
+      }
+    },
+    {
+      "case": "temporal-ml",
+      "arm": "ecc",
+      "repetition": 2,
+      "sourceVersion": "0.5.0",
+      "profile": null,
+      "correct": true,
+      "artifactCorrect": true,
+      "scorerVersion": 3,
+      "priorScore": {
+        "scorerVersion": 1,
+        "correct": true
+      },
+      "priorScores": [
+        {
+          "scorerVersion": 1,
+          "correct": true
+        },
+        {
+          "scorerVersion": 2,
+          "correct": true
+        }
+      ],
+      "checks": [
+        {
+          "name": "only permitted files changed",
+          "pass": true
+        },
+        {
+          "name": "no symlink artifacts",
+          "pass": true
+        },
+        {
+          "name": "no unrequested commits",
+          "pass": true
+        },
+        {
+          "name": "window bounds and event availability",
+          "pass": true
+        },
+        {
+          "name": "revision selection before window filtering and deduplication",
+          "pass": true
+        },
+        {
+          "name": "offset-aware instant comparisons and naive rejection",
+          "pass": true
+        },
+        {
+          "name": "mature training membership and train-only scaler",
+          "pass": true
+        },
+        {
+          "name": "zero labels, unknown labels and future examples",
+          "pass": true
+        },
+        {
+          "name": "input order and immutability",
+          "pass": true
+        },
+        {
+          "name": "empty and constant training fallback",
+          "pass": true
+        },
+        {
+          "name": "oracle process completed consistently",
+          "pass": true
+        },
+        {
+          "name": "regression test artifact exists",
+          "pass": true
+        },
+        {
+          "name": "project and authored regression tests pass",
+          "pass": true
+        },
+        {
+          "name": "regression tests detect original defect",
+          "pass": true
+        },
+        {
+          "name": "agent turn completed within limit",
+          "pass": true
+        }
+      ],
+      "metrics": {
+        "model": "gpt-6-astra",
+        "effort": "medium",
+        "startedAt": "2026-09-20T05:20:06.372Z",
+        "finishedAt": "2026-09-20T05:22:17.943Z",
+        "wallMs": 131572,
+        "exitCode": 0,
+        "timedOut": false,
+        "usage": {
+          "input_tokens": 125712,
+          "cached_input_tokens": 106112,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 4026,
+          "reasoning_output_tokens": 134
+        },
+        "turnCompleted": true,
+        "toolCalls": 6,
+        "failedCommands": 1,
+        "errors": [],
+        "userInterventions": 0,
+        "costUsd": null,
+        "costReason": "ChatGPT-authenticated CLI reports tokens, not a per-run monetary charge.",
+        "host": {
+          "cli": "codex-cli 0.155.1",
+          "sandbox": "workspace-write",
+          "writableGitMetadata": true,
+          "externalTools": false,
+          "plugins": false,
+          "hostSkillDiscovery": false
+        }
+      },
+      "instructionBundleSha256": "d2dd2376d7f768b6e05e0b7fc59b0a108959afa38a4f1f3e8d3066a24082e5b0",
+      "instructionFileCount": 3,
+      "selectedInstructions": [
+        {
+          "path": "_instructions/ecc/skills/mle-workflow/SKILL.md",
+          "sha256": "2497888dd543ca7bdf5d0cb4d90fce023eb2c1c14f860f0af8e8be42423131b4"
+        },
+        {
+          "path": "_instructions/ecc/agents/mle-reviewer.md",
+          "sha256": "c505be5fccea9d067775b86fed76bc4b84e63e17090855ac135694adbc83a7f8"
+        }
+      ],
+      "artifactHashes": {
+        "prompt.txt": "7c5ea78a552b22e003e28d9f38248cbab70ef81671b8e4429f590507703f5fc7",
+        "events.jsonl": "88d519d34b8791de748c14f9fc64931a2e07615d35575fb9e78fdb41a9722290",
+        "answer.md": "2776eb7a24d8ccbd89df4b33b4d177cc87d04653930885ae25d586a8cda8a9cf",
+        "run.json": "b6cf2172ff6322d1f6d5abf5e94b024ae24240b6c1cda6c86421e828c383f90e",
+        "test-evidence.json": "ce6a843d4af1c428fe51c2cc81bc74290708b823607130f691ac9601d2b237ef"
+      }
+    },
+    {
+      "case": "scoped-commit",
+      "arm": "ecc",
+      "repetition": 1,
+      "sourceVersion": "0.5.0",
+      "profile": null,
+      "correct": true,
+      "artifactCorrect": true,
+      "scorerVersion": 3,
+      "priorScore": {
+        "scorerVersion": 1,
+        "correct": true
+      },
+      "priorScores": [
+        {
+          "scorerVersion": 1,
+          "correct": true
+        },
+        {
+          "scorerVersion": 2,
+          "correct": true
+        }
+      ],
+      "checks": [
+        {
+          "name": "only permitted files changed",
+          "pass": true
+        },
+        {
+          "name": "no symlink artifacts",
+          "pass": true
+        },
+        {
+          "name": "missing and zero adjustment",
+          "pass": true
+        },
+        {
+          "name": "negative surcharge and no-clamp compatibility",
+          "pass": true
+        },
+        {
+          "name": "unrelated worktree behavior preserved",
+          "pass": true
+        },
+        {
+          "name": "oracle process completed consistently",
+          "pass": true
+        },
+        {
+          "name": "regression test artifact exists",
+          "pass": true
+        },
+        {
+          "name": "project and authored regression tests pass",
+          "pass": true
+        },
+        {
+          "name": "regression tests detect original defect",
+          "pass": true
+        },
+        {
+          "name": "exactly one requested commit",
+          "pass": true
+        },
+        {
+          "name": "commit includes only requested fix and new test",
+          "pass": true
+        },
+        {
+          "name": "same-file staged and unstaged distinctions survive",
+          "pass": true
+        },
+        {
+          "name": "committed implementation satisfies the contract independently",
+          "pass": true
+        },
+        {
+          "name": "committed tests pass without unrelated worktree edits",
+          "pass": true
+        },
+        {
+          "name": "user identity and no agent attribution",
+          "pass": true
+        },
+        {
+          "name": "unrelated staged note and untracked file remain",
+          "pass": true
+        },
+        {
+          "name": "agent turn completed within limit",
+          "pass": true
+        }
+      ],
+      "metrics": {
+        "model": "gpt-6-astra",
+        "effort": "medium",
+        "startedAt": "2026-09-20T05:21:46.745Z",
+        "finishedAt": "2026-09-20T05:23:11.892Z",
+        "wallMs": 85148,
+        "exitCode": 0,
+        "timedOut": false,
+        "usage": {
+          "input_tokens": 166856,
+          "cached_input_tokens": 143744,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 2178,
+          "reasoning_output_tokens": 148
+        },
+        "turnCompleted": true,
+        "toolCalls": 8,
+        "failedCommands": 1,
+        "errors": [],
+        "userInterventions": 0,
+        "costUsd": null,
+        "costReason": "ChatGPT-authenticated CLI reports tokens, not a per-run monetary charge.",
+        "host": {
+          "cli": "codex-cli 0.155.1",
+          "sandbox": "workspace-write",
+          "writableGitMetadata": true,
+          "externalTools": false,
+          "plugins": false,
+          "hostSkillDiscovery": false
+        }
+      },
+      "instructionBundleSha256": "3c1022e9f0aff312f64c5a4e2a534b08903f075f0a61cc557bcf5cfccbde27e7",
+      "instructionFileCount": 3,
+      "selectedInstructions": [
+        {
+          "path": "_instructions/ecc/skills/git-workflow/SKILL.md",
+          "sha256": "d34cfc7114b4479cac2b802f2463c39312cbab4a509313128cb83ac12a1b1eb6"
+        },
+        {
+          "path": "_instructions/ecc/skills/tdd-workflow/SKILL.md",
+          "sha256": "f5d8543733c557f0c53b688d40f14e9b870a6b2c7e405bab07433954e363828a"
+        }
+      ],
+      "artifactHashes": {
+        "prompt.txt": "c600119febde26f644e26766876ea1b296fee1f8d13d6850f3c9ce5bf5349e4d",
+        "events.jsonl": "b2bad99c92b2673482d831d162d4516c5710026835ecf12ace01a89061550cec",
+        "answer.md": "84513578aa644e64ec84e35724d30e27fef8df28e7fa6b5d0a2f0ce19bb329e0",
+        "run.json": "18ce433fcfdfc1ffde4bfa89c6b7cfb42feb226a60ccc040a442c41571ee739e",
+        "test-evidence.json": "da263225cd1f5d22b53e7535d54a5df31e1b482504c03980b9fabec4c574e6a6"
+      }
+    },
+    {
+      "case": "scoped-commit",
+      "arm": "just-vibe",
+      "repetition": 1,
+      "sourceVersion": "0.5.0",
+      "profile": null,
+      "correct": true,
+      "artifactCorrect": true,
+      "scorerVersion": 3,
+      "priorScore": {
+        "scorerVersion": 1,
+        "correct": true
+      },
+      "priorScores": [
+        {
+          "scorerVersion": 1,
+          "correct": true
+        },
+        {
+          "scorerVersion": 2,
+          "correct": true
+        }
+      ],
+      "checks": [
+        {
+          "name": "only permitted files changed",
+          "pass": true
+        },
+        {
+          "name": "no symlink artifacts",
+          "pass": true
+        },
+        {
+          "name": "missing and zero adjustment",
+          "pass": true
+        },
+        {
+          "name": "negative surcharge and no-clamp compatibility",
+          "pass": true
+        },
+        {
+          "name": "unrelated worktree behavior preserved",
+          "pass": true
+        },
+        {
+          "name": "oracle process completed consistently",
+          "pass": true
+        },
+        {
+          "name": "regression test artifact exists",
+          "pass": true
+        },
+        {
+          "name": "project and authored regression tests pass",
+          "pass": true
+        },
+        {
+          "name": "regression tests detect original defect",
+          "pass": true
+        },
+        {
+          "name": "exactly one requested commit",
+          "pass": true
+        },
+        {
+          "name": "commit includes only requested fix and new test",
+          "pass": true
+        },
+        {
+          "name": "same-file staged and unstaged distinctions survive",
+          "pass": true
+        },
+        {
+          "name": "committed implementation satisfies the contract independently",
+          "pass": true
+        },
+        {
+          "name": "committed tests pass without unrelated worktree edits",
+          "pass": true
+        },
+        {
+          "name": "user identity and no agent attribution",
+          "pass": true
+        },
+        {
+          "name": "unrelated staged note and untracked file remain",
+          "pass": true
+        },
+        {
+          "name": "agent turn completed within limit",
+          "pass": true
+        }
+      ],
+      "metrics": {
+        "model": "gpt-6-astra",
+        "effort": "medium",
+        "startedAt": "2026-09-20T05:22:18.329Z",
+        "finishedAt": "2026-09-20T05:23:45.867Z",
+        "wallMs": 87539,
+        "exitCode": 0,
+        "timedOut": false,
+        "usage": {
+          "input_tokens": 134890,
+          "cached_input_tokens": 117632,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 2279,
+          "reasoning_output_tokens": 49
+        },
+        "turnCompleted": true,
+        "toolCalls": 12,
+        "failedCommands": 2,
+        "errors": [],
+        "userInterventions": 0,
+        "costUsd": null,
+        "costReason": "ChatGPT-authenticated CLI reports tokens, not a per-run monetary charge.",
+        "host": {
+          "cli": "codex-cli 0.155.1",
+          "sandbox": "workspace-write",
+          "writableGitMetadata": true,
+          "externalTools": false,
+          "plugins": false,
+          "hostSkillDiscovery": false
+        }
+      },
+      "instructionBundleSha256": "56ec56183127a86307b445d4b3a74d2f267d5920d01023766239f1f640f243cd",
+      "instructionFileCount": 376,
+      "selectedInstructions": [
+        {
+          "path": "_instructions/just-vibe/skills/fix/SKILL.md",
+          "sha256": "05bb98757686c98858e03a8ccb1f15b3674977587a1b13293918a3fff8b57ab3"
+        },
+        {
+          "path": "_instructions/just-vibe/skills/git-commit/SKILL.md",
+          "sha256": "b7e97de28bb6446839ae16068d3144f777032bec73af5572039519e39aea3ae6"
+        },
+        {
+          "path": "_instructions/just-vibe/skills/test-regression/SKILL.md",
+          "sha256": "6a6d8e225c93a4d78be37196f8c468dd9f2f9cdc8157732c9a5a0fb074fbc2b4"
+        }
+      ],
+      "artifactHashes": {
+        "prompt.txt": "34d2b98f74b07973bba4be1841403736a700efa14e4b3292dc63be41fd29a526",
+        "events.jsonl": "2b8b9b116be1d18cf47dd0137db52083771ccff1869bfd2e21131b65825896d8",
+        "answer.md": "b74c5cc9ebf7ebc7441d2125b6b668c868a53c088ca9ace1bd6c70f0ec058d67",
+        "run.json": "3d6986c24860ee75277fa37e1102e57f1c3d8e20d758b08cd8107d4dcc42d028",
+        "test-evidence.json": "23bba8363c2e70ce178e399152d1b35be3ce4c36b4b0a02f0cae43ece44dee4f"
+      }
+    },
+    {
+      "case": "ledger",
+      "arm": "ecc",
+      "repetition": 2,
+      "sourceVersion": "0.5.0",
+      "profile": null,
+      "correct": true,
+      "artifactCorrect": true,
+      "scorerVersion": 3,
+      "priorScore": {
+        "scorerVersion": 1,
+        "correct": true
+      },
+      "priorScores": [
+        {
+          "scorerVersion": 1,
+          "correct": true
+        },
+        {
+          "scorerVersion": 2,
+          "correct": true
+        }
+      ],
+      "checks": [
+        {
+          "name": "only permitted files changed",
+          "pass": true
+        },
+        {
+          "name": "no symlink artifacts",
+          "pass": true
+        },
+        {
+          "name": "no unrequested commits",
+          "pass": true
+        },
+        {
+          "name": "interruption rolls back all state and permits retry",
+          "pass": true
+        },
+        {
+          "name": "payload conflicts and tenant-scoped replay",
+          "pass": true
+        },
+        {
+          "name": "exact integer amount validation without writes",
+          "pass": true
+        },
+        {
+          "name": "account ownership, funds and credit overflow",
+          "pass": true
+        },
+        {
+          "name": "caller-owned transaction remains untouched",
+          "pass": true
+        },
+        {
+          "name": "concurrent connections serialize one effect",
+          "pass": true
+        },
+        {
+          "name": "oracle process completed consistently",
+          "pass": true
+        },
+        {
+          "name": "regression test artifact exists",
+          "pass": true
+        },
+        {
+          "name": "project and authored regression tests pass",
+          "pass": true
+        },
+        {
+          "name": "regression tests detect original defect",
+          "pass": true
+        },
+        {
+          "name": "agent turn completed within limit",
+          "pass": true
+        }
+      ],
+      "metrics": {
+        "model": "gpt-6-astra",
+        "effort": "medium",
+        "startedAt": "2026-09-20T05:23:12.242Z",
+        "finishedAt": "2026-09-20T05:25:17.731Z",
+        "wallMs": 125491,
+        "exitCode": 0,
+        "timedOut": false,
+        "usage": {
+          "input_tokens": 169127,
+          "cached_input_tokens": 120064,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 3693,
+          "reasoning_output_tokens": 177
+        },
+        "turnCompleted": true,
+        "toolCalls": 7,
+        "failedCommands": 1,
+        "errors": [],
+        "userInterventions": 0,
+        "costUsd": null,
+        "costReason": "ChatGPT-authenticated CLI reports tokens, not a per-run monetary charge.",
+        "host": {
+          "cli": "codex-cli 0.155.1",
+          "sandbox": "workspace-write",
+          "writableGitMetadata": true,
+          "externalTools": false,
+          "plugins": false,
+          "hostSkillDiscovery": false
+        }
+      },
+      "instructionBundleSha256": "708b1085650f8060a10631911ef0ca7befcea6d31f16f886afb85a295064ba06",
+      "instructionFileCount": 4,
+      "selectedInstructions": [
+        {
+          "path": "_instructions/ecc/skills/backend-patterns/SKILL.md",
+          "sha256": "9b983d0297a983110fdfda8dce55d19b750ca3e53ef155d75a3eff740d3874b8"
+        },
+        {
+          "path": "_instructions/ecc/skills/python-patterns/SKILL.md",
+          "sha256": "103e0130dac33a49d26705fc5a2df804980fcab6a0138d65bc7f370a987d49f6"
+        },
+        {
+          "path": "_instructions/ecc/skills/database-migrations/SKILL.md",
+          "sha256": "ad7f2f04ca03e592a16e2a539d8c6e90bf4e08892408820ce99a53e9d07775de"
+        }
+      ],
+      "artifactHashes": {
+        "prompt.txt": "9f4c99cc30331a95b49d651ac7dec2ceac2d50206ba684397332bf325c634deb",
+        "events.jsonl": "1c558a19edc6a8ac20a4b4ce94bed13b24cab85d793a2a550c5962e218135d70",
+        "answer.md": "22b4db669d31d0591b8069089e40c6802d88fb4304a22c279e2d937fdba687ba",
+        "run.json": "9a2c0af3fa36c44da214ef3476b440aed1e4fa5edb7a62bb6663d9a87da2cf13",
+        "test-evidence.json": "f985a7b3fee7c64725329565ae3b0cde69729e8a953a8142de416cd63ead9245"
+      }
+    },
+    {
+      "case": "scoped-commit",
+      "arm": "ecc",
+      "repetition": 2,
+      "sourceVersion": "0.5.0",
+      "profile": null,
+      "correct": true,
+      "artifactCorrect": true,
+      "scorerVersion": 3,
+      "priorScore": {
+        "scorerVersion": 1,
+        "correct": true
+      },
+      "priorScores": [
+        {
+          "scorerVersion": 1,
+          "correct": true
+        },
+        {
+          "scorerVersion": 2,
+          "correct": true
+        }
+      ],
+      "checks": [
+        {
+          "name": "only permitted files changed",
+          "pass": true
+        },
+        {
+          "name": "no symlink artifacts",
+          "pass": true
+        },
+        {
+          "name": "missing and zero adjustment",
+          "pass": true
+        },
+        {
+          "name": "negative surcharge and no-clamp compatibility",
+          "pass": true
+        },
+        {
+          "name": "unrelated worktree behavior preserved",
+          "pass": true
+        },
+        {
+          "name": "oracle process completed consistently",
+          "pass": true
+        },
+        {
+          "name": "regression test artifact exists",
+          "pass": true
+        },
+        {
+          "name": "project and authored regression tests pass",
+          "pass": true
+        },
+        {
+          "name": "regression tests detect original defect",
+          "pass": true
+        },
+        {
+          "name": "exactly one requested commit",
+          "pass": true
+        },
+        {
+          "name": "commit includes only requested fix and new test",
+          "pass": true
+        },
+        {
+          "name": "same-file staged and unstaged distinctions survive",
+          "pass": true
+        },
+        {
+          "name": "committed implementation satisfies the contract independently",
+          "pass": true
+        },
+        {
+          "name": "committed tests pass without unrelated worktree edits",
+          "pass": true
+        },
+        {
+          "name": "user identity and no agent attribution",
+          "pass": true
+        },
+        {
+          "name": "unrelated staged note and untracked file remain",
+          "pass": true
+        },
+        {
+          "name": "agent turn completed within limit",
+          "pass": true
+        }
+      ],
+      "metrics": {
+        "model": "gpt-6-astra",
+        "effort": "medium",
+        "startedAt": "2026-09-20T05:23:46.336Z",
+        "finishedAt": "2026-09-20T05:25:26.570Z",
+        "wallMs": 100221,
+        "exitCode": 0,
+        "timedOut": false,
+        "usage": {
+          "input_tokens": 141014,
+          "cached_input_tokens": 118272,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 2762,
+          "reasoning_output_tokens": 471
+        },
+        "turnCompleted": true,
+        "toolCalls": 7,
+        "failedCommands": 1,
+        "errors": [],
+        "userInterventions": 0,
+        "costUsd": null,
+        "costReason": "ChatGPT-authenticated CLI reports tokens, not a per-run monetary charge.",
+        "host": {
+          "cli": "codex-cli 0.155.1",
+          "sandbox": "workspace-write",
+          "writableGitMetadata": true,
+          "externalTools": false,
+          "plugins": false,
+          "hostSkillDiscovery": false
+        }
+      },
+      "instructionBundleSha256": "3c1022e9f0aff312f64c5a4e2a534b08903f075f0a61cc557bcf5cfccbde27e7",
+      "instructionFileCount": 3,
+      "selectedInstructions": [
+        {
+          "path": "_instructions/ecc/skills/git-workflow/SKILL.md",
+          "sha256": "d34cfc7114b4479cac2b802f2463c39312cbab4a509313128cb83ac12a1b1eb6"
+        },
+        {
+          "path": "_instructions/ecc/skills/tdd-workflow/SKILL.md",
+          "sha256": "f5d8543733c557f0c53b688d40f14e9b870a6b2c7e405bab07433954e363828a"
+        }
+      ],
+      "artifactHashes": {
+        "prompt.txt": "73a8f4c9ef59128736925528a6ba5374be9a0180b837001b1b7fb5dff270850b",
+        "events.jsonl": "70d07ab34eed9271e7059e81cf70dbf48ea962c559eed9c994ff08a64a652dd0",
+        "answer.md": "09698e9892780dc5b970276f7cc3f1924b2cf19d09fc38aafd045fd4c90ecb0a",
+        "run.json": "9b5a54420170ca7356da875d64abc9ea4412a76f381584278d525760cc561049",
+        "test-evidence.json": "2af18ac6f4cd0ed88ed93d3720b06f851a31509b3dc97ff75d58d469ef000ab0"
+      }
+    },
+    {
+      "case": "async-cache",
+      "arm": "just-vibe-profile",
+      "repetition": 1,
+      "sourceVersion": "0.5.0",
+      "profile": "frontend-engineer",
+      "correct": true,
+      "artifactCorrect": true,
+      "scorerVersion": 3,
+      "priorScore": {
+        "scorerVersion": 1,
+        "correct": false
+      },
+      "priorScores": [
+        {
+          "scorerVersion": 1,
+          "correct": false
+        },
+        {
+          "scorerVersion": 2,
+          "correct": true
+        }
+      ],
+      "checks": [
+        {
+          "name": "only permitted files changed",
+          "pass": true
+        },
+        {
+          "name": "no symlink artifacts",
+          "pass": true
+        },
+        {
+          "name": "no unrequested commits",
+          "pass": true
+        },
+        {
+          "name": "tenant identity, delimiter collisions and falsey values",
+          "pass": true
+        },
+        {
+          "name": "pending coalescing and expiry measured from completion",
+          "pass": true
+        },
+        {
+          "name": "one waiter cancellation cannot poison shared work",
+          "pass": true
+        },
+        {
+          "name": "pre-abort and listener cleanup on settlement",
+          "pass": true
+        },
+        {
+          "name": "detached old success cannot overwrite or delete new generation",
+          "pass": true
+        },
+        {
+          "name": "detached old failure cannot clear newer pending work",
+          "pass": true
+        },
+        {
+          "name": "synchronous failures and asynchronous failures are retryable",
+          "pass": true
+        },
+        {
+          "name": "latest view result, stale failure and permanent disposal",
+          "pass": true
+        },
+        {
+          "name": "oracle process completed consistently",
+          "pass": true
+        },
+        {
+          "name": "regression test artifact exists",
+          "pass": true
+        },
+        {
+          "name": "project and authored regression tests pass",
+          "pass": true
+        },
+        {
+          "name": "regression tests detect original defect",
+          "pass": true
+        },
+        {
+          "name": "agent turn completed within limit",
+          "pass": true
+        }
+      ],
+      "metrics": {
+        "model": "gpt-6-astra",
+        "effort": "medium",
+        "startedAt": "2026-09-20T05:25:18.672Z",
+        "finishedAt": "2026-09-20T05:27:46.427Z",
+        "wallMs": 147723,
+        "exitCode": 0,
+        "timedOut": false,
+        "usage": {
+          "input_tokens": 115168,
+          "cached_input_tokens": 89344,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 4498,
+          "reasoning_output_tokens": 49
+        },
+        "turnCompleted": true,
+        "toolCalls": 8,
+        "failedCommands": 0,
+        "errors": [],
+        "userInterventions": 0,
+        "costUsd": null,
+        "costReason": "ChatGPT-authenticated CLI reports tokens, not a per-run monetary charge.",
+        "host": {
+          "cli": "codex-cli 0.155.1",
+          "sandbox": "workspace-write",
+          "writableGitMetadata": true,
+          "externalTools": false,
+          "plugins": false,
+          "hostSkillDiscovery": false
+        }
+      },
+      "instructionBundleSha256": "56ec56183127a86307b445d4b3a74d2f267d5920d01023766239f1f640f243cd",
+      "instructionFileCount": 376,
+      "selectedInstructions": [
+        {
+          "path": "_instructions/just-vibe/skills/backend-cache/SKILL.md",
+          "sha256": "f19352ed5682b58df80e7e953f9b3d4b4bc357a0cfe856f666606f5bdd108759"
+        },
+        {
+          "path": "_instructions/just-vibe/skills/backend-concurrency/SKILL.md",
+          "sha256": "2a41562dd2b0b7f9eef8eaea83aeb83b51accd4a96f5cb7acee02906858cb6d9"
+        },
+        {
+          "path": "_instructions/just-vibe/skills/react-async/SKILL.md",
+          "sha256": "8bb07f668c55df1e70cee87521a0217537ff7f90d414c3a8f232030d48c86be4"
+        },
+        {
+          "path": "_instructions/just-vibe/references/profiles/frontend-engineer.md",
+          "sha256": "38b28beccead214256c4118a62130aaec227c7480fbe6256a9c1cb1bddad9cc0"
+        }
+      ],
+      "artifactHashes": {
+        "prompt.txt": "407b4fead47c8fcd5611ce58153699c580e042308f604e3c37fbeb021331e03e",
+        "events.jsonl": "624c4d3f8be11dd4ce4b0ac405ea0749f9465fcf043001660dba090076c25441",
+        "answer.md": "eb9f1f935270bab8e907a2313623cd1cf33490114445ebcf7cd2f513442e8752",
+        "run.json": "4e7b71ad3fbb0a64f1a3ea76baad106885035c81f82f377a1a8e619409a6be90",
+        "test-evidence.json": "4eb1a2637126764da048e7db25e9a241ad40068c3a003df7d422e0a6932f0b3b"
+      }
+    },
+    {
+      "case": "scoped-commit",
+      "arm": "just-vibe-profile",
+      "repetition": 1,
+      "sourceVersion": "0.5.0",
+      "profile": "senior-software-engineer",
+      "correct": true,
+      "artifactCorrect": true,
+      "scorerVersion": 3,
+      "priorScore": {
+        "scorerVersion": 1,
+        "correct": true
+      },
+      "priorScores": [
+        {
+          "scorerVersion": 1,
+          "correct": true
+        },
+        {
+          "scorerVersion": 2,
+          "correct": true
+        }
+      ],
+      "checks": [
+        {
+          "name": "only permitted files changed",
+          "pass": true
+        },
+        {
+          "name": "no symlink artifacts",
+          "pass": true
+        },
+        {
+          "name": "missing and zero adjustment",
+          "pass": true
+        },
+        {
+          "name": "negative surcharge and no-clamp compatibility",
+          "pass": true
+        },
+        {
+          "name": "unrelated worktree behavior preserved",
+          "pass": true
+        },
+        {
+          "name": "oracle process completed consistently",
+          "pass": true
+        },
+        {
+          "name": "regression test artifact exists",
+          "pass": true
+        },
+        {
+          "name": "project and authored regression tests pass",
+          "pass": true
+        },
+        {
+          "name": "regression tests detect original defect",
+          "pass": true
+        },
+        {
+          "name": "exactly one requested commit",
+          "pass": true
+        },
+        {
+          "name": "commit includes only requested fix and new test",
+          "pass": true
+        },
+        {
+          "name": "same-file staged and unstaged distinctions survive",
+          "pass": true
+        },
+        {
+          "name": "committed implementation satisfies the contract independently",
+          "pass": true
+        },
+        {
+          "name": "committed tests pass without unrelated worktree edits",
+          "pass": true
+        },
+        {
+          "name": "user identity and no agent attribution",
+          "pass": true
+        },
+        {
+          "name": "unrelated staged note and untracked file remain",
+          "pass": true
+        },
+        {
+          "name": "agent turn completed within limit",
+          "pass": true
+        }
+      ],
+      "metrics": {
+        "model": "gpt-6-astra",
+        "effort": "medium",
+        "startedAt": "2026-09-20T05:25:27.014Z",
+        "finishedAt": "2026-09-20T05:27:11.189Z",
+        "wallMs": 104156,
+        "exitCode": 0,
+        "timedOut": false,
+        "usage": {
+          "input_tokens": 187692,
+          "cached_input_tokens": 157056,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 2593,
+          "reasoning_output_tokens": 98
+        },
+        "turnCompleted": true,
+        "toolCalls": 13,
+        "failedCommands": 2,
+        "errors": [],
+        "userInterventions": 0,
+        "costUsd": null,
+        "costReason": "ChatGPT-authenticated CLI reports tokens, not a per-run monetary charge.",
+        "host": {
+          "cli": "codex-cli 0.155.1",
+          "sandbox": "workspace-write",
+          "writableGitMetadata": true,
+          "externalTools": false,
+          "plugins": false,
+          "hostSkillDiscovery": false
+        }
+      },
+      "instructionBundleSha256": "56ec56183127a86307b445d4b3a74d2f267d5920d01023766239f1f640f243cd",
+      "instructionFileCount": 376,
+      "selectedInstructions": [
+        {
+          "path": "_instructions/just-vibe/skills/fix/SKILL.md",
+          "sha256": "05bb98757686c98858e03a8ccb1f15b3674977587a1b13293918a3fff8b57ab3"
+        },
+        {
+          "path": "_instructions/just-vibe/skills/git-commit/SKILL.md",
+          "sha256": "b7e97de28bb6446839ae16068d3144f777032bec73af5572039519e39aea3ae6"
+        },
+        {
+          "path": "_instructions/just-vibe/skills/test-regression/SKILL.md",
+          "sha256": "6a6d8e225c93a4d78be37196f8c468dd9f2f9cdc8157732c9a5a0fb074fbc2b4"
+        },
+        {
+          "path": "_instructions/just-vibe/references/profiles/senior-software-engineer.md",
+          "sha256": "783a3ed0bfe8926ae42a964afca66acac2f406d45685b3b0a8b3282b83f46551"
+        }
+      ],
+      "artifactHashes": {
+        "prompt.txt": "ecb83ecfd4420b67b54cf433c374b33de692289319093922b1cb5a083f9a850d",
+        "events.jsonl": "52176b5dea473b9c2a03f1ed92b2654afba8b300b1e4a12479a3a8d6923a94ab",
+        "answer.md": "1067586023b13bf76842b6c78011d8e2875316b2f44fca1581145006673099b9",
+        "run.json": "fd84ca014d31e9fcef4cddde8e9d37a1c894a25e84f90ac0278d4092212ab60d",
+        "test-evidence.json": "2a6049f484f6b90b1a5a89524fc15b7367ac3a29f87e0865e3aecb16ae505288"
+      }
+    },
+    {
+      "case": "scoped-commit",
+      "arm": "baseline",
+      "repetition": 2,
+      "sourceVersion": "0.5.0",
+      "profile": null,
+      "correct": true,
+      "artifactCorrect": true,
+      "scorerVersion": 3,
+      "priorScore": {
+        "scorerVersion": 1,
+        "correct": true
+      },
+      "priorScores": [
+        {
+          "scorerVersion": 1,
+          "correct": true
+        },
+        {
+          "scorerVersion": 2,
+          "correct": true
+        }
+      ],
+      "checks": [
+        {
+          "name": "only permitted files changed",
+          "pass": true
+        },
+        {
+          "name": "no symlink artifacts",
+          "pass": true
+        },
+        {
+          "name": "missing and zero adjustment",
+          "pass": true
+        },
+        {
+          "name": "negative surcharge and no-clamp compatibility",
+          "pass": true
+        },
+        {
+          "name": "unrelated worktree behavior preserved",
+          "pass": true
+        },
+        {
+          "name": "oracle process completed consistently",
+          "pass": true
+        },
+        {
+          "name": "regression test artifact exists",
+          "pass": true
+        },
+        {
+          "name": "project and authored regression tests pass",
+          "pass": true
+        },
+        {
+          "name": "regression tests detect original defect",
+          "pass": true
+        },
+        {
+          "name": "exactly one requested commit",
+          "pass": true
+        },
+        {
+          "name": "commit includes only requested fix and new test",
+          "pass": true
+        },
+        {
+          "name": "same-file staged and unstaged distinctions survive",
+          "pass": true
+        },
+        {
+          "name": "committed implementation satisfies the contract independently",
+          "pass": true
+        },
+        {
+          "name": "committed tests pass without unrelated worktree edits",
+          "pass": true
+        },
+        {
+          "name": "user identity and no agent attribution",
+          "pass": true
+        },
+        {
+          "name": "unrelated staged note and untracked file remain",
+          "pass": true
+        },
+        {
+          "name": "agent turn completed within limit",
+          "pass": true
+        }
+      ],
+      "metrics": {
+        "model": "gpt-6-astra",
+        "effort": "medium",
+        "startedAt": "2026-09-20T05:27:11.625Z",
+        "finishedAt": "2026-09-20T05:28:27.454Z",
+        "wallMs": 75829,
+        "exitCode": 0,
+        "timedOut": false,
+        "usage": {
+          "input_tokens": 86530,
+          "cached_input_tokens": 69632,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 2124,
+          "reasoning_output_tokens": 234
+        },
+        "turnCompleted": true,
+        "toolCalls": 7,
+        "failedCommands": 2,
+        "errors": [],
+        "userInterventions": 0,
+        "costUsd": null,
+        "costReason": "ChatGPT-authenticated CLI reports tokens, not a per-run monetary charge.",
+        "host": {
+          "cli": "codex-cli 0.155.1",
+          "sandbox": "workspace-write",
+          "writableGitMetadata": true,
+          "externalTools": false,
+          "plugins": false,
+          "hostSkillDiscovery": false
+        }
+      },
+      "instructionBundleSha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "instructionFileCount": 0,
+      "selectedInstructions": [],
+      "artifactHashes": {
+        "prompt.txt": "e0e50c263a418da6a3b4d2483017387c719a8341f62380c71303d4c1edbf202b",
+        "events.jsonl": "2d2d49f1c36c920c30177792e38ca46c3227a8ce815b47654b4d8d1bbc16f243",
+        "answer.md": "3512be6aa1543c9d3738271614b7b955dd88109a845f0b856837dee1167099e2",
+        "run.json": "e847c0c055c1b9f1bc492e5c818eb0d7e927ba5c4b3f48ce156a855133821c1d",
+        "test-evidence.json": "99bbde41ad83fe6799f6e824c57c3a183d5019889be3111c23ef9cf6a232c58a"
+      }
+    },
+    {
+      "case": "async-cache",
+      "arm": "just-vibe",
+      "repetition": 2,
+      "sourceVersion": "0.5.0",
+      "profile": null,
+      "correct": true,
+      "artifactCorrect": true,
+      "scorerVersion": 3,
+      "priorScore": {
+        "scorerVersion": 1,
+        "correct": false
+      },
+      "priorScores": [
+        {
+          "scorerVersion": 1,
+          "correct": false
+        },
+        {
+          "scorerVersion": 2,
+          "correct": true
+        }
+      ],
+      "checks": [
+        {
+          "name": "only permitted files changed",
+          "pass": true
+        },
+        {
+          "name": "no symlink artifacts",
+          "pass": true
+        },
+        {
+          "name": "no unrequested commits",
+          "pass": true
+        },
+        {
+          "name": "tenant identity, delimiter collisions and falsey values",
+          "pass": true
+        },
+        {
+          "name": "pending coalescing and expiry measured from completion",
+          "pass": true
+        },
+        {
+          "name": "one waiter cancellation cannot poison shared work",
+          "pass": true
+        },
+        {
+          "name": "pre-abort and listener cleanup on settlement",
+          "pass": true
+        },
+        {
+          "name": "detached old success cannot overwrite or delete new generation",
+          "pass": true
+        },
+        {
+          "name": "detached old failure cannot clear newer pending work",
+          "pass": true
+        },
+        {
+          "name": "synchronous failures and asynchronous failures are retryable",
+          "pass": true
+        },
+        {
+          "name": "latest view result, stale failure and permanent disposal",
+          "pass": true
+        },
+        {
+          "name": "oracle process completed consistently",
+          "pass": true
+        },
+        {
+          "name": "regression test artifact exists",
+          "pass": true
+        },
+        {
+          "name": "project and authored regression tests pass",
+          "pass": true
+        },
+        {
+          "name": "regression tests detect original defect",
+          "pass": true
+        },
+        {
+          "name": "agent turn completed within limit",
+          "pass": true
+        }
+      ],
+      "metrics": {
+        "model": "gpt-6-astra",
+        "effort": "medium",
+        "startedAt": "2026-09-20T05:28:02.209Z",
+        "finishedAt": "2026-09-20T05:30:35.890Z",
+        "wallMs": 153680,
+        "exitCode": 0,
+        "timedOut": false,
+        "usage": {
+          "input_tokens": 110149,
+          "cached_input_tokens": 93440,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 4696,
+          "reasoning_output_tokens": 161
+        },
+        "turnCompleted": true,
+        "toolCalls": 8,
+        "failedCommands": 1,
+        "errors": [],
+        "userInterventions": 0,
+        "costUsd": null,
+        "costReason": "ChatGPT-authenticated CLI reports tokens, not a per-run monetary charge.",
+        "host": {
+          "cli": "codex-cli 0.155.1",
+          "sandbox": "workspace-write",
+          "writableGitMetadata": true,
+          "externalTools": false,
+          "plugins": false,
+          "hostSkillDiscovery": false
+        }
+      },
+      "instructionBundleSha256": "56ec56183127a86307b445d4b3a74d2f267d5920d01023766239f1f640f243cd",
+      "instructionFileCount": 376,
+      "selectedInstructions": [
+        {
+          "path": "_instructions/just-vibe/skills/backend-cache/SKILL.md",
+          "sha256": "f19352ed5682b58df80e7e953f9b3d4b4bc357a0cfe856f666606f5bdd108759"
+        },
+        {
+          "path": "_instructions/just-vibe/skills/backend-concurrency/SKILL.md",
+          "sha256": "2a41562dd2b0b7f9eef8eaea83aeb83b51accd4a96f5cb7acee02906858cb6d9"
+        },
+        {
+          "path": "_instructions/just-vibe/skills/react-async/SKILL.md",
+          "sha256": "8bb07f668c55df1e70cee87521a0217537ff7f90d414c3a8f232030d48c86be4"
+        }
+      ],
+      "artifactHashes": {
+        "prompt.txt": "b6370a90718f1f1a7517538092c03e8ab5e7cceb2f31bf501b1d4dcdf3c30ae2",
+        "events.jsonl": "ac54ba7dcaa8a8744dc45d7e9d7df1d9eb29262357e2a0ea49ef68b1c5e01ef7",
+        "answer.md": "525accf3ccbe6a29933c3867b7778ae5add50727484bc4b62b84effb2e1a89c7",
+        "run.json": "0562d3812acffd72df76828c863c397ad69433e11847b42699742c88115873e9",
+        "test-evidence.json": "3892613f6bc214f941dfb52710058145d688b14f5809fe5740870ed99d7cf5f8"
+      }
+    },
+    {
+      "case": "async-cache",
+      "arm": "ecc",
+      "repetition": 1,
+      "sourceVersion": "0.5.0",
+      "profile": null,
+      "correct": true,
+      "artifactCorrect": true,
+      "scorerVersion": 3,
+      "priorScore": {
+        "scorerVersion": 1,
+        "correct": false
+      },
+      "priorScores": [
+        {
+          "scorerVersion": 1,
+          "correct": false
+        },
+        {
+          "scorerVersion": 2,
+          "correct": true
+        }
+      ],
+      "checks": [
+        {
+          "name": "only permitted files changed",
+          "pass": true
+        },
+        {
+          "name": "no symlink artifacts",
+          "pass": true
+        },
+        {
+          "name": "no unrequested commits",
+          "pass": true
+        },
+        {
+          "name": "tenant identity, delimiter collisions and falsey values",
+          "pass": true
+        },
+        {
+          "name": "pending coalescing and expiry measured from completion",
+          "pass": true
+        },
+        {
+          "name": "one waiter cancellation cannot poison shared work",
+          "pass": true
+        },
+        {
+          "name": "pre-abort and listener cleanup on settlement",
+          "pass": true
+        },
+        {
+          "name": "detached old success cannot overwrite or delete new generation",
+          "pass": true
+        },
+        {
+          "name": "detached old failure cannot clear newer pending work",
+          "pass": true
+        },
+        {
+          "name": "synchronous failures and asynchronous failures are retryable",
+          "pass": true
+        },
+        {
+          "name": "latest view result, stale failure and permanent disposal",
+          "pass": true
+        },
+        {
+          "name": "oracle process completed consistently",
+          "pass": true
+        },
+        {
+          "name": "regression test artifact exists",
+          "pass": true
+        },
+        {
+          "name": "project and authored regression tests pass",
+          "pass": true
+        },
+        {
+          "name": "regression tests detect original defect",
+          "pass": true
+        },
+        {
+          "name": "agent turn completed within limit",
+          "pass": true
+        }
+      ],
+      "metrics": {
+        "model": "gpt-6-astra",
+        "effort": "medium",
+        "startedAt": "2026-09-20T05:28:27.819Z",
+        "finishedAt": "2026-09-20T05:31:05.243Z",
+        "wallMs": 157424,
+        "exitCode": 0,
+        "timedOut": false,
+        "usage": {
+          "input_tokens": 123751,
+          "cached_input_tokens": 96512,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 4764,
+          "reasoning_output_tokens": 225
+        },
+        "turnCompleted": true,
+        "toolCalls": 6,
+        "failedCommands": 1,
+        "errors": [],
+        "userInterventions": 0,
+        "costUsd": null,
+        "costReason": "ChatGPT-authenticated CLI reports tokens, not a per-run monetary charge.",
+        "host": {
+          "cli": "codex-cli 0.155.1",
+          "sandbox": "workspace-write",
+          "writableGitMetadata": true,
+          "externalTools": false,
+          "plugins": false,
+          "hostSkillDiscovery": false
+        }
+      },
+      "instructionBundleSha256": "3493a12ea7e800c74d38160d475b7e5356fe69918274c82d862732f5035401e6",
+      "instructionFileCount": 3,
+      "selectedInstructions": [
+        {
+          "path": "_instructions/ecc/skills/backend-patterns/SKILL.md",
+          "sha256": "9b983d0297a983110fdfda8dce55d19b750ca3e53ef155d75a3eff740d3874b8"
+        },
+        {
+          "path": "_instructions/ecc/skills/react-patterns/SKILL.md",
+          "sha256": "f3208d44a5d553038c42e046cec4dc16e4a3d90a9dbf931f883a2e21919a64a9"
+        }
+      ],
+      "artifactHashes": {
+        "prompt.txt": "6ddb920a615e4f64a50d580bf0302484961fbc5392734b7e5ab3b04c11102512",
+        "events.jsonl": "23a06669bdce7c4249d19af8a3551d7258adca8904e1ce00d8a465908012bd98",
+        "answer.md": "5786c3647fba6d34755c06007c55f351cfb4ad5a58dd1e74e16b3cf555651597",
+        "run.json": "3cce54abe4525a4c007c57644fa004c964500766f0abb7a219053c410305b148",
+        "test-evidence.json": "505174bbf95d7b7b622bf1986f5e90bf906d2e12ed942e61f3aa3dedaf5e9b2e"
+      }
+    },
+    {
+      "case": "async-cache",
+      "arm": "just-vibe",
+      "repetition": 1,
+      "sourceVersion": "0.5.0",
+      "profile": null,
+      "correct": true,
+      "artifactCorrect": true,
+      "scorerVersion": 3,
+      "priorScore": {
+        "scorerVersion": 1,
+        "correct": false
+      },
+      "priorScores": [
+        {
+          "scorerVersion": 1,
+          "correct": false
+        },
+        {
+          "scorerVersion": 2,
+          "correct": true
+        }
+      ],
+      "checks": [
+        {
+          "name": "only permitted files changed",
+          "pass": true
+        },
+        {
+          "name": "no symlink artifacts",
+          "pass": true
+        },
+        {
+          "name": "no unrequested commits",
+          "pass": true
+        },
+        {
+          "name": "tenant identity, delimiter collisions and falsey values",
+          "pass": true
+        },
+        {
+          "name": "pending coalescing and expiry measured from completion",
+          "pass": true
+        },
+        {
+          "name": "one waiter cancellation cannot poison shared work",
+          "pass": true
+        },
+        {
+          "name": "pre-abort and listener cleanup on settlement",
+          "pass": true
+        },
+        {
+          "name": "detached old success cannot overwrite or delete new generation",
+          "pass": true
+        },
+        {
+          "name": "detached old failure cannot clear newer pending work",
+          "pass": true
+        },
+        {
+          "name": "synchronous failures and asynchronous failures are retryable",
+          "pass": true
+        },
+        {
+          "name": "latest view result, stale failure and permanent disposal",
+          "pass": true
+        },
+        {
+          "name": "oracle process completed consistently",
+          "pass": true
+        },
+        {
+          "name": "regression test artifact exists",
+          "pass": true
+        },
+        {
+          "name": "project and authored regression tests pass",
+          "pass": true
+        },
+        {
+          "name": "regression tests detect original defect",
+          "pass": true
+        },
+        {
+          "name": "agent turn completed within limit",
+          "pass": true
+        }
+      ],
+      "metrics": {
+        "model": "gpt-6-astra",
+        "effort": "medium",
+        "startedAt": "2026-09-20T05:30:51.546Z",
+        "finishedAt": "2026-09-20T05:33:42.685Z",
+        "wallMs": 171139,
+        "exitCode": 0,
+        "timedOut": false,
+        "usage": {
+          "input_tokens": 110468,
+          "cached_input_tokens": 88448,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 5054,
+          "reasoning_output_tokens": 295
+        },
+        "turnCompleted": true,
+        "toolCalls": 7,
+        "failedCommands": 0,
+        "errors": [],
+        "userInterventions": 0,
+        "costUsd": null,
+        "costReason": "ChatGPT-authenticated CLI reports tokens, not a per-run monetary charge.",
+        "host": {
+          "cli": "codex-cli 0.155.1",
+          "sandbox": "workspace-write",
+          "writableGitMetadata": true,
+          "externalTools": false,
+          "plugins": false,
+          "hostSkillDiscovery": false
+        }
+      },
+      "instructionBundleSha256": "56ec56183127a86307b445d4b3a74d2f267d5920d01023766239f1f640f243cd",
+      "instructionFileCount": 376,
+      "selectedInstructions": [
+        {
+          "path": "_instructions/just-vibe/skills/backend-cache/SKILL.md",
+          "sha256": "f19352ed5682b58df80e7e953f9b3d4b4bc357a0cfe856f666606f5bdd108759"
+        },
+        {
+          "path": "_instructions/just-vibe/skills/backend-concurrency/SKILL.md",
+          "sha256": "2a41562dd2b0b7f9eef8eaea83aeb83b51accd4a96f5cb7acee02906858cb6d9"
+        },
+        {
+          "path": "_instructions/just-vibe/skills/react-async/SKILL.md",
+          "sha256": "8bb07f668c55df1e70cee87521a0217537ff7f90d414c3a8f232030d48c86be4"
+        }
+      ],
+      "artifactHashes": {
+        "prompt.txt": "f8219c32e88d0465aadf8f079acf348e96eb502429b1c58cdf7a77dc39950a5a",
+        "events.jsonl": "523674bc3c727386237eeb4dab8d570c7ac803ceb262c048292bcb0d15f71dfc",
+        "answer.md": "c939d5db987dd3ac975bb6b087adbc867334c2442cad2a51a6d5ba1d27a4fd21",
+        "run.json": "3d0057c2b273a5cb78e4dbed657ccbe9ebd79941f048b96e4003456fd9ff1a17",
+        "test-evidence.json": "35f20dff6ffbc93d025dad34486e38c7d14c622c1b60612e2109793d10c81265"
+      }
+    },
+    {
+      "case": "scoped-commit",
+      "arm": "just-vibe-profile",
+      "repetition": 2,
+      "sourceVersion": "0.5.0",
+      "profile": "senior-software-engineer",
+      "correct": true,
+      "artifactCorrect": true,
+      "scorerVersion": 3,
+      "priorScore": {
+        "scorerVersion": 1,
+        "correct": true
+      },
+      "priorScores": [
+        {
+          "scorerVersion": 1,
+          "correct": true
+        },
+        {
+          "scorerVersion": 2,
+          "correct": true
+        }
+      ],
+      "checks": [
+        {
+          "name": "only permitted files changed",
+          "pass": true
+        },
+        {
+          "name": "no symlink artifacts",
+          "pass": true
+        },
+        {
+          "name": "missing and zero adjustment",
+          "pass": true
+        },
+        {
+          "name": "negative surcharge and no-clamp compatibility",
+          "pass": true
+        },
+        {
+          "name": "unrelated worktree behavior preserved",
+          "pass": true
+        },
+        {
+          "name": "oracle process completed consistently",
+          "pass": true
+        },
+        {
+          "name": "regression test artifact exists",
+          "pass": true
+        },
+        {
+          "name": "project and authored regression tests pass",
+          "pass": true
+        },
+        {
+          "name": "regression tests detect original defect",
+          "pass": true
+        },
+        {
+          "name": "exactly one requested commit",
+          "pass": true
+        },
+        {
+          "name": "commit includes only requested fix and new test",
+          "pass": true
+        },
+        {
+          "name": "same-file staged and unstaged distinctions survive",
+          "pass": true
+        },
+        {
+          "name": "committed implementation satisfies the contract independently",
+          "pass": true
+        },
+        {
+          "name": "committed tests pass without unrelated worktree edits",
+          "pass": true
+        },
+        {
+          "name": "user identity and no agent attribution",
+          "pass": true
+        },
+        {
+          "name": "unrelated staged note and untracked file remain",
+          "pass": true
+        },
+        {
+          "name": "agent turn completed within limit",
+          "pass": true
+        }
+      ],
+      "metrics": {
+        "model": "gpt-6-astra",
+        "effort": "medium",
+        "startedAt": "2026-09-20T05:31:20.854Z",
+        "finishedAt": "2026-09-20T05:33:32.746Z",
+        "wallMs": 131892,
+        "exitCode": 0,
+        "timedOut": false,
+        "usage": {
+          "input_tokens": 232344,
+          "cached_input_tokens": 200704,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 3445,
+          "reasoning_output_tokens": 116
+        },
+        "turnCompleted": true,
+        "toolCalls": 12,
+        "failedCommands": 3,
+        "errors": [],
+        "userInterventions": 0,
+        "costUsd": null,
+        "costReason": "ChatGPT-authenticated CLI reports tokens, not a per-run monetary charge.",
+        "host": {
+          "cli": "codex-cli 0.155.1",
+          "sandbox": "workspace-write",
+          "writableGitMetadata": true,
+          "externalTools": false,
+          "plugins": false,
+          "hostSkillDiscovery": false
+        }
+      },
+      "instructionBundleSha256": "56ec56183127a86307b445d4b3a74d2f267d5920d01023766239f1f640f243cd",
+      "instructionFileCount": 376,
+      "selectedInstructions": [
+        {
+          "path": "_instructions/just-vibe/skills/fix/SKILL.md",
+          "sha256": "05bb98757686c98858e03a8ccb1f15b3674977587a1b13293918a3fff8b57ab3"
+        },
+        {
+          "path": "_instructions/just-vibe/skills/git-commit/SKILL.md",
+          "sha256": "b7e97de28bb6446839ae16068d3144f777032bec73af5572039519e39aea3ae6"
+        },
+        {
+          "path": "_instructions/just-vibe/skills/test-regression/SKILL.md",
+          "sha256": "6a6d8e225c93a4d78be37196f8c468dd9f2f9cdc8157732c9a5a0fb074fbc2b4"
+        },
+        {
+          "path": "_instructions/just-vibe/references/profiles/senior-software-engineer.md",
+          "sha256": "783a3ed0bfe8926ae42a964afca66acac2f406d45685b3b0a8b3282b83f46551"
+        }
+      ],
+      "artifactHashes": {
+        "prompt.txt": "8713d2ac27d175d08c0c26ca769b312f386211d44f8b0c1e4506000a61a299ff",
+        "events.jsonl": "7b1a77b878f588fe92213539a20ebb9c93f6ea567bf4cb06ee8127e8e0579006",
+        "answer.md": "0d054b0d85c2196bbcce3db9dc22737c0c72b2d6b8e54591adfd93274c377321",
+        "run.json": "c84f11ed933447854398946b0fe9a80a848bb5eaab50f5b02e22665969928178",
+        "test-evidence.json": "5f7663f508c4e38f9f1d89ab69d3a19857b740fadfe96cff7f7505a0cf3cd14f"
+      }
+    },
+    {
+      "case": "temporal-ml",
+      "arm": "just-vibe",
+      "repetition": 1,
+      "sourceVersion": "0.5.0",
+      "profile": null,
+      "correct": true,
+      "artifactCorrect": true,
+      "scorerVersion": 3,
+      "priorScore": {
+        "scorerVersion": 1,
+        "correct": true
+      },
+      "priorScores": [
+        {
+          "scorerVersion": 1,
+          "correct": true
+        },
+        {
+          "scorerVersion": 2,
+          "correct": true
+        }
+      ],
+      "checks": [
+        {
+          "name": "only permitted files changed",
+          "pass": true
+        },
+        {
+          "name": "no symlink artifacts",
+          "pass": true
+        },
+        {
+          "name": "no unrequested commits",
+          "pass": true
+        },
+        {
+          "name": "window bounds and event availability",
+          "pass": true
+        },
+        {
+          "name": "revision selection before window filtering and deduplication",
+          "pass": true
+        },
+        {
+          "name": "offset-aware instant comparisons and naive rejection",
+          "pass": true
+        },
+        {
+          "name": "mature training membership and train-only scaler",
+          "pass": true
+        },
+        {
+          "name": "zero labels, unknown labels and future examples",
+          "pass": true
+        },
+        {
+          "name": "input order and immutability",
+          "pass": true
+        },
+        {
+          "name": "empty and constant training fallback",
+          "pass": true
+        },
+        {
+          "name": "oracle process completed consistently",
+          "pass": true
+        },
+        {
+          "name": "regression test artifact exists",
+          "pass": true
+        },
+        {
+          "name": "project and authored regression tests pass",
+          "pass": true
+        },
+        {
+          "name": "regression tests detect original defect",
+          "pass": true
+        },
+        {
+          "name": "agent turn completed within limit",
+          "pass": true
+        }
+      ],
+      "metrics": {
+        "model": "gpt-6-astra",
+        "effort": "medium",
+        "startedAt": "2026-09-20T05:33:33.207Z",
+        "finishedAt": "2026-09-20T05:36:17.042Z",
+        "wallMs": 163835,
+        "exitCode": 0,
+        "timedOut": false,
+        "usage": {
+          "input_tokens": 111497,
+          "cached_input_tokens": 89216,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 4797,
+          "reasoning_output_tokens": 59
+        },
+        "turnCompleted": true,
+        "toolCalls": 9,
+        "failedCommands": 1,
+        "errors": [],
+        "userInterventions": 0,
+        "costUsd": null,
+        "costReason": "ChatGPT-authenticated CLI reports tokens, not a per-run monetary charge.",
+        "host": {
+          "cli": "codex-cli 0.155.1",
+          "sandbox": "workspace-write",
+          "writableGitMetadata": true,
+          "externalTools": false,
+          "plugins": false,
+          "hostSkillDiscovery": false
+        }
+      },
+      "instructionBundleSha256": "56ec56183127a86307b445d4b3a74d2f267d5920d01023766239f1f640f243cd",
+      "instructionFileCount": 376,
+      "selectedInstructions": [
+        {
+          "path": "_instructions/just-vibe/skills/ml-features/SKILL.md",
+          "sha256": "60ae4f875f43a32afbec4fa460629edf06876c072eb057b6c23c007f34ba36ad"
+        },
+        {
+          "path": "_instructions/just-vibe/skills/ml-leakage/SKILL.md",
+          "sha256": "40e953aabc397101c39d85f5a76441a8f84bb1303ad0bceba8be614b7ac15bb3"
+        },
+        {
+          "path": "_instructions/just-vibe/skills/ml-split/SKILL.md",
+          "sha256": "c4ad250b110d4a37253f453a85e7321077551ac2a313d9ff902ccdd5baea3e3b"
+        }
+      ],
+      "artifactHashes": {
+        "prompt.txt": "19361e8a492914709604df4c09a2c8acff10c0e35e02db78cbfcae3031c2b552",
+        "events.jsonl": "394de1e839750f6bd9952fa8e7fc8fda0eb24d836b3a6cc33019944abc0e3273",
+        "answer.md": "93279eb55feb1d6eeb420cc3366c8e62a9639fb171685d1fa7f7984769e54a78",
+        "run.json": "25e6e0de4df8679cc18f7fac1729da6d61d7346073a49ce1e88a49a48dd0e189",
+        "test-evidence.json": "5abbcb96e071be48a3cb3ed9647aa721878331cfd182c74ab3bd760463672ec2"
+      }
+    }
+  ],
+  "limitations": [
+    "Newly authored bounded fixture repositories, not third-party production repositories.",
+    "Complete written contracts remove much of the context and discovery burden; user convenience and preference were not measured.",
+    "Bounded correctness checks do not rank overall output quality; equal pass counts do not establish equal products.",
+    "Matched supplied ECC instructions at a pinned snapshot; native hooks/memory integrations are excluded.",
+    "Two repeats per original case/arm are insufficient to establish general superiority.",
+    "Token and timing metrics are supporting operational observations, not quality scores. Zero interventions means none were supplied under the protocol.",
+    "No monetary charge is reported by this authenticated CLI; cached input is a subset of input.",
+    "A stable model name does not guarantee an immutable service backend.",
+    "See the protocol for pilots and the uniform scorer correction; original scores are retained."
+  ]
+}
