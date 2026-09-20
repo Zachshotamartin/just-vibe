@@ -29,20 +29,23 @@ Only the requested local changes; external actions require their exact action an
 
 ## Execute
 
-1. Preserve the original brief verbatim. Resolve objective, selected project, scope, constraints, success criteria, references, environment and existing session authorization. Read the shared runtime interface for the JSON run protocol.
-2. Honor the active task profile described in [profile selection](../../references/profiles.md). If a role materially helps and no user pin exists, the agent may select one from task evidence. Preserve the selection across stages; a profile cannot change mode, scope, authority, budgets or original success criteria.
-3. Inspect the project and current host capabilities. Use toolkit route only to narrow candidates; evaluate the actual intent and read the selected skills. Ignore keyword matches that contradict constraints, select the smallest useful route, and state it briefly.
-4. Create an in-context run record through session create, including explicit successCriteria and context. Defaults are eight stages, three attempts per stage and sixty minutes; use a user-provided budget when available. No permanent state file is required.
-5. Before each stage call session start with the selected command, action, target, effect and current capability evidence. Do not route to auto or do. Do not mark an integration available unless task-specific access or adequate supplied artifacts were actually observed.
-6. Execute the selected skill in the active host with the original brief and constraints. Before an additional action or effect change inside a running stage, use session amend with the same stage id and all applicable effects. Exact authorization must already be present in context.authorization; this is bookkeeping, not a permission grant.
-7. Call session record with observed evidence and criteria. Retain failed attempts; retry the same stage only with new evidence and budget. If a different completed stage meets an abandoned failed/blocked stage’s obligations, use session supersede with replacement ids, criterion coverage, evidence and reason. Reconcile uncertain external effects before retrying or superseding.
-8. Call session finish only after checking the original success criteria. Use completed only for supported results, otherwise partial/blocked/failed/cancelled. Summarize actual changes and verification. Resume explicitly from recorded current evidence; never reset budgets to bypass a stop.
+1. Preserve the complete brief, project, scope, constraints, success criteria and current task profile. Inspect only the context needed to choose the next useful workflow. Honor an explicit profile pin.
+2. Choose quick or tracked execution using the daily-workflows guide. A small local fix, explanation or review can stay in conversation context without JSON session calls. The route utility suggests candidates, reasons and a strategy; the host resolves actual intent and effects.
+3. For quick work, read the selected skill and relevant scenario guide, perform the bounded task, verify its actual output and summarize the result. Preserve user constraints and report unavailable evidence. Do not add a planning-only stop to a clear implementation request.
+4. Use tracked execution for dependent stages, repeated recovery, saved continuation, external mutations or requested detailed records. Create a run through session create and use session start/record/finish around meaningful stages; use session amend for additional effects and session supersede for evidence-backed alternatives.
+5. If quick work grows, carry the original brief, completed work, observations, selected profile and consumed budget into tracked context. Record remaining stages; never fabricate earlier validated transitions or restart a user limit.
+6. Reconcile uncertain external effects before retrying. Keep failures and stop within the applicable stage/attempt/time budget. Finish only when original success conditions are supported; report partial or blocked results plainly.
 
-Task-specific method: Build the shared brief, inspect the project, select available workflows, state the route, execute with carried context, verify, and adapt only on new evidence. Identify original success criteria before routing; choose the smallest set of canonical workflows and re-evaluate selection when evidence changes.
+Task-specific method: Choose the smallest useful workflow and proportionate execution path. Complete authorized work with carried context, meaningful verification and a clear result.
+
+## Read when relevant
+
+- Choosing quick versus tracked work: [Daily workflow paths](../../references/daily-workflows.md).
 
 ## Decision branches
 
-- **When a blocked route is replaced by a completed alternative:** Record criterion coverage with session supersede; retain failed attempts and unchanged budgets.
+- **When one bounded local workflow is sufficient:** Use the quick path; keep essential context and evidence in conversation without formal stage bookkeeping.
+- **When dependencies, repeated recovery, continuation or external effects need tracking:** Use the existing validated session operations; retain earlier evidence and consumed limits when escalating.
 
 ## Deliver and verify
 
@@ -55,7 +58,7 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 ## Stop and recover
 
-- Eight stages/two corrective attempts per failed stage by default; no recursive `auto`/`do`, implicit paid runs, or unrequested external publication.
+- Tracked defaults remain eight stages, three attempts per stage and sixty minutes. Quick work honors user limits and switches to tracked handling when needed; neither path permits recursive auto/do or unrequested external effects.
 
 ## Example requests
 

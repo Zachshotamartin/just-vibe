@@ -31,6 +31,11 @@ None by default. Plan artifacts may be saved when requested.
 
 - Correlate logs with revision/runtime, inspect request and dependency boundaries, separate cold-start/resource/network causes, and propose a focused reproduction or fix.
 - Correlate deployment/request/time and inspect handler entry, environment presence, dependency waits and runtime-specific API support.
+- Use the matching bundled evidence collector when available; read its result and limitations rather than treating exit zero as readiness. Revalidate identity before a dependent action.
+
+## Read when relevant
+
+- Resolving check, deployment or migration identity: [Delivery evidence](../../references/scenarios/delivery-evidence.md).
 
 ## Decision branches
 

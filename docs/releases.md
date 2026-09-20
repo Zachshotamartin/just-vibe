@@ -14,7 +14,7 @@ npm run release:prepare
 
 `release:check` runs catalog/manifests/generated-file validation, unit and packaging tests, version/license/changelog checks, archive allowlisting, relative-link checks, and common credential-pattern checks. These checks cannot prove the absence of every secret or software defect; review the file list and diff too.
 
-`release:prepare` performs those checks, creates `dist/just-vibe-VERSION.tgz`, executes that exact archive through npm, pnpm 10/12 and Yarn 4 in temporary projects, checks persistence after cache removal, and writes a SHA-256 checksum. It does not publish. Test helpers download pinned package-manager executables into temporary directories and do not replace your global tools.
+`release:prepare` performs those checks, creates `dist/just-vibe-VERSION.tgz`, executes that exact archive through npm, pnpm 10/12 and Yarn 4 in temporary projects, checks persistence after cache removal, and writes a SHA-256 checksum plus a source-commit release record. It does not publish. Test helpers download pinned package-manager executables into temporary directories and do not replace your global tools.
 
 For installer changes, also run `npm run test:hosts`. This uses the real installed Codex and Claude CLIs with temporary configuration and managed-copy directories. It does not use your normal plugin configuration or call a model. Run `npm run test:hosts -- --local` for the development channel, and `-- --github` only after pushing the same version (private Git access required).
 
@@ -25,7 +25,7 @@ The `prepublishOnly` hook runs `release:check` for directory-based `npm publish`
 1. Create/sign into the npm account that will own `just-vibe` and enable 2FA. Check name availability again immediately before publishing.
 2. Review the MIT license and release notes, commit the release, and wait for every CI job at that commit to pass. Native host validation is recorded separately; CI does not log in to agent accounts.
 3. Run `npm login`, then `npm whoami`. Do not paste tokens into the repository or chat.
-4. Run `npm run release:prepare`, review the archive, and publish that exact `dist/just-vibe-VERSION.tgz` with `npm publish ./dist/just-vibe-VERSION.tgz --access public`. Complete npm's authentication prompt.
+4. Run `npm run release:prepare`, review the archive, and run `npm run release:publish -- --check`. This checks the clean source commit, prepared archive, completed CI and npm login. Then run `npm run release:publish -- --publish` and complete npm's authentication prompt. The command verifies registry integrity and exact-version execution; it reconciles an uncertain response without automatically retrying publication.
 5. Verify the exact version using `npm exec --yes --package=just-vibe@VERSION -- just-vibe --version`; test setup in a clean host profile, then create the matching `vVERSION` Git tag.
 
 Only publish code/assets you have the rights to distribute. Retain third-party notices if third-party code is added later. The current npm package has no runtime dependencies. All included code and workflow documents are covered by the included MIT notice unless a file states otherwise.

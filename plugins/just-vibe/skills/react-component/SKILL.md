@@ -29,12 +29,21 @@ Only the requested local changes; external actions require their exact action an
 
 ## Execute
 
-- Inspect existing primitives, define ownership and semantics, implement normal/loading/error/disabled states as relevant, and verify interaction and rendering.
-- Define semantic HTML, controlled/uncontrolled behavior, composition slots and meaningful states before implementing the narrow public interface.
+- Inspect existing primitives and the consumer contract. Choose state ownership, semantics and interaction behavior before implementing the narrow component API.
+- Select only the relevant scenario guide for dialogs, comboboxes or date inputs; implement normal and recovery states, then verify real interactions and parent-controlled updates.
+
+## Read when relevant
+
+- Implementing a dialog or modal overlay: [dialog interaction](../../references/scenarios/dialog.md).
+- Implementing selection or autocomplete: [combobox interaction](../../references/scenarios/combobox.md).
+- Implementing a date or range input: [date-picker interaction](../../references/scenarios/date-picker.md).
 
 ## Decision branches
 
-- **When a component switches controlled mode after mount:** Choose a consistent ownership contract and test parent updates and reset behavior.
+- **When the component opens an overlay:** Specify initial/contained/return focus and dismissal with the dialog guide.
+- **When search text and selection are different states:** Use the combobox guide for ownership, keyboard/IME behavior and late search results.
+- **When the value contains dates or ranges:** Resolve date-only versus instant semantics, locale, invalid input and range boundaries before choosing storage.
+- **When parent state changes after mount:** Preserve a consistent controlled ownership contract and test reset and two independent instances.
 
 ## Deliver and verify
 

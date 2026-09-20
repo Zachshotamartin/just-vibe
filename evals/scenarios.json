@@ -1821,7 +1821,7 @@
         "A no-dependencies constraint survives every stage; missing prerequisites trigger a valid alternative or blocker, not invented execution."
       ],
       "stopBehavior": [
-        "Eight stages/two corrective attempts per failed stage by default; no recursive `auto`/`do`, implicit paid runs, or unrequested external publication."
+        "Tracked defaults remain eight stages, three attempts per stage and sixty minutes. Quick work honors user limits and switches to tracked handling when needed; neither path permits recursive auto/do or unrequested external effects."
       ],
       "cases": [
         {
@@ -1857,7 +1857,7 @@
         "A no-dependencies constraint survives every stage; missing prerequisites trigger a valid alternative or blocker, not invented execution."
       ],
       "stopBehavior": [
-        "Eight stages/two corrective attempts per failed stage by default; no recursive `auto`/`do`, implicit paid runs, or unrequested external publication."
+        "Tracked defaults remain eight stages, three attempts per stage and sixty minutes. Quick work honors user limits and switches to tracked handling when needed; neither path permits recursive auto/do or unrequested external effects."
       ],
       "cases": [
         {

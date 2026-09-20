@@ -65,6 +65,6 @@ Example: stage A cannot obtain a local configuration through one inspection meth
 
 Claude Code discovers skill directories beneath the plugin's `skills/` path. Invoke `/just-vibe:fix` followed by the complete brief. The files use ordinary name/description frontmatter and let the host append invocation arguments, avoiding shell interpolation or dynamic pre-execution.
 
-Codex uses its native plugin skill picker. Select a just-vibe skill and append the brief. Do not claim that Claude's namespaced slash syntax is supported by every Codex surface. Both hosts read the same instruction files and bundled references; no model override, auto-delegation, hook, MCP permission, or automatic network connection is installed.
+Codex uses its native plugin skill picker. Select a just-vibe skill and append the brief. Do not claim that Claude's namespaced slash syntax is supported by every Codex surface. Both hosts read the same instruction files and bundled references. Optional bundled hooks remain inactive without project configuration and local trust; Codex native hook trust is separate. No model override, auto-delegation, MCP permission or automatic network connection is installed. See [daily workflows](daily-workflows.md) for project persistence, evidence collectors and hook configuration.
 
 Source references: [OpenAI skill format](https://developers.openai.com/plugins/build/skills), [OpenAI plugin packaging](https://developers.openai.com/plugins/build/plugins), and [Claude Code skill arguments](https://code.claude.com/docs/en/skills#pass-arguments-to-skills).

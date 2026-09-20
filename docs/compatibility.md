@@ -19,3 +19,11 @@ The v0.4 release adds 21 passing supplied-instruction Codex fixture trials and a
 ## v0.5 profile support
 
 The profile/profile-discovery skills and all 112 role guides ship in both host payloads. Profile selection is task context: user pins are protected by the run-state utilities, and no host-global preference is installed. Native installation checks cover the 215-skill payload; they do not establish profession-specific agent behavior. See the [v0.5 validation record](../evals/releases/0.5.0.md).
+
+## v0.7 daily workflow support
+
+Project state and contextual routing use the bundled Node utilities on all supported runtime platforms. State is schema-versioned and bound to the selected project path. Partial snapshot coverage always requires revalidation. `tools` now shows a starter selection; use `tools --all` for the previous full inventory.
+
+Optional hooks use PostToolUse and Stop and ship at the native plugin hook location. They remain inactive until project configuration and separate local trust are present. Codex also requires native hook trust. Native installation on macOS is verified separately from actual hook-event delivery on every host/OS. A direct hook runner test establishes handler behavior, not host parity. Command arrays support native executables and standard npm Windows wrappers through the shared process helper.
+
+GitHub evidence needs authenticated gh; Vercel evidence needs authenticated vercel and an explicit deployment identity. Browser evidence needs project-installed Playwright and Chromium, with authorized interactions. SQL migration evidence inspects local SQL and an optional supplied applied-history export; it does not connect to a live database. The package installs no optional provider or browser dependencies automatically. See the [daily workflow reference](../plugins/just-vibe/references/daily-workflows.md).

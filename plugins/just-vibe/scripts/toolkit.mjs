@@ -8,9 +8,13 @@ import { createRun, startStage, recordStage, finishRun, resumeRun, amendStage, s
 import { loadProfiles, getProfile, searchProfiles } from './lib/profiles.mjs';
 import { createQuiz, presentQuestion, answerQuestion, reviewFreeText, quizReport } from './lib/teaching.mjs';
 import { main as installerMain, HELP as INSTALLER_HELP } from './installer.mjs';
+import { routeContext, starterIds } from './lib/routing.mjs';
+import { continuity } from './lib/continuity.mjs';
+import { collectEvidence } from './lib/evidence.mjs';
+import { manageHooks } from './lib/automation.mjs';
 
 export const HELP = `${INSTALLER_HELP}
-Workflow utilities (read-only unless you explicitly save their output):
+Workflow utilities:
   tools [query]          Browse/search shipped workflows and prerequisites
   show <workflow>        Read a workflow's full instructions
   profiles [query]       Browse engineering profiles (not capability grants)
@@ -24,6 +28,12 @@ Workflow utilities (read-only unless you explicitly save their output):
                         record, finish, resume
   quiz <operation>      Native-dialog quiz state from JSON on stdin
                         Operations: create, present, answer, review, report
+  project <operation>   Explicit project preferences, notes and checkpoints
+                        init, show, configure, remember, forget, checkpoint,
+                        resume, list; writes use JSON on stdin
+  evidence <collector>  github, vercel, browser, migrations
+  hooks <operation>     status, configure, trust, untrust, disable, recover
+                        Inactive until configured and explicitly trusted
 
 Options:
   --root <directory>    Project to inspect (default: current directory)
@@ -32,6 +42,7 @@ Options:
   --available          Show only workflows with verified prerequisites
   --all                Also include uninstalled/planned/unsupported entries
   --json               Machine-readable output
+  --limit <number>     Bound tools/route results (route defaults to 3)
   --capabilities <file> Host-observed capability report, valid for 15 minutes
   --mode inspect|plan|apply
   --scope <path>        Restrict workflow scope within the project
@@ -40,14 +51,20 @@ Options:
   --stdin              Read the brief or session/quiz JSON from stdin
   -- <brief>           Treat all remaining arguments as context, not flags
 
+Evidence options: --repo owner/name --pr NUMBER; --deployment ID/URL
+  --team TEAM; --url URL --steps FILE; --directory DIR --applied FILE
+Project checkpoint/resume takes a name after the operation. JSON updates
+include the current revision (0 to create). Project writes go in .just-vibe.
+Browser steps may interact with the chosen site; other collectors only read.
+
 Commands such as fix, React, database and ML workflows execute as skills in
 the active Codex/Claude agent. This CLI does not launch a model or execute
 candidate workflows. Use show to inspect a workflow and invoke it in your host.
 `;
 
-const operations = new Set(['tools', 'show', 'profiles', 'profile', 'inspect', 'discover', 'route', 'workflow', 'session', 'quiz']);
+const operations = new Set(['tools', 'show', 'profiles', 'profile', 'inspect', 'discover', 'route', 'workflow', 'session', 'quiz', 'project', 'evidence', 'hooks']);
 const booleans = new Set(['--json', '--available', '--all', '--stdin']);
-const values = new Set(['--root', '--target', '--pack', '--capabilities', '--mode', '--scope', '--profile', '--brief-file']);
+const values = new Set(['--root', '--target', '--pack', '--capabilities', '--mode', '--scope', '--profile', '--brief-file', '--limit', '--repo', '--pr', '--deployment', '--team', '--url', '--steps', '--directory', '--applied']);
 
 export function parseToolkitArgs(args) {
   const [operation, ...rest] = args;
@@ -72,16 +89,30 @@ export function parseToolkitArgs(args) {
   if (!HOSTS.includes(options.target)) throw new Error('target must be codex or claude.');
   if (options.mode && !MODES.includes(options.mode)) throw new Error('mode must be inspect, plan, or apply.');
   if (options.stdin && options['brief-file']) throw new Error('Use only one brief source.');
+  if (options.limit !== undefined) { options.limit = Number(options.limit); if (!Number.isInteger(options.limit) || options.limit < 1 || options.limit > 1000) throw Error('limit must be between 1 and 1000.'); }
   const allowed = {
-    tools: ['json', 'available', 'all', 'root', 'target', 'pack', 'capabilities'],
+    tools: ['json', 'available', 'all', 'root', 'target', 'pack', 'capabilities', 'limit'],
     show: ['json', 'target'], inspect: ['json', 'root'], discover: ['json', 'root', 'capabilities'],
     profiles: ['json'], profile: ['json'],
-    route: ['json', 'root', 'target', 'capabilities', 'stdin', 'brief-file'],
+    route: ['json', 'root', 'target', 'capabilities', 'stdin', 'brief-file', 'limit'],
     workflow: ['json', 'root', 'target', 'mode', 'scope', 'profile', 'stdin', 'brief-file'], session: ['json', 'target', 'stdin'], quiz: ['json', 'stdin'],
+    project: ['json', 'root', 'stdin'], hooks: ['json', 'root', 'stdin'],
+    evidence: ['json', 'root', 'repo', 'pr', 'deployment', 'team', 'url', 'steps', 'directory', 'applied'],
   };
   for (const flag of seen) if (!allowed[operation].includes(flag.slice(2))) throw new Error(`${flag} does not apply to ${operation}.`);
   if (['inspect', 'discover'].includes(operation) && options.positionals.length) throw new Error(`${operation} takes no positional arguments.`);
   if (['show', 'profile', 'session', 'quiz'].includes(operation) && options.positionals.length !== 1) throw new Error(`${operation} requires exactly one name.`);
+  if (['hooks', 'evidence'].includes(operation) && options.positionals.length !== 1) throw Error(`${operation} requires exactly one operation.`);
+  if (operation === 'project' && options.positionals.length !== (['checkpoint', 'resume'].includes(options.positionals[0]) ? 2 : 1)) throw Error('project checkpoint/resume requires a name; other project operations take one operation.');
+  if (operation === 'evidence') {
+    const valid = { github: ['repo', 'pr'], vercel: ['deployment', 'team'], browser: ['url', 'steps'], migrations: ['directory', 'applied'] }[options.positionals[0]];
+    if (!valid || [...seen].some(flag => !['root', 'json', ...valid].includes(flag.slice(2)))) throw Error('Invalid collector or options for this collector.');
+  }
+  if (['project', 'hooks'].includes(operation)) {
+    const writes = operation === 'project' ? ['init', 'configure', 'remember', 'forget', 'checkpoint'] : ['configure'];
+    if (writes.includes(options.positionals[0]) && !options.stdin) throw Error('This operation requires --stdin JSON.');
+    if (!writes.includes(options.positionals[0]) && options.stdin) throw Error('--stdin does not apply to this operation.');
+  }
   return options;
 }
 
@@ -115,6 +146,14 @@ function formatTools(result) {
   return [result.note, '', ...result.tools.map(c => `${c.id} [${c.pack}; ${c.status}; ${c.defaultMode}]${c.aliasOf ? ` → ${c.aliasOf}` : ''}\n  ${c.summary}\n  ${c.invocation} ${c.example.brief}${c.reasons.length ? `\n  Needs: ${c.reasons.join('; ')}` : ''}`)].join('\n');
 }
 
+function formatRoute(result) {
+  if (!result.recommendations.length) return 'No clear workflow match. Describe the outcome or use tools to browse.';
+  return [`Suggested path: ${result.strategy.suggested}. ${result.strategy.reasons.join('; ')}.`,
+    result.confidence === 'ambiguous' ? 'Several workflows fit; choose using the scope below.' : 'Best matching candidates:',
+    ...result.recommendations.map(c => `\n${c.id} [${c.status}] — ${c.summary}\n  ${c.selectionReasons.join('; ')}\n  ${c.invocation}`),
+    '\nSuggestions only. Preserve the complete request and verify task-specific access before execution. Use --json for full context.'].join('\n');
+}
+
 export async function main(args, { log = console.log, error = console.error, input = readStdin, catalog = loadCatalog } = {}) {
   try {
     if (!args.length || ['--help', '-h'].includes(args[0]) || (args[0] === 'help' && args.length === 1)) { log(HELP); return 0; }
@@ -128,9 +167,12 @@ export async function main(args, { log = console.log, error = console.error, inp
     });
     if (options.operation === 'tools') {
       const found = discovery();
-      result = { tools: listTools(data, found, { query: options.positionals.join(' '), pack: options.pack,
-        available: options.available, all: options.all, host: options.target }), integrations: found.integrations,
-        note: 'Shipped workflow inventory; host enablement and permissions still apply. Available means declared task prerequisites were observed, not that a model has executed the workflow.' };
+      let tools = listTools(data, found, { query: options.positionals.join(' '), pack: options.pack,
+        available: options.available, all: options.all, host: options.target });
+      const starter = !options.all && !options.available && !options.pack && !options.positionals.length;
+      if (starter) { const ids = starterIds(routeContext(options.root)); tools = ids.flatMap(id => tools.filter(t => t.id === id)); }
+      result = { tools: tools.slice(0, options.limit || 1000), total: data.commands.length, starter, integrations: found.integrations,
+        note: starter ? 'Start here, search tools <scenario>, or use tools --all for the full catalog. Status reports observed prerequisites, not executed model behavior.' : 'Shipped workflow inventory; host enablement and permissions still apply. Available means declared task prerequisites were observed, not that a model has executed the workflow.' };
     } else if (options.operation === 'show') {
       const command = getCommand(data, options.positionals[0]);
       result = { ...command, invocation: invocation(command, options.target), instructions: readFileSync(skillFile(data, command), 'utf8') };
@@ -138,7 +180,10 @@ export async function main(args, { log = console.log, error = console.error, inp
     else if (options.operation === 'profile') result = getProfile(loadProfiles(), options.positionals[0]);
     else if (options.operation === 'inspect') result = inspectProject(options.root);
     else if (options.operation === 'discover') result = discovery();
-    else if (options.operation === 'route') result = recommend(data, discovery(), await getBrief(options, options.positionals, input), { host: options.target });
+    else if (options.operation === 'route') result = recommend(data, discovery(), await getBrief(options, options.positionals, input), { host: options.target, ...(options.limit ? { limit: options.limit } : {}) });
+    else if (options.operation === 'project') result = continuity(options.root, options.positionals[0], options.stdin ? JSON.parse(await input()) : {}, options.positionals[1]);
+    else if (options.operation === 'hooks') result = manageHooks(options.root, options.positionals[0], options.stdin ? JSON.parse(await input()) : {});
+    else if (options.operation === 'evidence') result = await collectEvidence(options.positionals[0], { ...options, scope: options.team });
     else if (options.operation === 'workflow') {
       const [id, ...words] = options.positionals;
       if (!id) throw new Error('workflow requires a command ID.');
@@ -168,11 +213,12 @@ export async function main(args, { log = console.log, error = console.error, inp
       else throw new Error(`Unknown session operation: ${op}`);
     }
     if (options.operation === 'tools' && !options.json) log(formatTools(result));
+    else if (options.operation === 'route' && !options.json) log(formatRoute(result));
     else if (options.operation === 'profiles' && !options.json) log([result.note, ...result.profiles.map(p => `${p.id} [${p.family}]\n  ${p.summary}`)].join('\n\n'));
     else if (options.operation === 'profile' && !options.json) log(`${result.name}\n${result.summary}\n\nPriorities:\n${result.priorities.map(p => `- ${p}`).join('\n')}\n\nDecision: ${result.decision}\n\nVerify:\n${result.verification.map(p => `- ${p}`).join('\n')}\n\nBoundary: ${result.boundary}\nWorkflows: ${result.workflows.join(', ')}\nExample: ${result.example}`);
     else if (options.operation === 'show' && !options.json) log(result.instructions);
     else log(JSON.stringify(result, null, 2));
-    return 0;
+    return options.operation === 'evidence' && ['failed', 'stale', 'incomplete', 'drift'].includes(result.result) ? 2 : 0;
   } catch (failure) { error(`just-vibe: ${failure.message}`); return 1; }
 }
 

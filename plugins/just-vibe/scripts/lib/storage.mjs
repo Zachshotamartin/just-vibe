@@ -1,0 +1,84 @@
+import { existsSync, lstatSync, realpathSync, readFileSync, mkdirSync, openSync, closeSync, writeFileSync, renameSync, unlinkSync, readdirSync } from 'node:fs';
+import { resolve, join, relative, sep, dirname, isAbsolute } from 'node:path';
+import { createHash, randomUUID } from 'node:crypto';
+import { gitRead } from './project.mjs';
+
+export const digest = value => createHash('sha256').update(value).digest('hex');
+export const projectRoot = root => realpathSync(resolve(root));
+export const privateName = name => /(?:^\.env(?:\.|$)|\.(?:pem|key|p12|pfx)$|credentials|secrets?\.)/i.test(name);
+
+export function within(root, path) {
+  const base = projectRoot(root), full = resolve(base, path), rel = relative(base, full);
+  if (isAbsolute(rel) || rel === '..' || rel.startsWith(`..${sep}`)) throw Error('Path escapes the selected project.');
+  let cursor = base;
+  for (const part of rel.split(sep).filter(Boolean)) {
+    cursor = join(cursor, part);
+    if (existsSync(cursor) || (() => { try { return lstatSync(cursor).isSymbolicLink(); } catch { return false; } })()) {
+      if (lstatSync(cursor).isSymbolicLink()) throw Error('Symlink paths are not supported for managed state or evidence.');
+    }
+  }
+  return full;
+}
+
+export function readJson(path, limit = 512 * 1024) {
+  const stat = lstatSync(path);
+  if (!stat.isFile() || stat.isSymbolicLink() || stat.size > limit) throw Error('Expected a bounded regular JSON file.');
+  return JSON.parse(readFileSync(path, 'utf8'));
+}
+
+export function atomicJson(root, relativePath, value, expectedRevision) {
+  const path = within(root, relativePath);
+  within(root, dirname(path));
+  mkdirSync(dirname(path), { recursive: true });
+  const lock = `${path}.lock`;
+  let handle;
+  try { handle = openSync(lock, 'wx', 0o600); } catch { throw Error('State is being updated; retry after the current writer finishes.'); }
+  const temporary = `${path}.${randomUUID()}.tmp`;
+  try {
+    const previous = existsSync(path) ? readJson(path) : null;
+    if ((previous?.revision ?? 0) !== expectedRevision) throw Error('State revision changed. Read it again before updating.');
+    const record = { ...value, revision: expectedRevision + 1 };
+    const text = JSON.stringify(record, null, 2) + '\n';
+    if (Buffer.byteLength(text) > 512 * 1024) throw Error('State exceeds 512 KiB.');
+    writeFileSync(temporary, text, { flag: 'wx', mode: 0o600 });
+    renameSync(temporary, path);
+    return record;
+  } finally {
+    closeSync(handle);
+    if (existsSync(temporary)) unlinkSync(temporary);
+    unlinkSync(lock);
+  }
+}
+
+export function fingerprint(root) {
+  const base = projectRoot(root);
+  const head = gitRead(base, ['rev-parse', '--verify', 'HEAD']);
+  const branch = gitRead(base, ['symbolic-ref', '--quiet', '--short', 'HEAD']);
+  const repo = gitRead(base, ['rev-parse', '--show-toplevel']);
+  const entries = []; let bytes = 0, visited = 0, partial = false;
+  function collect(directory) {
+    for (const entry of readdirSync(directory, { withFileTypes: true }).sort((a, b) => a.name.localeCompare(b.name))) {
+      if (++visited > 10000) { partial = true; return; }
+      if (['.git', '.just-vibe', 'node_modules', '.venv', 'venv', 'dist', 'build', 'coverage', '.next', '.tmp', '.cache', 'PLAN.md', 'NAMING.md'].includes(entry.name) || privateName(entry.name)) continue;
+      const file = join(directory, entry.name);
+      if (entry.isSymbolicLink()) { entries.push([relative(base, file), 'symlink']); continue; }
+      if (entry.isDirectory()) collect(file);
+      else if (entry.isFile()) {
+        const stat = lstatSync(file);
+        if (stat.size > 8 * 1024 * 1024 || bytes + stat.size > 32 * 1024 * 1024) { partial = true; entries.push([relative(base, file), stat.mode, stat.size, stat.mtimeMs, 'metadata-only']); }
+        else { bytes += stat.size; entries.push([relative(base, file), stat.mode, digest(readFileSync(file))]); }
+      }
+    }
+  }
+  collect(base);
+  // Save hashes, never the patch or file contents. Index changes matter even when worktree bytes do not change.
+  const index = repo ? gitRead(base, ['diff', '--cached', '--no-ext-diff', '--no-textconv', '--binary', '--', '.', ':(exclude).just-vibe']) : '';
+  if (repo && index === null) partial = true;
+  return { root: base, repository: repo, head, branch, files: entries.length, content: digest(JSON.stringify(entries)), index: digest(index || ''), partial };
+}
+
+export function compareSnapshot(saved, current) {
+  const differences = ['root', 'repository', 'head', 'branch', 'content', 'index'].filter(key => saved?.[key] !== current[key]);
+  if (saved?.partial || current.partial) differences.push('incomplete-snapshot-coverage');
+  return { stale: differences.length > 0, differences, current };
+}

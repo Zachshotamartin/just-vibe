@@ -42,7 +42,7 @@ ${command.writeScope}
 
 ${steps}
 ${command.runtimeSteps?.length ? `\nTask-specific method: ${command.procedure.join(' ')}\n` : ''}
-## Decision branches
+${command.guides?.length ? `## Read when relevant\n\n${command.guides.map(g => `- ${g.when}: [${g.title}](../../${g.path}).`).join('\n')}\n\n` : ''}## Decision branches
 
 ${command.branches.map(b => `- **When ${b.when}:** ${b.then}`).join('\n')}
 

@@ -39,6 +39,7 @@ export function validateCatalog(catalog, packs) {
     }
     if (typeof c.selection !== 'string' || !c.selection.trim()) throw new Error(`Missing selection boundary: ${c.id}`);
     if (!Array.isArray(c.branches) || !c.branches.length || c.branches.some(b => !b.when?.trim() || !b.then?.trim())) throw new Error(`Invalid decision branches: ${c.id}`);
+    if (c.guides !== undefined && (!Array.isArray(c.guides) || c.guides.some(g => !g.title?.trim() || !g.when?.trim() || !/^references\/(?:[a-z0-9-]+\/)*[a-z0-9-]+\.md$/.test(g.path)))) throw Error(`Invalid conditional guide: ${c.id}`);
     if (c.validation?.structural !== 'automated' || !['fixtures-tested', 'not-applicable'].includes(c.validation.runtime)
         || !['not-evaluated', 'passed-fixtures', 'partial-fixtures'].includes(c.validation.behavioral)) throw new Error(`Invalid validation dimensions: ${c.id}`);
     if (c.validation.behavioral !== 'not-evaluated' && !c.validation.record?.trim()) throw new Error(`Behavioral results require an evidence record: ${c.id}`);

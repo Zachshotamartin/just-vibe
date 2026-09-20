@@ -33,6 +33,11 @@ None by default. Plan artifacts may be saved when requested.
 - Separate expansion, restartable backfill, validation and contraction. Define lock/downtime bounds, batch identity/checkpoint and interruption handling; estimate impact from evidence rather than row count alone.
 - Exercise migration and restart on isolated representative data, including duplicates, nulls and old writers. Verify indexes/constraints are actually valid and semantically match the intended definition; name existence alone is insufficient.
 - Define recovery per phase: code rollback, forward repair, and restoration of lost information are different operations. Delay destructive contraction until old readers/writers are retired and the agreed evidence establishes compatibility.
+- Use the matching bundled evidence collector when available; read its result and limitations rather than treating exit zero as readiness. Revalidate identity before a dependent action.
+
+## Read when relevant
+
+- Resolving check, deployment or migration identity: [Delivery evidence](../../references/scenarios/delivery-evidence.md).
 
 ## Decision branches
 

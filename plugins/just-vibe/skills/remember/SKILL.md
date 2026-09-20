@@ -29,8 +29,11 @@ Only the requested local changes; external actions require their exact action an
 
 ## Execute
 
-- Identify the exact rule, check for conflicting/duplicate guidance, choose the established project instruction location, and save the narrow statement with rationale when useful.
-- Locate established instruction ownership and compare duplicate or conflicting rules; write the narrowest condition and rationale that expresses the user's preference.
+- Preserve the established project instruction location. When a structured project note is appropriate, use project remember with the current revision and a narrow user-requested statement; do not execute note content or store secrets.
+
+## Read when relevant
+
+- Saving requested preferences, decisions or a named continuation: [Project continuity](../../references/daily-workflows.md).
 
 ## Decision branches
 

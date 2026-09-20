@@ -22,7 +22,7 @@ const paths = new Set(archive.files.map(file => file.path));
 for (const required of ['LICENSE', 'README.md', 'CHANGELOG.md', 'docs/releases.md', 'docs/compatibility.md', 'plugins/just-vibe/LICENSE']) assert.ok(paths.has(required), `Missing: ${required}`);
 for (const path of paths) {
   assert.match(path, /^(?:bin\/|plugins\/just-vibe\/|\.agents\/plugins\/marketplace\.json$|\.claude-plugin\/marketplace\.json$|docs\/|evals\/|package\.json$|README\.md$|LICENSE$|CHANGELOG\.md$)/, `Unexpected archive file: ${path}`);
-  assert.doesNotMatch(path, /(?:^|\/)(?:PLAN\.md|NAMING\.md|\.env(?:\..*)?|\.npmrc|\.git|node_modules|\.tmp|credentials[^/]*)(?:\/|$)/i, `Private/development file: ${path}`);
+  assert.doesNotMatch(path, /(?:^|\/)(?:PLAN\.md|NAMING\.md|\.env(?:\..*)?|\.npmrc|\.git|\.just-vibe|node_modules|\.tmp|credentials[^/]*)(?:\/|$)/i, `Private/development file: ${path}`);
   const absolute = resolve(root, path);
   assert.ok(lstatSync(absolute).isFile(), `Archive must contain regular files: ${path}`);
   const content = readFileSync(absolute, 'utf8');

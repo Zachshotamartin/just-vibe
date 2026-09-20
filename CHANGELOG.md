@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.7.0
+
+- Let auto complete small local tasks without formal stage calls, escalating to tracked execution when dependencies, recovery or effects require it.
+- Show a small starter catalog by default; keep the complete catalog under tools --all. Rank routes using task intent, detected JS/Python frameworks and prerequisite status, with reasons and ambiguity instead of implied certainty.
+- Add conditionally loaded authentication, dialog, combobox, date input, ML training and delivery guides to existing workflows.
+- Add explicit project preferences, revision-checked notes and named checkpoints with repository/content/index staleness checks. Stored context cannot override current instructions or restore authorization.
+- Add bounded GitHub, Vercel, Playwright and SQL migration evidence collectors with target identity, actual results and limitations.
+- Add optional project hooks for configured checks, single-file formatting and continuation summaries. Exact configuration requires separate local trust; changed configuration invalidates it. Hooks preserve staged files, limit execution, deduplicate unchanged work and never force a new turn.
+
 ## 0.6.0
 
 - Replace repeated guidance in 27 command contracts with concrete ownership, timing, failure, recovery and verification decisions across backend, ML, Git/GitHub, React, frontend delivery, architecture, decisions and LLM systems.

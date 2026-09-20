@@ -25,6 +25,9 @@ test('npm archive contains the runnable installer and both complete plugin manif
     'plugins/just-vibe/catalog/profiles.json', 'plugins/just-vibe/scripts/lib/profiles.mjs',
     'plugins/just-vibe/references/profiles.md', 'plugins/just-vibe/references/profile-reference.md',
     'plugins/just-vibe/references/execution.md', 'plugins/just-vibe/references/runtime.md',
+    'plugins/just-vibe/hooks/hooks.json', 'plugins/just-vibe/scripts/hooks.mjs',
+    'plugins/just-vibe/scripts/lib/continuity.mjs', 'plugins/just-vibe/scripts/lib/evidence.mjs',
+    'plugins/just-vibe/references/daily-workflows.md',
   ]) assert.ok(paths.includes(required), `Missing from archive: ${required}`);
   const catalog = loadCatalog();
   for (const c of catalog.commands) assert.ok(paths.includes(`plugins/just-vibe/${c.skillPath}`), `Missing packaged workflow: ${c.id}`);
@@ -88,6 +91,12 @@ test('packed CLI and every skill work without the source checkout, plan or depen
   assert.ok(!inventory.tools.some(c => c.status === 'uninstalled'));
   const skill = execFileSync(process.execPath, [cli, 'show', 'auto'], { cwd: dir, encoding: 'utf8' });
   assert.ok(skill.includes('session start'));
+  const created = JSON.parse(execFileSync(process.execPath, [cli, 'project', 'init', '--root', dir, '--stdin'], { input: '{"preferences":{"detail":"concise"}}', encoding: 'utf8' }));
+  assert.equal(created.revision, 1);
+  const resumed = JSON.parse(execFileSync(process.execPath, [cli, 'project', 'show', '--root', dir], { encoding: 'utf8' }));
+  assert.equal(resumed.preferences.preferences.detail, 'concise');
+  const hookStatus = JSON.parse(execFileSync(process.execPath, [cli, 'hooks', 'status', '--root', dir], { encoding: 'utf8' }));
+  assert.equal(hookStatus.trusted, false);
   assert.equal(existsSync(join(dir, 'package/PLAN.md')), false);
   assert.equal(existsSync(join(dir, 'package/node_modules')), false);
 });

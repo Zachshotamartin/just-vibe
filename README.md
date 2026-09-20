@@ -2,9 +2,11 @@
 
 Tools, skills, and commands for coding agents.
 
-**v0.6 ships 112 engineering profiles and 215 skill names backed by 212 canonical workflows** for Codex and Claude Code: focused skills for development, architecture, decisions, Git/GitHub, Vercel, Vite, React, UI, backend, APIs, databases, data, ML, LLMs, testing, security, and operations. Each canonical workflow has selection guidance, scope, concrete decision branches, evidence requirements, outputs, verification, recovery conditions and three example requests. Applied methods live in 22 pack guides.
+**v0.7 ships 112 engineering profiles and 215 skill names backed by 212 canonical workflows** for Codex and Claude Code: focused skills for development, architecture, decisions, Git/GitHub, Vercel, Vite, React, UI, backend, APIs, databases, data, ML, LLMs, testing, security, and operations. Each canonical workflow has selection guidance, scope, concrete decision branches, evidence requirements, outputs, verification, recovery conditions and three example requests. Applied methods live in 22 pack guides.
 
 The active coding agent executes the workflows with its available tools. The dependency-free Node.js utilities provide catalog search, project inspection, capability discovery, and bounded run-state validation. Installing just-vibe does not connect services, grant permissions, provision compute, or make every workflow's prerequisites available.
+
+v0.7 adds a quick path for simple work, a small starter catalog, contextual routing with reasons, project preferences and checkpoints, explicit evidence collectors, and optional project hooks. Detailed auth, component, training and delivery scenarios load only when relevant. See [daily workflows](plugins/just-vibe/references/daily-workflows.md) for configuration and examples, and the [v0.7 validation record](evals/releases/0.7.0.md) for tested scope and limits.
 
 ## Use the workflows
 
@@ -85,6 +87,10 @@ node bin/just-vibe.mjs profile principal-engineer
 node bin/just-vibe.mjs inspect --root /path/to/project
 node bin/just-vibe.mjs discover --root /path/to/project
 node bin/just-vibe.mjs route --root /path/to/project -- "Investigate failing GitHub checks"
+node bin/just-vibe.mjs project show --root /path/to/project
+node bin/just-vibe.mjs project resume checkout --root /path/to/project
+node bin/just-vibe.mjs evidence github --repo owner/repo --pr 42
+node bin/just-vibe.mjs hooks status --root /path/to/project
 node bin/just-vibe.mjs workflow fix --root /path/to/project --mode plan -- "Fix checkout; preserve the API"
 node bin/just-vibe.mjs workflow auto --profile machine-learning-engineer --stdin
 ```
@@ -92,6 +98,8 @@ node bin/just-vibe.mjs workflow auto --profile machine-learning-engineer --stdin
 `route` suggests candidates for the host agent; it does not execute them or call a model. `workflow` creates a JSON context record on stdout. Use `--stdin` or `--brief-file` to preserve multiline context verbatim. The CLI inventories the shipped payload; native host enablement still applies. It never treats a CLI on PATH as proof of authenticated access.
 
 External capabilities stay unknown until the host observes relevant access or supplied evidence. Explicit capability reports expire after 15 minutes and are bound to a project. The [runtime interface](plugins/just-vibe/references/runtime.md) documents their format and `session create/start/amend/supersede/profile/record/finish/resume`. These utilities validate bookkeeping; they do not sandbox host tools or independently prove the agent's evidence.
+
+Plain `tools` shows a starter selection; `tools --all` lists everything. `route` explains a few candidates; use `--json` for structured context. Project writes require explicit operations and revision-aware JSON input. Evidence collectors have their own prerequisites and do not automatically grant capability status. See [examples and schemas](plugins/just-vibe/references/daily-workflows.md).
 
 ## Quick install
 
@@ -238,7 +246,7 @@ The [v0.6 results](evals/releases/0.6.0.md) record 32 controlled implementation 
 | `scripts/` and `tests/` | Validation and lifecycle tests |
 | `evals/` | Behavior scenarios and isolated project/data fixtures |
 
-The installer has no runtime npm dependencies, no lifecycle install scripts, and adds no hooks, MCP servers, rules, or permissions. It uses argument arrays rather than shell interpolation. Host CLIs own installation state and caches. Local planning and naming documents are excluded from both Git and the npm archive.
+The installer has no runtime npm dependencies or lifecycle install scripts. Optional bundled hooks do no work until configured and trusted for a project; native host trust also applies. It adds no MCP servers, rules or permissions. Provider/check commands use argument arrays rather than interpolating user input into a shell. Host CLIs own installation state and caches. Local planning and naming documents are excluded from both Git and the npm archive.
 
 ## Troubleshooting
 

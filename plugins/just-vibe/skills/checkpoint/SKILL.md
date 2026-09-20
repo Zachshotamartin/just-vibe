@@ -29,8 +29,11 @@ Only the requested local changes; external actions require their exact action an
 
 ## Execute
 
-- Capture objective, constraints, changed files/revision, completed checks, unresolved work, and exact next step; remove sensitive values.
-- Record exact branch/ref and dirty-file state, tested revision, remaining success criteria and the next dependency; redact tokens and personal data.
+- Save the objective, constraints, decisions, completed evidence, remaining work and next step using project checkpoint NAME with the current revision when structured storage is appropriate. The helper captures repository/worktree identity; keep external operation IDs in the task context without credentials.
+
+## Read when relevant
+
+- Saving requested preferences, decisions or a named continuation: [Project continuity](../../references/daily-workflows.md).
 
 ## Decision branches
 

@@ -33,7 +33,11 @@ Only active task context or a supplied run record returned as JSON. Persist to a
 2. Keep simple selection in task context. With an existing run, call session profile using run and selection; with a new explicit single role, workflow COMMAND --profile ID preserves it. Do not create a fresh run just to evade a prior pin or budget.
 3. State the selected profile briefly once. Apply relevant priorities in subsequent workflows without repeating role claims or forcing every suggested workflow to run.
 
-Task-specific method: Choose one primary role and at most two distinct complementary roles; read only their role references. Use task evidence, not a file extension alone. Explicit user selections are pinned for the current task by default. Agent selections are unpinned and cannot replace or clear a pinned user selection. For auto, an explicit user request first clears the pin, then the agent selects with a concrete reason. Clear removes role emphasis; status reports the current selection without changing it.
+Task-specific method: Choose one primary role and at most two distinct complementary roles; read only their role references. Use task evidence, not a file extension alone. Explicit user selections are pinned for the current task by default. Agent selections are unpinned and cannot replace or clear a pinned user selection. For auto, an explicit user request first clears the pin, then the agent selects with a concrete reason. Clear removes role emphasis; status reports the current selection without changing it. A profile in project preferences is a candidate, not a pin or permission. Apply it only when it fits the current request and does not conflict with the user’s task selection.
+
+## Read when relevant
+
+- Saving requested preferences, decisions or a named continuation: [Project continuity](../../references/daily-workflows.md).
 
 ## Decision branches
 

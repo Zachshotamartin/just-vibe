@@ -29,12 +29,19 @@ None by default. Plan artifacts may be saved when requested.
 
 ## Execute
 
-- Trace login/session/refresh/logout, inspect token/cookie boundaries, use supported provider mechanisms, and test expired, revoked, and invalid credentials.
-- Trace credential validation, issuer/audience/expiry, cookie/token storage and refresh/logout transitions using the actual supported provider contract.
+- Identify the provider, session owner, trust boundaries and the actual request: audit or implementation. Trace login, refresh, logout and recovery across browser and server.
+- Read only the matching cookie-session, OAuth callback, refresh-race or recovery scenario. Use the supported provider mechanism, implement the requested boundary and verify the relevant transitions.
+
+## Read when relevant
+
+- Working on cookie sessions, callbacks, refresh or recovery: [Authentication scenarios](../../references/scenarios/auth.md).
 
 ## Decision branches
 
-- **When session invalidation differs between stateless tokens and server sessions:** State the revocation window and verify the intended mechanism rather than promising immediate universal logout.
+- **When browser cookie sessions carry authentication:** Resolve cookie scope, proxy/HTTPS behavior, CSRF protection, session rotation and logout semantics.
+- **When OAuth/OIDC callbacks establish a session:** Bind the flow to the initiating browser, enforce the supported state/PKCE/nonce contract, and validate identity through the provider client.
+- **When refresh and logout can overlap across tabs or workers:** Choose the session owner and stale-result rule; test rotation/reuse, expired credentials and late refresh after logout.
+- **When recovery or account linking changes access:** Verify single-use/expiry, ownership proof, abuse controls and the intended existing-session invalidation.
 
 ## Deliver and verify
 

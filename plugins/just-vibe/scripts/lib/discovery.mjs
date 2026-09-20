@@ -2,6 +2,7 @@ import { realpathSync, statSync, readFileSync, accessSync, constants } from 'nod
 import { resolve } from 'node:path';
 import { CAPABILITIES, availability, searchCommands, invocation, getCommand } from './catalog.mjs';
 import { findExecutable, gitRead } from './project.mjs';
+import { routeContext, rankCandidates, intentSignals, executionStrategy } from './routing.mjs';
 
 export function validateCapabilityReport(report, root, now = Date.now()) {
   if (report.schemaVersion !== 1 || !report.capabilities || typeof report.capabilities !== 'object' || Array.isArray(report.capabilities)) throw new Error('Invalid capability report.');
@@ -55,10 +56,16 @@ export function listTools(catalog, discovery, { query = '', pack, available = fa
   })).filter(c => (all || !['planned', 'uninstalled', 'unsupported'].includes(c.status)) && (!available || c.status === 'available')).slice(0, limit);
 }
 
-export function recommend(catalog, discovery, brief, { host = 'claude', limit = 8 } = {}) {
+export function recommend(catalog, discovery, brief, { host = 'claude', limit = 3, context = routeContext(discovery.root) } = {}) {
   if (typeof brief !== 'string' || !brief.trim()) throw new Error('A routing goal is required.');
-  const matches = listTools(catalog, discovery, { query: brief, host, all: true, limit: catalog.commands.length })
+  if (!Number.isInteger(limit) || limit < 1 || limit > 1000) throw Error('limit must be between 1 and 1000.');
+  const signals = intentSignals(brief);
+  const query = signals.positive.trim();
+  const matches = (/[a-z0-9]/i.test(query) ? listTools(catalog, discovery, { query, host, all: true, limit: catalog.commands.length }) : [])
     .filter(c => !['auto', 'do', 'help', 'tools', 'setup'].includes(c.id));
+  for (const rule of signals.matches) for (const id of rule.ids) {
+    if (catalog.commands.some(c => c.id === id) && !matches.some(c => c.id === id)) matches.push(...listTools(catalog, discovery, { query: id, host, all: true }));
+  }
   const unique = new Map();
   for (const match of matches) {
     const id = match.aliasOf || match.id;
@@ -67,8 +74,10 @@ export function recommend(catalog, discovery, brief, { host = 'claude', limit = 
     unique.set(id, { ...match, id, aliasOf: undefined, summary: canonical.summary,
       invocation: invocation(canonical, host), matchedNames: [match.id] });
   }
-  const candidates = [...unique.values()];
+  const candidates = rankCandidates([...unique.values()], brief, context);
   return { brief, executableHere: false,
+    context, strategy: executionStrategy(brief, candidates), recommendations: candidates.slice(0, limit),
+    confidence: candidates.length === 0 ? 'no-match' : candidates.length > 1 && candidates[0].score - candidates[1].score < 12 ? 'ambiguous' : 'candidate',
     instruction: 'Candidates only. The active host agent must resolve intent, context, scope, and authority before selecting and executing a route. Do not execute keyword matches blindly.',
     available: candidates.filter(c => c.status === 'available').slice(0, limit),
     unavailable: candidates.filter(c => c.status !== 'available').slice(0, limit) };

@@ -33,6 +33,11 @@ None by default. Plan artifacts may be saved when requested.
 - Prepare the title/body from the candidate diff and relevant checks. Explain the trigger, changed behavior and verification limits. Follow the repository template without adding agent attribution, signatures or agent Co-authored-by text.
 - Create or update only when the exact remote action is authorized in the session; otherwise finish the concrete draft. Before a retry after timeout, query the exact head/base for an already-created PR so an uncertain response cannot create a duplicate.
 - Re-read the resulting PR identity and head/base. Checks for an older SHA do not establish readiness of the current head; if it changed during review, report that and validate the new candidate before claiming readiness.
+- Use the matching bundled evidence collector when available; read its result and limitations rather than treating exit zero as readiness. Revalidate identity before a dependent action.
+
+## Read when relevant
+
+- Resolving check, deployment or migration identity: [Delivery evidence](../../references/scenarios/delivery-evidence.md).
 
 ## Decision branches
 

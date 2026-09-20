@@ -17,4 +17,5 @@ npm(['publish', archive, '--dry-run', '--ignore-scripts', '--json'], { cwd: root
 console.log('npm publication dry run accepted the verified local archive.');
 const digest = createHash('sha256').update(readFileSync(archive)).digest('hex');
 writeFileSync(resolve(destination, `${packed.filename}.sha256`), `${digest}  ${packed.filename}\n`);
+writeFileSync(resolve(destination, `${packed.filename}.release.json`), JSON.stringify({ schemaVersion: 1, name: JSON.parse(readFileSync(resolve(root, 'package.json'))).name, version: JSON.parse(readFileSync(resolve(root, 'package.json'))).version, sha256: digest, sourceCommit: execFileSync('git', ['rev-parse', 'HEAD'], { cwd: root, encoding: 'utf8' }).trim(), preparedAt: new Date().toISOString() }, null, 2) + '\n');
 console.log(`Verified release artifact: ${archive}\nSHA-256: ${digest}`);

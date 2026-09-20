@@ -3079,8 +3079,7 @@
       "readScope": "Save task state in a local approved artifact; no permanent behavioral memory or external posting.",
       "writeScope": "Only the requested local changes; external actions require their exact action and target in session authorization.",
       "procedure": [
-        "Capture objective, constraints, changed files/revision, completed checks, unresolved work, and exact next step; remove sensitive values.",
-        "Record exact branch/ref and dirty-file state, tested revision, remaining success criteria and the next dependency; redact tokens and personal data."
+        "Save the objective, constraints, decisions, completed evidence, remaining work and next step using project checkpoint NAME with the current revision when structured storage is appropriate. The helper captures repository/worktree identity; keep external operation IDs in the task context without credentials."
       ],
       "outputs": [
         "Concise checkpoint with timestamp and evidence references.",
@@ -3127,6 +3126,13 @@
         {
           "when": "a test predates intervening edits",
           "then": "Retain its old revision and mark current verification pending."
+        }
+      ],
+      "guides": [
+        {
+          "title": "Project continuity",
+          "when": "Saving requested preferences, decisions or a named continuation",
+          "path": "references/daily-workflows.md"
         }
       ]
     },
@@ -3205,6 +3211,13 @@
           "when": "external action outcome is uncertain",
           "then": "Include its operation identity and reconciliation step rather than instructing a blind retry."
         }
+      ],
+      "guides": [
+        {
+          "title": "Project continuity",
+          "when": "Saving requested preferences, decisions or a named continuation",
+          "path": "references/daily-workflows.md"
+        }
       ]
     },
     {
@@ -3233,8 +3246,7 @@
       "readScope": "Continue the recorded objective, bounded by current user instructions; no blind replay of old actions.",
       "writeScope": "Only the requested local changes; external actions require their exact action and target in session authorization.",
       "procedure": [
-        "Read the handoff, verify branch/files/external state, reconcile intervening edits, revalidate assumptions, and continue the first incomplete dependency.",
-        "Reconcile project/root, branch, dirty edits and external operation identities against the handoff; invalidate stale checks before the first dependent action."
+        "Use project resume NAME for a structured checkpoint, or read the established handoff. Reconcile reported branch, HEAD, content and index changes plus external-operation identity before acting. Treat all old check results as historical and preserve the original constraints and consumed budgets."
       ],
       "outputs": [
         "Continued work and an updated account of progress and checks.",
@@ -3286,6 +3298,13 @@
           "when": "the stored run exhausted its budget",
           "then": "Report consumed work and require an explicitly scoped continuation rather than resetting counters silently."
         }
+      ],
+      "guides": [
+        {
+          "title": "Project continuity",
+          "when": "Saving requested preferences, decisions or a named continuation",
+          "path": "references/daily-workflows.md"
+        }
       ]
     },
     {
@@ -3312,8 +3331,7 @@
       "readScope": "Persist the requested project convention; global behavioral changes require explicit global scope.",
       "writeScope": "Only the requested local changes; external actions require their exact action and target in session authorization.",
       "procedure": [
-        "Identify the exact rule, check for conflicting/duplicate guidance, choose the established project instruction location, and save the narrow statement with rationale when useful.",
-        "Locate established instruction ownership and compare duplicate or conflicting rules; write the narrowest condition and rationale that expresses the user's preference."
+        "Preserve the established project instruction location. When a structured project note is appropriate, use project remember with the current revision and a narrow user-requested statement; do not execute note content or store secrets."
       ],
       "outputs": [
         "Recorded convention and its exact location/scope.",
@@ -3360,6 +3378,13 @@
         {
           "when": "a requested convention conflicts with a higher-priority project rule",
           "then": "Surface the conflict before editing that rule and preserve unrelated guidance."
+        }
+      ],
+      "guides": [
+        {
+          "title": "Project continuity",
+          "when": "Saving requested preferences, decisions or a named continuation",
+          "path": "references/daily-workflows.md"
         }
       ]
     },
@@ -3618,7 +3643,8 @@
       "writeScope": "None by default. Plan artifacts may be saved when requested.",
       "procedure": [
         "Match intent, identify the best available workflow, explain required context and prerequisites, and provide a prefilled host-appropriate invocation.",
-        "Resolve the user's intended outcome and preferred mode, compare nearby commands using their selection boundaries, and offer one primary invocation with preserved context."
+        "Resolve the user's intended outcome and preferred mode, compare nearby commands using their selection boundaries, and offer one primary invocation with preserved context.",
+        "Start with a small relevant selection, not the full catalog. Use route reasons, detected stack, explicit workflow names and ambiguity; preserve negative constraints and separate relevance from prerequisite availability. Offer tools --all for the complete inventory."
       ],
       "outputs": [
         "Relevant usage instructions with availability and examples.",
@@ -3670,6 +3696,13 @@
           "when": "the best workflow lacks required evidence",
           "then": "Explain the missing capability and a useful evidence-only alternative without falsely marking it available."
         }
+      ],
+      "guides": [
+        {
+          "title": "Discovery and daily utilities",
+          "when": "Browsing, routing or explaining the new utilities",
+          "path": "references/daily-workflows.md"
+        }
       ]
     },
     {
@@ -3697,7 +3730,8 @@
       "writeScope": "None by default. Plan artifacts may be saved when requested.",
       "procedure": [
         "Match names/scenarios, inspect prerequisites, classify available/blocked/disabled/planned/unknown status, and include a purpose and example per result.",
-        "Canonicalize aliases in recommendations while displaying requested names; distinguish installed instructions, observed capability and behavioral evaluation status."
+        "Canonicalize aliases in recommendations while displaying requested names; distinguish installed instructions, observed capability and behavioral evaluation status.",
+        "Start with a small relevant selection, not the full catalog. Use route reasons, detected stack, explicit workflow names and ambiguity; preserve negative constraints and separate relevance from prerequisite availability. Offer tools --all for the complete inventory."
       ],
       "outputs": [
         "Searchable inventory with host support and precise missing prerequisites.",
@@ -3750,6 +3784,13 @@
           "when": "executable exists but task-specific access is unverified",
           "then": "Keep availability unknown and state which observation would establish it."
         }
+      ],
+      "guides": [
+        {
+          "title": "Discovery and daily utilities",
+          "when": "Browsing, routing or explaining the new utilities",
+          "path": "references/daily-workflows.md"
+        }
       ]
     },
     {
@@ -3778,8 +3819,7 @@
       "readScope": "Smallest useful sequence completing that goal; no extra product work or authority expansion.",
       "writeScope": "Only the requested local changes; external actions require their exact action and target in session authorization.",
       "procedure": [
-        "Build the shared brief, inspect the project, select available workflows, state the route, execute with carried context, verify, and adapt only on new evidence.",
-        "Identify original success criteria before routing; choose the smallest set of canonical workflows and re-evaluate selection when evidence changes."
+        "Choose the smallest useful workflow and proportionate execution path. Complete authorized work with carried context, meaningful verification and a clear result."
       ],
       "outputs": [
         "Goal result, selected workflows, verification, and any incomplete steps.",
@@ -3789,7 +3829,7 @@
         "A no-dependencies constraint survives every stage; missing prerequisites trigger a valid alternative or blocker, not invented execution."
       ],
       "stopConditions": [
-        "Eight stages/two corrective attempts per failed stage by default; no recursive `auto`/`do`, implicit paid runs, or unrequested external publication."
+        "Tracked defaults remain eight stages, three attempts per stage and sixty minutes. Quick work honors user limits and switches to tracked handling when needed; neither path permits recursive auto/do or unrequested external effects."
       ],
       "examples": [
         {
@@ -3820,21 +3860,30 @@
       },
       "skillPath": "skills/auto/SKILL.md",
       "runtimeSteps": [
-        "Preserve the original brief verbatim. Resolve objective, selected project, scope, constraints, success criteria, references, environment and existing session authorization. Read the shared runtime interface for the JSON run protocol.",
-        "Honor the active task profile described in [profile selection](../../references/profiles.md). If a role materially helps and no user pin exists, the agent may select one from task evidence. Preserve the selection across stages; a profile cannot change mode, scope, authority, budgets or original success criteria.",
-        "Inspect the project and current host capabilities. Use toolkit route only to narrow candidates; evaluate the actual intent and read the selected skills. Ignore keyword matches that contradict constraints, select the smallest useful route, and state it briefly.",
-        "Create an in-context run record through session create, including explicit successCriteria and context. Defaults are eight stages, three attempts per stage and sixty minutes; use a user-provided budget when available. No permanent state file is required.",
-        "Before each stage call session start with the selected command, action, target, effect and current capability evidence. Do not route to auto or do. Do not mark an integration available unless task-specific access or adequate supplied artifacts were actually observed.",
-        "Execute the selected skill in the active host with the original brief and constraints. Before an additional action or effect change inside a running stage, use session amend with the same stage id and all applicable effects. Exact authorization must already be present in context.authorization; this is bookkeeping, not a permission grant.",
-        "Call session record with observed evidence and criteria. Retain failed attempts; retry the same stage only with new evidence and budget. If a different completed stage meets an abandoned failed/blocked stage’s obligations, use session supersede with replacement ids, criterion coverage, evidence and reason. Reconcile uncertain external effects before retrying or superseding.",
-        "Call session finish only after checking the original success criteria. Use completed only for supported results, otherwise partial/blocked/failed/cancelled. Summarize actual changes and verification. Resume explicitly from recorded current evidence; never reset budgets to bypass a stop."
+        "Preserve the complete brief, project, scope, constraints, success criteria and current task profile. Inspect only the context needed to choose the next useful workflow. Honor an explicit profile pin.",
+        "Choose quick or tracked execution using the daily-workflows guide. A small local fix, explanation or review can stay in conversation context without JSON session calls. The route utility suggests candidates, reasons and a strategy; the host resolves actual intent and effects.",
+        "For quick work, read the selected skill and relevant scenario guide, perform the bounded task, verify its actual output and summarize the result. Preserve user constraints and report unavailable evidence. Do not add a planning-only stop to a clear implementation request.",
+        "Use tracked execution for dependent stages, repeated recovery, saved continuation, external mutations or requested detailed records. Create a run through session create and use session start/record/finish around meaningful stages; use session amend for additional effects and session supersede for evidence-backed alternatives.",
+        "If quick work grows, carry the original brief, completed work, observations, selected profile and consumed budget into tracked context. Record remaining stages; never fabricate earlier validated transitions or restart a user limit.",
+        "Reconcile uncertain external effects before retrying. Keep failures and stop within the applicable stage/attempt/time budget. Finish only when original success conditions are supported; report partial or blocked results plainly."
       ],
       "searchTerms": [],
       "selection": "Use to complete a bounded multi-step goal across workflows; direct commands are preferable for one clear operation.",
       "branches": [
         {
-          "when": "a blocked route is replaced by a completed alternative",
-          "then": "Record criterion coverage with session supersede; retain failed attempts and unchanged budgets."
+          "when": "one bounded local workflow is sufficient",
+          "then": "Use the quick path; keep essential context and evidence in conversation without formal stage bookkeeping."
+        },
+        {
+          "when": "dependencies, repeated recovery, continuation or external effects need tracking",
+          "then": "Use the existing validated session operations; retain earlier evidence and consumed limits when escalating."
+        }
+      ],
+      "guides": [
+        {
+          "title": "Daily workflow paths",
+          "when": "Choosing quick versus tracked work",
+          "path": "references/daily-workflows.md"
         }
       ]
     },
@@ -5894,7 +5943,8 @@
         "Resolve owner/repository, fork owner, head branch/SHA and intended base branch/SHA. Inspect the merge-base diff and existing matching PRs; distinguish local uncommitted work, local unpushed commits and the actual remote head.",
         "Prepare the title/body from the candidate diff and relevant checks. Explain the trigger, changed behavior and verification limits. Follow the repository template without adding agent attribution, signatures or agent Co-authored-by text.",
         "Create or update only when the exact remote action is authorized in the session; otherwise finish the concrete draft. Before a retry after timeout, query the exact head/base for an already-created PR so an uncertain response cannot create a duplicate.",
-        "Re-read the resulting PR identity and head/base. Checks for an older SHA do not establish readiness of the current head; if it changed during review, report that and validate the new candidate before claiming readiness."
+        "Re-read the resulting PR identity and head/base. Checks for an older SHA do not establish readiness of the current head; if it changed during review, report that and validate the new candidate before claiming readiness.",
+        "Use the matching bundled evidence collector when available; read its result and limitations rather than treating exit zero as readiness. Revalidate identity before a dependent action."
       ],
       "outputs": [
         "Draft or verified PR URL, head/base identity, change summary, checks attached to their tested SHA and explicit readiness limits."
@@ -5946,6 +5996,13 @@
         {
           "when": "a PR already exists for the intended head/base",
           "then": "Reuse its identity and avoid duplicate creation; recheck head SHA before reporting readiness."
+        }
+      ],
+      "guides": [
+        {
+          "title": "Delivery evidence",
+          "when": "Resolving check, deployment or migration identity",
+          "path": "references/scenarios/delivery-evidence.md"
         }
       ]
     },
@@ -6137,7 +6194,8 @@
       "procedure": [
         "Find the first causal failure, compare runner configuration and lockfiles, reproduce locally where feasible, patch, and validate before an authorized rerun/push.",
         "Resolve run ID, attempt, job and head SHA; find the first causal failure and reproduce using the relevant workspace/runtime before patching.",
-        "All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices."
+        "All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.",
+        "Use the matching bundled evidence collector when available; read its result and limitations rather than treating exit zero as readiness. Revalidate identity before a dependent action."
       ],
       "outputs": [
         "Cause, focused changes, local evidence, and remote run status if actually exercised.",
@@ -6188,6 +6246,13 @@
           "when": "failure is external or a required secret is withheld on forks",
           "then": "Report the environment cause and safe alternative; do not grant fork code privileged tokens."
         }
+      ],
+      "guides": [
+        {
+          "title": "Delivery evidence",
+          "when": "Resolving check, deployment or migration identity",
+          "path": "references/scenarios/delivery-evidence.md"
+        }
       ]
     },
     {
@@ -6220,7 +6285,8 @@
         "Map each event/ref, actor trust level, token permission and artifact producer/consumer before editing the workflow. Inspect the pinned action/runtime versions and repository policy; consult current primary documentation for changed platform behavior.",
         "Keep untrusted PR text out of executable shell source and separate privileged metadata work from untrusted code execution. Validate artifact origin across workflow boundaries and define minimum job permissions.",
         "Design job dependencies, cache identity and cancellation by effect: cancelling an obsolete test run differs from interrupting a release halfway through publication. Prevent overlapping destructive jobs without hiding failures or sharing artifacts across untrusted scopes.",
-        "Validate syntax plus representative trusted/untrusted event paths. Verify required check names remain reachable for applicable branches and that skipped/conditional jobs do not accidentally report an untested release as ready. Describe changes without agent self-attribution."
+        "Validate syntax plus representative trusted/untrusted event paths. Verify required check names remain reachable for applicable branches and that skipped/conditional jobs do not accidentally report an untested release as ready. Describe changes without agent self-attribution.",
+        "Use the matching bundled evidence collector when available; read its result and limitations rather than treating exit zero as readiness. Revalidate identity before a dependent action."
       ],
       "outputs": [
         "Workflow changes, event/permission rationale, and validation coverage.",
@@ -6268,6 +6334,13 @@
         {
           "when": "pull_request_target or workflow_run consumes attacker-controlled code/artifacts",
           "then": "Separate privileged metadata work from untrusted execution and validate artifact origin."
+        }
+      ],
+      "guides": [
+        {
+          "title": "Delivery evidence",
+          "when": "Resolving check, deployment or migration identity",
+          "path": "references/scenarios/delivery-evidence.md"
         }
       ]
     },
@@ -6454,7 +6527,8 @@
         "Identify the failing deployment, SHA, environment and first causal build error. Compare repository/install root, build package, output path, runtime/package manager and resolved dependencies with the successful environment.",
         "Reproduce the failing boundary locally when possible using the same workspace command and versions. Check case sensitivity, hoisted undeclared dependencies, build-time environment names and generated-file assumptions before patching application behavior.",
         "Apply a focused fix and verify the corresponding build path. Keep local success separate from remote deployment verification; reuse the existing deployment/project identity and create a new deployment only when requested.",
-        "Report the causal evidence, changed configuration/code, local result and the deployment/revision actually observed remotely. Redact values and do not download secrets as incidental diagnosis."
+        "Report the causal evidence, changed configuration/code, local result and the deployment/revision actually observed remotely. Redact values and do not download secrets as incidental diagnosis.",
+        "Use the matching bundled evidence collector when available; read its result and limitations rather than treating exit zero as readiness. Revalidate identity before a dependent action."
       ],
       "outputs": [
         "Fix, root-cause explanation, local check results, and deployment verification if authorized.",
@@ -6503,6 +6577,13 @@
         {
           "when": "local build succeeds but deployment fails",
           "then": "Reproduce the specific environment difference before changing application code or adding dependencies."
+        }
+      ],
+      "guides": [
+        {
+          "title": "Delivery evidence",
+          "when": "Resolving check, deployment or migration identity",
+          "path": "references/scenarios/delivery-evidence.md"
         }
       ]
     },
@@ -6690,7 +6771,8 @@
       "writeScope": "None by default. Plan artifacts may be saved when requested.",
       "procedure": [
         "Correlate logs with revision/runtime, inspect request and dependency boundaries, separate cold-start/resource/network causes, and propose a focused reproduction or fix.",
-        "Correlate deployment/request/time and inspect handler entry, environment presence, dependency waits and runtime-specific API support."
+        "Correlate deployment/request/time and inspect handler entry, environment presence, dependency waits and runtime-specific API support.",
+        "Use the matching bundled evidence collector when available; read its result and limitations rather than treating exit zero as readiness. Revalidate identity before a dependent action."
       ],
       "outputs": [
         "Supported diagnosis, relevant log references, and repair/verification steps.",
@@ -6737,6 +6819,13 @@
         {
           "when": "timeout logs contain no downstream completion",
           "then": "Treat the waiting boundary as evidence, not proof of which dependency caused the delay."
+        }
+      ],
+      "guides": [
+        {
+          "title": "Delivery evidence",
+          "when": "Resolving check, deployment or migration identity",
+          "path": "references/scenarios/delivery-evidence.md"
         }
       ]
     },
@@ -7934,8 +8023,8 @@
       "readScope": "Reusable component plus necessary integration/example; no unrelated design-system replacement.",
       "writeScope": "Only the requested local changes; external actions require their exact action and target in session authorization.",
       "procedure": [
-        "Inspect existing primitives, define ownership and semantics, implement normal/loading/error/disabled states as relevant, and verify interaction and rendering.",
-        "Define semantic HTML, controlled/uncontrolled behavior, composition slots and meaningful states before implementing the narrow public interface."
+        "Inspect existing primitives and the consumer contract. Choose state ownership, semantics and interaction behavior before implementing the narrow component API.",
+        "Select only the relevant scenario guide for dialogs, comboboxes or date inputs; implement normal and recovery states, then verify real interactions and parent-controlled updates."
       ],
       "outputs": [
         "Component, documented contract, usage, and meaningful checks.",
@@ -7980,8 +8069,37 @@
       "selection": "Use to implement one component with a clear contract; ui-system defines shared primitives and tokens.",
       "branches": [
         {
-          "when": "a component switches controlled mode after mount",
-          "then": "Choose a consistent ownership contract and test parent updates and reset behavior."
+          "when": "the component opens an overlay",
+          "then": "Specify initial/contained/return focus and dismissal with the dialog guide."
+        },
+        {
+          "when": "search text and selection are different states",
+          "then": "Use the combobox guide for ownership, keyboard/IME behavior and late search results."
+        },
+        {
+          "when": "the value contains dates or ranges",
+          "then": "Resolve date-only versus instant semantics, locale, invalid input and range boundaries before choosing storage."
+        },
+        {
+          "when": "parent state changes after mount",
+          "then": "Preserve a consistent controlled ownership contract and test reset and two independent instances."
+        }
+      ],
+      "guides": [
+        {
+          "title": "dialog interaction",
+          "when": "Implementing a dialog or modal overlay",
+          "path": "references/scenarios/dialog.md"
+        },
+        {
+          "title": "combobox interaction",
+          "when": "Implementing selection or autocomplete",
+          "path": "references/scenarios/combobox.md"
+        },
+        {
+          "title": "date-picker interaction",
+          "when": "Implementing a date or range input",
+          "path": "references/scenarios/date-picker.md"
         }
       ]
     },
@@ -8954,8 +9072,8 @@
       "readScope": "Authentication and session lifecycle; resource authorization is separately checked by `backend-permissions`.",
       "writeScope": "None by default. Plan artifacts may be saved when requested.",
       "procedure": [
-        "Trace login/session/refresh/logout, inspect token/cookie boundaries, use supported provider mechanisms, and test expired, revoked, and invalid credentials.",
-        "Trace credential validation, issuer/audience/expiry, cookie/token storage and refresh/logout transitions using the actual supported provider contract."
+        "Identify the provider, session owner, trust boundaries and the actual request: audit or implementation. Trace login, refresh, logout and recovery across browser and server.",
+        "Read only the matching cookie-session, OAuth callback, refresh-race or recovery scenario. Use the supported provider mechanism, implement the requested boundary and verify the relevant transitions."
       ],
       "outputs": [
         "Authentication findings or implementation with lifecycle checks.",
@@ -9000,8 +9118,27 @@
       "selection": "Use for identity/session lifecycle; backend-permissions handles what an identity may do.",
       "branches": [
         {
-          "when": "session invalidation differs between stateless tokens and server sessions",
-          "then": "State the revocation window and verify the intended mechanism rather than promising immediate universal logout."
+          "when": "browser cookie sessions carry authentication",
+          "then": "Resolve cookie scope, proxy/HTTPS behavior, CSRF protection, session rotation and logout semantics."
+        },
+        {
+          "when": "OAuth/OIDC callbacks establish a session",
+          "then": "Bind the flow to the initiating browser, enforce the supported state/PKCE/nonce contract, and validate identity through the provider client."
+        },
+        {
+          "when": "refresh and logout can overlap across tabs or workers",
+          "then": "Choose the session owner and stale-result rule; test rotation/reuse, expired credentials and late refresh after logout."
+        },
+        {
+          "when": "recovery or account linking changes access",
+          "then": "Verify single-use/expiry, ownership proof, abuse controls and the intended existing-session invalidation."
+        }
+      ],
+      "guides": [
+        {
+          "title": "Authentication scenarios",
+          "when": "Working on cookie sessions, callbacks, refresh or recovery",
+          "path": "references/scenarios/auth.md"
         }
       ]
     },
@@ -10205,7 +10342,8 @@
         "Inspect engine/version, migration runner transaction behavior, data shape and old/new application contracts. Record which versions read and write each field during rollout.",
         "Separate expansion, restartable backfill, validation and contraction. Define lock/downtime bounds, batch identity/checkpoint and interruption handling; estimate impact from evidence rather than row count alone.",
         "Exercise migration and restart on isolated representative data, including duplicates, nulls and old writers. Verify indexes/constraints are actually valid and semantically match the intended definition; name existence alone is insufficient.",
-        "Define recovery per phase: code rollback, forward repair, and restoration of lost information are different operations. Delay destructive contraction until old readers/writers are retired and the agreed evidence establishes compatibility."
+        "Define recovery per phase: code rollback, forward repair, and restoration of lost information are different operations. Delay destructive contraction until old readers/writers are retired and the agreed evidence establishes compatibility.",
+        "Use the matching bundled evidence collector when available; read its result and limitations rather than treating exit zero as readiness. Revalidate identity before a dependent action."
       ],
       "outputs": [
         "Migration plan or files, compatibility evidence, execution conditions, and rollback/forward-recovery limits.",
@@ -10257,6 +10395,13 @@
         {
           "when": "a PostgreSQL concurrent index is required",
           "then": "Use the runner's supported nontransactional path, check invalid indexes after interruption, and never treat name existence alone as proof of a valid matching index."
+        }
+      ],
+      "guides": [
+        {
+          "title": "Delivery evidence",
+          "when": "Resolving check, deployment or migration identity",
+          "path": "references/scenarios/delivery-evidence.md"
         }
       ]
     },
@@ -12073,7 +12218,7 @@
       "aliases": [],
       "aliasOf": null,
       "defaultMode": "plan",
-      "modePolicy": "Plan; model/task, data/splits, objective, hardware, time/cost budget, and artifact destination. Explicit execution selects apply.",
+      "modePolicy": "Plan when planning is requested or execution details are unresolved. A request to implement training code selects apply for code and bounded local checks; launching training requires the requested environment and resource limits. Do not treat implementation as permission to provision compute.",
       "requiredInputs": [
         "model/task, data/splits, objective, hardware, time/cost budget, and artifact destination. Explicit execution selects apply."
       ],
@@ -12143,6 +12288,21 @@
         {
           "when": "only weights were saved",
           "then": "Treat loading as initialization unless all required continuation state is available; label the run a restart rather than exact resume."
+        },
+        {
+          "when": "implementation is requested but a training run is not",
+          "then": "Write the pipeline and bounded checks without provisioning or launching a long job; report unmeasured model quality."
+        },
+        {
+          "when": "distributed training changes workers or accumulation boundaries",
+          "then": "Verify sampler/metric aggregation and checkpoint ownership; declare approximate continuation if exact state cannot be restored."
+        }
+      ],
+      "guides": [
+        {
+          "title": "Training scenarios",
+          "when": "Selecting classical, tensor or distributed/resumable methods",
+          "path": "references/scenarios/training.md"
         }
       ]
     },
@@ -16503,7 +16663,8 @@
       "procedure": [
         "Choose one primary role and at most two distinct complementary roles; read only their role references. Use task evidence, not a file extension alone.",
         "Explicit user selections are pinned for the current task by default. Agent selections are unpinned and cannot replace or clear a pinned user selection.",
-        "For auto, an explicit user request first clears the pin, then the agent selects with a concrete reason. Clear removes role emphasis; status reports the current selection without changing it."
+        "For auto, an explicit user request first clears the pin, then the agent selects with a concrete reason. Clear removes role emphasis; status reports the current selection without changing it.",
+        "A profile in project preferences is a candidate, not a pin or permission. Apply it only when it fits the current request and does not conflict with the user’s task selection."
       ],
       "outputs": [
         "Primary and secondary role IDs, selection source, task scope, pin state and short evidence-based reason.",
@@ -16561,6 +16722,13 @@
         {
           "when": "the agent discovers a new focus while a user selection is pinned",
           "then": "Retain the selection and apply required task checks without silently changing roles."
+        }
+      ],
+      "guides": [
+        {
+          "title": "Project continuity",
+          "when": "Saving requested preferences, decisions or a named continuation",
+          "path": "references/daily-workflows.md"
         }
       ]
     }

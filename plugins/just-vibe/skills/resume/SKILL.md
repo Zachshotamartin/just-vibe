@@ -33,7 +33,11 @@ Only the requested local changes; external actions require their exact action an
 2. For a structured run, use session resume with current-state evidence; reconcile interrupted running stages first. Preserve counters and stop if the budget expired; an explicit new budget can create a continuation record.
 3. Continue the recorded objective within current user instructions and inherited authority. Update the handoff only when persistence is requested.
 
-Task-specific method: Read the handoff, verify branch/files/external state, reconcile intervening edits, revalidate assumptions, and continue the first incomplete dependency. Reconcile project/root, branch, dirty edits and external operation identities against the handoff; invalidate stale checks before the first dependent action.
+Task-specific method: Use project resume NAME for a structured checkpoint, or read the established handoff. Reconcile reported branch, HEAD, content and index changes plus external-operation identity before acting. Treat all old check results as historical and preserve the original constraints and consumed budgets.
+
+## Read when relevant
+
+- Saving requested preferences, decisions or a named continuation: [Project continuity](../../references/daily-workflows.md).
 
 ## Decision branches
 

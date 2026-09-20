@@ -15,7 +15,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 ## Input and mode
 
-Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan; model/task, data/splits, objective, hardware, time/cost budget, and artifact destination. Explicit execution selects apply.
+Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan when planning is requested or execution details are unresolved. A request to implement training code selects apply for code and bounded local checks; launching training requires the requested environment and resource limits. Do not treat implementation as permission to provision compute.
 
 dataset/split manifests, fixed objective/metric, environment/dependencies, baseline where applicable, and explicit compute limits. Record code revision, configuration, seeds, artifact paths, and resource use. Local smoke checks do not imply authorization for paid training. Never optimize on the held-out test set.
 
@@ -32,9 +32,15 @@ None by default. Plan artifacts may be saved when requested.
 - Validate shapes and pipeline, run a small smoke test, record configuration/environment, train within bounds, checkpoint, and evaluate only the permitted validation protocol.
 - For resumable training inventory model, optimizer, scheduler, scaler when used, step, RNG and sampler/data position; checkpoint atomically and compare interrupted versus uninterrupted continuation under declared tolerances.
 
+## Read when relevant
+
+- Selecting classical, tensor or distributed/resumable methods: [Training scenarios](../../references/scenarios/training.md).
+
 ## Decision branches
 
 - **When only weights were saved:** Treat loading as initialization unless all required continuation state is available; label the run a restart rather than exact resume.
+- **When implementation is requested but a training run is not:** Write the pipeline and bounded checks without provisioning or launching a long job; report unmeasured model quality.
+- **When distributed training changes workers or accumulation boundaries:** Verify sampler/metric aggregation and checkpoint ownership; declare approximate continuation if exact state cannot be restored.
 
 ## Deliver and verify
 

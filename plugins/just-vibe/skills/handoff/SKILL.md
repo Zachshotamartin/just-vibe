@@ -33,6 +33,10 @@ None by default. Plan artifacts may be saved when requested.
 - Reconstruct the original goal and accepted decisions, separate proposed from completed work, and identify files or artifacts needed for the next step.
 - All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
 
+## Read when relevant
+
+- Saving requested preferences, decisions or a named continuation: [Project continuity](../../references/daily-workflows.md).
+
 ## Decision branches
 
 - **When external action outcome is uncertain:** Include its operation identity and reconciliation step rather than instructing a blind retry.

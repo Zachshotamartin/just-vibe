@@ -33,7 +33,11 @@ None by default. Plan artifacts may be saved when requested.
 2. Explain the best matching available workflow and give a prefilled invocation preserving the user constraints. If a candidate is unknown or blocked, name the precise missing task evidence or integration.
 3. If the user asks installation questions, use the installed setup skill or the bundled installer help. A help question is not permission to execute the recommended workflow.
 
-Task-specific method: Match intent, identify the best available workflow, explain required context and prerequisites, and provide a prefilled host-appropriate invocation. Resolve the user's intended outcome and preferred mode, compare nearby commands using their selection boundaries, and offer one primary invocation with preserved context.
+Task-specific method: Match intent, identify the best available workflow, explain required context and prerequisites, and provide a prefilled host-appropriate invocation. Resolve the user's intended outcome and preferred mode, compare nearby commands using their selection boundaries, and offer one primary invocation with preserved context. Start with a small relevant selection, not the full catalog. Use route reasons, detected stack, explicit workflow names and ambiguity; preserve negative constraints and separate relevance from prerequisite availability. Offer tools --all for the complete inventory.
+
+## Read when relevant
+
+- Browsing, routing or explaining the new utilities: [Discovery and daily utilities](../../references/daily-workflows.md).
 
 ## Decision branches
 
