@@ -11,6 +11,7 @@ import {
   within,
   git,
   repoIdentity,
+  sameDirectory,
   fileSet,
   writeState,
   same,
@@ -90,7 +91,7 @@ export function assertWorkspace(root, record, variant) {
     resolve(path, git(path, ["rev-parse", "--git-common-dir"]).trim()),
   );
   if (
-    actual !== common ||
+    !sameDirectory(actual, common) ||
     git(path, ["rev-parse", "HEAD"]).trim() !== record.base.repo.head
   )
     throw Error("Workspace identity or revision changed; inspect manually.");

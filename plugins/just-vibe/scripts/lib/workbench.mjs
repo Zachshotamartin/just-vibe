@@ -354,12 +354,25 @@ export function git(
     rmSync(hooks, { recursive: true, force: true });
   }
 }
+// Windows Git can report a different drive-letter case or an 8.3 alias.
+// Compare existing directories by filesystem identity, not path spelling.
+export function sameDirectory(a, b) {
+  const left = lstatSync(realpathSync(a), { bigint: true }),
+    right = lstatSync(realpathSync(b), { bigint: true });
+  return (
+    left.isDirectory() &&
+    right.isDirectory() &&
+    left.dev === right.dev &&
+    left.ino === right.ino &&
+    (left.ino !== 0n || realpathSync(a) === realpathSync(b))
+  );
+}
 export function repoIdentity(root) {
-  if (
-    realpathSync(git(root, ["rev-parse", "--show-toplevel"]).trim()) !==
-    projectRoot(root)
-  )
-    throw Error("Select the Git worktree root.");
+  const top = git(root, ["rev-parse", "--show-toplevel"]).trim();
+  if (!sameDirectory(top, projectRoot(root)))
+    throw Error(
+      `Select the Git worktree root: Git reported ${top}, selected ${projectRoot(root)}.`,
+    );
   return {
     head: git(root, ["rev-parse", "--verify", "HEAD"]).trim(),
     branch: git(root, ["symbolic-ref", "--quiet", "--short", "HEAD"], {
