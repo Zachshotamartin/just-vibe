@@ -1,11 +1,15 @@
 ---
 name: decision-adr
-description: "Write a decision record with alternatives and consequences"
+description: "Write a decision record with alternatives and consequences Use to record a proposed or adopted architectural decision; decide determines a recommendation first."
 ---
 
 # decision-adr
 
 Write a decision record with alternatives and consequences
+
+## Choose this workflow
+
+Use to record a proposed or adopted architectural decision; decide determines a recommendation first.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Decisions methods](../../references/packs/decisions.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Inspect existing ADR conventions, separate actual agreement from recommendation, capture rationale and tradeoffs, and link superseded decisions.
+- Follow existing numbering/status conventions; include context, alternatives, consequences and links to superseded records without rewriting history.
+
+## Decision branches
+
+- **When adoption is not confirmed:** Keep status proposed and distinguish the recommendation from actual agreement.
 
 ## Deliver and verify
 
 - ADR with context, decision, alternatives, consequences, status, and revisit triggers.
+- ADR text with status, rationale, consequences and supersession links where applicable.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Do not manufacture dates, participants, or consent. Save only in the requested or established documentation location.
 
-## Example request
+## Example requests
 
-Draft an ADR for the proposed shared identity service; keep status proposed.
+- **Normal (plan):** Draft an ADR for the proposed shared identity service; keep status proposed.
+- **edge (plan):** Write an ADR that supersedes an earlier database decision.
+- **blocked (inspect):** Draft an ADR without known meeting dates or approvers; do not invent them.

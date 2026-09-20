@@ -1,11 +1,15 @@
 ---
 name: vite-assets
-description: "Fix asset paths, public files, base paths, and deployment paths"
+description: "Fix asset paths, public files, base paths, and deployment paths Use for missing assets or wrong emitted URLs; vercel-routing handles platform rewrites."
 ---
 
 # vite-assets
 
 Fix asset paths, public files, base paths, and deployment paths
+
+## Choose this workflow
+
+Use for missing assets or wrong emitted URLs; vercel-routing handles platform rewrites.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Vite methods](../../references/packs/vite.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ Only the requested local changes; external actions require their exact action an
 ## Execute
 
 - Trace source-to-output paths, compare dev/build resolution, repair assumptions, and test root, nested, and configured subpath access.
+- Distinguish imported hashed assets, public directory files and runtime-generated paths; test the configured base plus nested client routes.
+
+## Decision branches
+
+- **When runtime concatenation prevents static asset discovery:** Use an explicit asset map or supported URL/import pattern appropriate to the installed version.
 
 ## Deliver and verify
 
 - Asset-path patch and production-build/browser verification.
+- Source-to-output mapping and root/subpath/nested-route results.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Do not hard-code a development origin or copy secret files into public output. Missing deployment evidence is stated separately.
 
-## Example request
+## Example requests
 
-Fix images that work locally but fail when hosted under a subpath.
+- **Normal (apply):** Fix images that work locally but fail when hosted under a subpath.
+- **edge (apply):** Fix images that work in dev but fail under a deployed subdirectory.
+- **blocked (inspect):** Inspect source paths without deployment access; separate build evidence from live serving.

@@ -2,7 +2,7 @@
 
 Tools, skills, and commands for coding agents.
 
-**v0.3 ships 212 workflow names plus setup** for Codex and Claude Code: focused skills for development, architecture, decisions, Git/GitHub, Vercel, Vite, React, UI, backend, APIs, databases, data, ML, LLMs, testing, security, and operations. Each has a procedure, scope, evidence requirements, verification, and stopping conditions.
+**v0.4 ships 213 skill names backed by 210 canonical workflows** for Codex and Claude Code: focused skills for development, architecture, decisions, Git/GitHub, Vercel, Vite, React, UI, backend, APIs, databases, data, ML, LLMs, testing, security, and operations. Each canonical workflow has selection guidance, scope, concrete decision branches, evidence requirements, outputs, verification, recovery conditions and three example requests. Applied methods live in 22 pack guides.
 
 The active coding agent executes the workflows with its available tools. The dependency-free Node.js utilities provide catalog search, project inspection, capability discovery, and bounded run-state validation. Installing just-vibe does not connect services, grant permissions, provision compute, or make every workflow's prerequisites available.
 
@@ -25,7 +25,7 @@ Keep the existing API. No new dependencies. Do not push.
 /just-vibe:ml-leakage prediction happens 30 days before cancellation; inspect only
 ```
 
-In Codex, select the corresponding skill from the **just-vibe** plugin in the skill picker and append the same brief. `do` aliases `auto`. `tools` browses availability; `help` explains which workflow fits a scenario. Inspect, plan, and apply modes preserve the user's constraints and existing authorization. Read the [full command reference](plugins/just-vibe/references/command-reference.md).
+In Codex, select the corresponding skill from the **just-vibe** plugin in the skill picker and append the same brief. `do` aliases `auto`, `responsive` aliases `ui-responsive`, and `a11y` aliases `ui-accessibility`; each inherits one canonical implementation. `tools` browses availability; `help` explains which workflow fits a scenario. Inspect, plan, and apply modes preserve the user's constraints and existing authorization. Read the [full command reference](plugins/just-vibe/references/command-reference.md).
 
 `teach` explains a standalone topic or the prerequisites behind a particular workflow. It adapts to your experience, uses worked examples, connects concepts to actual implementation where available, and offers optional practice. Teaching a tool does not execute it.
 
@@ -179,7 +179,7 @@ The default host test copies and installs the bundled payload. `--local` tests d
 
 Edit `plugins/just-vibe/catalog/commands.json` for command contracts and runtime procedures, `catalog/packs.json` for pack requirements, and `references/packs/` for operational guidance. Run `npm run build:skills` to regenerate skills, the command reference, and evaluation scenarios. `npm run validate` rejects drift. Neither generation nor the installed runtime depends on the ignored local plan.
 
-Every workflow has a realistic scenario and behavior rubric in [evals/scenarios.json](evals/scenarios.json). These are not claims that all 212 workflows have been run against live services or evaluated across models. See [evaluation guidance and isolated fixtures](evals/README.md) for behavioral assessment. External integration, model quality, browser and deployment checks require the relevant task environment.
+Every workflow has normal, edge and missing-evidence cases in [evals/scenarios.json](evals/scenarios.json). The [independent behavioral harness](evals/README.md) additionally prepares and grades 21 raw-artifact tasks, including code repairs and report judgments. Catalog structure, runtime utility coverage and observed agent behavior have separate validation fields. These are not claims that all commands have been run against live services or evaluated across models. See the [v0.4 observed results](evals/releases/0.4.0.md) and [evaluation guidance](evals/README.md) for the tested scope. External integration, model quality, browser and deployment checks require the relevant task environment.
 
 ### Repository layout
 
@@ -190,7 +190,7 @@ Every workflow has a realistic scenario and behavior rubric in [evals/scenarios.
 | `plugins/just-vibe/scripts/toolkit.mjs` | Search, inspection, discovery, routing candidates, run records, and quiz CLI |
 | `plugins/just-vibe/scripts/lib/` | Catalog, capability, project, run-state, and native quiz adapter modules |
 | `plugins/just-vibe/catalog/` | Canonical command contracts, examples, prerequisites and pack metadata |
-| `plugins/just-vibe/skills/` | 213 installed skill entry points, including the `do` alias and setup |
+| `plugins/just-vibe/skills/` | 213 installed names, including three canonical aliases and setup |
 | `plugins/just-vibe/references/` | Shared execution rules, runtime interface, domain guidance and command index |
 | `.agents/plugins/marketplace.json` | Codex marketplace |
 | `.claude-plugin/marketplace.json` | Claude Code marketplace |
@@ -215,3 +215,5 @@ Host formats evolve. When a JSON inventory format is unrecognized, the installer
 Licensed under [MIT](LICENSE), copyright 2026 Zachary Martin. Commercial use, modification and redistribution are allowed under the license terms. The license ships with the npm archive and installed plugin.
 
 [Release instructions](docs/releases.md) describe validation, the first npm publication, trusted publishing, versioning and recovery. [Changelog](CHANGELOG.md) records user-visible changes.
+
+Command authoring and alias maintenance follow the [command quality contract](docs/command-quality.md).

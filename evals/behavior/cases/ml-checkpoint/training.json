@@ -1,0 +1,16 @@
+{
+  "optimizer": "Adam",
+  "scheduler": "step-based",
+  "mixedPrecision": true,
+  "shuffle": true,
+  "checkpointBoundary": "mid-epoch",
+  "requiredState": [
+    "model",
+    "optimizer",
+    "scheduler",
+    "scaler",
+    "rng",
+    "samplerPosition",
+    "step"
+  ]
+}

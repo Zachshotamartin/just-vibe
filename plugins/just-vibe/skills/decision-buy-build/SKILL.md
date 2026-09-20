@@ -1,11 +1,15 @@
 ---
 name: decision-buy-build
-description: "Compare building, buying, and integrating a solution"
+description: "Compare building, buying, and integrating a solution Use for vendor versus internal capability decisions; research verifies current vendor claims."
 ---
 
 # decision-buy-build
 
 Compare building, buying, and integrating a solution
+
+## Choose this workflow
+
+Use for vendor versus internal capability decisions; research verifies current vendor claims.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Decisions methods](../../references/packs/decisions.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Compare fit, integration, maintenance, migration, service dependence, and total-cost assumptions; verify current vendor capabilities when relevant.
+- Compare integration, operations, staffing, exit/export and failure ownership over a stated usage horizon; include the current workaround.
+
+## Decision branches
+
+- **When a vendor lacks a hard requirement or usable export:** Exclude it or state the explicit compromise before calculating weighted convenience.
 
 ## Deliver and verify
 
 - Option comparison, recommendation, cost model inputs, and a validation/exit plan.
+- Fit/gap matrix, cost assumptions, ownership burden and exit plan.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - No purchases or account creation. Do not convert speculative usage into precise budget claims.
 
-## Example request
+## Example requests
 
-Compare building and buying organization authentication with future SSO.
+- **Normal (plan):** Compare building and buying organization authentication with future SSO.
+- **edge (plan):** Compare buying search with building it when private indexing is required.
+- **blocked (inspect):** Assess buy versus build with no price quote; keep uncertain costs as ranges.

@@ -1,11 +1,15 @@
 ---
 name: match
-description: "Compare an implementation against a visual reference and close gaps"
+description: "Compare an implementation against a visual reference and close gaps Use when a supplied visual reference is the acceptance target; design creates a direction when no exact target exists."
 ---
 
 # match
 
 Compare an implementation against a visual reference and close gaps
+
+## Choose this workflow
+
+Use when a supplied visual reference is the acceptance target; design creates a direction when no exact target exists.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [General methods](../../references/packs/general.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ Only the requested local changes; external actions require their exact action an
 ## Execute
 
 - Analyze reference geometry, compare an equivalent render, prioritize largest discrepancies, implement changes, and repeat bounded comparisons.
+- Match viewport, content and fonts before comparing geometry; adjust large layout discrepancies before decorative details and record legitimate responsive differences.
+
+## Decision branches
+
+- **When the reference omits a required state:** Preserve established interaction behavior and label the added state as an interpretation.
 
 ## Deliver and verify
 
 - Updated UI plus matched-state comparison and remaining differences.
+- Reference conditions, matched regions, remaining differences and responsive checks.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Missing fonts/assets are identified explicitly. Do not call a match pixel-perfect without a controlled comparison.
 
-## Example request
+## Example requests
 
-Match this supplied pricing-page reference at its captured viewport.
+- **Normal (apply):** Match this supplied pricing-page reference at its captured viewport.
+- **edge (apply):** Match this desktop reference while retaining a usable narrow layout.
+- **blocked (inspect):** Analyze a reference with unavailable brand assets; distinguish substitutes from exact matches.

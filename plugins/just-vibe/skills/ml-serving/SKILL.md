@@ -1,11 +1,15 @@
 ---
 name: ml-serving
-description: "Implement online inference with validation and observable errors"
+description: "Implement online inference with validation and observable errors Use to implement model service behavior; ml-rollout plans traffic transition."
 ---
 
 # ml-serving
 
 Implement online inference with validation and observable errors
+
+## Choose this workflow
+
+Use to implement model service behavior; ml-rollout plans traffic transition.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [ML deployment methods](../../references/packs/ml-deployment.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ Only the requested local changes; external actions require their exact action an
 ## Execute
 
 - Validate inputs, manage model lifecycle/readiness, enforce resource/time limits, map errors, add redacted observability, and test concurrent valid/invalid requests.
+- Define readiness for the correct artifact, input bounds, batching/concurrency and deadlines; validate shapes/types before inference and preserve version in responses/telemetry.
+
+## Decision branches
+
+- **When model loading fails or an incompatible schema arrives:** Fail readiness or return a typed request error without serving an unidentified fallback.
 
 ## Deliver and verify
 
 - Service, configuration, operational checks, and performance evidence if measured.
+- Serving contract, lifecycle, failure handling and concurrent valid/invalid checks.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - No live endpoint provisioning or model registry mutation implicitly. Do not log raw sensitive inference inputs by default.
 
-## Example request
+## Example requests
 
-Implement local inference with validation, readiness, and safe error handling.
+- **Normal (apply):** Implement local inference with validation, readiness, and safe error handling.
+- **edge (apply):** Serve a model with bounded batch size and a failed startup load.
+- **blocked (inspect):** Design serving code without provisioning an endpoint or logging raw sensitive inputs.

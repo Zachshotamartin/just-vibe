@@ -1,11 +1,15 @@
 ---
 name: ml-package
-description: "Package preprocessing, artifacts, dependencies, and interfaces"
+description: "Package preprocessing, artifacts, dependencies, and interfaces Use to create a reproducible inference artifact; ml-serving implements the serving boundary."
 ---
 
 # ml-package
 
 Package preprocessing, artifacts, dependencies, and interfaces
+
+## Choose this workflow
+
+Use to create a reproducible inference artifact; ml-serving implements the serving boundary.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [ML deployment methods](../../references/packs/ml-deployment.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ Only the requested local changes; external actions require their exact action an
 ## Execute
 
 - Verify artifact provenance, bundle preprocessing and schema, pin compatible dependencies, record versions/checksums, and run known-input smoke/parity checks.
+- Bundle preprocessing, feature order/schema, model identity, dependency constraints and known-input expectations; validate fresh-load parity in an isolated supported environment.
+
+## Decision branches
+
+- **When serialization may execute code and provenance is untrusted:** Inspect provenance and use a safe supported loading path or stop before loading.
 
 ## Deliver and verify
 
 - Package, manifest, loading instructions, and expected-output fixtures.
+- Artifact manifest, checksums, input/output schema and fresh-load fixture results.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Do not load untrusted executable serialization or bundle training data/secrets unnecessarily. Missing preprocessing prevents a complete package claim.
 
-## Example request
+## Example requests
 
-Package the model with preprocessing, schema, dependencies, and parity fixtures.
+- **Normal (apply):** Package the model with preprocessing, schema, dependencies, and parity fixtures.
+- **edge (apply):** Package a model whose categorical encoder and feature order were saved separately.
+- **blocked (inspect):** Inspect an artifact manifest without loading untrusted executable serialization.

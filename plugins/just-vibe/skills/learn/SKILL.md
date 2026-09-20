@@ -1,11 +1,15 @@
 ---
 name: learn
-description: "Extract a reusable lesson from completed work for review"
+description: "Extract a reusable lesson from completed work for review Use to extract a candidate reusable lesson from observed work; remember persists an authorized convention."
 ---
 
 # learn
 
 Extract a reusable lesson from completed work for review
+
+## Choose this workflow
+
+Use to extract a candidate reusable lesson from observed work; remember persists an authorized convention.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [General methods](../../references/packs/general.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Identify the actual cause and successful intervention, separate generalizable conditions from accidents, and test the lesson against a counterexample.
+- Link the failure trigger to the successful intervention and test a plausible exception; state when the lesson should not apply.
+
+## Decision branches
+
+- **When evidence comes from one transient incident:** Keep the lesson conditional and propose a validation case instead of a universal rule.
 
 ## Deliver and verify
 
 - Proposed lesson with trigger, action, evidence, exceptions, and suggested scope.
+- Trigger/action/evidence/exception record and suggested adoption scope.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Missing evidence limits the output to a hypothesis. Persist behavioral changes only when the user requests adoption.
 
-## Example request
+## Example requests
 
-Extract a scoped lesson from this retry incident for review, not adoption.
+- **Normal (plan):** Extract a scoped lesson from this retry incident for review, not adoption.
+- **edge (plan):** Extract a lesson from a flaky test caused by shared state.
+- **blocked (inspect):** Analyze a failed session with no verified fix; keep causes and lessons provisional.

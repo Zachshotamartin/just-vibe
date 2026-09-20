@@ -1,11 +1,15 @@
 ---
 name: git-commit
-description: "Prepare coherent commits with accurate messages and deliberate staging"
+description: "Prepare coherent commits with accurate messages and deliberate staging Use for an explicit bounded commit; git-split designs several coherent commits."
 ---
 
 # git-commit
 
 Prepare coherent commits with accurate messages and deliberate staging
+
+## Choose this workflow
+
+Use for an explicit bounded commit; git-split designs several coherent commits.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Git methods](../../references/packs/git.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ Only the requested local changes; external actions require their exact action an
 ## Execute
 
 - Inspect existing index and worktree, identify intended hunks, preserve unrelated staging, review the final staged diff, run relevant checks, and create an accurate message.
+- Snapshot the index diff and unrelated work, stage only selected hunks, inspect the entire resulting index and verify the created commit's actual contents.
+
+## Decision branches
+
+- **When unrelated changes are already staged:** Preserve their state and resolve commit membership before committing; do not silently include or unstage them.
 
 ## Deliver and verify
 
 - Commit hash, included scope, checks, and remaining changes.
+- Commit identity, included paths/hunks, checks and preserved unrelated work.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Resolve ambiguous pre-staged content before committing. Never disable hooks or change global identity to force success.
 
-## Example request
+## Example requests
 
-Commit only the verified checkout fix; preserve other staged and unstaged work.
+- **Normal (apply):** Commit only the verified checkout fix; preserve other staged and unstaged work.
+- **edge (apply):** Commit only the bug fix when the same file contains unrelated staged edits.
+- **blocked (inspect):** Inspect commit readiness with missing identity or a rejected hook; do not bypass either.

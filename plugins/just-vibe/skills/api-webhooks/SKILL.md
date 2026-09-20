@@ -1,11 +1,15 @@
 ---
 name: api-webhooks
-description: "Implement signatures, retries, replay handling, and delivery tracking"
+description: "Implement signatures, retries, replay handling, and delivery tracking Use for authenticated durable event receipt; backend-jobs handles deferred processing."
 ---
 
 # api-webhooks
 
 Implement signatures, retries, replay handling, and delivery tracking
+
+## Choose this workflow
+
+Use for authenticated durable event receipt; backend-jobs handles deferred processing.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [APIs methods](../../references/packs/api.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ Only the requested local changes; external actions require their exact action an
 ## Execute
 
 - Validate signatures against correct raw bytes, separate receipt from processing, implement durable deduplication, and test invalid, duplicate, delayed, and reordered messages.
+- Verify signatures using provider-specified raw bytes and time rules, persist receipt identity before acknowledgment and separate deduplication from business processing.
+
+## Decision branches
+
+- **When valid events arrive out of order or concurrently:** Apply version/ordering policy and durable effect deduplication rather than assuming arrival order.
 
 ## Deliver and verify
 
 - Webhook implementation, configuration names, and recovery/verification evidence.
+- Receipt/processing state machine and invalid, replayed, duplicate and reordered checks.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Never log signing secrets or send real business events without authorization. Provider uncertainty must be resolved before relying on delivery guarantees.
 
-## Example request
+## Example requests
 
-Implement signed webhook validation and durable duplicate handling in the sandbox.
+- **Normal (apply):** Implement signed webhook validation and durable duplicate handling in the sandbox.
+- **edge (apply):** Handle two concurrent copies of a signed payment event.
+- **blocked (inspect):** Review webhook handling without live signing keys or sending real business events.

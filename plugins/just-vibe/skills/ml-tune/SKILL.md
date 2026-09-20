@@ -1,11 +1,15 @@
 ---
 name: ml-tune
-description: "Design a bounded hyperparameter search with a fixed evaluation protocol"
+description: "Design a bounded hyperparameter search with a fixed evaluation protocol Use for a bounded search under a valid protocol; ml-ablation isolates component contribution."
 ---
 
 # ml-tune
 
 Design a bounded hyperparameter search with a fixed evaluation protocol
+
+## Choose this workflow
+
+Use for a bounded search under a valid protocol; ml-ablation isolates component contribution.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [ML experimentation methods](../../references/packs/ml-experiments.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Validate comparable trials, select search strategy, define pruning/failure behavior, log every trial, and choose by the predeclared validation criterion.
+- Freeze search space, split, objective, trial/resource caps and selection rule; keep failure/pruning records and compare candidates under equal evaluation conditions.
+
+## Decision branches
+
+- **When tuning repeatedly consults held-out test results:** Stop that selection loop and define fresh independent confirmation before reporting generalization.
 
 ## Deliver and verify
 
 - Search configuration, trial ledger, selected candidate, and cost/selection caveats.
+- Trial ledger, budgets consumed, selection rationale and untouched confirmation set.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Stop at any resource cap and preserve partial results. Do not enlarge the search merely because no improvement appears.
 
-## Example request
+## Example requests
 
-Plan at most 20 trials on validation PR-AUC; never tune on the test set.
+- **Normal (plan):** Plan at most 20 trials on validation PR-AUC; never tune on the test set.
+- **edge (plan):** Tune with failed trials and a strict GPU-hour cap.
+- **blocked (inspect):** Design tuning when compute is unavailable; do not fabricate winning hyperparameters.

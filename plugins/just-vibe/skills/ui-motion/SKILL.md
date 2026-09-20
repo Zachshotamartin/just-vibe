@@ -1,11 +1,15 @@
 ---
 name: ui-motion
-description: "Add purposeful transitions with reduced-motion behavior"
+description: "Add purposeful transitions with reduced-motion behavior Use for purposeful transitions and animation behavior; polish addresses static hierarchy and spacing."
 ---
 
 # ui-motion
 
 Add purposeful transitions with reduced-motion behavior
+
+## Choose this workflow
+
+Use for purposeful transitions and animation behavior; polish addresses static hierarchy and spacing.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [UI and frontend methods](../../references/packs/ui.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ Only the requested local changes; external actions require their exact action an
 ## Execute
 
 - Identify what motion communicates, select minimal properties/timing, implement cancellation and reduced-motion behavior, and inspect rapid/repeated interactions.
+- Define what state change motion communicates, implement interruption/cancellation and inspect repeated input plus reduced-motion preferences.
+
+## Decision branches
+
+- **When reduced motion removes information conveyed only by animation:** Supply a static equivalent while preserving action timing and feedback.
 
 ## Deliver and verify
 
 - Motion implementation and interaction/performance checks.
+- Motion/state purpose, interruption rules and normal/reduced-motion verification.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Avoid adding a large animation dependency for trivial effects. No motion should delay an essential action or conceal loading failures.
 
-## Example request
+## Example requests
 
-Add restrained disclosure transitions with reduced-motion support.
+- **Normal (apply):** Add restrained disclosure transitions with reduced-motion support.
+- **edge (apply):** Animate a drawer that users can rapidly open and close.
+- **blocked (inspect):** Review motion design without rendered timing evidence or installing an animation library.

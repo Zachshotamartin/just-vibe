@@ -1,11 +1,15 @@
 ---
 name: ops-runbook
-description: "Write operational procedures from verified commands and behavior"
+description: "Write operational procedures from verified commands and behavior Use to write an operational procedure; ops-incident executes a scoped response."
 ---
 
 # ops-runbook
 
 Write operational procedures from verified commands and behavior
+
+## Choose this workflow
+
+Use to write an operational procedure; ops-incident executes a scoped response.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Operations methods](../../references/packs/operations.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Inspect actual tooling/configuration, document prerequisites and target checks, order low-risk diagnostics first, mark destructive steps, and specify observable success/abort criteria.
+- Resolve actual environment/tool conventions, order diagnostics before mutation and give each action a target check, expected observation and abort/recovery path.
+
+## Decision branches
+
+- **When a command cannot be exercised safely:** Mark it unverified and state its prerequisites rather than presenting it as rehearsed.
 
 ## Deliver and verify
 
 - Runbook with exact contextualized commands, expected outcomes, escalation conditions, and recovery steps.
+- Runnable steps with target checks, expected outputs and escalation/recovery conditions.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Do not execute the incident procedure merely to write it. Mark commands not exercised in a safe environment as unverified.
 
-## Example request
+## Example requests
 
-Write a restore runbook with exact target checks and verification steps.
+- **Normal (plan):** Write a restore runbook with exact target checks and verification steps.
+- **edge (plan):** Write a runbook for restoring queue processing without replaying completed charges.
+- **blocked (inspect):** Draft a runbook without executing incident operations or fabricating terminal output.

@@ -35,7 +35,7 @@ test('teach supports both topic and workflow lessons without requiring external 
   const root = fixture(t);
   const command = getCommand(catalog, 'teach');
   assert.equal(command.defaultMode, 'inspect');
-  assert.equal(command.examples.length, 2);
+  assert.equal(command.examples.length, 3);
   assert.equal(command.examples[0].mode, 'inspect');
   assert.equal(command.examples[1].mode, 'inspect');
   assert.equal(searchCommands(catalog, 'teach linked lists')[0].command.id, 'teach');
@@ -169,4 +169,27 @@ test('CLI unknown commands return an error rather than attempting execution', as
   const errors = [];
   assert.equal(await main(['nonexistent'], { error: e => errors.push(e) }), 1);
   assert.match(errors[0], /Unknown utility/);
+});
+
+test('all aliases inherit full behavioral contracts and preserve invocation identity', t => {
+  const root = fixture(t);
+  for (const alias of catalog.commands.filter(c => c.aliasOf)) {
+    const target = getCommand(catalog, alias.id, { canonical: true });
+    for (const field of ['defaultMode', 'modePolicy', 'writeScope', 'readScope', 'procedure', 'runtimeSteps', 'branches', 'outputs', 'verification', 'stopConditions', 'capabilities', 'validation']) {
+      assert.deepEqual(alias[field], target[field], `${alias.id}.${field}`);
+      const changed = structuredClone(catalog);
+      changed.commands.find(c => c.id === alias.id)[field] = 'drift';
+      assert.throws(() => validateCatalog(changed, { schemaVersion: 1, packs: changed.packs }));
+    }
+    assert.equal(availability(catalog, alias, discoverCapabilities(root).capabilities).status, availability(catalog, target, discoverCapabilities(root).capabilities).status);
+  }
+});
+
+test('routing recommends each canonical UI workflow once even when aliases also match', t => {
+  const root = fixture(t), found = discoverCapabilities(root);
+  const route = recommend(catalog, found, 'responsive ui-responsive a11y ui-accessibility', { limit: 100 });
+  const candidates = [...route.available, ...route.unavailable];
+  assert.equal(new Set(candidates.map(c => c.id)).size, candidates.length);
+  assert.ok(!candidates.some(c => ['responsive', 'a11y'].includes(c.id)));
+  assert.ok(candidates.some(c => c.id === 'ui-responsive' && c.matchedNames.includes('responsive')));
 });

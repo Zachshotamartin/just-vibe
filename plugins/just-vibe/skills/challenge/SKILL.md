@@ -1,11 +1,15 @@
 ---
 name: challenge
-description: "Identify weak assumptions, complexity, and failure cases"
+description: "Identify weak assumptions, complexity, and failure cases Use to test a proposal's assumptions, not to manufacture objections; decision-premortem explores a future failure story."
 ---
 
 # challenge
 
 Identify weak assumptions, complexity, and failure cases
+
+## Choose this workflow
+
+Use to test a proposal's assumptions, not to manufacture objections; decision-premortem explores a future failure story.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [General methods](../../references/packs/general.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Identify critical assumptions, search for disconfirming evidence, construct plausible edge cases, and rank issues by impact and likelihood.
+- Extract falsifiable assumptions and seek counterexamples in current code, workload and constraints; distinguish observed defects from speculative risks.
+
+## Decision branches
+
+- **When an assumption survives the available evidence:** Keep it accepted provisionally and name evidence that would reverse the conclusion.
 
 ## Deliver and verify
 
 - Evidence-backed challenges, questions that matter, and smaller or more robust alternatives.
+- Ranked challenges with trigger, consequence, evidence and discriminating experiment.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Separate demonstrated flaws from speculative concerns. Do not demand certainty where a reversible experiment resolves the risk.
 
-## Example request
+## Example requests
 
-Challenge the assumption that every notification needs a separate service.
+- **Normal (inspect):** Challenge the assumption that every notification needs a separate service.
+- **edge (inspect):** Challenge a cache proposal whose stale data could affect authorization.
+- **blocked (inspect):** Challenge this proposal without traffic data; do not invent capacity limits.

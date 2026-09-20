@@ -1,11 +1,15 @@
 ---
 name: decision-spike
-description: "Design or run a bounded experiment to resolve uncertainty"
+description: "Design or run a bounded experiment to resolve uncertainty Use for a bounded experiment resolving a decision; build creates production behavior."
 ---
 
 # decision-spike
 
 Design or run a bounded experiment to resolve uncertainty
+
+## Choose this workflow
+
+Use for a bounded experiment resolving a decision; build creates production behavior.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Decisions methods](../../references/packs/decisions.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Choose the smallest discriminating test, define pass/fail before execution, isolate artifacts, run within budget when authorized, and interpret results.
+- Declare competing hypotheses and a rejecting observation before writing the smallest disposable prototype.
+
+## Decision branches
+
+- **When budget expires without separation:** Preserve measurements and report inconclusive, including what a larger experiment would need.
 
 ## Deliver and verify
 
 - Experiment protocol or results, reusable evidence, and decision implications.
+- Hypotheses, experiment, resource cap, observations and decision implication.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Paid resources require budget authorization. Keep prototype quality and production readiness clearly distinct.
 
-## Example request
+## Example requests
 
-Design a two-hour local spike to test whether our current search index is sufficient.
+- **Normal (plan):** Design a two-hour local spike to test whether our current search index is sufficient.
+- **edge (plan):** Test whether streaming reduces perceived latency without building the full product.
+- **blocked (inspect):** Design a spike without available hardware; do not fabricate benchmark results.

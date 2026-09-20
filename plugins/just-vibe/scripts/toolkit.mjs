@@ -4,7 +4,7 @@ import { isDirectRun } from './lib/entrypoint.mjs';
 import { loadCatalog, getCommand, skillFile, invocation, HOSTS, MODES } from './lib/catalog.mjs';
 import { inspectProject } from './lib/project.mjs';
 import { discoverCapabilities, readCapabilityReport, listTools, recommend } from './lib/discovery.mjs';
-import { createRun, startStage, recordStage, finishRun, resumeRun } from './lib/run.mjs';
+import { createRun, startStage, recordStage, finishRun, resumeRun, amendStage, supersedeStage } from './lib/run.mjs';
 import { createQuiz, presentQuestion, answerQuestion, reviewFreeText, quizReport } from './lib/teaching.mjs';
 import { main as installerMain, HELP as INSTALLER_HELP } from './installer.mjs';
 
@@ -151,7 +151,9 @@ export async function main(args, { log = console.log, error = console.error, inp
       else if (op === 'start') {
         const found = discoverCapabilities(payload.run.root, { report: payload.capabilityReport });
         result = startStage(data, payload.run, payload.stage, found.capabilities, options.target);
-      } else if (op === 'record') result = recordStage(payload.run, payload.outcome);
+      } else if (op === 'amend') result = amendStage(payload.run, payload.action);
+      else if (op === 'supersede') result = supersedeStage(payload.run, payload.resolution);
+      else if (op === 'record') result = recordStage(payload.run, payload.outcome);
       else if (op === 'finish') result = finishRun(payload.run, payload.outcome);
       else if (op === 'resume') result = resumeRun(payload.run, payload.observation);
       else throw new Error(`Unknown session operation: ${op}`);

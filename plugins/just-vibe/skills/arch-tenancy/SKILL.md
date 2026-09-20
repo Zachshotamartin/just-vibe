@@ -1,11 +1,15 @@
 ---
 name: arch-tenancy
-description: "Evaluate tenant isolation across authentication, storage, queries, and jobs"
+description: "Evaluate tenant isolation across authentication, storage, queries, and jobs Use for system-wide tenant isolation; backend-permissions handles individual application checks."
 ---
 
 # arch-tenancy
 
 Evaluate tenant isolation across authentication, storage, queries, and jobs
+
+## Choose this workflow
+
+Use for system-wide tenant isolation; backend-permissions handles individual application checks.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Architecture methods](../../references/packs/architecture.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Map tenant ownership, follow identity through every boundary, inspect membership changes and shared resources, and identify missing isolation checks.
+- Follow tenant identity through API, database role, cache key, queue payload, file storage and support/admin paths.
+
+## Decision branches
+
+- **When an identity belongs to several organizations:** Separate membership from selected-tenant authorization at each effect boundary.
 
 ## Deliver and verify
 
 - Isolation map, risk findings, and proposed negative tests or migration design.
+- Resource ownership and propagation matrix with concrete bypass candidates.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Do not use real cross-tenant data for probing. Policy ambiguity must be resolved before implementing access changes.
 
-## Example request
+## Example requests
 
-Audit organization isolation across caches, jobs, APIs, and exports.
+- **Normal (inspect):** Audit organization isolation across caches, jobs, APIs, and exports.
+- **edge (inspect):** Review multi-organization users and background exports.
+- **blocked (inspect):** Inspect tenancy without authorized test identities; use source and synthetic fixtures only.

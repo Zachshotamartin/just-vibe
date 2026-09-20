@@ -1,11 +1,15 @@
 ---
 name: trace
-description: "Follow a request, event, or data value through the system"
+description: "Follow a request, event, or data value through the system Use to follow one execution or data path across boundaries; map shows topology without reconstructing a particular flow."
 ---
 
 # trace
 
 Follow a request, event, or data value through the system
+
+## Choose this workflow
+
+Use to follow one execution or data path across boundaries; map shows topology without reconstructing a particular flow.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [General methods](../../references/packs/general.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Identify the entry point, follow transformations and dispatches, correlate available IDs, and mark async boundaries and missing spans.
+- Start from an identified input or correlation ID; record each hop's input, output, identity propagation and synchronous or asynchronous transition.
+
+## Decision branches
+
+- **When a queue or external service has no downstream evidence:** End the confirmed trace at that boundary and list the exact log or source needed to continue.
 
 ## Deliver and verify
 
 - Ordered path with source/telemetry evidence, transformations, failure branches, and gaps.
+- Hop table with ordering, payload transformations, evidence and gaps.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Do not scan unrelated tenant data or infer causation from timestamp proximity alone.
 
-## Example request
+## Example requests
 
-Trace an order from the checkout route through the payment job.
+- **Normal (inspect):** Trace an order from the checkout route through the payment job.
+- **edge (inspect):** Trace a checkout request through a queued email and a failed payment callback.
+- **blocked (inspect):** Trace only these supplied logs; downstream worker logs are unavailable.

@@ -1,0 +1,196 @@
+{
+  "schemaVersion": 1,
+  "cases": {
+    "checkout": {
+      "expected": {},
+      "code": "checkout"
+    },
+    "github-pr": {
+      "expected": {
+        "existingPr": 19,
+        "headSha": "bbb",
+        "createNeeded": false,
+        "unsubmittedLocalFiles": [
+          "draft.txt"
+        ]
+      },
+      "code": null
+    },
+    "vercel-env": {
+      "expected": {
+        "missingPreviewNames": [
+          "DATABASE_URL"
+        ],
+        "clientExposedSensitiveNames": [
+          "VITE_ADMIN_SECRET"
+        ],
+        "currentDeploymentHasNewValues": false
+      },
+      "code": null
+    },
+    "vite-assets": {
+      "expected": {
+        "deployedPrefix": "/console/",
+        "brokenRequestedPath": "/logo.svg",
+        "expectedAssetPath": "/console/logo.svg",
+        "browserVerified": false
+      },
+      "code": null
+    },
+    "react-race": {
+      "expected": {},
+      "code": "react-race"
+    },
+    "ui-accessibility": {
+      "expected": {
+        "keyboardEscapeWorks": true,
+        "focusReturnsToTrigger": false,
+        "screenReaderVerified": false,
+        "automatedScanProvesConformance": false
+      },
+      "code": null
+    },
+    "idempotency": {
+      "expected": {
+        "durableAcrossProcesses": false
+      },
+      "code": "idempotency"
+    },
+    "db-migrate": {
+      "expected": {
+        "transactionCompatible": false,
+        "readyToApply": false,
+        "existingIndexProvesReady": false
+      },
+      "code": null
+    },
+    "db-query": {
+      "expected": {
+        "correctTotal": 100,
+        "naiveJoinedTotal": 600,
+        "joinInflatesRevenue": true
+      },
+      "code": null
+    },
+    "data-reconcile": {
+      "expected": {
+        "missingIds": [
+          "c"
+        ],
+        "unexpectedIds": [
+          "d"
+        ],
+        "changedIds": [
+          "b"
+        ],
+        "equalCountsProveParity": false
+      },
+      "code": null
+    },
+    "ml-split": {
+      "expected": {
+        "randomRowSplitSupportsFutureClaim": false,
+        "holdingOutEntitiesAnswersSameQuestion": false,
+        "universalGapHours": null
+      },
+      "code": null
+    },
+    "ml-leakage": {
+      "expected": {
+        "futureFeatureConfirmed": true,
+        "sharedOutcomeEventConfirmed": false,
+        "mandatoryGapHours": null,
+        "preprocessingLeakageConfirmed": false,
+        "missingLabelsAreNegative": false
+      },
+      "code": null
+    },
+    "ml-checkpoint": {
+      "expected": {
+        "exactResumeEstablished": false,
+        "missingRequiredState": [
+          "optimizer",
+          "scheduler",
+          "scaler",
+          "rng",
+          "samplerPosition"
+        ],
+        "safeClaim": "restart-or-approximate"
+      },
+      "code": null
+    },
+    "ml-evaluate": {
+      "expected": {
+        "tp": 1,
+        "tn": 0,
+        "fp": 1,
+        "fn": 0,
+        "missingPredictionIds": [
+          "c"
+        ],
+        "unknownLabelIds": [
+          "d"
+        ],
+        "scoredCount": 2
+      },
+      "code": null
+    },
+    "ml-parity": {
+      "expected": {
+        "sameModel": true,
+        "firstDivergence": "feature-order",
+        "pureNumericalToleranceIssue": false
+      },
+      "code": null
+    },
+    "rag-boundary": {
+      "expected": {
+        "refundDays": 14,
+        "citationId": "a-current",
+        "instructionFromDocumentFollowed": false,
+        "unsupportedQuestionAnswer": "unknown"
+      },
+      "code": null
+    },
+    "regression-test": {
+      "expected": {},
+      "code": "regression-test"
+    },
+    "authz": {
+      "expected": {},
+      "code": "authz"
+    },
+    "ops-logs": {
+      "expected": {
+        "eventOrder": [
+          "request",
+          "deployed",
+          "timeout"
+        ],
+        "deploymentProvenRootCause": false,
+        "missingWorkerLogProvesNoWork": false
+      },
+      "code": null
+    },
+    "arch-events": {
+      "expected": {
+        "lostEventPossible": true,
+        "duplicateEffectPossible": true,
+        "exactlyOnceEstablished": false
+      },
+      "code": null
+    },
+    "decision-matrix": {
+      "expected": {
+        "feasibleOptions": [
+          "B"
+        ],
+        "unknownOptions": [
+          "C"
+        ],
+        "recommendedOption": "B"
+      },
+      "code": null
+    }
+  }
+}

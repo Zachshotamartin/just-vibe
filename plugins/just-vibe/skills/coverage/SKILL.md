@@ -1,11 +1,15 @@
 ---
 name: coverage
-description: "Identify important untested behaviors and prioritize them"
+description: "Identify important untested behaviors and prioritize them Use to prioritize missing behavioral checks; test implements the selected cases."
 ---
 
 # coverage
 
 Identify important untested behaviors and prioritize them
+
+## Choose this workflow
+
+Use to prioritize missing behavioral checks; test implements the selected cases.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [General methods](../../references/packs/general.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Map requirements and failure paths to tests, inspect assertions rather than names, and rank gaps by consequence and likelihood.
+- Trace important failure and recovery paths to actual assertions; look for tests that pass when the requirement is deliberately violated.
+
+## Decision branches
+
+- **When line coverage is high but assertions ignore the effect:** Prioritize the missing invariant over increasing the percentage.
 
 ## Deliver and verify
 
 - Prioritized test opportunities with suggested layer, setup, and expected assertion.
+- Ranked gap table with consequence, setup, layer and expected assertion.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Distinguish measured coverage from inferred coverage. Running new coverage jobs requires execution authorization.
 
-## Example request
+## Example requests
 
-Identify the highest-risk untested billing behaviors from existing tests.
+- **Normal (inspect):** Identify the highest-risk untested billing behaviors from existing tests.
+- **edge (inspect):** Audit coverage of failed checkout retries despite 95 percent line coverage.
+- **blocked (inspect):** Inspect test sources without a coverage report; avoid claiming measured percentages.

@@ -1,11 +1,15 @@
 ---
 name: vite-upgrade
-description: "Upgrade Vite and plugins with compatibility and build checks"
+description: "Upgrade Vite and plugins with compatibility and build checks Use for a requested Vite version transition; deps handles general dependency selection."
 ---
 
 # vite-upgrade
 
 Upgrade Vite and plugins with compatibility and build checks
+
+## Choose this workflow
+
+Use for a requested Vite version transition; deps handles general dependency selection.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Vite methods](../../references/packs/vite.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ Only the requested local changes; external actions require their exact action an
 ## Execute
 
 - Read relevant migration notes, inspect plugin and Node compatibility, update controlled dependencies/lockfile, adjust deprecated behavior, and test development plus production build.
+- Check target migration notes and framework-plugin/Node compatibility, update only the required graph and compare dev refresh, production output and preview behavior.
+
+## Decision branches
+
+- **When a required plugin has no compatible version:** Stop at that compatibility boundary and propose a supported intermediate target.
 
 ## Deliver and verify
 
 - Upgrade patch, compatibility rationale, checks, and rollback steps.
+- Version/peer matrix, configuration changes and dev/build/runtime checks.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - No unrelated major upgrades. If a required peer is unsupported, stop before presenting a broken combination as complete.
 
-## Example request
+## Example requests
 
-Upgrade to the specified Vite version and verify framework-plugin compatibility.
+- **Normal (apply):** Upgrade to the specified Vite version and verify framework-plugin compatibility.
+- **edge (apply):** Upgrade Vite while retaining an older framework plugin until a supported replacement exists.
+- **blocked (inspect):** Plan an upgrade with unavailable release-note access; do not guess removed options.

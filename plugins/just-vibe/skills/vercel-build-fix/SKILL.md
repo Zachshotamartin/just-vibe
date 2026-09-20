@@ -1,11 +1,15 @@
 ---
 name: vercel-build-fix
-description: "Reproduce and repair failed deployment builds"
+description: "Reproduce and repair failed deployment builds Use for a failed Vercel build; vite-bundle handles size and splitting of a successful build."
 ---
 
 # vercel-build-fix
 
 Reproduce and repair failed deployment builds
+
+## Choose this workflow
+
+Use for a failed Vercel build; vite-bundle handles size and splitting of a successful build.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Vercel methods](../../references/packs/vercel.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ Only the requested local changes; external actions require their exact action an
 ## Execute
 
 - Locate the causal error, compare runtime/package manager/env-name differences, reproduce in a controlled local build, patch, and verify the affected build path.
+- Match the log's exact revision and working directory, locate the first causal error and compare Node/package-manager, dependency installation and environment names.
+
+## Decision branches
+
+- **When local build succeeds but deployment fails:** Reproduce the specific environment difference before changing application code or adding dependencies.
 
 ## Deliver and verify
 
 - Fix, root-cause explanation, local check results, and deployment verification if authorized.
+- Causal build boundary, environment comparison, patch and reproduction outcome.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Do not deploy or alter production settings merely to test. Inaccessible logs limit the diagnosis explicitly.
 
-## Example request
+## Example requests
 
-Repair the preview build failure using the supplied deployment logs.
+- **Normal (apply):** Repair the preview build failure using the supplied deployment logs.
+- **edge (apply):** Fix a deployment where an omitted runtime dependency exists only through workspace hoisting.
+- **blocked (inspect):** Diagnose from a build log without a valid Vercel token; do not deploy to test.

@@ -1,11 +1,15 @@
 ---
 name: arch-map
-description: "Map services, packages, data stores, external dependencies, and relationships"
+description: "Map services, packages, data stores, external dependencies, and relationships Use for deployed service/store topology; map covers repository modules."
 ---
 
 # arch-map
 
 Map services, packages, data stores, external dependencies, and relationships
+
+## Choose this workflow
+
+Use for deployed service/store topology; map covers repository modules.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Architecture methods](../../references/packs/architecture.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Reconcile source, deployment configuration, and documentation; identify ownership and protocols; trace a representative request and background process; label inferred edges.
+- Trace one request and one background operation, marking process, network, ownership and trust boundaries independently.
+
+## Decision branches
+
+- **When documentation disagrees with deployment configuration:** Show both claims with evidence dates and leave live topology unconfirmed without observations.
 
 ## Deliver and verify
 
 - System diagram, component inventory, data/control flows, and evidence gaps.
+- Nodes/edges with protocol, owner, data classification and evidence confidence.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Do not describe a static diagram as proof of live topology. Missing infrastructure access limits deployment conclusions.
 
-## Example request
+## Example requests
 
-Map our web app, workers, shared database, and external payment service.
+- **Normal (inspect):** Map our web app, workers, shared database, and external payment service.
+- **edge (inspect):** Map two services sharing a database but no source imports.
+- **blocked (inspect):** Map supplied manifests without infrastructure access; distinguish intended from observed deployment.

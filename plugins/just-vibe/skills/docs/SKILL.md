@@ -1,11 +1,15 @@
 ---
 name: docs
-description: "Create or update documentation from verified behavior"
+description: "Create or update documentation from verified behavior Use to maintain source-backed usage documentation; teach explains concepts interactively."
 ---
 
 # docs
 
 Create or update documentation from verified behavior
+
+## Choose this workflow
+
+Use to maintain source-backed usage documentation; teach explains concepts interactively.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [General methods](../../references/packs/general.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ Only the requested local changes; external actions require their exact action an
 ## Execute
 
 - Inspect implementation and examples, update explanations and links, keep terminology consistent, and verify executable examples where authorized.
+- Check documented commands, defaults and examples against current implementation; edit source documents rather than generated copies.
+
+## Decision branches
+
+- **When examples need credentials or destructive execution:** Validate syntax or a controlled substitute and label the live example unexercised.
 
 ## Deliver and verify
 
 - Updated documentation and evidence for examples or clear unverified labels.
+- Updated topics, verified examples, compatibility scope and unverified instructions.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Exclude secrets and private data. Flag ambiguous product policy instead of filling it with plausible prose.
 
-## Example request
+## Example requests
 
-Update setup instructions to match the scripts that exist today.
+- **Normal (apply):** Update setup instructions to match the scripts that exist today.
+- **edge (apply):** Update docs after a flag was renamed while preserving migration guidance.
+- **blocked (inspect):** Audit documentation against source with no service credentials.

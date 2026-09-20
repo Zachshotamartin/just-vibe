@@ -1,11 +1,15 @@
 ---
 name: arch-feature
-description: "Design where a feature belongs within the existing architecture"
+description: "Design where a feature belongs within the existing architecture Use to place an accepted feature within a system; spec resolves unclear product behavior."
 ---
 
 # arch-feature
 
 Design where a feature belongs within the existing architecture
+
+## Choose this workflow
+
+Use to place an accepted feature within a system; spec resolves unclear product behavior.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Architecture methods](../../references/packs/architecture.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Trace similar features, assign responsibilities, define seams and contracts, compare reuse with new components, and plan an incremental delivery path.
+- Map each acceptance condition to an existing owner and interface; compare extending a boundary with introducing a new one under actual operational constraints.
+
+## Decision branches
+
+- **When the feature spans two data owners:** Define consistency and failure semantics before selecting synchronous calls or events.
 
 ## Deliver and verify
 
 - Component-level design, affected interfaces, data flow, migration needs, and verification plan.
+- Responsibility table, interface changes, compatibility phases and end-to-end checks.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Do not introduce a service or datastore solely for stylistic separation. Flag decisions requiring workload or ownership information.
 
-## Example request
+## Example requests
 
-Design where organization invitations fit in the existing architecture.
+- **Normal (plan):** Design where organization invitations fit in the existing architecture.
+- **edge (plan):** Design a feature that updates billing and access without a distributed transaction.
+- **blocked (inspect):** Plan placement while an external consumer contract is unavailable.

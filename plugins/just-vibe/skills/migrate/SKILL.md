@@ -1,11 +1,15 @@
 ---
 name: migrate
-description: "Plan and apply a version, schema, or implementation migration"
+description: "Plan and apply a version, schema, or implementation migration Use for coordinated version or platform transitions; db-migrate handles database-specific mechanics."
 ---
 
 # migrate
 
 Plan and apply a version, schema, or implementation migration
+
+## Choose this workflow
+
+Use for coordinated version or platform transitions; db-migrate handles database-specific mechanics.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [General methods](../../references/packs/general.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Inventory dependents, read version-specific changes, design transitional compatibility, prepare edits/checks, and define recovery before execution.
+- Inventory old/new consumers and persisted formats; identify the last reversible point and validate coexistence before removing compatibility code.
+
+## Decision branches
+
+- **When the target rejects an old persisted format:** Add an explicit conversion and recovery path before changing readers.
 
 ## Deliver and verify
 
 - Migration sequence or authorized patch, compatibility matrix, verification, and recovery limitations.
+- Compatibility matrix, ordered transitions, recovery point and verified/unverified stages.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Irreversible data loss, unsupported targets, or ambiguous production scope must be resolved before dependent mutations.
 
-## Example request
+## Example requests
 
-Plan upgrading the job library while old workers remain active.
+- **Normal (plan):** Plan upgrading the job library while old workers remain active.
+- **edge (plan):** Migrate a library while older workers continue reading stored jobs.
+- **blocked (inspect):** Plan a migration with missing legacy fixtures; identify the compatibility evidence still needed.

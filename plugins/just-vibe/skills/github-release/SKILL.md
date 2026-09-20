@@ -1,11 +1,15 @@
 ---
 name: github-release
-description: "Prepare a release from merged changes, tags, and issues"
+description: "Prepare a release from merged changes, tags, and issues Use for an explicitly scoped GitHub release; release drafts notes and readiness criteria."
 ---
 
 # github-release
 
 Prepare a release from merged changes, tags, and issues
+
+## Choose this workflow
+
+Use for an explicitly scoped GitHub release; release drafts notes and readiness criteria.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [GitHub methods](../../references/packs/github.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Verify commit range and existing releases, compile notes, inspect compatibility/checks, validate asset identities, and execute authorized publication once.
+- Resolve tag and commit immutably, verify asset hashes and existing release state, and reconcile partial uploads before publication or retry.
+
+## Decision branches
+
+- **When the tag exists at a different commit or asset name has different content:** Stop and report the conflict rather than replacing published identity.
 
 ## Deliver and verify
 
 - Release draft or verified URL/tag/assets, with readiness and migration notes.
+- Tag/SHA, release state, asset names/hashes and observed publication result.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Do not overwrite tags or publish missing/unchecked binaries. On partial failure, report which assets or release state already exist.
 
-## Example request
+## Example requests
 
-Prepare a release from the specified refs; do not create a tag or publish.
+- **Normal (plan):** Prepare a release from the specified refs; do not create a tag or publish.
+- **edge (plan):** Resume a release after one of three assets uploaded successfully.
+- **blocked (inspect):** Prepare a release with missing verified binaries; do not publish placeholders.

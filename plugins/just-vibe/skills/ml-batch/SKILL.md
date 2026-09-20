@@ -1,11 +1,15 @@
 ---
 name: ml-batch
-description: "Build resumable batch inference and output tracking"
+description: "Build resumable batch inference and output tracking Use for resumable batch inference; ml-serving handles request/response service behavior."
 ---
 
 # ml-batch
 
 Build resumable batch inference and output tracking
+
+## Choose this workflow
+
+Use for resumable batch inference; ml-serving handles request/response service behavior.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [ML deployment methods](../../references/packs/ml-deployment.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ Only the requested local changes; external actions require their exact action an
 ## Execute
 
 - Validate schemas, create stable row/partition identities, implement checkpointed writes, track failures and model versions, and test resume/replay on controlled input.
+- Freeze model and input snapshot identity, partition by stable keys, stage outputs and commit a manifest/checkpoint only after durable complete partitions.
+
+## Decision branches
+
+- **When a restart finds partial output or a different model version:** Reconcile or isolate it before resuming; never silently mix incompatible predictions.
 
 ## Deliver and verify
 
 - Batch job, progress/output manifest, error policy, and resume evidence.
+- Partition/model manifest, failure counts, output reconciliation and resume steps.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - No unbounded full-dataset inference. Do not mix predictions from incompatible model versions in one unlabeled output.
 
-## Example request
+## Example requests
 
-Implement resumable batch inference with stable output keys and model-version tracking.
+- **Normal (apply):** Implement resumable batch inference with stable output keys and model-version tracking.
+- **edge (apply):** Resume inference after output writes succeeded but checkpointing failed.
+- **blocked (inspect):** Plan batch prediction without scanning the full dataset or launching unbounded compute.

@@ -1,11 +1,15 @@
 ---
 name: ops-incident
-description: "Organize symptoms, evidence, impact, hypotheses, and immediate actions"
+description: "Organize symptoms, evidence, impact, hypotheses, and immediate actions Use for current operational triage; ops-postmortem reconstructs the completed incident."
 ---
 
 # ops-incident
 
 Organize symptoms, evidence, impact, hypotheses, and immediate actions
+
+## Choose this workflow
+
+Use for current operational triage; ops-postmortem reconstructs the completed incident.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Operations methods](../../references/packs/operations.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Establish impact and timeline, separate facts from hypotheses, inspect recent changes and dependencies, prioritize reversible mitigations, and track action/evidence state.
+- Establish impact, time window, affected revision and current changes; keep a timestamped fact/hypothesis/action ledger and prefer reversible mitigations within scope.
+
+## Decision branches
+
+- **When an intervention may erase evidence or duplicate effects:** Capture relevant state and define its observation/abort condition before acting.
 
 ## Deliver and verify
 
 - Current incident brief, supported hypotheses, next diagnostic steps, and mitigation options.
+- Impact/timeline, supported hypotheses, mitigation options and observed recovery.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - No unrequested restarts, failovers, or customer messages. Preserve evidence before interventions that may erase it.
 
-## Example request
+## Example requests
 
-Organize this incident's impact, timeline, and next diagnostic actions without restarting services.
+- **Normal (inspect):** Organize this incident's impact, timeline, and next diagnostic actions without restarting services.
+- **edge (inspect):** Triage rising errors after a deployment with an unrelated provider incident.
+- **blocked (inspect):** Inspect supplied incident evidence without restarting services or sending customer messages.

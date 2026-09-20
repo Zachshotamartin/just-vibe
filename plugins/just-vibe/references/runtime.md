@@ -32,6 +32,8 @@ Statuses: `available`, `missing`, `disabled`, `unknown`. Reported availability i
 |---|---|---|
 | `create` | `command`, `brief`, `root`, optional `mode`, `scope`, `context`, `budget` | Initial run record |
 | `start` | `run`, `stage`, optional `capabilityReport` | A running stage after availability, mode, target and budget checks |
+| `amend` | `run`, `action` | Additional checked action on a running attempt; retains history and counters |
+| `supersede` | `run`, `resolution` | Link a failed/blocked stage to completed alternatives with matching criteria |
 | `record` | `run`, `outcome` | Stage evidence and terminal result |
 | `finish` | `run`, `outcome` | Terminal run result after completion checks |
 | `resume` | `run`, `observation` | Revalidated continuation retaining consumed limits |
@@ -44,9 +46,19 @@ Statuses: `available`, `missing`, `disabled`, `unknown`. Reported availability i
 
 Plan artifact/external/destructive/paid effects require a matching `context.authorization` record with `effect`, exact `target`, exact `action`, and `basis` quoting/summarizing the user's actual authorization. This is bookkeeping supplied by the agent, not an authorization token. Do not invent a grant to make validation pass.
 
-A stage `outcome` includes `id`, `status`, `summary`, `evidence`, and `criteria`. Run outcomes omit `id`. An evidence item has `reference`, `detail`, and `result` (`pass`, `fail`, `unverified`). A criterion has `criterion`, `result`, and `evidence` (zero-based indices). Every passing criterion must link to passing evidence. Completion requires verified criteria, no unfinished stages, and coverage of all original success criteria. Failed attempts remain in history even after a successful correction.
+A stage `outcome` includes `id`, `status`, `summary`, `evidence`, and `criteria`. Run outcomes omit `id`. An evidence item has `reference`, `detail`, and `result` (`pass`, `fail`, `unverified`). A criterion has `criterion`, `result`, and `evidence` (zero-based indices). Every passing criterion must link to passing evidence. Completion requires verified criteria, completed or explicitly superseded stages, and coverage of all original success criteria. Failed attempts remain in history after a successful correction or verified alternative.
 
 `observation` for resume contains the original `root`, a current-state `summary`, and nonempty `evidence`. Reconcile any running/interrupted action before resuming. Completed/cancelled runs cannot silently restart. Expired budgets require an explicitly authorized continuation with prior evidence; they do not refresh on resume.
+
+## Additional actions and alternative routes
+
+For amend, action contains the running stage id, an action description, exact target, and an effects array. Every listed effect is checked before execution; a paid remote operation needs both external-write and paid. The original attempt and prior actions remain recorded. Amend does not add permissions, change mode/scope, start another attempt, or renew budgets. If the user grants a new action during the session, preserve that actual grant in context.authorization before checking it.
+
+For supersede, resolution contains the failed/blocked stage id, nonempty replacements (completed stage IDs), reason, and passing evidence/criteria. Replacement results must cover the original stage's recorded criteria and the resolution's criteria by name. If the failed attempt had external, destructive or paid effects, also provide effectReconciliation with reference, detail and result: "pass" showing that the uncertain effect was reconciled. Do not substitute a local check for a still-required live outcome.
+
+Running, cancelled, completed and already superseded stages cannot be superseded. Completed alternatives cannot be superseded, preventing replacement chains/cycles. All original run success criteria must still pass. Preserve attempts, consumed stages and elapsed time.
+
+Example: stage A cannot obtain a local configuration through one inspection method. Stage B reads the authoritative configuration through another method and verifies the same criterion. Record B as completed, then supersede A referencing B with the shared criterion and evidence. This is different from abandoning a required outcome: a local build cannot supersede a required live deployment health check.
 
 ## Host mapping
 

@@ -1,11 +1,15 @@
 ---
 name: react-async
-description: "Fix loading races, cancellation, stale responses, and async behavior"
+description: "Fix loading races, cancellation, stale responses, and async behavior Use for request races, optimistic updates and async states; react-effects handles general lifecycle synchronization."
 ---
 
 # react-async
 
 Fix loading races, cancellation, stale responses, and async behavior
+
+## Choose this workflow
+
+Use for request races, optimistic updates and async states; react-effects handles general lifecycle synchronization.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [React methods](../../references/packs/react.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ Only the requested local changes; external actions require their exact action an
 ## Execute
 
 - Trace request identity and state updates, reproduce reversed completion order, define stale-result rules, implement cleanup/recovery, and verify navigation/unmount cases.
+- Assign request identity to the selected resource, control completion order in a fixture and define how optimistic state reconciles with concurrent responses.
+
+## Decision branches
+
+- **When cancellation arrives after the server applied a write:** Reconcile authoritative state rather than assuming the business effect was undone.
 
 ## Deliver and verify
 
 - Async behavior repair with deterministic race tests.
+- Request/state transitions, stale-result rule and reversed-completion checks.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Do not assume cancellation undoes server effects. Preserve the existing fetching library unless replacement is explicitly justified in scope.
 
-## Example request
+## Example requests
 
-Fix out-of-order search responses overwriting newer results.
+- **Normal (apply):** Fix out-of-order search responses overwriting newer results.
+- **edge (apply):** Fix search results that revert when older requests finish last.
+- **blocked (inspect):** Inspect async behavior without live network access; use a controlled deferred-response fixture.

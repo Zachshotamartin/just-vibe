@@ -1,11 +1,15 @@
 ---
 name: security-secrets
-description: "Locate exposed credentials without printing secret values"
+description: "Locate exposed credentials without printing secret values Use to locate possible exposed credentials; security-config inspects deployment settings."
 ---
 
 # security-secrets
 
 Locate exposed credentials without printing secret values
+
+## Choose this workflow
+
+Use to locate possible exposed credentials; security-config inspects deployment settings.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Security methods](../../references/packs/security.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Scan the specified sources with redacted output, distinguish placeholders from plausible secrets, map exposure surfaces, and propose owner/provider-specific remediation.
+- Run approved scanners with redacted output over the requested scope, classify placeholders and locate exposure surfaces without copying values into reports.
+
+## Decision branches
+
+- **When a plausible credential is found:** Record location/type and rotation owner/provider steps; do not test it against a live service by default.
 
 ## Deliver and verify
 
 - Redacted locations/types, confidence, exposure context, and containment plan.
+- Redacted findings, exposure scope, uncertainty and remediation sequence.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Never test suspected credentials against live providers without authorization. Do not copy secrets into reports, shell history, or external scanners.
 
-## Example request
+## Example requests
 
-Scan the requested repository scope with redacted findings only.
+- **Normal (inspect):** Scan the requested repository scope with redacted findings only.
+- **edge (inspect):** Scan history containing both test placeholders and a plausible credential.
+- **blocked (inspect):** Assess secret handling without an approved scanner; do not upload the repository.

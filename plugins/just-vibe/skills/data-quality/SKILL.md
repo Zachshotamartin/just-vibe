@@ -1,11 +1,15 @@
 ---
 name: data-quality
-description: "Check freshness, completeness, validity, and consistency"
+description: "Check freshness, completeness, validity, and consistency Use to evaluate an identified snapshot against declared rules; data-profile discovers descriptive anomalies."
 ---
 
 # data-quality
 
 Check freshness, completeness, validity, and consistency
+
+## Choose this workflow
+
+Use to evaluate an identified snapshot against declared rules; data-profile discovers descriptive anomalies.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Data engineering methods](../../references/packs/data.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Resolve applicable rules, evaluate against the identified snapshot, separate warnings from failures, compare history where available, and identify likely upstream causes.
+- Freeze applicable thresholds before observing results, evaluate completeness/freshness/validity separately and count excluded or unreadable records.
+
+## Decision branches
+
+- **When required rule evidence is missing:** Mark the rule unknown and preserve the failed/unknown result rather than changing thresholds to pass.
 
 ## Deliver and verify
 
 - Rule-by-rule results, affected counts, severity, and repair/monitoring proposals.
+- Rule/version/snapshot/result matrix with counts and likely upstream causes.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Installing monitors or repairing records is separate. Do not redefine thresholds after seeing results to force a pass.
 
-## Example request
+## Example requests
 
-Check these records against the supplied freshness and validity rules.
+- **Normal (inspect):** Check these records against the supplied freshness and validity rules.
+- **edge (inspect):** Evaluate fresh-but-incomplete and complete-but-stale partitions separately.
+- **blocked (inspect):** Assess known rules without data access; do not install monitors or invent pass rates.

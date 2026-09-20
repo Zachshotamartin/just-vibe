@@ -1,0 +1,17 @@
+{
+  "open": {
+    "trigger": "settings-button",
+    "focus": "dialog-heading"
+  },
+  "tabSequence": [
+    "name-input",
+    "save-button",
+    "close-button"
+  ],
+  "escape": {
+    "dialogClosed": true,
+    "focus": "body"
+  },
+  "automatedViolations": 0,
+  "screenReaderRun": false
+}

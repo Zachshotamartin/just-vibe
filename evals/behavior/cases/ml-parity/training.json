@@ -1,0 +1,16 @@
+{
+  "model": "v4",
+  "raw": {
+    "temperature": 20,
+    "pressure": 3
+  },
+  "featureOrder": [
+    "temperature",
+    "pressure"
+  ],
+  "vector": [
+    20,
+    3
+  ],
+  "output": 23
+}

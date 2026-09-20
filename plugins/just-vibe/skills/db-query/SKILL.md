@@ -1,11 +1,15 @@
 ---
 name: db-query
-description: "Write or repair queries against the actual schema"
+description: "Write or repair queries against the actual schema Use for correct query semantics; db-explain analyzes the execution plan afterward."
 ---
 
 # db-query
 
 Write or repair queries against the actual schema
+
+## Choose this workflow
+
+Use for correct query semantics; db-explain analyzes the execution plan afterward.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Databases methods](../../references/packs/database.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Resolve join cardinality and null semantics, parameterize inputs, inspect result shape, and validate with representative fixtures or bounded authorized reads.
+- Define expected result grain and cardinality, test one-to-many joins and nullable predicates, and compare hand-computed small-fixture results before optimization.
+
+## Decision branches
+
+- **When joins multiply rows before aggregation:** Preaggregate or change the join while preserving semantics; DISTINCT is not a universal repair.
 
 ## Deliver and verify
 
 - Query, assumptions, expected results, and verification evidence.
+- Parameterized query, expected row grain and empty/null/duplicate-boundary checks.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Writes need explicit scope and affected-row checks. Do not run unbounded expensive queries against production for convenience.
 
-## Example request
+## Example requests
 
-Write a query for invoice totals without multiplying values through one-to-many joins.
+- **Normal (plan):** Write a query for invoice totals without multiplying values through one-to-many joins.
+- **edge (plan):** Fix revenue totals doubled by joining two child collections.
+- **blocked (inspect):** Review a query without database access; provide a fixture-based expectation rather than claimed live rows.

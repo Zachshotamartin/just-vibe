@@ -1,11 +1,15 @@
 ---
 name: decision-premortem
-description: "Assume a proposal failed and identify plausible causes"
+description: "Assume a proposal failed and identify plausible causes Use to analyze plausible future failure of a proposal; ops-postmortem reconstructs an actual incident."
 ---
 
 # decision-premortem
 
 Assume a proposal failed and identify plausible causes
+
+## Choose this workflow
+
+Use to analyze plausible future failure of a proposal; ops-postmortem reconstructs an actual incident.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Decisions methods](../../references/packs/decisions.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Assume the outcome failed, trace realistic causal chains, rank impact/likelihood, identify early signals, and propose proportionate mitigations.
+- Work backward from a concrete failed outcome through design choices, contributing conditions and observable warning signs.
+
+## Decision branches
+
+- **When a risk cannot be connected to this proposal:** Remove the generic warning and focus on mechanisms supported by context.
 
 ## Deliver and verify
 
 - Failure scenarios, warning indicators, mitigations, and untested assumptions.
+- Failure chain, early signal, mitigation, response and residual uncertainty.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Do not present hypothetical failures as observed incidents or pad the report with generic catastrophes unrelated to the design.
 
-## Example request
+## Example requests
 
-Identify plausible ways the migration plan could fail and early warning signs.
+- **Normal (plan):** Identify plausible ways the migration plan could fail and early warning signs.
+- **edge (plan):** Premortem a rollout whose rollback cannot undo generated data.
+- **blocked (inspect):** Analyze hypothetical failure without treating it as an observed incident.

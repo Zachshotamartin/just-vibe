@@ -144,9 +144,55 @@ export function recordStage(run, outcome, now = Date.now()) {
   if (!['completed', 'blocked', 'failed', 'cancelled'].includes(outcome.status)) throw new Error('Invalid stage outcome.');
   required(outcome.summary, 'Outcome summary');
   checkEvidence(outcome.evidence || [], outcome.criteria || [], outcome.status === 'completed');
-  Object.assign(stage.attempts.at(-1), { finishedAt: new Date(now).toISOString(), ...clone(outcome) });
+  Object.assign(stage.attempts.at(-1), { finishedAt: new Date(now).toISOString(),
+    status: outcome.status, summary: outcome.summary,
+    evidence: clone(outcome.evidence || []), criteria: clone(outcome.criteria || []) });
   stage.status = outcome.status;
   result.status = 'ready';
+  return result;
+}
+
+// Add an action to a running attempt without restarting it or losing its history.
+// Multiple effects belong to the same action (e.g. external-write AND paid).
+export function amendStage(run, request, now = Date.now()) {
+  active(run, now);
+  const stage = run.stages.find(s => s.id === request.id && s.status === 'running');
+  if (!stage) throw new Error('No matching running stage.');
+  if (!Array.isArray(request.effects) || !request.effects.length
+      || new Set(request.effects).size !== request.effects.length) throw new Error('Distinct action effects are required.');
+  for (const effect of request.effects) authorizeEffect(run, { ...request, effect });
+  const result = clone(run);
+  const attempt = result.stages.find(s => s.id === request.id).attempts.at(-1);
+  attempt.actions ??= [];
+  attempt.actions.push({ action: request.action, target: request.target, effects: [...request.effects], checkedAt: new Date(now).toISOString() });
+  return result;
+}
+
+export function supersedeStage(run, resolution, now = Date.now()) {
+  active(run, now);
+  const source = run.stages.find(s => s.id === resolution.id);
+  if (!source || !['failed', 'blocked'].includes(source.status)) throw new Error('Only a failed or blocked stage can be superseded.');
+  required(resolution.reason, 'Supersession reason');
+  const ids = resolution.replacements;
+  if (!Array.isArray(ids) || !ids.length || new Set(ids).size !== ids.length || ids.includes(source.id)) throw new Error('Distinct replacement stages are required.');
+  const replacements = ids.map(id => run.stages.find(s => s.id === id));
+  if (replacements.some(s => !s || s.status !== 'completed')) throw new Error('Replacement stages must already be completed.');
+  checkEvidence(resolution.evidence, resolution.criteria, true);
+  const uncertainEffects = source.attempts.some(a => ['external-write', 'destructive', 'paid'].includes(a.effect)
+    || a.actions?.some(action => action.effects.some(effect => ['external-write', 'destructive', 'paid'].includes(effect))));
+  if (uncertainEffects) {
+    const evidence = resolution.effectReconciliation;
+    if (!evidence || evidence.result !== 'pass') throw new Error('External effects need successful reconciliation evidence before supersession.');
+    checkEvidence([evidence], [{ criterion: 'Prior effects reconciled', result: 'pass', evidence: [0] }], true);
+  }
+  const covered = new Set(replacements.flatMap(s => s.attempts.at(-1).criteria.filter(c => c.result === 'pass').map(c => c.criterion)));
+  const obligations = new Set([...(source.attempts.at(-1).criteria || []).map(c => c.criterion), ...resolution.criteria.map(c => c.criterion)]);
+  if ([...obligations].some(c => !covered.has(c))) throw new Error('Replacement evidence does not cover the superseded criteria.');
+  const result = clone(run);
+  const stage = result.stages.find(s => s.id === source.id);
+  stage.status = 'superseded';
+  stage.resolution = { reason: resolution.reason, replacements: [...ids], evidence: clone(resolution.evidence), criteria: clone(resolution.criteria),
+    ...(resolution.effectReconciliation ? { effectReconciliation: clone(resolution.effectReconciliation) } : {}), resolvedAt: new Date(now).toISOString() };
   return result;
 }
 
@@ -158,7 +204,11 @@ export function finishRun(run, outcome, now = Date.now()) {
   required(outcome.summary, 'Run summary');
   checkEvidence(outcome.evidence || [], outcome.criteria || [], outcome.status === 'completed');
   if (outcome.status === 'completed') {
-    if (!run.stages.length || run.stages.some(s => s.status !== 'completed')) throw new Error('Unfinished stages prevent completion.');
+    if (!run.stages.length || run.stages.some(s => !['completed', 'superseded'].includes(s.status))) throw new Error('Unfinished stages prevent completion.');
+    for (const stage of run.stages.filter(s => s.status === 'superseded')) {
+      if (!stage.resolution?.replacements?.length || stage.resolution.replacements.some(id => id === stage.id || !run.stages.some(s => s.id === id && s.status === 'completed'))) throw new Error('Superseded stages require completed replacements.');
+      checkEvidence(stage.resolution.evidence, stage.resolution.criteria, true);
+    }
     const covered = new Set((outcome.criteria || []).filter(c => c.result === 'pass').map(c => c.criterion));
     if (run.context.successCriteria.some(c => !covered.has(c))) throw new Error('Original success criteria have not all been verified.');
   }

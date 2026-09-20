@@ -1,11 +1,15 @@
 ---
 name: test-fixtures
-description: "Create representative, maintainable test data"
+description: "Create representative, maintainable test data Use for controlled test data and factories; data-profile inspects real datasets."
 ---
 
 # test-fixtures
 
 Create representative, maintainable test data
+
+## Choose this workflow
+
+Use for controlled test data and factories; data-profile inspects real datasets.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Testing methods](../../references/packs/testing.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ Only the requested local changes; external actions require their exact action an
 ## Execute
 
 - Derive minimal realistic entities, encode valid defaults and deliberate invalid cases, isolate identities/timestamps, and verify cleanup and repeatability.
+- Define valid defaults and deliberate invalid variants, isolate identifiers and clocks and make teardown safe after partial setup failure.
+
+## Decision branches
+
+- **When random generation makes failures hard to reproduce:** Use a recorded seed and expose the important boundary explicitly.
 
 ## Deliver and verify
 
 - Fixtures/factories with semantics, usage, and consistency checks.
+- Fixture contract, edge variants, cleanup behavior and concurrent-use checks.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Never copy raw production personal data for convenience. Avoid large opaque snapshots that hide which conditions matter.
 
-## Example request
+## Example requests
 
-Build deterministic organization fixtures safe for concurrent test runs.
+- **Normal (apply):** Build deterministic organization fixtures safe for concurrent test runs.
+- **edge (apply):** Create fixtures that remain isolated when tests run in parallel.
+- **blocked (inspect):** Design fixtures without copying production personal records.

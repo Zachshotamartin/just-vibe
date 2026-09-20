@@ -1,11 +1,15 @@
 ---
 name: security-fix
-description: "Implement and verify remediation for an identified vulnerability"
+description: "Implement and verify remediation for an identified vulnerability Use to repair a confirmed scoped vulnerability; security produces findings before remediation."
 ---
 
 # security-fix
 
 Implement and verify remediation for an identified vulnerability
+
+## Choose this workflow
+
+Use to repair a confirmed scoped vulnerability; security produces findings before remediation.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Security methods](../../references/packs/security.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ Only the requested local changes; external actions require their exact action an
 ## Execute
 
 - Verify the vulnerable path, implement the control at the correct boundary, test abuse and legitimate behavior, inspect alternate paths, and document remaining operational work.
+- Reproduce the affected path in a safe fixture, enforce the control at the owning boundary and test legitimate behavior plus alternate bypass routes.
+
+## Decision branches
+
+- **When a code fix leaves historical credential exposure or persisted bad data:** Report the remaining rotation/recovery work separately from the repaired path.
 
 ## Deliver and verify
 
 - Patch, safe proof of remediation, tests, and residual exposure notes.
+- Vulnerable trigger, boundary correction, abuse/legitimate checks and residual operational tasks.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Credential rotation, history rewriting, production changes, and public disclosure require their explicit scope. Do not claim historical exposure was erased by a code fix.
 
-## Example request
+## Example requests
 
-Fix the demonstrated authorization bypass and verify legitimate owner access.
+- **Normal (apply):** Fix the demonstrated authorization bypass and verify legitimate owner access.
+- **edge (apply):** Fix an object-ownership bypass without preventing legitimate shared access.
+- **blocked (inspect):** Plan remediation with no safe reproduction environment; do not claim exploitation was eliminated.

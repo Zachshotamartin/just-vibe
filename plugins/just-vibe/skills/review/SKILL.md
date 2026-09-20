@@ -1,11 +1,15 @@
 ---
 name: review
-description: "Review a change for actionable bugs and regressions"
+description: "Review a change for actionable bugs and regressions Use for evidence-backed findings on a change; security or domain audits inspect a particular risk surface."
 ---
 
 # review
 
 Review a change for actionable bugs and regressions
+
+## Choose this workflow
+
+Use for evidence-backed findings on a change; security or domain audits inspect a particular risk surface.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [General methods](../../references/packs/general.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Read the diff and surrounding contracts, trace affected callers, assess severity, and suppress speculative or duplicate findings.
+- Establish the exact diff/base, trace affected callers and identify a concrete triggering input; separate changed-code regressions from pre-existing issues.
+
+## Decision branches
+
+- **When the head changed while reviewing:** Recheck the finding against the new diff before reporting or posting it.
 
 ## Deliver and verify
 
 - Prioritized findings with locations, triggering conditions, impact, and verification gaps; explicitly state when none are found.
+- Severity, location, trigger, impact, proposed correction and verification gap per finding.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Missing base revisions block confident change attribution. Do not manufacture findings to fill a template.
 
-## Example request
+## Example requests
 
-Review this branch against main for behavioral regressions.
+- **Normal (inspect):** Review this branch against main for behavioral regressions.
+- **edge (inspect):** Review a PR with unrelated pre-existing warnings and a recently rebased head.
+- **blocked (inspect):** Review supplied diff only; mark missing surrounding source and tests as coverage limits.

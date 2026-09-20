@@ -1,0 +1,9 @@
+{
+  "repository": "example/app",
+  "headOwner": "alice",
+  "headBranch": "fix",
+  "base": "main",
+  "localDirty": [
+    "draft.txt"
+  ]
+}

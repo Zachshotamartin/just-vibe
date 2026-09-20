@@ -1,11 +1,15 @@
 ---
 name: remember
-description: "Save an explicit convention with project scope"
+description: "Save an explicit convention with project scope Use to record an explicitly requested project convention; learn proposes a lesson before adoption."
 ---
 
 # remember
 
 Save an explicit convention with project scope
+
+## Choose this workflow
+
+Use to record an explicitly requested project convention; learn proposes a lesson before adoption.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [General methods](../../references/packs/general.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ Only the requested local changes; external actions require their exact action an
 ## Execute
 
 - Identify the exact rule, check for conflicting/duplicate guidance, choose the established project instruction location, and save the narrow statement with rationale when useful.
+- Locate established instruction ownership and compare duplicate or conflicting rules; write the narrowest condition and rationale that expresses the user's preference.
+
+## Decision branches
+
+- **When a requested convention conflicts with a higher-priority project rule:** Surface the conflict before editing that rule and preserve unrelated guidance.
 
 ## Deliver and verify
 
 - Recorded convention and its exact location/scope.
+- Exact rule, destination, scope and any conflict left unresolved.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Do not store secrets, incidental personal data, or an inferred preference as a permanent rule.
 
-## Example request
+## Example requests
 
-Remember this project uses UTC for stored event timestamps.
+- **Normal (apply):** Remember this project uses UTC for stored event timestamps.
+- **edge (apply):** Remember a project-only testing preference without changing global skills.
+- **blocked (inspect):** Inspect existing guidance without writing when the intended project is unclear.

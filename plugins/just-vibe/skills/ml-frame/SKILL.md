@@ -1,11 +1,15 @@
 ---
 name: ml-frame
-description: "Define target, prediction moment, unit of analysis, and objective"
+description: "Define target, prediction moment, unit of analysis, and objective Use to define the prediction problem; ml-baseline implements the first comparator after the task is defined."
 ---
 
 # ml-frame
 
 Define target, prediction moment, unit of analysis, and objective
+
+## Choose this workflow
+
+Use to define the prediction problem; ml-baseline implements the first comparator after the task is defined.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [ML data methods](../../references/packs/ml-data.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Specify unit of analysis, target/label horizon, information available at prediction time, action taken from predictions, baseline, and costs of errors.
+- State one prediction row's entity, timestamp, available information, label horizon and downstream action; compare a rule-based decision before choosing ML.
+
+## Decision branches
+
+- **When label timing or intervention changes the observed outcome:** Separate prediction from causal/intervention claims and identify the missing observation process.
 
 ## Deliver and verify
 
 - Modeling brief with success metrics, eligibility/exclusions, deployment assumptions, and unresolved policy choices.
+- Task card with row grain, prediction moment, outcome horizon, action and error costs.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Do not force an ML solution when deterministic rules suffice or invent business error costs without input.
 
-## Example request
+## Example requests
 
-Frame churn prediction 30 days before cancellation, including unit and label horizon.
+- **Normal (plan):** Frame churn prediction 30 days before cancellation, including unit and label horizon.
+- **edge (plan):** Frame failure prediction for machines with delayed maintenance labels.
+- **blocked (inspect):** Define the task without business error costs; keep threshold selection undecided.

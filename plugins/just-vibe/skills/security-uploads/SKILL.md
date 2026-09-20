@@ -1,11 +1,15 @@
 ---
 name: security-uploads
-description: "Review file validation, storage, processing, and download access"
+description: "Review file validation, storage, processing, and download access Use for file receipt, processing and download safety; backend-permissions handles general resource access."
 ---
 
 # security-uploads
 
 Review file validation, storage, processing, and download access
+
+## Choose this workflow
+
+Use for file receipt, processing and download safety; backend-permissions handles general resource access.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Security methods](../../references/packs/security.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Trace file lifecycle, inspect content/type trust, object ownership, parser behavior, and resource limits; define safe malicious/invalid-file fixtures.
+- Follow filename/content/type trust, storage ownership, parser invocation, resource limits and download authorization across the complete file lifecycle.
+
+## Decision branches
+
+- **When scanning occurs asynchronously after upload:** Define quarantine/access state so unverified files cannot be consumed through another route.
 
 ## Deliver and verify
 
 - Upload threat findings, remediation priorities, and isolated test scenarios.
+- Lifecycle/trust map and path, size, type, processing and access test cases.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Do not execute hostile files or upload dangerous content to public services. Missing processor configuration limits assurance.
 
-## Example request
+## Example requests
 
-Audit file validation, processing, private storage, and download access.
+- **Normal (inspect):** Audit file validation, processing, private storage, and download access.
+- **edge (inspect):** Audit private uploads with user filenames and an asynchronous processor.
+- **blocked (inspect):** Review upload source without executing hostile files or publishing dangerous test content.

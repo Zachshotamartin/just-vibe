@@ -1,6 +1,6 @@
 # Command reference
 
-213 shipped skill names (212 workflow names including the do alias, plus setup). Commands run in the active host agent. Availability depends on task evidence and host permissions.
+213 shipped skill names; 3 aliases inherit canonical implementations. Commands run in the active host agent. Availability depends on task evidence and host permissions.
 
 ## General
 
@@ -30,8 +30,8 @@
 | [cleanup](../skills/cleanup/SKILL.md) | apply | Remove verified dead code and unnecessary complexity |
 | [design](../skills/design/SKILL.md) | apply | Develop a visual direction and implement the requested interface |
 | [polish](../skills/polish/SKILL.md) | apply | Refine hierarchy, spacing, typography, and interaction details |
-| [responsive](../skills/responsive/SKILL.md) | apply | Diagnose and fix layouts across screen sizes |
-| [a11y](../skills/a11y/SKILL.md) | inspect | Inspect and improve accessibility |
+| [responsive](../skills/responsive/SKILL.md) | apply | Fix layouts across screen sizes and input methods (alias of ui-responsive) |
+| [a11y](../skills/a11y/SKILL.md) | inspect | Inspect semantics, keyboard access, focus, contrast, and announcements (alias of ui-accessibility) |
 | [match](../skills/match/SKILL.md) | apply | Compare an implementation against a visual reference and close gaps |
 | [copy](../skills/copy/SKILL.md) | apply | Improve interface wording and product messaging |
 | [review](../skills/review/SKILL.md) | inspect | Review a change for actionable bugs and regressions |
@@ -57,7 +57,7 @@
 | [help](../skills/help/SKILL.md) | inspect | Find the right command and show examples |
 | [tools](../skills/tools/SKILL.md) | inspect | List and search commands and integrations, showing availability and prerequisites |
 | [auto](../skills/auto/SKILL.md) | apply | Use the goal and project context to select, execute, and verify appropriate workflows |
-| [do](../skills/do/SKILL.md) | apply | Alias for `auto`, preserving a direct multi-step request entry point |
+| [do](../skills/do/SKILL.md) | apply | Use the goal and project context to select, execute, and verify appropriate workflows (alias of auto) |
 
 ## Architecture
 

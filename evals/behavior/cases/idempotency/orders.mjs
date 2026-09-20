@@ -1,0 +1,1 @@
+export function service(create) { const results = new Map(); return async function order(key, payload) { if (results.has(key)) return results.get(key); const result = await create(payload); results.set(key, result); return result; }; }

@@ -1,11 +1,15 @@
 ---
 name: db-schema
-description: "Design or review tables, relationships, constraints, and types"
+description: "Design or review tables, relationships, constraints, and types Use for relational modeling and constraints; db-migrate plans transition of existing data."
 ---
 
 # db-schema
 
 Design or review tables, relationships, constraints, and types
+
+## Choose this workflow
+
+Use for relational modeling and constraints; db-migrate plans transition of existing data.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Databases methods](../../references/packs/database.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Model ownership/cardinality, encode enforceable invariants, compare access paths, assess nullability/deletion behavior, and plan compatibility with existing data.
+- Derive keys/cardinality and deletion rules from explicit invariants, then check null semantics, uniqueness and access paths for the selected engine.
+
+## Decision branches
+
+- **When an optional relationship must still be tenant-consistent:** Consider composite ownership constraints or equivalent enforceable checks rather than trusting a single foreign key.
 
 ## Deliver and verify
 
 - Schema proposal, rationale, migration considerations, and representative queries.
+- Entity/key/constraint table, deletion semantics and valid/invalid row examples.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Do not invent business cardinality or assume another database's semantics. Data ambiguities become explicit decisions.
 
-## Example request
+## Example requests
 
-Design invoice relationships and deletion behavior against our actual database engine.
+- **Normal (plan):** Design invoice relationships and deletion behavior against our actual database engine.
+- **edge (plan):** Model optional memberships that cannot reference another tenant's organization.
+- **blocked (inspect):** Design from requirements without a live database or inventing business cardinality.

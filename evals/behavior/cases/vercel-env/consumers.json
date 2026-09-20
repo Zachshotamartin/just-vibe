@@ -1,0 +1,13 @@
+[
+  {
+    "name": "DATABASE_URL",
+    "location": "server/db.mjs",
+    "sensitive": true
+  },
+  {
+    "name": "VITE_ADMIN_SECRET",
+    "location": "client/main.ts",
+    "sensitive": true,
+    "clientExposed": true
+  }
+]

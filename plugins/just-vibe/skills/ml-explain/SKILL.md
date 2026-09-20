@@ -1,11 +1,15 @@
 ---
 name: ml-explain
-description: "Investigate behavior with appropriate explanation methods and limits"
+description: "Investigate behavior with appropriate explanation methods and limits Use to interpret model behavior; explain describes code and teach explains concepts."
 ---
 
 # ml-explain
 
 Investigate behavior with appropriate explanation methods and limits
+
+## Choose this workflow
+
+Use to interpret model behavior; explain describes code and teach explains concepts.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [ML evaluation methods](../../references/packs/ml-evaluation.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Choose a method compatible with the model/question, inspect baseline/background dependence, check stability/correlated features, and connect explanations to actual examples.
+- State whether the question concerns one prediction or global behavior, select a compatible method and examine background data and correlated-feature sensitivity.
+
+## Decision branches
+
+- **When explanations vary strongly with reasonable baselines:** Report that dependence and avoid a causal or uniquely determined attribution claim.
 
 ## Deliver and verify
 
 - Explanation, method/settings, supporting evidence, and limits.
+- Method/question fit, example explanations, stability checks and limitations.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Expensive explanation runs need bounded execution. Do not expose proprietary or personal data through unnecessary examples.
 
-## Example request
+## Example requests
 
-Explain these predictions and separate feature association from causation.
+- **Normal (inspect):** Explain these predictions and separate feature association from causation.
+- **edge (inspect):** Explain correlated feature importance without implying causation.
+- **blocked (inspect):** Plan explanations without model artifacts or expensive inference authorization.

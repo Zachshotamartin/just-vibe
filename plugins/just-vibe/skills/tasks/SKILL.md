@@ -1,11 +1,15 @@
 ---
 name: tasks
-description: "Convert a brief or plan into ordered, verifiable tasks"
+description: "Convert a brief or plan into ordered, verifiable tasks Use to turn an accepted plan into independently verifiable work; plan resolves architecture and sequencing first."
 ---
 
 # tasks
 
 Convert a brief or plan into ordered, verifiable tasks
+
+## Choose this workflow
+
+Use to turn an accepted plan into independently verifiable work; plan resolves architecture and sequencing first.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [General methods](../../references/packs/general.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Preserve requirements, map dependencies, define bounded outputs and checks, order the critical path, and flag tasks needing a decision.
+- Assign each task one observable output and dependency edge; keep inseparable schema/client changes together or state their compatibility bridge.
+
+## Decision branches
+
+- **When tasks overlap the same shared interface:** Define an integration order and owner boundary before parallel work is proposed.
 
 ## Deliver and verify
 
 - Ordered tasks with scope, dependencies, acceptance criteria, and traceability to the brief.
+- Task IDs, requirements covered, prerequisites, deliverables and acceptance checks.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Do not create estimates, owners, or external tickets as established facts when none were supplied.
 
-## Example request
+## Example requests
 
-Break the accepted invitation spec into ordered tasks with acceptance checks.
+- **Normal (plan):** Break the accepted invitation spec into ordered tasks with acceptance checks.
+- **edge (plan):** Split a migration plan into tasks that leave every intermediate release usable.
+- **blocked (inspect):** Break down known work while keeping an unresolved provider choice as a dependency.

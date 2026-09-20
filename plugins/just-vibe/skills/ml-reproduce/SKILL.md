@@ -1,11 +1,15 @@
 ---
 name: ml-reproduce
-description: "Reproduce a result from code, data, and configuration"
+description: "Reproduce a result from code, data, and configuration Use to repeat a specified run; ml-baseline defines a new benchmark."
 ---
 
 # ml-reproduce
 
 Reproduce a result from code, data, and configuration
+
+## Choose this workflow
+
+Use to repeat a specified run; ml-baseline defines a new benchmark.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [ML experimentation methods](../../references/packs/ml-experiments.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Verify immutable inputs and dependency versions, reconstruct the procedure, run authorized bounded work, compare outputs/metrics within justified tolerance, and isolate deviations.
+- Resolve exact data/artifact/code/dependency identities, reconstruct preprocessing and evaluation, and declare nondeterminism tolerances before execution.
+
+## Decision branches
+
+- **When original assets are unavailable and substitutes are necessary:** Label the result a reimplementation or approximate reproduction and list each substitution.
 
 ## Deliver and verify
 
 - Reproduction record, matched/different conditions, measured result, and discrepancy analysis.
+- Reproduction manifest, deviations, observed differences and tolerance justification.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Missing original assets may make exact reproduction impossible. Do not silently substitute a different dataset or model and call it reproduced.
 
-## Example request
+## Example requests
 
-Plan reproducing this result with exact artifact identities and a two-hour budget.
+- **Normal (plan):** Plan reproducing this result with exact artifact identities and a two-hour budget.
+- **edge (plan):** Reproduce a GPU run on another supported device with explicit tolerances.
+- **blocked (inspect):** Assess reproducibility when the original dataset snapshot is missing.

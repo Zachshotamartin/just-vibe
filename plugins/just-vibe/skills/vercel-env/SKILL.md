@@ -1,11 +1,15 @@
 ---
 name: vercel-env
-description: "Compare required variable names and scopes without exposing values"
+description: "Compare required variable names and scopes without exposing values Use to inspect or explicitly manage variable names/scopes; vite-env traces client exposure and build modes."
 ---
 
 # vercel-env
 
 Compare required variable names and scopes without exposing values
+
+## Choose this workflow
+
+Use to inspect or explicitly manage variable names/scopes; vite-env traces client exposure and build modes.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Vercel methods](../../references/packs/vercel.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Derive required names from code/configuration, compare authorized metadata, identify missing/mis-scoped variables, and explain rebuild/redeployment implications.
+- Map each referenced name to build-time or runtime usage and intended environment/branch; report presence and scope without fetching secret values.
+
+## Decision branches
+
+- **When a changed value is compiled into a static client bundle:** Explain the required rebuild/deployment and inspect public exposure; editing a variable alone does not change an existing bundle.
 
 ## Deliver and verify
 
 - Redacted name/scope matrix and proposed corrections.
+- Variable-name table with consumer, environment, branch scope and rebuild implications.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Mutation needs an explicit configuration request and secure input channel. Do not fetch values when metadata suffices or copy production secrets into previews.
 
-## Example request
+## Example requests
 
-Compare required variable names across preview and production without exposing values.
+- **Normal (inspect):** Compare required variable names across preview and production without exposing values.
+- **edge (inspect):** Inspect a variable present in production but absent on a branch-specific preview.
+- **blocked (inspect):** Assess required environment names from source without downloading secret values.

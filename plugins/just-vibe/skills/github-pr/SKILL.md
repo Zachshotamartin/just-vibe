@@ -1,11 +1,15 @@
 ---
 name: github-pr
-description: "Prepare or create a PR with scope, evidence, and issue links"
+description: "Prepare or create a PR with scope, evidence, and issue links Use for remote PR preparation or creation; pr writes a local description only."
 ---
 
 # github-pr
 
 Prepare or create a PR with scope, evidence, and issue links
+
+## Choose this workflow
+
+Use for remote PR preparation or creation; pr writes a local description only.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [GitHub methods](../../references/packs/github.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Inspect diff and checks, detect existing PRs, prepare accurate title/body, resolve push authorization if needed, and verify the submitted head/base.
+- Resolve owner/repository/head/base, including fork owner; inspect pushed commits and existing matching PRs before deciding to create or update.
+
+## Decision branches
+
+- **When a PR already exists for the intended head/base:** Reuse its identity and avoid duplicate creation; recheck head SHA before reporting readiness.
 
 ## Deliver and verify
 
 - PR draft or URL, summary, validation, and readiness status.
+- Head/base SHAs, accurate title/body, checks and observed PR identity.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Do not push unrelated commits or merge implicitly. Unknown creation results require deduplication before retry.
 
-## Example request
+## Example requests
 
-Prepare a draft PR for this exact head/base; show validation gaps.
+- **Normal (plan):** Prepare a draft PR for this exact head/base; show validation gaps.
+- **edge (plan):** Prepare a PR from a fork whose branch name also exists upstream.
+- **blocked (inspect):** Draft a PR without push permission; separate local changes from the remote head.

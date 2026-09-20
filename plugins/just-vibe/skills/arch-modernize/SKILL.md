@@ -1,11 +1,15 @@
 ---
 name: arch-modernize
-description: "Plan an incremental transition to a target architecture"
+description: "Plan an incremental transition to a target architecture Use for staged architectural transition; refactor handles an internal structural change."
 ---
 
 # arch-modernize
 
 Plan an incremental transition to a target architecture
+
+## Choose this workflow
+
+Use for staged architectural transition; refactor handles an internal structural change.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Architecture methods](../../references/packs/architecture.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Inventory dependencies, find separable seams, sequence compatibility layers and data movement, define parity checks, and set retirement criteria.
+- Identify a seam with separable traffic and data ownership, define coexistence checks and retirement evidence before replacing it.
+
+## Decision branches
+
+- **When old and new systems write the same records:** Specify source of truth, conflict handling and reconciliation before dual operation.
 
 ## Deliver and verify
 
 - Phased migration architecture, coexistence plan, risks, and recovery checkpoints.
+- Phase-by-phase working state, cutover conditions and irreversible boundaries.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Do not assume a big-bang rewrite is necessary. Flag irreversible transitions and missing operational ownership.
 
-## Example request
+## Example requests
 
-Plan an incremental extraction of billing while the old app keeps running.
+- **Normal (plan):** Plan an incremental extraction of billing while the old app keeps running.
+- **edge (plan):** Modernize a monolith while old reports still query its database.
+- **blocked (inspect):** Plan modernization without dependency ownership; list blocking unknowns by phase.

@@ -1,11 +1,15 @@
 ---
 name: design
-description: "Develop a visual direction and implement the requested interface"
+description: "Develop a visual direction and implement the requested interface Use for a new visual direction and requested interface; polish improves an established direction and ui-system defines reusable tokens."
 ---
 
 # design
 
 Develop a visual direction and implement the requested interface
+
+## Choose this workflow
+
+Use for a new visual direction and requested interface; polish improves an established direction and ui-system defines reusable tokens.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [General methods](../../references/packs/general.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ Only the requested local changes; external actions require their exact action an
 ## Execute
 
 - Inspect current UI, define hierarchy and states, implement a coherent direction, and inspect the rendered result across relevant sizes.
+- Infer hierarchy from real content and user actions; reuse project primitives, choose a coherent composition and render the primary and failure states.
+
+## Decision branches
+
+- **When references conflict with required content or accessibility:** Explain the concrete conflict and preserve the usable content hierarchy.
 
 ## Deliver and verify
 
 - Interface or requested concept, design rationale, and visual/interaction evidence.
+- Implemented interface, visual decisions, inspected states/viewports and remaining visual gaps.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Do not invent product claims or replace established branding without basis. Report unavailable visual verification.
 
-## Example request
+## Example requests
 
-Build the account settings page using our existing typography and controls.
+- **Normal (apply):** Build the account settings page using our existing typography and controls.
+- **edge (apply):** Design a dense settings page with long translations and destructive actions.
+- **blocked (inspect):** Propose a direction from supplied screenshots when a browser cannot render the app.

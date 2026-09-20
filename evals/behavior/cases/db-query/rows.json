@@ -1,0 +1,32 @@
+{
+  "orders": [
+    {
+      "id": 1,
+      "total": 100
+    }
+  ],
+  "items": [
+    {
+      "orderId": 1,
+      "id": "i1"
+    },
+    {
+      "orderId": 1,
+      "id": "i2"
+    }
+  ],
+  "shipments": [
+    {
+      "orderId": 1,
+      "id": "s1"
+    },
+    {
+      "orderId": 1,
+      "id": "s2"
+    },
+    {
+      "orderId": 1,
+      "id": "s3"
+    }
+  ]
+}

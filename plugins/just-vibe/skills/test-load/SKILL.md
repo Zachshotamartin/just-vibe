@@ -1,11 +1,15 @@
 ---
 name: test-load
-description: "Execute bounded workloads against authorized environments"
+description: "Execute bounded workloads against authorized environments Use for a bounded authorized workload experiment; perf diagnoses an existing measured bottleneck."
 ---
 
 # test-load
 
 Execute bounded workloads against authorized environments
+
+## Choose this workflow
+
+Use for a bounded authorized workload experiment; perf diagnoses an existing measured bottleneck.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Testing methods](../../references/packs/testing.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Validate isolation and side effects, establish baseline, ramp within limits, observe latency/errors/resources, stop on thresholds, and correlate saturation.
+- Define exact target, traffic shape, concurrency/rate/duration and stop thresholds; validate side effects and ramp in a controlled environment with telemetry.
+
+## Decision branches
+
+- **When error rate or resource pressure crosses the declared cap:** Stop traffic, preserve measurements and report the last stable level without extrapolating beyond it.
 
 ## Deliver and verify
 
 - Load script/protocol or run report with conditions, bottlenecks, and cleanup.
+- Workload/caps, time series, stop event and measured saturation boundary.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - No third-party or production stress by assumption. Do not extrapolate measured capacity beyond the tested workload without qualifications.
 
-## Example request
+## Example requests
 
-Plan load tests for the specified staging endpoint with duration and error stop limits.
+- **Normal (plan):** Plan load tests for the specified staging endpoint with duration and error stop limits.
+- **edge (plan):** Plan a ramp test that must stop before shared database pressure exceeds a threshold.
+- **blocked (inspect):** Prepare a load-test plan with no authorized endpoint; do not generate traffic.

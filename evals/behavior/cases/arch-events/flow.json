@@ -1,0 +1,12 @@
+{
+  "producer": [
+    "commit order in database",
+    "publish event to independent broker"
+  ],
+  "consumer": [
+    "send email without idempotency key",
+    "acknowledge message"
+  ],
+  "atomicDatabaseBrokerCommit": false,
+  "redelivery": true
+}

@@ -1,11 +1,15 @@
 ---
 name: react-hydration
-description: "Diagnose server/client rendering mismatches where applicable"
+description: "Diagnose server/client rendering mismatches where applicable Use for SSR/first-client mismatches; client-only rendering does not need hydration repair."
 ---
 
 # react-hydration
 
 Diagnose server/client rendering mismatches where applicable
+
+## Choose this workflow
+
+Use for SSR/first-client mismatches; client-only rendering does not need hydration repair.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [React methods](../../references/packs/react.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ Only the requested local changes; external actions require their exact action an
 ## Execute
 
 - Reproduce the mismatch, compare initial values/markup, inspect time/random/browser-only sources and invalid nesting, correct the cause, and verify interactivity.
+- Compare server output with the first client render before effects, including locale, time, random IDs, browser state and invalid nesting.
+
+## Decision branches
+
+- **When mismatch depends on user-specific data unavailable to the server:** Define a consistent initial snapshot or intentional client-only boundary for that region.
 
 ## Deliver and verify
 
 - Hydration fix with server/client evidence.
+- Mismatch source, initial-state contract and hydration plus interactivity checks.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Do not suppress warnings or disable SSR globally as a default fix. Client-only applications receive an applicability explanation.
 
-## Example request
+## Example requests
 
-Fix the supplied server/client mismatch without disabling SSR globally.
+- **Normal (apply):** Fix the supplied server/client mismatch without disabling SSR globally.
+- **edge (apply):** Fix a clock and persisted theme that render differently on the server.
+- **blocked (inspect):** Diagnose supplied server/client markup without claiming a browser hydration run.

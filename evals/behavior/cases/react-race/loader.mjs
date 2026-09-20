@@ -1,0 +1,1 @@
+export function createLoader(fetchAccount, publish) { return { async select(id) { try { const account = await fetchAccount(id); publish({ account, error: null }); } catch (error) { publish({ account: null, error: error.message }); } }, dispose() {} }; }

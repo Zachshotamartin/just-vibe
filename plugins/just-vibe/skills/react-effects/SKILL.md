@@ -1,11 +1,15 @@
 ---
 name: react-effects
-description: "Investigate effect loops, stale closures, races, and missing cleanup"
+description: "Investigate effect loops, stale closures, races, and missing cleanup Use for synchronization, cleanup or dependency defects; react-state handles authoritative data placement."
 ---
 
 # react-effects
 
 Investigate effect loops, stale closures, races, and missing cleanup
+
+## Choose this workflow
+
+Use for synchronization, cleanup or dependency defects; react-state handles authoritative data placement.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [React methods](../../references/packs/react.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ Only the requested local changes; external actions require their exact action an
 ## Execute
 
 - Classify synchronization versus derived computation, inspect dependency identity, trace setup/cleanup and races, apply a minimal correction, and exercise remount/update cases.
+- Classify each effect as external synchronization or derived computation; follow dependency changes and setup/cleanup including unmount and rapid identity changes.
+
+## Decision branches
+
+- **When old async work can complete after a new selection:** Guard stale completion as well as cleaning up; cancellation alone does not establish which response is current.
 
 ## Deliver and verify
 
 - Effect repair and lifecycle/regression evidence.
+- Effect purpose, dependency/lifecycle trace and remount/race regression checks.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Do not silence dependency warnings to hide the issue. Preserve intended behavior across the framework's development checks.
 
-## Example request
+## Example requests
 
-Fix stale account data caused by effect request races.
+- **Normal (apply):** Fix stale account data caused by effect request races.
+- **edge (apply):** Fix an account panel where a late response from the prior account overwrites the current one.
+- **blocked (inspect):** Audit effect source without reproducing browser timing; identify the required controlled race test.

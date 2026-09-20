@@ -1,0 +1,8 @@
+{
+  "mount": "/console/",
+  "files": [
+    "/console/index.html",
+    "/console/logo.svg"
+  ],
+  "browserAccess": false
+}

@@ -1,11 +1,15 @@
 ---
 name: setup
-description: "Install, diagnose, update, or remove just-vibe through native host plugin management."
+description: "Install, diagnose, update, or remove just-vibe through native host plugin management. Use for an intentional installation, update or removal; doctor inspects without changes."
 ---
 
 # setup
 
 Install, diagnose, update, or remove just-vibe through native host plugin management.
+
+## Choose this workflow
+
+Use for an intentional installation, update or removal; doctor inspects without changes.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Installation methods](../../references/packs/installation.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -30,11 +34,16 @@ Selected host plugin registration and its managed just-vibe payload directory on
 3. For a requested preview append --dry-run and report conditional steps without claiming installed state was inspected. Preserve all native source/scope/inventory conflict checks.
 4. After success, report actual native state and explain that changed skills load in a fresh conversation. Uninstall retains marketplace registration and persistent data. Do not bypass errors with global edits or cache deletion.
 
-Task-specific method: Resolve host/scope, check prerequisites and marketplace identity, run the bundled installer, preserve conflict checks, verify result, and explain fresh-session loading requirements.
+Task-specific method: Resolve host/scope, check prerequisites and marketplace identity, run the bundled installer, preserve conflict checks, verify result, and explain fresh-session loading requirements. Resolve host, scope and source before mutation; inspect the proposed native operations and preserve unrelated marketplace entries and user configuration.
+
+## Decision branches
+
+- **When an existing managed source conflicts with the selected channel:** Report the conflicting identity and supported switch procedure instead of overwriting arbitrary directories.
 
 ## Deliver and verify
 
 - Installation outcome or precise blocker with host/source/scope and actual verification.
+- Installation source/version, native host state and executable validation or precise failure.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -44,6 +53,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Dry run does not inspect host state and must not imply it did. No manual global-config edits or credentials embedded in commands.
 
-## Example request
+## Example requests
 
-Check my just-vibe installation without changing it.
+- **Normal (inspect):** Check my just-vibe installation without changing it.
+- **edge (apply):** Update a bundled installation after its original package cache was removed.
+- **blocked (inspect):** Inspect installation prerequisites on a machine without a supported host executable.

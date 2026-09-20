@@ -1,11 +1,15 @@
 ---
 name: ml-experiments
-description: "Compare runs and check that data and evaluation conditions match"
+description: "Compare runs and check that data and evaluation conditions match Use to compare recorded runs; ml-train produces a run and ml-report communicates validated conclusions."
 ---
 
 # ml-experiments
 
 Compare runs and check that data and evaluation conditions match
+
+## Choose this workflow
+
+Use to compare recorded runs; ml-train produces a run and ml-report communicates validated conclusions.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [ML experimentation methods](../../references/packs/ml-experiments.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Reconcile data/split/code/config identities, normalize metric definitions, inspect failed/missing runs, compare quality and resources, and separate incompatible cohorts.
+- Reconcile dataset/split/code/config identities, metric denominator and selection history; include failed/pruned runs in total resource accounting.
+
+## Decision branches
+
+- **When runs used different populations or metric definitions:** Group them separately and propose a matched comparison instead of a misleading leaderboard.
 
 ## Deliver and verify
 
 - Experiment comparison, strongest supported result, and comparability gaps.
+- Comparable-run groups, quality/resource evidence and missing metadata.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Missing metadata prevents strong conclusions. Do not select a winner solely from rounded headline scores.
 
-## Example request
+## Example requests
 
-Compare these runs and flag different datasets or metric definitions.
+- **Normal (inspect):** Compare these runs and flag different datasets or metric definitions.
+- **edge (inspect):** Compare experiments that used different test periods and rounded headline scores.
+- **blocked (inspect):** Inspect incomplete run exports without inventing missing metrics or costs.

@@ -1,0 +1,11 @@
+{
+  "target": "preview",
+  "requiredNames": [
+    "API_BASE",
+    "DATABASE_URL"
+  ],
+  "presentNames": [
+    "API_BASE"
+  ],
+  "editedAfterDeployment": true
+}

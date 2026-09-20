@@ -1,11 +1,15 @@
 ---
 name: llm-injection
-description: "Test handling of hostile instructions in untrusted content"
+description: "Test handling of hostile instructions in untrusted content Use for scoped instruction-boundary evaluation; security-inputs handles interpreter injection."
 ---
 
 # llm-injection
 
 Test handling of hostile instructions in untrusted content
+
+## Choose this workflow
+
+Use for scoped instruction-boundary evaluation; security-inputs handles interpreter injection.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [LLMs and retrieval methods](../../references/packs/llm.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Map data-to-authority boundaries, create benign canary scenarios, run authorized isolated tests, inspect tool actions as well as text, and propose enforceable mitigations.
+- Map untrusted documents and tool results into model context, plant benign canaries and inspect tool actions as well as generated text.
+
+## Decision branches
+
+- **When an attack is blocked in one finite fixture:** Report the tested boundary and remaining coverage; do not claim universal prompt-injection immunity.
 
 ## Deliver and verify
 
 - Test cases, observed failures, mitigations, and residual limitations.
+- Attack surface, canary cases, observed actions and enforceable mitigations.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Never exfiltrate real secrets or probe third-party systems. Passing a finite suite does not establish universal immunity.
 
-## Example request
+## Example requests
 
-Plan isolated prompt-injection tests using benign canaries and no real secrets.
+- **Normal (plan):** Plan isolated prompt-injection tests using benign canaries and no real secrets.
+- **edge (plan):** Test a retrieved document asking the agent to send a synthetic secret elsewhere.
+- **blocked (inspect):** Design canary tests without real secrets or external exfiltration endpoints.

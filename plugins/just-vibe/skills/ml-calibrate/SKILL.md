@@ -1,11 +1,15 @@
 ---
 name: ml-calibrate
-description: "Assess predicted probabilities against observed outcomes"
+description: "Assess predicted probabilities against observed outcomes Use to assess or fit probability calibration; ml-threshold maps scores to decisions."
 ---
 
 # ml-calibrate
 
 Assess predicted probabilities against observed outcomes
+
+## Choose this workflow
+
+Use to assess or fit probability calibration; ml-threshold maps scores to decisions.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [ML evaluation methods](../../references/packs/ml-evaluation.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Validate probability semantics, inspect reliability by range/cohort, use appropriate scoring measures, and compare any authorized calibrator on untouched evaluation data.
+- Check probability semantics, reliability and proper scoring measures; fit any calibrator on permitted data separate from final evaluation and compare by cohort.
+
+## Decision branches
+
+- **When prevalence or sampling changed since calibration:** Assess transfer assumptions and recalibration evidence without claiming ranking quality proves reliable probabilities.
 
 ## Deliver and verify
 
 - Calibration report or calibrated artifact with split provenance and checks.
+- Calibration protocol, reliability evidence and independent comparison.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Small samples and prevalence shift limit conclusions. Do not alter deployed probabilities without a rollout request.
 
-## Example request
+## Example requests
 
-Assess probability calibration from the supplied held-out scores and outcomes.
+- **Normal (inspect):** Assess probability calibration from the supplied held-out scores and outcomes.
+- **edge (inspect):** Calibrate a model trained on oversampled positives.
+- **blocked (inspect):** Review probability outputs with too few outcomes to fit a reliable calibrator.

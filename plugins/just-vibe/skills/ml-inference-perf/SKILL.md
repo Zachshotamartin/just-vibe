@@ -1,11 +1,15 @@
 ---
 name: ml-inference-perf
-description: "Measure latency, throughput, memory, and optimization tradeoffs"
+description: "Measure latency, throughput, memory, and optimization tradeoffs Use for latency/throughput/resource benchmarking; ml-training-cost covers training."
 ---
 
 # ml-inference-perf
 
 Measure latency, throughput, memory, and optimization tradeoffs
+
+## Choose this workflow
+
+Use for latency/throughput/resource benchmarking; ml-training-cost covers training.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [ML deployment methods](../../references/packs/ml-deployment.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Define comparable benchmark conditions, separate cold/warm paths, measure bounded authorized workloads, identify bottlenecks, and check quality after optimizations.
+- Specify hardware, precision, batch/concurrency and payload distribution; separate load/warmup from steady-state and measure tail behavior within caps.
+
+## Decision branches
+
+- **When quantization or batching improves speed:** Re-evaluate quality, memory and latency under the same workload before accepting it.
 
 ## Deliver and verify
 
 - Benchmark protocol/results and optimization recommendation or authorized patch.
+- Benchmark conditions, sample size, cold/warm/tail metrics and quality comparison.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - No production load or paid hardware implicitly. A single warm request cannot establish capacity.
 
-## Example request
+## Example requests
 
-Plan a bounded benchmark for cold/warm latency and throughput at fixed quality.
+- **Normal (plan):** Plan a bounded benchmark for cold/warm latency and throughput at fixed quality.
+- **edge (plan):** Benchmark batched inference under a latency deadline without hiding warmup cost.
+- **blocked (inspect):** Plan a benchmark with no authorized hardware or production traffic budget.

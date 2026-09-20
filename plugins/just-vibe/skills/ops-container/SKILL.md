@@ -1,11 +1,15 @@
 ---
 name: ops-container
-description: "Diagnose container builds, runtime failures, and configuration differences"
+description: "Diagnose container builds, runtime failures, and configuration differences Use for image/build/runtime diagnosis; ops-restore handles recovery of persisted state."
 ---
 
 # ops-container
 
 Diagnose container builds, runtime failures, and configuration differences
+
+## Choose this workflow
+
+Use for image/build/runtime diagnosis; ops-restore handles recovery of persisted state.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Operations methods](../../references/packs/operations.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Compare build/runtime stages and host assumptions, inspect image metadata/logs, reproduce in isolation when authorized, and propose or apply a focused fix.
+- Compare build context, multi-stage copy paths, runtime user, working directory, ports and volume permissions with logs from the intended image digest.
+
+## Decision branches
+
+- **When local build and deployed digest differ:** Establish artifact identity before patching source or diagnosing runtime configuration.
 
 ## Deliver and verify
 
 - Diagnosis or patch with build/start evidence and remaining environment gaps.
+- Build/runtime boundary, artifact identity and isolated reproduction or verification gaps.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - No privileged host mounts or deployment changes by default. Building/running untrusted images requires evaluating their execution effects first.
 
-## Example request
+## Example requests
 
-Diagnose why this multi-stage image lacks its runtime files.
+- **Normal (inspect):** Diagnose why this multi-stage image lacks its runtime files.
+- **edge (inspect):** Diagnose a multi-stage image missing a required runtime file under a non-root user.
+- **blocked (inspect):** Inspect a Dockerfile without building untrusted images or granting privileged mounts.

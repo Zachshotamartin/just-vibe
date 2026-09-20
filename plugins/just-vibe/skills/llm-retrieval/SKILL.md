@@ -1,11 +1,15 @@
 ---
 name: llm-retrieval
-description: "Evaluate chunking, ranking, filters, and retrieval recall separately"
+description: "Evaluate chunking, ranking, filters, and retrieval recall separately Use to diagnose candidate generation/ranking failures; llm-rag covers the whole answer pipeline."
 ---
 
 # llm-retrieval
 
 Evaluate chunking, ranking, filters, and retrieval recall separately
+
+## Choose this workflow
+
+Use to diagnose candidate generation/ranking failures; llm-rag covers the whole answer pipeline.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [LLMs and retrieval methods](../../references/packs/llm.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Trace query-to-candidate stages, inspect missed relevant passages, compare bounded configurations under the same judgments, and validate access filters independently.
+- Trace a query through normalization, filters, candidates, ranking and final context using known relevance judgments and stable document IDs.
+
+## Decision branches
+
+- **When a relevant passage never entered candidates:** Fix that stage before tuning the answer prompt or reranker.
 
 ## Deliver and verify
 
 - Retrieval metrics, failure taxonomy, examples, and improvement experiments.
+- Stage-level recall/error evidence, access-filter checks and matched configuration comparison.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - New embedding/index/reranking jobs require cost scope. Weak relevance labels limit metric confidence.
 
-## Example request
+## Example requests
 
-Evaluate missed exception passages separately from generation quality.
+- **Normal (inspect):** Evaluate missed exception passages separately from generation quality.
+- **edge (inspect):** Diagnose a missing exception passage hidden by a metadata filter.
+- **blocked (inspect):** Inspect retrieval traces without starting new embeddings or paid reranking jobs.

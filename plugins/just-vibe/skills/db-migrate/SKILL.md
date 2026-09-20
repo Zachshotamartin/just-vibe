@@ -1,11 +1,15 @@
 ---
 name: db-migrate
-description: "Create migrations with compatibility and rollback considerations"
+description: "Create migrations with compatibility and rollback considerations Use for schema/data transition mechanics; db-schema designs the target model."
 ---
 
 # db-migrate
 
 Create migrations with compatibility and rollback considerations
+
+## Choose this workflow
+
+Use for schema/data transition mechanics; db-schema designs the target model.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Databases methods](../../references/packs/database.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Inspect existing data and migration conventions, design expand/backfill/contract phases where needed, assess locks, define restartability, and validate on isolated data.
+- Inspect engine/version and migration transaction behavior; separate additive schema, resumable backfill, validation and destructive contraction with old/new application compatibility.
+
+## Decision branches
+
+- **When a PostgreSQL concurrent index is required:** Use the runner's supported nontransactional path, check invalid indexes after interruption, and never treat name existence alone as proof of a valid matching index.
 
 ## Deliver and verify
 
 - Migration plan or files, compatibility evidence, execution conditions, and rollback/forward-recovery limits.
+- Phase/SQL-or-runner-step/lock-risk/check/recovery table and compatibility evidence.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Never promise rollback for irreversible data loss. Missing backup/recovery evidence blocks destructive execution.
 
-## Example request
+## Example requests
 
-Plan splitting full_name while preserving old-version compatibility and source values.
+- **Normal (plan):** Plan splitting full_name while preserving old-version compatibility and source values.
+- **edge (plan):** Plan a restartable migration after a concurrent index build left an invalid index.
+- **blocked (inspect):** Review a destructive migration with no verified recovery evidence; do not execute it.

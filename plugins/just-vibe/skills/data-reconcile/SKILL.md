@@ -1,11 +1,15 @@
 ---
 name: data-reconcile
-description: "Compare source and destination records and explain discrepancies"
+description: "Compare source and destination records and explain discrepancies Use to compare corresponding datasets; db-integrity checks database invariants."
 ---
 
 # data-reconcile
 
 Compare source and destination records and explain discrepancies
+
+## Choose this workflow
+
+Use to compare corresponding datasets; db-integrity checks database invariants.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Data engineering methods](../../references/packs/data.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Align snapshots/time windows, compare counts and keyed values, normalize only documented transformations, sample discrepancies safely, and explain likely causes.
+- Align snapshot/window and key grain, compare membership before values and normalize only explicitly documented transformations.
+
+## Decision branches
+
+- **When counts match but keys or values differ:** Quantify each mismatch class and retain redacted examples rather than declaring parity.
 
 ## Deliver and verify
 
 - Reconciliation report, discrepancy categories, evidence, and repair candidates.
+- Snapshot pair, keyed mismatch categories, denominators and evidence limits.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Misaligned snapshots prevent a definitive mismatch claim. No row-level data exposure beyond necessary authorized evidence.
 
-## Example request
+## Example requests
 
-Compare these aligned snapshots by key, not just row counts.
+- **Normal (inspect):** Compare these aligned snapshots by key, not just row counts.
+- **edge (inspect):** Reconcile exports with equal row counts but missing and duplicated IDs.
+- **blocked (inspect):** Compare misaligned snapshots without calling timing differences data loss.

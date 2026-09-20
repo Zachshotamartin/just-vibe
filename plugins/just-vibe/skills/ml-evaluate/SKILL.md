@@ -1,11 +1,15 @@
 ---
 name: ml-evaluate
-description: "Evaluate using task-appropriate metrics and baselines"
+description: "Evaluate using task-appropriate metrics and baselines Use for fixed-model evaluation; ml-threshold and ml-calibrate require separate selection data."
 ---
 
 # ml-evaluate
 
 Evaluate using task-appropriate metrics and baselines
+
+## Choose this workflow
+
+Use for fixed-model evaluation; ml-threshold and ml-calibrate require separate selection data.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [ML evaluation methods](../../references/packs/ml-evaluation.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Validate alignment and eligibility, run authorized predictions, compute declared metrics and appropriate uncertainty, compare baseline, and record excluded/missing cases.
+- Align predictions and labels by stable row identity, freeze eligibility/metric definitions and count missing, excluded and failed predictions before computing results.
+
+## Decision branches
+
+- **When observations are dependent within entities or time blocks:** Use an uncertainty method matching that dependence or explicitly leave uncertainty unestimated.
 
 ## Deliver and verify
 
 - Reproducible evaluation report with data/model identity, metrics, denominators, and limitations.
+- Model/data/split identity, denominators, baseline metrics and uncertainty method.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - No test-set-driven changes during evaluation. Missing ground truth restricts output to operational/descriptive checks.
 
-## Example request
+## Example requests
 
-Plan evaluating the frozen model against the declared baseline and untouched test split.
+- **Normal (plan):** Plan evaluating the frozen model against the declared baseline and untouched test split.
+- **edge (plan):** Evaluate shuffled prediction rows with missing outputs and delayed labels.
+- **blocked (inspect):** Evaluate operational behavior without ground truth; do not report accuracy.

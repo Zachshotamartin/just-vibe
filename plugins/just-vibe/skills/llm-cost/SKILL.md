@@ -1,11 +1,15 @@
 ---
 name: llm-cost
-description: "Measure token use, latency, caching opportunities, and routing tradeoffs"
+description: "Measure token use, latency, caching opportunities, and routing tradeoffs Use to measure LLM spend and cost-preserving alternatives; llm-evals measures task quality."
 ---
 
 # llm-cost
 
 Measure token use, latency, caching opportunities, and routing tradeoffs
+
+## Choose this workflow
+
+Use to measure LLM spend and cost-preserving alternatives; llm-evals measures task quality.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [LLMs and retrieval methods](../../references/packs/llm.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Reconcile billed versus estimated usage, separate input/output/cached tokens, identify expensive failure loops, and propose bounded comparisons preserving task quality.
+- Reconcile provider usage with input/output/cached tokens and retries; verify dated pricing and include failed runs in per-completed-task cost.
+
+## Decision branches
+
+- **When cheaper routing changes correctness or privacy conditions:** Compare on the same cases and keep provider/data-transfer choices explicit.
 
 ## Deliver and verify
 
 - Cost/latency breakdown, rate/date assumptions, and optimization priorities.
+- Usage/rate assumptions, total and per-success cost, quality comparison and uncertainty.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Do not invent prices or silently switch providers/send data elsewhere. Missing usage records produce estimates with explicit bounds.
 
-## Example request
+## Example requests
 
-Analyze these token and retry records with explicit pricing assumptions.
+- **Normal (inspect):** Analyze these token and retry records with explicit pricing assumptions.
+- **edge (inspect):** Analyze a retry loop whose successful responses hide expensive failed attempts.
+- **blocked (inspect):** Estimate from incomplete usage records without inventing current prices.

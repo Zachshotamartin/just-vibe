@@ -1,0 +1,185 @@
+{
+  "schemaVersion": 1,
+  "cases": [
+    {
+      "id": "checkout",
+      "commands": [
+        "fix"
+      ],
+      "allowedWrites": [
+        "checkout.mjs"
+      ],
+      "ecc": "agents/build-error-resolver.md"
+    },
+    {
+      "id": "github-pr",
+      "commands": [
+        "github-pr"
+      ],
+      "allowedWrites": [],
+      "ecc": null
+    },
+    {
+      "id": "vercel-env",
+      "commands": [
+        "vercel-env"
+      ],
+      "allowedWrites": [],
+      "ecc": null
+    },
+    {
+      "id": "vite-assets",
+      "commands": [
+        "vite-assets"
+      ],
+      "allowedWrites": [],
+      "ecc": null
+    },
+    {
+      "id": "react-race",
+      "commands": [
+        "react-async"
+      ],
+      "allowedWrites": [
+        "loader.mjs"
+      ],
+      "ecc": "skills/react-patterns/SKILL.md"
+    },
+    {
+      "id": "ui-accessibility",
+      "commands": [
+        "ui-accessibility"
+      ],
+      "allowedWrites": [],
+      "ecc": null
+    },
+    {
+      "id": "idempotency",
+      "commands": [
+        "backend-idempotency"
+      ],
+      "allowedWrites": [
+        "orders.mjs"
+      ],
+      "ecc": null
+    },
+    {
+      "id": "db-migrate",
+      "commands": [
+        "db-migrate"
+      ],
+      "allowedWrites": [],
+      "ecc": "skills/database-migrations/SKILL.md"
+    },
+    {
+      "id": "db-query",
+      "commands": [
+        "db-query"
+      ],
+      "allowedWrites": [],
+      "ecc": null
+    },
+    {
+      "id": "data-reconcile",
+      "commands": [
+        "data-reconcile"
+      ],
+      "allowedWrites": [],
+      "ecc": null
+    },
+    {
+      "id": "ml-split",
+      "commands": [
+        "ml-split"
+      ],
+      "allowedWrites": [],
+      "ecc": null
+    },
+    {
+      "id": "ml-leakage",
+      "commands": [
+        "ml-leakage"
+      ],
+      "allowedWrites": [],
+      "ecc": "agents/mle-reviewer.md"
+    },
+    {
+      "id": "ml-checkpoint",
+      "commands": [
+        "ml-train"
+      ],
+      "allowedWrites": [],
+      "ecc": null
+    },
+    {
+      "id": "ml-evaluate",
+      "commands": [
+        "ml-evaluate"
+      ],
+      "allowedWrites": [],
+      "ecc": null
+    },
+    {
+      "id": "ml-parity",
+      "commands": [
+        "ml-parity"
+      ],
+      "allowedWrites": [],
+      "ecc": null
+    },
+    {
+      "id": "rag-boundary",
+      "commands": [
+        "llm-rag",
+        "llm-injection"
+      ],
+      "allowedWrites": [],
+      "ecc": null
+    },
+    {
+      "id": "regression-test",
+      "commands": [
+        "test-regression"
+      ],
+      "allowedWrites": [
+        "regression.test.mjs"
+      ],
+      "ecc": null
+    },
+    {
+      "id": "authz",
+      "commands": [
+        "security-authz",
+        "security-fix"
+      ],
+      "allowedWrites": [
+        "access.mjs"
+      ],
+      "ecc": null
+    },
+    {
+      "id": "ops-logs",
+      "commands": [
+        "ops-logs"
+      ],
+      "allowedWrites": [],
+      "ecc": null
+    },
+    {
+      "id": "arch-events",
+      "commands": [
+        "arch-event-flow"
+      ],
+      "allowedWrites": [],
+      "ecc": null
+    },
+    {
+      "id": "decision-matrix",
+      "commands": [
+        "decision-matrix"
+      ],
+      "allowedWrites": [],
+      "ecc": null
+    }
+  ]
+}

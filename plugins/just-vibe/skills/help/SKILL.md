@@ -1,11 +1,15 @@
 ---
 name: help
-description: "Find the right command and show examples"
+description: "Find the right command and show examples Use to choose a workflow and explain invocation; tools lists/searches the inventory."
 ---
 
 # help
 
 Find the right command and show examples
+
+## Choose this workflow
+
+Use to choose a workflow and explain invocation; tools lists/searches the inventory.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [General methods](../../references/packs/general.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -29,11 +33,16 @@ None by default. Plan artifacts may be saved when requested.
 2. Explain the best matching available workflow and give a prefilled invocation preserving the user constraints. If a candidate is unknown or blocked, name the precise missing task evidence or integration.
 3. If the user asks installation questions, use the installed setup skill or the bundled installer help. A help question is not permission to execute the recommended workflow.
 
-Task-specific method: Match intent, identify the best available workflow, explain required context and prerequisites, and provide a prefilled host-appropriate invocation.
+Task-specific method: Match intent, identify the best available workflow, explain required context and prerequisites, and provide a prefilled host-appropriate invocation. Resolve the user's intended outcome and preferred mode, compare nearby commands using their selection boundaries, and offer one primary invocation with preserved context.
+
+## Decision branches
+
+- **When the best workflow lacks required evidence:** Explain the missing capability and a useful evidence-only alternative without falsely marking it available.
 
 ## Deliver and verify
 
 - Relevant usage instructions with availability and examples.
+- Selected command, why it fits, required context and host-appropriate invocation.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -43,6 +52,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Do not execute the recommended workflow merely because help was requested. Fall back to installed capabilities when discovery is incomplete.
 
-## Example request
+## Example requests
 
-Which command investigates good offline ML scores but poor production results?
+- **Normal (inspect):** Which command investigates good offline ML scores but poor production results?
+- **edge (inspect):** Explain whether I need explain, teach or trace for this function.
+- **blocked (inspect):** Find a suitable deployment command without provider access; show prerequisites.

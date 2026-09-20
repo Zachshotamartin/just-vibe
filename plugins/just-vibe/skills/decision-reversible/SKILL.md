@@ -1,11 +1,15 @@
 ---
 name: decision-reversible
-description: "Separate reversible choices from expensive commitments"
+description: "Separate reversible choices from expensive commitments Use to classify and reduce switching cost; decision-spike tests a specific uncertainty."
 ---
 
 # decision-reversible
 
 Separate reversible choices from expensive commitments
+
+## Choose this workflow
+
+Use to classify and reduce switching cost; decision-spike tests a specific uncertainty.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Decisions methods](../../references/packs/decisions.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Identify persisted data, external promises, switching mechanisms, and operational costs; classify reversibility with evidence and design cheaper experiments.
+- Inventory persisted data, external promises and dependency adoption; distinguish rollback of code from reversal of consequences.
+
+## Decision branches
+
+- **When a configuration toggle has irreversible downstream effects:** Classify those effects separately and design a bounded trial with cleanup or reconciliation.
 
 ## Deliver and verify
 
 - Decision map with reversal steps, dependencies, cost drivers, and commitment checkpoints.
+- Reversibility dimensions, exit cost assumptions and experiment boundary.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Avoid unsupported effort estimates. Unknown contractual constraints remain explicit dependencies.
 
-## Example request
+## Example requests
 
-Identify irreversible commitments in this storage-provider decision.
+- **Normal (plan):** Identify irreversible commitments in this storage-provider decision.
+- **edge (plan):** Assess a feature flag that sends customer emails.
+- **blocked (inspect):** Assess reversibility with unknown contract terms; identify the missing constraint.

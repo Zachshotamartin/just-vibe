@@ -4,7 +4,7 @@ import { mkdtempSync, mkdirSync, symlinkSync, rmSync, realpathSync } from 'node:
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { loadCatalog } from '../plugins/just-vibe/scripts/lib/catalog.mjs';
-import { createRun, startStage, recordStage, finishRun, resumeRun, insideProject } from '../plugins/just-vibe/scripts/lib/run.mjs';
+import { createRun, startStage, recordStage, finishRun, resumeRun, insideProject, supersedeStage, amendStage } from '../plugins/just-vibe/scripts/lib/run.mjs';
 
 const catalog = loadCatalog();
 const capabilities = { 'project.read': { status: 'available', reason: 'Read fixture.' } };
@@ -134,4 +134,76 @@ test('a resolved blocked stage can resume with evidence while preserving prior o
   r = recordStage(start(r, { newEvidence: 'Read the restored input.' }), outcome('fix-stage'));
   assert.equal(finishRun(r, outcome()).status, 'completed');
   assert.equal(r.stages[0].attempts.length, 2);
+});
+
+test('a verified alternative supersedes a blocked route without deleting history or resetting budgets', t => {
+  const original = recordStage(start(run(fixture(t))), outcome('fix-stage', 'blocked'));
+  let r = recordStage(start(original, { id: 'alternative', command: 'build' }), outcome('alternative'));
+  assert.throws(() => finishRun(r, outcome()), /Unfinished/);
+  const proof = outcome();
+  r = supersedeStage(r, { id: 'fix-stage', replacements: ['alternative'], reason: 'Alternative implements the same required behavior.', evidence: proof.evidence, criteria: proof.criteria });
+  assert.equal(r.stages[0].status, 'superseded');
+  assert.equal(r.stages[0].attempts[0].status, 'blocked');
+  assert.equal(original.stages[0].status, 'blocked');
+  assert.deepEqual(r.budget, original.budget);
+  assert.equal(r.createdAt, original.createdAt);
+  assert.equal(finishRun(r, proof).status, 'completed');
+  assert.throws(() => start(r), /Only the same failed/);
+});
+
+test('supersession rejects missing, unverified, unrelated and circular replacements', t => {
+  const blocked = recordStage(start(run(fixture(t))), outcome('fix-stage', 'failed'));
+  const unrelated = outcome('different'); unrelated.criteria[0].criterion = 'Unrelated result';
+  const r = recordStage(start(blocked, { id: 'different' }), unrelated);
+  const proof = outcome();
+  const resolution = { id: 'fix-stage', replacements: ['different'], reason: 'Trying alternative', evidence: proof.evidence, criteria: proof.criteria };
+  assert.throws(() => supersedeStage(r, resolution), /does not cover/);
+  for (const replacements of [[], ['missing'], ['fix-stage'], ['different', 'different']]) assert.throws(() => supersedeStage(r, { ...resolution, replacements }));
+  assert.throws(() => supersedeStage(start(blocked, { id: 'running' }), { ...resolution, replacements: ['running'] }), /already be completed/);
+  assert.throws(() => supersedeStage(r, { ...resolution, criteria: [] }), /verified criteria/);
+  assert.throws(() => supersedeStage(r, { ...resolution, evidence: [{ ...proof.evidence[0], result: 'unverified' }] }), /passing evidence/);
+  const partial = finishRun(r, { status: 'partial', summary: 'Work remains.' });
+  assert.throws(() => supersedeStage(partial, resolution), /resume explicitly/);
+});
+
+test('amending an action checks every effect and preserves attempt and action history', t => {
+  const root = fixture(t);
+  let r = start(run(root), { effect: 'read' });
+  const initial = structuredClone(r);
+  r = amendStage(r, { id: 'fix-stage', effects: ['local-write'], target: root, action: 'Apply observed correction' });
+  assert.equal(initial.stages[0].attempts[0].actions, undefined);
+  assert.equal(r.stages[0].attempts.length, 1);
+  assert.equal(r.stages[0].attempts[0].effect, 'read');
+  const action = { id: 'fix-stage', effects: ['external-write', 'paid'], target: 'preview/project', action: 'Deploy preview' };
+  r.context.authorization.push({ effect: 'external-write', target: action.target, action: action.action, basis: 'User requested this deployment.' });
+  assert.throws(() => amendStage(r, action), /authorization/);
+  r.context.authorization.push({ effect: 'paid', target: action.target, action: action.action, basis: 'User provided an explicit deployment budget.' });
+  r = amendStage(r, action);
+  assert.equal(r.stages[0].attempts[0].actions.length, 2);
+  assert.deepEqual(r.budget, initial.budget);
+  assert.throws(() => amendStage(r, { ...action, target: 'production/project' }), /authorization/);
+  const inspected = start(run(root, 'inspect'), { effect: 'read' });
+  assert.throws(() => amendStage(inspected, { ...action, effects: ['local-write'], target: root }), /Inspect mode/);
+  const finished = recordStage(r, outcome('fix-stage'));
+  assert.throws(() => amendStage(finished, action), /No matching running/);
+});
+
+test('outcome fields cannot overwrite checked action identity or history', t => {
+  let r = start(run(fixture(t)), { effect: 'read' });
+  r = amendStage(r, { id: 'fix-stage', effects: ['read'], target: r.root, action: 'Inspect more evidence' });
+  r = recordStage(r, { ...outcome('fix-stage'), effect: 'external-write', target: 'attacker', actions: [] });
+  assert.equal(r.stages[0].attempts[0].effect, 'read');
+  assert.equal(r.stages[0].attempts[0].target, r.root);
+  assert.equal(r.stages[0].attempts[0].actions.length, 1);
+});
+
+test('superseding uncertain external effects requires explicit reconciliation evidence', t => {
+  let r=run(fixture(t));
+  r.context.authorization.push({effect:'external-write',target:'preview',action:'Fix feature',basis:'User requested the preview.'});
+  r=recordStage(start(r,{effect:'external-write',target:'preview'}),outcome('fix-stage','failed'));
+  r=recordStage(start(r,{id:'alternative'}),outcome('alternative'));
+  const proof=outcome(), resolution={id:'fix-stage',replacements:['alternative'],reason:'Reused existing deployment.',evidence:proof.evidence,criteria:proof.criteria};
+  assert.throws(()=>supersedeStage(r,resolution),/reconciliation/);
+  const result=supersedeStage(r,{...resolution,effectReconciliation:{reference:'provider operation 123',detail:'Original deployment exists and matches the requested revision; no duplicate was created.',result:'pass'}});
+  assert.equal(result.stages[0].resolution.effectReconciliation.result,'pass');
 });

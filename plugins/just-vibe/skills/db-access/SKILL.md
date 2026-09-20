@@ -1,11 +1,15 @@
 ---
 name: db-access
-description: "Audit roles, tenant filtering, and row-level policies where supported"
+description: "Audit roles, tenant filtering, and row-level policies where supported Use for grants, connection roles and row policies; backend-permissions checks application enforcement."
 ---
 
 # db-access
 
 Audit roles, tenant filtering, and row-level policies where supported
+
+## Choose this workflow
+
+Use for grants, connection roles and row policies; backend-permissions checks application enforcement.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Databases methods](../../references/packs/database.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Inspect grants and execution identities, trace connection-role behavior, evaluate policies including writes, and design or run authorized isolated access checks.
+- Trace the actual runtime role and ownership/bypass privileges; inspect read and write predicates with positive and cross-tenant negative cases.
+
+## Decision branches
+
+- **When tests run as an elevated owner/service role:** Do not infer ordinary-user isolation from those results; test the intended execution identity.
 
 ## Deliver and verify
 
 - Access findings, policy coverage, and remediation/test proposals.
+- Role/resource/action matrix, policy paths and verified/unknown isolation checks.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - No grant/policy changes or real tenant-data probing by default. Unknown execution roles block confident isolation claims.
 
-## Example request
+## Example requests
 
-Audit tenant policies and service-role bypass paths from supplied metadata.
+- **Normal (inspect):** Audit tenant policies and service-role bypass paths from supplied metadata.
+- **edge (inspect):** Review row policies where reads are scoped but inserts permit another tenant ID.
+- **blocked (inspect):** Inspect policy definitions without probing real tenant data or changing grants.

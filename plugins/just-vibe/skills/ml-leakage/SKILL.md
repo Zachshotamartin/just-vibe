@@ -1,11 +1,15 @@
 ---
 name: ml-leakage
-description: "Find target leakage, temporal leakage, and split contamination"
+description: "Find target leakage, temporal leakage, and split contamination Use to audit demonstrated information leakage; ml-split designs the evaluation protocol."
 ---
 
 # ml-leakage
 
 Find target leakage, temporal leakage, and split contamination
+
+## Choose this workflow
+
+Use to audit demonstrated information leakage; ml-split designs the evaluation protocol.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [ML data methods](../../references/packs/ml-data.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -32,10 +36,16 @@ None by default. Plan artifacts may be saved when requested.
 - Quantify entity, interval and outcome-horizon overlap. Do not infer identical raw measurements or a shared outcome event from metadata alone. Determine group separation from whether deployment targets known entities, new entities or new groups.
 - Check label maturity against the simulated model-fit and prediction times. State the historical-deployment assumption when applying temporal cutoffs or an embargo; choose gaps from actual availability and overlap instead of a universal duration.
 - Before delivering, check every claim labeled proven against its cited evidence. Correct unsupported absolutes, including assertions that all scores are invalid or a split is always wrong. Identify which scores would be affected under which assumptions, and require re-evaluation after confirmed leakage is corrected.
+- Build a compact evidence ledger: field or row, availability time, prediction/fit time, observed violation, affected score and assumptions; keep overlap metadata separate from shared measurements or events.
+
+## Decision branches
+
+- **When no raw measurements, event IDs or fitting history establish dependence:** Report conditional risk or unknown, not proven shared events, mandatory gap length or universal score invalidity.
 
 ## Deliver and verify
 
 - An evidence-backed leakage audit separating confirmed defects, conditional risks and unknowns; each finding names the supporting rows/source, assumptions, affected evaluation and correction or missing evidence.
+- Finding ledger that ties every confirmed defect to supplied source or rows and bounds the affected evaluation.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -47,6 +57,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Do not claim absence of leakage when provenance is missing. Remediation must invalidate affected scores rather than preserve misleading results.
 
-## Example request
+## Example requests
 
-Audit churn features for values unavailable 30 days before cancellation.
+- **Normal (inspect):** Audit churn features for values unavailable 30 days before cancellation.
+- **edge (inspect):** Audit overlapping windows whose metadata does not prove shared sensor values or outcome events.
+- **blocked (inspect):** Review lineage with missing preprocessing code and event IDs; leave unsupported claims unknown.

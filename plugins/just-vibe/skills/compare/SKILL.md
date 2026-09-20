@@ -1,11 +1,15 @@
 ---
 name: compare
-description: "Compare specific implementation approaches and their tradeoffs"
+description: "Compare specific implementation approaches and their tradeoffs Use for a factual side-by-side comparison; decide recommends adoption and decision-matrix handles weighted priorities."
 ---
 
 # compare
 
 Compare specific implementation approaches and their tradeoffs
+
+## Choose this workflow
+
+Use for a factual side-by-side comparison; decide recommends adoption and decision-matrix handles weighted priorities.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [General methods](../../references/packs/general.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Normalize assumptions, compare behavior, complexity, maintenance, migration, and relevant cost; identify where evidence is missing.
+- Normalize workload, feature requirements and time horizon; include a baseline/current option and distinguish switching cost from steady-state cost.
+
+## Decision branches
+
+- **When options meet different hard requirements:** Eliminate infeasible choices before ranking and explain the decisive incompatibility.
 
 ## Deliver and verify
 
 - Side-by-side comparison, conditional recommendation, and a discriminating test if needed.
+- Comparable assumptions, evidence-backed differences and conditions that change the result.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Do not invent benchmark or cost figures. If requirements are unresolved, give conditional choices rather than an arbitrary winner.
 
-## Example request
+## Example requests
 
-Compare queue-backed jobs with our existing database job runner.
+- **Normal (inspect):** Compare queue-backed jobs with our existing database job runner.
+- **edge (inspect):** Compare two queues when ordering is required only within an account.
+- **blocked (inspect):** Compare these proposals without usage or pricing data; leave costs bounded or unknown.

@@ -16,6 +16,22 @@
       "stopBehavior": [
         "Unreadable roots or ambiguous projects produce a targeted blocker; never claim the application runs without evidence."
       ],
+      "cases": [
+        {
+          "brief": "Help me find how checkout works and which checks cover it.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Orient this monorepo; the README describes an app that was removed."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Inspect this source archive without Git history or executing scripts."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -35,6 +51,22 @@
       ],
       "stopBehavior": [
         "Request a target only when multiple interpretations materially change the answer. Do not invent business intent from implementation alone."
+      ],
+      "cases": [
+        {
+          "brief": "Explain how session refresh works, including expired credentials.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Explain how this function handles an empty array and a rejected dependency."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Explain this module from source only; runtime configuration is unavailable."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -58,6 +90,22 @@
       "stopBehavior": [
         "Ask one focused question if the topic or workflow cannot be identified. Do not invent source behavior, assume required knowledge without explaining it, claim the user mastered the topic, or execute the workflow merely because it was named. Verify version-sensitive claims against relevant primary sources."
       ],
+      "cases": [
+        {
+          "brief": "Teach linked lists from the basics, with a worked insertion example and practical tradeoffs.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Teach linked-list deletion when only the head pointer is available."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Teach db-migrate concepts without database access; do not run a migration."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -80,6 +128,22 @@
       "stopBehavior": [
         "Stop on the requested question limit, cancellation, missing native-dialog capability, ambiguous topic, or an unresolved answer. Respect tool-specific host/mode restrictions; do not force Plan mode, grant permissions, or simulate a native dialog by printing JSON or markdown."
       ],
+      "cases": [
+        {
+          "brief": "Quiz me on linked lists using the native question dialog, one question at a time.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Test linked-list operations; skip one question and explain only at the end."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Inspect whether this host permits native assessment dialogs; do not print an inline quiz."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -99,6 +163,22 @@
       ],
       "stopBehavior": [
         "Do not scan unrelated tenant data or infer causation from timestamp proximity alone."
+      ],
+      "cases": [
+        {
+          "brief": "Trace an order from the checkout route through the payment job.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Trace a checkout request through a queued email and a failed payment callback."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Trace only these supplied logs; downstream worker logs are unavailable."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -120,6 +200,22 @@
       "stopBehavior": [
         "Cap graph expansion at the requested boundary and summarize external nodes. Do not present the diagram as an approved future architecture."
       ],
+      "cases": [
+        {
+          "brief": "Map dependencies between the billing modules; include cycles.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Map modules including a plugin loaded from configuration."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Map this partial source snapshot without claiming complete dependency coverage."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -139,6 +235,22 @@
       ],
       "stopBehavior": [
         "If authoritative information is unavailable, bound confidence and propose a small validation experiment instead of fabricating certainty."
+      ],
+      "cases": [
+        {
+          "brief": "Research an incremental migration strategy for our current database version.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Research whether our pinned framework supports streaming on this deployment target."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Assess supplied documentation only; live browsing is unavailable and prices may be stale."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -160,6 +272,22 @@
       "stopBehavior": [
         "Do not invent benchmark or cost figures. If requirements are unresolved, give conditional choices rather than an arbitrary winner."
       ],
+      "cases": [
+        {
+          "brief": "Compare queue-backed jobs with our existing database job runner.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Compare two queues when ordering is required only within an account."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Compare these proposals without usage or pricing data; leave costs bounded or unknown."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -179,6 +307,22 @@
       ],
       "stopBehavior": [
         "Identify impossible constraint combinations. Avoid padding the output with renamed versions of the same idea."
+      ],
+      "cases": [
+        {
+          "brief": "Find distinct ways to reduce onboarding steps while preserving required consent.",
+          "mode": "plan"
+        },
+        {
+          "kind": "edge",
+          "mode": "plan",
+          "brief": "Brainstorm offline collaboration without introducing a server."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Generate approaches from this brief; user research is unavailable, so label adoption assumptions."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -200,6 +344,22 @@
       "stopBehavior": [
         "Do not silently choose billing, privacy, or access policy that needs the user's decision. Continue specifying independent behavior."
       ],
+      "cases": [
+        {
+          "brief": "Specify organization invitations, including expiry and already-registered users.",
+          "mode": "plan"
+        },
+        {
+          "kind": "edge",
+          "mode": "plan",
+          "brief": "Specify account deletion with a pending subscription and recoverable failure."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Draft a specification with unknown retention policy; leave that decision explicit."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -219,6 +379,22 @@
       ],
       "stopBehavior": [
         "Do not estimate unknown work as certain. Ask only for decisions that change the plan materially."
+      ],
+      "cases": [
+        {
+          "brief": "Plan adding saved filters to the existing search page without new dependencies.",
+          "mode": "plan"
+        },
+        {
+          "kind": "edge",
+          "mode": "plan",
+          "brief": "Plan a backward-compatible API change with old clients still active."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Plan from this partial repository; external service schemas are unavailable."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -240,6 +416,22 @@
       "stopBehavior": [
         "Do not quietly reinterpret a hard requirement as optional. Mark unresolved priority choices and continue dependency analysis."
       ],
+      "cases": [
+        {
+          "brief": "Scope a first release of team billing that three people can maintain.",
+          "mode": "plan"
+        },
+        {
+          "kind": "edge",
+          "mode": "plan",
+          "brief": "Reduce a launch scope while preserving signup, purchase and refund recovery."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Scope this feature without effort history; identify estimates requiring a spike."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -259,6 +451,22 @@
       ],
       "stopBehavior": [
         "Separate demonstrated flaws from speculative concerns. Do not demand certainty where a reversible experiment resolves the risk."
+      ],
+      "cases": [
+        {
+          "brief": "Challenge the assumption that every notification needs a separate service.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Challenge a cache proposal whose stale data could affect authorization."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Challenge this proposal without traffic data; do not invent capacity limits."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -280,6 +488,22 @@
       "stopBehavior": [
         "Do not create estimates, owners, or external tickets as established facts when none were supplied."
       ],
+      "cases": [
+        {
+          "brief": "Break the accepted invitation spec into ordered tasks with acceptance checks.",
+          "mode": "plan"
+        },
+        {
+          "kind": "edge",
+          "mode": "plan",
+          "brief": "Split a migration plan into tasks that leave every intermediate release usable."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Break down known work while keeping an unresolved provider choice as a dependency."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -299,6 +523,22 @@
       ],
       "stopBehavior": [
         "Missing secrets/services produce a specific integration blocker, not fabricated success. Preserve unrelated edits and report checks that could not run."
+      ],
+      "cases": [
+        {
+          "brief": "Add saved filters to search; use the current API and no new dependencies.",
+          "mode": "apply"
+        },
+        {
+          "kind": "edge",
+          "mode": "apply",
+          "brief": "Build checkout while preserving an existing discount rule and pending user edits."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Inspect what can be implemented locally when the payment sandbox is unavailable."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -320,6 +560,22 @@
       "stopBehavior": [
         "If reproduction is unavailable, label hypotheses and investigate without presenting a speculative patch as a verified fix."
       ],
+      "cases": [
+        {
+          "brief": "An expired discount crashes checkout. Reproduce and preserve the error format.",
+          "mode": "apply"
+        },
+        {
+          "kind": "edge",
+          "mode": "apply",
+          "brief": "Fix a null-input crash without changing the behavior of a zero-value input."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Diagnose an intermittent crash with no reproduction; do not claim a verified repair."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -339,6 +595,22 @@
       ],
       "stopBehavior": [
         "Avoid repeated identical probes. Do not mutate production or install debugging tools implicitly."
+      ],
+      "cases": [
+        {
+          "brief": "Investigate intermittent checkout failures from these logs; do not change files.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Diagnose a timeout that occurs only after a successful database write."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Diagnose using redacted logs only; do not restart services or infer missing spans."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -360,6 +632,22 @@
       "stopBehavior": [
         "If behavior is undocumented, characterize it before changing it. Do not fold a semantic fix into the refactor without naming the scope change."
       ],
+      "cases": [
+        {
+          "brief": "Separate validation from persistence without changing the public API.",
+          "mode": "apply"
+        },
+        {
+          "kind": "edge",
+          "mode": "apply",
+          "brief": "Extract a service without changing exception types or serialized output."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Assess a refactor when integration tests cannot run; identify unverified contracts."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -379,6 +667,22 @@
       ],
       "stopBehavior": [
         "Missing credentials block live verification only. Never hard-code secrets or imply sandbox checks prove production readiness."
+      ],
+      "cases": [
+        {
+          "brief": "Connect the sandbox shipping API using our existing HTTP client.",
+          "mode": "apply"
+        },
+        {
+          "kind": "edge",
+          "mode": "apply",
+          "brief": "Integrate a provider whose timed-out request may still create an order."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Design and inspect the integration without credentials; do not invent a successful sandbox call."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -400,6 +704,22 @@
       "stopBehavior": [
         "Irreversible data loss, unsupported targets, or ambiguous production scope must be resolved before dependent mutations."
       ],
+      "cases": [
+        {
+          "brief": "Plan upgrading the job library while old workers remain active.",
+          "mode": "plan"
+        },
+        {
+          "kind": "edge",
+          "mode": "plan",
+          "brief": "Migrate a library while older workers continue reading stored jobs."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Plan a migration with missing legacy fixtures; identify the compatibility evidence still needed."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -419,6 +739,22 @@
       ],
       "stopBehavior": [
         "Do not embed credentials, create unsolicited scheduled jobs, or automate ambiguous human decisions without an explicit rule."
+      ],
+      "cases": [
+        {
+          "brief": "Create a repeatable local script to validate our release artifacts.",
+          "mode": "apply"
+        },
+        {
+          "kind": "edge",
+          "mode": "apply",
+          "brief": "Automate report generation when an earlier run left half the output."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Inspect automation requirements without installing a scheduler or contacting services."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -440,6 +776,22 @@
       "stopBehavior": [
         "Uncertain candidates remain with an explanation. Never delete user data or untracked files merely because they look temporary."
       ],
+      "cases": [
+        {
+          "brief": "Remove demonstrably unused checkout helpers; preserve public exports.",
+          "mode": "apply"
+        },
+        {
+          "kind": "edge",
+          "mode": "apply",
+          "brief": "Clean dead files while preserving route files discovered by filename."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Identify cleanup candidates without build access; leave uncertain dynamic modules intact."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -459,6 +811,22 @@
       ],
       "stopBehavior": [
         "Do not invent product claims or replace established branding without basis. Report unavailable visual verification."
+      ],
+      "cases": [
+        {
+          "brief": "Build the account settings page using our existing typography and controls.",
+          "mode": "apply"
+        },
+        {
+          "kind": "edge",
+          "mode": "apply",
+          "brief": "Design a dense settings page with long translations and destructive actions."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Propose a direction from supplied screenshots when a browser cannot render the app."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -480,6 +848,22 @@
       "stopBehavior": [
         "Do not turn a polish task into a redesign. If rendering is unavailable, distinguish code changes from visually verified results."
       ],
+      "cases": [
+        {
+          "brief": "Improve spacing and hierarchy on billing without changing the flow.",
+          "mode": "apply"
+        },
+        {
+          "kind": "edge",
+          "mode": "apply",
+          "brief": "Polish a form without shrinking touch targets or losing error messages."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Review screenshots only; identify refinements without claiming rendered verification."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -489,16 +873,32 @@
     {
       "id": "responsive",
       "pack": "general",
-      "brief": "Fix horizontal overflow on the product page at narrow widths.",
+      "brief": "Fix the checkout layout for narrow screens, zoom, and touch input.",
       "mode": "apply",
       "requiredEvidence": [
-        "page/components, affected viewport/input method, and screenshots if available."
+        "target layouts, content extremes, and supported input/viewport conditions."
       ],
       "rubric": [
-        "Reported overflow disappears; long text and touch targets remain usable at narrow widths."
+        "Content remains reachable at narrow widths and zoom; hover-only controls have a usable alternate interaction."
       ],
       "stopBehavior": [
-        "Do not hide essential content to make a screenshot fit. Report untested device-specific behavior separately."
+        "Do not hide required functionality or claim device coverage from a single desktop screenshot."
+      ],
+      "cases": [
+        {
+          "brief": "Fix the checkout layout for narrow screens, zoom, and touch input.",
+          "mode": "apply"
+        },
+        {
+          "kind": "edge",
+          "mode": "apply",
+          "brief": "Repair a table at narrow widths and high zoom without hiding essential actions."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Review responsive source and screenshots without claiming real-device interaction coverage."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -509,16 +909,32 @@
     {
       "id": "a11y",
       "pack": "general",
-      "brief": "Audit checkout keyboard navigation and error announcements.",
+      "brief": "Audit modal focus, keyboard dismissal, and error announcement behavior.",
       "mode": "inspect",
       "requiredEvidence": [
-        "target page/flow and accessibility concerns. Explicit remediation requests select apply mode."
+        "component/flow and target accessibility concerns. Apply for requested remediation."
       ],
       "rubric": [
-        "Keyboard access identifies a trapped dialog; an automated pass is not presented as complete accessibility assurance."
+        "Modal focus returns to its trigger; errors are programmatically associated and usable without color alone."
       ],
       "stopBehavior": [
-        "State which assistive technologies were actually exercised. Do not claim certification from a limited audit."
+        "Do not claim screen-reader verification without running it. Automated scans alone cannot establish full conformance."
+      ],
+      "cases": [
+        {
+          "brief": "Audit modal focus, keyboard dismissal, and error announcement behavior.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Fix modal focus return and server validation announcements without relying on color."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Audit semantics without a screen reader; explicitly leave screen-reader behavior unverified."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -540,6 +956,22 @@
       "stopBehavior": [
         "Missing fonts/assets are identified explicitly. Do not call a match pixel-perfect without a controlled comparison."
       ],
+      "cases": [
+        {
+          "brief": "Match this supplied pricing-page reference at its captured viewport.",
+          "mode": "apply"
+        },
+        {
+          "kind": "edge",
+          "mode": "apply",
+          "brief": "Match this desktop reference while retaining a usable narrow layout."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Analyze a reference with unavailable brand assets; distinguish substitutes from exact matches."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -559,6 +991,22 @@
       ],
       "stopBehavior": [
         "Flag unverifiable product claims. Preserve legal or contractual wording unless the requested scope includes changing it."
+      ],
+      "cases": [
+        {
+          "brief": "Make payment failure messages actionable and preserve the user's entered data.",
+          "mode": "apply"
+        },
+        {
+          "kind": "edge",
+          "mode": "apply",
+          "brief": "Improve payment errors while preserving a user's entered form values."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Suggest copy with unknown refund policy; do not invent eligibility promises."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -580,6 +1028,22 @@
       "stopBehavior": [
         "Missing base revisions block confident change attribution. Do not manufacture findings to fill a template."
       ],
+      "cases": [
+        {
+          "brief": "Review this branch against main for behavioral regressions.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Review a PR with unrelated pre-existing warnings and a recently rebased head."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Review supplied diff only; mark missing surrounding source and tests as coverage limits."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -599,6 +1063,22 @@
       ],
       "stopBehavior": [
         "Report unavailable services/runners. Avoid tests that merely restate implementation or require live paid endpoints without authorization."
+      ],
+      "cases": [
+        {
+          "brief": "Add meaningful coverage for expired invitations and repeated acceptance.",
+          "mode": "apply"
+        },
+        {
+          "kind": "edge",
+          "mode": "apply",
+          "brief": "Add tests for duplicate submissions and a legitimate repeated purchase."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Assess test design without the integration environment; do not mark mocks as live coverage."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -620,6 +1100,22 @@
       "stopBehavior": [
         "Do not run deployment scripts as verification. Separate pre-existing failures from introduced failures using evidence."
       ],
+      "cases": [
+        {
+          "brief": "Verify this checkout change using the project checks; report blocked checks.",
+          "mode": "apply"
+        },
+        {
+          "kind": "edge",
+          "mode": "apply",
+          "brief": "Verify a fix where unit tests pass but the browser build fails."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Review existing CI artifacts without running commands or treating stale results as current."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -639,6 +1135,22 @@
       ],
       "stopBehavior": [
         "Do not expose secrets or user records as proof. Missing environment access narrows confidence and coverage."
+      ],
+      "cases": [
+        {
+          "brief": "Audit authorization around invoice exports using source evidence only.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Audit an export endpoint with tenant filtering and an alternate download route."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Review source only without probing real accounts or using suspected credentials."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -660,6 +1172,22 @@
       "stopBehavior": [
         "If measurement is unavailable, provide hypotheses without numerical claims. Stop when noise or resource limits prevent trustworthy conclusions."
       ],
+      "cases": [
+        {
+          "brief": "Measure and fix slow product filtering; preserve search results.",
+          "mode": "apply"
+        },
+        {
+          "kind": "edge",
+          "mode": "apply",
+          "brief": "Optimize a slow search without changing ranking or using a warmer cache baseline."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Inspect source without profiler data; provide hypotheses and a bounded measurement plan."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -679,6 +1207,22 @@
       ],
       "stopBehavior": [
         "Redact production data and secrets. If reduction changes the symptom, keep the last valid reproducer and report the limit."
+      ],
+      "cases": [
+        {
+          "brief": "Create an isolated minimal reproduction of the double-submission bug.",
+          "mode": "apply"
+        },
+        {
+          "kind": "edge",
+          "mode": "apply",
+          "brief": "Reproduce an order-dependent test failure without copying production secrets."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Describe a reproduction plan when the affected binary is unavailable."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -700,6 +1244,22 @@
       "stopBehavior": [
         "Distinguish measured coverage from inferred coverage. Running new coverage jobs requires execution authorization."
       ],
+      "cases": [
+        {
+          "brief": "Identify the highest-risk untested billing behaviors from existing tests.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Audit coverage of failed checkout retries despite 95 percent line coverage."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Inspect test sources without a coverage report; avoid claiming measured percentages."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -719,6 +1279,22 @@
       ],
       "stopBehavior": [
         "Flag unresolved conflicts, missing base, or unintended files. Do not push, open a PR, or message reviewers from a preparation-only request."
+      ],
+      "cases": [
+        {
+          "brief": "Draft a PR title and description for this diff; do not submit it.",
+          "mode": "plan"
+        },
+        {
+          "kind": "edge",
+          "mode": "plan",
+          "brief": "Prepare a PR description after the implementation scope changed."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Draft from the local diff without remote access or posting anything."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -740,6 +1316,22 @@
       "stopBehavior": [
         "Do not invent version history or assign semantic-version significance without examining compatibility."
       ],
+      "cases": [
+        {
+          "brief": "Prepare release notes and readiness checks since the previous verified tag.",
+          "mode": "plan"
+        },
+        {
+          "kind": "edge",
+          "mode": "plan",
+          "brief": "Prepare notes for a release with an irreversible data migration."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Review release readiness with missing artifact checksums; do not publish."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -759,6 +1351,22 @@
       ],
       "stopBehavior": [
         "Do not rerun costly jobs or change organization secrets without the relevant request. Report inaccessible logs explicitly."
+      ],
+      "cases": [
+        {
+          "brief": "Diagnose the failed matrix job from these logs without rerunning it.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Diagnose one failing matrix job without disabling the other jobs."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Inspect supplied CI logs without runner access or triggering a rerun."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -780,6 +1388,22 @@
       "stopBehavior": [
         "Exclude secrets and private data. Flag ambiguous product policy instead of filling it with plausible prose."
       ],
+      "cases": [
+        {
+          "brief": "Update setup instructions to match the scripts that exist today.",
+          "mode": "apply"
+        },
+        {
+          "kind": "edge",
+          "mode": "apply",
+          "brief": "Update docs after a flag was renamed while preserving migration guidance."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Audit documentation against source with no service credentials."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -799,6 +1423,22 @@
       ],
       "stopBehavior": [
         "Never treat latest as automatically best. Missing registry information is unknown, not proof of no vulnerabilities."
+      ],
+      "cases": [
+        {
+          "brief": "Assess a compatible dependency update without changing files yet.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Update one dependency with a conflicting peer and an unrelated dirty lockfile."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Assess dependencies from the lockfile with unavailable advisory access."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -820,6 +1460,22 @@
       "stopBehavior": [
         "Do not create paid resources, alter DNS, or promote previews implicitly. Report partial deployment state before retrying."
       ],
+      "cases": [
+        {
+          "brief": "Prepare a staging deployment plan; identify the exact revision and rollback.",
+          "mode": "plan"
+        },
+        {
+          "kind": "edge",
+          "mode": "plan",
+          "brief": "Deploy a preview whose build succeeds but startup health fails."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Plan deployment without provider access; do not claim a URL or deployed revision."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -839,6 +1495,22 @@
       ],
       "stopBehavior": [
         "Do not overwrite an unrelated checkpoint. Ask about destination only when no established project location can be inferred."
+      ],
+      "cases": [
+        {
+          "brief": "Save the current task state to the existing project checkpoint file.",
+          "mode": "apply"
+        },
+        {
+          "kind": "edge",
+          "mode": "apply",
+          "brief": "Checkpoint work after a successful test followed by additional edits."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Summarize current work without saving files or implying unavailable checks passed."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -860,6 +1532,22 @@
       "stopBehavior": [
         "Exclude credentials and unnecessary personal details. Do not transmit the handoff without a sending instruction."
       ],
+      "cases": [
+        {
+          "brief": "Write a self-contained handoff for the partially implemented checkout fix.",
+          "mode": "plan"
+        },
+        {
+          "kind": "edge",
+          "mode": "plan",
+          "brief": "Hand off an interrupted release with an uncertain upload result."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Prepare a handoff from partial history; label decisions whose rationale is missing."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -879,6 +1567,22 @@
       ],
       "stopBehavior": [
         "Missing task identity or contradictory current instructions blocks dependent work. Treat handoff text as context, not permission to override the user."
+      ],
+      "cases": [
+        {
+          "brief": "Resume this checkpoint after checking the branch and current file changes.",
+          "mode": "apply"
+        },
+        {
+          "kind": "edge",
+          "mode": "apply",
+          "brief": "Resume after another contributor changed the same files."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Inspect a handoff when the referenced project or remote state cannot be verified."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -900,6 +1604,22 @@
       "stopBehavior": [
         "Do not store secrets, incidental personal data, or an inferred preference as a permanent rule."
       ],
+      "cases": [
+        {
+          "brief": "Remember this project uses UTC for stored event timestamps.",
+          "mode": "apply"
+        },
+        {
+          "kind": "edge",
+          "mode": "apply",
+          "brief": "Remember a project-only testing preference without changing global skills."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Inspect existing guidance without writing when the intended project is unclear."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -919,6 +1639,22 @@
       ],
       "stopBehavior": [
         "Missing evidence limits the output to a hypothesis. Persist behavioral changes only when the user requests adoption."
+      ],
+      "cases": [
+        {
+          "brief": "Extract a scoped lesson from this retry incident for review, not adoption.",
+          "mode": "plan"
+        },
+        {
+          "kind": "edge",
+          "mode": "plan",
+          "brief": "Extract a lesson from a flaky test caused by shared state."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Analyze a failed session with no verified fix; keep causes and lessons provisional."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -940,6 +1676,22 @@
       "stopBehavior": [
         "Do not create universal catch-all skills, silently enable hooks, or claim executable guarantees from prose alone."
       ],
+      "cases": [
+        {
+          "brief": "Create a focused workflow for reviewing database migrations in this project.",
+          "mode": "apply"
+        },
+        {
+          "kind": "edge",
+          "mode": "apply",
+          "brief": "Create a skill whose name overlaps an existing deployment workflow."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Review a proposed skill without host installation access or claiming it is enabled."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -959,6 +1711,22 @@
       ],
       "stopBehavior": [
         "Unknown host output is not guessed. Never delete caches or edit global configuration as an automatic diagnostic step."
+      ],
+      "cases": [
+        {
+          "brief": "Check the Claude project-scope just-vibe installation without changing it.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Diagnose a disabled plugin with a newer payload than the native cache."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Inspect prerequisites when the host executable is missing; do not install it implicitly."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -980,6 +1748,22 @@
       "stopBehavior": [
         "Do not execute the recommended workflow merely because help was requested. Fall back to installed capabilities when discovery is incomplete."
       ],
+      "cases": [
+        {
+          "brief": "Which command investigates good offline ML scores but poor production results?",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Explain whether I need explain, teach or trace for this function."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Find a suitable deployment command without provider access; show prerequisites."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -999,6 +1783,22 @@
       ],
       "stopBehavior": [
         "No installs, authentication changes, credential output, or automatic workflow execution. `--available` excludes entries whose prerequisites cannot be verified."
+      ],
+      "cases": [
+        {
+          "brief": "Show available React workflows and any missing prerequisites.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "List frontend commands without counting responsive and ui-responsive as independent methods."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Show database commands when no database evidence has been supplied."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -1020,6 +1820,22 @@
       "stopBehavior": [
         "Eight stages/two corrective attempts per failed stage by default; no recursive `auto`/`do`, implicit paid runs, or unrequested external publication."
       ],
+      "cases": [
+        {
+          "brief": "Fix the checkout bug, add meaningful regression coverage, and verify; no new dependencies.",
+          "mode": "apply"
+        },
+        {
+          "kind": "edge",
+          "mode": "apply",
+          "brief": "Finish a task using local artifacts after a remote diagnostic stage is blocked."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Inspect a route with missing access; do not invent credentials or claim blocked actions ran."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -1029,16 +1845,32 @@
     {
       "id": "do",
       "pack": "general",
-      "brief": "Investigate slow checkout, fix the cause, and prepare a PR description without posting.",
+      "brief": "Fix the checkout bug, add meaningful regression coverage, and verify; no new dependencies.",
       "mode": "apply",
       "requiredEvidence": [
-        "a free-form multi-step goal and the same optional controls."
+        "objective plus arbitrary constraints, references, environment, and optional mode/budget. Requires available workflow discovery."
       ],
       "rubric": [
-        "Equivalent `do` and `auto` briefs resolve the same constraints and permissions; usage does not introduce an extra nested routing stage."
+        "A no-dependencies constraint survives every stage; missing prerequisites trigger a valid alternative or blocker, not invented execution."
       ],
       "stopBehavior": [
-        "Shares the same budget counter, stop conditions, and availability. Alias metadata must not independently mark an unimplemented router as available."
+        "Eight stages/two corrective attempts per failed stage by default; no recursive `auto`/`do`, implicit paid runs, or unrequested external publication."
+      ],
+      "cases": [
+        {
+          "brief": "Fix the checkout bug, add meaningful regression coverage, and verify; no new dependencies.",
+          "mode": "apply"
+        },
+        {
+          "kind": "edge",
+          "mode": "apply",
+          "brief": "Finish a task using local artifacts after a remote diagnostic stage is blocked."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Inspect a route with missing access; do not invent credentials or claim blocked actions ran."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -1060,6 +1892,22 @@
       "stopBehavior": [
         "Do not describe a static diagram as proof of live topology. Missing infrastructure access limits deployment conclusions."
       ],
+      "cases": [
+        {
+          "brief": "Map our web app, workers, shared database, and external payment service.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Map two services sharing a database but no source imports."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Map supplied manifests without infrastructure access; distinguish intended from observed deployment."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -1079,6 +1927,22 @@
       ],
       "stopBehavior": [
         "Distinguish organizational preference from demonstrated architectural cost. Missing ownership rules become questions, not invented mandates."
+      ],
+      "cases": [
+        {
+          "brief": "Find responsibility leaks and dependency cycles in billing.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Assess a shared utility with many callers but no ownership violation."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Review boundaries without an ownership map; identify assumptions requiring team input."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -1100,6 +1964,22 @@
       "stopBehavior": [
         "Do not introduce a service or datastore solely for stylistic separation. Flag decisions requiring workload or ownership information."
       ],
+      "cases": [
+        {
+          "brief": "Design where organization invitations fit in the existing architecture.",
+          "mode": "plan"
+        },
+        {
+          "kind": "edge",
+          "mode": "plan",
+          "brief": "Design a feature that updates billing and access without a distributed transaction."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Plan placement while an external consumer contract is unavailable."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -1119,6 +1999,22 @@
       ],
       "stopBehavior": [
         "Do not infer all consumers from one repository. Unknown consumers require a compatibility-preserving assumption or explicit decision."
+      ],
+      "cases": [
+        {
+          "brief": "Define a versioned order-created contract that existing consumers can still read.",
+          "mode": "plan"
+        },
+        {
+          "kind": "edge",
+          "mode": "plan",
+          "brief": "Evolve an event field while an offline consumer remains on an old version."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Review a contract without a complete consumer inventory; avoid universal compatibility claims."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -1140,6 +2036,22 @@
       "stopBehavior": [
         "Do not promise exactly-once effects without a concrete consistency mechanism. Avoid choosing infrastructure without throughput and operational constraints."
       ],
+      "cases": [
+        {
+          "brief": "Plan webhook-to-ledger processing with duplicate and reordered events.",
+          "mode": "plan"
+        },
+        {
+          "kind": "edge",
+          "mode": "plan",
+          "brief": "Design order events with duplicate delivery and a producer crash after commit."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Assess event flow when broker guarantees are unknown; keep guarantees conditional."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -1159,6 +2071,22 @@
       ],
       "stopBehavior": [
         "Do not use real cross-tenant data for probing. Policy ambiguity must be resolved before implementing access changes."
+      ],
+      "cases": [
+        {
+          "brief": "Audit organization isolation across caches, jobs, APIs, and exports.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Review multi-organization users and background exports."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Inspect tenancy without authorized test identities; use source and synthetic fixtures only."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -1180,6 +2108,22 @@
       "stopBehavior": [
         "No invented capacity numbers or automatic provisioning. Missing measurements yield an instrumentation/benchmark plan first."
       ],
+      "cases": [
+        {
+          "brief": "Plan capacity experiments for a tenfold increase in checkout traffic.",
+          "mode": "plan"
+        },
+        {
+          "kind": "edge",
+          "mode": "plan",
+          "brief": "Plan growth for a service bottlenecked by a serialized inventory update."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Assess scale without production metrics; avoid invented throughput estimates."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -1199,6 +2143,22 @@
       ],
       "stopBehavior": [
         "Do not assume a big-bang rewrite is necessary. Flag irreversible transitions and missing operational ownership."
+      ],
+      "cases": [
+        {
+          "brief": "Plan an incremental extraction of billing while the old app keeps running.",
+          "mode": "plan"
+        },
+        {
+          "kind": "edge",
+          "mode": "plan",
+          "brief": "Modernize a monolith while old reports still query its database."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Plan modernization without dependency ownership; list blocking unknowns by phase."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -1220,6 +2180,22 @@
       "stopBehavior": [
         "Ask only for preferences that can flip the outcome. Do not fabricate stakeholder agreement or imply the recommendation is already adopted."
       ],
+      "cases": [
+        {
+          "brief": "Choose a job queue approach given our small team and existing Postgres service.",
+          "mode": "plan"
+        },
+        {
+          "kind": "edge",
+          "mode": "plan",
+          "brief": "Choose a cache strategy when consistency is mandatory but traffic is uncertain."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Recommend a conditional choice with no stakeholder cost weights."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -1239,6 +2215,22 @@
       ],
       "stopBehavior": [
         "Unknown scores remain unknown or bounded. Avoid false precision and do not invent numeric confidence from subjective ratings."
+      ],
+      "cases": [
+        {
+          "brief": "Compare three authentication options; maintenance is the highest priority.",
+          "mode": "plan"
+        },
+        {
+          "kind": "edge",
+          "mode": "plan",
+          "brief": "Compare three databases when one fails a hard regional requirement."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Build a comparison with unknown costs; use bounds or missing values instead of invented scores."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -1260,6 +2252,22 @@
       "stopBehavior": [
         "Do not manufacture dates, participants, or consent. Save only in the requested or established documentation location."
       ],
+      "cases": [
+        {
+          "brief": "Draft an ADR for the proposed shared identity service; keep status proposed.",
+          "mode": "plan"
+        },
+        {
+          "kind": "edge",
+          "mode": "plan",
+          "brief": "Write an ADR that supersedes an earlier database decision."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Draft an ADR without known meeting dates or approvers; do not invent them."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -1279,6 +2287,22 @@
       ],
       "stopBehavior": [
         "Do not present hypothetical failures as observed incidents or pad the report with generic catastrophes unrelated to the design."
+      ],
+      "cases": [
+        {
+          "brief": "Identify plausible ways the migration plan could fail and early warning signs.",
+          "mode": "plan"
+        },
+        {
+          "kind": "edge",
+          "mode": "plan",
+          "brief": "Premortem a rollout whose rollback cannot undo generated data."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Analyze hypothetical failure without treating it as an observed incident."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -1300,6 +2324,22 @@
       "stopBehavior": [
         "Avoid unsupported effort estimates. Unknown contractual constraints remain explicit dependencies."
       ],
+      "cases": [
+        {
+          "brief": "Identify irreversible commitments in this storage-provider decision.",
+          "mode": "plan"
+        },
+        {
+          "kind": "edge",
+          "mode": "plan",
+          "brief": "Assess a feature flag that sends customer emails."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Assess reversibility with unknown contract terms; identify the missing constraint."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -1319,6 +2359,22 @@
       ],
       "stopBehavior": [
         "No purchases or account creation. Do not convert speculative usage into precise budget claims."
+      ],
+      "cases": [
+        {
+          "brief": "Compare building and buying organization authentication with future SSO.",
+          "mode": "plan"
+        },
+        {
+          "kind": "edge",
+          "mode": "plan",
+          "brief": "Compare buying search with building it when private indexing is required."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Assess buy versus build with no price quote; keep uncertain costs as ranges."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -1340,6 +2396,22 @@
       "stopBehavior": [
         "Paid resources require budget authorization. Keep prototype quality and production readiness clearly distinct."
       ],
+      "cases": [
+        {
+          "brief": "Design a two-hour local spike to test whether our current search index is sufficient.",
+          "mode": "plan"
+        },
+        {
+          "kind": "edge",
+          "mode": "plan",
+          "brief": "Test whether streaming reduces perceived latency without building the full product."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Design a spike without available hardware; do not fabricate benchmark results."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -1359,6 +2431,22 @@
       ],
       "stopBehavior": [
         "Do not rewrite history or silently mark a decision superseded without an adoption instruction."
+      ],
+      "cases": [
+        {
+          "brief": "Reassess the cache decision now that writes occur in two regions.",
+          "mode": "plan"
+        },
+        {
+          "kind": "edge",
+          "mode": "plan",
+          "brief": "Revisit a queue choice after workload ordering requirements change."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Review an old decision without its rationale; distinguish reconstruction from recorded facts."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -1380,6 +2468,22 @@
       "stopBehavior": [
         "No fetch or cleanup implicitly. An unresolved repository path prevents mutation advice tied to a guessed repository."
       ],
+      "cases": [
+        {
+          "brief": "Explain staged, unstaged, untracked, and interrupted-operation state here.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Explain a detached HEAD with an interrupted rebase and dirty files."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Inspect a directory that is not a Git repository; do not initialize it."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -1399,6 +2503,22 @@
       ],
       "stopBehavior": [
         "Missing comparison refs require resolution. Do not assume every change belongs to the current task."
+      ],
+      "cases": [
+        {
+          "brief": "Summarize the diff against main and identify unrelated edits.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Explain a file with different staged and unstaged edits."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Compare against a missing base ref without guessing main or fetching."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -1420,6 +2540,22 @@
       "stopBehavior": [
         "Resolve ambiguous pre-staged content before committing. Never disable hooks or change global identity to force success."
       ],
+      "cases": [
+        {
+          "brief": "Commit only the verified checkout fix; preserve other staged and unstaged work.",
+          "mode": "apply"
+        },
+        {
+          "kind": "edge",
+          "mode": "apply",
+          "brief": "Commit only the bug fix when the same file contains unrelated staged edits."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Inspect commit readiness with missing identity or a rejected hook; do not bypass either."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -1439,6 +2575,22 @@
       ],
       "stopBehavior": [
         "Do not rewrite shared history implicitly or lose pre-existing index state. Stop if grouping cannot preserve a buildable dependency order."
+      ],
+      "cases": [
+        {
+          "brief": "Plan separate formatting and checkout-fix commits without changing shared history.",
+          "mode": "plan"
+        },
+        {
+          "kind": "edge",
+          "mode": "plan",
+          "brief": "Split a refactor and fix that overlap in one function."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Propose a split without permission to rewrite shared history."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -1460,6 +2612,22 @@
       "stopBehavior": [
         "Never abort or reset an operation automatically. Identify unrelated edits before staging resolved files."
       ],
+      "cases": [
+        {
+          "brief": "Resolve this merge while preserving both account switching and refresh behavior.",
+          "mode": "apply"
+        },
+        {
+          "kind": "edge",
+          "mode": "apply",
+          "brief": "Resolve a lockfile conflict after compatible dependency changes on both sides."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Inspect a conflict with unknown intended behavior; do not choose ours or theirs blindly."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -1479,6 +2647,22 @@
       ],
       "stopBehavior": [
         "Stop when the oracle is unreliable or budget expires. Never label a skipped build as the regression without evidence."
+      ],
+      "cases": [
+        {
+          "brief": "Find the regression between these supplied refs using the deterministic fixture; cap at 12 runs.",
+          "mode": "apply"
+        },
+        {
+          "kind": "edge",
+          "mode": "apply",
+          "brief": "Bisect across a dependency migration where intermediate commits do not build."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Plan bisect when the failure is not reproducible; do not move the active checkout."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -1500,6 +2684,22 @@
       "stopBehavior": [
         "Do not invent a starting branch, force removal, or delete unrelated directories. Respect the requested current-state versus clean-ref starting point."
       ],
+      "cases": [
+        {
+          "brief": "Create an isolated worktree from the specified branch at the requested path.",
+          "mode": "plan"
+        },
+        {
+          "kind": "edge",
+          "mode": "plan",
+          "brief": "Create a worktree including current edits while another worktree owns the branch."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Inspect removal of a dirty worktree; report its changes without forcing removal."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -1519,6 +2719,22 @@
       ],
       "stopBehavior": [
         "Do not run garbage collection or destructive cleanup during recovery. Preserve current work before any authorized restore."
+      ],
+      "cases": [
+        {
+          "brief": "Find a lost commit in reflog without resetting the current branch.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Recover a dropped commit without moving the current branch."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Inspect recovery options after missing reflog history; do not promise restoration."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -1540,6 +2756,22 @@
       "stopBehavior": [
         "Closing, labeling, assigning, or posting requires explicit action scope. Missing repository access is a blocker, not an empty issue list."
       ],
+      "cases": [
+        {
+          "brief": "Triage these repository issues; suggest duplicates and priorities without posting.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Triage two reports with identical errors but different triggers."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Triage supplied issue exports without GitHub authentication."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -1559,6 +2791,22 @@
       ],
       "stopBehavior": [
         "Do not invent severity or affected versions. After uncertain submission, search for the created issue before retrying."
+      ],
+      "cases": [
+        {
+          "brief": "Draft an issue for the supplied reproduction; do not submit it.",
+          "mode": "plan"
+        },
+        {
+          "kind": "edge",
+          "mode": "plan",
+          "brief": "Create a bug report after an earlier submission timed out."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Draft an issue from incomplete reproduction evidence without posting it."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -1580,6 +2828,22 @@
       "stopBehavior": [
         "Do not push unrelated commits or merge implicitly. Unknown creation results require deduplication before retry."
       ],
+      "cases": [
+        {
+          "brief": "Prepare a draft PR for this exact head/base; show validation gaps.",
+          "mode": "plan"
+        },
+        {
+          "kind": "edge",
+          "mode": "plan",
+          "brief": "Prepare a PR from a fork whose branch name also exists upstream."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Draft a PR without push permission; separate local changes from the remote head."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -1599,6 +2863,22 @@
       ],
       "stopBehavior": [
         "Sending a review requires explicit instruction. Recheck head before posting so findings are not silently attached to stale code."
+      ],
+      "cases": [
+        {
+          "brief": "Review the current head of the specified PR without posting a review.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Review a PR that was force-pushed after an earlier comment."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Review exported PR artifacts without posting or live metadata access."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -1620,6 +2900,22 @@
       "stopBehavior": [
         "Do not claim remote threads resolved from a local fix. Ambiguous policy changes need clarification before dependent edits."
       ],
+      "cases": [
+        {
+          "brief": "Implement the actionable feedback on the specified PR; keep API compatibility.",
+          "mode": "apply"
+        },
+        {
+          "kind": "edge",
+          "mode": "apply",
+          "brief": "Address feedback when one comment is already fixed and another conflicts with the API."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Inspect review feedback without the referenced revision; do not claim threads resolved."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -1639,6 +2935,22 @@
       ],
       "stopBehavior": [
         "Do not expose log secrets or loop costly reruns. Green status must refer to the corrected revision."
+      ],
+      "cases": [
+        {
+          "brief": "Fix the failing Actions check for this PR revision; reproduce the cause locally.",
+          "mode": "apply"
+        },
+        {
+          "kind": "edge",
+          "mode": "apply",
+          "brief": "Fix a matrix failure while another job was merely cancelled."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Diagnose supplied Actions logs with no permission to rerun or push."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -1660,6 +2972,22 @@
       "stopBehavior": [
         "Missing remote execution remains unverified. Do not substitute a successful YAML parse for a working Actions run."
       ],
+      "cases": [
+        {
+          "brief": "Improve workflow caching and permissions while preserving fork-PR checks.",
+          "mode": "apply"
+        },
+        {
+          "kind": "edge",
+          "mode": "apply",
+          "brief": "Add a release workflow without exposing secrets to fork pull requests."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Review a workflow from YAML only; distinguish syntax validation from a successful runner execution."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -1679,6 +3007,22 @@
       ],
       "stopBehavior": [
         "Do not overwrite tags or publish missing/unchecked binaries. On partial failure, report which assets or release state already exist."
+      ],
+      "cases": [
+        {
+          "brief": "Prepare a release from the specified refs; do not create a tag or publish.",
+          "mode": "plan"
+        },
+        {
+          "kind": "edge",
+          "mode": "plan",
+          "brief": "Resume a release after one of three assets uploaded successfully."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Prepare a release with missing verified binaries; do not publish placeholders."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -1700,6 +3044,22 @@
       "stopBehavior": [
         "No settings edits or new deployment. Do not treat a successful old deployment as evidence the current revision is healthy."
       ],
+      "cases": [
+        {
+          "brief": "Audit the linked project's build settings against this monorepo configuration.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Audit a monorepo deploying the wrong workspace package."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Audit supplied settings and logs without live Vercel access."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -1719,6 +3079,22 @@
       ],
       "stopBehavior": [
         "Do not deploy or alter production settings merely to test. Inaccessible logs limit the diagnosis explicitly."
+      ],
+      "cases": [
+        {
+          "brief": "Repair the preview build failure using the supplied deployment logs.",
+          "mode": "apply"
+        },
+        {
+          "kind": "edge",
+          "mode": "apply",
+          "brief": "Fix a deployment where an omitted runtime dependency exists only through workspace hoisting."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Diagnose from a build log without a valid Vercel token; do not deploy to test."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -1740,6 +3116,22 @@
       "stopBehavior": [
         "Mutation needs an explicit configuration request and secure input channel. Do not fetch values when metadata suffices or copy production secrets into previews."
       ],
+      "cases": [
+        {
+          "brief": "Compare required variable names across preview and production without exposing values.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Inspect a variable present in production but absent on a branch-specific preview."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Assess required environment names from source without downloading secret values."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -1759,6 +3151,22 @@
       ],
       "stopBehavior": [
         "No promotion, production-domain changes, or unsolicited sharing. Check for existing deployment after uncertain creation."
+      ],
+      "cases": [
+        {
+          "brief": "Prepare a preview for this branch and project; identify prerequisites first.",
+          "mode": "plan"
+        },
+        {
+          "kind": "edge",
+          "mode": "plan",
+          "brief": "Create a preview after an earlier request returned no deployment ID."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Plan a preview without provider access; do not invent a URL."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -1780,6 +3188,22 @@
       "stopBehavior": [
         "Do not trigger billable/high-volume traffic or expose request data. Apply changes only when remediation is requested."
       ],
+      "cases": [
+        {
+          "brief": "Investigate function timeouts for this deployment and time window.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Diagnose a function that builds but times out awaiting a database connection."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Analyze redacted runtime logs without generating live traffic."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -1799,6 +3223,22 @@
       ],
       "stopBehavior": [
         "No DNS or custom-domain mutation implicitly. Distinguish framework behavior from platform configuration and unavailable network evidence."
+      ],
+      "cases": [
+        {
+          "brief": "Explain why nested API routes receive the SPA page instead of JSON.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Fix preview deep links without swallowing API requests."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Inspect routing configuration without DNS access or live request evidence."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -1820,6 +3260,22 @@
       "stopBehavior": [
         "New load/profiling requires authorized execution and budget. No automatic paid plan upgrade or unrelated application rewrite."
       ],
+      "cases": [
+        {
+          "brief": "Analyze these route timings; distinguish cached responses from cold execution.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Compare slow preview requests with cached production responses fairly."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Assess supplied timing samples without load testing or changing the paid plan."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -1839,6 +3295,22 @@
       ],
       "stopBehavior": [
         "Do not promote or change aliases from a check request. Missing required health evidence means not yet verified."
+      ],
+      "cases": [
+        {
+          "brief": "Check the candidate deployment before promotion; do not promote it.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Check readiness for a deployment that removes a database column."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Assess readiness without current health evidence; do not promote aliases."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -1860,6 +3332,22 @@
       "stopBehavior": [
         "Do not overwrite an existing project with a template. Respect no-new-dependency constraints and unsupported framework combinations."
       ],
+      "cases": [
+        {
+          "brief": "Set up Vite for this existing React app without replacing source files.",
+          "mode": "apply"
+        },
+        {
+          "kind": "edge",
+          "mode": "apply",
+          "brief": "Configure Vite in an existing React workspace served under /dashboard/."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Inspect setup requirements without installing dependencies or overwriting source."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -1879,6 +3367,22 @@
       ],
       "stopBehavior": [
         "Do not execute arbitrary config code during read-only inspection without considering its side effects. Missing build evidence remains unknown."
+      ],
+      "cases": [
+        {
+          "brief": "Audit aliases and plugin order for the installed Vite version.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Diagnose an alias that typechecks but fails in the production bundle."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Inspect config source with no build permission; do not execute arbitrary imports."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -1900,6 +3404,22 @@
       "stopBehavior": [
         "Running a dev server requires execution authorization. Do not disable host protections or broadly relax filesystem access as a default fix."
       ],
+      "cases": [
+        {
+          "brief": "Investigate why changes trigger full reloads and lose form state.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Diagnose refresh failing behind a reverse proxy while direct localhost works."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Inspect HMR configuration without starting a dev server; identify needed browser evidence."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -1919,6 +3439,22 @@
       ],
       "stopBehavior": [
         "Never print secret values. Secret rotation is a separate authorized action; configuration edits follow an explicit repair request."
+      ],
+      "cases": [
+        {
+          "brief": "Check whether server-only configuration is exposed in the client bundle.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Diagnose a staging build made with a production NODE_ENV and a custom mode."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Inspect environment references without reading secret values or building output."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -1940,6 +3476,22 @@
       "stopBehavior": [
         "Do not equate smaller bytes with faster UX without timing evidence. Missing stats limit numerical conclusions."
       ],
+      "cases": [
+        {
+          "brief": "Analyze the supplied production bundle statistics and prioritize size reductions.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Reduce initial bytes without breaking a lazily loaded editor."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Review available bundle stats without installing an analyzer or inventing timing gains."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -1959,6 +3511,22 @@
       ],
       "stopBehavior": [
         "Avoid arbitrary manual chunk rules without evidence. Report missing network traces rather than inventing loading improvements."
+      ],
+      "cases": [
+        {
+          "brief": "Find duplicated dependencies and loading-boundary issues in these build artifacts.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Split a heavy dashboard while preserving direct deep links and shared vendor initialization."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Plan chunks without network traces; report loading benefits as hypotheses."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -1980,6 +3548,22 @@
       "stopBehavior": [
         "Do not hard-code a development origin or copy secret files into public output. Missing deployment evidence is stated separately."
       ],
+      "cases": [
+        {
+          "brief": "Fix images that work locally but fail when hosted under a subpath.",
+          "mode": "apply"
+        },
+        {
+          "kind": "edge",
+          "mode": "apply",
+          "brief": "Fix images that work in dev but fail under a deployed subdirectory."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Inspect source paths without deployment access; separate build evidence from live serving."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -1999,6 +3583,22 @@
       ],
       "stopBehavior": [
         "No unrelated major upgrades. If a required peer is unsupported, stop before presenting a broken combination as complete."
+      ],
+      "cases": [
+        {
+          "brief": "Upgrade to the specified Vite version and verify framework-plugin compatibility.",
+          "mode": "apply"
+        },
+        {
+          "kind": "edge",
+          "mode": "apply",
+          "brief": "Upgrade Vite while retaining an older framework plugin until a supported replacement exists."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Plan an upgrade with unavailable release-note access; do not guess removed options."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -2020,6 +3620,22 @@
       "stopBehavior": [
         "Do not rewrite components during an audit or infer runtime rendering cost solely from source size."
       ],
+      "cases": [
+        {
+          "brief": "Audit checkout hooks and state ownership for reachable behavioral bugs.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Audit a reordered editable list and a component with an early return before a hook."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Review React source without a browser; mark interaction behavior unverified."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -2039,6 +3655,22 @@
       ],
       "stopBehavior": [
         "Avoid blanket memoization and equating render count with user-visible cost. Missing profiles yield hypotheses only."
+      ],
+      "cases": [
+        {
+          "brief": "Analyze why changing a filter rerenders the full product grid using this profile.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Improve filter typing in a large product grid without stale selections."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Inspect likely render causes without profiler access; do not add blanket memoization."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -2060,6 +3692,22 @@
       "stopBehavior": [
         "Do not silence dependency warnings to hide the issue. Preserve intended behavior across the framework's development checks."
       ],
+      "cases": [
+        {
+          "brief": "Fix stale account data caused by effect request races.",
+          "mode": "apply"
+        },
+        {
+          "kind": "edge",
+          "mode": "apply",
+          "brief": "Fix an account panel where a late response from the prior account overwrites the current one."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Audit effect source without reproducing browser timing; identify the required controlled race test."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -2079,6 +3727,22 @@
       ],
       "stopBehavior": [
         "Do not introduce a global store by default. Undefined persistence or cross-tab requirements are explicit design questions."
+      ],
+      "cases": [
+        {
+          "brief": "Plan simplifying duplicated filter state without adding a state library.",
+          "mode": "plan"
+        },
+        {
+          "kind": "edge",
+          "mode": "plan",
+          "brief": "Refactor a multi-tab editor without sharing unsaved drafts across documents."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Review state design when persistence requirements are unspecified."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -2100,6 +3764,22 @@
       "stopBehavior": [
         "Avoid speculative configuration options and new libraries without need. Missing design details use established conventions rather than blocking routine work."
       ],
+      "cases": [
+        {
+          "brief": "Build an accessible controlled date-range component using existing primitives.",
+          "mode": "apply"
+        },
+        {
+          "kind": "edge",
+          "mode": "apply",
+          "brief": "Build a reusable selector supporting controlled updates and an empty option list."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Specify a component using existing primitives when design assets are unavailable."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -2119,6 +3799,22 @@
       ],
       "stopBehavior": [
         "Do not invent business validation or trust client validation as authorization. Real submissions use only the authorized environment."
+      ],
+      "cases": [
+        {
+          "brief": "Build invitation submission with validation, pending, server-error, and retry states.",
+          "mode": "apply"
+        },
+        {
+          "kind": "edge",
+          "mode": "apply",
+          "brief": "Fix a form that loses input after server rejection and allows repeated submission."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Review a form without sending real account or payment requests."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -2140,6 +3836,22 @@
       "stopBehavior": [
         "Do not assume cancellation undoes server effects. Preserve the existing fetching library unless replacement is explicitly justified in scope."
       ],
+      "cases": [
+        {
+          "brief": "Fix out-of-order search responses overwriting newer results.",
+          "mode": "apply"
+        },
+        {
+          "kind": "edge",
+          "mode": "apply",
+          "brief": "Fix search results that revert when older requests finish last."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Inspect async behavior without live network access; use a controlled deferred-response fixture."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -2159,6 +3871,22 @@
       ],
       "stopBehavior": [
         "Do not suppress warnings or disable SSR globally as a default fix. Client-only applications receive an applicability explanation."
+      ],
+      "cases": [
+        {
+          "brief": "Fix the supplied server/client mismatch without disabling SSR globally.",
+          "mode": "apply"
+        },
+        {
+          "kind": "edge",
+          "mode": "apply",
+          "brief": "Fix a clock and persisted theme that render differently on the server."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Diagnose supplied server/client markup without claiming a browser hydration run."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -2180,6 +3908,22 @@
       "stopBehavior": [
         "No redesign during inspection. Missing mobile/error-state evidence is identified as unreviewed rather than assumed correct."
       ],
+      "cases": [
+        {
+          "brief": "Audit the billing journey for hierarchy, consistency, and recoverability.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Audit checkout with an empty cart, payment failure and narrow viewport."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Audit screenshots without interaction access; mark keyboard and dynamic states unreviewed."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -2199,6 +3943,22 @@
       ],
       "stopBehavior": [
         "Do not replace branding or add a component framework without need. Resolve competing theme requirements explicitly."
+      ],
+      "cases": [
+        {
+          "brief": "Plan semantic design tokens from the existing screens and brand constraints.",
+          "mode": "plan"
+        },
+        {
+          "kind": "edge",
+          "mode": "plan",
+          "brief": "Consolidate spacing and color tokens across light and dark settings screens."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Plan a system from existing UI without replacing unavailable brand assets."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -2220,6 +3980,22 @@
       "stopBehavior": [
         "Do not invent payment/account policies. Unspecified critical transitions become questions while independent states proceed."
       ],
+      "cases": [
+        {
+          "brief": "Complete billing states for missing cards, failed renewal, and successful recovery.",
+          "mode": "apply"
+        },
+        {
+          "kind": "edge",
+          "mode": "apply",
+          "brief": "Add partial failure and retry states to a dashboard without losing filters."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Design states with unknown payment policy; leave the policy-dependent transition unresolved."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -2239,6 +4015,22 @@
       ],
       "stopBehavior": [
         "Do not hide required functionality or claim device coverage from a single desktop screenshot."
+      ],
+      "cases": [
+        {
+          "brief": "Fix the checkout layout for narrow screens, zoom, and touch input.",
+          "mode": "apply"
+        },
+        {
+          "kind": "edge",
+          "mode": "apply",
+          "brief": "Repair a table at narrow widths and high zoom without hiding essential actions."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Review responsive source and screenshots without claiming real-device interaction coverage."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -2260,6 +4052,22 @@
       "stopBehavior": [
         "Do not claim screen-reader verification without running it. Automated scans alone cannot establish full conformance."
       ],
+      "cases": [
+        {
+          "brief": "Audit modal focus, keyboard dismissal, and error announcement behavior.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Fix modal focus return and server validation announcements without relying on color."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Audit semantics without a screen reader; explicitly leave screen-reader behavior unverified."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -2279,6 +4087,22 @@
       ],
       "stopBehavior": [
         "Avoid adding a large animation dependency for trivial effects. No motion should delay an essential action or conceal loading failures."
+      ],
+      "cases": [
+        {
+          "brief": "Add restrained disclosure transitions with reduced-motion support.",
+          "mode": "apply"
+        },
+        {
+          "kind": "edge",
+          "mode": "apply",
+          "brief": "Animate a drawer that users can rapidly open and close."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Review motion design without rendered timing evidence or installing an animation library."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -2300,6 +4124,22 @@
       "stopBehavior": [
         "New captures require authorized browser execution. Unmatched conditions invalidate precise pixel-difference claims."
       ],
+      "cases": [
+        {
+          "brief": "Compare these matched-viewport screenshots and separate dynamic noise from regressions.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Compare screenshots with dynamic timestamps and a real layout shift."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Compare supplied captures with unknown font loading; do not assert exact pixel fidelity."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -2319,6 +4159,22 @@
       ],
       "stopBehavior": [
         "Do not simplify by removing necessary policy or consent steps. Distinguish observed usability issues from assumptions needing user testing."
+      ],
+      "cases": [
+        {
+          "brief": "Plan improving account recovery, including expired links and back navigation.",
+          "mode": "plan"
+        },
+        {
+          "kind": "edge",
+          "mode": "plan",
+          "brief": "Improve onboarding interrupted by session expiry midway through a form."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Assess a flow from mockups without claiming observed conversion improvements."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -2340,6 +4196,22 @@
       "stopBehavior": [
         "Do not invent business rules or create production infrastructure. Missing external credentials block live verification, not local contract work."
       ],
+      "cases": [
+        {
+          "brief": "Implement a narrow invitation service using existing validation and persistence patterns.",
+          "mode": "apply"
+        },
+        {
+          "kind": "edge",
+          "mode": "apply",
+          "brief": "Implement order creation when notification fails after persistence."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Inspect service requirements with an unavailable dependency; use a contract fixture only."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -2359,6 +4231,22 @@
       ],
       "stopBehavior": [
         "Do not invent cryptography, log credentials, or mistake authentication for permission to access every resource."
+      ],
+      "cases": [
+        {
+          "brief": "Audit session refresh, logout, and expired-token behavior.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Repair refresh behavior across concurrent browser tabs and expired sessions."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Review auth configuration without credentials or live login attempts."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -2380,6 +4268,22 @@
       "stopBehavior": [
         "Ambiguous policy blocks that decision, not unrelated analysis. Never rely solely on hidden UI buttons as enforcement."
       ],
+      "cases": [
+        {
+          "brief": "Define read/update/export access rules for organization-owned invoices.",
+          "mode": "plan"
+        },
+        {
+          "kind": "edge",
+          "mode": "plan",
+          "brief": "Add permission checks for direct-ID access and background exports."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Audit source without real tenant accounts; use synthetic identities and state assumptions."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -2399,6 +4303,22 @@
       ],
       "stopBehavior": [
         "No unrequested recurring jobs. Unknown provider delivery guarantees require explicit assumptions and corresponding safeguards."
+      ],
+      "cases": [
+        {
+          "brief": "Implement a resumable worker with bounded retries and poison-message handling.",
+          "mode": "apply"
+        },
+        {
+          "kind": "edge",
+          "mode": "apply",
+          "brief": "Implement a resumable job that might receive the same message concurrently."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Plan worker behavior with unknown broker delivery guarantees."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -2420,6 +4340,22 @@
       "stopBehavior": [
         "Do not claim exactly-once external delivery without provider support or reconciliation. Cache-only deduplication needs durability justification."
       ],
+      "cases": [
+        {
+          "brief": "Prevent duplicate payment credits from concurrent and reordered webhooks.",
+          "mode": "apply"
+        },
+        {
+          "kind": "edge",
+          "mode": "apply",
+          "brief": "Make payment creation safe when two equal requests arrive simultaneously."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Design idempotency without provider deduplication support; identify reconciliation requirements."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -2439,6 +4375,22 @@
       ],
       "stopBehavior": [
         "No live contention experiments implicitly. Do not solve local races with process-local locks when multiple processes share the resource."
+      ],
+      "cases": [
+        {
+          "brief": "Investigate two concurrent reservations exceeding inventory capacity.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Prevent two concurrent reservations from selling the final available seat twice."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Review concurrency logic without performing live contention experiments."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -2460,6 +4412,22 @@
       "stopBehavior": [
         "Do not treat caching as a fix for incorrect queries. No production flush or shared-cache changes without explicit scope."
       ],
+      "cases": [
+        {
+          "brief": "Plan tenant-safe cache keys and invalidation for invoice summaries.",
+          "mode": "plan"
+        },
+        {
+          "kind": "edge",
+          "mode": "plan",
+          "brief": "Fix cached dashboard data leaking between accounts with identical filters."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Inspect cache logic without flushing production or assuming current hit-rate data."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -2479,6 +4447,22 @@
       ],
       "stopBehavior": [
         "Do not silently return stale/synthetic business results without an agreed fallback. Production fault injection requires separate authorization."
+      ],
+      "cases": [
+        {
+          "brief": "Add bounded retry and timeout behavior without duplicating unsafe requests.",
+          "mode": "apply"
+        },
+        {
+          "kind": "edge",
+          "mode": "apply",
+          "brief": "Add retries without multiplying nested dependency attempts beyond the deadline."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Design resilience from contracts without injecting faults into production."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -2500,6 +4484,22 @@
       "stopBehavior": [
         "Do not choose unresolved business policy or implement endpoints during a design-only request."
       ],
+      "cases": [
+        {
+          "brief": "Design invitation endpoints with explicit expiry and conflict responses.",
+          "mode": "plan"
+        },
+        {
+          "kind": "edge",
+          "mode": "plan",
+          "brief": "Design an asynchronous export API that can fail after acceptance."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Draft an API with unknown consumer constraints; mark compatibility assumptions."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -2519,6 +4519,22 @@
       ],
       "stopBehavior": [
         "Do not silently change runtime behavior to match stale documentation or overwrite generated files without updating their source."
+      ],
+      "cases": [
+        {
+          "brief": "Reconcile the existing specification with actual request and error schemas.",
+          "mode": "apply"
+        },
+        {
+          "kind": "edge",
+          "mode": "apply",
+          "brief": "Document nullable fields and a rate-limit response omitted from generated output."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Review supplied schema without running the provider; do not claim runtime conformance."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -2540,6 +4556,22 @@
       "stopBehavior": [
         "Missing consumer information prevents universal compatibility claims. Do not equate schema compatibility with semantic compatibility."
       ],
+      "cases": [
+        {
+          "brief": "Compare these API versions for validation and response-contract breaks.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Review a new enum value and a stricter validation rule for old clients."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Assess compatibility without consumer source; avoid declaring universal backward compatibility."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -2559,6 +4591,22 @@
       ],
       "stopBehavior": [
         "Do not make mocks the sole evidence that the real provider conforms. Missing provider execution is a stated coverage gap."
+      ],
+      "cases": [
+        {
+          "brief": "Test invoice producer and consumer contracts against isolated fixtures.",
+          "mode": "apply"
+        },
+        {
+          "kind": "edge",
+          "mode": "apply",
+          "brief": "Test an API returning an optional field as null versus omitting it."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Design contract checks with no provider runtime; do not equate a mock pass with compatibility."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -2580,6 +4628,22 @@
       "stopBehavior": [
         "Do not turn all failures into success responses or change public codes silently. Unknown consumer reliance needs compatibility handling."
       ],
+      "cases": [
+        {
+          "brief": "Standardize safe API errors while preserving published machine-readable codes.",
+          "mode": "apply"
+        },
+        {
+          "kind": "edge",
+          "mode": "apply",
+          "brief": "Standardize errors while preserving a client's retry behavior on conflict."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Review errors from source without provoking real service failures."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -2599,6 +4663,22 @@
       ],
       "stopBehavior": [
         "Do not promise snapshot consistency without a mechanism. Preserve public response shape when constrained."
+      ],
+      "cases": [
+        {
+          "brief": "Plan stable cursor pagination when concurrent inserts share sort values.",
+          "mode": "plan"
+        },
+        {
+          "kind": "edge",
+          "mode": "plan",
+          "brief": "Add cursor pagination with equal timestamps and deleted records between pages."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Design pagination without a declared consistency requirement; show the decision explicitly."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -2620,6 +4700,22 @@
       "stopBehavior": [
         "Never log signing secrets or send real business events without authorization. Provider uncertainty must be resolved before relying on delivery guarantees."
       ],
+      "cases": [
+        {
+          "brief": "Implement signed webhook validation and durable duplicate handling in the sandbox.",
+          "mode": "apply"
+        },
+        {
+          "kind": "edge",
+          "mode": "apply",
+          "brief": "Handle two concurrent copies of a signed payment event."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Review webhook handling without live signing keys or sending real business events."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -2639,6 +4735,22 @@
       ],
       "stopBehavior": [
         "Do not embed tokens or assume generated types prove runtime validity. Live paid or mutating requests need explicit scope."
+      ],
+      "cases": [
+        {
+          "brief": "Build a typed API client with bounded retries and useful errors.",
+          "mode": "apply"
+        },
+        {
+          "kind": "edge",
+          "mode": "apply",
+          "brief": "Build a client for paginated responses and retry-after throttling."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Implement against supplied contracts without paid or mutating live requests."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -2660,6 +4772,22 @@
       "stopBehavior": [
         "Do not invent business cardinality or assume another database's semantics. Data ambiguities become explicit decisions."
       ],
+      "cases": [
+        {
+          "brief": "Design invoice relationships and deletion behavior against our actual database engine.",
+          "mode": "plan"
+        },
+        {
+          "kind": "edge",
+          "mode": "plan",
+          "brief": "Model optional memberships that cannot reference another tenant's organization."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Design from requirements without a live database or inventing business cardinality."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -2679,6 +4807,22 @@
       ],
       "stopBehavior": [
         "Never promise rollback for irreversible data loss. Missing backup/recovery evidence blocks destructive execution."
+      ],
+      "cases": [
+        {
+          "brief": "Plan splitting full_name while preserving old-version compatibility and source values.",
+          "mode": "plan"
+        },
+        {
+          "kind": "edge",
+          "mode": "plan",
+          "brief": "Plan a restartable migration after a concurrent index build left an invalid index."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Review a destructive migration with no verified recovery evidence; do not execute it."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -2700,6 +4844,22 @@
       "stopBehavior": [
         "Writes need explicit scope and affected-row checks. Do not run unbounded expensive queries against production for convenience."
       ],
+      "cases": [
+        {
+          "brief": "Write a query for invoice totals without multiplying values through one-to-many joins.",
+          "mode": "plan"
+        },
+        {
+          "kind": "edge",
+          "mode": "plan",
+          "brief": "Fix revenue totals doubled by joining two child collections."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Review a query without database access; provide a fixture-based expectation rather than claimed live rows."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -2719,6 +4879,22 @@
       ],
       "stopBehavior": [
         "EXPLAIN ANALYZE or equivalents execute work and require appropriate authorization. No mutation hidden inside profiling."
+      ],
+      "cases": [
+        {
+          "brief": "Interpret this saved query plan without executing EXPLAIN ANALYZE.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Explain a plan whose nested loop multiplies work through a row-estimate error."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Analyze EXPLAIN output without executing EXPLAIN ANALYZE or mutating functions."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -2740,6 +4916,22 @@
       "stopBehavior": [
         "Do not recommend indexes from column names alone. Unsupported online operations or lock risks must be addressed before execution."
       ],
+      "cases": [
+        {
+          "brief": "Recommend indexes from these query plans, including write and storage costs.",
+          "mode": "plan"
+        },
+        {
+          "kind": "edge",
+          "mode": "plan",
+          "brief": "Design an index for a tenant-filtered timeline with a stable secondary sort key."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Assess indexing from schema without plans or workload counts; label performance estimates unknown."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -2759,6 +4951,22 @@
       ],
       "stopBehavior": [
         "Ambiguous business rules prevent destructive recommendations. Large scans need a budget and appropriate execution environment."
+      ],
+      "cases": [
+        {
+          "brief": "Audit orphaned invoice records with bounded read-only checks.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Check duplicate business keys while retaining legitimate archived duplicates."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Plan integrity checks on a large table without scan authorization or production row dumps."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -2780,6 +4988,22 @@
       "stopBehavior": [
         "No session termination, transaction cancellation, or timeout changes implicitly. Redact sensitive query parameters and acknowledge snapshot limitations."
       ],
+      "cases": [
+        {
+          "brief": "Explain the blocking chain from these session and lock snapshots.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Diagnose an idle transaction blocking several otherwise fast updates."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Analyze a saved lock snapshot without cancelling sessions or changing timeouts."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -2799,6 +5023,22 @@
       ],
       "stopBehavior": [
         "No grant/policy changes or real tenant-data probing by default. Unknown execution roles block confident isolation claims."
+      ],
+      "cases": [
+        {
+          "brief": "Audit tenant policies and service-role bypass paths from supplied metadata.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Review row policies where reads are scoped but inserts permit another tenant ID."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Inspect policy definitions without probing real tenant data or changing grants."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -2820,6 +5060,22 @@
       "stopBehavior": [
         "Unknown volume triggers size inspection before scanning. Do not print sensitive row-level data unnecessarily."
       ],
+      "cases": [
+        {
+          "brief": "Profile missingness and duplicates in this bounded dataset sample.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Profile a time-partitioned dataset with sentinel zeros and missing recent partitions."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Inspect metadata only when row access is unavailable; do not fabricate distributions."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -2839,6 +5095,22 @@
       ],
       "stopBehavior": [
         "Do not invent quality thresholds or ownership agreement. Unresolved thresholds remain proposed values with rationale."
+      ],
+      "cases": [
+        {
+          "brief": "Define schema, event-time semantics, freshness, and violation handling for orders.",
+          "mode": "plan"
+        },
+        {
+          "kind": "edge",
+          "mode": "plan",
+          "brief": "Define a contract for late-arriving corrections and optional new fields."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Draft a contract without agreed freshness thresholds; do not invent producer commitments."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -2860,6 +5132,22 @@
       "stopBehavior": [
         "No silent row dropping or unrequested data export. Missing semantics block affected transformations rather than guessed conversions."
       ],
+      "cases": [
+        {
+          "brief": "Implement isolated ingestion with observable failures and atomic partition writes.",
+          "mode": "apply"
+        },
+        {
+          "kind": "edge",
+          "mode": "apply",
+          "brief": "Build a pipeline interrupted between writing data and publishing its manifest."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Design transformations with missing field semantics; block only the affected conversions."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -2879,6 +5167,22 @@
       ],
       "stopBehavior": [
         "Do not advance checkpoints before durable output. Missing stable identity or change semantics requires a design decision before implementation."
+      ],
+      "cases": [
+        {
+          "brief": "Implement checkpointed updates that handle late records and deletion events.",
+          "mode": "apply"
+        },
+        {
+          "kind": "edge",
+          "mode": "apply",
+          "brief": "Process late corrections while safely replaying the previous hour."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Review incremental design without stable source identity; identify the blocking semantic gap."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -2900,6 +5204,22 @@
       "stopBehavior": [
         "Pause on load/error thresholds. Never launch an unbounded production scan or overwrite historical data without explicit scope."
       ],
+      "cases": [
+        {
+          "brief": "Plan a resumable one-year backfill with explicit batch and load limits.",
+          "mode": "plan"
+        },
+        {
+          "kind": "edge",
+          "mode": "plan",
+          "brief": "Resume a backfill while the live pipeline updates the same historical records."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Plan a backfill without production scan permission or known source volume."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -2919,6 +5239,22 @@
       ],
       "stopBehavior": [
         "Misaligned snapshots prevent a definitive mismatch claim. No row-level data exposure beyond necessary authorized evidence."
+      ],
+      "cases": [
+        {
+          "brief": "Compare these aligned snapshots by key, not just row counts.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Reconcile exports with equal row counts but missing and duplicated IDs."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Compare misaligned snapshots without calling timing differences data loss."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -2940,6 +5276,22 @@
       "stopBehavior": [
         "Cap expansion at the requested scope. Documentation-only lineage is labeled separately from code-verified lineage."
       ],
+      "cases": [
+        {
+          "brief": "Trace invoice_total through the transforms and source columns.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Trace a revenue metric through currency conversion and filtered joins."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Map lineage from partial job definitions without upstream access."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -2959,6 +5311,22 @@
       ],
       "stopBehavior": [
         "Installing monitors or repairing records is separate. Do not redefine thresholds after seeing results to force a pass."
+      ],
+      "cases": [
+        {
+          "brief": "Check these records against the supplied freshness and validity rules.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Evaluate fresh-but-incomplete and complete-but-stale partitions separately."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Assess known rules without data access; do not install monitors or invent pass rates."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -2980,6 +5348,22 @@
       "stopBehavior": [
         "Do not force an ML solution when deterministic rules suffice or invent business error costs without input."
       ],
+      "cases": [
+        {
+          "brief": "Frame churn prediction 30 days before cancellation, including unit and label horizon.",
+          "mode": "plan"
+        },
+        {
+          "kind": "edge",
+          "mode": "plan",
+          "brief": "Frame failure prediction for machines with delayed maintenance labels."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Define the task without business error costs; keep threshold selection undecided."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -2999,6 +5383,22 @@
       ],
       "stopBehavior": [
         "Do not infer representativeness from sample size alone. Unsupported collection semantics remain unknown."
+      ],
+      "cases": [
+        {
+          "brief": "Assess whether this dataset covers the intended deployment population.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Assess a dataset with many rows but no labels for recently enrolled users."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Review dataset metadata without row access; avoid inferring representative coverage."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -3020,6 +5420,22 @@
       "stopBehavior": [
         "Relabeling requires explicit policy and scope. Avoid exposing sensitive examples or claiming a single annotator is ground truth without justification."
       ],
+      "cases": [
+        {
+          "brief": "Audit how missing outcome follow-up and annotation disagreement affect labels.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Audit labels when missing follow-up was encoded as no failure."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Assess annotation policy without identifiable raw examples or relabeling permission."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -3039,6 +5455,22 @@
       ],
       "stopBehavior": [
         "Do not use random splitting by habit or repeatedly tune the split to improve scores. Document unsupported generalization claims."
+      ],
+      "cases": [
+        {
+          "brief": "Design time/group splits for overlapping machine sensor windows.",
+          "mode": "plan"
+        },
+        {
+          "kind": "edge",
+          "mode": "plan",
+          "brief": "Split overlapping windows for forecasting on known machines and evaluate unseen machines separately."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Plan a split with unknown label horizon; do not invent a universal gap duration."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -3062,6 +5494,22 @@
       "stopBehavior": [
         "Do not claim absence of leakage when provenance is missing. Remediation must invalidate affected scores rather than preserve misleading results."
       ],
+      "cases": [
+        {
+          "brief": "Audit churn features for values unavailable 30 days before cancellation.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Audit overlapping windows whose metadata does not prove shared sensor values or outcome events."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Review lineage with missing preprocessing code and event IDs; leave unsupported claims unknown."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -3081,6 +5529,22 @@
       ],
       "stopBehavior": [
         "No test-set-driven feature selection. Unsupported availability timing blocks claims that a feature is deployable."
+      ],
+      "cases": [
+        {
+          "brief": "Plan point-in-time customer features fitted only on training data.",
+          "mode": "plan"
+        },
+        {
+          "kind": "edge",
+          "mode": "plan",
+          "brief": "Build categorical features with unseen values and delayed source updates."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Design features without trustworthy availability timestamps; do not claim deployability."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -3102,6 +5566,22 @@
       "stopBehavior": [
         "Do not synthesize across validation/test boundaries or invent business tradeoffs. Low positive counts require uncertainty disclosure."
       ],
+      "cases": [
+        {
+          "brief": "Compare weighting and metrics for rare fraud with limited review capacity.",
+          "mode": "plan"
+        },
+        {
+          "kind": "edge",
+          "mode": "plan",
+          "brief": "Compare a high-accuracy all-negative baseline against a rare-event model."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Assess imbalance with few positives; do not invent stable confidence or business costs."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -3121,6 +5601,22 @@
       ],
       "stopBehavior": [
         "Avoid expensive full hashing without a budget. Do not place confidential data or credentials in Git/manifests."
+      ],
+      "cases": [
+        {
+          "brief": "Write a provenance manifest for the identified dataset without copying raw records.",
+          "mode": "apply"
+        },
+        {
+          "kind": "edge",
+          "mode": "apply",
+          "brief": "Version a dataset whose remote contents can change at the same path."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Plan versioning without permission for a full expensive hash scan."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -3142,6 +5638,22 @@
       "stopBehavior": [
         "Do not begin extensive model search. Missing label/split validity blocks trustworthy benchmark claims even if training technically runs."
       ],
+      "cases": [
+        {
+          "brief": "Plan reproducible naive and simple-model baselines under the fixed split.",
+          "mode": "plan"
+        },
+        {
+          "kind": "edge",
+          "mode": "plan",
+          "brief": "Establish a baseline when class imbalance makes accuracy misleading."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Plan a baseline with unresolved label maturity; do not claim trustworthy scores."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -3161,6 +5673,22 @@
       ],
       "stopBehavior": [
         "No paid hardware provisioning implicitly. Do not label the best validation checkpoint as independently test-validated."
+      ],
+      "cases": [
+        {
+          "brief": "Plan checkpointed training on one GPU for at most six hours; do not provision compute.",
+          "mode": "plan"
+        },
+        {
+          "kind": "edge",
+          "mode": "plan",
+          "brief": "Implement checkpointed training that resumes mid-epoch without silently changing sample order."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Plan training with no authorized hardware budget; do not provision or launch a run."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -3182,6 +5710,22 @@
       "stopBehavior": [
         "No unbounded retraining or random parameter changes. Preserve failed-run evidence and distinguish numerical repair from generalization improvement."
       ],
+      "cases": [
+        {
+          "brief": "Diagnose NaNs from this run's first failing batch and gradient logs.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Debug a loss that becomes NaN only after mixed-precision updates."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Inspect saved training logs without retraining or guessing a learning-rate cure."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -3201,6 +5745,22 @@
       ],
       "stopBehavior": [
         "Stop at any resource cap and preserve partial results. Do not enlarge the search merely because no improvement appears."
+      ],
+      "cases": [
+        {
+          "brief": "Plan at most 20 trials on validation PR-AUC; never tune on the test set.",
+          "mode": "plan"
+        },
+        {
+          "kind": "edge",
+          "mode": "plan",
+          "brief": "Tune with failed trials and a strict GPU-hour cap."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Design tuning when compute is unavailable; do not fabricate winning hyperparameters."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -3222,6 +5782,22 @@
       "stopBehavior": [
         "Do not remove interdependent components without explaining the changed model contract. Budget limits constrain repeats and confidence."
       ],
+      "cases": [
+        {
+          "brief": "Plan a controlled comparison of the new features at fixed data and seed conditions.",
+          "mode": "plan"
+        },
+        {
+          "kind": "edge",
+          "mode": "plan",
+          "brief": "Ablate a feature group while preprocessing depends on those columns."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Plan an ablation with insufficient run budget; state the confidence limitation."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -3241,6 +5817,22 @@
       ],
       "stopBehavior": [
         "Missing metadata prevents strong conclusions. Do not select a winner solely from rounded headline scores."
+      ],
+      "cases": [
+        {
+          "brief": "Compare these runs and flag different datasets or metric definitions.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Compare experiments that used different test periods and rounded headline scores."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Inspect incomplete run exports without inventing missing metrics or costs."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -3262,6 +5854,22 @@
       "stopBehavior": [
         "Missing original assets may make exact reproduction impossible. Do not silently substitute a different dataset or model and call it reproduced."
       ],
+      "cases": [
+        {
+          "brief": "Plan reproducing this result with exact artifact identities and a two-hour budget.",
+          "mode": "plan"
+        },
+        {
+          "kind": "edge",
+          "mode": "plan",
+          "brief": "Reproduce a GPU run on another supported device with explicit tolerances."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Assess reproducibility when the original dataset snapshot is missing."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -3281,6 +5889,22 @@
       ],
       "stopBehavior": [
         "New profiling/training requires execution authorization. Do not claim speedup without equivalent model quality and workload comparison."
+      ],
+      "cases": [
+        {
+          "brief": "Analyze the supplied profile for loading, compute, and checkpoint bottlenecks.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Diagnose an idle accelerator stalled by data loading."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Estimate training effort from sparse logs without inventing cloud prices."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -3302,6 +5926,22 @@
       "stopBehavior": [
         "No test-set-driven changes during evaluation. Missing ground truth restricts output to operational/descriptive checks."
       ],
+      "cases": [
+        {
+          "brief": "Plan evaluating the frozen model against the declared baseline and untouched test split.",
+          "mode": "plan"
+        },
+        {
+          "kind": "edge",
+          "mode": "plan",
+          "brief": "Evaluate shuffled prediction rows with missing outputs and delayed labels."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Evaluate operational behavior without ground truth; do not report accuracy."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -3321,6 +5961,22 @@
       ],
       "stopBehavior": [
         "Protect sensitive records. Patterns discovered on test data must not become tuning targets without a fresh evaluation plan."
+      ],
+      "cases": [
+        {
+          "brief": "Group failures from these predictions into actionable patterns with denominators.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Analyze rare high-cost errors without treating vivid examples as prevalence."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Analyze aggregate errors when sensitive examples cannot be inspected."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -3342,6 +5998,22 @@
       "stopBehavior": [
         "Avoid causal or fairness guarantees from a metric table alone. Do not expose identifying small-group records."
       ],
+      "cases": [
+        {
+          "brief": "Compare operating-condition cohorts and report uncertainty for small slices.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Compare overlapping cohorts with one tiny high-error subgroup."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Assess slice coverage without sensitive row-level records or causal fairness claims."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -3361,6 +6033,22 @@
       ],
       "stopBehavior": [
         "Small samples and prevalence shift limit conclusions. Do not alter deployed probabilities without a rollout request."
+      ],
+      "cases": [
+        {
+          "brief": "Assess probability calibration from the supplied held-out scores and outcomes.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Calibrate a model trained on oversampled positives."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Review probability outputs with too few outcomes to fit a reliable calibrator."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -3382,6 +6070,22 @@
       "stopBehavior": [
         "Do not invent business costs or optimize against the held-out test set. Unresolved priorities yield a tradeoff curve rather than a forced value."
       ],
+      "cases": [
+        {
+          "brief": "Choose validation thresholds when reviewers can inspect 200 transactions daily.",
+          "mode": "plan"
+        },
+        {
+          "kind": "edge",
+          "mode": "plan",
+          "brief": "Select a daily review threshold with tied scores and a hard queue cap."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Compare cutoffs with unknown error costs; do not optimize on test labels."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -3401,6 +6105,22 @@
       ],
       "stopBehavior": [
         "No claims of universal robustness from a finite suite. Large synthetic sweeps stop at the declared compute cap."
+      ],
+      "cases": [
+        {
+          "brief": "Plan plausible missing-input and noise tests with fixed labels and bounded compute.",
+          "mode": "plan"
+        },
+        {
+          "kind": "edge",
+          "mode": "plan",
+          "brief": "Test missing optional fields while rejecting transformations that change the outcome."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Design robustness tests without running a large synthetic inference sweep."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -3422,6 +6142,22 @@
       "stopBehavior": [
         "Expensive explanation runs need bounded execution. Do not expose proprietary or personal data through unnecessary examples."
       ],
+      "cases": [
+        {
+          "brief": "Explain these predictions and separate feature association from causation.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Explain correlated feature importance without implying causation."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Plan explanations without model artifacts or expensive inference authorization."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -3441,6 +6177,22 @@
       ],
       "stopBehavior": [
         "Do not present a report as deployment authorization or claim suitability for untested populations."
+      ],
+      "cases": [
+        {
+          "brief": "Write a model report using these actual runs and identify unsupported uses.",
+          "mode": "plan"
+        },
+        {
+          "kind": "edge",
+          "mode": "plan",
+          "brief": "Write a model report with strong average performance but poor sparse-cohort evidence."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Draft a report with missing test results; do not invent metrics or deployment approval."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -3462,6 +6214,22 @@
       "stopBehavior": [
         "Do not load untrusted executable serialization or bundle training data/secrets unnecessarily. Missing preprocessing prevents a complete package claim."
       ],
+      "cases": [
+        {
+          "brief": "Package the model with preprocessing, schema, dependencies, and parity fixtures.",
+          "mode": "apply"
+        },
+        {
+          "kind": "edge",
+          "mode": "apply",
+          "brief": "Package a model whose categorical encoder and feature order were saved separately."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Inspect an artifact manifest without loading untrusted executable serialization."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -3481,6 +6249,22 @@
       ],
       "stopBehavior": [
         "No live endpoint provisioning or model registry mutation implicitly. Do not log raw sensitive inference inputs by default."
+      ],
+      "cases": [
+        {
+          "brief": "Implement local inference with validation, readiness, and safe error handling.",
+          "mode": "apply"
+        },
+        {
+          "kind": "edge",
+          "mode": "apply",
+          "brief": "Serve a model with bounded batch size and a failed startup load."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Design serving code without provisioning an endpoint or logging raw sensitive inputs."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -3502,6 +6286,22 @@
       "stopBehavior": [
         "No unbounded full-dataset inference. Do not mix predictions from incompatible model versions in one unlabeled output."
       ],
+      "cases": [
+        {
+          "brief": "Implement resumable batch inference with stable output keys and model-version tracking.",
+          "mode": "apply"
+        },
+        {
+          "kind": "edge",
+          "mode": "apply",
+          "brief": "Resume inference after output writes succeeded but checkpointing failed."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Plan batch prediction without scanning the full dataset or launching unbounded compute."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -3521,6 +6321,22 @@
       ],
       "stopBehavior": [
         "Missing training transforms or serving access limits coverage. Do not compare outputs from different model versions as a pure preprocessing test."
+      ],
+      "cases": [
+        {
+          "brief": "Compare training and serving transformations on these exact versioned inputs.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Diagnose high offline scores but poor serving due to reordered features."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Assess parity with missing training transforms; keep unobserved stages unknown."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -3542,6 +6358,22 @@
       "stopBehavior": [
         "No production load or paid hardware implicitly. A single warm request cannot establish capacity."
       ],
+      "cases": [
+        {
+          "brief": "Plan a bounded benchmark for cold/warm latency and throughput at fixed quality.",
+          "mode": "plan"
+        },
+        {
+          "kind": "edge",
+          "mode": "plan",
+          "brief": "Benchmark batched inference under a latency deadline without hiding warmup cost."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Plan a benchmark with no authorized hardware or production traffic budget."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -3561,6 +6393,22 @@
       ],
       "stopBehavior": [
         "Drift is not proof of accuracy degradation without outcome evidence. Baseline refresh requires explicit policy, not silent adaptation."
+      ],
+      "cases": [
+        {
+          "brief": "Plan distribution checks that account for seasonality and sample size.",
+          "mode": "plan"
+        },
+        {
+          "kind": "edge",
+          "mode": "plan",
+          "brief": "Investigate a new categorical value and a seasonal traffic shift."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Assess drift from aggregates without inferring model failure or silently refreshing the baseline."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -3582,6 +6430,22 @@
       "stopBehavior": [
         "Do not activate external alerts or promise ongoing observation without an actual authorized runtime/scheduler."
       ],
+      "cases": [
+        {
+          "brief": "Design quality monitoring with delayed labels and model-version separation.",
+          "mode": "plan"
+        },
+        {
+          "kind": "edge",
+          "mode": "plan",
+          "brief": "Monitor a model whose outcomes arrive thirty days after prediction."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Plan monitoring without activating alerts or claiming an ongoing watcher exists."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -3601,6 +6465,22 @@
       ],
       "stopBehavior": [
         "No automatic full rollout from good offline metrics. Shadow traffic may incur cost and privacy obligations covered by the requested scope."
+      ],
+      "cases": [
+        {
+          "brief": "Prepare a canary rollout and rollback plan; do not change production traffic.",
+          "mode": "plan"
+        },
+        {
+          "kind": "edge",
+          "mode": "plan",
+          "brief": "Plan a canary when the previous model expects an older feature schema."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Assess rollout readiness without live routing access or shadow-inference budget."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -3622,6 +6502,22 @@
       "stopBehavior": [
         "No sensitive data upload or unlimited inference. A model judge is evidence, not unquestionable ground truth."
       ],
+      "cases": [
+        {
+          "brief": "Build an evaluation protocol covering valid, unsupported, and adversarial requests.",
+          "mode": "plan"
+        },
+        {
+          "kind": "edge",
+          "mode": "plan",
+          "brief": "Evaluate tool use where a fluent answer hides an unauthorized action."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Design an evaluation with no inference budget; mark cases unexecuted."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -3641,6 +6537,22 @@
       ],
       "stopBehavior": [
         "Do not declare improvement from one appealing response or use hidden test answers as prompt examples."
+      ],
+      "cases": [
+        {
+          "brief": "Improve the prompt against these measured failures without changing providers.",
+          "mode": "apply"
+        },
+        {
+          "kind": "edge",
+          "mode": "apply",
+          "brief": "Improve extraction without breaking refusal or missing-field behavior."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Review a prompt without model access; do not claim measured improvement."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -3662,6 +6574,22 @@
       "stopBehavior": [
         "Never coerce fabricated fields into valid-looking data. Do not assume every provider supports identical schema features."
       ],
+      "cases": [
+        {
+          "brief": "Implement schema validation and bounded recovery for invalid or truncated output.",
+          "mode": "apply"
+        },
+        {
+          "kind": "edge",
+          "mode": "apply",
+          "brief": "Extract records when output parses but contains impossible dates."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Design structured output with unknown provider schema support; avoid assumed API flags."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -3681,6 +6609,22 @@
       ],
       "stopBehavior": [
         "No corpus upload/indexing on a paid service implicitly. Do not diagnose all answer failures as prompt problems."
+      ],
+      "cases": [
+        {
+          "brief": "Plan grounded answers over permission-filtered policy documents with citations.",
+          "mode": "plan"
+        },
+        {
+          "kind": "edge",
+          "mode": "plan",
+          "brief": "Build RAG where an old document version contradicts its replacement."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Design local RAG from metadata without uploading a private corpus or provisioning an index."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -3702,6 +6646,22 @@
       "stopBehavior": [
         "New embedding/index/reranking jobs require cost scope. Weak relevance labels limit metric confidence."
       ],
+      "cases": [
+        {
+          "brief": "Evaluate missed exception passages separately from generation quality.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Diagnose a missing exception passage hidden by a metadata filter."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Inspect retrieval traces without starting new embeddings or paid reranking jobs."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -3721,6 +6681,22 @@
       ],
       "stopBehavior": [
         "A model-generated request is not user authorization. Do not expose arbitrary shell/database access as a convenience tool."
+      ],
+      "cases": [
+        {
+          "brief": "Design narrow tool schemas with validated targets and idempotent execution.",
+          "mode": "plan"
+        },
+        {
+          "kind": "edge",
+          "mode": "plan",
+          "brief": "Design a deployment tool that rejects unapproved production targets."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Review tool interfaces without exposing arbitrary shell or database execution."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -3742,6 +6718,22 @@
       "stopBehavior": [
         "Never exfiltrate real secrets or probe third-party systems. Passing a finite suite does not establish universal immunity."
       ],
+      "cases": [
+        {
+          "brief": "Plan isolated prompt-injection tests using benign canaries and no real secrets.",
+          "mode": "plan"
+        },
+        {
+          "kind": "edge",
+          "mode": "plan",
+          "brief": "Test a retrieved document asking the agent to send a synthetic secret elsewhere."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Design canary tests without real secrets or external exfiltration endpoints."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -3761,6 +6753,22 @@
       ],
       "stopBehavior": [
         "Do not invent prices or silently switch providers/send data elsewhere. Missing usage records produce estimates with explicit bounds."
+      ],
+      "cases": [
+        {
+          "brief": "Analyze these token and retry records with explicit pricing assumptions.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Analyze a retry loop whose successful responses hide expensive failed attempts."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Estimate from incomplete usage records without inventing current prices."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -3782,6 +6790,22 @@
       "stopBehavior": [
         "Do not mock the unit's entire implementation or add tests solely for trivial coverage. Missing runners are reported without fake results."
       ],
+      "cases": [
+        {
+          "brief": "Test invitation expiry boundaries without asserting internal helper calls.",
+          "mode": "apply"
+        },
+        {
+          "kind": "edge",
+          "mode": "apply",
+          "brief": "Test a pricing function with null coupons and zero-value discounts."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Design unit cases without executing unavailable tooling; label unrun checks."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -3801,6 +6825,22 @@
       ],
       "stopBehavior": [
         "No shared/production database use by assumption. Inaccessible dependencies produce blocked checks, not replacement mocks labeled as real integration."
+      ],
+      "cases": [
+        {
+          "brief": "Test actual transaction rollback against an isolated database.",
+          "mode": "apply"
+        },
+        {
+          "kind": "edge",
+          "mode": "apply",
+          "brief": "Test a database write failure that must leave no partial order."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Design integration tests without service credentials or provisioning a database."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -3822,6 +6862,22 @@
       "stopBehavior": [
         "Do not send real payments/emails or modify user accounts without explicit scope. Missing integrations are labeled honestly."
       ],
+      "cases": [
+        {
+          "brief": "Test checkout error recovery using controlled test accounts and no real charges.",
+          "mode": "apply"
+        },
+        {
+          "kind": "edge",
+          "mode": "apply",
+          "brief": "Test checkout failure and retry without duplicate orders."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Plan browser tests when no browser tool is available; do not claim rendered success."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -3841,6 +6897,22 @@
       ],
       "stopBehavior": [
         "If the old revision cannot run, state that limitation. Do not assert implementation details instead of the user-visible invariant."
+      ],
+      "cases": [
+        {
+          "brief": "Turn the confirmed duplicate-credit bug into a failing-then-passing check.",
+          "mode": "apply"
+        },
+        {
+          "kind": "edge",
+          "mode": "apply",
+          "brief": "Add regression coverage for duplicate events while allowing distinct events."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Design a regression test when the original failing revision is unavailable."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -3862,6 +6934,22 @@
       "stopBehavior": [
         "Do not hide failures with retries, sleeps, skipped tests, or inflated timeouts without evidence. Stop at the repeat budget."
       ],
+      "cases": [
+        {
+          "brief": "Fix the test that fails only in suite order; cap diagnosis at 30 repeats.",
+          "mode": "apply"
+        },
+        {
+          "kind": "edge",
+          "mode": "apply",
+          "brief": "Repair a test that fails only after another test changes global state."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Inspect flake logs without rerunning expensive suites or adding arbitrary sleeps."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -3881,6 +6969,22 @@
       ],
       "stopBehavior": [
         "Never copy raw production personal data for convenience. Avoid large opaque snapshots that hide which conditions matter."
+      ],
+      "cases": [
+        {
+          "brief": "Build deterministic organization fixtures safe for concurrent test runs.",
+          "mode": "apply"
+        },
+        {
+          "kind": "edge",
+          "mode": "apply",
+          "brief": "Create fixtures that remain isolated when tests run in parallel."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Design fixtures without copying production personal records."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -3902,6 +7006,22 @@
       "stopBehavior": [
         "No third-party or production stress by assumption. Do not extrapolate measured capacity beyond the tested workload without qualifications."
       ],
+      "cases": [
+        {
+          "brief": "Plan load tests for the specified staging endpoint with duration and error stop limits.",
+          "mode": "plan"
+        },
+        {
+          "kind": "edge",
+          "mode": "plan",
+          "brief": "Plan a ramp test that must stop before shared database pressure exceeds a threshold."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Prepare a load-test plan with no authorized endpoint; do not generate traffic."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -3921,6 +7041,22 @@
       ],
       "stopBehavior": [
         "Do not assert a tautology copied from implementation or discard failing inputs simply to make the property pass."
+      ],
+      "cases": [
+        {
+          "brief": "Test that pagination preserves ordering and uniqueness across generated inputs.",
+          "mode": "apply"
+        },
+        {
+          "kind": "edge",
+          "mode": "apply",
+          "brief": "Test serialization round trips including Unicode and empty values."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Review a proposed property without adopting a new test library or claiming executed coverage."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -3942,6 +7078,22 @@
       "stopBehavior": [
         "Do not claim all threats are covered or infer deployment controls without evidence. Unknown architecture remains a documented gap."
       ],
+      "cases": [
+        {
+          "brief": "Model threats around invoice exports and background processing.",
+          "mode": "plan"
+        },
+        {
+          "kind": "edge",
+          "mode": "plan",
+          "brief": "Threat-model a tenant export service with signed download links."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Model threats from partial architecture without probing live systems."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -3961,6 +7113,22 @@
       ],
       "stopBehavior": [
         "Do not use unauthorized real accounts or retrieve private records as proof. Missing policy prevents judging ambiguous access as a confirmed vulnerability."
+      ],
+      "cases": [
+        {
+          "brief": "Audit direct API access to another organization's records using isolated identities.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Audit an endpoint that hides buttons but accepts cross-tenant direct requests."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Review source without real accounts or retrieving private records as proof."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -3982,6 +7150,22 @@
       "stopBehavior": [
         "Never test suspected credentials against live providers without authorization. Do not copy secrets into reports, shell history, or external scanners."
       ],
+      "cases": [
+        {
+          "brief": "Scan the requested repository scope with redacted findings only.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Scan history containing both test placeholders and a plausible credential."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Assess secret handling without an approved scanner; do not upload the repository."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -4001,6 +7185,22 @@
       ],
       "stopBehavior": [
         "No destructive payloads or third-party probing. Unsupported exploitability remains a risk hypothesis rather than a confirmed breach."
+      ],
+      "cases": [
+        {
+          "brief": "Trace untrusted filters to SQL and template sinks without active remote probing.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Review SQL and template paths where only one uses unsafe concatenation."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Inspect source without sending destructive payloads or probing third parties."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -4022,6 +7222,22 @@
       "stopBehavior": [
         "Do not execute hostile files or upload dangerous content to public services. Missing processor configuration limits assurance."
       ],
+      "cases": [
+        {
+          "brief": "Audit file validation, processing, private storage, and download access.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Audit private uploads with user filenames and an asynchronous processor."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Review upload source without executing hostile files or publishing dangerous test content."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -4041,6 +7257,22 @@
       ],
       "stopBehavior": [
         "No forced major upgrades or automatic suppression. Missing advisory access means unknown coverage, not a clean security bill."
+      ],
+      "cases": [
+        {
+          "brief": "Assess advisories against resolved versions and reachable runtime use.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Assess a transitive vulnerability behind an unused optional feature."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Inspect the lockfile without current advisory access; report unknown coverage."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -4062,6 +7294,22 @@
       "stopBehavior": [
         "No infrastructure edits or broad hardening that breaks required behavior. Unknown effective settings remain unknown."
       ],
+      "cases": [
+        {
+          "brief": "Audit production configuration without changing infrastructure settings.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Review debug exposure and cross-origin settings in separate dev and production configurations."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Audit configuration files without infrastructure access or changing live settings."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -4081,6 +7329,22 @@
       ],
       "stopBehavior": [
         "Credential rotation, history rewriting, production changes, and public disclosure require their explicit scope. Do not claim historical exposure was erased by a code fix."
+      ],
+      "cases": [
+        {
+          "brief": "Fix the demonstrated authorization bypass and verify legitimate owner access.",
+          "mode": "apply"
+        },
+        {
+          "kind": "edge",
+          "mode": "apply",
+          "brief": "Fix an object-ownership bypass without preventing legitimate shared access."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Plan remediation with no safe reproduction environment; do not claim exploitation was eliminated."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -4102,6 +7366,22 @@
       "stopBehavior": [
         "No unrequested restarts, failovers, or customer messages. Preserve evidence before interventions that may erase it."
       ],
+      "cases": [
+        {
+          "brief": "Organize this incident's impact, timeline, and next diagnostic actions without restarting services.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Triage rising errors after a deployment with an unrelated provider incident."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Inspect supplied incident evidence without restarting services or sending customer messages."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -4121,6 +7401,22 @@
       ],
       "stopBehavior": [
         "Bound query range and volume. Do not dump entire production logs into the conversation or external storage."
+      ],
+      "cases": [
+        {
+          "brief": "Correlate sanitized logs for this request ID and time window.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Correlate logs across services with different clock offsets."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Analyze a redacted excerpt without querying or dumping full production logs."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -4142,6 +7438,22 @@
       "stopBehavior": [
         "No provider provisioning or production configuration rollout implicitly. Do not add high-volume logging without overhead consideration."
       ],
+      "cases": [
+        {
+          "brief": "Add focused tracing without logging raw user payloads or high-cardinality labels.",
+          "mode": "apply"
+        },
+        {
+          "kind": "edge",
+          "mode": "apply",
+          "brief": "Add tracing across a queue while keeping sensitive payloads out of logs."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Design observability without provisioning a vendor or changing production configuration."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -4161,6 +7473,22 @@
       ],
       "stopBehavior": [
         "Do not invent owners or send test pages implicitly. Missing signal quality is a prerequisite, not something thresholds can hide."
+      ],
+      "cases": [
+        {
+          "brief": "Design actionable error-rate alerts with recovery behavior; do not enable notifications.",
+          "mode": "plan"
+        },
+        {
+          "kind": "edge",
+          "mode": "plan",
+          "brief": "Design alerts that ignore brief spikes but detect sustained customer failures."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Draft alerts without sending pages or inventing response ownership."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -4182,6 +7510,22 @@
       "stopBehavior": [
         "Do not execute the incident procedure merely to write it. Mark commands not exercised in a safe environment as unverified."
       ],
+      "cases": [
+        {
+          "brief": "Write a restore runbook with exact target checks and verification steps.",
+          "mode": "plan"
+        },
+        {
+          "kind": "edge",
+          "mode": "plan",
+          "brief": "Write a runbook for restoring queue processing without replaying completed charges."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Draft a runbook without executing incident operations or fabricating terminal output."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -4201,6 +7545,22 @@
       ],
       "stopBehavior": [
         "No privileged host mounts or deployment changes by default. Building/running untrusted images requires evaluating their execution effects first."
+      ],
+      "cases": [
+        {
+          "brief": "Diagnose why this multi-stage image lacks its runtime files.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Diagnose a multi-stage image missing a required runtime file under a non-root user."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Inspect a Dockerfile without building untrusted images or granting privileged mounts."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",
@@ -4222,6 +7582,22 @@
       "stopBehavior": [
         "Never overwrite live data implicitly. Missing keys, integrity checks, or target identity stops execution before destructive steps."
       ],
+      "cases": [
+        {
+          "brief": "Plan restoring the specified backup into an isolated target, not production.",
+          "mode": "plan"
+        },
+        {
+          "kind": "edge",
+          "mode": "plan",
+          "brief": "Rehearse restore into an isolated database with missing recent transactions."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Plan restore with missing decryption keys or an ambiguous destination; do not execute."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -4242,6 +7618,22 @@
       "stopBehavior": [
         "Do not invent owners, impact counts, or consensus. Sending the report or creating external action tickets requires explicit instructions."
       ],
+      "cases": [
+        {
+          "brief": "Write an evidence-based postmortem without inventing impact counts or owners.",
+          "mode": "plan"
+        },
+        {
+          "kind": "edge",
+          "mode": "plan",
+          "brief": "Write a postmortem where deployment timing correlates with failure but causation is unproven."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Draft from partial logs without inventing customers affected, owners or consensus."
+        }
+      ],
       "invariants": [
         "Preserve appended constraints and scope.",
         "Report unavailable evidence without fabricating success.",
@@ -4261,6 +7653,22 @@
       ],
       "stopBehavior": [
         "Dry run does not inspect host state and must not imply it did. No manual global-config edits or credentials embedded in commands."
+      ],
+      "cases": [
+        {
+          "brief": "Check my just-vibe installation without changing it.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "mode": "apply",
+          "brief": "Update a bundled installation after its original package cache was removed."
+        },
+        {
+          "kind": "blocked",
+          "mode": "inspect",
+          "brief": "Inspect installation prerequisites on a machine without a supported host executable."
+        }
       ],
       "invariants": [
         "Preserve appended constraints and scope.",

@@ -1,11 +1,15 @@
 ---
 name: ops-logs
-description: "Correlate available logs around a specific failure"
+description: "Correlate available logs around a specific failure Use for bounded log correlation; trace follows a particular execution path through source and telemetry."
 ---
 
 # ops-logs
 
 Correlate available logs around a specific failure
+
+## Choose this workflow
+
+Use for bounded log correlation; trace follows a particular execution path through source and telemetry.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Operations methods](../../references/packs/operations.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Normalize timestamps, follow request/job IDs, compare related services, separate repeated symptoms from root events, and redact sensitive fields.
+- Normalize time zones and identify clock skew, follow stable request/job IDs and distinguish original failures from retry cascades and repeated symptoms.
+
+## Decision branches
+
+- **When a relevant span or time range is missing:** Report the gap and query needed; absence is not proof the action never occurred.
 
 ## Deliver and verify
 
 - Evidence-linked timeline, likely causal sequence, and gaps requiring metrics/traces.
+- Ordered evidence with timestamps, correlation IDs, causal candidates and redactions.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Bound query range and volume. Do not dump entire production logs into the conversation or external storage.
 
-## Example request
+## Example requests
 
-Correlate sanitized logs for this request ID and time window.
+- **Normal (inspect):** Correlate sanitized logs for this request ID and time window.
+- **edge (inspect):** Correlate logs across services with different clock offsets.
+- **blocked (inspect):** Analyze a redacted excerpt without querying or dumping full production logs.

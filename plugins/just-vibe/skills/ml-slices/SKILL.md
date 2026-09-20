@@ -1,11 +1,15 @@
 ---
 name: ml-slices
-description: "Compare meaningful cohorts or operating conditions"
+description: "Compare meaningful cohorts or operating conditions Use for cohort performance comparisons; ml-error-analysis investigates individual failure mechanisms."
 ---
 
 # ml-slices
 
 Compare meaningful cohorts or operating conditions
+
+## Choose this workflow
+
+Use for cohort performance comparisons; ml-error-analysis investigates individual failure mechanisms.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [ML evaluation methods](../../references/packs/ml-evaluation.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Predefine important slices where possible, compute counts and metrics consistently, account for dependent samples, flag small groups, and distinguish exploratory comparisons.
+- Define important slices and overlap, compute consistent counts/metrics and distinguish planned from exploratory comparisons with small-sample limits.
+
+## Decision branches
+
+- **When a cohort has no outcomes or very few positives:** Report unavailable/unstable evidence rather than a confident zero or perfect score.
 
 ## Deliver and verify
 
 - Slice table, uncertainty, worst-supported conditions, and follow-up data needs.
+- Slice definition, denominator, metric, uncertainty and coverage gaps.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Avoid causal or fairness guarantees from a metric table alone. Do not expose identifying small-group records.
 
-## Example request
+## Example requests
 
-Compare operating-condition cohorts and report uncertainty for small slices.
+- **Normal (inspect):** Compare operating-condition cohorts and report uncertainty for small slices.
+- **edge (inspect):** Compare overlapping cohorts with one tiny high-error subgroup.
+- **blocked (inspect):** Assess slice coverage without sensitive row-level records or causal fairness claims.

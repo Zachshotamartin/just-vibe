@@ -1,11 +1,15 @@
 ---
 name: polish
-description: "Refine hierarchy, spacing, typography, and interaction details"
+description: "Refine hierarchy, spacing, typography, and interaction details Use for focused refinement of existing UI; design handles a larger visual direction change."
 ---
 
 # polish
 
 Refine hierarchy, spacing, typography, and interaction details
+
+## Choose this workflow
+
+Use for focused refinement of existing UI; design handles a larger visual direction change.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [General methods](../../references/packs/general.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ Only the requested local changes; external actions require their exact action an
 ## Execute
 
 - Inspect baseline renders, prioritize visible issues, adjust shared tokens/components where appropriate, and compare the same states after changes.
+- Capture the same viewport/state before editing; fix the dominant hierarchy, spacing or alignment issue at the shared primitive when appropriate.
+
+## Decision branches
+
+- **When a visual change alters hit areas or focus visibility:** Recheck interaction and keyboard behavior before accepting the visual improvement.
 
 ## Deliver and verify
 
 - Focused UI improvements and before/after evidence.
+- Comparable before/after views and the behavior preserved by the refinement.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Do not turn a polish task into a redesign. If rendering is unavailable, distinguish code changes from visually verified results.
 
-## Example request
+## Example requests
 
-Improve spacing and hierarchy on billing without changing the flow.
+- **Normal (apply):** Improve spacing and hierarchy on billing without changing the flow.
+- **edge (apply):** Polish a form without shrinking touch targets or losing error messages.
+- **blocked (inspect):** Review screenshots only; identify refinements without claiming rendered verification.

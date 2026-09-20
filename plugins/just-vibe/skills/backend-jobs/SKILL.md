@@ -1,11 +1,15 @@
 ---
 name: backend-jobs
-description: "Implement background processing, scheduling, and recovery"
+description: "Implement background processing, scheduling, and recovery Use for durable background work; arch-event-flow defines cross-service consistency."
 ---
 
 # backend-jobs
 
 Implement background processing, scheduling, and recovery
+
+## Choose this workflow
+
+Use for durable background work; arch-event-flow defines cross-service consistency.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Backend methods](../../references/packs/backend.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ Only the requested local changes; external actions require their exact action an
 ## Execute
 
 - Define durable payloads, idempotent effects, lease/retry/dead-letter behavior, implement checkpoints where needed, and test crash/restart paths.
+- Specify payload version, stable job identity, lease expiry, ack timing, bounded retry and dead-letter inspection before coding the worker.
+
+## Decision branches
+
+- **When a worker dies after the external effect but before acknowledgement:** Reconcile the effect using durable identity before replaying it.
 
 ## Deliver and verify
 
 - Worker, configuration, observable failure handling, and recovery checks.
+- Job state machine, retry/lease rules and crash-before/after-effect tests.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - No unrequested recurring jobs. Unknown provider delivery guarantees require explicit assumptions and corresponding safeguards.
 
-## Example request
+## Example requests
 
-Implement a resumable worker with bounded retries and poison-message handling.
+- **Normal (apply):** Implement a resumable worker with bounded retries and poison-message handling.
+- **edge (apply):** Implement a resumable job that might receive the same message concurrently.
+- **blocked (inspect):** Plan worker behavior with unknown broker delivery guarantees.

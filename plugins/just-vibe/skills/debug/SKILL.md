@@ -1,11 +1,15 @@
 ---
 name: debug
-description: "Investigate and explain a failure before changing code"
+description: "Investigate and explain a failure before changing code Use to identify a cause and next experiment; fix applies a requested repair."
 ---
 
 # debug
 
 Investigate and explain a failure before changing code
+
+## Choose this workflow
+
+Use to identify a cause and next experiment; fix applies a requested repair.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [General methods](../../references/packs/general.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Build a hypothesis list, inspect logs and code, seek evidence that distinguishes causes, and identify the smallest next experiment.
+- Rank hypotheses by discriminating observations, trace the first divergence from expected behavior, and use bounded probes rather than repeated full runs.
+
+## Decision branches
+
+- **When logs establish symptoms but not causation:** Report competing hypotheses and the lowest-cost observation that separates them.
 
 ## Deliver and verify
 
 - Most supported cause, supporting/contradicting evidence, and a proposed fix or reproduction step.
+- Hypothesis table with supporting/contradicting evidence and the next targeted probe.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Avoid repeated identical probes. Do not mutate production or install debugging tools implicitly.
 
-## Example request
+## Example requests
 
-Investigate intermittent checkout failures from these logs; do not change files.
+- **Normal (inspect):** Investigate intermittent checkout failures from these logs; do not change files.
+- **edge (inspect):** Diagnose a timeout that occurs only after a successful database write.
+- **blocked (inspect):** Diagnose using redacted logs only; do not restart services or infer missing spans.

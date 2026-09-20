@@ -1,11 +1,15 @@
 ---
 name: api-breaking
-description: "Identify backward-incompatible API changes"
+description: "Identify backward-incompatible API changes Use to assess consumer impact of a change; api-design creates the intended contract."
 ---
 
 # api-breaking
 
 Identify backward-incompatible API changes
+
+## Choose this workflow
+
+Use to assess consumer impact of a change; api-design creates the intended contract.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [APIs methods](../../references/packs/api.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Diff interfaces, inspect behavioral changes, identify affected consumers, classify compatibility impact, and propose rollout/deprecation steps.
+- Compare field presence/types, enum values, validation, defaults, error/status behavior, pagination and timing guarantees against identified consumers.
+
+## Decision branches
+
+- **When a syntactically additive change affects strict decoders or behavior:** Classify its actual consumer impact and propose rollout/deprecation evidence.
 
 ## Deliver and verify
 
 - Breaking-change report with examples and migration options.
+- Change/consumer/impact matrix with compatibility bridge and unknown consumers.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Missing consumer information prevents universal compatibility claims. Do not equate schema compatibility with semantic compatibility.
 
-## Example request
+## Example requests
 
-Compare these API versions for validation and response-contract breaks.
+- **Normal (inspect):** Compare these API versions for validation and response-contract breaks.
+- **edge (inspect):** Review a new enum value and a stricter validation rule for old clients.
+- **blocked (inspect):** Assess compatibility without consumer source; avoid declaring universal backward compatibility.

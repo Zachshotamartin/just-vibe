@@ -1,11 +1,15 @@
 ---
 name: db-index
-description: "Recommend indexes based on queries, write costs, and measurements"
+description: "Recommend indexes based on queries, write costs, and measurements Use for workload-specific index design; db-schema handles broader constraints and data shape."
 ---
 
 # db-index
 
 Recommend indexes based on queries, write costs, and measurements
+
+## Choose this workflow
+
+Use for workload-specific index design; db-schema handles broader constraints and data shape.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Databases methods](../../references/packs/database.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Analyze predicates/order/selectivity, compare existing indexes, estimate write/storage costs from evidence, and design before/after measurement and online-creation strategy where supported.
+- Match equality/range/order predicates and selectivity to existing indexes, account for write/storage cost and compare the exact workload before/after.
+
+## Decision branches
+
+- **When an existing index shares the proposed name:** Inspect definition and validity before reuse; an IF NOT EXISTS notice is not a compatibility check.
 
 ## Deliver and verify
 
 - Index recommendations or authorized migration with measured validation.
+- Candidate definition, supported workload, redundant overlap and rollout/measurement plan.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Do not recommend indexes from column names alone. Unsupported online operations or lock risks must be addressed before execution.
 
-## Example request
+## Example requests
 
-Recommend indexes from these query plans, including write and storage costs.
+- **Normal (plan):** Recommend indexes from these query plans, including write and storage costs.
+- **edge (plan):** Design an index for a tenant-filtered timeline with a stable secondary sort key.
+- **blocked (inspect):** Assess indexing from schema without plans or workload counts; label performance estimates unknown.

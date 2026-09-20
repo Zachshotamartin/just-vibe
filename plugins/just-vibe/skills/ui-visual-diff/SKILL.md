@@ -1,11 +1,15 @@
 ---
 name: ui-visual-diff
-description: "Compare screenshots against an accepted reference"
+description: "Compare screenshots against an accepted reference Use to compare matched visual states; ui-audit judges usability of the resulting interface."
 ---
 
 # ui-visual-diff
 
 Compare screenshots against an accepted reference
+
+## Choose this workflow
+
+Use to compare matched visual states; ui-audit judges usability of the resulting interface.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [UI and frontend methods](../../references/packs/ui.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Normalize capture conditions, identify meaningful regions, separate dynamic content noise, and describe differences by user impact.
+- Match viewport, DPR, fonts, content, theme and animation state; mask only justified nondeterminism and inspect changed regions before accepting baselines.
+
+## Decision branches
+
+- **When captures differ in environment or content:** Recreate comparable captures or give qualitative differences without a precise pixel claim.
 
 ## Deliver and verify
 
 - Compared images or annotated difference report with conditions and confidence.
+- Capture conditions, changed regions, accepted differences and remaining mismatches.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - New captures require authorized browser execution. Unmatched conditions invalidate precise pixel-difference claims.
 
-## Example request
+## Example requests
 
-Compare these matched-viewport screenshots and separate dynamic noise from regressions.
+- **Normal (inspect):** Compare these matched-viewport screenshots and separate dynamic noise from regressions.
+- **edge (inspect):** Compare screenshots with dynamic timestamps and a real layout shift.
+- **blocked (inspect):** Compare supplied captures with unknown font loading; do not assert exact pixel fidelity.

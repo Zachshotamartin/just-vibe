@@ -1,11 +1,15 @@
 ---
 name: vite-hmr
-description: "Diagnose broken, slow, or inconsistent hot-module updates"
+description: "Diagnose broken, slow, or inconsistent hot-module updates Use for broken development updates; react-effects handles lifecycle bugs visible during refresh."
 ---
 
 # vite-hmr
 
 Diagnose broken, slow, or inconsistent hot-module updates
+
+## Choose this workflow
+
+Use for broken development updates; react-effects handles lifecycle bugs visible during refresh.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Vite methods](../../references/packs/vite.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Trace file change to browser update, inspect plugin boundaries and duplicate modules, distinguish full reload from hot replacement, and localize the failure.
+- Follow file watcher to module graph to HMR connection and framework boundary; distinguish transport loss from invalidation and deliberate full reload.
+
+## Decision branches
+
+- **When updates fail only through a proxy or container:** Inspect websocket origin/port and mounted-path watching before relaxing host/filesystem protections.
 
 ## Deliver and verify
 
 - Diagnosis and focused fix proposal; apply and validate when requested.
+- Reproduction steps, failing HMR boundary and update/state-preservation checks.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Running a dev server requires execution authorization. Do not disable host protections or broadly relax filesystem access as a default fix.
 
-## Example request
+## Example requests
 
-Investigate why changes trigger full reloads and lose form state.
+- **Normal (inspect):** Investigate why changes trigger full reloads and lose form state.
+- **edge (inspect):** Diagnose refresh failing behind a reverse proxy while direct localhost works.
+- **blocked (inspect):** Inspect HMR configuration without starting a dev server; identify needed browser evidence.

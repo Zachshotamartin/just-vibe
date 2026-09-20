@@ -1,11 +1,15 @@
 ---
 name: db-integrity
-description: "Find orphaned records, invalid relationships, and missing constraints"
+description: "Find orphaned records, invalid relationships, and missing constraints Use to check declared invariants in existing data; db-access checks permission policy."
 ---
 
 # db-integrity
 
 Find orphaned records, invalid relationships, and missing constraints
+
+## Choose this workflow
+
+Use to check declared invariants in existing data; db-access checks permission policy.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Databases methods](../../references/packs/database.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Translate invariants into safe checks, estimate query impact, inspect redacted aggregate/sample evidence, distinguish historical exceptions, and propose prevention/repair.
+- Translate each invariant into bounded counts and redacted examples; distinguish nullable relationships, historical exceptions and actual orphan/duplicate conditions.
+
+## Decision branches
+
+- **When data violates an ambiguous business rule:** Report the evidence and policy question before proposing deletion or repair.
 
 ## Deliver and verify
 
 - Integrity findings with counts, scoped examples, and repair options.
+- Invariant/check/snapshot/count table and preventive constraint or repair option.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Ambiguous business rules prevent destructive recommendations. Large scans need a budget and appropriate execution environment.
 
-## Example request
+## Example requests
 
-Audit orphaned invoice records with bounded read-only checks.
+- **Normal (inspect):** Audit orphaned invoice records with bounded read-only checks.
+- **edge (inspect):** Check duplicate business keys while retaining legitimate archived duplicates.
+- **blocked (inspect):** Plan integrity checks on a large table without scan authorization or production row dumps.

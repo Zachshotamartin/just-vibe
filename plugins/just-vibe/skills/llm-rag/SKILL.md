@@ -1,11 +1,15 @@
 ---
 name: llm-rag
-description: "Design or audit ingestion, retrieval, grounding, and generation"
+description: "Design or audit ingestion, retrieval, grounding, and generation Use to design or repair retrieval-grounded answering; llm-retrieval isolates search/ranking."
 ---
 
 # llm-rag
 
 Design or audit ingestion, retrieval, grounding, and generation
+
+## Choose this workflow
+
+Use to design or repair retrieval-grounded answering; llm-retrieval isolates search/ranking.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [LLMs and retrieval methods](../../references/packs/llm.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Define source identity and access filtering, choose document/chunk lifecycle, evaluate retrieval separately, enforce citation/abstention behavior, and test unsupported queries.
+- Define document identity/version/access control, chunk lifecycle and evidence requirements; test retrieval independently from answer generation and citation correctness.
+
+## Decision branches
+
+- **When relevant evidence is absent or filtered by permission:** Abstain or qualify without revealing unauthorized document existence/content.
 
 ## Deliver and verify
 
 - RAG architecture or implementation with corpus provenance and component-level evals.
+- Ingestion/retrieval/answer contracts and grounded, unsupported and access-denied cases.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - No corpus upload/indexing on a paid service implicitly. Do not diagnose all answer failures as prompt problems.
 
-## Example request
+## Example requests
 
-Plan grounded answers over permission-filtered policy documents with citations.
+- **Normal (plan):** Plan grounded answers over permission-filtered policy documents with citations.
+- **edge (plan):** Build RAG where an old document version contradicts its replacement.
+- **blocked (inspect):** Design local RAG from metadata without uploading a private corpus or provisioning an index.

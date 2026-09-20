@@ -1,11 +1,15 @@
 ---
 name: vercel-runtime
-description: "Investigate function errors, timeouts, and runtime differences"
+description: "Investigate function errors, timeouts, and runtime differences Use for failures after a successful build; vercel-build-fix handles build-time errors."
 ---
 
 # vercel-runtime
 
 Investigate function errors, timeouts, and runtime differences
+
+## Choose this workflow
+
+Use for failures after a successful build; vercel-build-fix handles build-time errors.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Vercel methods](../../references/packs/vercel.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Correlate logs with revision/runtime, inspect request and dependency boundaries, separate cold-start/resource/network causes, and propose a focused reproduction or fix.
+- Correlate deployment/request/time and inspect handler entry, environment presence, dependency waits and runtime-specific API support.
+
+## Decision branches
+
+- **When timeout logs contain no downstream completion:** Treat the waiting boundary as evidence, not proof of which dependency caused the delay.
 
 ## Deliver and verify
 
 - Supported diagnosis, relevant log references, and repair/verification steps.
+- Request/deployment identity, causal hypotheses, discriminating probe and recovery limits.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Do not trigger billable/high-volume traffic or expose request data. Apply changes only when remediation is requested.
 
-## Example request
+## Example requests
 
-Investigate function timeouts for this deployment and time window.
+- **Normal (inspect):** Investigate function timeouts for this deployment and time window.
+- **edge (inspect):** Diagnose a function that builds but times out awaiting a database connection.
+- **blocked (inspect):** Analyze redacted runtime logs without generating live traffic.

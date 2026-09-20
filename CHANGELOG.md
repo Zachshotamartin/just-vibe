@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.4.0
+
+- Expand all 210 canonical command contracts with selection boundaries, concrete decision branches, outputs and normal/edge/missing-evidence examples; add applied methods to all 22 pack guides.
+- Make do, responsive and a11y inherit canonical behavior; reject alias overrides and deduplicate routing recommendations.
+- Add checked action amendments and evidence-backed supersession of blocked/failed stages while preserving history, original criteria and budgets. Require reconciliation of uncertain external effects.
+- Separate structural, utility and behavioral validation labels. Add 21 isolated independent behavioral fixtures, executable code/mutation assertions and baseline/matched-ECC comparison preparation.
+- Preserve native quiz availability limitations and distinguish supplied-instruction agent trials from native plugin and live-provider validation.
+
 ## 0.3.0
 
 - Install the plugin files bundled in the package into a persistent local marketplace. Default installation no longer fetches the private GitHub repository or depends on a temporary package-manager cache.

@@ -1,11 +1,15 @@
 ---
 name: api-design
-description: "Define endpoints, resources, validation, and response contracts"
+description: "Define endpoints, resources, validation, and response contracts Use to design consumer-visible operations; backend-service implements business behavior."
 ---
 
 # api-design
 
 Define endpoints, resources, validation, and response contracts
+
+## Choose this workflow
+
+Use to design consumer-visible operations; backend-service implements business behavior.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [APIs methods](../../references/packs/api.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Inspect domain conventions and existing APIs, define consistent resources and operations, specify normal/error behavior, and check consumer usability and migration needs.
+- Define resource identity, method semantics, validation, authorization, errors and versioning from actual consumer journeys; include one success and failure exchange.
+
+## Decision branches
+
+- **When a proposed endpoint hides several independently failing effects:** Expose operation state or explicit partial-failure semantics instead of implying atomic success.
 
 ## Deliver and verify
 
 - API proposal with request/response examples, invariants, and acceptance scenarios.
+- Request/response examples, status/error meanings and consumer compatibility notes.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Do not choose unresolved business policy or implement endpoints during a design-only request.
 
-## Example request
+## Example requests
 
-Design invitation endpoints with explicit expiry and conflict responses.
+- **Normal (plan):** Design invitation endpoints with explicit expiry and conflict responses.
+- **edge (plan):** Design an asynchronous export API that can fail after acceptance.
+- **blocked (inspect):** Draft an API with unknown consumer constraints; mark compatibility assumptions.

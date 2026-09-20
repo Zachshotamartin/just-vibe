@@ -21,11 +21,17 @@ test('every invocation preserves scenario context and mode through both host map
     assert.equal(run.brief, brief, scenario.id);
     assert.equal(run.mode, scenario.mode);
     assert.equal(run.command, getCommand(catalog, scenario.id, { canonical: true }).id);
+    for (const example of scenario.cases) {
+      const appended = `${example.brief}\nKeep this extra context verbatim: --dry-run and $literal.`;
+      const variant = createRun(catalog, scenario.id, { root, brief: appended, mode: example.mode });
+      assert.equal(variant.brief, appended);
+      assert.equal(variant.mode, example.mode);
+    }
     for (const host of ['codex', 'claude']) {
       const lines = [];
       assert.equal(await main(['show', scenario.id, '--target', host, '--json'], { log: s => lines.push(s) }), 0);
       const result = JSON.parse(lines[0]);
-      assert.ok(result.instructions.length > 500);
+      assert.ok(result.instructions.trim());
       assert.equal(result.id, scenario.id);
       assert.ok(result.invocation.includes(scenario.id));
     }

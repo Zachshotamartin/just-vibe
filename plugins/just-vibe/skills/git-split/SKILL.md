@@ -1,11 +1,15 @@
 ---
 name: git-split
-description: "Divide a mixed change into understandable commits"
+description: "Divide a mixed change into understandable commits Use to separate a change into coherent commits; git-commit handles one selected unit."
 ---
 
 # git-split
 
 Divide a mixed change into understandable commits
+
+## Choose this workflow
+
+Use to separate a change into coherent commits; git-commit handles one selected unit.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Git methods](../../references/packs/git.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Snapshot current state, map hunks to behaviors, identify dependencies, propose commit ordering, and apply authorized grouping with verification.
+- Map hunks to behavior and dependencies, preserve the original patch/index, and validate each proposed intermediate tree in isolation when feasible.
+
+## Decision branches
+
+- **When inseparable hunks cross proposed commits:** Adjust boundaries or keep them together rather than producing a broken intermediate commit.
 
 ## Deliver and verify
 
 - Split plan or resulting commits plus evidence the final content is preserved.
+- Ordered commit groups, dependency rationale and preservation evidence.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Do not rewrite shared history implicitly or lose pre-existing index state. Stop if grouping cannot preserve a buildable dependency order.
 
-## Example request
+## Example requests
 
-Plan separate formatting and checkout-fix commits without changing shared history.
+- **Normal (plan):** Plan separate formatting and checkout-fix commits without changing shared history.
+- **edge (plan):** Split a refactor and fix that overlap in one function.
+- **blocked (inspect):** Propose a split without permission to rewrite shared history.

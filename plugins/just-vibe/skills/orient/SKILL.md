@@ -1,11 +1,15 @@
 ---
 name: orient
-description: "Identify stack, structure, conventions, and actual working commands"
+description: "Identify stack, structure, conventions, and actual working commands Use for first contact with an unfamiliar repository; use map for dependency detail and explain for one symbol."
 ---
 
 # orient
 
 Identify stack, structure, conventions, and actual working commands
+
+## Choose this workflow
+
+Use for first contact with an unfamiliar repository; use map for dependency detail and explain for one symbol.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [General methods](../../references/packs/general.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -28,11 +32,16 @@ None by default. Plan artifacts may be saved when requested.
 1. Run the bundled inspector with the selected project root. Read relevant ancestor and discovered project instructions, manifests, scripts, and representative entry points.
 2. Explain how the requested feature fits the actual project, list commands with their package directories, and distinguish discovered commands from checks you actually ran.
 
-Task-specific method: Inspect manifests and scripts, sample representative modules, reconcile documentation with code, and identify the shortest path to the user's goal. Label unexecuted commands as inferred.
+Task-specific method: Inspect manifests and scripts, sample representative modules, reconcile documentation with code, and identify the shortest path to the user's goal. Label unexecuted commands as inferred. Read manifests and actual entry points before listing scripts; follow one reachable user path and identify generated or vendored boundaries.
+
+## Decision branches
+
+- **When multiple packages or stale documentation:** Identify each package's role and distinguish configured commands from commands actually exercised.
 
 ## Deliver and verify
 
 - Project orientation with file links, likely run/check commands, conventions, and unknowns.
+- Entry-point table: path, role, caller, verification command, unresolved assumption.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -42,6 +51,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Unreadable roots or ambiguous projects produce a targeted blocker; never claim the application runs without evidence.
 
-## Example request
+## Example requests
 
-Help me find how checkout works and which checks cover it.
+- **Normal (inspect):** Help me find how checkout works and which checks cover it.
+- **edge (inspect):** Orient this monorepo; the README describes an app that was removed.
+- **blocked (inspect):** Inspect this source archive without Git history or executing scripts.

@@ -1,11 +1,15 @@
 ---
 name: security-dependencies
-description: "Assess findings against actual application exposure"
+description: "Assess findings against actual application exposure Use for advisory-driven dependency risk; deps covers general maintenance and compatibility."
 ---
 
 # security-dependencies
 
 Assess findings against actual application exposure
+
+## Choose this workflow
+
+Use for advisory-driven dependency risk; deps covers general maintenance and compatibility.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Security methods](../../references/packs/security.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Verify resolved versions against current authoritative advisories, inspect reachable use/configuration, distinguish runtime/dev exposure, and recommend compatible updates or mitigations.
+- Match advisories to resolved versions and configurations, trace deployed/reachable usage and distinguish development-only tooling from production exposure.
+
+## Decision branches
+
+- **When a fix requires a breaking upgrade:** Compare supported mitigation and migration paths; do not suppress the advisory or force unrelated upgrades.
 
 ## Deliver and verify
 
 - Prioritized findings with advisory references, exposure rationale, and remediation checks.
+- Advisory/version/reachability matrix and tested remediation options.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - No forced major upgrades or automatic suppression. Missing advisory access means unknown coverage, not a clean security bill.
 
-## Example request
+## Example requests
 
-Assess advisories against resolved versions and reachable runtime use.
+- **Normal (inspect):** Assess advisories against resolved versions and reachable runtime use.
+- **edge (inspect):** Assess a transitive vulnerability behind an unused optional feature.
+- **blocked (inspect):** Inspect the lockfile without current advisory access; report unknown coverage.

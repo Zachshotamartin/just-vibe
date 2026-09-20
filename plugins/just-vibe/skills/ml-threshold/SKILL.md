@@ -1,11 +1,15 @@
 ---
 name: ml-threshold
-description: "Choose thresholds against explicit costs or capacity limits"
+description: "Choose thresholds against explicit costs or capacity limits Use to choose a decision cutoff under explicit costs/capacity; ml-evaluate measures fixed behavior."
 ---
 
 # ml-threshold
 
 Choose thresholds against explicit costs or capacity limits
+
+## Choose this workflow
+
+Use to choose a decision cutoff under explicit costs/capacity; ml-evaluate measures fixed behavior.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [ML evaluation methods](../../references/packs/ml-evaluation.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Compare threshold tradeoffs, model workload/capacity, handle ties and uncertainty, choose using validation data, and reserve independent confirmation.
+- Compute validation tradeoffs with denominators and tie handling, translate them into expected workload under stated volume/prevalence and reserve independent confirmation.
+
+## Decision branches
+
+- **When no agreed cost or capacity preference distinguishes options:** Present the tradeoff curve and the missing decision rather than selecting an arbitrary optimum.
 
 ## Deliver and verify
 
 - Threshold recommendation, confusion/workload estimates, assumptions, and sensitivity.
+- Threshold policy, expected workload assumptions and independent evaluation requirement.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Do not invent business costs or optimize against the held-out test set. Unresolved priorities yield a tradeoff curve rather than a forced value.
 
-## Example request
+## Example requests
 
-Choose validation thresholds when reviewers can inspect 200 transactions daily.
+- **Normal (plan):** Choose validation thresholds when reviewers can inspect 200 transactions daily.
+- **edge (plan):** Select a daily review threshold with tied scores and a hard queue cap.
+- **blocked (inspect):** Compare cutoffs with unknown error costs; do not optimize on test labels.

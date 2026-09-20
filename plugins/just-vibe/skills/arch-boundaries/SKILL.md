@@ -1,11 +1,15 @@
 ---
 name: arch-boundaries
-description: "Find misplaced responsibilities, dependency cycles, and leaking abstractions"
+description: "Find misplaced responsibilities, dependency cycles, and leaking abstractions Use to inspect responsibility and dependency violations; arch-feature designs a new feature's placement."
 ---
 
 # arch-boundaries
 
 Find misplaced responsibilities, dependency cycles, and leaking abstractions
+
+## Choose this workflow
+
+Use to inspect responsibility and dependency violations; arch-feature designs a new feature's placement.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Architecture methods](../../references/packs/architecture.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Inspect import/call graphs and data ownership, trace changes crossing boundaries, compare declared rules with behavior, and rank actionable violations.
+- Follow a representative change across modules and locate where invariants, writes and authorization are actually owned.
+
+## Decision branches
+
+- **When a cycle is intentional and isolated behind an interface:** Assess change coupling and failure propagation before prescribing a split.
 
 ## Deliver and verify
 
 - Boundary findings with examples and incremental repair options.
+- Concrete dependency paths, violated responsibility, demonstrated cost and incremental correction.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Distinguish organizational preference from demonstrated architectural cost. Missing ownership rules become questions, not invented mandates.
 
-## Example request
+## Example requests
 
-Find responsibility leaks and dependency cycles in billing.
+- **Normal (inspect):** Find responsibility leaks and dependency cycles in billing.
+- **edge (inspect):** Assess a shared utility with many callers but no ownership violation.
+- **blocked (inspect):** Review boundaries without an ownership map; identify assumptions requiring team input.

@@ -1,11 +1,15 @@
 ---
 name: ml-features
-description: "Design features available at prediction time and test usefulness"
+description: "Design features available at prediction time and test usefulness Use to implement prediction-time feature transformations; ml-labels defines outcomes and ml-leakage audits leakage."
 ---
 
 # ml-features
 
 Design features available at prediction time and test usefulness
+
+## Choose this workflow
+
+Use to implement prediction-time feature transformations; ml-labels defines outcomes and ml-leakage audits leakage.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [ML data methods](../../references/packs/ml-data.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Define semantics and missing behavior, enforce point-in-time joins, fit transforms only on training data, compare against baseline, and assess inference cost.
+- Specify each feature's availability and missing/unseen-category behavior; fit learned transforms on training folds only and share the same transform contract with inference.
+
+## Decision branches
+
+- **When historical joins use mutable aggregates:** Reconstruct point-in-time values or exclude the feature from claims of historical validity.
 
 ## Deliver and verify
 
 - Feature definitions/pipeline or experiment results with provenance and availability checks.
+- Feature definition/availability table and train/inference edge-case checks.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - No test-set-driven feature selection. Unsupported availability timing blocks claims that a feature is deployable.
 
-## Example request
+## Example requests
 
-Plan point-in-time customer features fitted only on training data.
+- **Normal (plan):** Plan point-in-time customer features fitted only on training data.
+- **edge (plan):** Build categorical features with unseen values and delayed source updates.
+- **blocked (inspect):** Design features without trustworthy availability timestamps; do not claim deployability.

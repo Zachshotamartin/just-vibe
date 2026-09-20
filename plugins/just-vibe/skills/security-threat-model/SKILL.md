@@ -1,11 +1,15 @@
 ---
 name: security-threat-model
-description: "Identify assets, trust boundaries, attack paths, and mitigations"
+description: "Identify assets, trust boundaries, attack paths, and mitigations Use for systematic threats to a scoped system; security-authz or security-inputs investigates a concrete path."
 ---
 
 # security-threat-model
 
 Identify assets, trust boundaries, attack paths, and mitigations
+
+## Choose this workflow
+
+Use for systematic threats to a scoped system; security-authz or security-inputs investigates a concrete path.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Security methods](../../references/packs/security.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Trace data and privilege boundaries, identify entry points, model misuse scenarios, assess existing controls, and prioritize gaps by realistic impact/exposure.
+- Enumerate assets, actors, entry points and trust transitions, then connect realistic misuse chains to existing controls and observable impact.
+
+## Decision branches
+
+- **When a threat depends on an unverified deployment assumption:** State the condition and required evidence instead of declaring an incident or guaranteed exploit.
 
 ## Deliver and verify
 
 - Threat model, assumptions, prioritized mitigations, and verification scenarios.
+- Boundary diagram, threat/control/gap matrix and prioritized validation.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Do not claim all threats are covered or infer deployment controls without evidence. Unknown architecture remains a documented gap.
 
-## Example request
+## Example requests
 
-Model threats around invoice exports and background processing.
+- **Normal (plan):** Model threats around invoice exports and background processing.
+- **edge (plan):** Threat-model a tenant export service with signed download links.
+- **blocked (inspect):** Model threats from partial architecture without probing live systems.

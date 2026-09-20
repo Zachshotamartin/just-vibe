@@ -1,11 +1,15 @@
 ---
 name: skill
-description: "Create or improve a workflow skill"
+description: "Create or improve a workflow skill Use to author or revise a reusable workflow; ordinary one-off work should not create a new skill."
 ---
 
 # skill
 
 Create or improve a workflow skill
+
+## Choose this workflow
+
+Use to author or revise a reusable workflow; ordinary one-off work should not create a new skill.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [General methods](../../references/packs/general.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ Only the requested local changes; external actions require their exact action an
 ## Execute
 
 - Inspect existing skills, define boundaries and inputs, write actionable instructions, separate repeatable execution into utilities, and validate triggering plus behavior fixtures.
+- Define a matching and a near-miss request, reuse established packaging conventions, and move conditional detail into references only when needed.
+
+## Decision branches
+
+- **When guidance merely repeats generic model capabilities:** Remove it and retain decisions, invariants and examples that change behavior.
 
 ## Deliver and verify
 
 - Skill files, capability requirements, usage examples, and validation evidence.
+- Skill entry point, supporting assets, matching boundaries and independent fixture evidence.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Do not create universal catch-all skills, silently enable hooks, or claim executable guarantees from prose alone.
 
-## Example request
+## Example requests
 
-Create a focused workflow for reviewing database migrations in this project.
+- **Normal (apply):** Create a focused workflow for reviewing database migrations in this project.
+- **edge (apply):** Create a skill whose name overlaps an existing deployment workflow.
+- **blocked (inspect):** Review a proposed skill without host installation access or claiming it is enabled.

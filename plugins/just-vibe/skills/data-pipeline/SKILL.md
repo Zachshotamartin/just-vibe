@@ -1,11 +1,15 @@
 ---
 name: data-pipeline
-description: "Build ingestion or transformation with observable failures"
+description: "Build ingestion or transformation with observable failures Use for a transformation pipeline; data-incremental focuses on checkpoints and change processing."
 ---
 
 # data-pipeline
 
 Build ingestion or transformation with observable failures
+
+## Choose this workflow
+
+Use for a transformation pipeline; data-incremental focuses on checkpoints and change processing.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Data engineering methods](../../references/packs/data.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ Only the requested local changes; external actions require their exact action an
 ## Execute
 
 - Define source identity and keys, validate inputs, implement transformations and atomic/staged writes, expose failures, and test restart and bad-record handling.
+- Establish stable source/output identity, validate transformations with small hand-checked fixtures and stage writes so completion markers follow durable output.
+
+## Decision branches
+
+- **When invalid records can be isolated without corrupting the batch:** Quarantine with counts/reasons under the declared policy; never drop them silently.
 
 ## Deliver and verify
 
 - Pipeline, configuration, quality checks, and operational instructions.
+- Transform mapping, input/output reconciliation, completion protocol and failure accounting.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - No silent row dropping or unrequested data export. Missing semantics block affected transformations rather than guessed conversions.
 
-## Example request
+## Example requests
 
-Implement isolated ingestion with observable failures and atomic partition writes.
+- **Normal (apply):** Implement isolated ingestion with observable failures and atomic partition writes.
+- **edge (apply):** Build a pipeline interrupted between writing data and publishing its manifest.
+- **blocked (inspect):** Design transformations with missing field semantics; block only the affected conversions.

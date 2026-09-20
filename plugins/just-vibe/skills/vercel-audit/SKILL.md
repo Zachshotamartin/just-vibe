@@ -1,11 +1,15 @@
 ---
 name: vercel-audit
-description: "Inspect project configuration, build settings, and deployment assumptions"
+description: "Inspect project configuration, build settings, and deployment assumptions Use to compare repository configuration with a specific Vercel project; vercel-runtime investigates a particular runtime failure."
 ---
 
 # vercel-audit
 
 Inspect project configuration, build settings, and deployment assumptions
+
+## Choose this workflow
+
+Use to compare repository configuration with a specific Vercel project; vercel-runtime investigates a particular runtime failure.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Vercel methods](../../references/packs/vercel.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Compare repository scripts/configuration with project settings, inspect recent deployment metadata, and identify drift or unsupported assumptions.
+- Record team/project/revision and compare root directory, build/install command, output directory, framework preset and runtime against the relevant package.
+
+## Decision branches
+
+- **When a monorepo's deployed root differs from the package under review:** Trace install/build working directories and workspace dependency resolution before changing settings.
 
 ## Deliver and verify
 
 - Configuration inventory, evidence-backed findings, and ordered fixes.
+- Setting/source/effective-value comparison with drift and unavailable observations.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - No settings edits or new deployment. Do not treat a successful old deployment as evidence the current revision is healthy.
 
-## Example request
+## Example requests
 
-Audit the linked project's build settings against this monorepo configuration.
+- **Normal (inspect):** Audit the linked project's build settings against this monorepo configuration.
+- **edge (inspect):** Audit a monorepo deploying the wrong workspace package.
+- **blocked (inspect):** Audit supplied settings and logs without live Vercel access.

@@ -1,0 +1,16 @@
+[
+  {
+    "number": 12,
+    "headOwner": "example",
+    "headBranch": "fix",
+    "headSha": "aaa",
+    "base": "main"
+  },
+  {
+    "number": 19,
+    "headOwner": "alice",
+    "headBranch": "fix",
+    "headSha": "bbb",
+    "base": "main"
+  }
+]

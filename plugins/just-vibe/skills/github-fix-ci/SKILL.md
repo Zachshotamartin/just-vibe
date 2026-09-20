@@ -1,11 +1,15 @@
 ---
 name: github-fix-ci
-description: "Diagnose failing Actions jobs and verify repairs"
+description: "Diagnose failing Actions jobs and verify repairs Use for repairing a specific GitHub Actions failure; ci diagnoses provider-neutral logs."
 ---
 
 # github-fix-ci
 
 Diagnose failing Actions jobs and verify repairs
+
+## Choose this workflow
+
+Use for repairing a specific GitHub Actions failure; ci diagnoses provider-neutral logs.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [GitHub methods](../../references/packs/github.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ Only the requested local changes; external actions require their exact action an
 ## Execute
 
 - Find the first causal failure, compare runner configuration and lockfiles, reproduce locally where feasible, patch, and validate before an authorized rerun/push.
+- Resolve run ID, attempt, job and head SHA; find the first causal failure and reproduce using the relevant workspace/runtime before patching.
+
+## Decision branches
+
+- **When failure is external or a required secret is withheld on forks:** Report the environment cause and safe alternative; do not grant fork code privileged tokens.
 
 ## Deliver and verify
 
 - Cause, focused changes, local evidence, and remote run status if actually exercised.
+- Run/job/revision, causal log, focused fix and corrected-revision check status.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Do not expose log secrets or loop costly reruns. Green status must refer to the corrected revision.
 
-## Example request
+## Example requests
 
-Fix the failing Actions check for this PR revision; reproduce the cause locally.
+- **Normal (apply):** Fix the failing Actions check for this PR revision; reproduce the cause locally.
+- **edge (apply):** Fix a matrix failure while another job was merely cancelled.
+- **blocked (inspect):** Diagnose supplied Actions logs with no permission to rerun or push.

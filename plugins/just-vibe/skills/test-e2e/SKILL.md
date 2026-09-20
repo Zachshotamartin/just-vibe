@@ -1,11 +1,15 @@
 ---
 name: test-e2e
-description: "Exercise complete user journeys and recovery"
+description: "Exercise complete user journeys and recovery Use for a critical user journey across the actual interface; test-unit is preferable for pure logic branches."
 ---
 
 # test-e2e
 
 Exercise complete user journeys and recovery
+
+## Choose this workflow
+
+Use for a critical user journey across the actual interface; test-unit is preferable for pure logic branches.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Testing methods](../../references/packs/testing.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ Only the requested local changes; external actions require their exact action an
 ## Execute
 
 - Seed controlled data, use robust user-facing selectors, exercise the journey and failure recovery, assert observable outcomes, and clean up owned data.
+- Define stable setup and cleanup, drive user-visible controls with semantic locators and assert the final meaningful outcome plus a recovery path.
+
+## Decision branches
+
+- **When a third-party payment or email effect is real:** Use an authorized sandbox or controlled boundary; do not send real effects merely to complete a test.
 
 ## Deliver and verify
 
 - End-to-end tests, traces on failure, and environment/coverage notes.
+- Journey steps, environment, assertions, artifacts and untested external boundaries.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Do not send real payments/emails or modify user accounts without explicit scope. Missing integrations are labeled honestly.
 
-## Example request
+## Example requests
 
-Test checkout error recovery using controlled test accounts and no real charges.
+- **Normal (apply):** Test checkout error recovery using controlled test accounts and no real charges.
+- **edge (apply):** Test checkout failure and retry without duplicate orders.
+- **blocked (inspect):** Plan browser tests when no browser tool is available; do not claim rendered success.

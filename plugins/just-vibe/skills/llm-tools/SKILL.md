@@ -1,11 +1,15 @@
 ---
 name: llm-tools
-description: "Design tool schemas, execution contracts, and failure handling"
+description: "Design tool schemas, execution contracts, and failure handling Use to design constrained agent tool interfaces; api-design defines general service contracts."
 ---
 
 # llm-tools
 
 Design tool schemas, execution contracts, and failure handling
+
+## Choose this workflow
+
+Use to design constrained agent tool interfaces; api-design defines general service contracts.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [LLMs and retrieval methods](../../references/packs/llm.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Define narrow typed inputs/outputs, validate targets and authorization outside model text, specify idempotency/timeouts, and test malformed arguments and partial failures.
+- Validate typed arguments and target/action authorization outside model text, define idempotency and uncertainty handling, and expose narrow results without excess secrets.
+
+## Decision branches
+
+- **When a tool times out after an external mutation may have occurred:** Return an operation ID and reconciliation path; do not let the model blindly repeat it.
 
 ## Deliver and verify
 
 - Tool schemas, executor design/code, error contract, and behavior fixtures.
+- Tool schema, enforcement boundary and invalid/unauthorized/partial-failure checks.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - A model-generated request is not user authorization. Do not expose arbitrary shell/database access as a convenience tool.
 
-## Example request
+## Example requests
 
-Design narrow tool schemas with validated targets and idempotent execution.
+- **Normal (plan):** Design narrow tool schemas with validated targets and idempotent execution.
+- **edge (plan):** Design a deployment tool that rejects unapproved production targets.
+- **blocked (inspect):** Review tool interfaces without exposing arbitrary shell or database execution.

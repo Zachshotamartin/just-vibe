@@ -1,11 +1,15 @@
 ---
 name: react-state
-description: "Simplify state ownership, derived state, and synchronization"
+description: "Simplify state ownership, derived state, and synchronization Use for duplicated/inconsistent state ownership; react-effects handles external synchronization."
 ---
 
 # react-state
 
 Simplify state ownership, derived state, and synchronization
+
+## Choose this workflow
+
+Use for duplicated/inconsistent state ownership; react-effects handles external synchronization.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [React methods](../../references/packs/react.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Identify authoritative values, remove redundant representations when safe, define transitions, choose the narrowest owner, and verify user-visible behavior.
+- Name each authoritative value and derived representation; model update/reset transitions and distinguish per-instance, shared and persisted state.
+
+## Decision branches
+
+- **When a prop change should reset only one form instance:** Define the reset identity explicitly rather than synchronizing every prop into local state.
 
 ## Deliver and verify
 
 - State model and proposed or implemented simplification with tests.
+- Ownership/transition table and checks for reset, independent instances and persistence.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Do not introduce a global store by default. Undefined persistence or cross-tab requirements are explicit design questions.
 
-## Example request
+## Example requests
 
-Plan simplifying duplicated filter state without adding a state library.
+- **Normal (plan):** Plan simplifying duplicated filter state without adding a state library.
+- **edge (plan):** Refactor a multi-tab editor without sharing unsaved drafts across documents.
+- **blocked (inspect):** Review state design when persistence requirements are unspecified.

@@ -44,5 +44,18 @@ for (const name of skills) {
 }
 assert.ok(existsSync(resolve(skillRoot, 'setup', '../../scripts/installer.mjs')));
 for (const c of catalog.commands) assert.ok(existsSync(skillFile(catalog, c)));
+const behavioral = read('evals/releases/0.4.0-results.json');
+for (const command of catalog.commands.filter(c => c.validation.behavioral !== 'not-evaluated')) {
+  assert.ok(existsSync(resolve(catalog.root, command.validation.record)), `Missing behavioral record: ${command.id}`);
+  assert.ok(command.validation.cases?.length, `Missing evaluated cases: ${command.id}`);
+  for (const id of command.validation.cases) {
+    const trial = behavioral.results.find(r => r.case === id && r.arm === 'just-vibe' && r.commands.includes(command.aliasOf || command.id));
+    assert.ok(trial, `No recorded agent trial for ${command.id}/${id}`);
+    if (command.validation.behavioral === 'passed-fixtures') {
+      assert.equal(trial.status, 'passed-fixture');
+      assert.ok(trial.checks.length && trial.checks.every(c => c.pass), `Failed evidence cannot support ${command.id}`);
+    }
+  }
+}
 generate({ check: true });
 console.log(`Validated both marketplaces, matching v${pkg.version} manifests, ${skills.length} skills, all references, and reproducible catalog generation.`);

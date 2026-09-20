@@ -1,11 +1,15 @@
 ---
 name: api-contract-test
-description: "Verify provider and consumer expectations"
+description: "Verify provider and consumer expectations Use to implement consumer/provider contract checks; test-integration exercises broader dependency behavior."
 ---
 
 # api-contract-test
 
 Verify provider and consumer expectations
+
+## Choose this workflow
+
+Use to implement consumer/provider contract checks; test-integration exercises broader dependency behavior.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [APIs methods](../../references/packs/api.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ Only the requested local changes; external actions require their exact action an
 ## Execute
 
 - Identify important assumptions, build provider/consumer assertions, control fixtures, verify valid and invalid exchanges, and integrate with relevant checks.
+- Derive assertions from actual consumer assumptions, control fixture identity and verify the real provider boundary when a safe environment exists.
+
+## Decision branches
+
+- **When only mocks can run:** Report consumer behavior and mocked assumptions separately from provider conformance.
 
 ## Deliver and verify
 
 - Contract tests, fixture provenance, and execution results.
+- Contract cases, schema/semantic assertions and provider verification coverage.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Do not make mocks the sole evidence that the real provider conforms. Missing provider execution is a stated coverage gap.
 
-## Example request
+## Example requests
 
-Test invoice producer and consumer contracts against isolated fixtures.
+- **Normal (apply):** Test invoice producer and consumer contracts against isolated fixtures.
+- **edge (apply):** Test an API returning an optional field as null versus omitting it.
+- **blocked (inspect):** Design contract checks with no provider runtime; do not equate a mock pass with compatibility.

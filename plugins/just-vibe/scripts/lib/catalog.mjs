@@ -9,6 +9,18 @@ export const CAPABILITIES = ['project.read', 'git.repo', 'github.context', 'verc
   'browser.inspect', 'database.context', 'data.read', 'ml.artifacts', 'telemetry.read',
   'web.research', 'container.context', 'user.questions'];
 
+const aliasIdentity = new Set(['id', 'pack', 'summary', 'aliasOf', 'aliases', 'skillPath', 'searchTerms']);
+
+export function materializeAliases(catalog) {
+  return { ...catalog, commands: catalog.commands.map(command => {
+    if (!command.aliasOf) return structuredClone(command);
+    const target = catalog.commands.find(c => c.id === command.aliasOf && !c.aliasOf);
+    if (!target) throw new Error(`Invalid alias target: ${command.id}`);
+    for (const key of Object.keys(command)) if (!aliasIdentity.has(key)) throw new Error(`Alias must inherit ${key}: ${command.id}`);
+    return { ...structuredClone(target), ...structuredClone(command), aliases: [] };
+  }) };
+}
+
 export function validateCatalog(catalog, packs) {
   if (catalog.schemaVersion !== 1 || packs.schemaVersion !== 1) throw new Error('Unsupported catalog version.');
   if (!Array.isArray(catalog.commands) || !Array.isArray(packs.packs)) throw new Error('Invalid catalog collections.');
@@ -25,6 +37,11 @@ export function validateCatalog(catalog, packs) {
     for (const key of ['requiredInputs', 'procedure', 'outputs', 'verification', 'stopConditions']) {
       if (!Array.isArray(c[key]) || !c[key].length || c[key].some(s => typeof s !== 'string' || !s.trim())) throw new Error(`Invalid ${key}: ${c.id}`);
     }
+    if (typeof c.selection !== 'string' || !c.selection.trim()) throw new Error(`Missing selection boundary: ${c.id}`);
+    if (!Array.isArray(c.branches) || !c.branches.length || c.branches.some(b => !b.when?.trim() || !b.then?.trim())) throw new Error(`Invalid decision branches: ${c.id}`);
+    if (c.validation?.structural !== 'automated' || !['fixtures-tested', 'not-applicable'].includes(c.validation.runtime)
+        || !['not-evaluated', 'passed-fixtures', 'partial-fixtures'].includes(c.validation.behavioral)) throw new Error(`Invalid validation dimensions: ${c.id}`);
+    if (c.validation.behavioral !== 'not-evaluated' && !c.validation.record?.trim()) throw new Error(`Behavioral results require an evidence record: ${c.id}`);
     if (!Array.isArray(c.capabilities) || c.capabilities.some(s => !CAPABILITIES.includes(s))) throw new Error(`Unknown capability: ${c.id}`);
     if (!Array.isArray(c.examples) || !c.examples.length || c.examples.some(e => !e.brief?.trim() || !MODES.includes(e.mode))) throw new Error(`Missing example: ${c.id}`);
     if (!Array.isArray(c.hostSupport) || !c.hostSupport.length || c.hostSupport.some(h => !HOSTS.includes(h))) throw new Error(`Unknown host: ${c.id}`);
@@ -35,7 +52,9 @@ export function validateCatalog(catalog, packs) {
     if (c.aliasOf) {
       const target = catalog.commands.find(t => t.id === c.aliasOf);
       if (!target || target.aliasOf || !target.aliases.includes(c.id)) throw new Error(`Invalid alias: ${c.id}`);
-      if (c.defaultMode !== target.defaultMode || JSON.stringify(c.capabilities) !== JSON.stringify(target.capabilities)) throw new Error(`Alias contract drift: ${c.id}`);
+      for (const key of new Set([...Object.keys(c), ...Object.keys(target)])) {
+        if (!aliasIdentity.has(key) && JSON.stringify(c[key]) !== JSON.stringify(target[key])) throw new Error(`Alias contract drift (${key}): ${c.id}`);
+      }
     }
     for (const a of c.aliases) if (!catalog.commands.some(t => t.id === a && t.aliasOf === c.id)) throw new Error(`Missing alias: ${a}`);
   }
@@ -43,7 +62,7 @@ export function validateCatalog(catalog, packs) {
 }
 
 export function loadCatalog(root = pluginRoot) {
-  const catalog = JSON.parse(readFileSync(resolve(root, 'catalog/commands.json'), 'utf8'));
+  const catalog = materializeAliases(JSON.parse(readFileSync(resolve(root, 'catalog/commands.json'), 'utf8')));
   const packs = JSON.parse(readFileSync(resolve(root, 'catalog/packs.json'), 'utf8'));
   validateCatalog(catalog, packs);
   return { ...catalog, packs: packs.packs, root };

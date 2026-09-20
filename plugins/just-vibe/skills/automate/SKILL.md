@@ -1,11 +1,15 @@
 ---
 name: automate
-description: "Turn a repetitive process into a script or workflow"
+description: "Turn a repetitive process into a script or workflow Use for a repeatable local workflow; a scheduled service requires an actual separately scoped runtime."
 ---
 
 # automate
 
 Turn a repetitive process into a script or workflow
+
+## Choose this workflow
+
+Use for a repeatable local workflow; a scheduled service requires an actual separately scoped runtime.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [General methods](../../references/packs/general.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ Only the requested local changes; external actions require their exact action an
 ## Execute
 
 - Observe current steps, isolate deterministic operations, validate inputs, implement failure reporting and repeat behavior, and test with controlled fixtures.
+- Define inputs, output ownership, locking and idempotency; produce meaningful exit statuses and rehearse interruption between durable steps.
+
+## Decision branches
+
+- **When a previous run left partial output:** Detect its identity and either resume or stop with a reconciliation instruction; never treat partial output as success.
 
 ## Deliver and verify
 
 - Runnable automation, usage, required permissions, and execution evidence.
+- Runnable entry point, input contract, repeat-run policy and failure/exit behavior.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Do not embed credentials, create unsolicited scheduled jobs, or automate ambiguous human decisions without an explicit rule.
 
-## Example request
+## Example requests
 
-Create a repeatable local script to validate our release artifacts.
+- **Normal (apply):** Create a repeatable local script to validate our release artifacts.
+- **edge (apply):** Automate report generation when an earlier run left half the output.
+- **blocked (inspect):** Inspect automation requirements without installing a scheduler or contacting services.

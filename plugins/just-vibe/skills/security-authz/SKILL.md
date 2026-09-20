@@ -1,11 +1,15 @@
 ---
 name: security-authz
-description: "Test access decisions and cross-user or cross-tenant exposure"
+description: "Test access decisions and cross-user or cross-tenant exposure Use for permission bypass inspection; backend-permissions implements an accepted access matrix."
 ---
 
 # security-authz
 
 Test access decisions and cross-user or cross-tenant exposure
+
+## Choose this workflow
+
+Use for permission bypass inspection; backend-permissions implements an accepted access matrix.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Security methods](../../references/packs/security.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Trace checks at server/data boundaries, compare alternate endpoints and methods, design negative cases, and execute only permitted isolated probes.
+- Test policy at server/data boundaries across direct IDs, alternate methods, exports and background tasks using synthetic identities and known allowed/denied cases.
+
+## Decision branches
+
+- **When policy itself is unspecified:** Separate demonstrated missing enforcement from an unresolved product permission decision.
 
 ## Deliver and verify
 
 - Access findings with safe reproduction and remediation/check proposals.
+- Subject/action/resource cases, enforcement paths and evidence-backed findings.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Do not use unauthorized real accounts or retrieve private records as proof. Missing policy prevents judging ambiguous access as a confirmed vulnerability.
 
-## Example request
+## Example requests
 
-Audit direct API access to another organization's records using isolated identities.
+- **Normal (inspect):** Audit direct API access to another organization's records using isolated identities.
+- **edge (inspect):** Audit an endpoint that hides buttons but accepts cross-tenant direct requests.
+- **blocked (inspect):** Review source without real accounts or retrieving private records as proof.

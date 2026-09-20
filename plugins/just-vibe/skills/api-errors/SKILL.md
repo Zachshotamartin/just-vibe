@@ -1,11 +1,15 @@
 ---
 name: api-errors
-description: "Standardize useful error responses and propagation"
+description: "Standardize useful error responses and propagation Use to standardize error behavior without changing business policy; api-design defines a new contract."
 ---
 
 # api-errors
 
 Standardize useful error responses and propagation
+
+## Choose this workflow
+
+Use to standardize error behavior without changing business policy; api-design defines a new contract.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [APIs methods](../../references/packs/api.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ Only the requested local changes; external actions require their exact action an
 ## Execute
 
 - Inventory errors, preserve required compatibility, map domain failures deliberately, redact internals, and test representative client/server failures.
+- Inventory existing client-visible codes and shapes, map domain failures intentionally and preserve safe correlation IDs while redacting internal details.
+
+## Decision branches
+
+- **When changing a code would break a known consumer:** Add a compatibility path or a versioned transition instead of silently normalizing it.
 
 ## Deliver and verify
 
 - Consistent error handling, documented contract, and checks.
+- Error taxonomy, mapping locations and validation/auth/dependency failure cases.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Do not turn all failures into success responses or change public codes silently. Unknown consumer reliance needs compatibility handling.
 
-## Example request
+## Example requests
 
-Standardize safe API errors while preserving published machine-readable codes.
+- **Normal (apply):** Standardize safe API errors while preserving published machine-readable codes.
+- **edge (apply):** Standardize errors while preserving a client's retry behavior on conflict.
+- **blocked (inspect):** Review errors from source without provoking real service failures.

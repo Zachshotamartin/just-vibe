@@ -1,11 +1,15 @@
 ---
 name: data-backfill
-description: "Plan or run resumable historical-data backfills"
+description: "Plan or run resumable historical-data backfills Use for bounded historical reprocessing; data-pipeline creates normal transformation behavior."
 ---
 
 # data-backfill
 
 Plan or run resumable historical-data backfills
+
+## Choose this workflow
+
+Use for bounded historical reprocessing; data-pipeline creates normal transformation behavior.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Data engineering methods](../../references/packs/data.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Estimate volume, partition work, define idempotent writes and checkpoints, validate a small authorized batch, reconcile output, and resume within limits.
+- Partition a fixed source snapshot, define idempotent writes and checkpoints, measure a small permitted batch and account for concurrent incremental writers.
+
+## Decision branches
+
+- **When a batch fails or load exceeds the cap:** Pause with its partition identity and reconciliation state so resume cannot duplicate or overwrite good output.
 
 ## Deliver and verify
 
 - Backfill plan/script or run record with progress, discrepancies, and recovery steps.
+- Partition plan, caps, checkpoints, reconciled counts and resume instructions.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Pause on load/error thresholds. Never launch an unbounded production scan or overwrite historical data without explicit scope.
 
-## Example request
+## Example requests
 
-Plan a resumable one-year backfill with explicit batch and load limits.
+- **Normal (plan):** Plan a resumable one-year backfill with explicit batch and load limits.
+- **edge (plan):** Resume a backfill while the live pipeline updates the same historical records.
+- **blocked (inspect):** Plan a backfill without production scan permission or known source volume.

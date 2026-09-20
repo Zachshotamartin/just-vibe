@@ -1,11 +1,15 @@
 ---
 name: arch-scale
-description: "Identify bottlenecks for a specified workload and growth scenario"
+description: "Identify bottlenecks for a specified workload and growth scenario Use for workload-driven capacity design; perf measures and repairs a specific bottleneck."
 ---
 
 # arch-scale
 
 Identify bottlenecks for a specified workload and growth scenario
+
+## Choose this workflow
+
+Use for workload-driven capacity design; perf measures and repairs a specific bottleneck.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Architecture methods](../../references/packs/architecture.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Identify hot paths and shared limits, quantify available evidence, distinguish throughput from latency, and compare incremental capacity options.
+- Model arrival rate, service time, queueing and serialized/shared limits using observed ranges; include peak and degraded modes.
+
+## Decision branches
+
+- **When a shared database or serialized step dominates:** Quantify that constraint before recommending application replicas or new services.
 
 ## Deliver and verify
 
 - Bottleneck model, assumptions, capacity experiments, scaling sequence, and cost factors.
+- Assumptions, limiting resource, incremental options and a bounded benchmark plan.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - No invented capacity numbers or automatic provisioning. Missing measurements yield an instrumentation/benchmark plan first.
 
-## Example request
+## Example requests
 
-Plan capacity experiments for a tenfold increase in checkout traffic.
+- **Normal (plan):** Plan capacity experiments for a tenfold increase in checkout traffic.
+- **edge (plan):** Plan growth for a service bottlenecked by a serialized inventory update.
+- **blocked (inspect):** Assess scale without production metrics; avoid invented throughput estimates.

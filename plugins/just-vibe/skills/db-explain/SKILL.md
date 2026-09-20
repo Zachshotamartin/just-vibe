@@ -1,11 +1,15 @@
 ---
 name: db-explain
-description: "Interpret query plans and identify expensive operations"
+description: "Interpret query plans and identify expensive operations Use to interpret an existing or authorized execution plan; db-index proposes an index from workload evidence."
 ---
 
 # db-explain
 
 Interpret query plans and identify expensive operations
+
+## Choose this workflow
+
+Use to interpret an existing or authorized execution plan; db-index proposes an index from workload evidence.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Databases methods](../../references/packs/database.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Read operators and row estimates, compare actuals when supplied, identify cardinality errors and costly stages, and propose discriminating measurements.
+- Read estimated versus actual rows, loop counts, filters, joins, sorting/spilling and buffers using engine-specific meaning; locate the first large estimation divergence.
+
+## Decision branches
+
+- **When only an estimated plan is supplied:** Discuss cost/shape hypotheses without converting cost units into milliseconds or inventing execution statistics.
 
 ## Deliver and verify
 
 - Annotated plan, likely causes, and targeted query/index/statistics options.
+- Operator evidence, likely bottleneck, discriminating measurement and risk of running it.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - EXPLAIN ANALYZE or equivalents execute work and require appropriate authorization. No mutation hidden inside profiling.
 
-## Example request
+## Example requests
 
-Interpret this saved query plan without executing EXPLAIN ANALYZE.
+- **Normal (inspect):** Interpret this saved query plan without executing EXPLAIN ANALYZE.
+- **edge (inspect):** Explain a plan whose nested loop multiplies work through a row-estimate error.
+- **blocked (inspect):** Analyze EXPLAIN output without executing EXPLAIN ANALYZE or mutating functions.

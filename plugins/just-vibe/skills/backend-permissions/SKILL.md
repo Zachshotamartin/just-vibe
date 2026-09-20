@@ -1,11 +1,15 @@
 ---
 name: backend-permissions
-description: "Define and test authorization for roles, resources, and ownership"
+description: "Define and test authorization for roles, resources, and ownership Use for application action/resource policy; arch-tenancy covers propagation across the whole system."
 ---
 
 # backend-permissions
 
 Define and test authorization for roles, resources, and ownership
+
+## Choose this workflow
+
+Use for application action/resource policy; arch-tenancy covers propagation across the whole system.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Backend methods](../../references/packs/backend.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Build an action/resource matrix, identify enforcement boundaries, implement consistent checks when requested, and test cross-user, cross-tenant, and indirect access.
+- Build subject/action/resource/tenant cases, locate server-side enforcement and inspect alternate read/write/export paths and ownership transfers.
+
+## Decision branches
+
+- **When policy is ambiguous for one role/resource combination:** Isolate that decision while continuing checks for unambiguous denials and allowed paths.
 
 ## Deliver and verify
 
 - Permission contract, enforcement changes if authorized, and negative/positive tests.
+- Access matrix, enforcement locations and positive/negative isolation checks.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Ambiguous policy blocks that decision, not unrelated analysis. Never rely solely on hidden UI buttons as enforcement.
 
-## Example request
+## Example requests
 
-Define read/update/export access rules for organization-owned invoices.
+- **Normal (plan):** Define read/update/export access rules for organization-owned invoices.
+- **edge (plan):** Add permission checks for direct-ID access and background exports.
+- **blocked (inspect):** Audit source without real tenant accounts; use synthetic identities and state assumptions.

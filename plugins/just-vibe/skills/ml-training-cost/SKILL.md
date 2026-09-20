@@ -1,11 +1,15 @@
 ---
 name: ml-training-cost
-description: "Profile training time, memory, and resource bottlenecks"
+description: "Profile training time, memory, and resource bottlenecks Use to analyze training resource use; ml-inference-perf measures deployed prediction work."
 ---
 
 # ml-training-cost
 
 Profile training time, memory, and resource bottlenecks
+
+## Choose this workflow
+
+Use to analyze training resource use; ml-inference-perf measures deployed prediction work.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [ML experimentation methods](../../references/packs/ml-experiments.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Separate startup/loading/compute/checkpoint time, inspect batch/resource utilization, identify bottlenecks, and propose measured optimizations or bounded profiling.
+- Separate data loading, host-to-device transfer, compute, synchronization and checkpoint time; relate utilization to the same quality target and workload.
+
+## Decision branches
+
+- **When throughput improves by changing effective batch or precision:** Compare convergence/quality and total time-to-target before claiming a useful speedup.
 
 ## Deliver and verify
 
 - Resource breakdown, unit-cost assumptions, and prioritized improvement experiments.
+- Timing/resource breakdown, verified price basis if used and bounded optimization plan.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - New profiling/training requires execution authorization. Do not claim speedup without equivalent model quality and workload comparison.
 
-## Example request
+## Example requests
 
-Analyze the supplied profile for loading, compute, and checkpoint bottlenecks.
+- **Normal (inspect):** Analyze the supplied profile for loading, compute, and checkpoint bottlenecks.
+- **edge (inspect):** Diagnose an idle accelerator stalled by data loading.
+- **blocked (inspect):** Estimate training effort from sparse logs without inventing cloud prices.

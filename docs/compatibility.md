@@ -13,3 +13,5 @@ Updates use the package version you execute. Use `pnpm dlx just-vibe@latest upda
 Capabilities such as GitHub, Vercel, databases, deployment and training require the user's own tools/access. Installation does not authenticate these services. A CLI on PATH does not establish authorization or usable credentials.
 
 `teach-test` requires a native question tool available and permitted for assessment in the current host mode. Real Claude interaction was verified in v0.2; the tested Codex mode restricted question tools to clarification/planning and correctly declined the quiz. ML findings still require review; the previous Claude leakage fixture had a partial behavioral result. See the [v0.2 validation record](../evals/releases/0.2.0.md).
+
+The v0.4 release adds 21 passing supplied-instruction Codex fixture trials and a three-case matched comparison that tied across all arms. These results do not establish native invocation or Claude parity for those workflows. See the [v0.4 validation record](../evals/releases/0.4.0.md).

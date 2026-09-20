@@ -1,11 +1,15 @@
 ---
 name: react-rerenders
-description: "Measure unnecessary rendering and identify its causes"
+description: "Measure unnecessary rendering and identify its causes Use for a measured slow interaction; react-state addresses ownership inconsistency."
 ---
 
 # react-rerenders
 
 Measure unnecessary rendering and identify its causes
+
+## Choose this workflow
+
+Use for a measured slow interaction; react-state addresses ownership inconsistency.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [React methods](../../references/packs/react.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Establish the interaction baseline, inspect profiler commits, trace changing props/context/identities, fix the measured cause when requested, and compare behavior and timing.
+- Capture the same interaction in a profiler, separate render from commit cost and trace the props/context identity responsible for expensive work.
+
+## Decision branches
+
+- **When render counts fall but latency or correctness worsens:** Reject the optimization and inspect stale closures, comparison cost or unrelated bottlenecks.
 
 ## Deliver and verify
 
 - Render-cause analysis or patch with comparable evidence.
+- Interaction/profile conditions, dominant component/cause and comparable result.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Avoid blanket memoization and equating render count with user-visible cost. Missing profiles yield hypotheses only.
 
-## Example request
+## Example requests
 
-Analyze why changing a filter rerenders the full product grid using this profile.
+- **Normal (inspect):** Analyze why changing a filter rerenders the full product grid using this profile.
+- **edge (inspect):** Improve filter typing in a large product grid without stale selections.
+- **blocked (inspect):** Inspect likely render causes without profiler access; do not add blanket memoization.

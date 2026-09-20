@@ -1,11 +1,15 @@
 ---
 name: vercel-performance
-description: "Investigate slow routes using available measurements and logs"
+description: "Investigate slow routes using available measurements and logs Use for measured deployment latency/cache problems; react-rerenders handles client render cost."
 ---
 
 # vercel-performance
 
 Investigate slow routes using available measurements and logs
+
+## Choose this workflow
+
+Use for measured deployment latency/cache problems; react-rerenders handles client render cost.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Vercel methods](../../references/packs/vercel.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Correlate timing with runtime/cache state, separate server from network/client delays, compare like-for-like requests, and rank optimizations by evidence.
+- Separate cold start, warm handler, dependency, network and browser timing; compare matching regions, payloads and cache states.
+
+## Decision branches
+
+- **When a fast sample is cached and a slow sample is uncached:** Report separate distributions and investigate cache eligibility before claiming compute regression.
 
 ## Deliver and verify
 
 - Bottleneck analysis, measurement conditions, and bounded optimization plan.
+- Measurement conditions, distributions, limiting boundary and bounded optimization experiment.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - New load/profiling requires authorized execution and budget. No automatic paid plan upgrade or unrelated application rewrite.
 
-## Example request
+## Example requests
 
-Analyze these route timings; distinguish cached responses from cold execution.
+- **Normal (inspect):** Analyze these route timings; distinguish cached responses from cold execution.
+- **edge (inspect):** Compare slow preview requests with cached production responses fairly.
+- **blocked (inspect):** Assess supplied timing samples without load testing or changing the paid plan.

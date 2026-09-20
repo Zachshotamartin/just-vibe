@@ -1,11 +1,15 @@
 ---
 name: ui-flow
-description: "Improve a complete user journey, including error recovery"
+description: "Improve a complete user journey, including error recovery Use for a multi-step journey's decisions and recovery; ui-states defines individual screen states."
 ---
 
 # ui-flow
 
 Improve a complete user journey, including error recovery
+
+## Choose this workflow
+
+Use for a multi-step journey's decisions and recovery; ui-states defines individual screen states.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [UI and frontend methods](../../references/packs/ui.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Walk the journey, map decisions and state transitions, identify dead ends/friction, propose improvements, and implement only when requested.
+- Trace entry, progress, validation, abandonment, retry and return paths; track which user input and permissions survive each transition.
+
+## Decision branches
+
+- **When back navigation or session expiry discards important work:** Define recovery and preservation explicitly before simplifying the journey.
 
 ## Deliver and verify
 
 - Flow map, prioritized changes, and journey acceptance scenarios.
+- Journey/state map, dead ends, recovery changes and acceptance walkthrough.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Do not simplify by removing necessary policy or consent steps. Distinguish observed usability issues from assumptions needing user testing.
 
-## Example request
+## Example requests
 
-Plan improving account recovery, including expired links and back navigation.
+- **Normal (plan):** Plan improving account recovery, including expired links and back navigation.
+- **edge (plan):** Improve onboarding interrupted by session expiry midway through a form.
+- **blocked (inspect):** Assess a flow from mockups without claiming observed conversion improvements.

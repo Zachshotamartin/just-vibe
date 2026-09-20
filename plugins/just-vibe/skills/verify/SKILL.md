@@ -1,11 +1,15 @@
 ---
 name: verify
-description: "Run relevant checks and report supporting evidence"
+description: "Run relevant checks and report supporting evidence Use to establish evidence for explicit completion criteria; test authors missing checks."
 ---
 
 # verify
 
 Run relevant checks and report supporting evidence
+
+## Choose this workflow
+
+Use to establish evidence for explicit completion criteria; test authors missing checks.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [General methods](../../references/packs/general.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -29,11 +33,16 @@ Only the requested local changes; external actions require their exact action an
 2. Execute the relevant bounded checks with the active host tool and capture actual exit code, revision, output summary and any generated artifacts. Use read-only existing evidence in inspect mode.
 3. Do not repair failures unless the user also requested repair. Keep failed, blocked and unrun checks separate from passes; identify pre-existing failures only with evidence.
 
-Task-specific method: Select checks from project scripts and changed behavior, inspect commands for side effects, run bounded checks, and associate results with the tested revision.
+Task-specific method: Select checks from project scripts and changed behavior, inspect commands for side effects, run bounded checks, and associate results with the tested revision. Map every criterion to an existing check, inspected artifact or bounded interaction; inspect script side effects and record the revision and environment.
+
+## Decision branches
+
+- **When a required check is unavailable or fails before exercising behavior:** Mark that criterion unverified and report the prerequisite separately from product failure.
 
 ## Deliver and verify
 
 - Check results, exit statuses, covered criteria, and blocked/unverified areas.
+- Criterion/check/result matrix with commands, exit statuses, revision and gaps.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -43,6 +52,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Do not run deployment scripts as verification. Separate pre-existing failures from introduced failures using evidence.
 
-## Example request
+## Example requests
 
-Verify this checkout change using the project checks; report blocked checks.
+- **Normal (apply):** Verify this checkout change using the project checks; report blocked checks.
+- **edge (apply):** Verify a fix where unit tests pass but the browser build fails.
+- **blocked (inspect):** Review existing CI artifacts without running commands or treating stale results as current.

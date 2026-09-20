@@ -1,11 +1,15 @@
 ---
 name: test
-description: "Add meaningful coverage for specified behavior"
+description: "Add meaningful coverage for specified behavior Use to implement behavior checks; coverage identifies gaps and verify runs existing checks."
 ---
 
 # test
 
 Add meaningful coverage for specified behavior
+
+## Choose this workflow
+
+Use to implement behavior checks; coverage identifies gaps and verify runs existing checks.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [General methods](../../references/packs/general.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ Only the requested local changes; external actions require their exact action an
 ## Execute
 
 - Inspect existing tests, identify important gaps, choose unit/integration/end-to-end scope, add representative cases, and run relevant checks.
+- Choose the lowest layer that can observe the contract; retain an independent expected result and demonstrate that the check detects a plausible regression.
+
+## Decision branches
+
+- **When the proposed assertion mirrors internal implementation:** Replace it with an external invariant or consumer-observable result.
 
 ## Deliver and verify
 
 - Tests, fixture changes when necessary, execution results, and covered behavior.
+- Tests and fixtures mapped to requirements, execution results and uncovered boundaries.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Report unavailable services/runners. Avoid tests that merely restate implementation or require live paid endpoints without authorization.
 
-## Example request
+## Example requests
 
-Add meaningful coverage for expired invitations and repeated acceptance.
+- **Normal (apply):** Add meaningful coverage for expired invitations and repeated acceptance.
+- **edge (apply):** Add tests for duplicate submissions and a legitimate repeated purchase.
+- **blocked (inspect):** Assess test design without the integration environment; do not mark mocks as live coverage.

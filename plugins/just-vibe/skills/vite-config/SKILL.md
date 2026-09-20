@@ -1,11 +1,15 @@
 ---
 name: vite-config
-description: "Audit aliases, plugins, build options, and environment handling"
+description: "Audit aliases, plugins, build options, and environment handling Use to inspect effective configuration; vite-hmr or vite-assets handles a known failure surface."
 ---
 
 # vite-config
 
 Audit aliases, plugins, build options, and environment handling
+
+## Choose this workflow
+
+Use to inspect effective configuration; vite-hmr or vite-assets handles a known failure surface.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Vite methods](../../references/packs/vite.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Read effective configuration sources and version compatibility, trace conflicting options, compare development/production behavior, and propose focused corrections.
+- Resolve command, mode, root, envDir, aliases and plugin order from the actual invoked script; compare TypeScript resolution with bundler resolution.
+
+## Decision branches
+
+- **When a config function branches on command or mode:** Assess each relevant branch statically before executing potentially side-effecting configuration.
 
 ## Deliver and verify
 
 - Configuration findings, reasoning, and optional authorized patch.
+- Effective configuration by invocation and unsupported/conflicting settings.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Do not execute arbitrary config code during read-only inspection without considering its side effects. Missing build evidence remains unknown.
 
-## Example request
+## Example requests
 
-Audit aliases and plugin order for the installed Vite version.
+- **Normal (inspect):** Audit aliases and plugin order for the installed Vite version.
+- **edge (inspect):** Diagnose an alias that typechecks but fails in the production bundle.
+- **blocked (inspect):** Inspect config source with no build permission; do not execute arbitrary imports.

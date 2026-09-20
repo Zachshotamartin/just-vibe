@@ -1,15 +1,45 @@
 # Evaluating just-vibe
 
-The catalog generates `scenarios.json`: one realistic invocation, required evidence, success rubric and stop behavior for every shipped skill. These are evaluation definitions, not completed model runs.
+Validation has three separate dimensions in the catalog:
 
-The [v0.2.0 validation record](releases/0.2.0.md) contains actual agent trials, native quiz interaction, corrected defects, and explicit partial/blocked results. Catalog scenario definitions remain separate from that observed evidence.
+- `structural: automated`: contracts, generation, references and packaging are checked.
+- `runtime: fixtures-tested | not-applicable`: deterministic utilities have relevant fixture coverage. This does not measure an agent's judgment.
+- `behavioral: not-evaluated | passed-fixtures | partial-fixtures`: observed agent outcomes on named bounded fixtures. Evaluated entries name an evidence record; no label means universal reliability or host parity.
 
-`npm run check` runs executable checks for the shared runtime, aliases, scenario context preservation, missing capabilities, modes, target isolation, retries, evidence, package contents, and installation behavior. `npm run test:hosts` exercises both real native plugin lifecycles in isolated host configuration directories. Neither command makes model/API calls, deploys applications, trains models or uses paid integrations.
+The generated [scenarios.json](scenarios.json) supplies normal, edge and missing-evidence invocations plus evidence requirements and a rubric for all 213 skill names. These are specifications, not completed model runs. Aliases inherit their canonical contract and validation.
 
-For agent behavior, use a separate authorized host session and an isolated fixture workspace. Load only the skill under evaluation, shared instructions, its pack runbook and the raw task artifacts. Give the evaluator the scenario brief without the expected conclusion. Record the host/model version, artifact identities, actions, outputs, user-visible result, rubric assessment and actual validation. Do not silently convert a structural test into a claim of model quality or host behavioral parity.
+## Independent behavioral fixtures
 
-The `fixtures/checkout` project supplies a real failing behavior, a neighboring valid case and unrelated content to preserve. The `fixtures/ml` files supply temporal leakage, entity overlap and missing-label evidence for inspection without training. Run these in disposable copies; the original fixtures must retain their diagnostic conditions.
+[behavior/cases.json](behavior/cases.json) defines 21 raw-artifact tasks. Their inputs and task briefs are separate from [evaluator oracles](behavior/oracles.json). The harness copies only raw task files and selected instructions into an isolated workspace. It never copies grading answers into that workspace. Expected facts and executable behavior assertions were authored independently of generated command wording.
 
-For each domain add representative authorized project/data artifacts when exercising its scenarios. Include a successful case and a blocked/negative case: unavailable integrations must remain unknown, inspect/plan modes must avoid mutations, and appended constraints must survive routing. External scenarios need exact target/action/budget authorization; do not use production records or services by default.
+Prepare a fresh trial:
 
-Unexecuted model scenarios retain `scenario-defined` validation in the catalog. `runtime-fixtures-tested` describes utility-backed checks only; it is not a model performance claim. Report observed limitations rather than inventing pass rates.
+```bash
+npm run eval:behavior -- prepare --case react-race --out .tmp/trials/react-race
+```
+
+Give an independent agent only the resulting `prompt.txt` and its referenced workspace. It must preserve supplied files except the explicitly allowed implementation targets and write `answer.json` outside the workspace. Do not show it evaluator oracles or previous trial answers. Local code checks are permitted by the task; network, installations, external mutations and further delegation are excluded from these fixtures.
+
+Grade afterward:
+
+```bash
+npm run eval:behavior -- grade --run .tmp/trials/react-race
+```
+
+The grader verifies input/instruction hashes, permitted changed files, independently specified factual judgments, and relevant executable assertions. Regression-test evaluation runs the authored test against the correct implementation and two independent mutants, rejecting vacuous tests. Report inspection checks verify explicit judgments against supplied facts; the reasoning prose still requires human review. Executable grading runs reviewed local fixture code; this harness is not a sandbox for hostile submissions.
+
+`npm run eval:behavior -- list` shows available cases. `npm run check` checks the harness itself against seeded wrong reports, broken code, vacuous tests and correct controls. Those synthetic harness checks are **not** model trials. It does not call models or services.
+
+## Controlled comparisons
+
+Prepare the same case in three fresh directories with `--arm baseline`, `--arm just-vibe`, or `--arm ecc --ecc-root /path/to/pinned/ECC`. ECC supports cases with a declared matched source file in the manifest. Record the ECC revision before preparation. The comparator supplies that matched guide, not ECC's complete installed hooks/agents/runtime; name this limitation when interpreting results.
+
+Keep model, effort, host tools, task artifacts, action permissions and budget equal. Use separate fresh agent contexts, randomize order for a larger study, repeat trials, and retain failures. Record source/prompt hashes, changed files, checks, host/model settings and actual usage/timing from host logs. Do not infer cost from elapsed preparation time. A small tied comparison demonstrates no superiority; a single observed difference needs replication.
+
+Results should distinguish task correctness, unsupported claims, unrequested edits, completion, elapsed execution time, tokens and verified cost. Unsupported metrics remain unavailable. Keep development fixtures separate from future held-out benchmark tasks; public fixtures are useful regressions but are not a durable blind benchmark.
+
+## Existing evidence and limits
+
+The [v0.2 record](releases/0.2.0.md) contains native Codex/Claude trials, including a partial Claude leakage audit and the tested Codex mode's unavailable native assessment dialog. Later instruction changes do not retroactively turn those trials into passes.
+
+The original [checkout](fixtures/checkout/) and [ML](fixtures/ml/) fixtures remain available. `npm run test:hosts` verifies native installation lifecycles in isolated host configuration directories. It does not establish model behavior, authenticated deployments, database execution, browser rendering or training quality. These need separately identified environments and evidence.

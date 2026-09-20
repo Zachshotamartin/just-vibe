@@ -1,11 +1,15 @@
 ---
 name: db-locks
-description: "Investigate blocking, deadlocks, long transactions, and contention"
+description: "Investigate blocking, deadlocks, long transactions, and contention Use for transaction blocking/deadlock diagnosis; backend-concurrency designs application consistency."
 ---
 
 # db-locks
 
 Investigate blocking, deadlocks, long transactions, and contention
+
+## Choose this workflow
+
+Use for transaction blocking/deadlock diagnosis; backend-concurrency designs application consistency.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Databases methods](../../references/packs/database.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Correlate blocked/blocking sessions and queries, inspect transaction boundaries, distinguish transient waits from persistent contention, and propose targeted remedies.
+- Correlate wait and blocker snapshots with transaction age, query identity and application transaction boundaries; follow the root blocker rather than the noisiest victim.
+
+## Decision branches
+
+- **When the reported deadlock already resolved:** Separate historical deadlock analysis from current blocking and avoid terminating unrelated live sessions.
 
 ## Deliver and verify
 
 - Blocking graph/timeline, likely cause, and safe operational/code options.
+- Blocking chain, snapshot time, transaction boundary and targeted remedy.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - No session termination, transaction cancellation, or timeout changes implicitly. Redact sensitive query parameters and acknowledge snapshot limitations.
 
-## Example request
+## Example requests
 
-Explain the blocking chain from these session and lock snapshots.
+- **Normal (inspect):** Explain the blocking chain from these session and lock snapshots.
+- **edge (inspect):** Diagnose an idle transaction blocking several otherwise fast updates.
+- **blocked (inspect):** Analyze a saved lock snapshot without cancelling sessions or changing timeouts.

@@ -1,0 +1,22 @@
+{
+  "hardRequirements": [
+    "offline-read"
+  ],
+  "options": [
+    {
+      "id": "A",
+      "supportsOffline": false,
+      "convenience": 10
+    },
+    {
+      "id": "B",
+      "supportsOffline": true,
+      "convenience": 4
+    },
+    {
+      "id": "C",
+      "supportsOffline": null,
+      "convenience": 9
+    }
+  ]
+}

@@ -1,11 +1,15 @@
 ---
 name: teach-test
-description: "Quiz the user on a topic or workflow through native multiple-choice question dialogs, with feedback and adaptive practice."
+description: "Quiz the user on a topic or workflow through native multiple-choice question dialogs, with feedback and adaptive practice. Use for interactive assessment after checking native dialog support; teach handles lessons without assessment."
 ---
 
 # teach-test
 
 Quiz the user on a topic or workflow through native multiple-choice question dialogs, with feedback and adaptive practice.
+
+## Choose this workflow
+
+Use for interactive assessment after checking native dialog support; teach handles lessons without assessment.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [General methods](../../references/packs/general.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -33,11 +37,16 @@ No project or external-service writes. Keep quiz state in session context; save 
 6. Normalize the actual response into questionId, submitted, selection/freeText, skipped/cancelled and call toolkit quiz answer. For a free-text explanation, use quiz review only after assessing its meaning; preserve the actual response and explain the judgment.
 7. Show returned feedback after answers in practice mode; withhold correctness in test mode until finished. Generate the next question using demonstrated misconceptions and remaining budget, then repeat through the native tool. Use quiz report for the final assessment; report sample limits and optional review topics.
 
-Task-specific method: Resolve the topic or recent lesson, select practice by default or test when requested, and set a bounded question count (default five). Identify the native question tool and verify availability and permitted use before preparing the quiz. Ask one clear question with three plausible short choices using the real native question tool. Include prerequisite understanding, a worked-state prediction and an application or tradeoff question as appropriate; shuffle choices and avoid answer-revealing labels or descriptions. Wait for an actual submitted answer. A default/preselected option, an async call returning, a timeout, skip or cancellation is not a correct or incorrect answer. Keep the same pending question until its response is resolved. In practice mode explain the answer after submission and adapt subsequent difficulty/concept to demonstrated understanding. In test mode defer correctness feedback until completion. Evaluate free-text answers fairly against the actual question rather than guessing a clicked option. Finish at the question limit or user cancellation with a bounded assessment, missed concepts and suggested review. Do not claim mastery from a short quiz or save a permanent learner profile without request.
+Task-specific method: Resolve the topic or recent lesson, select practice by default or test when requested, and set a bounded question count (default five). Identify the native question tool and verify availability and permitted use before preparing the quiz. Ask one clear question with three plausible short choices using the real native question tool. Include prerequisite understanding, a worked-state prediction and an application or tradeoff question as appropriate; shuffle choices and avoid answer-revealing labels or descriptions. Wait for an actual submitted answer. A default/preselected option, an async call returning, a timeout, skip or cancellation is not a correct or incorrect answer. Keep the same pending question until its response is resolved. In practice mode explain the answer after submission and adapt subsequent difficulty/concept to demonstrated understanding. In test mode defer correctness feedback until completion. Evaluate free-text answers fairly against the actual question rather than guessing a clicked option. Finish at the question limit or user cancellation with a bounded assessment, missed concepts and suggested review. Do not claim mastery from a short quiz or save a permanent learner profile without request. Establish question count and practice versus test mode; test one concept per question and keep the answer key out of the presentation payload.
+
+## Decision branches
+
+- **When question tool is missing or restricted to clarification:** Report that assessment is unavailable in this mode; do not disguise quiz questions as implementation clarifications.
 
 ## Deliver and verify
 
 - Native multiple-choice question dialogs, answer-dependent feedback, and a final short assessment with concepts to revisit. Question text stays in the dialog; explanations may appear in normal conversation after answers.
+- Submitted-answer evidence, grading rationale, skips, and a scoped assessment of demonstrated knowledge.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -49,6 +58,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Stop on the requested question limit, cancellation, missing native-dialog capability, ambiguous topic, or an unresolved answer. Respect tool-specific host/mode restrictions; do not force Plan mode, grant permissions, or simulate a native dialog by printing JSON or markdown.
 
-## Example request
+## Example requests
 
-Quiz me on linked lists using the native question dialog, one question at a time.
+- **Normal (inspect):** Quiz me on linked lists using the native question dialog, one question at a time.
+- **edge (inspect):** Test linked-list operations; skip one question and explain only at the end.
+- **blocked (inspect):** Inspect whether this host permits native assessment dialogs; do not print an inline quiz.

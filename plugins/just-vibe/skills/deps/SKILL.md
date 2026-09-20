@@ -1,11 +1,15 @@
 ---
 name: deps
-description: "Assess dependency updates and compatibility"
+description: "Assess dependency updates and compatibility Use for dependency assessment or requested updates; vite-upgrade handles Vite-specific migration behavior."
 ---
 
 # deps
 
 Assess dependency updates and compatibility
+
+## Choose this workflow
+
+Use for dependency assessment or requested updates; vite-upgrade handles Vite-specific migration behavior.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [General methods](../../references/packs/general.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Inspect manifests/resolution, check current release notes and advisories, identify peer/runtime constraints, and group changes by risk.
+- Read resolved versions and peer/runtime ranges; identify why each dependency exists and isolate direct changes from lockfile churn.
+
+## Decision branches
+
+- **When an advisory has configuration-dependent exposure:** Trace actual reachable use and report that condition before recommending a breaking upgrade.
 
 ## Deliver and verify
 
 - Prioritized recommendations or authorized update with compatibility checks.
+- Current/target versions, compatibility risks, advisory evidence and update checks.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Never treat latest as automatically best. Missing registry information is unknown, not proof of no vulnerabilities.
 
-## Example request
+## Example requests
 
-Assess a compatible dependency update without changing files yet.
+- **Normal (inspect):** Assess a compatible dependency update without changing files yet.
+- **edge (inspect):** Update one dependency with a conflicting peer and an unrelated dirty lockfile.
+- **blocked (inspect):** Assess dependencies from the lockfile with unavailable advisory access.

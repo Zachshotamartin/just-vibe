@@ -1,6 +1,6 @@
 import { realpathSync, statSync, readFileSync, accessSync, constants } from 'node:fs';
 import { resolve } from 'node:path';
-import { CAPABILITIES, availability, searchCommands, invocation } from './catalog.mjs';
+import { CAPABILITIES, availability, searchCommands, invocation, getCommand } from './catalog.mjs';
 import { findExecutable, gitRead } from './project.mjs';
 
 export function validateCapabilityReport(report, root, now = Date.now()) {
@@ -57,8 +57,17 @@ export function listTools(catalog, discovery, { query = '', pack, available = fa
 
 export function recommend(catalog, discovery, brief, { host = 'claude', limit = 8 } = {}) {
   if (typeof brief !== 'string' || !brief.trim()) throw new Error('A routing goal is required.');
-  const candidates = listTools(catalog, discovery, { query: brief, host, all: true, limit: catalog.commands.length })
+  const matches = listTools(catalog, discovery, { query: brief, host, all: true, limit: catalog.commands.length })
     .filter(c => !['auto', 'do', 'help', 'tools', 'setup'].includes(c.id));
+  const unique = new Map();
+  for (const match of matches) {
+    const id = match.aliasOf || match.id;
+    if (unique.has(id)) { unique.get(id).matchedNames.push(match.id); continue; }
+    const canonical = getCommand(catalog, id);
+    unique.set(id, { ...match, id, aliasOf: undefined, summary: canonical.summary,
+      invocation: invocation(canonical, host), matchedNames: [match.id] });
+  }
+  const candidates = [...unique.values()];
   return { brief, executableHere: false,
     instruction: 'Candidates only. The active host agent must resolve intent, context, scope, and authority before selecting and executing a route. Do not execute keyword matches blindly.',
     available: candidates.filter(c => c.status === 'available').slice(0, limit),

@@ -1,0 +1,7 @@
+{
+  "deployment": "Future predictions on the same installed machines",
+  "predictionMoment": "window end",
+  "labelHorizon": "unknown",
+  "proposedSplit": "random rows",
+  "observations": "Several adjacent windows per machine; training may include windows later than validation."
+}

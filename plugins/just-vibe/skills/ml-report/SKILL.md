@@ -1,11 +1,15 @@
 ---
 name: ml-report
-description: "Document data, results, limitations, and intended use"
+description: "Document data, results, limitations, and intended use Use to communicate established ML evidence; ml-evaluate creates evaluation results."
 ---
 
 # ml-report
 
 Document data, results, limitations, and intended use
+
+## Choose this workflow
+
+Use to communicate established ML evidence; ml-evaluate creates evaluation results.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [ML evaluation methods](../../references/packs/ml-evaluation.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Reconcile evidence, describe training/evaluation conditions, summarize baseline and slice results, document limitations and excluded uses, and identify missing release evidence.
+- Reconcile every number with a run and denominator, separate validation selection from independent test evidence and document deployment population/excluded uses.
+
+## Decision branches
+
+- **When evidence is missing for a key cohort or release gate:** Keep the limitation visible and withhold the corresponding suitability claim.
 
 ## Deliver and verify
 
 - Model report/card with provenance, metrics, operating assumptions, and open risks.
+- Model/data/version summary, baseline/slice evidence, limitations and release gaps.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Do not present a report as deployment authorization or claim suitability for untested populations.
 
-## Example request
+## Example requests
 
-Write a model report using these actual runs and identify unsupported uses.
+- **Normal (plan):** Write a model report using these actual runs and identify unsupported uses.
+- **edge (plan):** Write a model report with strong average performance but poor sparse-cohort evidence.
+- **blocked (inspect):** Draft a report with missing test results; do not invent metrics or deployment approval.

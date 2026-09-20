@@ -1,11 +1,15 @@
 ---
 name: ops-restore
-description: "Prepare or validate backup restoration in an appropriate environment"
+description: "Prepare or validate backup restoration in an appropriate environment Use for a scoped backup recovery plan or rehearsal; db-migrate changes schema/data intentionally."
 ---
 
 # ops-restore
 
 Prepare or validate backup restoration in an appropriate environment
+
+## Choose this workflow
+
+Use for a scoped backup recovery plan or rehearsal; db-migrate changes schema/data intentionally.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Operations methods](../../references/packs/operations.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Verify backup provenance/completeness, plan target isolation, execute authorized restore, check schema/counts/integrity and application behavior, and record recovery duration/data loss window.
+- Verify backup identity, completeness, keys and destination isolation, then reconcile schema, counts, integrity and application behavior after authorized restoration.
+
+## Decision branches
+
+- **When backup reads successfully but application checks fail:** Treat recovery as incomplete and preserve the isolated target for diagnosis; do not overwrite the live source.
 
 ## Deliver and verify
 
 - Restore procedure or exercise report with verified recovery evidence and limitations.
+- Source/target identities, recovery timing/data-loss window and integrity/application results.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Never overwrite live data implicitly. Missing keys, integrity checks, or target identity stops execution before destructive steps.
 
-## Example request
+## Example requests
 
-Plan restoring the specified backup into an isolated target, not production.
+- **Normal (plan):** Plan restoring the specified backup into an isolated target, not production.
+- **edge (plan):** Rehearse restore into an isolated database with missing recent transactions.
+- **blocked (inspect):** Plan restore with missing decryption keys or an ambiguous destination; do not execute.

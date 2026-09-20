@@ -1,11 +1,15 @@
 ---
 name: llm-structured
-description: "Implement structured outputs, validation, and recovery"
+description: "Implement structured outputs, validation, and recovery Use for validated structured model output; api-client handles the provider transport boundary."
 ---
 
 # llm-structured
 
 Implement structured outputs, validation, and recovery
+
+## Choose this workflow
+
+Use for validated structured model output; api-client handles the provider transport boundary.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [LLMs and retrieval methods](../../references/packs/llm.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ Only the requested local changes; external actions require their exact action an
 ## Execute
 
 - Define schema-compatible requests, validate outputs beyond parsing, separate refusal/truncation from malformed data, implement constrained retries, and test downstream consumption.
+- Resolve supported schema features, validate semantics after parsing and separate refusal, truncation, invalid structure and downstream business rejection.
+
+## Decision branches
+
+- **When retries repeatedly fail the same constraint:** Stop at the cap with a typed error and retain diagnostics; never fabricate fields to satisfy the schema.
 
 ## Deliver and verify
 
 - Structured-output integration, schemas, recovery behavior, and fixtures.
+- Schema/validation contract and malformed, missing, refusal and truncation fixtures.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Never coerce fabricated fields into valid-looking data. Do not assume every provider supports identical schema features.
 
-## Example request
+## Example requests
 
-Implement schema validation and bounded recovery for invalid or truncated output.
+- **Normal (apply):** Implement schema validation and bounded recovery for invalid or truncated output.
+- **edge (apply):** Extract records when output parses but contains impossible dates.
+- **blocked (inspect):** Design structured output with unknown provider schema support; avoid assumed API flags.

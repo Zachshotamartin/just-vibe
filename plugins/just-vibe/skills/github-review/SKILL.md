@@ -1,11 +1,15 @@
 ---
 name: github-review
-description: "Review a PR using its discussion, changes, and checks"
+description: "Review a PR using its discussion, changes, and checks Use to review a specific remote PR revision; review handles supplied/local diffs."
 ---
 
 # github-review
 
 Review a PR using its discussion, changes, and checks
+
+## Choose this workflow
+
+Use to review a specific remote PR revision; review handles supplied/local diffs.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [GitHub methods](../../references/packs/github.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Fetch the correct diff, read surrounding code and relevant discussion, verify findings against the current head, and distinguish blockers from optional observations.
+- Record head/base SHA, inspect changed and surrounding source, map each finding to a current diff location and revalidate head before requested posting.
+
+## Decision branches
+
+- **When the PR head changes during inspection:** Refresh affected findings and checks rather than attaching stale comments.
 
 ## Deliver and verify
 
 - Prioritized findings with valid diff locations, evidence, and review limitations.
+- Findings with trigger and current diff locations, reviewed SHA and check limitations.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Sending a review requires explicit instruction. Recheck head before posting so findings are not silently attached to stale code.
 
-## Example request
+## Example requests
 
-Review the current head of the specified PR without posting a review.
+- **Normal (inspect):** Review the current head of the specified PR without posting a review.
+- **edge (inspect):** Review a PR that was force-pushed after an earlier comment.
+- **blocked (inspect):** Review exported PR artifacts without posting or live metadata access.

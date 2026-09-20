@@ -1,0 +1,13 @@
+{
+  "engine": "PostgreSQL 18",
+  "runnerWrapsTransactions": true,
+  "tableRows": 8000000,
+  "existingIndex": {
+    "name": "orders_customer",
+    "valid": false,
+    "columns": [
+      "customer_id"
+    ]
+  },
+  "recoveryRehearsed": false
+}

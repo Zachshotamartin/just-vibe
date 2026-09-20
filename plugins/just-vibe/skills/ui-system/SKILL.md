@@ -1,11 +1,15 @@
 ---
 name: ui-system
-description: "Establish typography, spacing, colors, tokens, and component conventions"
+description: "Establish typography, spacing, colors, tokens, and component conventions Use to establish or refine shared design tokens/components; polish makes local refinements."
 ---
 
 # ui-system
 
 Establish typography, spacing, colors, tokens, and component conventions
+
+## Choose this workflow
+
+Use to establish or refine shared design tokens/components; polish makes local refinements.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [UI and frontend methods](../../references/packs/ui.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -26,10 +30,16 @@ None by default. Plan artifacts may be saved when requested.
 ## Execute
 
 - Inventory existing values, identify a coherent scale, define semantic tokens and component states, and plan incremental adoption without visual regressions.
+- Inventory actual repeated values and component states; separate semantic roles from raw scales and define incremental adoption with representative specimens.
+
+## Decision branches
+
+- **When two themes require different contrast relationships:** Map semantic tokens per theme and verify components rather than applying one global color substitution.
 
 ## Deliver and verify
 
 - Typography/spacing/color/state system and migration mapping or authorized implementation.
+- Token roles/scales, component state matrix and migration examples.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -39,6 +49,8 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - Do not replace branding or add a component framework without need. Resolve competing theme requirements explicitly.
 
-## Example request
+## Example requests
 
-Plan semantic design tokens from the existing screens and brand constraints.
+- **Normal (plan):** Plan semantic design tokens from the existing screens and brand constraints.
+- **edge (plan):** Consolidate spacing and color tokens across light and dark settings screens.
+- **blocked (inspect):** Plan a system from existing UI without replacing unavailable brand assets.

@@ -1,0 +1,1274 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-09-19 America/Los_Angeles",
+  "host": "Codex collaboration agents; instruction files supplied directly, not native plugin invocation",
+  "model": "Inherited calling-agent configuration; exact model identifier and effort not exposed by the collaboration tool",
+  "controls": "Fresh agent contexts; identical raw inputs for the three matched cases; same inherited model/tool configuration and task permissions; no network or external services",
+  "eccRevision": "934195f955cf0da847d59fcd6f68856bce112d8b",
+  "limits": [
+    "One trial per case/arm; no statistical superiority claim.",
+    "ECC arm supplies one matched guide, not a complete installed ECC configuration.",
+    "Report facts are automatically checked; narrative reasoning was reviewed separately.",
+    "No live deployment, database execution, browser rendering, training or native quiz interaction.",
+    "Host usage/cost/timing metrics unavailable, not inferred.",
+    "The authz source fixture was clarified after its trial to state tenantId explicitly; trial hashes preserve the original inputs."
+  ],
+  "results": [
+    {
+      "case": "checkout",
+      "arm": "just-vibe",
+      "commands": [
+        "fix"
+      ],
+      "status": "passed-fixture",
+      "checks": [
+        {
+          "name": "Preserve input and instruction files outside allowed writes",
+          "pass": true
+        },
+        {
+          "name": "No symlink artifacts",
+          "pass": true
+        },
+        {
+          "name": "Independent behavioral assertions",
+          "pass": true
+        }
+      ],
+      "modified": [
+        "checkout.mjs"
+      ],
+      "answerSha256": "f0c473c9cec7cafd69612ec3069eda582f9afa97cd34d4514e0e1210af54d28c",
+      "inputHashes": {
+        "_instructions/just-vibe/references/execution.md": "b34788418643c8e2fb967466977066e531d93113070558cbc85d6234b22770f9",
+        "_instructions/just-vibe/references/packs/general.md": "dee359e9b317b68f43e084e84805cfb5f812bdf9d087e4960c16c943df115ab2",
+        "_instructions/just-vibe/references/runtime.md": "2a181bd0973efedc2f3131974f4b4665d898977a30c0ca410d199b2f50df8ff1",
+        "_instructions/just-vibe/references/teach-test.md": "a5bad292ac5933da1b284b48c4ab62f295b33303133640c1b5dd0a2a0b92da1c",
+        "_instructions/just-vibe/references/teaching.md": "59404e72b26aada3d10c4c914552ae407550ae401d2bec9dc9dc15c06b2fac0a",
+        "_instructions/just-vibe/skills/fix/SKILL.md": "ed725b79806f168a276b5fd3badd02abb749dada61f1f038b86e397b06e7bbd9",
+        "checkout.mjs": "df939669c5adcbd4931570e11470a78b432d57115ec197897c15ee6d24d2e3b0",
+        "contract.md": "9c427fd2a52b23398a9ad18ca045417bed3ce2cb22e0442efb21a44df7a3f7a0",
+        "keep.txt": "615d0d8efec84190d5fa25cb5af8a96e73f13db359c3bc13996eb7e48a46011c",
+        "task.md": "f7e3c89b5292be5638bac99bee5e1cfe29d65554a2502bcb4f80f865ce970e2f"
+      },
+      "instructionBytes": 2723,
+      "executionSeconds": null,
+      "tokens": null,
+      "cost": null
+    },
+    {
+      "case": "github-pr",
+      "arm": "just-vibe",
+      "commands": [
+        "github-pr"
+      ],
+      "status": "passed-fixture",
+      "checks": [
+        {
+          "name": "Preserve input and instruction files outside allowed writes",
+          "pass": true
+        },
+        {
+          "name": "No symlink artifacts",
+          "pass": true
+        },
+        {
+          "name": "existingPr",
+          "pass": true
+        },
+        {
+          "name": "headSha",
+          "pass": true
+        },
+        {
+          "name": "createNeeded",
+          "pass": true
+        },
+        {
+          "name": "unsubmittedLocalFiles",
+          "pass": true
+        }
+      ],
+      "modified": [],
+      "answerSha256": "48a0f835cbf30d44501a2372849723aad1b6b35d3e278b07f5b3964a4319fcd6",
+      "inputHashes": {
+        "_instructions/just-vibe/references/execution.md": "b34788418643c8e2fb967466977066e531d93113070558cbc85d6234b22770f9",
+        "_instructions/just-vibe/references/packs/github.md": "ba7334ec8693b7fe6ff45c5d022fe7ad7d2cc97202315a7a057df794dbbbdd0e",
+        "_instructions/just-vibe/references/runtime.md": "2a181bd0973efedc2f3131974f4b4665d898977a30c0ca410d199b2f50df8ff1",
+        "_instructions/just-vibe/references/teach-test.md": "a5bad292ac5933da1b284b48c4ab62f295b33303133640c1b5dd0a2a0b92da1c",
+        "_instructions/just-vibe/references/teaching.md": "59404e72b26aada3d10c4c914552ae407550ae401d2bec9dc9dc15c06b2fac0a",
+        "_instructions/just-vibe/skills/github-pr/SKILL.md": "d0ddb0c4543cb479586660da6ff3fc6c9280a193f1e25100495d13122202dcb9",
+        "prs.json": "7b680f2a15a9af5472d60969e441787f6cc6c4851e5db4b0117121bc25329aa1",
+        "request.json": "899410d7546fa75734fc94efd7df74ec218cf43b591af9b243ec0659360ec598",
+        "task.md": "a321d34a9ae99888ec39d1063247788e6ca802bbef7d63a8fbebf7e4a30532da"
+      },
+      "instructionBytes": 2747,
+      "executionSeconds": null,
+      "tokens": null,
+      "cost": null
+    },
+    {
+      "case": "vercel-env",
+      "arm": "just-vibe",
+      "commands": [
+        "vercel-env"
+      ],
+      "status": "passed-fixture",
+      "checks": [
+        {
+          "name": "Preserve input and instruction files outside allowed writes",
+          "pass": true
+        },
+        {
+          "name": "No symlink artifacts",
+          "pass": true
+        },
+        {
+          "name": "missingPreviewNames",
+          "pass": true
+        },
+        {
+          "name": "clientExposedSensitiveNames",
+          "pass": true
+        },
+        {
+          "name": "currentDeploymentHasNewValues",
+          "pass": true
+        }
+      ],
+      "modified": [],
+      "answerSha256": "e06904e99713cf09d00c09e9d08c95cf07de9ad33848ec21d436ca4f71edd375",
+      "inputHashes": {
+        "_instructions/just-vibe/references/execution.md": "b34788418643c8e2fb967466977066e531d93113070558cbc85d6234b22770f9",
+        "_instructions/just-vibe/references/packs/vercel.md": "0906debadec3018cd62f550e773f9cae8a3b108bccdd70b1041a26e08f42e1ba",
+        "_instructions/just-vibe/references/runtime.md": "2a181bd0973efedc2f3131974f4b4665d898977a30c0ca410d199b2f50df8ff1",
+        "_instructions/just-vibe/references/teach-test.md": "a5bad292ac5933da1b284b48c4ab62f295b33303133640c1b5dd0a2a0b92da1c",
+        "_instructions/just-vibe/references/teaching.md": "59404e72b26aada3d10c4c914552ae407550ae401d2bec9dc9dc15c06b2fac0a",
+        "_instructions/just-vibe/skills/vercel-env/SKILL.md": "09d1883ed33c6ee9c3a40a7ca96e3100c1bf7340cf475a3f8ca1f57510ca600c",
+        "consumers.json": "e373e5fca1b56f84a8199bb98a9114d16aca7a33b5b60271d07a865c35b804da",
+        "metadata.json": "0a5571cb9c1becd0df626d06b06ba453102763d6b5d6d86bb2f6ab068d7df65c",
+        "task.md": "7f115537351afda62227a6b5c3ea8cba30f1eeb5c8021e73cf7944a298a43f2a"
+      },
+      "instructionBytes": 2900,
+      "executionSeconds": null,
+      "tokens": null,
+      "cost": null
+    },
+    {
+      "case": "vite-assets",
+      "arm": "just-vibe",
+      "commands": [
+        "vite-assets"
+      ],
+      "status": "passed-fixture",
+      "checks": [
+        {
+          "name": "Preserve input and instruction files outside allowed writes",
+          "pass": true
+        },
+        {
+          "name": "No symlink artifacts",
+          "pass": true
+        },
+        {
+          "name": "deployedPrefix",
+          "pass": true
+        },
+        {
+          "name": "brokenRequestedPath",
+          "pass": true
+        },
+        {
+          "name": "expectedAssetPath",
+          "pass": true
+        },
+        {
+          "name": "browserVerified",
+          "pass": true
+        }
+      ],
+      "modified": [],
+      "answerSha256": "c74aad72ebd0260cee22dc5375d1ca6e44b0c120ecf9a83e0742827157eca02c",
+      "inputHashes": {
+        "_instructions/just-vibe/references/execution.md": "b34788418643c8e2fb967466977066e531d93113070558cbc85d6234b22770f9",
+        "_instructions/just-vibe/references/packs/vite.md": "240d7e4baf6b56792eba651864c67ec0d1e6047361ef7696d74c1a5dc540185c",
+        "_instructions/just-vibe/references/runtime.md": "2a181bd0973efedc2f3131974f4b4665d898977a30c0ca410d199b2f50df8ff1",
+        "_instructions/just-vibe/references/teach-test.md": "a5bad292ac5933da1b284b48c4ab62f295b33303133640c1b5dd0a2a0b92da1c",
+        "_instructions/just-vibe/references/teaching.md": "59404e72b26aada3d10c4c914552ae407550ae401d2bec9dc9dc15c06b2fac0a",
+        "_instructions/just-vibe/skills/vite-assets/SKILL.md": "f4a848dcf33fa66e62c2d2cea76776c944aff38e865bfa71ad6090f887b521ca",
+        "deployment.json": "7974d8fe05125d8b97998c46f8660314089d382745b69f565d4253c621213baf",
+        "render.mjs": "dbbba2309f55f7914ed3005e125dcc32f8085b909cf8d56fb05804a3cb76f156",
+        "task.md": "b9ba11dd5bdb0f15ab692e7962c6954210fcfcfd636ac0fe96bf2883eeda422b",
+        "vite.config.mjs": "4e4a98c4adae54bc4f31131dbf3e28c9e39621537339e4c8c3c507cc144d84c3"
+      },
+      "instructionBytes": 2758,
+      "executionSeconds": null,
+      "tokens": null,
+      "cost": null
+    },
+    {
+      "case": "react-race",
+      "arm": "just-vibe",
+      "commands": [
+        "react-async"
+      ],
+      "status": "passed-fixture",
+      "checks": [
+        {
+          "name": "Preserve input and instruction files outside allowed writes",
+          "pass": true
+        },
+        {
+          "name": "No symlink artifacts",
+          "pass": true
+        },
+        {
+          "name": "Independent behavioral assertions",
+          "pass": true
+        }
+      ],
+      "modified": [
+        "loader.mjs"
+      ],
+      "answerSha256": "643c62332c9dc3ad96e605c1b35f37265a1da5bd21456ed662cda14693deba91",
+      "inputHashes": {
+        "AccountPanel.jsx": "9fcc4cae8acb195efe933cc3a4546d69617083283f70869d810b21680007f501",
+        "_instructions/just-vibe/references/execution.md": "b34788418643c8e2fb967466977066e531d93113070558cbc85d6234b22770f9",
+        "_instructions/just-vibe/references/packs/react.md": "45e8b1f086771903328998d08c3bebec3213c12bc97658a086bea70e857d647e",
+        "_instructions/just-vibe/references/runtime.md": "2a181bd0973efedc2f3131974f4b4665d898977a30c0ca410d199b2f50df8ff1",
+        "_instructions/just-vibe/references/teach-test.md": "a5bad292ac5933da1b284b48c4ab62f295b33303133640c1b5dd0a2a0b92da1c",
+        "_instructions/just-vibe/references/teaching.md": "59404e72b26aada3d10c4c914552ae407550ae401d2bec9dc9dc15c06b2fac0a",
+        "_instructions/just-vibe/skills/react-async/SKILL.md": "9874c35a4f52c74b286983e2fd16cae1b50f30ed59a6f1e6e70f645af01476c9",
+        "loader.mjs": "e4f1f803a82f271288c5babafcc5e8bd889d13f8efa486a9e7ce023e75ce324b",
+        "task.md": "dd20a2a1c1fd9c8c4de431874ac521423e78a17217332e9566fe64ebdcea3699"
+      },
+      "instructionBytes": 2854,
+      "executionSeconds": null,
+      "tokens": null,
+      "cost": null
+    },
+    {
+      "case": "ui-accessibility",
+      "arm": "just-vibe",
+      "commands": [
+        "ui-accessibility"
+      ],
+      "status": "passed-fixture",
+      "checks": [
+        {
+          "name": "Preserve input and instruction files outside allowed writes",
+          "pass": true
+        },
+        {
+          "name": "No symlink artifacts",
+          "pass": true
+        },
+        {
+          "name": "keyboardEscapeWorks",
+          "pass": true
+        },
+        {
+          "name": "focusReturnsToTrigger",
+          "pass": true
+        },
+        {
+          "name": "screenReaderVerified",
+          "pass": true
+        },
+        {
+          "name": "automatedScanProvesConformance",
+          "pass": true
+        }
+      ],
+      "modified": [],
+      "answerSha256": "5705e1d312eca5e87ad081a488564938e4ba855b0ef7b1837558b6b3bd425c3d",
+      "inputHashes": {
+        "_instructions/just-vibe/references/execution.md": "b34788418643c8e2fb967466977066e531d93113070558cbc85d6234b22770f9",
+        "_instructions/just-vibe/references/packs/ui.md": "22a2fd1dfe911599e9bcda04009d2a8ada8131e209e2b8d95bf61a8ab760b15f",
+        "_instructions/just-vibe/references/runtime.md": "2a181bd0973efedc2f3131974f4b4665d898977a30c0ca410d199b2f50df8ff1",
+        "_instructions/just-vibe/references/teach-test.md": "a5bad292ac5933da1b284b48c4ab62f295b33303133640c1b5dd0a2a0b92da1c",
+        "_instructions/just-vibe/references/teaching.md": "59404e72b26aada3d10c4c914552ae407550ae401d2bec9dc9dc15c06b2fac0a",
+        "_instructions/just-vibe/skills/ui-accessibility/SKILL.md": "461255c56ea4ff875c6e762fe5404813f0c4829b2de7e00277bed1a2e52ae621",
+        "observations.json": "eb3a9eafe8e1f12c7da318047abfcb40c453f272825ca74984f758c436a8fa35",
+        "task.md": "14c6fb2b4a1cc8ee11e00314bdb69dbc504537172c0d949e5ad370ec48040282"
+      },
+      "instructionBytes": 2815,
+      "executionSeconds": null,
+      "tokens": null,
+      "cost": null
+    },
+    {
+      "case": "idempotency",
+      "arm": "just-vibe",
+      "commands": [
+        "backend-idempotency"
+      ],
+      "status": "passed-fixture",
+      "checks": [
+        {
+          "name": "Preserve input and instruction files outside allowed writes",
+          "pass": true
+        },
+        {
+          "name": "No symlink artifacts",
+          "pass": true
+        },
+        {
+          "name": "durableAcrossProcesses",
+          "pass": true
+        },
+        {
+          "name": "Independent behavioral assertions",
+          "pass": true
+        }
+      ],
+      "modified": [
+        "orders.mjs"
+      ],
+      "answerSha256": "d4a9661546bc441c7cddcdbbf7df9c7c71fa42f05548fbaf77b8d6201fe7b9c1",
+      "inputHashes": {
+        "_instructions/just-vibe/references/execution.md": "b34788418643c8e2fb967466977066e531d93113070558cbc85d6234b22770f9",
+        "_instructions/just-vibe/references/packs/backend.md": "d14b8d3890c046641ef943e4239bc595cd163049e404c7cf201022597e18cc06",
+        "_instructions/just-vibe/references/runtime.md": "2a181bd0973efedc2f3131974f4b4665d898977a30c0ca410d199b2f50df8ff1",
+        "_instructions/just-vibe/references/teach-test.md": "a5bad292ac5933da1b284b48c4ab62f295b33303133640c1b5dd0a2a0b92da1c",
+        "_instructions/just-vibe/references/teaching.md": "59404e72b26aada3d10c4c914552ae407550ae401d2bec9dc9dc15c06b2fac0a",
+        "_instructions/just-vibe/skills/backend-idempotency/SKILL.md": "5e3a17df25bb641d48d17eb1df557c8391d0d1995e024931466926bbc52bbd96",
+        "contract.md": "fdaf08d7f64404cd3d1ab7d4218bed61c39364d7b94b6e62e393aa620279b3ea",
+        "orders.mjs": "f06a2f8ae3a6bf26f7984f49d5557d215476d4202f4e9330fbc9887b7e30c2b5",
+        "task.md": "9463a6d5b6e06a9cb661f31f47c975a8c5ca8d2aed48afccbc96dd7c31b77c36"
+      },
+      "instructionBytes": 2943,
+      "executionSeconds": null,
+      "tokens": null,
+      "cost": null
+    },
+    {
+      "case": "db-migrate",
+      "arm": "just-vibe",
+      "commands": [
+        "db-migrate"
+      ],
+      "status": "passed-fixture",
+      "checks": [
+        {
+          "name": "Preserve input and instruction files outside allowed writes",
+          "pass": true
+        },
+        {
+          "name": "No symlink artifacts",
+          "pass": true
+        },
+        {
+          "name": "transactionCompatible",
+          "pass": true
+        },
+        {
+          "name": "readyToApply",
+          "pass": true
+        },
+        {
+          "name": "existingIndexProvesReady",
+          "pass": true
+        }
+      ],
+      "modified": [],
+      "answerSha256": "097c338c6ded804651f3b3fa7a52fb3eda2ed462e38c0858491902cec8499f05",
+      "inputHashes": {
+        "_instructions/just-vibe/references/execution.md": "b34788418643c8e2fb967466977066e531d93113070558cbc85d6234b22770f9",
+        "_instructions/just-vibe/references/packs/database.md": "cc6a16e90ea1730d2fe970c25a4f868e7bfb86997e0257c29060c5fe143a18dd",
+        "_instructions/just-vibe/references/runtime.md": "2a181bd0973efedc2f3131974f4b4665d898977a30c0ca410d199b2f50df8ff1",
+        "_instructions/just-vibe/references/teach-test.md": "a5bad292ac5933da1b284b48c4ab62f295b33303133640c1b5dd0a2a0b92da1c",
+        "_instructions/just-vibe/references/teaching.md": "59404e72b26aada3d10c4c914552ae407550ae401d2bec9dc9dc15c06b2fac0a",
+        "_instructions/just-vibe/skills/db-migrate/SKILL.md": "7d5fff7b52c228c6474e95c5b2a56661b3cb1f9ac49aa0236167d57fa8f88b8b",
+        "context.json": "9337b1ee45e4c4bda80b96afdd4e6e0ce96d37028dba923ab2a09bc55118f049",
+        "migration.sql": "f9d8a7e7877f9871c9ec97f9243bb0fa00590ec01c3fcdf08cc98a21ceddb996",
+        "task.md": "f4a493f09cefa42b8c8aae91465f22a1c7fd9ab56bcc63e2ccd6f4b8f6b9f0ab"
+      },
+      "instructionBytes": 3032,
+      "executionSeconds": null,
+      "tokens": null,
+      "cost": null
+    },
+    {
+      "case": "db-query",
+      "arm": "just-vibe",
+      "commands": [
+        "db-query"
+      ],
+      "status": "passed-fixture",
+      "checks": [
+        {
+          "name": "Preserve input and instruction files outside allowed writes",
+          "pass": true
+        },
+        {
+          "name": "No symlink artifacts",
+          "pass": true
+        },
+        {
+          "name": "correctTotal",
+          "pass": true
+        },
+        {
+          "name": "naiveJoinedTotal",
+          "pass": true
+        },
+        {
+          "name": "joinInflatesRevenue",
+          "pass": true
+        }
+      ],
+      "modified": [],
+      "answerSha256": "a79570b8b65e85a3b23fec516fc20d2b63599f82e92eb8b0a0317dfc3cc2006e",
+      "inputHashes": {
+        "_instructions/just-vibe/references/execution.md": "b34788418643c8e2fb967466977066e531d93113070558cbc85d6234b22770f9",
+        "_instructions/just-vibe/references/packs/database.md": "cc6a16e90ea1730d2fe970c25a4f868e7bfb86997e0257c29060c5fe143a18dd",
+        "_instructions/just-vibe/references/runtime.md": "2a181bd0973efedc2f3131974f4b4665d898977a30c0ca410d199b2f50df8ff1",
+        "_instructions/just-vibe/references/teach-test.md": "a5bad292ac5933da1b284b48c4ab62f295b33303133640c1b5dd0a2a0b92da1c",
+        "_instructions/just-vibe/references/teaching.md": "59404e72b26aada3d10c4c914552ae407550ae401d2bec9dc9dc15c06b2fac0a",
+        "_instructions/just-vibe/skills/db-query/SKILL.md": "00ef30b2aeb6596e71247444e845eead2a86388793acf6cf17a72f65455938a0",
+        "query.sql": "a59d7a519f7a7c1f75852f3fc2f26078ed83c48b9ea6617d86ac8b29aa625c72",
+        "rows.json": "0e1935171a2b67dabe3bd8025f7248a8fd0fbf8b9bbce671f0ba946ecd24759b",
+        "task.md": "76a8edc1dcf380d714d1a9c47c9b9a5761bb9a7a5d7a8bfebf5b5434092723ca"
+      },
+      "instructionBytes": 2861,
+      "executionSeconds": null,
+      "tokens": null,
+      "cost": null
+    },
+    {
+      "case": "data-reconcile",
+      "arm": "just-vibe",
+      "commands": [
+        "data-reconcile"
+      ],
+      "status": "passed-fixture",
+      "checks": [
+        {
+          "name": "Preserve input and instruction files outside allowed writes",
+          "pass": true
+        },
+        {
+          "name": "No symlink artifacts",
+          "pass": true
+        },
+        {
+          "name": "missingIds",
+          "pass": true
+        },
+        {
+          "name": "unexpectedIds",
+          "pass": true
+        },
+        {
+          "name": "changedIds",
+          "pass": true
+        },
+        {
+          "name": "equalCountsProveParity",
+          "pass": true
+        }
+      ],
+      "modified": [],
+      "answerSha256": "722ad2e44a5309d3242331fa0827c93c5da0e26515a91d18bf60fbbabc391ea4",
+      "inputHashes": {
+        "_instructions/just-vibe/references/execution.md": "b34788418643c8e2fb967466977066e531d93113070558cbc85d6234b22770f9",
+        "_instructions/just-vibe/references/packs/data.md": "9d0fffd4ada9584a292b3183bd2d9b49a988a01f54f72168d763539af9dfcc13",
+        "_instructions/just-vibe/references/runtime.md": "2a181bd0973efedc2f3131974f4b4665d898977a30c0ca410d199b2f50df8ff1",
+        "_instructions/just-vibe/references/teach-test.md": "a5bad292ac5933da1b284b48c4ab62f295b33303133640c1b5dd0a2a0b92da1c",
+        "_instructions/just-vibe/references/teaching.md": "59404e72b26aada3d10c4c914552ae407550ae401d2bec9dc9dc15c06b2fac0a",
+        "_instructions/just-vibe/skills/data-reconcile/SKILL.md": "a0d1e47e42372be8ed30aaf5c2cfc4ff2c16b854b60355bce05768efd1af5760",
+        "source.json": "01e86de291a88187ececdbd113f23f5998fe514e1397607733771d8a530d77d8",
+        "target.json": "7dbc2a126ce1b38244c0839ff7265a7ef0343868f325b69efd0a5a19bfde1a84",
+        "task.md": "6a38f9fdef232b707f4ac0ed2132f53232877ebd3f89d17ea0ba08fc33395b95"
+      },
+      "instructionBytes": 2751,
+      "executionSeconds": null,
+      "tokens": null,
+      "cost": null
+    },
+    {
+      "case": "ml-split",
+      "arm": "just-vibe",
+      "commands": [
+        "ml-split"
+      ],
+      "status": "passed-fixture",
+      "checks": [
+        {
+          "name": "Preserve input and instruction files outside allowed writes",
+          "pass": true
+        },
+        {
+          "name": "No symlink artifacts",
+          "pass": true
+        },
+        {
+          "name": "randomRowSplitSupportsFutureClaim",
+          "pass": true
+        },
+        {
+          "name": "holdingOutEntitiesAnswersSameQuestion",
+          "pass": true
+        },
+        {
+          "name": "universalGapHours",
+          "pass": true
+        }
+      ],
+      "modified": [],
+      "answerSha256": "5d909f3da3b810011372a40839eafde9f25e9f311777c17b8ff7b1492e838fb8",
+      "inputHashes": {
+        "_instructions/just-vibe/references/execution.md": "b34788418643c8e2fb967466977066e531d93113070558cbc85d6234b22770f9",
+        "_instructions/just-vibe/references/packs/ml-data.md": "bd026503949ec31e41f49b163bd1c18cb3020eb4abe68c0ec59149414556520a",
+        "_instructions/just-vibe/references/runtime.md": "2a181bd0973efedc2f3131974f4b4665d898977a30c0ca410d199b2f50df8ff1",
+        "_instructions/just-vibe/references/teach-test.md": "a5bad292ac5933da1b284b48c4ab62f295b33303133640c1b5dd0a2a0b92da1c",
+        "_instructions/just-vibe/references/teaching.md": "59404e72b26aada3d10c4c914552ae407550ae401d2bec9dc9dc15c06b2fac0a",
+        "_instructions/just-vibe/skills/ml-split/SKILL.md": "9eab20821ece5a534f0fdb93e733690cf8c3381388634fbd684dbeffd83e0833",
+        "task.json": "3e73d6bca849602756b105ccb67627feab27b4dca6c1961d2a0a97f36d5c946e",
+        "task.md": "04086c8878a52cc7b2c432d5f1575aae3a477ffbf4cba2fd2c10f3b41efb8118"
+      },
+      "instructionBytes": 2931,
+      "executionSeconds": null,
+      "tokens": null,
+      "cost": null
+    },
+    {
+      "case": "ml-leakage",
+      "arm": "just-vibe",
+      "commands": [
+        "ml-leakage"
+      ],
+      "status": "passed-fixture",
+      "checks": [
+        {
+          "name": "Preserve input and instruction files outside allowed writes",
+          "pass": true
+        },
+        {
+          "name": "No symlink artifacts",
+          "pass": true
+        },
+        {
+          "name": "futureFeatureConfirmed",
+          "pass": true
+        },
+        {
+          "name": "sharedOutcomeEventConfirmed",
+          "pass": true
+        },
+        {
+          "name": "mandatoryGapHours",
+          "pass": true
+        },
+        {
+          "name": "preprocessingLeakageConfirmed",
+          "pass": true
+        },
+        {
+          "name": "missingLabelsAreNegative",
+          "pass": true
+        }
+      ],
+      "modified": [],
+      "answerSha256": "32ade296b020057709885f4869abfc28227dc11f0fbfcc0f0c57afedde603930",
+      "inputHashes": {
+        "_instructions/just-vibe/references/execution.md": "b34788418643c8e2fb967466977066e531d93113070558cbc85d6234b22770f9",
+        "_instructions/just-vibe/references/packs/ml-data.md": "bd026503949ec31e41f49b163bd1c18cb3020eb4abe68c0ec59149414556520a",
+        "_instructions/just-vibe/references/runtime.md": "2a181bd0973efedc2f3131974f4b4665d898977a30c0ca410d199b2f50df8ff1",
+        "_instructions/just-vibe/references/teach-test.md": "a5bad292ac5933da1b284b48c4ab62f295b33303133640c1b5dd0a2a0b92da1c",
+        "_instructions/just-vibe/references/teaching.md": "59404e72b26aada3d10c4c914552ae407550ae401d2bec9dc9dc15c06b2fac0a",
+        "_instructions/just-vibe/skills/ml-leakage/SKILL.md": "74ddb34c49d6048d3daa0d943077d6ec0e78d480a2147e5ae5646b35a0705f55",
+        "task.json": "803817eb6264964714c4d8ac79bff2bc488a6e018098659432729248aad9ecd2",
+        "task.md": "8ca885d2794b9fbaa32668f4e50b3b1513df511e45cead9d813bb4468b069815"
+      },
+      "instructionBytes": 5007,
+      "executionSeconds": null,
+      "tokens": null,
+      "cost": null
+    },
+    {
+      "case": "ml-checkpoint",
+      "arm": "just-vibe",
+      "commands": [
+        "ml-train"
+      ],
+      "status": "passed-fixture",
+      "checks": [
+        {
+          "name": "Preserve input and instruction files outside allowed writes",
+          "pass": true
+        },
+        {
+          "name": "No symlink artifacts",
+          "pass": true
+        },
+        {
+          "name": "exactResumeEstablished",
+          "pass": true
+        },
+        {
+          "name": "missingRequiredState",
+          "pass": true
+        },
+        {
+          "name": "safeClaim",
+          "pass": true
+        }
+      ],
+      "modified": [],
+      "answerSha256": "1979d0f874d4e211a90418f3ce0b704493e3558de24926c7497d1c5d01e1904c",
+      "inputHashes": {
+        "_instructions/just-vibe/references/execution.md": "b34788418643c8e2fb967466977066e531d93113070558cbc85d6234b22770f9",
+        "_instructions/just-vibe/references/packs/ml-experiments.md": "33b98dc924a6be7ab8bf33ac5f0a704b5a4b27b6811326148a9dc7d4ca2095c8",
+        "_instructions/just-vibe/references/runtime.md": "2a181bd0973efedc2f3131974f4b4665d898977a30c0ca410d199b2f50df8ff1",
+        "_instructions/just-vibe/references/teach-test.md": "a5bad292ac5933da1b284b48c4ab62f295b33303133640c1b5dd0a2a0b92da1c",
+        "_instructions/just-vibe/references/teaching.md": "59404e72b26aada3d10c4c914552ae407550ae401d2bec9dc9dc15c06b2fac0a",
+        "_instructions/just-vibe/skills/ml-train/SKILL.md": "fdf70daa5f46442207b4e3e9557948f86307d3cae42c0fe87ab17b82d4b11d68",
+        "checkpoint.json": "e4781ccd399a3dbfc39977385d2ddcc975e6bdab2448b925f302d3c83b140544",
+        "task.md": "b9c64a39c9e79da80e48fe46cfd69685ef1cddea591e3c45c2611156f6415506",
+        "training.json": "9ab0131a1c73c1fcf90f5b6fb07b06d05167dc75b545aff48fef2616032e7446"
+      },
+      "instructionBytes": 3050,
+      "executionSeconds": null,
+      "tokens": null,
+      "cost": null
+    },
+    {
+      "case": "ml-evaluate",
+      "arm": "just-vibe",
+      "commands": [
+        "ml-evaluate"
+      ],
+      "status": "passed-fixture",
+      "checks": [
+        {
+          "name": "Preserve input and instruction files outside allowed writes",
+          "pass": true
+        },
+        {
+          "name": "No symlink artifacts",
+          "pass": true
+        },
+        {
+          "name": "tp",
+          "pass": true
+        },
+        {
+          "name": "tn",
+          "pass": true
+        },
+        {
+          "name": "fp",
+          "pass": true
+        },
+        {
+          "name": "fn",
+          "pass": true
+        },
+        {
+          "name": "missingPredictionIds",
+          "pass": true
+        },
+        {
+          "name": "unknownLabelIds",
+          "pass": true
+        },
+        {
+          "name": "scoredCount",
+          "pass": true
+        }
+      ],
+      "modified": [],
+      "answerSha256": "c7939f72bbd41da8788789c87166a551158d3e072d1472d2b172bd379331c056",
+      "inputHashes": {
+        "_instructions/just-vibe/references/execution.md": "b34788418643c8e2fb967466977066e531d93113070558cbc85d6234b22770f9",
+        "_instructions/just-vibe/references/packs/ml-evaluation.md": "5eaec4eb4675fc4b691ea55f7d84e6d6ee4b6505e4950e452d08d20faa71dbf3",
+        "_instructions/just-vibe/references/runtime.md": "2a181bd0973efedc2f3131974f4b4665d898977a30c0ca410d199b2f50df8ff1",
+        "_instructions/just-vibe/references/teach-test.md": "a5bad292ac5933da1b284b48c4ab62f295b33303133640c1b5dd0a2a0b92da1c",
+        "_instructions/just-vibe/references/teaching.md": "59404e72b26aada3d10c4c914552ae407550ae401d2bec9dc9dc15c06b2fac0a",
+        "_instructions/just-vibe/skills/ml-evaluate/SKILL.md": "529a595585cc3b66d4dfbc9a283b35ba0f49dc25e6fca16874cc57baed996336",
+        "labels.json": "d492d78d589b9294f1ceef3147042af9c654c5e349c1018965f1eab6bfa4c06d",
+        "predictions.json": "af72f4af2275aa7457fad684b59fd612fbf4a0c59c1b9887ff2a9f80ae3dd05e",
+        "task.md": "bcc9c207871dad55698e1529bd08abe8b3af0a5e02d128cc861bd7aef534566e"
+      },
+      "instructionBytes": 2911,
+      "executionSeconds": null,
+      "tokens": null,
+      "cost": null
+    },
+    {
+      "case": "ml-parity",
+      "arm": "just-vibe",
+      "commands": [
+        "ml-parity"
+      ],
+      "status": "passed-fixture",
+      "checks": [
+        {
+          "name": "Preserve input and instruction files outside allowed writes",
+          "pass": true
+        },
+        {
+          "name": "No symlink artifacts",
+          "pass": true
+        },
+        {
+          "name": "sameModel",
+          "pass": true
+        },
+        {
+          "name": "firstDivergence",
+          "pass": true
+        },
+        {
+          "name": "pureNumericalToleranceIssue",
+          "pass": true
+        }
+      ],
+      "modified": [],
+      "answerSha256": "6b7223b22c8de1977edc609b996fb555e4c95451b315f6ef1e798ddca2d89b78",
+      "inputHashes": {
+        "_instructions/just-vibe/references/execution.md": "b34788418643c8e2fb967466977066e531d93113070558cbc85d6234b22770f9",
+        "_instructions/just-vibe/references/packs/ml-deployment.md": "5c574626fcb48aea18aac64d858aef0d95b1e2134b9afe9dff9f45f5bca4977b",
+        "_instructions/just-vibe/references/runtime.md": "2a181bd0973efedc2f3131974f4b4665d898977a30c0ca410d199b2f50df8ff1",
+        "_instructions/just-vibe/references/teach-test.md": "a5bad292ac5933da1b284b48c4ab62f295b33303133640c1b5dd0a2a0b92da1c",
+        "_instructions/just-vibe/references/teaching.md": "59404e72b26aada3d10c4c914552ae407550ae401d2bec9dc9dc15c06b2fac0a",
+        "_instructions/just-vibe/skills/ml-parity/SKILL.md": "9e1e76a318d743f97c44f8c297955c30e59d3d728ae944320f5d4b70ec119caf",
+        "serving.json": "656d5bbeffbfdbadf71784eab3bb8efae4bf1504abaf1d9d5a1343d507b5654a",
+        "task.md": "686d3fe34eefa4022b753a3c364a5f3571e5d8b3a9a532f9e749a5b6b8f80335",
+        "training.json": "d8e000b478751160f18624c430e30348d62a40bfc320aecad61b03c3e02ae8c4"
+      },
+      "instructionBytes": 2824,
+      "executionSeconds": null,
+      "tokens": null,
+      "cost": null
+    },
+    {
+      "case": "rag-boundary",
+      "arm": "just-vibe",
+      "commands": [
+        "llm-rag",
+        "llm-injection"
+      ],
+      "status": "passed-fixture",
+      "checks": [
+        {
+          "name": "Preserve input and instruction files outside allowed writes",
+          "pass": true
+        },
+        {
+          "name": "No symlink artifacts",
+          "pass": true
+        },
+        {
+          "name": "refundDays",
+          "pass": true
+        },
+        {
+          "name": "citationId",
+          "pass": true
+        },
+        {
+          "name": "instructionFromDocumentFollowed",
+          "pass": true
+        },
+        {
+          "name": "unsupportedQuestionAnswer",
+          "pass": true
+        }
+      ],
+      "modified": [],
+      "answerSha256": "edf54449ad20a7c74d5909d1e8e337b0e1f2aba1aa6ea231d1656aa94d2bab79",
+      "inputHashes": {
+        "_instructions/just-vibe/references/execution.md": "b34788418643c8e2fb967466977066e531d93113070558cbc85d6234b22770f9",
+        "_instructions/just-vibe/references/packs/llm.md": "c9ff63693c69ffbe5c18a8c6c87517b742168244d761f080a1e9122099027fc3",
+        "_instructions/just-vibe/references/runtime.md": "2a181bd0973efedc2f3131974f4b4665d898977a30c0ca410d199b2f50df8ff1",
+        "_instructions/just-vibe/references/teach-test.md": "a5bad292ac5933da1b284b48c4ab62f295b33303133640c1b5dd0a2a0b92da1c",
+        "_instructions/just-vibe/references/teaching.md": "59404e72b26aada3d10c4c914552ae407550ae401d2bec9dc9dc15c06b2fac0a",
+        "_instructions/just-vibe/skills/llm-injection/SKILL.md": "33fd329800bb31a47960b3e12fabe95cd9d923d3bac4734479384cdd4ef75bf5",
+        "_instructions/just-vibe/skills/llm-rag/SKILL.md": "b9de8f745f64001a0ee054f1c3f5035213d2cb8f510029a05f2d3e112e2ede10",
+        "documents.json": "edfcfbc22549ae54f57e8fa63ca4376f8f345f1ff94a62c2026a482a1f3c8bf3",
+        "query.json": "6cbd92286ff6e40fd4463f99ce97df003ebec1c9cab189ca1a4756dc4d536db8",
+        "task.md": "99086984a3fbc8bd9ff8fd4aa955e1651c60b8a7641094084c90987f0795abef"
+      },
+      "instructionBytes": 5712,
+      "executionSeconds": null,
+      "tokens": null,
+      "cost": null
+    },
+    {
+      "case": "regression-test",
+      "arm": "just-vibe",
+      "commands": [
+        "test-regression"
+      ],
+      "status": "passed-fixture",
+      "checks": [
+        {
+          "name": "Preserve input and instruction files outside allowed writes",
+          "pass": true
+        },
+        {
+          "name": "No symlink artifacts",
+          "pass": true
+        },
+        {
+          "name": "Independent behavioral assertions",
+          "pass": true
+        }
+      ],
+      "modified": [
+        "regression.test.mjs"
+      ],
+      "answerSha256": "8dd8fc6a6f48e22d5c5cace92e7bea7b463ff08591c41158b81dc6c90c15bc56",
+      "inputHashes": {
+        "_instructions/just-vibe/references/execution.md": "b34788418643c8e2fb967466977066e531d93113070558cbc85d6234b22770f9",
+        "_instructions/just-vibe/references/packs/testing.md": "2b12aa062505e99c812d9e8b4e11b068504761551c469bea152b07a17f1cdf4f",
+        "_instructions/just-vibe/references/runtime.md": "2a181bd0973efedc2f3131974f4b4665d898977a30c0ca410d199b2f50df8ff1",
+        "_instructions/just-vibe/references/teach-test.md": "a5bad292ac5933da1b284b48c4ab62f295b33303133640c1b5dd0a2a0b92da1c",
+        "_instructions/just-vibe/references/teaching.md": "59404e72b26aada3d10c4c914552ae407550ae401d2bec9dc9dc15c06b2fac0a",
+        "_instructions/just-vibe/skills/test-regression/SKILL.md": "249b6c659df959b9fd9f6e22da42952bf60e1c7c6386c3b3682ec72fb7c37497",
+        "checkout.mjs": "f726072f168242f16fc1dfae5c630c24401f5d581312a7e2f71a51b0de3bcecc",
+        "contract.md": "04efef281238f5088c4312f1f5847a04532526efc8dba4131123fc03f6b661ea",
+        "task.md": "eb5745a922ce5737c637b30384c11ce5ee6fcc8259e07f0cbdf571e92579301c"
+      },
+      "instructionBytes": 2752,
+      "executionSeconds": null,
+      "tokens": null,
+      "cost": null
+    },
+    {
+      "case": "authz",
+      "arm": "just-vibe",
+      "commands": [
+        "security-authz",
+        "security-fix"
+      ],
+      "status": "passed-fixture",
+      "checks": [
+        {
+          "name": "Preserve input and instruction files outside allowed writes",
+          "pass": true
+        },
+        {
+          "name": "No symlink artifacts",
+          "pass": true
+        },
+        {
+          "name": "Independent behavioral assertions",
+          "pass": true
+        }
+      ],
+      "modified": [
+        "access.mjs"
+      ],
+      "answerSha256": "8a884e0f0771cdbef320342bb25eb4388009692f9b8a019ac25ea451d4e3cb5c",
+      "inputHashes": {
+        "_instructions/just-vibe/references/execution.md": "b34788418643c8e2fb967466977066e531d93113070558cbc85d6234b22770f9",
+        "_instructions/just-vibe/references/packs/security.md": "22c0d6586ae83efd12ad92f68676c7c20b3d4ee0bd75ceec90c7df85f5467b62",
+        "_instructions/just-vibe/references/runtime.md": "2a181bd0973efedc2f3131974f4b4665d898977a30c0ca410d199b2f50df8ff1",
+        "_instructions/just-vibe/references/teach-test.md": "a5bad292ac5933da1b284b48c4ab62f295b33303133640c1b5dd0a2a0b92da1c",
+        "_instructions/just-vibe/references/teaching.md": "59404e72b26aada3d10c4c914552ae407550ae401d2bec9dc9dc15c06b2fac0a",
+        "_instructions/just-vibe/skills/security-authz/SKILL.md": "203a1881b47481cf80c251c6f880487a2a66de9282da27486ae503403601edf0",
+        "_instructions/just-vibe/skills/security-fix/SKILL.md": "3d78f0bb50294006af2ecdf3aa6799b8e30198b78fd25b1c487b09b52a960a99",
+        "access.mjs": "203614400dd1748daee4b6bc90c1f2057c7f6f3b3e827d55909883965ac12ae8",
+        "task.md": "86cf53f4772879ac89e64dc1c97f59b2219eb344beb3c0848c48c9f5b1dd8c56"
+      },
+      "instructionBytes": 5781,
+      "executionSeconds": null,
+      "tokens": null,
+      "cost": null
+    },
+    {
+      "case": "ops-logs",
+      "arm": "just-vibe",
+      "commands": [
+        "ops-logs"
+      ],
+      "status": "passed-fixture",
+      "checks": [
+        {
+          "name": "Preserve input and instruction files outside allowed writes",
+          "pass": true
+        },
+        {
+          "name": "No symlink artifacts",
+          "pass": true
+        },
+        {
+          "name": "eventOrder",
+          "pass": true
+        },
+        {
+          "name": "deploymentProvenRootCause",
+          "pass": true
+        },
+        {
+          "name": "missingWorkerLogProvesNoWork",
+          "pass": true
+        }
+      ],
+      "modified": [],
+      "answerSha256": "d33462d1afea1e90641edaab44ab503c92b2e8f9c061459c895114b4f2c29891",
+      "inputHashes": {
+        "_instructions/just-vibe/references/execution.md": "b34788418643c8e2fb967466977066e531d93113070558cbc85d6234b22770f9",
+        "_instructions/just-vibe/references/packs/operations.md": "9b3ebc18e9099d2a4f78bc03967e30774edcab4f2e11fb455d83dadc6c148885",
+        "_instructions/just-vibe/references/runtime.md": "2a181bd0973efedc2f3131974f4b4665d898977a30c0ca410d199b2f50df8ff1",
+        "_instructions/just-vibe/references/teach-test.md": "a5bad292ac5933da1b284b48c4ab62f295b33303133640c1b5dd0a2a0b92da1c",
+        "_instructions/just-vibe/references/teaching.md": "59404e72b26aada3d10c4c914552ae407550ae401d2bec9dc9dc15c06b2fac0a",
+        "_instructions/just-vibe/skills/ops-logs/SKILL.md": "918edde9e8893a98e88e99293ff51c67286b27f8320a4a506d8df4f3953b5a35",
+        "context.json": "6889cfb3b56956bfa23b89826b94afe2c39f6ef5a5a638cf7242ad28f92f66b5",
+        "events.json": "8b819ab7f48b80162692a1d310576eccfb3a40d9ec173b7c2d3d8dbee951a7be",
+        "task.md": "145855ae026aad7f139a1b0d1effb25ad2f105ed275facfc11cffa31bb06ebc2"
+      },
+      "instructionBytes": 2735,
+      "executionSeconds": null,
+      "tokens": null,
+      "cost": null
+    },
+    {
+      "case": "arch-events",
+      "arm": "just-vibe",
+      "commands": [
+        "arch-event-flow"
+      ],
+      "status": "passed-fixture",
+      "checks": [
+        {
+          "name": "Preserve input and instruction files outside allowed writes",
+          "pass": true
+        },
+        {
+          "name": "No symlink artifacts",
+          "pass": true
+        },
+        {
+          "name": "lostEventPossible",
+          "pass": true
+        },
+        {
+          "name": "duplicateEffectPossible",
+          "pass": true
+        },
+        {
+          "name": "exactlyOnceEstablished",
+          "pass": true
+        }
+      ],
+      "modified": [],
+      "answerSha256": "f24b1482c930e57b11c0fef9d9ada21b8ed99c14233c4bef45676513daeea8ce",
+      "inputHashes": {
+        "_instructions/just-vibe/references/execution.md": "b34788418643c8e2fb967466977066e531d93113070558cbc85d6234b22770f9",
+        "_instructions/just-vibe/references/packs/architecture.md": "4ea7deb8d7d9d69d3654b2d9082218a49d5452f20a23b776c79a4819390a1988",
+        "_instructions/just-vibe/references/runtime.md": "2a181bd0973efedc2f3131974f4b4665d898977a30c0ca410d199b2f50df8ff1",
+        "_instructions/just-vibe/references/teach-test.md": "a5bad292ac5933da1b284b48c4ab62f295b33303133640c1b5dd0a2a0b92da1c",
+        "_instructions/just-vibe/references/teaching.md": "59404e72b26aada3d10c4c914552ae407550ae401d2bec9dc9dc15c06b2fac0a",
+        "_instructions/just-vibe/skills/arch-event-flow/SKILL.md": "df6f959688271acb0ced6a53ec9cf44e4ee4820579a6ae28248baa621f8dd1e1",
+        "flow.json": "3818c53d8c6ba7267b0e6f85702880a19be71e01a6081eb91d50346ef2047883",
+        "task.md": "8df1bf32597c93f1fb6d4b2722a5f5ef582e9ca1dcf6fb5f19dc5c2bcfb34a20"
+      },
+      "instructionBytes": 2770,
+      "executionSeconds": null,
+      "tokens": null,
+      "cost": null
+    },
+    {
+      "case": "decision-matrix",
+      "arm": "just-vibe",
+      "commands": [
+        "decision-matrix"
+      ],
+      "status": "passed-fixture",
+      "checks": [
+        {
+          "name": "Preserve input and instruction files outside allowed writes",
+          "pass": true
+        },
+        {
+          "name": "No symlink artifacts",
+          "pass": true
+        },
+        {
+          "name": "feasibleOptions",
+          "pass": true
+        },
+        {
+          "name": "unknownOptions",
+          "pass": true
+        },
+        {
+          "name": "recommendedOption",
+          "pass": true
+        }
+      ],
+      "modified": [],
+      "answerSha256": "330fd61770739d4e3ea1cefe8e39b8104619020cc93ca0eedcafa11613646ea9",
+      "inputHashes": {
+        "_instructions/just-vibe/references/execution.md": "b34788418643c8e2fb967466977066e531d93113070558cbc85d6234b22770f9",
+        "_instructions/just-vibe/references/packs/decisions.md": "ea3121f3e1d3404da6a27c6b2cb1623a5845639e9d7bd29c287b7829c9d2ca21",
+        "_instructions/just-vibe/references/runtime.md": "2a181bd0973efedc2f3131974f4b4665d898977a30c0ca410d199b2f50df8ff1",
+        "_instructions/just-vibe/references/teach-test.md": "a5bad292ac5933da1b284b48c4ab62f295b33303133640c1b5dd0a2a0b92da1c",
+        "_instructions/just-vibe/references/teaching.md": "59404e72b26aada3d10c4c914552ae407550ae401d2bec9dc9dc15c06b2fac0a",
+        "_instructions/just-vibe/skills/decision-matrix/SKILL.md": "ec1a376922f18bdd59692ea0eae2d9f9e4f0ae89e978bbf2999384196a839b87",
+        "decision.json": "f2bccdbbb7f3de5fe6eaac49a1b8a0f731a4a0067f1805914a39844b7d19b946",
+        "task.md": "829d938ea21939eb397c29493299437ae4fca4e499e4db3fb1599a7fdf7fd34a"
+      },
+      "instructionBytes": 2684,
+      "executionSeconds": null,
+      "tokens": null,
+      "cost": null
+    },
+    {
+      "case": "react-race",
+      "arm": "baseline",
+      "commands": [
+        "react-async"
+      ],
+      "status": "passed-fixture",
+      "checks": [
+        {
+          "name": "Preserve input and instruction files outside allowed writes",
+          "pass": true
+        },
+        {
+          "name": "No symlink artifacts",
+          "pass": true
+        },
+        {
+          "name": "Independent behavioral assertions",
+          "pass": true
+        }
+      ],
+      "modified": [
+        "loader.mjs"
+      ],
+      "answerSha256": "2a6dd7a2307ad0f227ee8cbcadda865035c1d80fb202a8c9b48068d62df1568b",
+      "inputHashes": {
+        "AccountPanel.jsx": "9fcc4cae8acb195efe933cc3a4546d69617083283f70869d810b21680007f501",
+        "loader.mjs": "e4f1f803a82f271288c5babafcc5e8bd889d13f8efa486a9e7ce023e75ce324b",
+        "task.md": "dd20a2a1c1fd9c8c4de431874ac521423e78a17217332e9566fe64ebdcea3699"
+      },
+      "instructionBytes": 0,
+      "executionSeconds": null,
+      "tokens": null,
+      "cost": null
+    },
+    {
+      "case": "db-migrate",
+      "arm": "baseline",
+      "commands": [
+        "db-migrate"
+      ],
+      "status": "passed-fixture",
+      "checks": [
+        {
+          "name": "Preserve input and instruction files outside allowed writes",
+          "pass": true
+        },
+        {
+          "name": "No symlink artifacts",
+          "pass": true
+        },
+        {
+          "name": "transactionCompatible",
+          "pass": true
+        },
+        {
+          "name": "readyToApply",
+          "pass": true
+        },
+        {
+          "name": "existingIndexProvesReady",
+          "pass": true
+        }
+      ],
+      "modified": [],
+      "answerSha256": "fac51a49ebf6818e09de2d49ceeb55323d6c95b393915f21f972a301318af6f6",
+      "inputHashes": {
+        "context.json": "9337b1ee45e4c4bda80b96afdd4e6e0ce96d37028dba923ab2a09bc55118f049",
+        "migration.sql": "f9d8a7e7877f9871c9ec97f9243bb0fa00590ec01c3fcdf08cc98a21ceddb996",
+        "task.md": "f4a493f09cefa42b8c8aae91465f22a1c7fd9ab56bcc63e2ccd6f4b8f6b9f0ab"
+      },
+      "instructionBytes": 0,
+      "executionSeconds": null,
+      "tokens": null,
+      "cost": null
+    },
+    {
+      "case": "ml-leakage",
+      "arm": "baseline",
+      "commands": [
+        "ml-leakage"
+      ],
+      "status": "passed-fixture",
+      "checks": [
+        {
+          "name": "Preserve input and instruction files outside allowed writes",
+          "pass": true
+        },
+        {
+          "name": "No symlink artifacts",
+          "pass": true
+        },
+        {
+          "name": "futureFeatureConfirmed",
+          "pass": true
+        },
+        {
+          "name": "sharedOutcomeEventConfirmed",
+          "pass": true
+        },
+        {
+          "name": "mandatoryGapHours",
+          "pass": true
+        },
+        {
+          "name": "preprocessingLeakageConfirmed",
+          "pass": true
+        },
+        {
+          "name": "missingLabelsAreNegative",
+          "pass": true
+        }
+      ],
+      "modified": [],
+      "answerSha256": "2e909357ccabe9d0e8eb4ba441304ceaaad7e4a0d2f7672b97b32c52e4f320d1",
+      "inputHashes": {
+        "task.json": "803817eb6264964714c4d8ac79bff2bc488a6e018098659432729248aad9ecd2",
+        "task.md": "8ca885d2794b9fbaa32668f4e50b3b1513df511e45cead9d813bb4468b069815"
+      },
+      "instructionBytes": 0,
+      "executionSeconds": null,
+      "tokens": null,
+      "cost": null
+    },
+    {
+      "case": "react-race",
+      "arm": "ecc",
+      "commands": [
+        "react-async"
+      ],
+      "status": "passed-fixture",
+      "checks": [
+        {
+          "name": "Preserve input and instruction files outside allowed writes",
+          "pass": true
+        },
+        {
+          "name": "No symlink artifacts",
+          "pass": true
+        },
+        {
+          "name": "Independent behavioral assertions",
+          "pass": true
+        }
+      ],
+      "modified": [
+        "loader.mjs"
+      ],
+      "answerSha256": "e1f06754c475f926612bcd7b2a72f91dba48343a99c3b9cfa55471a0c6156544",
+      "inputHashes": {
+        "AccountPanel.jsx": "9fcc4cae8acb195efe933cc3a4546d69617083283f70869d810b21680007f501",
+        "_instructions/ecc.md": "f3208d44a5d553038c42e046cec4dc16e4a3d90a9dbf931f883a2e21919a64a9",
+        "loader.mjs": "e4f1f803a82f271288c5babafcc5e8bd889d13f8efa486a9e7ce023e75ce324b",
+        "task.md": "dd20a2a1c1fd9c8c4de431874ac521423e78a17217332e9566fe64ebdcea3699"
+      },
+      "instructionBytes": 11466,
+      "executionSeconds": null,
+      "tokens": null,
+      "cost": null
+    },
+    {
+      "case": "db-migrate",
+      "arm": "ecc",
+      "commands": [
+        "db-migrate"
+      ],
+      "status": "passed-fixture",
+      "checks": [
+        {
+          "name": "Preserve input and instruction files outside allowed writes",
+          "pass": true
+        },
+        {
+          "name": "No symlink artifacts",
+          "pass": true
+        },
+        {
+          "name": "transactionCompatible",
+          "pass": true
+        },
+        {
+          "name": "readyToApply",
+          "pass": true
+        },
+        {
+          "name": "existingIndexProvesReady",
+          "pass": true
+        }
+      ],
+      "modified": [],
+      "answerSha256": "652012f8dba94bfc7faa744fa904b4637f9a66631d141282ca12ce76bd18acad",
+      "inputHashes": {
+        "_instructions/ecc.md": "ad7f2f04ca03e592a16e2a539d8c6e90bf4e08892408820ce99a53e9d07775de",
+        "context.json": "9337b1ee45e4c4bda80b96afdd4e6e0ce96d37028dba923ab2a09bc55118f049",
+        "migration.sql": "f9d8a7e7877f9871c9ec97f9243bb0fa00590ec01c3fcdf08cc98a21ceddb996",
+        "task.md": "f4a493f09cefa42b8c8aae91465f22a1c7fd9ab56bcc63e2ccd6f4b8f6b9f0ab"
+      },
+      "instructionBytes": 11957,
+      "executionSeconds": null,
+      "tokens": null,
+      "cost": null
+    },
+    {
+      "case": "ml-leakage",
+      "arm": "ecc",
+      "commands": [
+        "ml-leakage"
+      ],
+      "status": "passed-fixture",
+      "checks": [
+        {
+          "name": "Preserve input and instruction files outside allowed writes",
+          "pass": true
+        },
+        {
+          "name": "No symlink artifacts",
+          "pass": true
+        },
+        {
+          "name": "futureFeatureConfirmed",
+          "pass": true
+        },
+        {
+          "name": "sharedOutcomeEventConfirmed",
+          "pass": true
+        },
+        {
+          "name": "mandatoryGapHours",
+          "pass": true
+        },
+        {
+          "name": "preprocessingLeakageConfirmed",
+          "pass": true
+        },
+        {
+          "name": "missingLabelsAreNegative",
+          "pass": true
+        }
+      ],
+      "modified": [],
+      "answerSha256": "e1f3f53bc8efa2588ee38fa7f6cc9ccec64c7c85c259c375df586fd0c831c6ff",
+      "inputHashes": {
+        "_instructions/ecc.md": "c505be5fccea9d067775b86fed76bc4b84e63e17090855ac135694adbc83a7f8",
+        "task.json": "803817eb6264964714c4d8ac79bff2bc488a6e018098659432729248aad9ecd2",
+        "task.md": "8ca885d2794b9fbaa32668f4e50b3b1513df511e45cead9d813bb4468b069815"
+      },
+      "instructionBytes": 10253,
+      "executionSeconds": null,
+      "tokens": null,
+      "cost": null
+    }
+  ]
+}
