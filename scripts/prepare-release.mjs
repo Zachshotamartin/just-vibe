@@ -1,0 +1,17 @@
+import { execFileSync } from 'node:child_process';
+import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { createHash } from 'node:crypto';
+import { npm } from './lib/npm.mjs';
+const root = fileURLToPath(new URL('../', import.meta.url));
+const destination = resolve(root, 'dist');
+if (execFileSync('git', ['status', '--porcelain'], { cwd: root, encoding: 'utf8' }).trim()) throw new Error('Commit or stash source changes before preparing a release artifact.');
+npm(['run', 'release:check'], { cwd: root, stdio: 'inherit' });
+mkdirSync(destination, { recursive: true });
+const [packed] = JSON.parse(npm(['pack', '--json', '--ignore-scripts', '--pack-destination', destination], { cwd: root, encoding: 'utf8' }));
+const archive = resolve(destination, packed.filename);
+execFileSync(process.execPath, [resolve(root, 'scripts/smoke-package-managers.mjs'), archive], { cwd: root, stdio: 'inherit' });
+const digest = createHash('sha256').update(readFileSync(archive)).digest('hex');
+writeFileSync(resolve(destination, `${packed.filename}.sha256`), `${digest}  ${packed.filename}\n`);
+console.log(`Verified release artifact: ${archive}\nSHA-256: ${digest}`);

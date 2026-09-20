@@ -53,8 +53,8 @@ test('external, destructive and paid effects require exact action and target aut
 
 test('scope checks reject traversal, symlink escape and Git internals', t => {
   const root = fixture(t), outside = fixture(t);
-  mkdirSync(join(root, 'src')); symlinkSync(outside, join(root, 'src/link'), 'dir');
-  symlinkSync(join(outside, 'missing-directory'), join(root, 'src/dangling'), 'dir');
+  mkdirSync(join(root, 'src')); symlinkSync(outside, join(root, 'src/link'), process.platform === 'win32' ? 'junction' : 'dir');
+  symlinkSync(join(outside, 'missing-directory'), join(root, 'src/dangling'), process.platform === 'win32' ? 'junction' : 'dir');
   const r = run(root, 'apply', { scope: 'src' });
   for (const target of ['../outside', 'src/link/new-file', 'src/dangling/new-file', 'other/new-file', '.git/config']) {
     assert.throws(() => start(r, { target }), target);

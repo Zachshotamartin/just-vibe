@@ -11,9 +11,9 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 ## Input and mode
 
-Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply for an installation request; target host, source/local checkout, and Claude scope. A preview request uses the existing `--dry-run` behavior.
+Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply for an installation request; target host, bundled source, --github or --local checkout, and Claude scope. A preview request uses the existing `--dry-run` behavior.
 
-Node.js 22+, Git, and the selected host CLI with native plugin support. Use the bundled installer; preserve marketplace and scope checks.
+Node.js 22+ and the selected host CLI with native plugin support. Git is required only for --github. Use the bundled installer; preserve marketplace and scope checks.
 
 Resolve any task-specific tools, target identity and evidence before dependent actions. No external connection is assumed.
 
@@ -21,12 +21,12 @@ Resolve any task-specific tools, target identity and evidence before dependent a
 
 Install/enable just-vibe through the selected host's plugin manager; no unrelated plugin, permission, hook, or integration changes.
 
-Selected host plugin registration only.
+Selected host plugin registration and its managed just-vibe payload directory only.
 
 ## Execute
 
 1. Resolve scripts/installer.mjs relative to this installed plugin. Choose doctor for a status question, setup for an install request, update for a refresh request, and uninstall only for an explicit removal request.
-2. Honor the host, --local source and Claude --scope user|project|local; project/local operations use the requested project directory. Never place tokens in commands or files.
+2. Honor the host, bundled default / --github / --local source and Claude --scope user|project|local; project/local operations use the requested project directory. Never place tokens in commands or files.
 3. For a requested preview append --dry-run and report conditional steps without claiming installed state was inspected. Preserve all native source/scope/inventory conflict checks.
 4. After success, report actual native state and explain that changed skills load in a fresh conversation. Uninstall retains marketplace registration and persistent data. Do not bypass errors with global edits or cache deletion.
 

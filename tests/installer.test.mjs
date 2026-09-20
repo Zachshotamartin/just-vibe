@@ -41,7 +41,7 @@ function hostFixture(target = 'codex', initial = {}) {
 for (const target of ['codex', 'claude']) {
   test(`${target}: setup, repeat, doctor, update and uninstall preserve marketplace`, () => {
     const host = hostFixture(target);
-    const options = parseArgs(['setup', '--target', target]);
+    const options = parseArgs(['setup', '--target', target, '--github']);
     install(options, host);
     assert.equal(host.writes.length, 2);
     assert.equal(host.state.installed, true);
@@ -62,20 +62,20 @@ for (const target of ['codex', 'claude']) {
 
   test(`${target}: unexpected marketplace source is not overwritten`, () => {
     const host = hostFixture(target, { registered: true, source: 'another-owner/just-vibe' });
-    assert.throws(() => install(parseArgs(['setup', '--target', target]), host), /different or unrecognized source/);
+    assert.throws(() => install(parseArgs(['setup', '--target', target, '--github']), host), /different or unrecognized source/);
     assert.equal(host.writes.length, 0);
   });
 
   test(`${target}: disabled plugin is enabled`, () => {
     const host = hostFixture(target, { registered: true, installed: true, enabled: false });
-    install(parseArgs(['setup', '--target', target]), host);
+    install(parseArgs(['setup', '--target', target, '--github']), host);
     assert.equal(host.state.enabled, true);
     assert.equal(host.writes.length, 1);
   });
 
   test(`${target}: partial install can be retried without re-registering marketplace`, () => {
     const host = hostFixture(target, { fail: args => ['add', 'install'].includes(args[1]) && !args.includes('--help') });
-    const options = parseArgs(['setup', '--target', target]);
+    const options = parseArgs(['setup', '--target', target, '--github']);
     assert.throws(() => install(options, host), /Earlier native steps may have completed/);
     assert.equal(host.state.registered, true);
     assert.equal(host.state.installed, false);
@@ -102,31 +102,31 @@ test('unknown options, invalid targets, duplicate flags, missing values and Code
 
 test('another Claude scope is detected before any mutations', () => {
   const host = hostFixture('claude', { registered: true, installed: true, scope: 'project' });
-  assert.throws(() => install(parseArgs(['setup', '--target', 'claude']), host), /another Claude scope/);
+  assert.throws(() => install(parseArgs(['setup', '--target', 'claude', '--github']), host), /another Claude scope/);
   assert.equal(host.writes.length, 0);
 });
 
 test('requested Claude scope is passed to the native install', () => {
   const host = hostFixture('claude');
-  install(parseArgs(['setup', '--target', 'claude', '--scope', 'local']), host);
+  install(parseArgs(['setup', '--target', 'claude', '--scope', 'local', '--github']), host);
   assert.equal(host.state.scope, 'local');
 });
 
 test('all planned native commands are checked before marketplace registration', () => {
   const host = hostFixture('codex', { fail: args => args[1] === 'add' && args.includes('--help') });
-  assert.throws(() => install(parseArgs(['setup']), host), /Simulated/);
+  assert.throws(() => install(parseArgs(['setup', '--github']), host), /Simulated/);
   assert.equal(host.writes.length, 0);
 });
 
 test('malformed inventory stops before any write', () => {
   const host = hostFixture();
   const run = (binary, args) => args.includes('--json') ? '{}' : host.run(binary, args);
-  assert.throws(() => install(parseArgs(['setup']), { ...host, run }), /Unsupported host inventory/);
+  assert.throws(() => install(parseArgs(['setup', '--github']), { ...host, run }), /Unsupported host inventory/);
   assert.equal(host.writes.length, 0);
 });
 
 test('invalid JSON produces actionable diagnostics', () => {
-  assert.throws(() => install(parseArgs(['setup']), {
+  assert.throws(() => install(parseArgs(['setup', '--github']), {
     run: () => 'not json', log: () => {},
   }), /did not return valid JSON/);
 });
@@ -134,7 +134,7 @@ test('invalid JSON produces actionable diagnostics', () => {
 test('missing and disabled installations fail doctor without mutation', () => {
   for (const initial of [{}, { registered: true, installed: true, enabled: false }]) {
     const host = hostFixture('codex', initial);
-    assert.throws(() => install(parseArgs(['doctor']), host), /not fully installed|disabled/);
+    assert.throws(() => install(parseArgs(['doctor', '--github']), host), /not fully installed|disabled/);
     assert.equal(host.writes.length, 0);
   }
 });
@@ -145,14 +145,14 @@ test('host claiming success without installation is not reported as ready', () =
     if (args[1] === 'add' && !args.includes('--help')) return 'success';
     return host.run(binary, args);
   };
-  assert.throws(() => install(parseArgs(['setup']), { ...host, run }), /did not report an enabled/);
+  assert.throws(() => install(parseArgs(['setup', '--github']), { ...host, run }), /did not report an enabled/);
 });
 
 test('GitHub URL forms normalize but other hosts are rejected', () => {
   for (const source of [REPOSITORY, `https://github.com/${REPOSITORY}.git`, `git@github.com:${REPOSITORY}.git`]) {
-    assert.equal(marketplaceMatches({ marketplaceSource: { sourceType: 'git', source } }, { target: 'codex' }, REPOSITORY), true);
+    assert.equal(marketplaceMatches({ marketplaceSource: { sourceType: 'git', source } }, { target: 'codex', github: true }, REPOSITORY), true);
   }
-  assert.equal(marketplaceMatches({ marketplaceSource: { sourceType: 'git', source: `https://example.com/${REPOSITORY}` } }, { target: 'codex' }, REPOSITORY), false);
+  assert.equal(marketplaceMatches({ marketplaceSource: { sourceType: 'git', source: `https://example.com/${REPOSITORY}` } }, { target: 'codex', github: true }, REPOSITORY), false);
 });
 
 test('executor passes shell metacharacters as literal arguments', () => {

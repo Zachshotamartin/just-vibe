@@ -119,7 +119,7 @@ test('project inspection is bounded, skips secrets/symlinks and never executes s
   writeFileSync(join(root, 'package.json'), JSON.stringify({ scripts: { test: 'touch ran-untrusted-script' } }));
   writeFileSync(join(root, 'packages/app/package.json'), JSON.stringify({ scripts: { build: 'ignored' }, dependencies: { react: 'x' } }));
   writeFileSync(join(outside, 'package.json'), '{"name":"outside-private"}');
-  symlinkSync(outside, join(root, 'linked'), 'dir');
+  symlinkSync(outside, join(root, 'linked'), process.platform === 'win32' ? 'junction' : 'dir');
   const before = readdirSync(root).sort();
   const info = inspectProject(root, { git: () => null });
   assert.equal(info.packages.length, 2);

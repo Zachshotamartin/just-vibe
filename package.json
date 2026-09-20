@@ -1,7 +1,6 @@
 {
   "name": "just-vibe",
-  "version": "0.2.0",
-  "private": true,
+  "version": "0.3.0",
   "description": "Tools, skills, and commands for coding agents.",
   "type": "module",
   "bin": {
@@ -11,24 +10,37 @@
     "node": ">=22"
   },
   "scripts": {
-    "test": "node --test tests/*.test.mjs",
+    "test": "node scripts/test.mjs",
     "test:hosts": "node scripts/smoke-hosts.mjs",
     "validate": "node scripts/validate.mjs",
     "check": "npm run validate && npm test",
     "setup": "node bin/just-vibe.mjs setup",
     "build:skills": "node scripts/build-skills.mjs",
-    "eval:runtime": "node --test tests/scenarios.test.mjs"
+    "eval:runtime": "node --test tests/scenarios.test.mjs",
+    "release:check": "npm run check && node scripts/release-check.mjs",
+    "test:package-managers": "node scripts/smoke-package-managers.mjs",
+    "release:prepare": "node scripts/prepare-release.mjs",
+    "prepublishOnly": "npm run release:check"
   },
   "files": [
     "bin/",
     "plugins/",
     ".agents/plugins/marketplace.json",
     ".claude-plugin/marketplace.json",
-    "README.md"
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md",
+    "docs/",
+    "evals/"
   ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Zachshotamartin/just-vibe.git"
   },
-  "author": "Zachary Martin"
+  "author": "Zachary Martin",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  }
 }

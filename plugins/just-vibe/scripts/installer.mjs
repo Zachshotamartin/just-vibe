@@ -4,6 +4,8 @@ import { readFileSync, realpathSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { isDirectRun } from './lib/entrypoint.mjs';
+import { managedSource, stageBundle, inspectManaged, validateBundle } from './lib/bundle.mjs';
+import { commandInvocation } from './lib/command.mjs';
 
 export const REPOSITORY = 'Zachshotamartin/just-vibe';
 export const MARKETPLACE = 'just-vibe';
@@ -27,22 +29,24 @@ Options:
   --target codex|claude   Host to configure (default: codex)
   --scope user|project|local
                          Claude installation scope (default: user)
-  --local                Use this repository checkout instead of GitHub
+  --local                Register this persistent repository checkout
+  --github               Register the GitHub repository (requires access)
   --dry-run              Print steps without running any host commands
   --version              Print the package version
   --help                 Show this help
 
 Examples:
-  npx github:${REPOSITORY} setup
-  npx github:${REPOSITORY} setup --target claude
+  pnpm dlx just-vibe@latest setup
+  pnpm dlx just-vibe@latest setup --target claude
   node bin/just-vibe.mjs setup --local --dry-run
 
-Requires Node.js 22+, Git, and the selected host CLI with plugin support.
-Private repositories require Git access. No npm publication is required.
+Requires Node.js 22+ and the selected host CLI with plugin support.
+Default: install bundled files into ~/.just-vibe (override JUST_VIBE_HOME).
+No GitHub access is needed for bundled installs. --github also requires Git.
 `;
 
 export function parseArgs(args) {
-  const options = { command: 'help', target: 'codex', scope: 'user', local: false, dryRun: false };
+  const options = { command: 'help', target: 'codex', scope: 'user', local: false, github: false, dryRun: false };
   let commandSeen = false;
   let scopeSeen = false;
   const flags = new Set();
@@ -50,10 +54,11 @@ export function parseArgs(args) {
     const arg = args[i];
     if (arg === '--help' || arg === '-h') return { ...options, command: 'help' };
     if (arg === '--version') return { ...options, command: 'version' };
-    if (['--target', '--scope', '--local', '--dry-run'].includes(arg)) {
+    if (['--target', '--scope', '--local', '--github', '--dry-run'].includes(arg)) {
       if (flags.has(arg)) throw new Error(`Duplicate option: ${arg}`);
       flags.add(arg);
       if (arg === '--local') options.local = true;
+      else if (arg === '--github') options.github = true;
       else if (arg === '--dry-run') options.dryRun = true;
       else {
         const value = args[++i];
@@ -69,13 +74,15 @@ export function parseArgs(args) {
   }
   if (!['codex', 'claude'].includes(options.target)) throw new Error('--target must be codex or claude.');
   if (!SCOPES.has(options.scope)) throw new Error('--scope must be user, project, or local.');
+  if (options.local && options.github) throw new Error('--local and --github cannot be combined.');
   if (scopeSeen && options.target !== 'claude') throw new Error('--scope applies only to Claude Code.');
   return options;
 }
 
 // Pass arguments separately: user input is never evaluated as shell code.
 export function execute(binary, args) {
-  const result = spawnSync(binary, args, {
+  const [program, parameters] = commandInvocation(binary, args);
+  const result = spawnSync(program, parameters, {
     encoding: 'utf8', shell: false, timeout: 120_000, maxBuffer: 8 * 1024 * 1024,
     stdio: ['ignore', 'pipe', 'pipe'],
   });
@@ -95,13 +102,14 @@ function json(output, label) {
 }
 
 export function sourceFor(options) {
-  if (!options.local) return REPOSITORY;
+  if (options.github) return REPOSITORY;
+  if (!options.local) return managedSource(options.target);
   const root = fileURLToPath(new URL('../../../', import.meta.url));
   for (const manifest of ['.agents/plugins/marketplace.json', '.claude-plugin/marketplace.json']) {
     try {
       if (JSON.parse(readFileSync(resolve(root, manifest))).name !== MARKETPLACE) throw new Error();
     } catch {
-      throw new Error('--local requires a complete just-vibe repository checkout. Use the GitHub installation otherwise.');
+      throw new Error('--local requires a complete just-vibe repository checkout. Use the default bundled installation or --github otherwise.');
     }
   }
   return root;
@@ -119,10 +127,10 @@ function canonicalSource(value, local) {
 export function marketplaceMatches(entry, options, source) {
   if (options.target === 'codex') {
     const actual = entry.marketplaceSource;
-    if (!actual || actual.sourceType !== (options.local ? 'local' : 'git')) return false;
-    return canonicalSource(actual.source, options.local) === canonicalSource(source, options.local);
+    if (!actual || actual.sourceType !== (options.github ? 'git' : 'local')) return false;
+    return canonicalSource(actual.source, !options.github) === canonicalSource(source, !options.github);
   }
-  if (options.local) {
+  if (!options.github) {
     return ['directory', 'local'].includes(entry.source)
       && canonicalSource(entry.path || entry.installLocation, true) === canonicalSource(source, true);
   }
@@ -160,7 +168,7 @@ function mutationSteps(options, state, source) {
   }
   if (options.command === 'doctor') return steps;
   if (!state.marketplace) steps.push(['plugin', 'marketplace', 'add', source]);
-  else if (options.command === 'update' && !options.local) {
+  else if (options.command === 'update' && (options.github || host === 'claude')) {
     steps.push(['plugin', 'marketplace', host === 'codex' ? 'upgrade' : 'update', MARKETPLACE]);
   }
   if (!state.installed || options.command === 'update') {
@@ -176,12 +184,13 @@ function display(host, args) {
   return [host, ...args].map(arg => /^[a-zA-Z0-9_./:@+-]+$/.test(arg) ? arg : JSON.stringify(arg)).join(' ');
 }
 
-export function install(options, { run = execute, log = console.log, source = sourceFor(options) } = {}) {
+export function install(options, { run = execute, log = console.log, source = sourceFor(options), prepare = stageBundle } = {}) {
   if (options.dryRun) {
     log('Dry run — no commands executed; installed state has not been inspected.');
     log(`Target: ${options.target}${options.target === 'claude' ? ` (${options.scope} scope)` : ''}`);
     log(`Expected marketplace source: ${source}`);
-    log('Preflight: Git, host CLI, native plugin subcommands, marketplace and plugin inventory.');
+    log('Preflight: host CLI, native plugin subcommands, marketplace and plugin inventory.');
+    if (!options.github && !options.local && ['setup', 'update'].includes(options.command)) log(`Copy bundled plugin files to ${source} after preflight (setup preserves an existing copy; update replaces it).`);
     if (options.command === 'doctor') log('Inspect installation and report health.');
     else if (options.command === 'uninstall') {
       for (const args of mutationSteps(options, { installed: {} }, source)) log(display(options.target, args));
@@ -198,12 +207,12 @@ export function install(options, { run = execute, log = console.log, source = so
   }
 
   const host = options.target;
-  log(run('git', ['--version']));
+  if (options.github) log(run('git', ['--version']));
   log(run(host, ['--version']));
   // Complete preflight, including command support, before the first mutation.
   const state = inventory(options, run);
   if (state.marketplace && !marketplaceMatches(state.marketplace, options, source)) {
-    throw new Error('A marketplace named just-vibe already points to a different or unrecognized source. No changes were made. Use --local for a local checkout, or resolve the source in the host CLI.');
+    throw new Error('A marketplace named just-vibe already points to a different or unrecognized source. No changes were made. Use --github for an existing GitHub installation or --local for a checkout. To change channels, uninstall using the old flag and remove its marketplace with the host CLI first.');
   }
   if (state.installed && !state.marketplace) {
     throw new Error('just-vibe is installed without its expected marketplace. Repair its source in the host CLI before continuing.');
@@ -211,11 +220,22 @@ export function install(options, { run = execute, log = console.log, source = so
   if (options.command === 'doctor') {
     if (!state.marketplace || !state.installed) throw new Error('just-vibe is not fully installed. Run setup for this target.');
     if (state.installed.enabled === false) throw new Error('just-vibe is installed but disabled. Run setup to enable it.');
+    if (!options.github && !options.local) {
+      if (!inspectManaged(source)) throw new Error('Managed marketplace files are missing. Run setup to restore them.');
+      const version = validateBundle(source);
+      if (state.installed.version !== version) throw new Error(`Installed plugin version differs from the managed source (${version}). Run update to finish applying it.`);
+    }
     log(`Healthy: ${PLUGIN}${state.installed.version ? ` v${state.installed.version}` : ''}.`);
     return;
   }
   const steps = mutationSteps(options, state, source);
   for (const args of steps) run(host, [...args.slice(0, args[1] === 'marketplace' ? 3 : 2), '--help']);
+  let expectedVersion;
+  if (!options.github && !options.local && ['setup', 'update'].includes(options.command)) {
+    const version = prepare(source, { replace: options.command === 'update' });
+    expectedVersion = version;
+    log(`Bundled source: v${version} at ${source}.`);
+  }
   for (const args of steps) {
     log(`> ${display(host, args)}`);
     try {
@@ -234,6 +254,7 @@ export function install(options, { run = execute, log = console.log, source = so
         || !final.installed || final.installed.enabled === false) {
       throw new Error('The host did not report an enabled just-vibe installation. Run doctor and inspect the host plugin list.');
     }
+    if (expectedVersion && final.installed.version !== expectedVersion) throw new Error(`Host still reports v${final.installed.version || 'unknown'} instead of bundled v${expectedVersion}. Run update and inspect its plugin list.`);
     log(`Ready: ${PLUGIN}. Start a new conversation to load the skills.`);
   }
 }

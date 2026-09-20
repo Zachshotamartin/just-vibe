@@ -109,7 +109,7 @@
     {
       "id": "installation",
       "name": "Installation",
-      "prerequisites": "Node.js 22+, Git, and the selected host CLI with native plugin support. Use the bundled installer; preserve marketplace and scope checks."
+      "prerequisites": "Node.js 22+ and the selected host CLI with native plugin support. Git is required only for --github. Use the bundled installer; preserve marketplace and scope checks."
     }
   ]
 }

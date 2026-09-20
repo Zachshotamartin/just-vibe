@@ -1,10 +1,11 @@
 {
   "name": "just-vibe",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "212 coding-agent workflow names for development, delivery, data and ML, plus native setup.",
   "author": {
     "name": "Zachary Martin",
     "url": "https://github.com/Zachshotamartin"
   },
-  "repository": "https://github.com/Zachshotamartin/just-vibe"
+  "repository": "https://github.com/Zachshotamartin/just-vibe",
+  "license": "MIT"
 }

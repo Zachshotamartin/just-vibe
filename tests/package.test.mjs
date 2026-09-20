@@ -1,4 +1,5 @@
 import test from 'node:test';
+import { npm } from '../scripts/lib/npm.mjs';
 import assert from 'node:assert/strict';
 import { execFileSync, spawnSync } from 'node:child_process';
 import { readFileSync, mkdtempSync, rmSync, existsSync, symlinkSync } from 'node:fs';
@@ -10,7 +11,7 @@ import { loadCatalog } from '../plugins/just-vibe/scripts/lib/catalog.mjs';
 const root = fileURLToPath(new URL('../', import.meta.url));
 
 test('npm archive contains the runnable installer and both complete plugin manifests, but no planning files', () => {
-  const output = execFileSync('npm', ['pack', '--dry-run', '--json', '--ignore-scripts'], { cwd: root, encoding: 'utf8' });
+  const output = npm(['pack', '--dry-run', '--json', '--ignore-scripts'], { cwd: root, encoding: 'utf8' });
   const [{ files }] = JSON.parse(output);
   const paths = files.map(file => file.path);
   for (const required of [
@@ -30,7 +31,7 @@ test('npm archive contains the runnable installer and both complete plugin manif
 
 test('planning files are ignored by Git', () => {
   const output = execFileSync('git', ['check-ignore', '--no-index', 'PLAN.md', 'NAMING.md'], { cwd: root, encoding: 'utf8' });
-  assert.deepEqual(output.trim().split('\n').sort(), ['NAMING.md', 'PLAN.md']);
+  assert.deepEqual(output.trim().split(/\r?\n/).sort(), ['NAMING.md', 'PLAN.md']);
 });
 
 test('every catalog skill can be included in a Git-based installation', () => {
@@ -53,7 +54,7 @@ test('bundled script entry points run through symlinked cache paths and remain i
   const dir = mkdtempSync(join(tmpdir(), 'just-vibe-entrypoint-'));
   t.after(() => rmSync(dir, { recursive: true, force: true }));
   const plugin = join(dir, 'linked-plugin');
-  symlinkSync(join(root, 'plugins/just-vibe'), plugin, 'dir');
+  symlinkSync(join(root, 'plugins/just-vibe'), plugin, process.platform === 'win32' ? 'junction' : 'dir');
   const toolkit = join(plugin, 'scripts/toolkit.mjs');
   const command = JSON.parse(execFileSync(process.execPath, [toolkit, 'show', 'teach-test', '--json'], { encoding: 'utf8' }));
   assert.equal(command.id, 'teach-test');
@@ -68,7 +69,7 @@ test('bundled script entry points run through symlinked cache paths and remain i
 test('packed CLI and every skill work without the source checkout, plan or dependencies', t => {
   const dir = mkdtempSync(join(tmpdir(), 'just-vibe-package-'));
   t.after(() => rmSync(dir, { recursive: true, force: true }));
-  const output = execFileSync('npm', ['pack', '--json', '--ignore-scripts', '--pack-destination', dir], { cwd: root, encoding: 'utf8' });
+  const output = npm(['pack', '--json', '--ignore-scripts', '--pack-destination', dir], { cwd: root, encoding: 'utf8' });
   const [{ filename }] = JSON.parse(output);
   execFileSync('tar', ['-xzf', join(dir, filename), '-C', dir]);
   const cli = join(dir, 'package/bin/just-vibe.mjs');

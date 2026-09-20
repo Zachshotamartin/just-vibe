@@ -12094,7 +12094,7 @@
       "aliases": [],
       "aliasOf": null,
       "defaultMode": "apply",
-      "modePolicy": "Apply for an installation request; target host, source/local checkout, and Claude scope. A preview request uses the existing `--dry-run` behavior.",
+      "modePolicy": "Apply for an installation request; target host, bundled source, --github or --local checkout, and Claude scope. A preview request uses the existing `--dry-run` behavior.",
       "requiredInputs": [
         "Requested operation and target host; Claude scope when applicable."
       ],
@@ -12105,7 +12105,7 @@
       ],
       "capabilities": [],
       "readScope": "Install/enable just-vibe through the selected host's plugin manager; no unrelated plugin, permission, hook, or integration changes.",
-      "writeScope": "Selected host plugin registration only.",
+      "writeScope": "Selected host plugin registration and its managed just-vibe payload directory only.",
       "procedure": [
         "Resolve host/scope, check prerequisites and marketplace identity, run the bundled installer, preserve conflict checks, verify result, and explain fresh-session loading requirements."
       ],
@@ -12137,7 +12137,7 @@
       "skillPath": "skills/setup/SKILL.md",
       "runtimeSteps": [
         "Resolve scripts/installer.mjs relative to this installed plugin. Choose doctor for a status question, setup for an install request, update for a refresh request, and uninstall only for an explicit removal request.",
-        "Honor the host, --local source and Claude --scope user|project|local; project/local operations use the requested project directory. Never place tokens in commands or files.",
+        "Honor the host, bundled default / --github / --local source and Claude --scope user|project|local; project/local operations use the requested project directory. Never place tokens in commands or files.",
         "For a requested preview append --dry-run and report conditional steps without claiming installed state was inspected. Preserve all native source/scope/inventory conflict checks.",
         "After success, report actual native state and explain that changed skills load in a fresh conversation. Uninstall retains marketplace registration and persistent data. Do not bypass errors with global edits or cache deletion."
       ],

@@ -2,7 +2,7 @@
 
 Tools, skills, and commands for coding agents.
 
-**v0.2 ships 212 workflow names plus setup** for Codex and Claude Code: focused skills for development, architecture, decisions, Git/GitHub, Vercel, Vite, React, UI, backend, APIs, databases, data, ML, LLMs, testing, security, and operations. Each has a procedure, scope, evidence requirements, verification, and stopping conditions.
+**v0.3 ships 212 workflow names plus setup** for Codex and Claude Code: focused skills for development, architecture, decisions, Git/GitHub, Vercel, Vite, React, UI, backend, APIs, databases, data, ML, LLMs, testing, security, and operations. Each has a procedure, scope, evidence requirements, verification, and stopping conditions.
 
 The active coding agent executes the workflows with its available tools. The dependency-free Node.js utilities provide catalog search, project inspection, capability discovery, and bounded run-state validation. Installing just-vibe does not connect services, grant permissions, provision compute, or make every workflow's prerequisites available.
 
@@ -56,74 +56,81 @@ External capabilities stay unknown until the host observes relevant access or su
 
 ## Quick install
 
-You need **Node.js 22+**, **Git**, and either **Codex CLI** or **Claude Code** with native plugin support on your `PATH`. macOS and Linux are the initial supported environments. The repository is private, so your Git client must have access. A one-time npm execution prompt may appear.
+You need **Node.js 22+** and **Codex CLI** or **Claude Code** with native plugin support on your `PATH`. See [compatibility and known limits](docs/compatibility.md).
 
-### Codex
-
-```sh
-npx github:Zachshotamartin/just-vibe setup
-```
-
-### Claude Code
+**Publication status:** npm release preparation is complete in this source tree, but the first npm publication still requires the maintainer's npm login. The short registry commands below work after that publication.
 
 ```sh
-npx github:Zachshotamartin/just-vibe setup --target claude
+# Choose your package manager; all use the same npm package.
+pnpm dlx just-vibe@latest setup
+npx just-vibe@latest setup
+yarn dlx just-vibe@latest setup
+
+# Claude Code
+pnpm dlx just-vibe@latest setup --target claude
 ```
 
-The installer checks prerequisites and the existing marketplace before invoking the host's native plugin manager. Repeat `setup` to finish an interrupted install or confirm an existing one; use `update` to fetch new versions. It stops if the marketplace name belongs to a different source or Claude has an installation in a different scope.
+The installer copies the included plugin into a persistent directory under `~/.just-vibe`, then registers it through the host's native plugin manager. The installed files survive npm/pnpm/Yarn cache cleanup. No private GitHub access is required for the default bundled source. `JUST_VIBE_HOME` can select another persistent directory.
 
-**Start a new conversation after installation.** In Claude Code:
+**Start a new conversation after installation.** In Claude Code, run `/just-vibe:help what is available?`. In Codex, select the `help` skill from the just-vibe plugin and add your request.
 
-```text
-/just-vibe:help what is available?
-/just-vibe:setup check whether my installation is healthy
-```
-
-In Codex, select the `help` or `setup` skill from the **just-vibe** plugin in the skill picker and add your request. Claude's slash-command syntax is not assumed to work in Codex.
-
-### Private GitHub access
-
-If you already use GitHub CLI, authenticate and configure Git to use it:
+Before npm publication, users with repository access can fetch the package from GitHub and still use the bundled installer:
 
 ```sh
-gh auth login
-gh auth setup-git
+pnpm --package=git+https://github.com/Zachshotamartin/just-vibe.git dlx just-vibe setup
 ```
 
-If npm's GitHub shorthand attempts SSH and you only have HTTPS credentials, use the explicit HTTPS package source:
-
-```sh
-npx --package=git+https://github.com/Zachshotamartin/just-vibe.git just-vibe setup
-```
-
-The installer registers the GitHub repository through the host CLI, which controls SSH/HTTPS authentication and fallback. Do not put access tokens in the command. Nothing is published to the npm registry; the command fetches this Git repository. `package.json` is marked private to prevent accidental npm publication.
+GitHub access is needed to download that package, but the installed marketplace is a persistent local copy.
 
 ## Preview, diagnose, update, remove
 
 ```sh
-npx github:Zachshotamartin/just-vibe setup --dry-run
-npx github:Zachshotamartin/just-vibe doctor
-npx github:Zachshotamartin/just-vibe update
-npx github:Zachshotamartin/just-vibe uninstall
+pnpm dlx just-vibe@latest setup --dry-run
+pnpm dlx just-vibe@latest doctor
+pnpm dlx just-vibe@latest update
+pnpm dlx just-vibe@latest uninstall
 ```
 
-Append `--target claude` for Claude Code. `--dry-run` executes no host commands and does not inspect installed state; it shows conditional steps. npm may still fetch/cache this package before starting the dry run.
+Append `--target claude` for Claude Code. `--dry-run` performs no host commands or payload copying and does not inspect installed state; the package manager may still fetch/cache the CLI before it starts.
 
-`doctor` exits nonzero for missing prerequisites, an unexpected marketplace source, an absent installation, or a disabled plugin. It does not modify configuration.
+Repeated `setup` preserves the existing managed version and registration. `update` replaces the managed source with the version in the package you execute and updates the host plugin. Use `@latest` to fetch new releases. `doctor` checks prerequisites, source identity, managed files and enabled installation without changing configuration.
 
-`update` refreshes only the just-vibe marketplace and plugin. `uninstall` removes only the plugin and retains marketplace registration and persistent plugin data. To remove marketplace registration too, use the host's native marketplace-removal command after uninstalling.
-
-If a native operation fails halfway through, the installer stops and explains that earlier steps may have completed. Fix the reported cause and rerun; it does not reset global configuration or automatically delete caches.
+Uninstall removes only this plugin and retains its marketplace, managed source and persistent plugin data. To remove registration too, use the host's native marketplace-removal command after uninstalling. A failed native operation reports partial completion; fix its cause and rerun. Unmanaged destinations, different marketplace sources, and conflicting Claude scopes are never silently overwritten.
 
 ## Claude scope
 
-Claude defaults to `user`. For a team-shared project installation, run from that project's directory:
+Claude defaults to `user`. From a project's directory, use `--scope project` for shared plugin enablement or `--scope local` for unshared project enablement:
 
 ```sh
-npx github:Zachshotamartin/just-vibe setup --target claude --scope project
+pnpm dlx just-vibe@latest setup --target claude --scope project
 ```
 
-Use `--scope local` for a project-only installation that is not shared. Pass the same scope to subsequent `doctor`, `update`, and `uninstall` commands. The marketplace is registered at user scope; the plugin enablement uses the selected scope. Codex does not take the Claude `--scope` option.
+Pass the same scope to subsequent commands. Each teammate installs their own local marketplace. Codex does not take Claude's `--scope` option.
+
+## Existing GitHub installs and source migration
+
+v0.2 registered GitHub as the marketplace source. Manage that source explicitly with `--github`:
+
+```sh
+node bin/just-vibe.mjs doctor --github
+node bin/just-vibe.mjs update --github
+```
+
+To switch to bundled installation, uninstall using the old source flag, remove only the just-vibe marketplace through the host CLI, then run setup without a source flag:
+
+```sh
+# Codex; use the selected package runner instead of node when outside this checkout.
+node bin/just-vibe.mjs uninstall --github
+codex plugin marketplace remove just-vibe
+node bin/just-vibe.mjs setup
+
+# Claude (preserve any --scope option used for the old installation).
+node bin/just-vibe.mjs uninstall --github --target claude
+claude plugin marketplace remove just-vibe
+node bin/just-vibe.mjs setup --target claude
+```
+
+Use the equivalent `--local` flag when switching from a development checkout. GitHub sources still require Git access; authenticate using your normal Git credentials, never tokens embedded in commands.
 
 ## Native install without Node.js
 
@@ -152,9 +159,9 @@ node bin/just-vibe.mjs setup --local --dry-run
 node bin/just-vibe.mjs setup --local
 ```
 
-`--local` registers the persistent checkout, not a temporary download. Keep the checkout in place. Use `--local` consistently for its `doctor`, `update`, and `uninstall` operations. For changes to the plugin payload, bump the version in both plugin manifests and `package.json`, then run `update --local` and start a fresh conversation.
+`--local` registers the persistent checkout directly. Keep the checkout in place. Use `--local` consistently for its `doctor`, `update`, and `uninstall` operations. For changes to the plugin payload, bump the version in both plugin manifests and `package.json`, then run `update --local` and start a fresh conversation.
 
-Switching between local and GitHub sources is deliberate: uninstall from the old source, remove its marketplace with the host CLI, then run setup for the new source. The installer will not silently replace one with the other.
+Switching between bundled, local and GitHub sources is deliberate: uninstall from the old source, remove its marketplace with the host CLI, then run setup for the new source. The installer will not silently replace one with the other.
 
 ### Tests and generation
 
@@ -168,7 +175,7 @@ npm run build:skills
 
 The default checks validate catalogs, generated skills, references, manifests and packaging; test installer/discovery/run behavior; and exercise context preservation across all command names and both host mappings. They do not access your host configuration or make model calls. `test:hosts` is an opt-in native lifecycle test requiring both host CLIs. It runs install, repeat install, doctor, update, uninstall, and reinstall inside temporary `CODEX_HOME` and `CLAUDE_CONFIG_DIR` directories.
 
-The default host test installs this checkout. `--github` installs the published private repository and requires Git access; use it after pushing a release. Both variants execute the cached plugin runtime and check every skill is present, independently of the source checkout.
+The default host test copies and installs the bundled payload. `--local` tests direct checkout registration. `--github` installs the published private repository and requires Git access; use it after pushing a release. Both variants execute the cached plugin runtime and check every skill is present, independently of the source checkout.
 
 Edit `plugins/just-vibe/catalog/commands.json` for command contracts and runtime procedures, `catalog/packs.json` for pack requirements, and `references/packs/` for operational guidance. Run `npm run build:skills` to regenerate skills, the command reference, and evaluation scenarios. `npm run validate` rejects drift. Neither generation nor the installed runtime depends on the ignored local plan.
 
@@ -197,8 +204,14 @@ The installer has no runtime npm dependencies, no lifecycle install scripts, and
 - **Host executable not found:** install the selected CLI and reopen your terminal.
 - **Plugin subcommands unavailable:** update that host CLI; just-vibe checks command support before changing state.
 - **Repository not found / authentication failed:** verify `git ls-remote https://github.com/Zachshotamartin/just-vibe.git` succeeds with your account.
-- **Different marketplace source:** use the matching `--local` setting or explicitly switch sources as described above.
+- **Different marketplace source:** use the matching bundled, `--local`, or `--github` setting or explicitly switch sources as described above.
 - **Claude scope conflict:** inspect `claude plugin list --json`; manage the scope already in use rather than layering installations.
 - **Skills not visible:** verify with `doctor`, then start a new conversation.
 
 Host formats evolve. When a JSON inventory format is unrecognized, the installer stops rather than guessing how to change configuration.
+
+## Release and license
+
+Licensed under [MIT](LICENSE), copyright 2026 Zachary Martin. Commercial use, modification and redistribution are allowed under the license terms. The license ships with the npm archive and installed plugin.
+
+[Release instructions](docs/releases.md) describe validation, the first npm publication, trusted publishing, versioning and recovery. [Changelog](CHANGELOG.md) records user-visible changes.

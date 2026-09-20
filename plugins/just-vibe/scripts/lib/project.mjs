@@ -1,18 +1,11 @@
-import { readdirSync, readFileSync, realpathSync, statSync, accessSync, constants } from 'node:fs';
-import { join, resolve, relative, delimiter } from 'node:path';
+import { readdirSync, readFileSync, realpathSync, statSync } from 'node:fs';
+import { join, resolve, relative } from 'node:path';
 import { spawnSync } from 'node:child_process';
+export { findExecutable } from './command.mjs';
 
 const ignored = new Set(['.git', 'node_modules', '.venv', 'venv', 'dist', 'build', 'coverage', '.next', '.tmp', '.cache', '.codex', '.claude']);
 const secretName = /(?:^\.env(?:\.|$)|\.(?:pem|key|p12|pfx)$|credentials|secrets?\.)/i;
 const interesting = /^(?:AGENTS\.md|CLAUDE\.md|README(?:\.md)?|package\.json|pyproject\.toml|requirements[^/]*\.txt|Cargo\.toml|go\.mod|Dockerfile[^/]*|compose\.ya?ml|(?:vite|next|vitest|jest|playwright)\.config\.[a-z]+|vercel\.json|prisma\.schema|schema\.prisma|Gemfile|pom\.xml|Makefile)$/;
-
-export function findExecutable(name, env = process.env) {
-  for (const dir of (env.PATH || '').split(delimiter).filter(Boolean)) {
-    const path = resolve(dir, name);
-    try { accessSync(path, constants.X_OK); if (statSync(path).isFile()) return path; } catch {}
-  }
-  return null;
-}
 
 export function gitRead(root, args) {
   const env = Object.fromEntries(Object.entries(process.env).filter(([key]) => !key.startsWith('GIT_')));
