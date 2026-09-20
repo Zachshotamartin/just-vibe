@@ -2,6 +2,10 @@
 
 ## 0.8.0
 
+- Expand all 213 canonical workflows with authored technical evidence, methods, misdiagnosis controls and discriminating checks; aliases inherit them.
+- Route review/security into concrete vulnerability, framework, language and available-scanner guides, with primary references and scoped safe examples.
+- Add complete technical coverage documentation, transitive shipped-reference validation and five executable security fixture controls; preserve earlier model results as historical evidence.
+
 - Add explicit rule provenance, managed instruction edits, loading/conflict inspection, and control-validated text/import guards.
 - Add working-alternative labs with Git worktrees, shared checks, leased previews, comparison reports, journaled selection and reviewed cleanup.
 - Add requirement-linked verification records, freshness checks, browser screenshots and local HTML reports; human acceptance remains attributed.

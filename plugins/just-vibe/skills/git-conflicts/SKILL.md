@@ -33,6 +33,13 @@ Only the requested local changes; external actions require their exact action an
 - Read merge base and both sides plus callers; resolve semantic intent, then regenerate derived files from their sources and check the combined behavior.
 - All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
 
+## Technical method
+
+- **Inspect:** Read merge-base, both sides, callers and whether the operation is merge, rebase or cherry-pick.
+- **Apply:** Reconstruct both intended behaviors; resolve source manifests before regenerating outputs. Explain side identity using the actual operation.
+- **Avoid misdiagnosis:** During rebase, ours/theirs terminology is easy to invert; deleting conflict markers does not establish semantic correctness.
+- **Check the result:** Exercise a behavior contributed by each side and inspect operation state before continuing the requested operation.
+
 ## Decision branches
 
 - **When the sides encode incompatible product policy:** Leave that conflict explicit and resolve independent files while requesting the actual decision.

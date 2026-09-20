@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Derive required names from code/configuration, compare authorized metadata, identify missing/mis-scoped variables, and explain rebuild/redeployment implications.
 - Map each referenced name to build-time or runtime usage and intended environment/branch; report presence and scope without fetching secret values.
 
+## Technical method
+
+- **Inspect:** Inventory required names and whether consumers read them during build, server runtime or browser execution.
+- **Apply:** Compare development, preview, branch and production presence using names only; identify which changes require a rebuild/redeployment.
+- **Avoid misdiagnosis:** Public prefixes expose compiled values; changing a setting does not update already-built assets.
+- **Check the result:** Verify the expected consumer sees the correct environment using a non-secret sentinel or presence check without downloading or printing credentials.
+
 ## Decision branches
 
 - **When a changed value is compiled into a static client bundle:** Explain the required rebuild/deployment and inspect public exposure; editing a variable alone does not change an existing bundle.

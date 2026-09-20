@@ -32,6 +32,13 @@ Only the requested local changes; external actions require their exact action an
 - Define ordering and checkpoint transactions, handle overlap/late arrivals, make replay safe, and test crashes around write/checkpoint boundaries.
 - Define event versus arrival order, stable keys, deletions and overlap; persist checkpoints only after durable effects and test both sides of that boundary.
 
+## Technical method
+
+- **Inspect:** Identify ordering key, watermark meaning, late arrival bound, change/delete events and deduplication identity.
+- **Apply:** Use a stable tie-breaker and explicit overlap/reconciliation window; preserve progress only after durable output.
+- **Avoid misdiagnosis:** A maximum event timestamp alone skips equal-timestamp rows and late arrivals; updates and tombstones need semantics.
+- **Check the result:** Test tied timestamps, late corrections, deletes, duplicate deliveries and restart at a batch boundary without missing or duplicating results.
+
 ## Decision branches
 
 - **When late updates fall behind the current watermark:** Use an explicit overlap/reconciliation policy rather than silently skipping them.

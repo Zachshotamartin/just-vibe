@@ -32,6 +32,17 @@ None by default. Plan artifacts may be saved when requested.
 - Inspect variable references and configuration names, trace which mode supplies them, inspect existing generated bundles for exposure when available, and recommend narrow corrections.
 - Trace import.meta.env usage and configured envPrefix, inspect mode-specific files by names only, and separate build mode from NODE_ENV.
 
+## Technical method
+
+- **Inspect:** Inspect modes, envDir, public prefixes, define substitutions and client import paths using variable names.
+- **Apply:** Trace whether the value is compiled into client output or read only by server code; keep mode distinct from NODE_ENV.
+- **Avoid misdiagnosis:** Prefixing a secret with VITE_ makes it public; booleans read from env may be strings with surprising truthiness.
+- **Check the result:** Build with a synthetic sentinel and inspect intended exposure and parsing without placing real secret values in reports.
+
+## Read when relevant
+
+- The task depends on framework defaults, middleware, RLS, server/client or deployment behavior: [Framework-specific review branches](../../references/security/frameworks.md).
+
 ## Decision branches
 
 - **When a required secret is referenced by client code:** Move the privileged operation behind a server boundary instead of adding a client-exposed prefix.

@@ -33,6 +33,13 @@ None by default. Plan artifacts may be saved when requested.
 - Map hunks to behavior and dependencies, preserve the original patch/index, and validate each proposed intermediate tree in isolation when feasible.
 - All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
 
+## Technical method
+
+- **Inspect:** Inspect overlapping hunks, generated files, dependency order and pre-existing staged content.
+- **Apply:** Build an ordered series whose intermediate trees are coherent; regenerate derived artifacts from the matching source change.
+- **Avoid misdiagnosis:** Splitting by filename alone can leave a commit importing an API that appears only in the next commit.
+- **Check the result:** Check each candidate tree independently where required, then verify the union matches only the intended changes and preserves unrelated work.
+
 ## Decision branches
 
 - **When inseparable hunks cross proposed commits:** Adjust boundaries or keep them together rather than producing a broken intermediate commit.

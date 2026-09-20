@@ -32,6 +32,17 @@ None by default. Plan artifacts may be saved when requested.
 - Trace checks at server/data boundaries, compare alternate endpoints and methods, design negative cases, and execute only permitted isolated probes.
 - Test policy at server/data boundaries across direct IDs, alternate methods, exports and background tasks using synthetic identities and known allowed/denied cases.
 
+## Technical method
+
+- **Inspect:** Inspect identity derivation, subject/action/resource rules, tenant filters and indirect entry points.
+- **Apply:** Use the identity guide to trace object-level and function-level authorization, including mass assignment, exports and workers.
+- **Avoid misdiagnosis:** Authentication middleware proves identity, not ownership; an admin test can bypass the same controls being evaluated.
+- **Check the result:** Verify denied cross-user/cross-tenant requests cause no reads or writes and that legitimate access remains possible using isolated identities.
+
+## Read when relevant
+
+- Identity, ownership, tenant isolation, replay or privilege changes affect the task: [Identity and authorization](../../references/security/identity.md).
+
 ## Decision branches
 
 - **When policy itself is unspecified:** Separate demonstrated missing enforcement from an unresolved product permission decision.

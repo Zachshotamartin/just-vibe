@@ -32,6 +32,18 @@ None by default. Plan artifacts may be saved when requested.
 - Verify resolved versions against current authoritative advisories, inspect reachable use/configuration, distinguish runtime/dev exposure, and recommend compatible updates or mitigations.
 - Match advisories to resolved versions and configurations, trace deployed/reachable usage and distinguish development-only tooling from production exposure.
 
+## Technical method
+
+- **Inspect:** Read resolved lockfile versions, ecosystem, installed scanner/version and current authoritative advisories.
+- **Apply:** Distinguish advisory match, deployed reachability and fix compatibility; record tool exit status and advisory freshness with coverage.
+- **Avoid misdiagnosis:** An audit error or unsupported lockfile is unknown, not clean; a CVE match alone does not prove the vulnerable function is reachable.
+- **Check the result:** Verify fixed version resolution and the affected behavior after a supported update; retain remaining findings and failed/offline checks.
+
+## Read when relevant
+
+- Dependencies, builds, secrets, hooks or privileged execution cross a trust boundary: [Dependency and execution provenance](../../references/security/supply-chain.md).
+- An available scanner or dependency advisory check can answer the scoped question: [Scanner selection and evidence](../../references/security/scanners.md).
+
 ## Decision branches
 
 - **When a fix requires a breaking upgrade:** Compare supported mitigation and migration paths; do not suppress the advisory or force unrelated upgrades.

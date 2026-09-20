@@ -34,6 +34,13 @@ No changes to active profile, project files, global settings or external state.
 
 Task-specific method: Search the profile catalog and group relevant roles by discipline; separate architecture specialties from seniority-oriented profiles. Explain the decisive difference between nearby roles using their priorities, decision branch and verification; do not equate titles with capabilities or seniority credentials.
 
+## Technical method
+
+- **Inspect:** Inspect role purpose, priorities, boundaries and candidate workflows relevant to the requested job.
+- **Apply:** Compare roles by concrete decision focus, then link the workflows supplying technical methods.
+- **Avoid misdiagnosis:** A job title is neither a credential nor evidence that all specialty checks were performed.
+- **Check the result:** Explain how candidate roles would change priorities on the same task without widening permissions or claiming a team exists.
+
 ## Decision branches
 
 - **When several profiles appear relevant:** Compare primary responsibility and actual task evidence; show options without silently activating one.

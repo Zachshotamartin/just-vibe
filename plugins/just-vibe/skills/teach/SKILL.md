@@ -41,6 +41,13 @@ None by default. Save lesson notes or example files only when explicitly request
 
 Task-specific method: Resolve whether the user wants a topic lesson or an implementation-focused lesson. Infer experience from context; otherwise start with approachable fundamentals and offer depth without blocking on a questionnaire. For a named just-vibe workflow, read its catalog record, skill and relevant utility source, distinguish implemented behavior from design requirements, and identify the concepts necessary to build it. For a standalone topic, define a concrete learning outcome and choose a useful worked example. Order prerequisites from the minimum foundation to the requested implementation. Explain the purpose, core model, and terminology in connected plain-language prose before introducing complexity. Use an annotated example and trace its state step by step. Relate each concept to a concrete design or implementation decision. Explain alternatives, tradeoffs, failure modes and common misconceptions. Use a small diagram or table only when it clarifies the lesson, and short code examples in the requested language when helpful. End with a concise understanding check or optional exercise and a recommended next step. Keep the explanation useful without requiring the user to answer a quiz; offer hints or an answer when requested. Choose one running example and state its assumptions before deriving the mechanism; distinguish conceptual pseudocode from runnable, version-specific code.
 
+## Technical method
+
+- **Inspect:** Resolve the learner's topic or target workflow, existing knowledge and whether a project exercise is wanted.
+- **Apply:** Build a causal mental model, work a small example, then expose a common misconception and a transfer example.
+- **Avoid misdiagnosis:** Teaching a command does not authorize running it; overwhelming prerequisite lists can obscure the actual concept.
+- **Check the result:** Use a short prediction or explanation prompt to check understanding; keep optional practice separate from unsolicited repo mutation.
+
 ## Read when relevant
 
 - The learner requests hands-on practice using repository code: [Project exercises](../../references/practice.md).

@@ -32,6 +32,13 @@ Only the requested local changes; external actions require their exact action an
 - Save the objective, constraints, decisions, completed evidence, remaining work and next step using project checkpoint NAME with the current revision when structured storage is appropriate. The helper captures repository/worktree identity; keep external operation IDs in the task context without credentials.
 - A checkpoint does not contain reversible file content. If undo support is requested before editing, create a separate task begin/capture record; never manufacture past ownership from a later snapshot.
 
+## Technical method
+
+- **Inspect:** Inspect worktree/index, task state, evidence, pending effects and chosen checkpoint location.
+- **Apply:** Save a bounded continuation record with identities and unresolved next steps, excluding credentials and stale claims.
+- **Avoid misdiagnosis:** Saving notes does not capture every external effect or guarantee another host will load them.
+- **Check the result:** Read the saved checkpoint back and verify its artifact identities and staleness checks without overwriting unrelated memory.
+
 ## Read when relevant
 
 - Saving requested preferences, decisions or a named continuation: [Project continuity](../../references/daily-workflows.md).

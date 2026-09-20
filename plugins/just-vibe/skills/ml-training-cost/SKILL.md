@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Separate startup/loading/compute/checkpoint time, inspect batch/resource utilization, identify bottlenecks, and propose measured optimizations or bounded profiling.
 - Separate data loading, host-to-device transfer, compute, synchronization and checkpoint time; relate utilization to the same quality target and workload.
 
+## Technical method
+
+- **Inspect:** Measure data loading, compute, synchronization, memory peaks, checkpointing and failed trials.
+- **Apply:** Profile a representative bounded run; separate throughput from cost per completed useful result and use verified dated rates for money.
+- **Avoid misdiagnosis:** GPU utilization alone can hide pipeline stalls; mixed precision or larger batches can change convergence and effective optimization.
+- **Check the result:** Compare end-to-end runtime, peak memory and model-quality protocol under matched conditions, including warmup and failures.
+
 ## Decision branches
 
 - **When throughput improves by changing effective batch or precision:** Compare convergence/quality and total time-to-target before claiming a useful speedup.

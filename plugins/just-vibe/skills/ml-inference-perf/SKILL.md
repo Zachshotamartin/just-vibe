@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Define comparable benchmark conditions, separate cold/warm paths, measure bounded authorized workloads, identify bottlenecks, and check quality after optimizations.
 - Specify hardware, precision, batch/concurrency and payload distribution; separate load/warmup from steady-state and measure tail behavior within caps.
 
+## Technical method
+
+- **Inspect:** Measure preprocessing, transfer, model compute, postprocessing, batching and queue time with representative inputs.
+- **Apply:** Compare latency distribution, throughput, memory and quality at the actual workload/concurrency; synchronize device timing where required.
+- **Avoid misdiagnosis:** Timing asynchronous GPU dispatch without synchronization underreports work; throughput gains may violate tail-latency requirements.
+- **Check the result:** Warm up deliberately, retain cold-start evidence and verify optimized predictions against reference tolerances and quality constraints.
+
 ## Decision branches
 
 - **When quantization or batching improves speed:** Re-evaluate quality, memory and latency under the same workload before accepting it.

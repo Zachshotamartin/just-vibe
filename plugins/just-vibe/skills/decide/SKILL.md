@@ -37,6 +37,13 @@ None by default. Plan artifacts may be saved when requested. Explicit save/revis
 - For revisit requests, load the original record and history, gather actual fresh observations with sources and units, and run decision revisit. Missing/expired metrics remain unknown; changed watched files and hit thresholds identify reasons to review, not permission to change architecture.
 - Explain the decisive changed assumption and whether the current choice remains appropriate. Preserve earlier reasoning when recording an authorized replacement. Do not schedule monitoring, buy services or implement the new architecture without that task scope.
 
+## Technical method
+
+- **Inspect:** Gather hard constraints, current approach, realistic alternatives and evidence for the decisive unknown.
+- **Apply:** Eliminate infeasible choices before comparing preferences; state which new observation would reverse the recommendation.
+- **Avoid misdiagnosis:** More criteria do not compensate for an unresolved mandatory requirement.
+- **Check the result:** Check that the chosen option satisfies every hard constraint and identify whether its advantage survives plausible uncertainty.
+
 ## Read when relevant
 
 - Saving an adopted choice or revisiting earlier assumptions: [Decision history](../../references/decision-history.md).

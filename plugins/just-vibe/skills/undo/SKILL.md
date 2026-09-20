@@ -35,6 +35,13 @@ Only the conflict-free inverse of the recorded task; preserve index and other wo
 - Refuse overlapping creation/deletion/binary edits, changed scoped staging, unknown concurrent file versions or a different branch/HEAD. Recover an interrupted known transaction using task recover after inspecting the journal; do not reset or clean broadly.
 - Run proportionate existing checks on the resulting tree and explain what was reversed, which later changes were preserved, and any external effects that remain. Never add agent attribution to the user-owned changes.
 
+## Technical method
+
+- **Inspect:** Read recorded before/after hashes, owned paths and the current worktree/index, including later edits.
+- **Apply:** Preview inverse changes and apply only paths whose expected post-task state still matches; preserve conflicts for review.
+- **Avoid misdiagnosis:** Whole-repository reset destroys unrelated work; matching a filename alone does not prove the task still owns its contents.
+- **Check the result:** Check restored paths, unchanged unrelated files and partial-operation recovery; later modifications must block automatic reversal of that path.
+
 ## Read when relevant
 
 - Recording, previewing, applying or recovering a task inverse: [Selective task undo](../../references/task-undo.md).

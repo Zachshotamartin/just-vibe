@@ -33,6 +33,13 @@ None by default. Plan artifacts may be saved when requested.
 - Read status --porcelain=v2 --branch and resolved refs with GIT_OPTIONAL_LOCKS=0 where supported; inspect worktrees and operation markers without changing them.
 - All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
 
+## Technical method
+
+- **Inspect:** Inspect HEAD, branch, porcelain status, index, worktree, untracked paths and merge/rebase state with optional locks disabled.
+- **Apply:** Explain HEAD-to-index separately from index-to-worktree and use last-fetched refs explicitly.
+- **Avoid misdiagnosis:** Clean tracked files do not imply no untracked work; ahead/behind may use stale remote observations.
+- **Check the result:** Reconcile every reported change category with the correct tree comparison without fetching or modifying the index.
+
 ## Decision branches
 
 - **When upstream tracking refs are stale or absent:** Describe local facts and unknown remote state without fetching implicitly.

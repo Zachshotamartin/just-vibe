@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Assume the outcome failed, trace realistic causal chains, rank impact/likelihood, identify early signals, and propose proportionate mitigations.
 - Work backward from a concrete failed outcome through design choices, contributing conditions and observable warning signs.
 
+## Technical method
+
+- **Inspect:** Inspect dependency assumptions, operational ownership, adoption constraints and failure recovery.
+- **Apply:** Build a plausible trigger-to-impact chain for each material failure, then identify an early signal and an intervention that breaks that chain.
+- **Avoid misdiagnosis:** Generic risks with no mechanism or observable warning cannot guide implementation.
+- **Check the result:** Test whether each mitigation addresses its stated mechanism and whether a responder could detect the signal in time.
+
 ## Decision branches
 
 - **When a risk cannot be connected to this proposal:** Remove the generic warning and focus on mechanisms supported by context.

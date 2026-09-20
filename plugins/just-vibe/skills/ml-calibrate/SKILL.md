@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Validate probability semantics, inspect reliability by range/cohort, use appropriate scoring measures, and compare any authorized calibrator on untouched evaluation data.
 - Check probability semantics, reliability and proper scoring measures; fit any calibrator on permitted data separate from final evaluation and compare by cohort.
 
+## Technical method
+
+- **Inspect:** Inspect probability outputs, class definition, prevalence, selection split and calibration metric/binning.
+- **Apply:** Fit calibration on permitted selection data and evaluate reliability on separate data; compare proper scoring rules and reliability curves.
+- **Avoid misdiagnosis:** Ranking quality does not imply probability accuracy; coarse bins or shifted prevalence can conceal miscalibration.
+- **Check the result:** Check perfect, constant and confidently wrong synthetic predictions, then evaluate held-out calibration with sample support per region.
+
 ## Decision branches
 
 - **When prevalence or sampling changed since calibration:** Assess transfer assumptions and recalibration evidence without claiming ranking quality proves reliable probabilities.

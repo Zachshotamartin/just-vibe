@@ -32,6 +32,17 @@ None by default. Plan artifacts may be saved when requested.
 - Build an action/resource matrix, identify enforcement boundaries, implement consistent checks when requested, and test cross-user, cross-tenant, and indirect access.
 - Build subject/action/resource/tenant cases, locate server-side enforcement and inspect alternate read/write/export paths and ownership transfers.
 
+## Technical method
+
+- **Inspect:** Build a subject/action/resource/tenant matrix from the product policy and locate all entry points.
+- **Apply:** Enforce authorization using trusted identity and server-owned resource scope, including workers, downloads and bulk operations.
+- **Avoid misdiagnosis:** A hidden button or unguessable identifier does not enforce permission; an admin in one tenant is not automatically a global admin.
+- **Check the result:** Use two isolated users/tenants and verify denied requests leave no side effects while valid owner/admin requests still work.
+
+## Read when relevant
+
+- Identity, ownership, tenant isolation, replay or privilege changes affect the task: [Identity and authorization](../../references/security/identity.md).
+
 ## Decision branches
 
 - **When policy is ambiguous for one role/resource combination:** Isolate that decision while continuing checks for unambiguous denials and allowed paths.

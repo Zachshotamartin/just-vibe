@@ -34,6 +34,13 @@ None by default. Plan artifacts may be saved when requested.
 - Specify the chosen contract, compatibility window, failure/retry behavior and observability. Define who writes each datum and who reconciles partial effects; diagrams must distinguish observed code dependencies from proposed runtime edges.
 - Plan incremental implementation with a verification and recovery condition for each phase. Identify the smallest experiment that could overturn a material assumption before committing to an expensive boundary.
 
+## Technical method
+
+- **Inspect:** Inspect acceptance criteria, existing data owners, extension points and deployment constraints.
+- **Apply:** Place each new behavior with the owner able to enforce its invariant; compare a module extension with a new runtime boundary using actual operational needs.
+- **Avoid misdiagnosis:** A new service adds network failure and consistency work even when its code is small.
+- **Check the result:** Walk create/read/failure paths through the proposed design and identify every consumer or schema requiring compatibility.
+
 ## Decision branches
 
 - **When the feature spans two data owners:** Define consistency and failure semantics before selecting synchronous calls or events.

@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Restate the objective, vary meaningful design dimensions, discard duplicates, and explain benefits, costs, and a validation method for each remaining approach.
 - Vary actual mechanisms such as ownership, interaction or persistence; include a minimal approach and attach a cheap validation experiment to each candidate.
 
+## Technical method
+
+- **Inspect:** Read the goal, hard constraints, existing approach and the kind of variation the user needs.
+- **Apply:** Generate options that differ in actual mechanism or tradeoff and explain the constraint each option addresses.
+- **Avoid misdiagnosis:** Renaming the same architecture repeatedly is not useful diversity; brainstorming does not select or implement an option.
+- **Check the result:** Remove infeasible duplicates and make the decisive tradeoff between surviving options explicit.
+
 ## Decision branches
 
 - **When constraints eliminate most options:** Keep a small feasible set rather than adding cosmetic variants to meet a count.

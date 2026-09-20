@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Inspect current behavior, identify actors and states, define normal/error paths, record exclusions, and turn ambiguity into explicit assumptions or decisions.
 - Write actors, preconditions, state transitions and observable acceptance examples; separate business decisions from implementation preferences.
 
+## Technical method
+
+- **Inspect:** Resolve actors, desired outcomes, existing contracts and meaningful exclusions.
+- **Apply:** Define observable acceptance criteria and state transitions, including invalid, interrupted and recovered behavior where material.
+- **Avoid misdiagnosis:** Implementation detail can prematurely constrain a product requirement; vague adjectives cannot establish completion.
+- **Check the result:** Walk a representative user scenario and a failure scenario against the criteria and expose unresolved choices.
+
 ## Decision branches
 
 - **When two requirements conflict on the same transition:** Surface the concrete conflicting example and resolve that decision before specifying dependent behavior.

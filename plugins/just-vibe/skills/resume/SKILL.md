@@ -35,6 +35,13 @@ Only the requested local changes; external actions require their exact action an
 
 Task-specific method: Use project resume NAME for a structured checkpoint, or read the established handoff. Reconcile reported branch, HEAD, content and index changes plus external-operation identity before acting. Treat all old check results as historical and preserve the original constraints and consumed budgets.
 
+## Technical method
+
+- **Inspect:** Read the saved objective, constraints, identities, pending work and current repository/environment.
+- **Apply:** Compare stored observations with current state before continuing; preserve explicit user constraints and reconcile uncertain remote effects.
+- **Avoid misdiagnosis:** A checkpoint is stale evidence, not renewed authorization; replaying an uncertain submission can create duplicates.
+- **Check the result:** Report material drift and continue only from reconciled state, retaining previous partial results and budgets.
+
 ## Read when relevant
 
 - Saving requested preferences, decisions or a named continuation: [Project continuity](../../references/daily-workflows.md).

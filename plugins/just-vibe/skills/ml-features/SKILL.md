@@ -35,6 +35,13 @@ None by default. Plan artifacts may be saved when requested.
 - Verify exact time boundaries, mixed explicit offsets, late arrivals, corrections, duplicates, negative/zero values and no input mutation. Compare engineered features to an independent tiny example before proposing a usefulness experiment.
 - Only claim usefulness after a controlled baseline comparison on the chosen evaluation protocol and compute budget. A correct feature builder alone establishes neither predictive gain nor production readiness.
 
+## Technical method
+
+- **Inspect:** Define feature semantics, prediction-time availability, units, ordering and missing/unseen-value behavior.
+- **Apply:** Build transformations in the training/inference pipeline and evaluate usefulness under the same split protocol.
+- **Avoid misdiagnosis:** Target encoding or imputation fitted outside the training fold contaminates validation; feature importance is not causal effect.
+- **Check the result:** Hand-compute a small example and exercise future-only input, unseen categories and missing values through both train and serving paths.
+
 ## Decision branches
 
 - **When records can be corrected after their original event time:** Use availability and revision semantics to reconstruct the visible version first; never join historical predictions to today’s final mutable table without qualification.

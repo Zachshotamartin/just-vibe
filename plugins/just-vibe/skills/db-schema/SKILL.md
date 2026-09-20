@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Model ownership/cardinality, encode enforceable invariants, compare access paths, assess nullability/deletion behavior, and plan compatibility with existing data.
 - Derive keys/cardinality and deletion rules from explicit invariants, then check null semantics, uniqueness and access paths for the selected engine.
 
+## Technical method
+
+- **Inspect:** Derive cardinalities, ownership, nullability, units, natural/technical keys and deletion rules from requirements.
+- **Apply:** Encode durable invariants with supported constraints and types; model money/time precision and tenant-aware uniqueness deliberately.
+- **Avoid misdiagnosis:** Application-only uniqueness races under concurrency; nullable columns can alter uniqueness semantics by engine/version.
+- **Check the result:** Test boundary values, duplicate keys, orphan writes and delete behavior on the target engine in an isolated database.
+
 ## Decision branches
 
 - **When an optional relationship must still be tenant-consistent:** Consider composite ownership constraints or equivalent enforceable checks rather than trusting a single foreign key.

@@ -1,12 +1,14 @@
 # Command contracts and quality
 
+The [2026-09-20 technical audit](technical-audit.md) extends every canonical workflow with an authored technical method; the [coverage inventory](technical-coverage.md) shows the addressed failure distinctions and conditional routes.
+
 The catalog owns each canonical command's scope, mode, required inputs, selection boundary, procedure, decision branches, outputs, observable verification, recovery conditions and examples. Pack references add reusable methods and worked scenarios. Generated SKILL.md files expose all examples and link the applicable guide; they are not independently edited.
 
 216 names resolve to 213 canonical workflows. `do` inherits `auto`, `responsive` inherits `ui-responsive`, and `a11y` inherits `ui-accessibility`. Alias source records contain identity/search metadata only. Loading materializes the canonical behavior; validation rejects scope, mode, method, evidence or other behavioral drift. Routing collapses matching aliases to one canonical recommendation while preserving matched names.
 
 ## Writing useful guidance
 
-Selection should distinguish a nearby workflow: explain versus teach, debug versus fix, local pr drafting versus remote github-pr identity/actions. A task-specific procedure should name the evidence to inspect and the decision it informs. A branch should cover a situation that changes the method, such as a partial external operation, incompatible old consumer, stale request completion or missing evaluation labels.
+Selection should distinguish a nearby workflow: explain versus teach, debug versus fix, local pr drafting versus remote github-pr identity/actions. A task-specific procedure should name the evidence to inspect and the decision it informs. Canonical commands must also supply technical.evidence, technical.method, technical.pitfall and technical.check. These fields appear directly in the skill, CLI contract and evaluation specification; references add conditional depth. A branch should cover a situation that changes the method, such as a partial external operation, incompatible old consumer, stale request completion or missing evaluation labels.
 
 Outputs need enough structure to assess correctness: a comparison needs assumptions and decisive evidence; a migration needs ordered phases, compatibility and recovery boundaries; an audit needs observed/conditional/unknown findings. Normal, edge and missing-evidence requests demonstrate scope and input handling. They do not count as successful evaluations by existing in the catalog.
 

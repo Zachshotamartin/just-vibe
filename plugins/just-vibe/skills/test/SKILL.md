@@ -32,6 +32,13 @@ Only the requested local changes; external actions require their exact action an
 - Inspect existing tests, identify important gaps, choose unit/integration/end-to-end scope, add representative cases, and run relevant checks.
 - Choose the lowest layer that can observe the contract; retain an independent expected result and demonstrate that the check detects a plausible regression.
 
+## Technical method
+
+- **Inspect:** Identify the behavior at risk, existing test layer and independently known expected result.
+- **Apply:** Choose the lowest layer that observes the invariant, load its testing method and include a meaningful failure case.
+- **Avoid misdiagnosis:** Mock call assertions or tests mirroring helper logic can pass while behavior is wrong.
+- **Check the result:** Verify a plausible bad implementation fails for the intended reason and that the legitimate path passes.
+
 ## Decision branches
 
 - **When the proposed assertion mirrors internal implementation:** Replace it with an external invariant or consumer-observable result.

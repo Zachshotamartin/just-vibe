@@ -33,6 +33,13 @@ None by default. Plan artifacts may be saved when requested.
 - Resolve the previous release boundary, identify breaking contracts and migrations, and map artifacts to the exact candidate revision.
 - All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
 
+## Technical method
+
+- **Inspect:** Resolve version, release range, artifact contents, compatibility and validation records.
+- **Apply:** Prepare notes and readiness gates from actual changes; bind tested artifacts to hashes and identify recovery limits.
+- **Avoid misdiagnosis:** Source version changes do not publish a package; a rebuilt archive differs from the one previously tested.
+- **Check the result:** Inspect the exact candidate archive and version/manifest consistency and keep unpublished or pending platform checks explicit.
+
 ## Decision branches
 
 - **When release history or artifact provenance is ambiguous:** Block a ready claim for that evidence while drafting confirmed changes.

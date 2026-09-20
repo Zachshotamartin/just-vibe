@@ -32,6 +32,17 @@ Only the requested local changes; external actions require their exact action an
 - Capture relevant behavior, identify seams, transform incrementally, preserve call contracts, and compare results against the baseline.
 - Identify public exports, serialization and error contracts; transform one seam at a time and compare behavior against existing consumer checks.
 
+## Technical method
+
+- **Inspect:** Identify public contracts, state ownership, side effects and behavior-sensitive tests.
+- **Apply:** Change structure in coherent steps while preserving observable semantics, including error and timing contracts.
+- **Avoid misdiagnosis:** Renaming a pure helper differs from moving async ownership or transaction boundaries; both cannot use the same evidence bar.
+- **Check the result:** Compare representative success/failure behavior before and after and inspect callers for changed ordering or identity semantics.
+
+## Read when relevant
+
+- Language/runtime semantics, concurrency or resource ownership can change the result: [Language and runtime review methods](../../references/scenarios/language-review.md).
+
 ## Decision branches
 
 - **When code appears unused but is registered dynamically:** Trace registration and configuration before deleting or moving it.

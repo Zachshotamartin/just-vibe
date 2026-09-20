@@ -32,6 +32,17 @@ None by default. Plan artifacts may be saved when requested.
 - Map tenant ownership, follow identity through every boundary, inspect membership changes and shared resources, and identify missing isolation checks.
 - Follow tenant identity through API, database role, cache key, queue payload, file storage and support/admin paths.
 
+## Technical method
+
+- **Inspect:** Trace authenticated tenant identity through queries, caches, queues, search, object storage and support access.
+- **Apply:** Define subject/action/resource/tenant checks at each boundary; derive identity from trusted context rather than a request body alone.
+- **Avoid misdiagnosis:** An isolated HTTP route can still enqueue a job or populate a shared cache without tenant scope.
+- **Check the result:** Run two synthetic tenants with overlapping resource IDs through direct, cached, exported and asynchronous paths.
+
+## Read when relevant
+
+- Identity, ownership, tenant isolation, replay or privilege changes affect the task: [Identity and authorization](../../references/security/identity.md).
+
 ## Decision branches
 
 - **When an identity belongs to several organizations:** Separate membership from selected-tenant authorization at each effect boundary.

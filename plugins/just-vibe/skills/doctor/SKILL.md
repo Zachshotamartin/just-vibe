@@ -34,6 +34,13 @@ None by default. Plan artifacts may be saved when requested.
 
 Task-specific method: Check prerequisites, marketplace identity, inventory format, installation and enablement, and report the first actionable mismatch without changing settings. Compare marketplace source, payload version and native enabled state for the selected host and scope; stop at the first actionable identity mismatch.
 
+## Technical method
+
+- **Inspect:** Inspect selected host, source/scope, native inventory, enabled state, payload version and supported CLI commands.
+- **Apply:** Distinguish absent, disabled, conflicting source and stale cached payload using read-only evidence.
+- **Avoid misdiagnosis:** Finding an executable or directory does not prove the plugin is enabled or the current session loaded its latest skills.
+- **Check the result:** Report exact observed status and a target-specific repair; diagnose must not silently become install/update or cache deletion.
+
 ## Decision branches
 
 - **When wrapper reports success but host cache is stale:** Report the mismatch and exact update/check sequence; do not call the installation healthy.

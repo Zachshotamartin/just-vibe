@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Find affected modules, check existing patterns, order dependencies, identify verification and rollout needs, and separate discovery tasks from known changes.
 - Connect each step to actual files, interfaces and a completion check; put discovery before changes that depend on uncertain contracts.
 
+## Technical method
+
+- **Inspect:** Inspect relevant code, dependencies, current tests and the requested result.
+- **Apply:** Order concrete changes by dependency and attach discriminating checks and recovery boundaries to consequential steps.
+- **Avoid misdiagnosis:** A list of filenames or tool names is not an implementation plan; invented repo structure produces unusable tasks.
+- **Check the result:** Ensure each step maps to an observed location or justified new artifact and contributes to a stated acceptance criterion.
+
 ## Decision branches
 
 - **When a required integration cannot be inspected:** Plan a contract seam and isolated fixture, then identify the live verification prerequisite separately.

@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Inspect representative states and widths, follow the primary journey, identify concrete friction, and prioritize by user impact rather than personal taste.
 - Walk the primary and recovery journey at representative widths with realistic long/empty content; tie findings to an action the user cannot understand or complete.
 
+## Technical method
+
+- **Inspect:** Inspect real screens and tasks across normal, empty, error and narrow-screen states.
+- **Apply:** Prioritize hierarchy, discoverability and task completion using concrete observations; separate visual preference from usability failure.
+- **Avoid misdiagnosis:** A screenshot cannot establish keyboard behavior, contrast in every state or successful end-to-end completion.
+- **Check the result:** Revisit the same tasks and viewports after changes and cite the remaining unobserved interaction states.
+
 ## Decision branches
 
 - **When a preference has no demonstrated user impact:** Label it a design option rather than a defect.

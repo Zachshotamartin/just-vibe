@@ -35,6 +35,13 @@ Only the requested local changes; external actions require their exact action an
 - After committing through a temporary index, reconcile intended committed changes into the real index while retaining unrelated staged hunks. Verify HEAD contains only the intended change, HEAD-to-index retains the user’s staged work, and index-to-worktree retains the user’s unstaged work. Do not blindly restore an old index against the new HEAD.
 - Use the existing user identity and describe the change without agent/model self-attribution or agent Co-authored-by trailers. Inspect actual committed content and message, including hook changes. A failed hook leaves the operation incomplete; inspect state before retrying and never bypass it.
 
+## Technical method
+
+- **Inspect:** Capture the user's initial index and worktree distinctions and the exact requested commit membership.
+- **Apply:** Use deliberate hunks or the existing temporary-index procedure; inspect the candidate tree and normal hook results before committing.
+- **Avoid misdiagnosis:** A path-limited commit can include unwanted unstaged hunks, and blindly restoring an old index can stage a reversal.
+- **Check the result:** Compare old HEAD to new HEAD, new HEAD to index and index to worktree; preserve unrelated staging and inspect the resulting author/message.
+
 ## Decision branches
 
 - **When unrelated changes are staged in a file that also contains the requested fix:** Build a candidate that excludes those hunks and verify all three trees afterward. If hunks depend on each other and membership is genuinely ambiguous, preserve the recoverable state and ask only about that dependency.

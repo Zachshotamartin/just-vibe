@@ -38,11 +38,17 @@ export function validateCatalog(catalog, packs) {
       if (!Array.isArray(c[key]) || !c[key].length || c[key].some(s => typeof s !== 'string' || !s.trim())) throw new Error(`Invalid ${key}: ${c.id}`);
     }
     if (typeof c.selection !== 'string' || !c.selection.trim()) throw new Error(`Missing selection boundary: ${c.id}`);
+    if (!c.technical || typeof c.technical !== 'object' || Array.isArray(c.technical)
+      || Object.keys(c.technical).sort().join(',') !== 'check,evidence,method,pitfall'
+      || Object.values(c.technical).some(value => typeof value !== 'string' || !value.trim())) throw new Error(`Invalid technical method: ${c.id}`);
     if (!Array.isArray(c.branches) || !c.branches.length || c.branches.some(b => !b.when?.trim() || !b.then?.trim())) throw new Error(`Invalid decision branches: ${c.id}`);
     if (c.guides !== undefined && (!Array.isArray(c.guides) || c.guides.some(g => !g.title?.trim() || !g.when?.trim() || !/^references\/(?:[a-z0-9-]+\/)*[a-z0-9-]+\.md$/.test(g.path)))) throw Error(`Invalid conditional guide: ${c.id}`);
     if (c.validation?.structural !== 'automated' || !['fixtures-tested', 'not-applicable'].includes(c.validation.runtime)
         || !['not-evaluated', 'passed-fixtures', 'partial-fixtures'].includes(c.validation.behavioral)) throw new Error(`Invalid validation dimensions: ${c.id}`);
     if (c.validation.behavioral !== 'not-evaluated' && !c.validation.record?.trim()) throw new Error(`Behavioral results require an evidence record: ${c.id}`);
+    if (c.validation.priorBehavioral && (!['passed-fixtures', 'partial-fixtures'].includes(c.validation.priorBehavioral.status)
+      || !c.validation.priorBehavioral.record?.trim() || !Array.isArray(c.validation.priorBehavioral.cases)
+      || !c.validation.priorBehavioral.cases.length || !c.validation.priorBehavioral.note?.trim())) throw new Error(`Invalid historical behavioral evidence: ${c.id}`);
     if (!Array.isArray(c.capabilities) || c.capabilities.some(s => !CAPABILITIES.includes(s))) throw new Error(`Unknown capability: ${c.id}`);
     if (!Array.isArray(c.examples) || !c.examples.length || c.examples.some(e => !e.brief?.trim() || !MODES.includes(e.mode))) throw new Error(`Missing example: ${c.id}`);
     if (!Array.isArray(c.hostSupport) || !c.hostSupport.length || c.hostSupport.some(h => !HOSTS.includes(h))) throw new Error(`Unknown host: ${c.id}`);

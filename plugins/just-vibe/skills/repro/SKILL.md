@@ -32,6 +32,13 @@ Only the requested local changes; external actions require their exact action an
 - Confirm the symptom, reduce unrelated dependencies and data, preserve the failure trigger, and document exact run/reset steps.
 - Freeze input and environment identity, reduce one dimension at a time, and include a negative control that removes the suspected trigger.
 
+## Technical method
+
+- **Inspect:** Capture exact input, environment, revision and the observable failure oracle.
+- **Apply:** Reduce dependencies and data while preserving the causal trigger; keep synthetic substitutes faithful to the failing boundary.
+- **Avoid misdiagnosis:** A smaller program with a different failure does not reproduce the original bug.
+- **Check the result:** Run from a clean isolated setup and show the same expected-versus-actual mismatch with bounded execution.
+
 ## Decision branches
 
 - **When reducing the case removes the failure intermittently:** Preserve the last reliable reproduction and quantify repeats instead of discarding timing evidence.

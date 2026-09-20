@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Reconcile times and observations, distinguish trigger from contributing conditions, document detection/recovery gaps, and define specific preventive/detective actions with measurable outcomes.
 - Reconcile timestamps and impact evidence, separate trigger from contributing conditions and tie each proposed action to a documented detection or recovery gap.
 
+## Technical method
+
+- **Inspect:** Collect timestamped events, impact evidence, hypotheses, interventions and unresolved gaps.
+- **Apply:** Separate trigger, contributing conditions and detection/recovery failures; derive follow-ups from demonstrated mechanisms.
+- **Avoid misdiagnosis:** Invented certainty, blame or assigned owners hides uncertainty and cannot support useful prevention.
+- **Check the result:** Link each action to a causal mechanism and observable success condition, preserving unknown impact/root cause where evidence is incomplete.
+
 ## Decision branches
 
 - **When root cause or impact remains unknown:** Preserve the uncertainty and propose a discriminating follow-up instead of filling the narrative with guesses.

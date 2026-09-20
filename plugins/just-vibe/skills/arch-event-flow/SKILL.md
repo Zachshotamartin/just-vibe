@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Trace transaction boundaries, identify loss/duplicate windows, specify identifiers and schemas, and define recovery and observability for each failure point.
 - Draw the write/commit/publish/ack sequence and place a crash between each pair; define replay identity and effect ownership.
 
+## Technical method
+
+- **Inspect:** Locate transaction commit, publish, consumer claim, business effect and acknowledgment boundaries.
+- **Apply:** Draw a crash between each durable step; align outbox publication and consumer deduplication with the business transaction where supported.
+- **Avoid misdiagnosis:** Delivery ordering on one partition does not order all entities, and broker acknowledgment does not prove a business effect committed.
+- **Check the result:** Replay a duplicate, deliver versions out of order, and interrupt after the effect before acknowledgment; check one intended effect.
+
 ## Decision branches
 
 - **When database commit and broker publish are separate:** Compare a transactional outbox or explicit reconciliation with the actual loss window.

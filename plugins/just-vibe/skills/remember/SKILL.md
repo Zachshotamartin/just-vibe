@@ -39,6 +39,13 @@ Update the requested project CLAUDE.md, AGENTS.md or established scoped instruct
 - When enforcement is requested, choose an assertion the runtime can actually test. Literal/import guards need representative positive and negative controls and a matching rule scope. For semantic behavior, implement a focused project test with a meaningful failure control instead of claiming a string scanner proves it.
 - Inspect saved state and read the written block back. Run the guard and report its covered files, failures or incomplete coverage. A changed/retired/missing rule makes its guard stale. Integrate automatic enforcement into existing CI or explicitly trusted hooks only when requested.
 
+## Technical method
+
+- **Inspect:** Identify explicit durable rules, accepted decisions, corrections, target files and instruction precedence.
+- **Apply:** Merge relevant concise context while preserving existing human text; inspect host loading scope and provenance rather than assuming it.
+- **Avoid misdiagnosis:** Saving a rule in the wrong directory or confusing a proposal with a user decision can silently change behavior.
+- **Check the result:** Preview/read back the edit, inspect conflicts and loading evidence, and test configured rule controls without claiming textual guards enforce semantics.
+
 ## Read when relevant
 
 - Building or updating CLAUDE.md/AGENTS.md from an explicit rule or conversation context: [Instruction memory](../../references/instruction-memory.md).

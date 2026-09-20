@@ -32,6 +32,17 @@ Only the requested local changes; external actions require their exact action an
 - Inspect current patterns, resolve critical ambiguity, implement coherent changes, handle error states, and run checks appropriate to the behavior changed.
 - Trace the closest existing journey, implement the smallest complete vertical slice, and exercise failure recovery before expanding optional states.
 
+## Technical method
+
+- **Inspect:** Inspect the relevant architecture, data/interface contracts, existing conventions and acceptance criteria.
+- **Apply:** Implement one coherent vertical path, load applicable domain guides and verify user-visible behavior plus material failure states.
+- **Avoid misdiagnosis:** Building isolated components without connecting the actual entry point leaves the feature unusable.
+- **Check the result:** Exercise the integrated result and check the exact changed artifacts, preserving explicit gaps when real dependencies are unavailable.
+
+## Read when relevant
+
+- Language/runtime semantics, concurrency or resource ownership can change the result: [Language and runtime review methods](../../references/scenarios/language-review.md).
+
 ## Decision branches
 
 - **When a business rule is unspecified:** Continue independent plumbing and ask only for the rule that changes user-visible behavior.

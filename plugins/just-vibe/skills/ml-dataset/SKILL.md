@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Compare available fields/outcomes with task needs, inspect cohort/time coverage, assess missing-label patterns and selection processes, and identify unsupported deployment populations.
 - Compare collection/selection and follow-up windows with deployment population, inspect coverage by cohort/time and identify censored or missing outcomes.
 
+## Technical method
+
+- **Inspect:** Inspect collection mechanism, row grain, entity coverage, duplicates, labels and permission to use the data.
+- **Apply:** Assess whether observations cover the intended deployment population and whether outcomes are observable without selection artifacts.
+- **Avoid misdiagnosis:** More rows do not remove survivor bias or dependence between observations.
+- **Check the result:** Reconcile sample membership and label coverage by important groups; distinguish observed gaps from unsupported population conclusions.
+
 ## Decision branches
 
 - **When training data excludes the intended deployment cohort:** Limit generalization claims and propose evidence collection before model complexity.

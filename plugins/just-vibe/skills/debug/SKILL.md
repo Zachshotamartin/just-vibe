@@ -32,6 +32,17 @@ None by default. Plan artifacts may be saved when requested.
 - Build a hypothesis list, inspect logs and code, seek evidence that distinguishes causes, and identify the smallest next experiment.
 - Rank hypotheses by discriminating observations, trace the first divergence from expected behavior, and use bounded probes rather than repeated full runs.
 
+## Technical method
+
+- **Inspect:** Collect logs, inputs, revision/environment and a bounded reproduction.
+- **Apply:** Rank hypotheses by evidence and run the smallest experiment that distinguishes them before changing code.
+- **Avoid misdiagnosis:** Correlation with a recent edit or a noisy downstream stack trace does not establish causality.
+- **Check the result:** Explain the causal chain and the observation that rejected competing hypotheses; unresolved causes remain unresolved.
+
+## Read when relevant
+
+- Language/runtime semantics, concurrency or resource ownership can change the result: [Language and runtime review methods](../../references/scenarios/language-review.md).
+
 ## Decision branches
 
 - **When logs establish symptoms but not causation:** Report competing hypotheses and the lowest-cost observation that separates them.

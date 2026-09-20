@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Check package/schema compatibility, define cohort routing and comparison metrics, preserve fallback artifacts, prepare staged gates, and verify authorized transitions against evidence.
 - Check feature/schema/artifact compatibility, define shadow/canary routing and predeclared stop criteria, and preserve a usable fallback plus traffic-switch mechanism.
 
+## Technical method
+
+- **Inspect:** Resolve candidate/baseline models, compatibility, routing identity, shadow side effects and rollback conditions.
+- **Apply:** Compare shadow or canary traffic under a stable assignment policy; define operational stops and enough label maturity for quality claims.
+- **Avoid misdiagnosis:** Shadow requests must not duplicate real effects; early unlabeled traffic only establishes operational behavior.
+- **Check the result:** Exercise rollback with in-flight requests, verify model attribution and keep operational acceptance separate from delayed quality acceptance.
+
 ## Decision branches
 
 - **When fallback cannot consume the new schema or features:** Resolve that compatibility before describing rollback as available.

@@ -39,6 +39,13 @@ No project or external-service writes. Keep quiz state in session context; save 
 
 Task-specific method: Resolve the topic or recent lesson, select practice by default or test when requested, and set a bounded question count (default five). Identify the native question tool and verify availability and permitted use before preparing the quiz. Ask one clear question with three plausible short choices using the real native question tool. Include prerequisite understanding, a worked-state prediction and an application or tradeoff question as appropriate; shuffle choices and avoid answer-revealing labels or descriptions. Wait for an actual submitted answer. A default/preselected option, an async call returning, a timeout, skip or cancellation is not a correct or incorrect answer. Keep the same pending question until its response is resolved. In practice mode explain the answer after submission and adapt subsequent difficulty/concept to demonstrated understanding. In test mode defer correctness feedback until completion. Evaluate free-text answers fairly against the actual question rather than guessing a clicked option. Finish at the question limit or user cancellation with a bounded assessment, missed concepts and suggested review. Do not claim mastery from a short quiz or save a permanent learner profile without request. Establish question count and practice versus test mode; test one concept per question and keep the answer key out of the presentation payload.
 
+## Technical method
+
+- **Inspect:** Inspect requested topic, level, previous answers and availability of the host's native question dialog.
+- **Apply:** Ask one discriminating multiple-choice question in the dialog, wait for the answer, explain why choices differ and adapt the next question.
+- **Avoid misdiagnosis:** Inline answer dumps or revealing the correct answer before the response defeat the test; unavailable native UI needs an explicit fallback.
+- **Check the result:** Verify that questions wait for a real answer and that a misconception changes subsequent practice without claiming mastery from one guess.
+
 ## Decision branches
 
 - **When question tool is missing or restricted to clarification:** Report that assessment is unavailable in this mode; do not disguise quiz questions as implementation clarifications.

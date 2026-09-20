@@ -32,6 +32,13 @@ Only the requested local changes; external actions require their exact action an
 - Provision/use authorized isolated fixtures, exercise actual interfaces, control setup/cleanup, test failures, and record what remains mocked.
 - Choose an isolated dependency instance or existing fixture environment, control data identity and verify persistence, serialization and failure cleanup across the actual boundary.
 
+## Technical method
+
+- **Inspect:** Locate the real serialization, database, process or provider boundary and isolated test target.
+- **Apply:** Exercise actual boundary semantics with deterministic fixtures and cleanup after partial setup.
+- **Avoid misdiagnosis:** An in-memory substitute may not match transaction isolation, collation or permission behavior of the deployed engine.
+- **Check the result:** Test one success and a boundary failure on the intended technology/version and report which dependencies remain simulated.
+
 ## Decision branches
 
 - **When only a fake dependency is available:** Label contract assumptions and avoid claiming the real database/provider was exercised.

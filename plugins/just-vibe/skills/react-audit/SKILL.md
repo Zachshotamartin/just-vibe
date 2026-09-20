@@ -32,6 +32,17 @@ None by default. Plan artifacts may be saved when requested.
 - Trace props/state and lifecycle, identify reachable failure paths, inspect tests and framework constraints, and rank concrete risks.
 - Identify React/framework version and server/client boundary, then trace state ownership, hook order, key identity and reachable interaction states.
 
+## Technical method
+
+- **Inspect:** Inspect component ownership, hook dependencies, keys, server/client boundaries and concrete interactions.
+- **Apply:** Trace props and state across an actual transition; apply security guidance only to changed trust boundaries such as raw HTML or server actions.
+- **Avoid misdiagnosis:** Missing memoization is not automatically a defect, and ordinary JSX text is escaped by React.
+- **Check the result:** Tie each finding to a reproducible state/trigger and check the caller or framework guard before reporting it.
+
+## Read when relevant
+
+- The task depends on framework defaults, middleware, RLS, server/client or deployment behavior: [Framework-specific review branches](../../references/security/frameworks.md).
+
 ## Decision branches
 
 - **When source suggests excess rendering without a profile:** Report a performance hypothesis separately from demonstrated correctness defects.

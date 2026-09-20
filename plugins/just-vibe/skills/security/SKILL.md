@@ -29,8 +29,21 @@ None by default. Plan artifacts may be saved when requested.
 
 ## Execute
 
-- Identify trust boundaries, follow untrusted input and access checks, use safe evidence, and prioritize exploitable paths over generic advice.
-- Identify entry points, assets and trust boundaries, then trace the complete attacker-controlled path to a sensitive effect and existing controls.
+- Identify the requested scope, assets, entry points, trust boundaries and available source/runtime evidence. Read the security methods and review selector, then the matching vulnerability and framework sections.
+- Trace each relevant attacker-controlled source through transformations and existing controls to the sensitive effect. Challenge suspected findings with legitimate controls; use available scanners according to their evidence procedure and keep unknown or skipped coverage explicit.
+
+## Technical method
+
+- **Inspect:** Identify scoped assets, attacker-controlled entry points, deployed assumptions and existing trust controls.
+- **Apply:** Read the security review selector, relevant vulnerability cards and matching framework defaults before tracing source to sensitive effect.
+- **Avoid misdiagnosis:** A suspicious API or generic checklist entry is not proof of exploitability; unseen deployment defenses remain unknown.
+- **Check the result:** For each finding establish prerequisites, reachable path, missing control and impact, plus a safe rejection/legitimate-control check where feasible.
+
+## Read when relevant
+
+- Reviewing code or security boundaries: select and read the matching technical branches before concluding: [Review selection and evidence](../../references/security/review.md).
+- Performing the scoped security audit: [Security methods](../../references/packs/security.md).
+- An available scanner or dependency advisory check can answer the scoped question: [Scanner selection and evidence](../../references/security/scanners.md).
 
 ## Decision branches
 

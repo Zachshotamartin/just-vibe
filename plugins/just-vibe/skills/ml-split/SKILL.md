@@ -35,6 +35,13 @@ None by default. Plan artifacts may be saved when requested.
 - Derive group separation, purging or gaps from the stated deployment question and actual dependence/availability evidence. Record deterministic membership and exclusions with reasons; do not invent a universal embargo duration.
 - Verify exact boundaries, label maturity, duplicates, relevant group overlap, empty partitions and transform fit membership. Report the number of rows and number with evaluable labels separately.
 
+## Technical method
+
+- **Inspect:** Inspect deployment question, time/order, repeated entities, overlap and label maturity.
+- **Apply:** Choose temporal/group boundaries that match known-entity versus unseen-entity deployment; derive gaps from actual information overlap.
+- **Avoid misdiagnosis:** Random splits can leak repeated entities, while universal group holdout can test a different task than the intended deployment.
+- **Check the result:** Assert disjoint required identities and training-time availability; report the exact generalization question and unresolved provenance.
+
 ## Decision branches
 
 - **When the model will serve both known and unseen entities:** Define separate evaluation questions instead of asserting one grouping rule answers both.

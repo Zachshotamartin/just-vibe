@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Validate isolation and side effects, establish baseline, ramp within limits, observe latency/errors/resources, stop on thresholds, and correlate saturation.
 - Define exact target, traffic shape, concurrency/rate/duration and stop thresholds; validate side effects and ramp in a controlled environment with telemetry.
 
+## Technical method
+
+- **Inspect:** Resolve exact authorized target, realistic workload, rate/concurrency/duration caps and resource stop thresholds.
+- **Apply:** Model arrivals and user journeys explicitly; monitor server and client bottlenecks and isolate real payments/messages.
+- **Avoid misdiagnosis:** Closed-loop clients can hide overload by slowing request generation; averages conceal long tails and errors.
+- **Check the result:** Confirm healthy control load, bounded ramp and recovery, preserving actual achieved rates, tail latency and stop reason.
+
 ## Decision branches
 
 - **When error rate or resource pressure crosses the declared cap:** Stop traffic, preserve measurements and report the last stable level without extrapolating beyond it.

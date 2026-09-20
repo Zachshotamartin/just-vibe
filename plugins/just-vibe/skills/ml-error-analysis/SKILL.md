@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Define errors according to task, group by meaningful factors, inspect representative cases and denominators, distinguish label problems, and propose targeted next experiments.
 - Define the error event and denominator, group by meaningful factors and compare representative failures with matched successes and possible label problems.
 
+## Technical method
+
+- **Inspect:** Inspect representative failures, successes, uncertainty, labels and error severity.
+- **Apply:** Group by plausible mechanism and estimate frequency before proposing a targeted data/model/product change.
+- **Avoid misdiagnosis:** Anecdotal errors or explanation scores do not establish a causal pattern across the population.
+- **Check the result:** Check the hypothesized group on independent examples and include correct predictions that resemble the failures.
+
 ## Decision branches
 
 - **When the analysis uses held-out test outcomes:** Keep findings exploratory and require fresh confirmation before tuning to those patterns.

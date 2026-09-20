@@ -32,6 +32,13 @@ Only the requested local changes; external actions require their exact action an
 - Analyze reference geometry, compare an equivalent render, prioritize largest discrepancies, implement changes, and repeat bounded comparisons.
 - Match viewport, content and fonts before comparing geometry; adjust large layout discrepancies before decorative details and record legitimate responsive differences.
 
+## Technical method
+
+- **Inspect:** Establish reference identity, viewport, fonts, assets and the intended tolerance.
+- **Apply:** Compare geometry, typography, color and content in matched rendered states; prioritize structural differences before micro-adjustments.
+- **Avoid misdiagnosis:** A different viewport or unloaded font can masquerade as implementation error; screenshot similarity does not prove behavior.
+- **Check the result:** Retain comparable images and verify the adjusted UI still handles interaction and responsive states.
+
 ## Decision branches
 
 - **When the reference omits a required state:** Preserve established interaction behavior and label the added state as an interpretation.

@@ -35,6 +35,13 @@ None by default. Plan artifacts may be saved when requested.
 - Define recovery per phase: code rollback, forward repair, and restoration of lost information are different operations. Delay destructive contraction until old readers/writers are retired and the agreed evidence establishes compatibility.
 - Use the matching bundled evidence collector when available; read its result and limitations rather than treating exit zero as readiness. Revalidate identity before a dependent action.
 
+## Technical method
+
+- **Inspect:** Read generated SQL, migration ledger, engine/version, data volume, locks and active application versions.
+- **Apply:** Plan expansion/backfill/switch/contraction where needed; define idempotent resume and recovery at each irreversible step.
+- **Avoid misdiagnosis:** ORM migration generation does not establish safe production locking; a down migration cannot recreate discarded values.
+- **Check the result:** Apply to a representative isolated schema/data copy, interrupt a batch, resume and check compatibility with both application versions.
+
 ## Read when relevant
 
 - Resolving check, deployment or migration identity: [Delivery evidence](../../references/scenarios/delivery-evidence.md).

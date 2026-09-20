@@ -32,6 +32,13 @@ Only the requested local changes; external actions require their exact action an
 - Inspect baseline renders, prioritize visible issues, adjust shared tokens/components where appropriate, and compare the same states after changes.
 - Capture the same viewport/state before editing; fix the dominant hierarchy, spacing or alignment issue at the shared primitive when appropriate.
 
+## Technical method
+
+- **Inspect:** Inspect rendered hierarchy, spacing, typography, alignment and interaction feedback in the existing design.
+- **Apply:** Fix the largest visible inconsistencies while preserving established product behavior and visual intent.
+- **Avoid misdiagnosis:** Arbitrary token changes can improve one screen while breaking sibling components or dense content.
+- **Check the result:** Compare matched before/after states and inspect long text, narrow layout and focus/error treatments.
+
 ## Decision branches
 
 - **When a visual change alters hit areas or focus visibility:** Recheck interaction and keyboard behavior before accepting the visual improvement.

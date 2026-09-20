@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Inspect precedence and base paths, trace bounded read-only requests, compare preview/production assumptions, and identify loops or unmatched paths.
 - Build a request table with host, path, method and expected handler; trace redirects, rewrites, filesystem and framework routing in effective order.
 
+## Technical method
+
+- **Inspect:** Inspect framework routes, platform rewrites/redirects, domain target, base path and effective response headers.
+- **Apply:** Follow one URL through each routing layer; check precedence and loops with redirect following bounded.
+- **Avoid misdiagnosis:** An SPA fallback returning HTML for JavaScript or API URLs can look like HTTP success while breaking clients.
+- **Check the result:** Test direct nested navigation, asset MIME types, API errors, query preservation and the intended redirect status/method behavior.
+
 ## Decision branches
 
 - **When a catch-all rewrite returns HTML for API or asset paths:** Narrow the rule and verify reserved paths plus direct nested navigation.

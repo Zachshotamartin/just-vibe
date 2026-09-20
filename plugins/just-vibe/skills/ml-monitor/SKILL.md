@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Separate leading signals from outcome metrics, define joins and delay windows, choose thresholds and runbook actions, and implement only requested instrumentation/configuration.
 - Separate service, feature, prediction and delayed-outcome signals; define stable joins, label-lag windows and model-version attribution.
 
+## Technical method
+
+- **Inspect:** Trace prediction IDs to model/data versions, outcomes, label delay, errors and operational measurements.
+- **Apply:** Define quality windows based on matured labels and connect each alert to a diagnosis/recovery action.
+- **Avoid misdiagnosis:** Missing outcomes can bias observed accuracy; unchanged inputs do not prove unchanged target relationships.
+- **Check the result:** Simulate delayed/missing labels, a model revision and an outage; verify denominators, routing and unknown-quality states.
+
 ## Decision branches
 
 - **When recent predictions have not had time to receive labels:** Exclude them from matured quality denominators and report pending follow-up separately.

@@ -34,6 +34,13 @@ None by default. Plan artifacts may be saved when requested.
 - For preventive changes, separate input validation from shared storage constraints and atomic multi-row checks. Verify type/range, ownership, uniqueness, referential rules and overflow where relevant to the invariant.
 - Propose repair with a selection predicate, expected count, restart behavior and recovery boundary. Implement only within the requested scope; detection does not authorize a live cleanup or schema change.
 
+## Technical method
+
+- **Inspect:** Identify claimed invariants, enforcing constraints, existing violation counts and repair ownership.
+- **Apply:** Use bounded aggregate queries and redacted synthetic examples; separate diagnosis, business reconciliation and constraint rollout.
+- **Avoid misdiagnosis:** Automatically deleting orphans can erase legitimate records awaiting asynchronous completion.
+- **Check the result:** Verify each invariant with both valid and invalid fixtures and show unresolved real-data policy decisions before any live repair.
+
 ## Decision branches
 
 - **When data violates an ambiguous business rule:** Report the evidence and policy question before proposing deletion or repair.

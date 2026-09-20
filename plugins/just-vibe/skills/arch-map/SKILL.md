@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Reconcile source, deployment configuration, and documentation; identify ownership and protocols; trace a representative request and background process; label inferred edges.
 - Trace one request and one background operation, marking process, network, ownership and trust boundaries independently.
 
+## Technical method
+
+- **Inspect:** Inspect composition roots, manifests, outbound clients, infrastructure definitions and queue registrations; associate each edge with its source.
+- **Apply:** Separate imports, runtime calls and deployment boundaries. Follow one request into durable storage and one asynchronous continuation.
+- **Avoid misdiagnosis:** A package dependency does not prove a network call or independently deployed service; missing infrastructure leaves deployment unknown.
+- **Check the result:** Reconcile one diagram path against real entry points and consumers, including an error return; label inferred edges.
+
 ## Decision branches
 
 - **When documentation disagrees with deployment configuration:** Show both claims with evidence dates and leave live topology unconfirmed without observations.

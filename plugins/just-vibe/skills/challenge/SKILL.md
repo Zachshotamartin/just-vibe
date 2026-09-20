@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Identify critical assumptions, search for disconfirming evidence, construct plausible edge cases, and rank issues by impact and likelihood.
 - Extract falsifiable assumptions and seek counterexamples in current code, workload and constraints; distinguish observed defects from speculative risks.
 
+## Technical method
+
+- **Inspect:** Inspect the proposal's claimed benefits, assumptions, constraints and failure/recovery model.
+- **Apply:** Construct concrete counterexamples and identify evidence that could falsify the key assumption.
+- **Avoid misdiagnosis:** Contrarian preferences or speculative catastrophes without a mechanism add noise.
+- **Check the result:** Test whether the proposal survives the strongest relevant counterexample and distinguish resolved from open objections.
+
 ## Decision branches
 
 - **When an assumption survives the available evidence:** Keep it accepted provisionally and name evidence that would reverse the conclusion.

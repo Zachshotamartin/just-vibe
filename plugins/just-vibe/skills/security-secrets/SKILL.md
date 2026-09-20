@@ -32,6 +32,18 @@ None by default. Plan artifacts may be saved when requested.
 - Scan the specified sources with redacted output, distinguish placeholders from plausible secrets, map exposure surfaces, and propose owner/provider-specific remediation.
 - Run approved scanners with redacted output over the requested scope, classify placeholders and locate exposure surfaces without copying values into reports.
 
+## Technical method
+
+- **Inspect:** Inspect scoped source, tracked history when requested, build outputs and redacted scanner locations.
+- **Apply:** Distinguish placeholders/public identifiers from secret material; report type/location without value and separate remediation from rotation/history changes.
+- **Avoid misdiagnosis:** Testing a suspected credential against its provider exposes it and exceeds source review; deletion does not revoke an exposed credential.
+- **Check the result:** Use fake canaries and benign placeholders to validate redaction and detection; identify unknown rotation status without trying live keys.
+
+## Read when relevant
+
+- Dependencies, builds, secrets, hooks or privileged execution cross a trust boundary: [Dependency and execution provenance](../../references/security/supply-chain.md).
+- An available scanner or dependency advisory check can answer the scoped question: [Scanner selection and evidence](../../references/security/scanners.md).
+
 ## Decision branches
 
 - **When a plausible credential is found:** Record location/type and rotation owner/provider steps; do not test it against a live service by default.

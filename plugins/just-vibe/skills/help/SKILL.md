@@ -35,6 +35,13 @@ None by default. Plan artifacts may be saved when requested.
 
 Task-specific method: Match intent, identify the best available workflow, explain required context and prerequisites, and provide a prefilled host-appropriate invocation. Resolve the user's intended outcome and preferred mode, compare nearby commands using their selection boundaries, and offer one primary invocation with preserved context. Start with a small relevant selection, not the full catalog. Use route reasons, detected stack, explicit workflow names and ambiguity; preserve negative constraints and separate relevance from prerequisite availability. Offer tools --all for the complete inventory.
 
+## Technical method
+
+- **Inspect:** Resolve the user's task and whether they need discovery, invocation syntax or workflow details.
+- **Apply:** Show a small relevant selection with appended-context examples and necessary prerequisites.
+- **Avoid misdiagnosis:** Dumping every command creates search burden; a lexical match does not establish capability availability.
+- **Check the result:** Confirm each suggested command exists and explain the boundary between near matches without starting the task implicitly.
+
 ## Read when relevant
 
 - Browsing, routing or explaining the new utilities: [Discovery and daily utilities](../../references/daily-workflows.md).

@@ -29,3 +29,7 @@ Secret reports contain locations/types and redacted evidence, never credential v
 ### Dependency and configuration triage
 
 Match advisories to resolved versions, deployed use and required configuration. Separate dev tooling from runtime exposure. Review effective production settings rather than labeling every development exception a live incident. Missing access means unknown coverage. Repair the owning boundary and test both abuse and legitimate behavior before claiming the requested vulnerability is fixed.
+
+## Technical routing
+
+Start scoped reviews with the [review selector](../security/review.md). Follow its matching [injection](../security/injection.md), [identity](../security/identity.md), [file](../security/files.md), [framework](../security/frameworks.md) and [supply-chain](../security/supply-chain.md) branches before relying on those protections. Use [scanner procedures](../security/scanners.md) for actual tool execution, result classification and coverage. These references include unsafe/corrected examples, prerequisites and legitimate controls; reading them does not establish that a check ran.

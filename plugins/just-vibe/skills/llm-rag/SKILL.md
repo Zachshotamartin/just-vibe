@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Define source identity and access filtering, choose document/chunk lifecycle, evaluate retrieval separately, enforce citation/abstention behavior, and test unsupported queries.
 - Define document identity/version/access control, chunk lifecycle and evidence requirements; test retrieval independently from answer generation and citation correctness.
 
+## Technical method
+
+- **Inspect:** Trace source permissions, ingestion versions, chunk identity, retrieval filters, ranking and citation construction.
+- **Apply:** Evaluate retrieval separately from answer generation; enforce access before returning context and preserve source/version provenance.
+- **Avoid misdiagnosis:** A relevant unauthorized chunk is still a data leak; quoted text may contain hostile instructions that must remain data.
+- **Check the result:** Use answerable, unanswerable, stale-source and cross-tenant queries, checking retrieved documents and attempted tool actions as well as final prose.
+
 ## Decision branches
 
 - **When relevant evidence is absent or filtered by permission:** Abstain or qualify without revealing unauthorized document existence/content.

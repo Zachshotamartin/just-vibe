@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Locate definitions and callers, inspect important branches, distinguish static inference from observed runtime behavior, and adapt terminology to the brief.
 - Locate the definition and a real caller; walk one concrete input through transformations, outputs, side effects and failure handling with file references.
 
+## Technical method
+
+- **Inspect:** Read the target definition, at least one caller, data shapes and relevant error handling.
+- **Apply:** Walk one concrete input through state changes, output and side effects at the requested depth.
+- **Avoid misdiagnosis:** Plausible business intent cannot be inferred solely from a function name; configuration-dependent behavior remains conditional.
+- **Check the result:** Reconcile the walkthrough with source branches and show an edge path that changes the outcome.
+
 ## Decision branches
 
 - **When explanation depends on configuration or external behavior not supplied:** Separate the source-established path from conditional behavior and name the missing evidence.

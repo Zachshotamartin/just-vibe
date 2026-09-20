@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Specify unit of analysis, target/label horizon, information available at prediction time, action taken from predictions, baseline, and costs of errors.
 - State one prediction row's entity, timestamp, available information, label horizon and downstream action; compare a rule-based decision before choosing ML.
 
+## Technical method
+
+- **Inspect:** Establish prediction entity/time, decision being supported, available information, outcome horizon and label maturity.
+- **Apply:** Translate product value into a measurable objective with a naive comparator and deployment population.
+- **Avoid misdiagnosis:** Optimizing an available label can answer a different question from the real decision; missing follow-up is not a negative outcome.
+- **Check the result:** Walk one positive, negative and censored example through feature availability, prediction and eventual label eligibility.
+
 ## Decision branches
 
 - **When label timing or intervention changes the observed outcome:** Separate prediction from causal/intervention claims and identify the missing observation process.

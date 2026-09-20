@@ -32,6 +32,18 @@ Only the requested local changes; external actions require their exact action an
 - Reuse domain conventions, validate inputs, separate transport from business rules, implement persistence/error handling, and test observable behavior.
 - Identify transaction ownership and domain invariants, keep transport parsing outside business decisions and make dependency failures observable to callers.
 
+## Technical method
+
+- **Inspect:** Trace transport parsing, validation, domain invariants, transaction ownership and downstream effects.
+- **Apply:** Keep business validation at the owning boundary; represent expected failures separately from infrastructure uncertainty.
+- **Avoid misdiagnosis:** Broad catch-and-success fallbacks can report an order created when its durable write failed.
+- **Check the result:** Exercise valid input, invalid input, authorization failure and a dependency failure after partial progress; verify persisted state as well as response.
+
+## Read when relevant
+
+- The task depends on framework defaults, middleware, RLS, server/client or deployment behavior: [Framework-specific review branches](../../references/security/frameworks.md).
+- Language/runtime semantics, concurrency or resource ownership can change the result: [Language and runtime review methods](../../references/scenarios/language-review.md).
+
 ## Decision branches
 
 - **When one operation spans local persistence and an external effect:** Define outbox/reconciliation or compensating behavior before claiming atomicity.

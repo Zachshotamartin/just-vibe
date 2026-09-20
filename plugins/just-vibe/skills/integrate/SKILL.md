@@ -32,6 +32,17 @@ Only the requested local changes; external actions require their exact action an
 - Verify compatibility, implement a narrow boundary, protect secrets, add timeout/error behavior, and validate with a sandbox or controlled fixture.
 - Resolve provider version and request/response schemas; implement a controlled fake for success, refusal, timeout and malformed replies before live verification.
 
+## Technical method
+
+- **Inspect:** Resolve provider/library version, credentials ownership, request/response contracts and failure semantics.
+- **Apply:** Use the supported client and boundary adaptation, validate external data and reconcile uncertain mutating responses.
+- **Avoid misdiagnosis:** A mock success does not prove provider configuration, and retrying after timeout can duplicate a remote effect.
+- **Check the result:** Exercise a controlled successful exchange, rejected/malformed response and timeout, recording which boundaries were real.
+
+## Read when relevant
+
+- Language/runtime semantics, concurrency or resource ownership can change the result: [Language and runtime review methods](../../references/scenarios/language-review.md).
+
 ## Decision branches
 
 - **When a timeout may follow a completed external mutation:** Reconcile by stable operation identity before retrying, and expose uncertainty to the caller.

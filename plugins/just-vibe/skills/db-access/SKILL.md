@@ -32,6 +32,18 @@ None by default. Plan artifacts may be saved when requested.
 - Inspect grants and execution identities, trace connection-role behavior, evaluate policies including writes, and design or run authorized isolated access checks.
 - Trace the actual runtime role and ownership/bypass privileges; inspect read and write predicates with positive and cross-tenant negative cases.
 
+## Technical method
+
+- **Inspect:** Read actual connection roles, grants, RLS read/write predicates, owner/bypass privileges and tenant context setup/reset.
+- **Apply:** Test using the application role and transaction/pool lifecycle; distinguish row visibility from INSERT/UPDATE policy enforcement.
+- **Avoid misdiagnosis:** Table owners or bypass roles can make policy tests pass incorrectly; pooled session tenant state can leak into the next request.
+- **Check the result:** Alternate tenants on reused connections and test select/insert/update/delete plus indirect views/functions under the intended role.
+
+## Read when relevant
+
+- Identity, ownership, tenant isolation, replay or privilege changes affect the task: [Identity and authorization](../../references/security/identity.md).
+- The task depends on framework defaults, middleware, RLS, server/client or deployment behavior: [Framework-specific review branches](../../references/security/frameworks.md).
+
 ## Decision branches
 
 - **When tests run as an elevated owner/service role:** Do not infer ordinary-user isolation from those results; test the intended execution identity.

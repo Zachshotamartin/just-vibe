@@ -35,6 +35,13 @@ Only the requested local changes; external actions require their exact action an
 - Report the causal evidence, changed configuration/code, local result and the deployment/revision actually observed remotely. Redact values and do not download secrets as incidental diagnosis.
 - Use the matching bundled evidence collector when available; read its result and limitations rather than treating exit zero as readiness. Revalidate identity before a dependent action.
 
+## Technical method
+
+- **Inspect:** Capture the first causal build error, deployed SHA, working directory, lockfile, Node version and variable names/scopes.
+- **Apply:** Reproduce the failed build conditions locally where possible; test whether the failure is dependency resolution, compilation or missing configuration.
+- **Avoid misdiagnosis:** A later wrapper exit hides the initial cause; supplying a production secret locally can conceal a missing preview scope.
+- **Check the result:** Run the matching build and inspect the new deployment's build result at the changed SHA, keeping local and remote evidence distinct.
+
 ## Read when relevant
 
 - Resolving check, deployment or migration identity: [Delivery evidence](../../references/scenarios/delivery-evidence.md).

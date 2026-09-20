@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Map entry/chunk relationships, inspect waterfalls and dependency duplication, evaluate cache/initial-load tradeoffs, and propose focused splitting changes.
 - Map dynamic imports and shared chunks to representative navigation waterfalls; examine duplication, circular dependencies and cache invalidation costs.
 
+## Technical method
+
+- **Inspect:** Inspect dynamic imports, shared dependencies, manual chunk rules and module side effects.
+- **Apply:** Split at meaningful usage boundaries and check initialization order and caching across releases.
+- **Avoid misdiagnosis:** A smaller entry chunk can add serial requests or cause a stale HTML document to reference a deleted old chunk.
+- **Check the result:** Test cold navigation, lazy routes and an older open page during deployment; define reload/recovery for missing chunks.
+
 ## Decision branches
 
 - **When manual splitting changes execution order or creates a waterfall:** Verify module side effects and route transitions before accepting byte reductions.

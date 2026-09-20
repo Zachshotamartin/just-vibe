@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Normalize capture conditions, identify meaningful regions, separate dynamic content noise, and describe differences by user impact.
 - Match viewport, DPR, fonts, content, theme and animation state; mask only justified nondeterminism and inspect changed regions before accepting baselines.
 
+## Technical method
+
+- **Inspect:** Record baseline approval, viewport, fonts, data, time and screenshot environment.
+- **Apply:** Compare matched states, separating rendering noise from layout/content changes; inspect differences before replacing a baseline.
+- **Avoid misdiagnosis:** Approving a new screenshot merely because it differs converts a regression into the expected result.
+- **Check the result:** Reproduce significant differences with stable fonts/data and retain both images plus a reason for accepted changes.
+
 ## Decision branches
 
 - **When captures differ in environment or content:** Recreate comparable captures or give qualitative differences without a precise pixel claim.

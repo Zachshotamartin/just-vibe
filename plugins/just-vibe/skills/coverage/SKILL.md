@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Map requirements and failure paths to tests, inspect assertions rather than names, and rank gaps by consequence and likelihood.
 - Trace important failure and recovery paths to actual assertions; look for tests that pass when the requirement is deliberately violated.
 
+## Technical method
+
+- **Inspect:** Map requirements and failure modes to existing tests and observed execution.
+- **Apply:** Prioritize unprotected invariants and boundary cases over raw line percentage.
+- **Avoid misdiagnosis:** Executed lines do not establish meaningful assertions; mocks can leave the real boundary untested.
+- **Check the result:** Demonstrate an important plausible defect that escapes current checks and specify the smallest test that would catch it.
+
 ## Decision branches
 
 - **When line coverage is high but assertions ignore the effect:** Prioritize the missing invariant over increasing the percentage.

@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Validate shapes and pipeline, run a small smoke test, record configuration/environment, train within bounds, checkpoint, and evaluate only the permitted validation protocol.
 - For resumable training inventory model, optimizer, scheduler, scaler when used, step, RNG and sampler/data position; checkpoint atomically and compare interrupted versus uninterrupted continuation under declared tolerances.
 
+## Technical method
+
+- **Inspect:** Inspect framework/version, shapes, loss semantics, device/dtype, optimizer, scheduler and data/sampler state.
+- **Apply:** Run a bounded smoke batch, then checkpoint at a defined boundary including continuation state; load the training scenario for the actual framework.
+- **Avoid misdiagnosis:** Restoring weights alone is not exact resume; a seed alone does not guarantee deterministic kernels or data order.
+- **Check the result:** Compare interrupted and uninterrupted short runs under stated tolerances and verify atomic checkpoint recovery after an incomplete write.
+
 ## Read when relevant
 
 - Selecting classical, tensor or distributed/resumable methods: [Training scenarios](../../references/scenarios/training.md).

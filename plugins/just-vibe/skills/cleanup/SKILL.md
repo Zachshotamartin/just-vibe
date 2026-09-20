@@ -32,6 +32,13 @@ Only the requested local changes; external actions require their exact action an
 - Find candidates, check dynamic/configuration references and public exports, remove only supported candidates, and verify affected builds/behavior.
 - Check static callers, public exports, framework conventions and runtime registration; remove a coherent candidate set with a restorable diff.
 
+## Technical method
+
+- **Inspect:** Locate apparently unused code/assets and inspect static, dynamic, generated and externally documented consumers.
+- **Apply:** Remove only verified dead paths in coherent groups and update references/generated outputs from their source.
+- **Avoid misdiagnosis:** Static search can miss reflection, routing conventions, plugins or public consumers.
+- **Check the result:** Run relevant build/behavior checks and preserve uncertain external API uses rather than deleting them on absence of local references.
+
 ## Decision branches
 
 - **When use cannot be excluded because loading is dynamic:** Retain the candidate and name the missing runtime or configuration evidence.

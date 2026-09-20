@@ -32,6 +32,13 @@ Only the requested local changes; external actions require their exact action an
 - Identify questions telemetry must answer, choose stable low-cardinality dimensions, propagate correlation, redact data, and verify normal/error instrumentation locally.
 - Start with questions operators must answer, propagate correlation across boundaries and select bounded-cardinality metrics plus redacted structured events.
 
+## Technical method
+
+- **Inspect:** Identify a specific unanswered operational question, request lifecycle and data sensitivity/cardinality.
+- **Apply:** Instrument useful stage timing, failure categories and correlation while bounding labels, volume and overhead.
+- **Avoid misdiagnosis:** User IDs in metric labels cause unbounded cardinality; logging full payloads can expose credentials or private data.
+- **Check the result:** Exercise success/error/cancellation and inspect exported telemetry, redaction, label bounds and instrumentation overhead.
+
 ## Decision branches
 
 - **When proposed labels contain user IDs or arbitrary payload values:** Move needed detail to controlled logs/traces or aggregate dimensions instead of unbounded metric labels.

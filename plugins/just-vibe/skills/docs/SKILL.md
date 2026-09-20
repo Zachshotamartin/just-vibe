@@ -32,6 +32,13 @@ Only the requested local changes; external actions require their exact action an
 - Inspect implementation and examples, update explanations and links, keep terminology consistent, and verify executable examples where authorized.
 - Check documented commands, defaults and examples against current implementation; edit source documents rather than generated copies.
 
+## Technical method
+
+- **Inspect:** Read actual code, CLI help, examples, generated sources and supported versions.
+- **Apply:** Update the source of truth and cross-links around observable behavior; distinguish setup instructions from evidence of successful execution.
+- **Avoid misdiagnosis:** Copying stale examples or generated output without rebuilding its source creates drift.
+- **Check the result:** Exercise runnable examples where practical, validate links and ensure documented defaults match the implementation.
+
 ## Decision branches
 
 - **When examples need credentials or destructive execution:** Validate syntax or a controlled substitute and label the live example unexercised.

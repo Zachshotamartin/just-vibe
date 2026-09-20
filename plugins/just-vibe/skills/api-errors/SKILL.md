@@ -32,6 +32,13 @@ Only the requested local changes; external actions require their exact action an
 - Inventory errors, preserve required compatibility, map domain failures deliberately, redact internals, and test representative client/server failures.
 - Inventory existing client-visible codes and shapes, map domain failures intentionally and preserve safe correlation IDs while redacting internal details.
 
+## Technical method
+
+- **Inspect:** Inventory exception sources, status semantics, domain codes, request IDs and retry behavior.
+- **Apply:** Map expected domain failures to stable public errors; redact internal details while retaining correlated server diagnostics.
+- **Avoid misdiagnosis:** Returning 200 with an error-shaped body or retryable status for a permanent denial misleads clients.
+- **Check the result:** Exercise invalid input, forbidden resource, dependency timeout and unexpected exception; verify public redaction and useful internal correlation.
+
 ## Decision branches
 
 - **When changing a code would break a known consumer:** Add a compatibility path or a versioned transition instead of silently normalizing it.

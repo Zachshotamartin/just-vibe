@@ -32,6 +32,13 @@ Only the requested local changes; external actions require their exact action an
 - Reproduce under controlled repeats/order/seeds, inspect first divergent evidence, fix isolation or synchronization, and rerun bounded stress checks.
 - Record order, seed, clock and shared-resource conditions, vary one factor under a repeat cap and replace timing guesses with explicit synchronization.
 
+## Technical method
+
+- **Inspect:** Gather repeated outcomes, order, seed, clock, shared resources and cleanup evidence.
+- **Apply:** Force the suspected race or shared-state condition deterministically before changing implementation or tests.
+- **Avoid misdiagnosis:** Increasing timeouts, retries or skips can hide nondeterminism rather than repair it.
+- **Check the result:** Run a bounded repeated sample with retained counts and the targeted interleaving; zero observed failures remains finite evidence.
+
 ## Decision branches
 
 - **When no failure occurs during bounded repeats:** Report the sample and uncertainty; do not declare the flake eliminated solely from absence.

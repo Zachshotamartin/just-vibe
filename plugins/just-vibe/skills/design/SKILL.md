@@ -32,6 +32,13 @@ Only the requested local changes; external actions require their exact action an
 - Inspect current UI, define hierarchy and states, implement a coherent direction, and inspect the rendered result across relevant sizes.
 - Infer hierarchy from real content and user actions; reuse project primitives, choose a coherent composition and render the primary and failure states.
 
+## Technical method
+
+- **Inspect:** Inspect audience, content hierarchy, existing design constraints, interaction states and target viewports.
+- **Apply:** Choose a coherent visual direction tied to the product task, then implement representative states and interactions.
+- **Avoid misdiagnosis:** Attractive static composition can conceal inaccessible controls, content overflow or missing recovery states.
+- **Check the result:** Review real rendered output at relevant sizes and complete the main flow using keyboard and pointer.
+
 ## Decision branches
 
 - **When references conflict with required content or accessibility:** Explain the concrete conflict and preserve the usable content hierarchy.

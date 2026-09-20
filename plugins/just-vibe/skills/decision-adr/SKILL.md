@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Inspect existing ADR conventions, separate actual agreement from recommendation, capture rationale and tradeoffs, and link superseded decisions.
 - Follow existing numbering/status conventions; include context, alternatives, consequences and links to superseded records without rewriting history.
 
+## Technical method
+
+- **Inspect:** Read the decision context, proposal history, acceptance evidence and affected contracts.
+- **Apply:** Record status, alternatives, consequences, rejected reasons and a concrete revisit trigger without rewriting prior rationale.
+- **Avoid misdiagnosis:** An agent recommendation is not an adopted organizational decision.
+- **Check the result:** Link each claimed constraint to evidence and distinguish proposed, accepted and superseded records.
+
 ## Decision branches
 
 - **When adoption is not confirmed:** Keep status proposed and distinguish the recommendation from actual agreement.

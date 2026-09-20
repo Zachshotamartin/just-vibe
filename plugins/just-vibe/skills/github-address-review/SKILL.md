@@ -33,6 +33,13 @@ Only the requested local changes; external actions require their exact action an
 - Map comments to current code and accepted contracts, resolve conflicting suggestions, and keep a per-comment disposition tied to the final diff.
 - All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
 
+## Technical method
+
+- **Inspect:** Map each comment to its current code and the accepted requirement, including already changed or conflicting requests.
+- **Apply:** Fix the demonstrated issue, preserve scope and track which comments are addressed by evidence versus need clarification.
+- **Avoid misdiagnosis:** A reviewer suggestion can be stale or introduce a regression; resolving a thread is a distinct remote action.
+- **Check the result:** Verify each accepted fix against the original trigger and re-read current review state before requested replies or resolution.
+
 ## Decision branches
 
 - **When a suggested change contradicts verified behavior or another accepted request:** Explain the conflict and seek that decision without applying incompatible edits.

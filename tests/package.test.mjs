@@ -8,6 +8,7 @@ import { tmpdir } from 'node:os';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { loadCatalog } from '../plugins/just-vibe/scripts/lib/catalog.mjs';
 import { loadProfiles } from '../plugins/just-vibe/scripts/lib/profiles.mjs';
+import { validateReferences } from '../scripts/lib/references.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 
@@ -34,6 +35,7 @@ test('npm archive contains the runnable installer and both complete plugin manif
   ]) assert.ok(paths.includes(required), `Missing from archive: ${required}`);
   const catalog = loadCatalog();
   for (const c of catalog.commands) assert.ok(paths.includes(`plugins/just-vibe/${c.skillPath}`), `Missing packaged workflow: ${c.id}`);
+  for (const c of catalog.commands) for (const guide of c.guides || []) assert.ok(paths.includes(`plugins/just-vibe/${guide.path}`), `Missing packaged guide: ${c.id} -> ${guide.path}`);
   for (const p of catalog.packs) assert.ok(paths.includes(`plugins/just-vibe/references/packs/${p.id}.md`), `Missing runbook: ${p.id}`);
   for (const p of loadProfiles().profiles) assert.ok(paths.includes(`plugins/just-vibe/references/profiles/${p.id}.md`), `Missing profile: ${p.id}`);
   assert.ok(paths.every(path => !/PLAN\.md|NAMING\.md|node_modules|\.tmp\/|\.env/.test(path)));
@@ -82,6 +84,7 @@ test('packed CLI and every skill work without the source checkout, plan or depen
   const output = npm(['pack', '--json', '--ignore-scripts', '--pack-destination', dir], { cwd: root, encoding: 'utf8' });
   const { filename } = packResult(output);
   execFileSync('tar', ['-xzf', join(dir, filename), '-C', dir]);
+  validateReferences(join(dir, 'package/plugins/just-vibe'));
   const cli = join(dir, 'package/bin/just-vibe.mjs');
   const json = execFileSync(process.execPath, [cli, 'tools', '--all', '--root', dir, '--json'], { cwd: dir, encoding: 'utf8' });
   const inventory = JSON.parse(json);
@@ -94,6 +97,8 @@ test('packed CLI and every skill work without the source checkout, plan or depen
   assert.ok(!inventory.tools.some(c => c.status === 'uninstalled'));
   const skill = execFileSync(process.execPath, [cli, 'show', 'auto'], { cwd: dir, encoding: 'utf8' });
   assert.ok(skill.includes('session start'));
+  const security = JSON.parse(execFileSync(process.execPath, [cli, 'show', 'security', '--json'], { cwd: dir, encoding: 'utf8' }));
+  assert.equal(security.technical.check, loadCatalog().commands.find(c => c.id === 'security').technical.check);
   const created = JSON.parse(execFileSync(process.execPath, [cli, 'project', 'init', '--root', dir, '--stdin'], { input: '{"preferences":{"detail":"concise"}}', encoding: 'utf8' }));
   assert.equal(created.revision, 1);
   const resumed = JSON.parse(execFileSync(process.execPath, [cli, 'project', 'show', '--root', dir], { encoding: 'utf8' }));

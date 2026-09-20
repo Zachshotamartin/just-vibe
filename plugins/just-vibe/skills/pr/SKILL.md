@@ -33,6 +33,13 @@ None by default. Plan artifacts may be saved when requested.
 - Base the description on the final diff and verified checks, account for generated artifacts, and state user-visible behavior before implementation details.
 - All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
 
+## Technical method
+
+- **Inspect:** Inspect the intended diff, acceptance criteria, actual verification and repository template.
+- **Apply:** Draft a self-contained title/body around final behavior, scope and evidence; preserve user ownership.
+- **Avoid misdiagnosis:** Local PR drafting does not authorize pushing or posting, and unrun checks cannot appear as passed.
+- **Check the result:** Reconcile every claim with the final diff and actual check identity, including any material limitation.
+
 ## Decision branches
 
 - **When local changes are absent from the pushed head:** Identify them as pending and do not describe them as submitted.

@@ -32,6 +32,19 @@ Only the requested local changes; external actions require their exact action an
 - Verify the vulnerable path, implement the control at the correct boundary, test abuse and legitimate behavior, inspect alternate paths, and document remaining operational work.
 - Reproduce the affected path in a safe fixture, enforce the control at the owning boundary and test legitimate behavior plus alternate bypass routes.
 
+## Technical method
+
+- **Inspect:** Resolve the established attacker path, prerequisite, original behavior, affected callers and accepted compatibility requirements.
+- **Apply:** Repair the enforcing boundary rather than adding a pattern-specific block; retain normal behavior and check alternate encodings/entry points.
+- **Avoid misdiagnosis:** Hiding a scanner warning or adding client validation can leave the server exploit path intact.
+- **Check the result:** Demonstrate the original unsafe behavior with an isolated regression, then verify rejection and legitimate behavior after remediation; rerun relevant available scanners.
+
+## Read when relevant
+
+- Reviewing code or security boundaries: select and read the matching technical branches before concluding: [Review selection and evidence](../../references/security/review.md).
+- Untrusted values reach queries, commands, rendering, URLs or parsers: [Injection and interpreter boundaries](../../references/security/injection.md).
+- An available scanner or dependency advisory check can answer the scoped question: [Scanner selection and evidence](../../references/security/scanners.md).
+
 ## Decision branches
 
 - **When a code fix leaves historical credential exposure or persisted bad data:** Report the remaining rotation/recovery work separately from the repaired path.

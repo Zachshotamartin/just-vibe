@@ -34,6 +34,13 @@ None by default. Plan artifacts may be saved when requested.
 - Choose a focused change based on the observed cost. Splitting a module can add a waterfall or alter side-effect order; avoid generic manual-chunk rules or removing dependencies solely because they are large.
 - Build and exercise affected entry/lazy routes, direct navigation and failure recovery. Report comparable before/after measurements plus functional checks; a smaller output file alone does not prove faster interaction.
 
+## Technical method
+
+- **Inspect:** Read production stats or source maps, entry imports and real route loading with identical build conditions.
+- **Apply:** Attribute large modules to reachable imports and compare raw, compressed and transferred sizes separately.
+- **Avoid misdiagnosis:** Removing a named import or counting source file sizes does not prove tree-shaking or network improvement.
+- **Check the result:** Rebuild and exercise representative routes; record comparable bytes and loading behavior, including any new lazy-load waterfall.
+
 ## Decision branches
 
 - **When a dependency is large but loaded only after an optional interaction:** Measure its contribution to that interaction rather than attributing it to initial load.

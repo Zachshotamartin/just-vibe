@@ -32,6 +32,17 @@ Only the requested local changes; external actions require their exact action an
 - Inspect existing skills, define boundaries and inputs, write actionable instructions, separate repeatable execution into utilities, and validate triggering plus behavior fixtures.
 - Define a matching and a near-miss request, reuse established packaging conventions, and move conditional detail into references only when needed.
 
+## Technical method
+
+- **Inspect:** Read the intended invocation, neighboring workflows, input/output contract and required supporting assets.
+- **Apply:** Keep the entry point focused and route conditional depth to self-contained references; preserve user scope and existing invocation policy.
+- **Avoid misdiagnosis:** Long generic checklists dilute useful detail, and a linked guide that is never loaded cannot improve behavior.
+- **Check the result:** Validate frontmatter/references and exercise a representative request plus a nearby nonmatching request; structural validity is not behavioral proof.
+
+## Read when relevant
+
+- Dependencies, builds, secrets, hooks or privileged execution cross a trust boundary: [Dependency and execution provenance](../../references/security/supply-chain.md).
+
 ## Decision branches
 
 - **When guidance merely repeats generic model capabilities:** Remove it and retain decisions, invariants and examples that change behavior.

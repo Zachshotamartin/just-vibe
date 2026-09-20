@@ -32,6 +32,17 @@ None by default. Plan artifacts may be saved when requested.
 - Inspect domain conventions and existing APIs, define consistent resources and operations, specify normal/error behavior, and check consumer usability and migration needs.
 - Define resource identity, method semantics, validation, authorization, errors and versioning from actual consumer journeys; include one success and failure exchange.
 
+## Technical method
+
+- **Inspect:** Read consumer needs, resource ownership, identity, transport constraints and current serializer behavior.
+- **Apply:** Specify valid/error exchanges, missing versus null, units, limits, idempotency and authorization before editing handlers.
+- **Avoid misdiagnosis:** Consistent JSON shape alone does not establish consistent business meaning or access control.
+- **Check the result:** Exercise representative valid, invalid, unauthorized and dependency-failure requests against the actual handler boundary.
+
+## Read when relevant
+
+- Identity, ownership, tenant isolation, replay or privilege changes affect the task: [Identity and authorization](../../references/security/identity.md).
+
 ## Decision branches
 
 - **When a proposed endpoint hides several independently failing effects:** Expose operation state or explicit partial-failure semantics instead of implying atomic success.

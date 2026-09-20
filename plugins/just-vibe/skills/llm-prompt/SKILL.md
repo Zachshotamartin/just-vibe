@@ -32,6 +32,13 @@ Only the requested local changes; external actions require their exact action an
 - Analyze error categories, modify the smallest relevant instructions/examples, preserve instruction hierarchy, compare against baseline on development cases, and reserve held-out confirmation.
 - Categorize failures, change the smallest relevant instruction/example and compare under fixed model/settings on development cases with held-out confirmation.
 
+## Technical method
+
+- **Inspect:** Inspect current prompt, model/version, representative failures and constraints that must remain intact.
+- **Apply:** Change the smallest instruction that addresses a demonstrated failure and compare under the same cases/settings.
+- **Avoid misdiagnosis:** Adding every past exception can create conflicting instructions and regress ordinary tasks.
+- **Check the result:** Test the targeted failure and unaffected controls, including refusal/ambiguity behavior and instruction conflicts.
+
 ## Decision branches
 
 - **When improvement appears only on examples inserted into the prompt:** Treat it as overfitting and retain independent cases before adoption.

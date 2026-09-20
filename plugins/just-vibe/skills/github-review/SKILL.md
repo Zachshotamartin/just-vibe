@@ -33,6 +33,18 @@ None by default. Plan artifacts may be saved when requested.
 - Record head/base SHA, inspect changed and surrounding source, map each finding to a current diff location and revalidate head before requested posting.
 - All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
 
+## Technical method
+
+- **Inspect:** Obtain the exact PR head diff, full changed files, callers, checks and relevant prior discussion.
+- **Apply:** Apply the review selection guide to changed boundaries; require a concrete trigger, reachable bad outcome and verified absence of an upstream guard.
+- **Avoid misdiagnosis:** Fixed line numbers or findings from an older head can become wrong after force-push; unchanged critical risks need explicit attribution.
+- **Check the result:** Reconfirm head and diff location before any authorized posting; report severity from impact and confidence separately.
+
+## Read when relevant
+
+- Reviewing code or security boundaries: select and read the matching technical branches before concluding: [Review selection and evidence](../../references/security/review.md).
+- Language/runtime semantics, concurrency or resource ownership can change the result: [Language and runtime review methods](../../references/scenarios/language-review.md).
+
 ## Decision branches
 
 - **When the PR head changes during inspection:** Refresh affected findings and checks rather than attaching stale comments.

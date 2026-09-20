@@ -33,6 +33,13 @@ None by default. Plan artifacts may be saved when requested.
 - Reconstruct the original goal and accepted decisions, separate proposed from completed work, and identify files or artifacts needed for the next step.
 - All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
 
+## Technical method
+
+- **Inspect:** Resolve current objective, accepted constraints, completed artifacts, evidence and open decisions.
+- **Apply:** Write a self-contained brief with exact paths/revisions and the next actionable step, distinguishing facts from proposals.
+- **Avoid misdiagnosis:** A conversational narrative without current state forces rediscovery; claiming unavailable checks passed misleads the next session.
+- **Check the result:** Verify links/identities and ensure a reader can continue without relying on hidden conversation context or secret values.
+
 ## Read when relevant
 
 - Saving requested preferences, decisions or a named continuation: [Project continuity](../../references/daily-workflows.md).

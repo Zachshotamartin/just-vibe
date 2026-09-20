@@ -34,6 +34,13 @@ Only the requested local changes; external actions require their exact action an
 - For async synchronization, protect current identity on both fulfillment and rejection and define ownership of any shared work. Avoid suppressing dependency checks or using a permanent once flag to hide an incorrect lifetime.
 - Verify rapid identity changes and repeated setup/cleanup with observable subscriptions, state and resource counts. Distinguish a verified lifecycle fix from a claimed performance improvement that has not been measured.
 
+## Technical method
+
+- **Inspect:** Identify the external system, dependency identities, setup, cleanup and reset semantics of each affected effect.
+- **Apply:** Move derived values to render where appropriate; make synchronization cleanup mirror setup and use supported patterns for current values.
+- **Avoid misdiagnosis:** Suppressing dependency warnings conceals stale closures; aborting a request cannot undo a completed server mutation.
+- **Check the result:** Exercise changed inputs, remount and unmount with controlled timers/promises and verify listeners, requests and subscriptions are released.
+
 ## Decision branches
 
 - **When old async work can complete after a new selection:** Guard stale completion as well as cleaning up; cancellation alone does not establish which response is current.

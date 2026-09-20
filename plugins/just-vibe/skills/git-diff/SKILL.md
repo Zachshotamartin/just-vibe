@@ -33,6 +33,13 @@ None by default. Plan artifacts may be saved when requested.
 - Separate index versus HEAD, worktree versus index and branch versus merge-base; resolve the requested comparison before summarizing hunks.
 - All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
 
+## Technical method
+
+- **Inspect:** Resolve comparison refs and merge-base, then inspect rename, mode, binary and submodule changes as well as text.
+- **Apply:** Summarize user-visible behavior and dependencies between hunks; identify which tree each diff represents.
+- **Avoid misdiagnosis:** Branch-tip comparison and merge-base comparison answer different questions; text-only review misses executable-bit changes.
+- **Check the result:** Cite a representative hunk for each behavior claim and account for changed files outside ordinary source extensions.
+
 ## Decision branches
 
 - **When rename, binary or submodule entries appear:** Report their metadata and scope instead of inventing text diffs or flattening submodule changes.

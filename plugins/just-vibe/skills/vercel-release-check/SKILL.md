@@ -34,6 +34,13 @@ None by default. Plan artifacts may be saved when requested.
 - Identify the previous known-good deployment and test the proposed recovery against schema/data and external effects. Reverting code may not restore data compatibility or undo published messages.
 - Produce a gate table tied to this candidate: criterion, evidence identity/time, pass/fail/unknown and blocking consequence. Re-read candidate identity before readiness is reported. Promotion, alias/DNS changes and rollback require their own authorized action/target.
 
+## Technical method
+
+- **Inspect:** Verify immutable candidate SHA, health evidence, environment requirements, compatible schema and previous deployment identity.
+- **Apply:** State promotion gates and a recovery sequence that accounts for data changes and in-flight work.
+- **Avoid misdiagnosis:** Code rollback may fail once the schema or external effects have changed.
+- **Check the result:** Check the actual promoted alias/deployment after authorized action and preserve pending gates when protected or live evidence is unavailable.
+
 ## Decision branches
 
 - **When rollback would restore code but not reverse a schema/data change:** Mark that recovery gap and require an explicit compatible recovery plan.

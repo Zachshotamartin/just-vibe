@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { loadCatalog, skillFile } from '../plugins/just-vibe/scripts/lib/catalog.mjs';
 import { loadProfiles } from '../plugins/just-vibe/scripts/lib/profiles.mjs';
 import { generate } from './build-skills.mjs';
+import { validateReferences } from './lib/references.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const read = path => JSON.parse(readFileSync(resolve(root, path), 'utf8'));
@@ -45,20 +46,29 @@ for (const name of skills) {
 }
 assert.ok(existsSync(resolve(skillRoot, 'setup', '../../scripts/installer.mjs')));
 for (const c of catalog.commands) assert.ok(existsSync(skillFile(catalog, c)));
+for (const c of catalog.commands) for (const guide of c.guides || []) {
+  assert.ok(existsSync(resolve(catalog.root, guide.path)), `Missing conditional guide: ${c.id} -> ${guide.path}`);
+}
+const referenceGraph = validateReferences(catalog.root);
 const profiles = loadProfiles();
 assert.deepEqual(readdirSync(resolve(catalog.root, 'references/profiles')).sort(), profiles.profiles.map(p => `${p.id}.md`).sort());
 const behavioral = read('evals/releases/0.4.0-results.json');
-for (const command of catalog.commands.filter(c => c.validation.behavioral !== 'not-evaluated')) {
-  assert.ok(existsSync(resolve(catalog.root, command.validation.record)), `Missing behavioral record: ${command.id}`);
-  assert.ok(command.validation.cases?.length, `Missing evaluated cases: ${command.id}`);
-  for (const id of command.validation.cases) {
-    const trial = behavioral.results.find(r => r.case === id && r.arm === 'just-vibe' && r.commands.includes(command.aliasOf || command.id));
-    assert.ok(trial, `No recorded agent trial for ${command.id}/${id}`);
-    if (command.validation.behavioral === 'passed-fixtures') {
-      assert.equal(trial.status, 'passed-fixture');
-      assert.ok(trial.checks.length && trial.checks.every(c => c.pass), `Failed evidence cannot support ${command.id}`);
+for (const command of catalog.commands) {
+  const records = [];
+  if (command.validation.behavioral !== 'not-evaluated') records.push({ ...command.validation, status: command.validation.behavioral });
+  if (command.validation.priorBehavioral) records.push(command.validation.priorBehavioral);
+  for (const record of records) {
+    assert.ok(existsSync(resolve(catalog.root, record.record)), `Missing behavioral record: ${command.id}`);
+    assert.ok(record.cases?.length, `Missing evaluated cases: ${command.id}`);
+    for (const id of record.cases) {
+      const trial = behavioral.results.find(r => r.case === id && r.arm === 'just-vibe' && r.commands.includes(command.aliasOf || command.id));
+      assert.ok(trial, `No recorded agent trial for ${command.id}/${id}`);
+      if (record.status === 'passed-fixtures') {
+        assert.equal(trial.status, 'passed-fixture');
+        assert.ok(trial.checks.length && trial.checks.every(c => c.pass), `Failed evidence cannot support ${command.id}`);
+      }
     }
   }
 }
 generate({ check: true });
-console.log(`Validated both marketplaces, matching v${pkg.version} manifests, ${skills.length} skills, all references, and reproducible catalog generation.`);
+console.log(`Validated both marketplaces, matching v${pkg.version} manifests, ${skills.length} skills, ${referenceGraph.links} local links across ${referenceGraph.files} Markdown files, technical methods, and reproducible catalog generation.`);

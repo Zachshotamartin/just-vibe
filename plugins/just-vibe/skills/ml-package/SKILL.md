@@ -32,6 +32,17 @@ Only the requested local changes; external actions require their exact action an
 - Verify artifact provenance, bundle preprocessing and schema, pin compatible dependencies, record versions/checksums, and run known-input smoke/parity checks.
 - Bundle preprocessing, feature order/schema, model identity, dependency constraints and known-input expectations; validate fresh-load parity in an isolated supported environment.
 
+## Technical method
+
+- **Inspect:** Inventory model/preprocessor, ordered feature schema, versions, provenance and artifact format.
+- **Apply:** Package the complete inference contract with known-input expectations; inspect executable serialization and trusted origin before loading.
+- **Avoid misdiagnosis:** Pickle-style loading can execute code; matching a model filename does not establish trusted provenance or preprocessing parity.
+- **Check the result:** Fresh-load a trusted fixture in isolation and compare exact feature order, missing/unseen handling and expected output within tolerance.
+
+## Read when relevant
+
+- Uploads, filesystem paths, extraction or artifact loading are in scope: [Files and resource limits](../../references/security/files.md).
+
 ## Decision branches
 
 - **When serialization may execute code and provenance is untrusted:** Inspect provenance and use a safe supported loading path or stop before loading.

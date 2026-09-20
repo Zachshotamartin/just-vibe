@@ -32,6 +32,18 @@ None by default. Plan artifacts may be saved when requested.
 - Compare effective configuration with intended boundaries, distinguish dev from production requirements, trace high-impact settings, and verify available deployment evidence.
 - Compare declared and effective settings for the exact environment, inspect trust boundaries and distinguish local development exceptions from public production exposure.
 
+## Technical method
+
+- **Inspect:** Inspect effective production settings, network exposure, cookie/CORS/proxy rules, container privileges and CI trust paths.
+- **Apply:** Load only the matching framework and deployment branches; compare actual deployed behavior to configuration intent.
+- **Avoid misdiagnosis:** Debug defaults, broad proxy trust or client-visible secrets can invalidate otherwise safe code; development settings are not production evidence.
+- **Check the result:** Check a trusted and untrusted origin/host/identity where relevant and report inaccessible effective settings as unknown.
+
+## Read when relevant
+
+- Dependencies, builds, secrets, hooks or privileged execution cross a trust boundary: [Dependency and execution provenance](../../references/security/supply-chain.md).
+- The task depends on framework defaults, middleware, RLS, server/client or deployment behavior: [Framework-specific review branches](../../references/security/frameworks.md).
+
 ## Decision branches
 
 - **When effective deployment configuration is unavailable:** Report source-established risks conditionally instead of asserting the live setting.

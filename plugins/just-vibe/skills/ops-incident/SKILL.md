@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Establish impact and timeline, separate facts from hypotheses, inspect recent changes and dependencies, prioritize reversible mitigations, and track action/evidence state.
 - Establish impact, time window, affected revision and current changes; keep a timestamped fact/hypothesis/action ledger and prefer reversible mitigations within scope.
 
+## Technical method
+
+- **Inspect:** Resolve incident window/timezone, service/revision, customer impact and available logs/metrics/traces.
+- **Apply:** Maintain a timeline separating observation, hypothesis and intervention; preserve evidence before state-changing recovery.
+- **Avoid misdiagnosis:** A nearby deployment is correlation, not proof; missing telemetry cannot establish no impact.
+- **Check the result:** Tie each conclusion to timestamped evidence and record whether the proposed mitigation actually changed the observed symptom.
+
 ## Decision branches
 
 - **When an intervention may erase evidence or duplicate effects:** Capture relevant state and define its observation/abort condition before acting.

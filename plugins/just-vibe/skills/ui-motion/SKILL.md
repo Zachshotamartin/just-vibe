@@ -32,6 +32,13 @@ Only the requested local changes; external actions require their exact action an
 - Identify what motion communicates, select minimal properties/timing, implement cancellation and reduced-motion behavior, and inspect rapid/repeated interactions.
 - Define what state change motion communicates, implement interruption/cancellation and inspect repeated input plus reduced-motion preferences.
 
+## Technical method
+
+- **Inspect:** Identify the change motion should explain, animation properties, interruption behavior and reduced-motion preference.
+- **Apply:** Keep state transitions functional without animation; favor composited properties where appropriate and cancel obsolete animations.
+- **Avoid misdiagnosis:** A smooth animation can still hide focus, block input or cause discomfort; reduced motion must preserve outcome and feedback.
+- **Check the result:** Interrupt/reverse transitions, test reduced motion and keyboard focus, and profile the target device interaction for jank.
+
 ## Decision branches
 
 - **When reduced motion removes information conveyed only by animation:** Supply a static equivalent while preserving action timing and feedback.

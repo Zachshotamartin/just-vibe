@@ -40,6 +40,13 @@ Only the requested local changes; external actions require their exact action an
 
 Task-specific method: Select checks from project scripts and changed behavior, inspect commands for side effects, run bounded checks, and associate results with the tested revision. Map every criterion to an existing check, inspected artifact or bounded interaction; inspect script side effects and record the revision and environment.
 
+## Technical method
+
+- **Inspect:** Map requested outcomes to artifact identities and available checks, including any human acceptance.
+- **Apply:** Execute the relevant checks, record actual status/output and preserve requirement-linked evidence without replacing missing observations with assertions.
+- **Avoid misdiagnosis:** A green command on another revision or a screenshot of one state cannot establish all acceptance criteria.
+- **Check the result:** Check evidence freshness against files/revisions and report incomplete, blocked or human-accepted criteria distinctly.
+
 ## Read when relevant
 
 - A task needs a reviewable acceptance report or durable evidence: [Requirement evidence](../../references/proofs.md).

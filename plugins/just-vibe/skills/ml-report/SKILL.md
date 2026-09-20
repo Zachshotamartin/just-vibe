@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Reconcile evidence, describe training/evaluation conditions, summarize baseline and slice results, document limitations and excluded uses, and identify missing release evidence.
 - Reconcile every number with a run and denominator, separate validation selection from independent test evidence and document deployment population/excluded uses.
 
+## Technical method
+
+- **Inspect:** Collect intended use, dataset provenance, protocol, selected model, metrics, slices and deployment constraints.
+- **Apply:** Separate measured results from anticipated value and list excluded uses plus concrete monitoring/revisit conditions.
+- **Avoid misdiagnosis:** Omitting failed runs or weak slices produces a misleading model story even if the best metric is correct.
+- **Check the result:** Trace every numerical claim to an artifact and verify data/model/version identity and unresolved limitations are retained.
+
 ## Decision branches
 
 - **When evidence is missing for a key cohort or release gate:** Keep the limitation visible and withhold the corresponding suitability claim.

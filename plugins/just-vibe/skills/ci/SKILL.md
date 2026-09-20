@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Locate the first meaningful failure, compare runner/local environments, distinguish code failure from infrastructure, and validate authorized workflow changes.
 - Find the first causal failure in the job graph, compare effective runtime and lockfile inputs, and distinguish required failures from downstream cancellations.
 
+## Technical method
+
+- **Inspect:** Inspect run identity, first causal failure, matrix, caches, tool versions and event permissions.
+- **Apply:** Reproduce the failing boundary and preserve unrelated coverage; route GitHub-specific trust issues to its Actions guide.
+- **Avoid misdiagnosis:** Disabling tests or broadening secrets access can make CI green while weakening correctness or security.
+- **Check the result:** Run the relevant local check and verify a matching remote run when available, distinguishing infrastructure blockers from code defects.
+
 ## Decision branches
 
 - **When logs show a provider outage rather than changed-code failure:** Preserve evidence and recommend a bounded rerun without weakening checks.

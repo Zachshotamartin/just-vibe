@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Analyze predicates/order/selectivity, compare existing indexes, estimate write/storage costs from evidence, and design before/after measurement and online-creation strategy where supported.
 - Match equality/range/order predicates and selectivity to existing indexes, account for write/storage cost and compare the exact workload before/after.
 
+## Technical method
+
+- **Inspect:** Inspect real predicates, ordering, selectivity, existing index definitions and write volume.
+- **Apply:** Choose key order, covering/partial options and rollout method using supported engine behavior and measured plans.
+- **Avoid misdiagnosis:** More indexes increase write/storage cost; an index on a low-selectivity column may not improve the actual workload.
+- **Check the result:** Compare read plans/latency and representative write cost; verify validity after online/concurrent creation before declaring completion.
+
 ## Decision branches
 
 - **When an existing index shares the proposed name:** Inspect definition and validity before reuse; an IF NOT EXISTS notice is not a compatibility check.

@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Align raw inputs and versions, compare each transformation boundary, localize first divergence, evaluate declared tolerances, and propose or apply requested fixes.
 - Feed identical raw rows through each pipeline and compare schema, feature names/order, transformations and model outputs at each boundary.
 
+## Technical method
+
+- **Inspect:** Compare fitted preprocessing, feature ordering, units, categorical vocabularies, missingness and runtime numerics.
+- **Apply:** Send the same golden inputs through training transformation and packaged serving transformation before comparing predictions.
+- **Avoid misdiagnosis:** Equal tensor shape does not imply equal feature meaning; silently reordered columns can produce plausible wrong scores.
+- **Check the result:** Include missing, unseen, zero and boundary inputs and locate the first differing transform rather than comparing only final accuracy.
+
 ## Decision branches
 
 - **When model/artifact versions differ:** Resolve version identity before attributing output differences solely to preprocessing.

@@ -32,6 +32,13 @@ Only the requested local changes; external actions require their exact action an
 - Inspect intrinsic sizes and flow, reproduce failures, adjust layout constraints, and verify intermediate widths, long text, and relevant orientation changes.
 - Find the intrinsic width constraint or overflow source, adjust layout at content-driven boundaries and test nearby widths with long text and keyboard focus.
 
+## Technical method
+
+- **Inspect:** Inspect layout constraints, intrinsic content size, breakpoints, zoom, touch targets and input methods.
+- **Apply:** Repair the constraint causing overflow; choose reflow/order based on task meaning rather than arbitrary device names.
+- **Avoid misdiagnosis:** Hiding overflow can conceal controls; hover-only affordances fail on touch or keyboard.
+- **Check the result:** Test narrow and wide layouts, long text, zoom and both pointer/keyboard access without clipped essential content.
+
 ## Decision branches
 
 - **When hiding an element would remove required functionality:** Reflow or provide an equivalent reachable interaction instead of suppressing it.

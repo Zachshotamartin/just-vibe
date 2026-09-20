@@ -33,6 +33,17 @@ Only the requested local changes; external actions require their exact action an
 - Trace the failing input through validation, state transitions and the observable result. Choose a focused change that corrects the cause and preserves neighboring valid behavior; distinguish missing, null, zero, false and empty values where the contract does.
 - Reproduce the original failure, apply the fix and run relevant checks with actual exit statuses. Where a regression test is warranted, derive its expected result independently from the contract and establish that it detects the defect rather than incidental setup failure.
 
+## Technical method
+
+- **Inspect:** Establish actual versus expected behavior, reproducible trigger and first causal divergence.
+- **Apply:** Create a discriminating regression, repair the owning boundary and check adjacent legitimate behavior.
+- **Avoid misdiagnosis:** Editing the last visible exception or weakening the assertion can hide the root defect.
+- **Check the result:** Demonstrate the original failure in isolation where feasible and verify the fix without relying on unrelated worktree changes.
+
+## Read when relevant
+
+- Language/runtime semantics, concurrency or resource ownership can change the result: [Language and runtime review methods](../../references/scenarios/language-review.md).
+
 ## Decision branches
 
 - **When the written contract disagrees with the current fallback or coercion:** Treat the discrepancy as part of the bug investigation. Check callers and compatibility evidence; do not encode the old fallback into a new test merely because it already exists.

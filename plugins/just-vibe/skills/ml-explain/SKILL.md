@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Choose a method compatible with the model/question, inspect baseline/background dependence, check stability/correlated features, and connect explanations to actual examples.
 - State whether the question concerns one prediction or global behavior, select a compatible method and examine background data and correlated-feature sensitivity.
 
+## Technical method
+
+- **Inspect:** Resolve whether the question is global behavior, a local prediction, debugging or causal effect.
+- **Apply:** Use a method compatible with model/data semantics and check explanation stability and plausible feature combinations.
+- **Avoid misdiagnosis:** Attributions are not causal effects; correlated inputs or impossible counterfactuals can make an explanation misleading.
+- **Check the result:** Compare nearby valid inputs or a known simple model and state approximation, background-data and stability limits.
+
 ## Decision branches
 
 - **When explanations vary strongly with reasonable baselines:** Report that dependence and avoid a causal or uniquely determined attribution claim.

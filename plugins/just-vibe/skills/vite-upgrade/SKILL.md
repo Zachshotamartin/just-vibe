@@ -32,6 +32,13 @@ Only the requested local changes; external actions require their exact action an
 - Read relevant migration notes, inspect plugin and Node compatibility, update controlled dependencies/lockfile, adjust deprecated behavior, and test development plus production build.
 - Check target migration notes and framework-plugin/Node compatibility, update only the required graph and compare dev refresh, production output and preview behavior.
 
+## Technical method
+
+- **Inspect:** Read current/target migration notes, Node support, framework plugin peer ranges and config differences.
+- **Apply:** Upgrade a coherent toolchain with the project's lockfile; remove obsolete options only after mapping their replacement behavior.
+- **Avoid misdiagnosis:** A passing install with ignored peer conflicts does not establish refresh or production compatibility.
+- **Check the result:** Verify dev refresh, build, preview and relevant SSR/test integration; report a plugin blocker instead of forcing an unsupported combination.
+
 ## Decision branches
 
 - **When a required plugin has no compatible version:** Stop at that compatibility boundary and propose a supported intermediate target.

@@ -24,7 +24,8 @@
     "eval:behavior": "node evals/behavior/harness.mjs",
     "eval:benchmark": "node evals/benchmark/harness.mjs",
     "test:browser": "node scripts/smoke-browser.mjs",
-    "release:publish": "node scripts/publish-release.mjs"
+    "release:publish": "node scripts/publish-release.mjs",
+    "eval:security": "node evals/security/run.mjs"
   },
   "files": [
     "bin/",

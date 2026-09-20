@@ -32,6 +32,13 @@ Only the requested local changes; external actions require their exact action an
 - Identify user decisions, preserve meaning, make actions/errors specific, check space/localization constraints, and update authorized surfaces.
 - Identify the decision each label or message supports; preserve legal/business meaning and test truncation, pluralization and missing-value variants.
 
+## Technical method
+
+- **Inspect:** Read user intent, action consequences, product terminology and message location/state.
+- **Apply:** Write concrete labels and error recovery guidance without promising behavior the product lacks.
+- **Avoid misdiagnosis:** Friendly copy that says a failed operation succeeded or hides irreversible consequences misleads users.
+- **Check the result:** Check wording against actual success/error states, truncation and accessible naming, preserving meaning in short labels.
+
 ## Decision branches
 
 - **When improving clarity would change a product promise:** Surface that policy choice rather than quietly rewriting it.

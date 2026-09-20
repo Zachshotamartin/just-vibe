@@ -33,3 +33,7 @@ Fixtures need valid defaults and intentional invalid variants, unique identities
 Before load generation, fix endpoint/environment, rate/concurrency/duration caps, error/load stop thresholds and side-effect isolation. Stop on thresholds and record the last stable conditions.
 
 Browser tests should use user-visible outcomes and resilient semantic locators, inspect pending/error/recovery states and preserve useful artifacts on failure. A screenshot can establish appearance at one state; it does not establish keyboard behavior or every viewport. Unavailable dependencies remain explicit coverage gaps.
+
+### Security review controls
+
+For an authorization regression, assert both a forbidden cross-tenant operation with no side effects and a legitimate operation with the expected result. A fix that denies everything must fail the legitimate control. For injection, run small inert fixtures on isolated resources and verify the actual sink behavior; parser errors before the intended boundary are inconclusive. Scanner integration tests need finding, no-finding, error/timeout and partial-coverage cases. A clean scanner exit alone is not a complete oracle. The repository's security fixture suite documents its finite coverage separately from any model-review result.

@@ -32,6 +32,18 @@ None by default. Plan artifacts may be saved when requested.
 - Inspect manifests/resolution, check current release notes and advisories, identify peer/runtime constraints, and group changes by risk.
 - Read resolved versions and peer/runtime ranges; identify why each dependency exists and isolate direct changes from lockfile churn.
 
+## Technical method
+
+- **Inspect:** Inspect manifests, lockfiles, direct/transitive ownership, advisory evidence and supported versions.
+- **Apply:** Separate security fixes from routine upgrades and assess API/engine/peer compatibility before changing the resolved graph.
+- **Avoid misdiagnosis:** Forced audit fixes or ignored peer conflicts can replace one issue with a runtime incompatibility.
+- **Check the result:** Inspect the resulting lockfile, run relevant behavior/build checks and retain unresolved advisories or inaccessible registry evidence.
+
+## Read when relevant
+
+- Dependencies, builds, secrets, hooks or privileged execution cross a trust boundary: [Dependency and execution provenance](../../references/security/supply-chain.md).
+- An available scanner or dependency advisory check can answer the scoped question: [Scanner selection and evidence](../../references/security/scanners.md).
+
 ## Decision branches
 
 - **When an advisory has configuration-dependent exposure:** Trace actual reachable use and report that condition before recommending a breaking upgrade.

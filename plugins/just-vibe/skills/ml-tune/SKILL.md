@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Validate comparable trials, select search strategy, define pruning/failure behavior, log every trial, and choose by the predeclared validation criterion.
 - Freeze search space, split, objective, trial/resource caps and selection rule; keep failure/pruning records and compare candidates under equal evaluation conditions.
 
+## Technical method
+
+- **Inspect:** Fix search space, metric direction, split, resource budget, pruning and selection rule.
+- **Apply:** Track every trial including failures and choose using validation only; reserve the held-out test for final evaluation.
+- **Avoid misdiagnosis:** More trials can overfit the validation set; dropping failed runs understates cost and instability.
+- **Check the result:** Enforce trial/time caps and inspect selection provenance; evaluate the chosen configuration once under the reserved protocol.
+
 ## Decision branches
 
 - **When tuning repeatedly consults held-out test results:** Stop that selection loop and define fresh independent confirmation before reporting generalization.

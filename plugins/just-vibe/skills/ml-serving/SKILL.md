@@ -32,6 +32,13 @@ Only the requested local changes; external actions require their exact action an
 - Validate inputs, manage model lifecycle/readiness, enforce resource/time limits, map errors, add redacted observability, and test concurrent valid/invalid requests.
 - Define readiness for the correct artifact, input bounds, batching/concurrency and deadlines; validate shapes/types before inference and preserve version in responses/telemetry.
 
+## Technical method
+
+- **Inspect:** Resolve request schema, batching, concurrency, model lifecycle, device memory and timeout budget.
+- **Apply:** Validate inputs before inference, bound queues and separate loading failures from invalid requests; define model identity per response/trace.
+- **Avoid misdiagnosis:** Unbounded batches or concurrent model copies can exhaust memory; returning a default prediction hides infrastructure failure.
+- **Check the result:** Exercise valid/invalid inputs, queue saturation, model-load failure and cancellation; verify bounded resources and typed errors.
+
 ## Decision branches
 
 - **When model loading fails or an incompatible schema arrives:** Fail readiness or return a typed request error without serving an unidentified fallback.

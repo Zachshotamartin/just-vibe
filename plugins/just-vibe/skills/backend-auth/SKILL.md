@@ -32,9 +32,18 @@ None by default. Plan artifacts may be saved when requested.
 - Identify the provider, session owner, trust boundaries and the actual request: audit or implementation. Trace login, refresh, logout and recovery across browser and server.
 - Read only the matching cookie-session, OAuth callback, refresh-race or recovery scenario. Use the supported provider mechanism, implement the requested boundary and verify the relevant transitions.
 
+## Technical method
+
+- **Inspect:** Resolve provider/version, session storage, cookie topology and token refresh/revocation semantics.
+- **Apply:** Load the matching authentication scenario and identity security guide; trace browser binding, token verification, rotation, recovery and account linking.
+- **Avoid misdiagnosis:** Decoding a JWT is not signature/issuer/audience validation; accepting an access token as identity can cross protocol boundaries.
+- **Check the result:** Test invalid/expired credentials, wrong flow state, session fixation, concurrent refresh and logout followed by a late refresh result.
+
 ## Read when relevant
 
 - Working on cookie sessions, callbacks, refresh or recovery: [Authentication scenarios](../../references/scenarios/auth.md).
+- Identity, ownership, tenant isolation, replay or privilege changes affect the task: [Identity and authorization](../../references/security/identity.md).
+- The task depends on framework defaults, middleware, RLS, server/client or deployment behavior: [Framework-specific review branches](../../references/security/frameworks.md).
 
 ## Decision branches
 

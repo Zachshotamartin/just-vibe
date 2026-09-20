@@ -33,6 +33,13 @@ None by default. Plan artifacts may be saved when requested.
 - Inspect reflog/stash/reachable candidates, compare file contents and preserve the chosen commit with a new ref before any active-branch movement.
 - All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
 
+## Technical method
+
+- **Inspect:** Inspect reflogs, stashes, reachable refs and candidate object contents before changing active refs.
+- **Apply:** Preserve a verified candidate with a new branch or copy, then explain how it differs from current work.
+- **Avoid misdiagnosis:** Reflogs expire and may not exist for another clone; garbage collection can remove the very objects being recovered.
+- **Check the result:** Verify the recovered tree contains the requested content and leaves the original branch, index and worktree recoverable.
+
 ## Decision branches
 
 - **When the candidate is absent or unreachable evidence is incomplete:** State the recovery limit and avoid cleanup that could reduce recoverability.

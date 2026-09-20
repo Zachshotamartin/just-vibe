@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Reconcile billed versus estimated usage, separate input/output/cached tokens, identify expensive failure loops, and propose bounded comparisons preserving task quality.
 - Reconcile provider usage with input/output/cached tokens and retries; verify dated pricing and include failed runs in per-completed-task cost.
 
+## Technical method
+
+- **Inspect:** Measure all requests, retries, failures, cached/uncached inputs, outputs and latency by task outcome.
+- **Apply:** Compare routes at matched quality requirements using dated verified prices and explicit privacy/transfer constraints.
+- **Avoid misdiagnosis:** Lower price per call can raise cost per completed task through retries or quality failures.
+- **Check the result:** Reconcile usage totals with actual calls and compare successful outcomes, latency and failure rates under the same cases.
+
 ## Decision branches
 
 - **When cheaper routing changes correctness or privacy conditions:** Compare on the same cases and keep provider/data-transfer choices explicit.

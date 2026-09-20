@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Define score scales, cite evidence for scores, separate must-haves, normalize weights, and vary uncertain values to test ranking stability.
 - Define score anchors before rating, keep feasibility separate, and vary uncertain weights/scores over plausible ranges.
 
+## Technical method
+
+- **Inspect:** Collect criterion definitions, score anchors, weights, evidence ranges and excluded options.
+- **Apply:** Separate feasibility from preference; vary uncertain weights and scores and report ties or rank reversals.
+- **Avoid misdiagnosis:** Double-counting correlated criteria can manufacture a winner; unknown evidence is not a neutral numeric score.
+- **Check the result:** Recalculate plausible extremes and explain the smallest assumption change that alters the winner.
+
 ## Decision branches
 
 - **When a small plausible perturbation changes the winner:** Report the unstable ranking and seek evidence on the sensitive criterion.

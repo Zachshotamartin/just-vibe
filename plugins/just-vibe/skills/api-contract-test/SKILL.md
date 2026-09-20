@@ -32,6 +32,13 @@ Only the requested local changes; external actions require their exact action an
 - Identify important assumptions, build provider/consumer assertions, control fixtures, verify valid and invalid exchanges, and integrate with relevant checks.
 - Derive assertions from actual consumer assumptions, control fixture identity and verify the real provider boundary when a safe environment exists.
 
+## Technical method
+
+- **Inspect:** Identify independently owned provider/consumer expectations and representative boundary fixtures.
+- **Apply:** Exercise real serialization and decoding with valid, absent, null, unknown-field and error cases; keep mocks scoped to what they establish.
+- **Avoid misdiagnosis:** A provider-generated mock validating itself is circular evidence of compatibility.
+- **Check the result:** Run a known incompatible response through the consumer and a valid control; record which real boundary and version were exercised.
+
 ## Decision branches
 
 - **When only mocks can run:** Report consumer behavior and mocked assumptions separately from provider conformance.

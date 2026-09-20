@@ -34,6 +34,13 @@ Only the requested local changes; external actions require their exact action an
 - Guard both success and failure publication against stale identity and disposal. Clean up subscriptions/listeners on all terminal paths and prevent disposed owners from starting further work unless the lifecycle contract explicitly permits reactivation.
 - Control completion order in tests: newer success before older success, newer success before older failure, unmount while pending and shared-request cancellation. For optimistic writes, reconcile from authoritative state after ambiguous completion instead of assuming abort undid the server effect.
 
+## Technical method
+
+- **Inspect:** Identify request identity, state owner, shared work lifetime and cancellation contract.
+- **Apply:** Force out-of-order completion and gate writes by current identity or the established query-library guarantee.
+- **Avoid misdiagnosis:** Canceling one waiter must not cancel shared work still owned by another; late rejection can delete a newer cache entry.
+- **Check the result:** Resolve B before A, unmount before completion, and reject an old request after new success; visible state must retain the current result.
+
 ## Decision branches
 
 - **When cancellation arrives after the server applied a write:** Reconcile authoritative state rather than assuming the business effect was undone.

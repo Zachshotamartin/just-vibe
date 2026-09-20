@@ -32,6 +32,13 @@ Only the requested local changes; external actions require their exact action an
 - Observe current steps, isolate deterministic operations, validate inputs, implement failure reporting and repeat behavior, and test with controlled fixtures.
 - Define inputs, output ownership, locking and idempotency; produce meaningful exit statuses and rehearse interruption between durable steps.
 
+## Technical method
+
+- **Inspect:** Identify repeated inputs/actions, idempotency, scheduling need, target and partial-failure behavior.
+- **Apply:** Build explicit arguments and stable operation identities with bounded execution and observable results.
+- **Avoid misdiagnosis:** A script that retries uncertain mutations or interpolates user text into shell source can amplify failures.
+- **Check the result:** Run success, repeat and interrupted cases on safe fixtures; creating a script does not mean a recurring scheduler exists.
+
 ## Decision branches
 
 - **When a previous run left partial output:** Detect its identity and either resume or stop with a reconciliation instruction; never treat partial output as success.

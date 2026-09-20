@@ -33,6 +33,13 @@ None by default. Plan artifacts may be saved when requested.
 - List existing worktrees and branch ownership, resolve the requested ref or current-state transfer, and verify destination emptiness before creation.
 - All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
 
+## Technical method
+
+- **Inspect:** Inspect worktree porcelain inventory, branch ownership, destination identity and dirty/untracked state.
+- **Apply:** Create only the requested isolated checkout; keep per-worktree config and shared refs in mind during branch actions.
+- **Avoid misdiagnosis:** Shared Git objects do not mean every worktree has an independent branch namespace; removing a checkout can destroy untracked work.
+- **Check the result:** Confirm the new checkout's HEAD and root; before cleanup, verify ownership and preserve any changes produced after creation.
+
 ## Decision branches
 
 - **When current uncommitted changes must move:** Preserve staged/unstaged distinctions in an explicit transfer plan and validate the copy before removing originals.

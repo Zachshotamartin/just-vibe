@@ -34,6 +34,13 @@ None by default. Plan artifacts may be saved when requested.
 - Propose the smallest interface or ownership correction that reduces the demonstrated coupling. Specify allowed dependencies, compatibility, error semantics and enforcement in the existing build/test architecture.
 - Verify the boundary with a consumer-facing contract check and a forbidden-dependency example when appropriate. Estimate migration impact from actual consumers and keep unmeasured organizational benefits conditional.
 
+## Technical method
+
+- **Inspect:** Find dependency cycles, shared mutable tables, cross-module imports and repeated business rules at actual call sites.
+- **Apply:** Identify which owner enforces each invariant; propose a seam that removes a specific cycle or competing writer, with transition contracts.
+- **Avoid misdiagnosis:** Folder moves can conceal unchanged coupling; a shared type is not inherently a boundary violation.
+- **Check the result:** Trace the affected invariant before and after the proposed boundary, including a consumer failure and ownership of rollback.
+
 ## Decision branches
 
 - **When a cycle is intentional and isolated behind an interface:** Assess change coupling and failure propagation before prescribing a split.

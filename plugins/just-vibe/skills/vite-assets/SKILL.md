@@ -33,6 +33,13 @@ Only the requested local changes; external actions require their exact action an
 - Repair the owning URL construction using supported installed-version semantics. Keep case-sensitive paths, hashed output and assets consumed by lazy routes distinct; do not fix every route with an unconditional root-relative path.
 - Verify root navigation, direct nested navigation, configured subpath base and refresh in a production preview. Check response status and content type: a fallback HTML page with status 200 is still a broken image or module.
 
+## Technical method
+
+- **Inspect:** Trace imported assets, public files, CSS URLs and runtime-generated paths through base and nested routes.
+- **Apply:** Use the correct asset mechanism for build-time imports versus runtime names; inspect emitted URLs under the deployed base.
+- **Avoid misdiagnosis:** A leading slash can escape a subpath deployment; a concatenated filename may never enter the build graph.
+- **Check the result:** Check direct nested loads, fonts, CSS images and dynamic assets in production output, not only the dev server.
+
 ## Decision branches
 
 - **When runtime concatenation prevents static asset discovery:** Use an explicit asset map or supported URL/import pattern appropriate to the installed version.

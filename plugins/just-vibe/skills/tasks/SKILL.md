@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Preserve requirements, map dependencies, define bounded outputs and checks, order the critical path, and flag tasks needing a decision.
 - Assign each task one observable output and dependency edge; keep inseparable schema/client changes together or state their compatibility bridge.
 
+## Technical method
+
+- **Inspect:** Read the accepted scope, dependency graph, owners where known and completion evidence.
+- **Apply:** Create tasks with a verifiable outcome and prerequisites; split by coherent behavior rather than arbitrary file count.
+- **Avoid misdiagnosis:** Marking a task complete because its code exists overlooks unrun verification or blocked integration.
+- **Check the result:** Check that all acceptance criteria have an owner task and that dependent tasks cannot complete ahead of missing prerequisites.
+
 ## Decision branches
 
 - **When tasks overlap the same shared interface:** Define an integration order and owner boundary before parallel work is proposed.

@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Normalize timestamps, follow request/job IDs, compare related services, separate repeated symptoms from root events, and redact sensitive fields.
 - Normalize time zones and identify clock skew, follow stable request/job IDs and distinguish original failures from retry cascades and repeated symptoms.
 
+## Technical method
+
+- **Inspect:** Identify request/job IDs, service boundaries, clock skew, retention and redaction rules.
+- **Apply:** Query bounded windows and correlate the first causal failure across retries and asynchronous stages.
+- **Avoid misdiagnosis:** Repeated downstream errors can all stem from one upstream failure; log absence can reflect sampling.
+- **Check the result:** Trace one failed and one healthy operation and document missing spans or inaccessible sources without inventing continuity.
+
 ## Decision branches
 
 - **When a relevant span or time range is missing:** Report the gap and query needed; absence is not proof the action never occurred.

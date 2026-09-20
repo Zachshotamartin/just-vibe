@@ -32,6 +32,13 @@ Only the requested local changes; external actions require their exact action an
 - Reuse form conventions, separate client convenience from server authority, preserve input after failures, prevent unintended duplicates, and verify focus/error announcements.
 - Model editing, validating, submitting, rejected and successful states; preserve entered values and map server field/global errors to usable focus and announcements.
 
+## Technical method
+
+- **Inspect:** Inspect validation ownership, input types, submission identity, pending state and server error shape.
+- **Apply:** Preserve draft values on recoverable errors, map field/general errors and handle concurrent or uncertain submissions deliberately.
+- **Avoid misdiagnosis:** A disabled button alone does not prevent retries or duplicate server effects; number parsing can turn an empty field into zero.
+- **Check the result:** Test invalid, empty, zero, double-submit, delayed response and retry cases; verify labels, error associations and focus.
+
 ## Decision branches
 
 - **When duplicate clicks or retries can create duplicate effects:** Coordinate UI pending state with server idempotency; disabling a button alone is insufficient.

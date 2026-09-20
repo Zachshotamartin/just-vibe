@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Verify immutable inputs and dependency versions, reconstruct the procedure, run authorized bounded work, compare outputs/metrics within justified tolerance, and isolate deviations.
 - Resolve exact data/artifact/code/dependency identities, reconstruct preprocessing and evaluation, and declare nondeterminism tolerances before execution.
 
+## Technical method
+
+- **Inspect:** Resolve code revision, dependencies, artifacts, dataset access, hardware and claimed tolerance.
+- **Apply:** Recreate the stated protocol; document each unavoidable substitution and whether it affects exact reproduction or only qualitative comparison.
+- **Avoid misdiagnosis:** Matching a seed or top-line metric does not establish the same data, selection process or training trajectory.
+- **Check the result:** Compare artifacts and outputs under declared tolerances and preserve failures or inaccessible inputs as limits on the claim.
+
 ## Decision branches
 
 - **When original assets are unavailable and substitutes are necessary:** Label the result a reimplementation or approximate reproduction and list each substitution.

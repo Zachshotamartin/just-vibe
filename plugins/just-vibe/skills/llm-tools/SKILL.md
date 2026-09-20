@@ -34,6 +34,13 @@ None by default. Plan artifacts may be saved when requested.
 - For mutating calls, define request identity, idempotency, timeout ambiguity and result reconciliation. Cancellation or a missing response does not prove an external operation failed; check its identity before retrying.
 - Test valid calls, invalid inputs, denied targets, unavailable tools, partial success and malicious tool output with controlled fakes. Verify state/effect counts as well as final answers and retain the distinction between simulated and live integration evidence.
 
+## Technical method
+
+- **Inspect:** Inspect tool schemas, target identifiers, execution authority, side effects and partial-failure semantics.
+- **Apply:** Validate arguments and authorization in the executor, use stable operation IDs and reconcile timeouts before retries.
+- **Avoid misdiagnosis:** A schema-valid request can still target the wrong account; model text cannot grant permission to execute it.
+- **Check the result:** Test invalid targets, duplicate calls, timeout after success and malicious retrieved instructions with fake isolated executors.
+
 ## Decision branches
 
 - **When a tool times out after an external mutation may have occurred:** Return an operation ID and reconciliation path; do not let the model blindly repeat it.

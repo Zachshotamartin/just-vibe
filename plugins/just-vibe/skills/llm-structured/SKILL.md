@@ -32,6 +32,13 @@ Only the requested local changes; external actions require their exact action an
 - Define schema-compatible requests, validate outputs beyond parsing, separate refusal/truncation from malformed data, implement constrained retries, and test downstream consumption.
 - Resolve supported schema features, validate semantics after parsing and separate refusal, truncation, invalid structure and downstream business rejection.
 
+## Technical method
+
+- **Inspect:** Read the exact schema, provider support, refusal/truncation signals and downstream invariants.
+- **Apply:** Validate syntax, schema and business constraints separately; bound retries and return typed failure when recovery cannot establish validity.
+- **Avoid misdiagnosis:** Valid JSON can contain fabricated IDs or inconsistent totals; filling required fields with invented defaults corrupts meaning.
+- **Check the result:** Exercise malformed, schema-valid-but-semantic-invalid, refused and truncated responses alongside a valid control.
+
 ## Decision branches
 
 - **When retries repeatedly fail the same constraint:** Stop at the cap with a typed error and retain diagnostics; never fabricate fields to satisfy the schema.

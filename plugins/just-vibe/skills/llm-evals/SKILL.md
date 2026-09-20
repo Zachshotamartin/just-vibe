@@ -35,6 +35,13 @@ None by default. Plan artifacts may be saved when requested.
 - Report per-case failures and denominators alongside aggregate results, latency and actual token accounting. Missing traces or usage remain missing; cached tokens are a subset of input and a token count is not automatically a dollar charge.
 - Use observed failures for targeted revisions, then evaluate on fresh cases as well as regression examples. Do not call improved scores on the now-known development set evidence of generalization or overall superiority.
 
+## Technical method
+
+- **Inspect:** Collect task distribution, failure examples, privacy constraints, scoring rubric and allowed cost.
+- **Apply:** Separate capability, safety and usability dimensions; calibrate automated judges against human examples and retain disagreements.
+- **Avoid misdiagnosis:** A fluent answer or a judge score alone does not prove task completion; reused development cases invite overfitting.
+- **Check the result:** Include known-pass/fail controls and held-out cases, preserve raw outputs and report uncertainty and incomplete runs.
+
 ## Decision branches
 
 - **When stochastic runs disagree or a judge favors style over correctness:** Report variance/disagreement and inspect the rubric before declaring a winner.

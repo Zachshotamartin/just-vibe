@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Identify the actual cause and successful intervention, separate generalizable conditions from accidents, and test the lesson against a counterexample.
 - Link the failure trigger to the successful intervention and test a plausible exception; state when the lesson should not apply.
 
+## Technical method
+
+- **Inspect:** Inspect a completed task's actual failure, correction and verified result.
+- **Apply:** Extract a scoped reusable lesson with its trigger and limits; save only when requested in the approved location.
+- **Avoid misdiagnosis:** Generalizing one incident into an unconditional global rule can harm unrelated work.
+- **Check the result:** Check the lesson against both the triggering case and a nearby case where it should not apply.
+
 ## Decision branches
 
 - **When evidence comes from one transient incident:** Keep the lesson conditional and propose a validation case instead of a universal rule.

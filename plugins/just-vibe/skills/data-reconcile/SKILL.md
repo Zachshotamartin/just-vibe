@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Align snapshots/time windows, compare counts and keyed values, normalize only documented transformations, sample discrepancies safely, and explain likely causes.
 - Align snapshot/window and key grain, compare membership before values and normalize only explicitly documented transformations.
 
+## Technical method
+
+- **Inspect:** Align source/destination snapshots, key grain, time window, lag, normalization and delete semantics.
+- **Apply:** Compare key membership then per-field values with explicit tolerances; isolate legitimate lag from corruption.
+- **Avoid misdiagnosis:** Equal counts or totals can hide missing and duplicated rows that cancel out.
+- **Check the result:** Use a fixture with equal totals but different membership and verify the report locates discrepancies without exposing sensitive values.
+
 ## Decision branches
 
 - **When counts match but keys or values differ:** Quantify each mismatch class and retain redacted examples rather than declaring parity.

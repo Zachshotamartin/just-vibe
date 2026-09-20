@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Identify the entry point, follow transformations and dispatches, correlate available IDs, and mark async boundaries and missing spans.
 - Start from an identified input or correlation ID; record each hop's input, output, identity propagation and synchronous or asynchronous transition.
 
+## Technical method
+
+- **Inspect:** Locate entry point, transformations, asynchronous handoffs, identity propagation and terminal effects.
+- **Apply:** Follow one concrete request/value, recording boundaries and error branches with file or runtime evidence.
+- **Avoid misdiagnosis:** A static call graph does not prove which branch executed; queue handoffs can change identity and ordering.
+- **Check the result:** Reconcile the trace against one success and one failure observation, marking any inaccessible runtime segment.
+
 ## Decision branches
 
 - **When a queue or external service has no downstream evidence:** End the confirmed trace at that boundary and list the exact log or source needed to continue.

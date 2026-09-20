@@ -35,6 +35,13 @@ None by default. Plan artifacts may be saved when requested.
 - If invalidation can race with an asynchronous fill, associate each fill with its current entry or generation. Invalidation must detach obsolete work so its late success or failure cannot overwrite or remove a newer entry. Decide explicitly whether existing waiters still receive the detached result.
 - Verify identity isolation, falsey hits, coalescing, expiry, failure/retry, per-caller cancellation and reversed completion after invalidation using a controlled clock and deferred work. Measure hit rate or latency only with an actual representative workload.
 
+## Technical method
+
+- **Inspect:** Inspect key dimensions, tenant scope, validity, empty-value handling, source failures and shared-fill ownership.
+- **Apply:** Use identity-aware keys and generation checks on replacement/deletion; separate a waiter's cancellation from shared fill lifetime.
+- **Avoid misdiagnosis:** Old completion can resurrect invalidated data; treating zero or an empty list as a miss changes semantics.
+- **Check the result:** Test cross-tenant keys, zero TTL, empty values, invalidate-during-fill, late rejection and one canceled waiter with another still active.
+
 ## Decision branches
 
 - **When an authorization change can outlive a cached response:** Invalidate or version the relevant identity boundary; a long TTL cannot substitute for access control.

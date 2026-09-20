@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Match baseline to task, build leakage-safe preprocessing, fix evaluation protocol, run bounded training when authorized, and report score plus cost/uncertainty.
 - Include a task-appropriate constant/rule baseline and simple model, use the same splits and preprocessing fit boundaries and record resources alongside quality.
 
+## Technical method
+
+- **Inspect:** Resolve task, split, target availability, metric and naive prediction policy.
+- **Apply:** Evaluate a constant/last-value or other task-appropriate naive model and a simple fitted model under identical preprocessing and data boundaries.
+- **Avoid misdiagnosis:** A strong model with a different split is not a fair baseline; test-set selection makes later comparisons optimistic.
+- **Check the result:** Preserve predictions, denominators and protocol identity and verify the baseline handles the same missing/rare cases as candidate models.
+
 ## Decision branches
 
 - **When the baseline wins or matches within uncertainty:** Keep the simpler option and identify the missing signal before expanding model search.

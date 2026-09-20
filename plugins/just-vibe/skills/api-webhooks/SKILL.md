@@ -32,6 +32,17 @@ Only the requested local changes; external actions require their exact action an
 - Validate signatures against correct raw bytes, separate receipt from processing, implement durable deduplication, and test invalid, duplicate, delayed, and reordered messages.
 - Verify signatures using provider-specified raw bytes and time rules, persist receipt identity before acknowledgment and separate deduplication from business processing.
 
+## Technical method
+
+- **Inspect:** Read the provider's signature contract, raw-body handling, timestamp tolerance, event IDs and retry/order semantics.
+- **Apply:** Verify authentic bytes before side effects, durably deduplicate delivery and business effects, and handle out-of-order versions deliberately.
+- **Avoid misdiagnosis:** Re-serialized JSON changes signed bytes; a valid signature does not prevent replay or duplicate processing.
+- **Check the result:** Test altered body, invalid/stale signature, concurrent duplicate, reversed event order and a crash before acknowledgment with synthetic fixtures.
+
+## Read when relevant
+
+- Identity, ownership, tenant isolation, replay or privilege changes affect the task: [Identity and authorization](../../references/security/identity.md).
+
 ## Decision branches
 
 - **When valid events arrive out of order or concurrently:** Apply version/ordering policy and durable effect deduplication rather than assuming arrival order.

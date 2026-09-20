@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Trace query-to-candidate stages, inspect missed relevant passages, compare bounded configurations under the same judgments, and validate access filters independently.
 - Trace a query through normalization, filters, candidates, ranking and final context using known relevance judgments and stable document IDs.
 
+## Technical method
+
+- **Inspect:** Define a query set with relevant document IDs, access labels, corpus version and ranking budget.
+- **Apply:** Measure candidate recall before reranking; inspect normalization, chunk boundaries and filters at the first stage losing relevant evidence.
+- **Avoid misdiagnosis:** Improving final prose cannot recover a passage never retrieved; aggregate recall can hide access-filter leaks.
+- **Check the result:** Include an exact answer split across chunks and a highly relevant forbidden document; verify both relevance and isolation.
+
 ## Decision branches
 
 - **When a relevant passage never entered candidates:** Fix that stage before tuning the answer prompt or reranker.

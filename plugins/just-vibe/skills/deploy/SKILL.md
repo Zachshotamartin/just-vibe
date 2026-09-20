@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Resolve target, inspect prerequisites and checks, identify recovery, execute authorized steps, and verify the deployed revision and health.
 - Confirm immutable artifact/revision, environment and health criteria; resolve schema compatibility and the previous usable target before execution.
 
+## Technical method
+
+- **Inspect:** Resolve provider, project/environment, immutable candidate revision, authorization and current live identity.
+- **Apply:** Prepare artifact, environment/schema compatibility and rollback target before the requested deployment action.
+- **Avoid misdiagnosis:** Deploying from a dirty tree or checking a moving alias can disconnect observed success from the intended artifact.
+- **Check the result:** Verify the resulting deployment identity and health at that revision; code rollback limits from data changes remain explicit.
+
 ## Decision branches
 
 - **When submission times out with uncertain provider state:** Look up the operation by revision or deployment ID before creating another deployment.

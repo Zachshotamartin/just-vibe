@@ -33,6 +33,13 @@ Only the requested local changes; external actions require their exact action an
 - Confirm good/bad endpoints and oracle exit semantics, run in an isolated worktree, treat untestable revisions as skips and retest the candidate and parent.
 - All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
 
+## Technical method
+
+- **Inspect:** Resolve known-good and known-bad commits and validate the oracle at both endpoints.
+- **Apply:** Use an isolated worktree, bounded trials, explicit skip codes and a preserved candidate log.
+- **Avoid misdiagnosis:** Build failures may require skip rather than bad; flaky tests can point to an innocent commit.
+- **Check the result:** Recheck the candidate and parent with the same oracle; report a range if skipped revisions prevent a unique cause.
+
 ## Decision branches
 
 - **When skipped revisions or flaky outcomes prevent a unique boundary:** Report the candidate range and uncertainty rather than a definite offending commit.

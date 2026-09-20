@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Trace file change to browser update, inspect plugin boundaries and duplicate modules, distinguish full reload from hot replacement, and localize the failure.
 - Follow file watcher to module graph to HMR connection and framework boundary; distinguish transport loss from invalidation and deliberate full reload.
 
+## Technical method
+
+- **Inspect:** Observe filesystem watcher, module invalidation, websocket transport and framework refresh boundary.
+- **Apply:** Identify the first missing event and repair that layer; inspect proxy and container paths before changing host restrictions.
+- **Avoid misdiagnosis:** Full page reload and preserved hot state are different outcomes; disabling host checks is not a generic websocket repair.
+- **Check the result:** Edit a leaf and a shared dependency, verify the expected refresh behavior, and check reconnection after an ordinary dev restart.
+
 ## Decision branches
 
 - **When updates fail only through a proxy or container:** Inspect websocket origin/port and mounted-path watching before relaxing host/filesystem protections.

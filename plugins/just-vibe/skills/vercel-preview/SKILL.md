@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Resolve project/revision, inspect prerequisites, reuse a matching deployment where suitable, create only when requested, and verify URL, revision, routing, and key behavior.
 - Resolve intended commit and project, reuse a matching deployment if appropriate and verify identity, access protection, routes and representative behavior.
 
+## Technical method
+
+- **Inspect:** Resolve branch/head SHA, existing matching deployments and access-protection expectations.
+- **Apply:** Reuse an appropriate existing preview or create the requested one; check nested routes, APIs and assets at its immutable deployment identity.
+- **Avoid misdiagnosis:** Anonymous 401/403 from protection is not necessarily app failure; a branch alias may advance while checks run.
+- **Check the result:** Record deployment ID, SHA, URL and actual route observations, including unavailable protected checks.
+
 ## Decision branches
 
 - **When a deployment request times out:** Query for the intended revision before retrying; distinguish a protected URL from an unhealthy app.

@@ -29,8 +29,20 @@ None by default. Plan artifacts may be saved when requested.
 
 ## Execute
 
-- Read the diff and surrounding contracts, trace affected callers, assess severity, and suppress speculative or duplicate findings.
-- Establish the exact diff/base, trace affected callers and identify a concrete triggering input; separate changed-code regressions from pre-existing issues.
+- Resolve the actual diff/base and current head. Read surrounding contracts and callers, then use the review selector and relevant language/domain methods for the changed boundaries.
+- For each suspected defect, establish its input/state trigger, introduced behavior and reachable impact; check existing guards before reporting. Reconfirm locations and distinguish source reasoning, exercised regressions and unavailable runtime evidence.
+
+## Technical method
+
+- **Inspect:** Inspect the exact diff/base, surrounding contracts, callers, tests and generated artifacts.
+- **Apply:** Use the review guide to select relevant security, async, data and compatibility checks; require trigger, reachable impact and location.
+- **Avoid misdiagnosis:** Style preferences, file length or theoretical edge cases without a trigger are not automatically defects.
+- **Check the result:** Challenge each finding with an existing guard or safe control, recheck changed head identity and return zero findings when evidence supports it.
+
+## Read when relevant
+
+- Reviewing code or security boundaries: select and read the matching technical branches before concluding: [Review selection and evidence](../../references/security/review.md).
+- Language/runtime semantics, concurrency or resource ownership can change the result: [Language and runtime review methods](../../references/scenarios/language-review.md).
 
 ## Decision branches
 

@@ -33,6 +33,13 @@ None by default. Plan artifacts may be saved when requested.
 - Inspect repository templates, separate expected/actual behavior and include a minimal reproduction with sanitized logs and tested version.
 - All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
 
+## Technical method
+
+- **Inspect:** Collect expected/actual behavior, minimal trigger, version, environment and redacted evidence.
+- **Apply:** Separate confirmed reproduction from hypothesis and define an observable acceptance condition.
+- **Avoid misdiagnosis:** Pasting raw logs can expose tokens; an unverified root-cause claim can misdirect the eventual repair.
+- **Check the result:** Ensure another developer can attempt the reproduction from the draft without private state or invented evidence.
+
 ## Decision branches
 
 - **When creation returns an uncertain result:** Search for the attempted issue using repository and distinctive content before retrying.

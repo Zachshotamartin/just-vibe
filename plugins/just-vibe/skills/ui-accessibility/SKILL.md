@@ -34,6 +34,13 @@ None by default. Plan artifacts may be saved when requested.
 - Exercise form errors and dynamic updates using the relevant interaction method. Check programmatic error association and announcements without relying on color or duplicate noisy live regions.
 - Use automated scanning as one evidence source, then verify corrected barriers with the actual keyboard or assistive technology tested. State browser/device/AT and uncovered states; an automated pass is not a blanket conformance claim.
 
+## Technical method
+
+- **Inspect:** Inspect native semantics, accessible name/description, focus sequence, contrast and live updates.
+- **Apply:** Use native controls first; apply matching APG interaction patterns for custom widgets and test behavior as well as attributes.
+- **Avoid misdiagnosis:** Passing an automated checker does not prove keyboard or screen-reader usability; positive tabindex creates fragile ordering.
+- **Check the result:** Complete the main flow using only keyboard, inspect focus visibility/return and announced errors, and report assistive-tech coverage actually exercised.
+
 ## Decision branches
 
 - **When automated scans pass but focus or announcements fail:** Report the manual barrier and keep automated coverage separate from conformance claims.

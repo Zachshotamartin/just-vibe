@@ -33,6 +33,17 @@ None by default. Plan artifacts may be saved when requested.
 - Resolve tag and commit immutably, verify asset hashes and existing release state, and reconcile partial uploads before publication or retry.
 - All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
 
+## Technical method
+
+- **Inspect:** Resolve tag commit, release range, candidate asset hashes, existing uploaded assets and verification records.
+- **Apply:** Assemble notes from the actual range and reconcile partial uploads before retrying; preserve tag and artifact identity.
+- **Avoid misdiagnosis:** Reusing an asset name for different bytes or moving a tag silently changes what users receive.
+- **Check the result:** Check published tag and asset identities after authorized release actions; failed/missing assets remain incomplete rather than released.
+
+## Read when relevant
+
+- Dependencies, builds, secrets, hooks or privileged execution cross a trust boundary: [Dependency and execution provenance](../../references/security/supply-chain.md).
+
 ## Decision branches
 
 - **When the tag exists at a different commit or asset name has different content:** Stop and report the conflict rather than replacing published identity.

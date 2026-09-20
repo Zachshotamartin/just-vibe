@@ -35,9 +35,17 @@ Only the requested local changes; external actions require their exact action an
 - Validate syntax plus representative trusted/untrusted event paths. Verify required check names remain reachable for applicable branches and that skipped/conditional jobs do not accidentally report an untested release as ready. Describe changes without agent self-attribution.
 - Use the matching bundled evidence collector when available; read its result and limitations rather than treating exit zero as readiness. Revalidate identity before a dependent action.
 
+## Technical method
+
+- **Inspect:** Inspect event, checked-out ref, job permissions, secret access, interpolation, action pins and artifact producers.
+- **Apply:** Keep untrusted contribution code outside privileged jobs; pass event values as data and scope caches/artifacts by trust and content identity.
+- **Avoid misdiagnosis:** pull_request_target or workflow_run plus untrusted checkout/artifacts can cross a privilege boundary even if the workflow file is trusted.
+- **Check the result:** Trace one fork contribution and one trusted release end to end; check that neither untrusted shell text nor poisoned artifacts reach privileged execution.
+
 ## Read when relevant
 
 - Resolving check, deployment or migration identity: [Delivery evidence](../../references/scenarios/delivery-evidence.md).
+- Dependencies, builds, secrets, hooks or privileged execution cross a trust boundary: [Dependency and execution provenance](../../references/security/supply-chain.md).
 
 ## Decision branches
 

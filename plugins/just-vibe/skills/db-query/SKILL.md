@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Resolve join cardinality and null semantics, parameterize inputs, inspect result shape, and validate with representative fixtures or bounded authorized reads.
 - Define expected result grain and cardinality, test one-to-many joins and nullable predicates, and compare hand-computed small-fixture results before optimization.
 
+## Technical method
+
+- **Inspect:** Inspect actual schema, parameter binding, join cardinality, null semantics and expected result grain.
+- **Apply:** Hand-compute a small fixture before optimizing; aggregate each many-side at the correct grain and constrain tenant identity.
+- **Avoid misdiagnosis:** Two one-to-many joins can multiply totals; NOT IN with null values can produce unexpected exclusion.
+- **Check the result:** Check no rows, nulls, duplicate children, two tenants and boundary predicates against independently calculated results.
+
 ## Decision branches
 
 - **When joins multiply rows before aggregation:** Preaggregate or change the join while preserving semantics; DISTINCT is not a universal repair.

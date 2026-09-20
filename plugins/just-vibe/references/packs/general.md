@@ -32,3 +32,7 @@ Before editing, preserve the triggering input, original assertion and neighborin
 ### Routed recovery
 
 A route is a hypothesis about how to satisfy the goal. If a read stage fails, a different completed stage may satisfy the same criterion. Use session supersede to connect the abandoned stage to passing replacement criteria; keep its attempts. An uncertain external effect must be reconciled first. Use session amend for new action/effect checks inside a running attempt. Neither operation resets elapsed time or stage/attempt counts.
+
+## Technical review selection
+
+Review/security workflows use the [review selector](../security/review.md) and matching [language methods](../scenarios/language-review.md). General security also reads [security methods](security.md); it must not stop at this general guide. Implementation workflows apply their command-specific technical method and load only relevant specialist branches. Role selection and command discovery never substitute for the actual procedure.

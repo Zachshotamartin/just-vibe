@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Inventory existing values, identify a coherent scale, define semantic tokens and component states, and plan incremental adoption without visual regressions.
 - Inventory actual repeated values and component states; separate semantic roles from raw scales and define incremental adoption with representative specimens.
 
+## Technical method
+
+- **Inspect:** Inventory repeated tokens, typography, spacing, component states and existing theme contracts.
+- **Apply:** Define semantic roles and a small consistent scale; migrate consumers incrementally with deliberate exceptions.
+- **Avoid misdiagnosis:** Renaming colors without updating focus, disabled, dark-mode or data-visualization states leaves an incomplete system.
+- **Check the result:** Render representative components in each supported theme and verify contrast, overflow and token fallback behavior.
+
 ## Decision branches
 
 - **When two themes require different contrast relationships:** Map semantic tokens per theme and verify components rather than applying one global color substitution.

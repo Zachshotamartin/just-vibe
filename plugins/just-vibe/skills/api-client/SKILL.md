@@ -32,6 +32,13 @@ Only the requested local changes; external actions require their exact action an
 - Verify contract/version, generate or write a narrow client, isolate credentials, preserve useful errors, and exercise controlled successful and failed responses.
 - Resolve version/auth/schema, validate runtime response shape and preserve actionable status, retry-after and request IDs without leaking credentials.
 
+## Technical method
+
+- **Inspect:** Inspect API version, runtime response shape, token destination, retryable operations and timeout ownership.
+- **Apply:** Separate transport, protocol and domain failures; validate untrusted responses where needed and restrict credential forwarding across redirects/origins.
+- **Avoid misdiagnosis:** Static types disappear at runtime; automatically retrying every POST can repeat an external effect.
+- **Check the result:** Exercise malformed response, cancellation, rate limit and uncertain mutation, verifying bounded retry, typed failure and no credential leakage.
+
 ## Decision branches
 
 - **When a mutating request times out:** Retry only under a supported idempotency/reconciliation contract, not generic automatic retry.

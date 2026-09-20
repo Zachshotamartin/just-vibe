@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Identify authoritative values, remove redundant representations when safe, define transitions, choose the narrowest owner, and verify user-visible behavior.
 - Name each authoritative value and derived representation; model update/reset transitions and distinguish per-instance, shared and persisted state.
 
+## Technical method
+
+- **Inspect:** Map each value to its owner, lifetime, derivation, persisted form and reset trigger.
+- **Apply:** Keep intentional drafts distinct from server values; remove duplicate state only when its synchronization contract is understood.
+- **Avoid misdiagnosis:** Copying props into state on every update can erase user edits; a module variable can leak state between instances or server requests.
+- **Check the result:** Test two instances, identity changes, reset and recoverable errors; verify drafts and unrelated state are preserved as intended.
+
 ## Decision branches
 
 - **When a prop change should reset only one form instance:** Define the reset identity explicitly rather than synchronizing every prop into local state.

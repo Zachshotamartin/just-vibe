@@ -2,6 +2,8 @@
 
 Profiles are task-scoped working priorities, separate from executable workflows. Browse the [role catalog](profile-reference.md), then read only the selected role files. Each profile defines a purpose, priorities, a decision rule, verification, a boundary and candidate workflows. It does not supply a model, integration, credential, professional qualification or extra agent.
 
+After selecting a workflow, apply its technical method and matching references. A security role should reach the concrete vulnerability/framework guidance through the selected security or review workflow; a title alone is not a substitute for it. The same applies to database, ML, frontend and architecture roles. Read only the workflows needed by the task, and report missing specialty evidence rather than assuming the role provides it.
+
 ## Selection and precedence
 
 - Choose one primary profile and at most two distinct secondary profiles when they add a concrete focus. The primary role resolves emphasis; secondary roles contribute relevant checks. Do not load the whole catalog into every task.

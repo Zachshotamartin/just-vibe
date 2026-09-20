@@ -32,6 +32,17 @@ None by default. Plan artifacts may be saved when requested.
 - Trace file lifecycle, inspect content/type trust, object ownership, parser behavior, and resource limits; define safe malicious/invalid-file fixtures.
 - Follow filename/content/type trust, storage ownership, parser invocation, resource limits and download authorization across the complete file lifecycle.
 
+## Technical method
+
+- **Inspect:** Trace receipt, content validation, parser, quarantine, extraction, storage and download authorization.
+- **Apply:** Apply file and resource limits at each stage, use server-owned names and verify private storage/scan state before processing or serving.
+- **Avoid misdiagnosis:** Filename extension and client MIME type do not establish content; archive members and symlinks can escape a checked top-level path.
+- **Check the result:** Use small inert invalid files, bounded archive/path fixtures and a valid upload; verify no pre-scan download or cross-tenant access.
+
+## Read when relevant
+
+- Uploads, filesystem paths, extraction or artifact loading are in scope: [Files and resource limits](../../references/security/files.md).
+
 ## Decision branches
 
 - **When scanning occurs asynchronously after upload:** Define quarantine/access state so unverified files cannot be consumed through another route.

@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Trace field expressions through jobs/views, identify version and ownership boundaries, record lossy transformations, and mark opaque external steps.
 - Follow expressions through joins, filters, aggregations and versioned jobs; record grain changes and lossy transformations at each boundary.
 
+## Technical method
+
+- **Inspect:** Read SQL, transformation code, field mappings, job versions and execution/snapshot metadata.
+- **Apply:** Trace each derived field to source fields and transformations, marking dynamic or external edges unresolved.
+- **Avoid misdiagnosis:** An import graph or column-name match does not prove runtime provenance.
+- **Check the result:** Walk one record and one corrected version through the path and verify the documented transform against actual code and run identity.
+
 ## Decision branches
 
 - **When an imported dataset has opaque provenance:** Stop confirmed lineage at that source and request its producer contract rather than assigning an invented origin.

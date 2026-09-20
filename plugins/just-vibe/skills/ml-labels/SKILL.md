@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Trace label construction, compare annotations/outcomes, distinguish disagreement from ambiguous policy, inspect timing and coverage, and propose adjudication/quality checks.
 - Trace label source, event horizon and maturity; distinguish true negatives, unobserved outcomes, contradictory annotations and policy ambiguity.
 
+## Technical method
+
+- **Inspect:** Read labeling policy, event identity, annotator agreement, outcome window and availability timestamps.
+- **Apply:** Separate absent, unresolved and negative labels; trace a disagreement to policy or observation error before changing it.
+- **Avoid misdiagnosis:** Majority vote can erase systematic ambiguity; labels recorded after prediction may be valid outcomes but unavailable for historical fitting.
+- **Check the result:** Hand-check boundary examples, censored cases and disagreement resolution; report which historical training rows were label-eligible.
+
 ## Decision branches
 
 - **When annotators disagree on an ambiguous definition:** Preserve disagreement, clarify policy and adjudicate within scope rather than silently majority-voting it away.

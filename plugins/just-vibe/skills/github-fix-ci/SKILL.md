@@ -34,9 +34,17 @@ Only the requested local changes; external actions require their exact action an
 - All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
 - Use the matching bundled evidence collector when available; read its result and limitations rather than treating exit zero as readiness. Revalidate identity before a dependent action.
 
+## Technical method
+
+- **Inspect:** Read the first failing step and run attempt at the relevant SHA; compare matrix OS, toolchain, event and permissions.
+- **Apply:** Reproduce the smallest matching environment; distinguish test failure from billing, quota, provisioning or credential failure.
+- **Avoid misdiagnosis:** Re-running unchanged code cannot repair an account spending limit; hiding a matrix entry discards coverage.
+- **Check the result:** Verify a new relevant run on the changed SHA, or explicitly retain pending remote evidence when local checks are all that ran.
+
 ## Read when relevant
 
 - Resolving check, deployment or migration identity: [Delivery evidence](../../references/scenarios/delivery-evidence.md).
+- Dependencies, builds, secrets, hooks or privileged execution cross a trust boundary: [Dependency and execution provenance](../../references/security/supply-chain.md).
 
 ## Decision branches
 

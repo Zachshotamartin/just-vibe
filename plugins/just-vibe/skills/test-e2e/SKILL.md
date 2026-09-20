@@ -32,6 +32,13 @@ Only the requested local changes; external actions require their exact action an
 - Seed controlled data, use robust user-facing selectors, exercise the journey and failure recovery, assert observable outcomes, and clean up owned data.
 - Define stable setup and cleanup, drive user-visible controls with semantic locators and assert the final meaningful outcome plus a recovery path.
 
+## Technical method
+
+- **Inspect:** Define the critical user journey, identities, stable state and permitted side effects.
+- **Apply:** Use semantic locators and user-visible outcomes; isolate accounts and preserve artifacts when the journey fails.
+- **Avoid misdiagnosis:** A screenshot or HTTP 200 alone does not prove a completed transaction or accessible interaction.
+- **Check the result:** Run the main path and meaningful recovery path, including direct navigation and persisted result where applicable.
+
 ## Decision branches
 
 - **When a third-party payment or email effect is real:** Use an authorized sandbox or controlled boundary; do not send real effects merely to complete a test.

@@ -32,6 +32,17 @@ None by default. Plan artifacts may be saved when requested.
 - Check inputs/loss/optimizer state, compare expected scales, isolate a small batch, propose or run authorized overfit/gradient probes, and test the leading cause.
 - Inspect one batch's shapes, labels, scale, loss and gradients, locate the first non-finite value and compare optimizer updates with the intended objective.
 
+## Technical method
+
+- **Inspect:** Capture the first divergent batch, activations/loss, gradient finiteness and parameter update.
+- **Apply:** Check objective/target semantics and preprocessing before tuning; use a tiny-batch overfit probe to distinguish plumbing from generalization.
+- **Avoid misdiagnosis:** Switching architecture can conceal a detached graph, wrong target scale or optimizer that never updates parameters.
+- **Check the result:** Verify finite forward/backward values and actual parameter changes on the smallest failing input before a longer run.
+
+## Read when relevant
+
+- Language/runtime semantics, concurrency or resource ownership can change the result: [Language and runtime review methods](../../references/scenarios/language-review.md).
+
 ## Decision branches
 
 - **When a tiny-batch overfit probe fails:** Investigate data/loss/gradient/update plumbing before larger architectures or more epochs.

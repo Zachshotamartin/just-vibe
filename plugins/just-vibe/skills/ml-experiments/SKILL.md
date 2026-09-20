@@ -35,6 +35,13 @@ None by default. Plan artifacts may be saved when requested. Explicit run-import
 - Compare only fresh compatible task/dataset/split and row/target/slice identities. Suppress deltas when incompatible or stale. Explain overall and per-slice changes together, small denominators, missing dimensions, threshold changes, feature parity mismatches and temporal check coverage.
 - Investigate an aggregate gain with a subgroup regression before making a recommendation. Supplied metadata is attributed evidence, matching feature maps do not execute preprocessing, and observed differences do not establish cause. Reconcile unexported/missing predictions and use project tooling for uncertainty, unsupported tasks or larger data.
 
+## Technical method
+
+- **Inspect:** Inspect run manifests, data/split identity, metric definitions, code, failures and selection history.
+- **Apply:** Group only comparable runs and flag differences that change the question; keep cost and failure rates beside headline scores.
+- **Avoid misdiagnosis:** Same metric names may hide different denominators, positive classes or evaluation populations.
+- **Check the result:** Recompute a small metric from retained predictions and reject or qualify comparisons with incompatible protocols.
+
 ## Read when relevant
 
 - Comparing supplied MLflow, W&B or JSON runs with row-level predictions: [Recorded experiment comparisons](../../references/experiments.md).

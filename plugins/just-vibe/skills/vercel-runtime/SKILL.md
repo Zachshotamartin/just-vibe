@@ -33,6 +33,13 @@ None by default. Plan artifacts may be saved when requested.
 - Correlate deployment/request/time and inspect handler entry, environment presence, dependency waits and runtime-specific API support.
 - Use the matching bundled evidence collector when available; read its result and limitations rather than treating exit zero as readiness. Revalidate identity before a dependent action.
 
+## Technical method
+
+- **Inspect:** Inspect function logs and request IDs with region, runtime, payload size, duration and dependency timing.
+- **Apply:** Separate cold start, handler CPU, downstream wait and connection acquisition; compare runtime APIs to the deployed function type.
+- **Avoid misdiagnosis:** A successful build proves no request health; an Edge/Node API mismatch needs a supported runtime choice, not suppressed errors.
+- **Check the result:** Exercise the original failing route with a controlled request and observe success/error/timeout behavior on the same deployment.
+
 ## Read when relevant
 
 - Resolving check, deployment or migration identity: [Delivery evidence](../../references/scenarios/delivery-evidence.md).

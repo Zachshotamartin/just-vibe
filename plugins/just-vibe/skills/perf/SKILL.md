@@ -32,6 +32,13 @@ Only the requested local changes; external actions require their exact action an
 - Establish repeatable baseline conditions, profile the path, target the dominant cause, and compare latency/resource use and correctness after the change.
 - Define a repeatable workload and metric, preserve baseline conditions, and isolate the dominant resource or wait before changing code.
 
+## Technical method
+
+- **Inspect:** Obtain a reproducible workload, baseline, resource measurements and an explicit user-impact metric.
+- **Apply:** Profile the critical path before optimizing and compare under matched revision/data/cache conditions.
+- **Avoid misdiagnosis:** Lower allocation or fewer renders may not improve observed latency; averages hide regressions in tails or errors.
+- **Check the result:** Repeat the same workload, retain correctness checks and report distributions, tradeoffs and measurement uncertainty.
+
 ## Decision branches
 
 - **When a faster implementation changes output quality or consistency:** Reject the comparison or disclose the product tradeoff for an explicit decision.

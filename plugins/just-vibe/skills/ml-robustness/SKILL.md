@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Define validity-preserving perturbations, protect labels from invalid transformations, run bounded authorized tests, compare baseline sensitivity, and identify failure envelopes.
 - Define which changes should preserve labels and expected behavior, cap the sweep and compare both failure rate and input validity against a baseline.
 
+## Technical method
+
+- **Inspect:** Identify plausible missingness, noise, boundary values and deployment shifts with bounded perturbations.
+- **Apply:** Test semantic-preserving perturbations separately from changed-label cases; measure quality, rejection and coverage.
+- **Avoid misdiagnosis:** Arbitrary corruption may not represent deployment, and invariance is wrong when the perturbation should change the answer.
+- **Check the result:** Include an unchanged control, boundary-valid input and deliberately unsupported input; report the exact tested threat/shift model.
+
 ## Decision branches
 
 - **When a perturbation changes the true label or leaves the valid domain:** Classify it separately from an invariance failure.

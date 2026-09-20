@@ -32,6 +32,13 @@ Only the requested local changes; external actions require their exact action an
 - Inspect existing primitives and the consumer contract. Choose state ownership, semantics and interaction behavior before implementing the narrow component API.
 - Select only the relevant scenario guide for dialogs, comboboxes or date inputs; implement normal and recovery states, then verify real interactions and parent-controlled updates.
 
+## Technical method
+
+- **Inspect:** Read the semantic interaction contract, controlled/uncontrolled API, state variants and existing component primitive.
+- **Apply:** Use the relevant dialog, combobox or date scenario; prefer a native control or proven primitive when it meets requirements.
+- **Avoid misdiagnosis:** ARIA labels alone do not implement keyboard behavior, focus management or controlled value semantics.
+- **Check the result:** Exercise keyboard, pointer, disabled/invalid states and two instances; verify focus return and announced errors where applicable.
+
 ## Read when relevant
 
 - Implementing a dialog or modal overlay: [dialog interaction](../../references/scenarios/dialog.md).

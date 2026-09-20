@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Establish the interaction baseline, inspect profiler commits, trace changing props/context/identities, fix the measured cause when requested, and compare behavior and timing.
 - Capture the same interaction in a profiler, separate render from commit cost and trace the props/context identity responsible for expensive work.
 
+## Technical method
+
+- **Inspect:** Capture a representative interaction in the profiler with fixed data and production-like behavior.
+- **Apply:** Locate changing context/prop identities or expensive work, then optimize the measured cause while preserving fresh closures.
+- **Avoid misdiagnosis:** Render counts include harmless work and development checks; memoization can retain stale behavior or cost more than recomputation.
+- **Check the result:** Repeat the same interaction and compare duration/responsiveness while checking that updated inputs still reach callbacks.
+
 ## Decision branches
 
 - **When render counts fall but latency or correctness worsens:** Reject the optimization and inspect stale closures, comparison cost or unrelated bottlenecks.

@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Estimate volume, partition work, define idempotent writes and checkpoints, validate a small authorized batch, reconcile output, and resume within limits.
 - Partition a fixed source snapshot, define idempotent writes and checkpoints, measure a small permitted batch and account for concurrent incremental writers.
 
+## Technical method
+
+- **Inspect:** Define bounded historical range, target revision, batch key, live-writer policy and resource limits.
+- **Apply:** Make chunks resumable and idempotent; prevent old backfill data from overwriting newer live values.
+- **Avoid misdiagnosis:** A successful batch counter does not prove all rows were covered, and retrying non-idempotent transforms can corrupt values.
+- **Check the result:** Stop and resume midway while a live update occurs, then reconcile coverage and values at the agreed snapshot boundary.
+
 ## Decision branches
 
 - **When a batch fails or load exceeds the cap:** Pause with its partition identity and reconciliation state so resume cannot duplicate or overwrite good output.

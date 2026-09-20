@@ -47,3 +47,7 @@ The [repeated repository benchmark](benchmark/README.md) adds fresh multi-file t
 The [v0.2 record](releases/0.2.0.md) contains native Codex/Claude trials, including a partial Claude leakage audit and the tested Codex mode's unavailable native assessment dialog. Later instruction changes do not retroactively turn those trials into passes.
 
 The original [checkout](fixtures/checkout/) and [ML](fixtures/ml/) fixtures remain available. `npm run test:hosts` verifies native installation lifecycles in isolated host configuration directories. It does not establish model behavior, authenticated deployments, database execution, browser rendering or training quality. These need separately identified environments and evidence.
+
+## Technical guidance controls
+
+The [technical audit](../docs/technical-audit.md) updates all canonical workflow instructions. [Security controls](security/README.md) exercise five isolated vulnerable/corrected pairs and reject disabling fixes. Run `npm run eval:security`; it makes no model calls. Catalog behavioral status for changed instructions is not-evaluated; previous results are retained as historical records and are not reassigned to this revision.

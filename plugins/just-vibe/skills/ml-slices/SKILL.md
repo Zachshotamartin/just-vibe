@@ -35,6 +35,13 @@ None by default. Plan artifacts may be saved when requested. Explicit import req
 - Compare only fresh compatible task/dataset/split and row/target/slice identities. Suppress deltas when incompatible or stale. Explain overall and per-slice changes together, small denominators, missing dimensions, threshold changes, feature parity mismatches and temporal check coverage.
 - Investigate an aggregate gain with a subgroup regression before making a recommendation. Supplied metadata is attributed evidence, matching feature maps do not execute preprocessing, and observed differences do not establish cause. Reconcile unexported/missing predictions and use project tooling for uncertainty, unsupported tasks or larger data.
 
+## Technical method
+
+- **Inspect:** Define meaningful cohorts, support counts, denominators, overlap and intended decision.
+- **Apply:** Compare performance and uncertainty within slices, including missing group attributes and intersectional cases where supported.
+- **Avoid misdiagnosis:** Tiny slices and many comparisons can produce dramatic noise; aggregate improvement can hide a harmed cohort.
+- **Check the result:** Report counts and uncertainty with each metric and verify membership logic on hand-labeled examples.
+
 ## Read when relevant
 
 - Comparing supplied MLflow, W&B or JSON runs with row-level predictions: [Recorded experiment comparisons](../../references/experiments.md).

@@ -32,6 +32,13 @@ Only the requested local changes; external actions require their exact action an
 - Define preconditions and generators, implement invariants, bound execution, shrink failures, and preserve a reproducible seed/minimal counterexample.
 - Define preconditions and generators independently of the implementation, include important boundaries and preserve shrunk failures and seeds.
 
+## Technical method
+
+- **Inspect:** Define an invariant from the contract, constructive valid generators and bounded trial/shrink budgets.
+- **Apply:** Generate meaningful edge distributions and preserve seeds/counterexamples; use an independent oracle where one exists.
+- **Avoid misdiagnosis:** A round-trip property can pass when encoder and decoder share the same defect; excessive filtering hides hard inputs.
+- **Check the result:** Show a known violating implementation is detected and that shrunk examples still satisfy the generator's preconditions.
+
 ## Decision branches
 
 - **When filtering discards most generated inputs:** Improve the generator's valid-domain construction instead of hiding the difficult cases.

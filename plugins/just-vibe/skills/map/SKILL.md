@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Identify nodes and imports, trace representative relationships, separate declared from observed dependencies, and select a readable level of detail.
 - Identify public entry points and dependency direction; collapse generated/vendor code and distinguish imports, calls and data sharing.
 
+## Technical method
+
+- **Inspect:** Inspect imports, composition roots, schemas, network clients and deployment metadata.
+- **Apply:** Choose a diagram level that answers the request and label source coupling separately from runtime topology.
+- **Avoid misdiagnosis:** A large unlabeled graph hides ownership and can imply nonexistent deployed services.
+- **Check the result:** Validate representative edges and data owners against source evidence; flag inferred external components.
+
 ## Decision branches
 
 - **When static analysis cannot resolve dynamic loading:** Mark the edge inferred and inspect registration/configuration sites instead of inventing a dependency.

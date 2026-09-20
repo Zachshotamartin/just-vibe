@@ -34,6 +34,13 @@ Only the requested local changes; external actions require their exact action an
 - Where feasible, run the unchanged test against broken and fixed behavior in an isolated copy or worktree. Preserve unrelated user edits and the real index; do not roll back a dirty working file to perform a sensitivity check.
 - Confirm that the negative run fails on the intended assertion, not an import error, missing fixture, timeout or unrelated refactor. Report actual commands and statuses; if the old revision cannot run, explain the remaining evidence gap.
 
+## Technical method
+
+- **Inspect:** Establish the original trigger, broken revision and expected behavior independent of the proposed patch.
+- **Apply:** Add the lowest-layer check that observes the real failure; verify sensitivity in an isolated broken copy when feasible.
+- **Avoid misdiagnosis:** A missing import or setup timeout on the old revision does not establish regression sensitivity.
+- **Check the result:** Record the causal failing assertion or valid-input exception on broken code and a pass on the fix without weakening the expectation.
+
 ## Decision branches
 
 - **When the old revision cannot execute in this environment:** Explain the limitation and use the strongest available independent reproduction evidence.

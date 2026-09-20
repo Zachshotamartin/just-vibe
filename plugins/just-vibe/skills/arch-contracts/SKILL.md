@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Inventory actual consumers, compare current payloads and assumptions, define required/optional fields and errors, and design compatibility tests and deprecation steps.
 - Inventory writers/readers, nullable and optional semantics, version negotiation and error behavior; include independently deployed consumers.
 
+## Technical method
+
+- **Inspect:** Read producer serializers, consumer decoders, timeout settings and ownership of fields and errors.
+- **Apply:** Specify absence versus null, units, enum evolution, version negotiation and retry semantics using concrete exchanges.
+- **Avoid misdiagnosis:** Adding an enum or tightening validation may break existing consumers despite being schema-additive.
+- **Check the result:** Exercise an old consumer against a proposed new producer and the reverse where rolling deployment requires it.
+
 ## Decision branches
 
 - **When old consumers reject unknown fields:** Treat even additive changes as potentially breaking and design a compatibility bridge.

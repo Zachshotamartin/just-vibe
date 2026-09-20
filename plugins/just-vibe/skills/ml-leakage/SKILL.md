@@ -38,6 +38,13 @@ None by default. Plan artifacts may be saved when requested.
 - Before delivering, check every claim labeled proven against its cited evidence. Correct unsupported absolutes, including assertions that all scores are invalid or a split is always wrong. Identify which scores would be affected under which assumptions, and require re-evaluation after confirmed leakage is corrected.
 - Build a compact evidence ledger: field or row, availability time, prediction/fit time, observed violation, affected score and assumptions; keep overlap metadata separate from shared measurements or events.
 
+## Technical method
+
+- **Inspect:** Trace suspicious features, fit transforms, revisions, event time, availability time and split membership.
+- **Apply:** Resolve the latest visible record version before applying historical windows; fit learned transforms within each training fold.
+- **Avoid misdiagnosis:** Correlation or overlapping metadata alone does not prove leakage; filtering versions before selecting the visible revision can resurrect stale data.
+- **Check the result:** Test late correction, boundary timestamps, duplicate versions and labels unavailable at fit time; state precisely which evaluation is invalidated.
+
 ## Decision branches
 
 - **When no raw measurements, event IDs or fitting history establish dependence:** Report conditional risk or unknown, not proven shared events, mandatory gap length or universal score invalidity.

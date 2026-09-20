@@ -32,6 +32,13 @@ Only the requested local changes; external actions require their exact action an
 - Derive states from data and business rules, define transitions and recovery, implement accessible feedback, and exercise each state with controlled data.
 - Derive loading, empty, partial, stale, failed and success states from the data contract; define retry and back-navigation transitions before rendering them.
 
+## Technical method
+
+- **Inspect:** Enumerate request/data states and transitions, including partial success and stale content.
+- **Apply:** Preserve useful context and offer the action that can actually recover each failure; distinguish no results from unavailable data.
+- **Avoid misdiagnosis:** Replacing failed data with an empty-state message misrepresents the result and can encourage destructive user action.
+- **Check the result:** Trigger loading, empty, partial, failed and recovered states; verify user input, retry ownership and announcements survive transitions.
+
 ## Decision branches
 
 - **When a partial response has useful data and an error:** Preserve usable content and explain the failed portion rather than displaying a misleading empty state.

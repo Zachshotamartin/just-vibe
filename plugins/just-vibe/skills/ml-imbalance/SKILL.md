@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Establish naive baselines, inspect per-class/sample counts, choose suitable metrics, compare resampling/weighting only within training folds, and assess deployment prevalence effects.
 - Compute baseline prevalence and class counts by split, choose task-relevant precision/recall measures and restrict resampling to training folds.
 
+## Technical method
+
+- **Inspect:** Measure prevalence, minority counts per split, error costs and operational capacity.
+- **Apply:** Apply resampling or weighting only within training folds; evaluate ranking, precision/recall and probability interpretation separately.
+- **Avoid misdiagnosis:** Accuracy can hide zero minority recall; resampling changes prevalence and can distort uncorrected probabilities.
+- **Check the result:** Compare with an appropriate naive baseline, retain minority denominators and verify thresholds on untouched selection/evaluation data.
+
 ## Decision branches
 
 - **When prevalence differs between sampled training and deployment:** Separate learned ranking from probability calibration and expected operational workload.

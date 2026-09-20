@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Diff interfaces, inspect behavioral changes, identify affected consumers, classify compatibility impact, and propose rollout/deprecation steps.
 - Compare field presence/types, enum values, validation, defaults, error/status behavior, pagination and timing guarantees against identified consumers.
 
+## Technical method
+
+- **Inspect:** Compare old/new payloads, enums, validation, errors, pagination and authentication using known consumers.
+- **Apply:** Classify wire, semantic and operational compatibility separately; propose a migration when old clients cannot interpret the new result.
+- **Avoid misdiagnosis:** An additive enum value or new required permission can break clients even without deleting a field.
+- **Check the result:** Run old consumer fixtures against the proposed provider and identify a deployment sequence that preserves supported versions.
+
 ## Decision branches
 
 - **When a syntactically additive change affects strict decoders or behavior:** Classify its actual consumer impact and propose rollout/deprecation evidence.

@@ -32,6 +32,13 @@ Only the requested local changes; external actions require their exact action an
 - Define source identity and keys, validate inputs, implement transformations and atomic/staged writes, expose failures, and test restart and bad-record handling.
 - Establish stable source/output identity, validate transformations with small hand-checked fixtures and stage writes so completion markers follow durable output.
 
+## Technical method
+
+- **Inspect:** Trace source identity, transformations, sink transaction and checkpoint ownership.
+- **Apply:** Make retries deterministic using stable keys and atomically aligned output/progress where possible; retain failed records with reasons.
+- **Avoid misdiagnosis:** Advancing a checkpoint before committing output silently loses records after a crash.
+- **Check the result:** Interrupt before/after sink commit, replay a batch and compare outputs to a hand-computed small fixture.
+
 ## Decision branches
 
 - **When invalid records can be isolated without corrupting the batch:** Quarantine with counts/reasons under the declared policy; never drop them silently.

@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Compare threshold tradeoffs, model workload/capacity, handle ties and uncertainty, choose using validation data, and reserve independent confirmation.
 - Compute validation tradeoffs with denominators and tie handling, translate them into expected workload under stated volume/prevalence and reserve independent confirmation.
 
+## Technical method
+
+- **Inspect:** Obtain score distribution, error costs, review capacity, protected requirements and selection data.
+- **Apply:** Choose an operating point using explicit constraints and uncertainty; keep threshold selection separate from final test reporting.
+- **Avoid misdiagnosis:** A threshold maximizing F1 may violate a daily capacity or false-positive budget.
+- **Check the result:** Compute the confusion matrix and workload at nearby thresholds, including tied scores and changing prevalence assumptions.
+
 ## Decision branches
 
 - **When no agreed cost or capacity preference distinguishes options:** Present the tradeoff curve and the missing decision rather than selecting an arbitrary optimum.

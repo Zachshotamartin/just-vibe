@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Walk the journey, map decisions and state transitions, identify dead ends/friction, propose improvements, and implement only when requested.
 - Trace entry, progress, validation, abandonment, retry and return paths; track which user input and permissions survive each transition.
 
+## Technical method
+
+- **Inspect:** Map the user's objective, steps, branching choices, saved state and recovery from interruption.
+- **Apply:** Remove unnecessary decisions while retaining needed confirmation and context; define back, refresh and retry semantics.
+- **Avoid misdiagnosis:** Optimizing one screen can break cross-screen state or erase work when users navigate backward.
+- **Check the result:** Complete the journey from a fresh start, an interrupted state and a recoverable failure with realistic input methods.
+
 ## Decision branches
 
 - **When back navigation or session expiry discards important work:** Define recovery and preservation explicitly before simplifying the journey.

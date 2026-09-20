@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Tie signals to impact, define windows/thresholds and missing-data behavior, test historical/fixture events, include recovery and suppression rules, and identify the responder action.
 - Tie each alert to impact and responder action, define evaluation/recovery windows, missing-data behavior and noise suppression, then test historical or synthetic cases.
 
+## Technical method
+
+- **Inspect:** Establish user-impact signal, window, baseline, missing-data semantics and response owner.
+- **Apply:** Define actionable thresholds, recovery and deduplication; distinguish page-worthy sustained failure from diagnostic events.
+- **Avoid misdiagnosis:** A threshold without a responder action creates noise; no samples must not silently become healthy.
+- **Check the result:** Replay healthy, failing, transient and missing-data sequences, checking firing, recovery and notification routing only within requested scope.
+
 ## Decision branches
 
 - **When signal quality cannot distinguish failure from missing telemetry:** Add an explicit missing-data state instead of silently treating absence as healthy.

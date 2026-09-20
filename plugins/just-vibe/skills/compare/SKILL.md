@@ -37,6 +37,13 @@ None by default. Plan artifacts may be saved when requested. An explicit build r
 - Apply the selected variant only after the user selects it or has explicitly delegated that choice. Require fresh checks and unchanged original files/index in the affected scope. Use lab select to journal the application and produce an undo task; preserve unrelated original edits.
 - Stop owned preview processes and clean up reviewed workspace snapshots when requested or as agreed for the task. Preserve wanted alternatives first. Recover interrupted selection through lab recover; never force-clean a stale or unowned workspace.
 
+## Technical method
+
+- **Inspect:** Identify alternatives, common requirements, evaluation conditions and whether working implementations were requested.
+- **Apply:** Compare like-for-like behavior; use isolated variants with shared checks when building alternatives is in scope.
+- **Avoid misdiagnosis:** Unequal feature completeness or different datasets can manufacture a winner; human preference remains attributed judgment.
+- **Check the result:** Apply the same checks to every variant and distinguish measured results, subjective acceptance and blocked evidence.
+
 ## Read when relevant
 
 - The user requests implemented alternatives or live previews: [Working alternatives](../../references/working-alternatives.md).

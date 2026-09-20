@@ -32,6 +32,13 @@ Only the requested local changes; external actions require their exact action an
 - Classify retry-safe operations, allocate end-to-end time budget, implement backoff/jitter where appropriate, propagate cancellation, and simulate partial dependency failures.
 - Allocate an end-to-end deadline across attempts and dependencies, classify retry-safe effects and control exponential backoff/jitter within the total cap.
 
+## Technical method
+
+- **Inspect:** Inventory end-to-end deadline, nested retries, cancellation owners, concurrency limits and partial effects.
+- **Apply:** Budget retries with jitter and bounded attempts, propagate owned cancellation and reconcile uncertain mutations before replay.
+- **Avoid misdiagnosis:** Retrying at every layer multiplies traffic; a timeout does not prove the remote operation failed.
+- **Check the result:** Simulate slow dependency, transient error, permanent refusal and response loss after success; verify total deadline and effect count.
+
 ## Decision branches
 
 - **When the deadline expires with uncertain external mutation:** Return an explicit uncertain/reconcilable state and preserve the stable operation ID.

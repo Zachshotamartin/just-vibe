@@ -32,6 +32,13 @@ Only the requested local changes; external actions require their exact action an
 - Derive minimal realistic entities, encode valid defaults and deliberate invalid cases, isolate identities/timestamps, and verify cleanup and repeatability.
 - Define valid defaults and deliberate invalid variants, isolate identifiers and clocks and make teardown safe after partial setup failure.
 
+## Technical method
+
+- **Inspect:** Identify representative valid defaults, intentional invalid variants, ownership and cleanup requirements.
+- **Apply:** Construct minimal realistic data with explicit timestamps/IDs and independent expected values; avoid production data copies.
+- **Avoid misdiagnosis:** A globally shared mutable fixture can make tests order-dependent; overly permissive mocks erase real constraints.
+- **Check the result:** Run fixtures concurrently or in different orders and verify cleanup after failure plus the expected invalid-case rejection.
+
 ## Decision branches
 
 - **When random generation makes failures hard to reproduce:** Use a recorded seed and expose the important boundary explicitly.

@@ -32,6 +32,17 @@ None by default. Plan artifacts may be saved when requested.
 - Inventory dependents, read version-specific changes, design transitional compatibility, prepare edits/checks, and define recovery before execution.
 - Inventory old/new consumers and persisted formats; identify the last reversible point and validate coexistence before removing compatibility code.
 
+## Technical method
+
+- **Inspect:** Inventory old/new versions, consumers, persisted state, generated artifacts and compatibility requirements.
+- **Apply:** Read the relevant migration documentation and stage transition with explicit fallback before irreversible cleanup.
+- **Avoid misdiagnosis:** Updating a version string does not migrate runtime semantics; code rollback may not read new persisted data.
+- **Check the result:** Test old/new compatibility where required, migrated data invariants and interruption/recovery in isolation.
+
+## Read when relevant
+
+- Language/runtime semantics, concurrency or resource ownership can change the result: [Language and runtime review methods](../../references/scenarios/language-review.md).
+
 ## Decision branches
 
 - **When the target rejects an old persisted format:** Add an explicit conversion and recovery path before changing readers.

@@ -34,6 +34,13 @@ None by default. Plan artifacts may be saved when requested.
 - Compare options against the bottleneck and consistency requirements. Define admission control/backpressure and degradation before adding unbounded concurrency; scaling callers can overload the shared dependency.
 - Propose a bounded measurement or authorized load experiment with rejecting observations and recovery. Report the capacity range established by evidence and what remains unknown; do not invent traffic or throughput.
 
+## Technical method
+
+- **Inspect:** Obtain workload shape, service-time distribution, concurrency limits, queue age and dependency quotas.
+- **Apply:** Locate the first saturated shared resource; estimate concurrency from throughput and mean time only under stated steady-state assumptions, then measure tail behavior.
+- **Avoid misdiagnosis:** Adding replicas can exhaust a database connection budget or amplify retries before increasing throughput.
+- **Check the result:** Compare a bounded workload at the same mix and revision, including saturation, queue recovery and downstream limits.
+
 ## Decision branches
 
 - **When a shared database or serialized step dominates:** Quantify that constraint before recommending application replicas or new services.

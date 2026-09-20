@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Read operators and row estimates, compare actuals when supplied, identify cardinality errors and costly stages, and propose discriminating measurements.
 - Read estimated versus actual rows, loop counts, filters, joins, sorting/spilling and buffers using engine-specific meaning; locate the first large estimation divergence.
 
+## Technical method
+
+- **Inspect:** Read engine/version, query bindings, plan format, row estimates, actual counts/loops and available timing.
+- **Apply:** Locate the first major estimation or repeated-work divergence and relate it to predicates, statistics and access paths.
+- **Avoid misdiagnosis:** Abstract cost is not milliseconds; EXPLAIN ANALYZE executes the statement and may mutate data or consume production resources.
+- **Check the result:** Compare plans under equivalent parameters/data and verify unchanged results; without execution permission, report hypotheses from saved plans only.
+
 ## Decision branches
 
 - **When only an estimated plan is supplied:** Discuss cost/shape hypotheses without converting cost units into milliseconds or inventing execution statistics.

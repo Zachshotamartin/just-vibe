@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Inventory dependencies, find separable seams, sequence compatibility layers and data movement, define parity checks, and set retirement criteria.
 - Identify a seam with separable traffic and data ownership, define coexistence checks and retirement evidence before replacing it.
 
+## Technical method
+
+- **Inspect:** Inventory active consumers, supported versions, write ownership and persisted representations.
+- **Apply:** Define expand/coexist/switch/retire phases, reconciliation and exit criteria; identify the last point at which old readers remain safe.
+- **Avoid misdiagnosis:** Dual writes without recovery can diverge; code rollback cannot recover discarded data.
+- **Check the result:** Interrupt a transition with old and new clients active, resume reconciliation, and verify fallback before retiring the old path.
+
 ## Decision branches
 
 - **When old and new systems write the same records:** Specify source of truth, conflict handling and reconciliation before dual operation.

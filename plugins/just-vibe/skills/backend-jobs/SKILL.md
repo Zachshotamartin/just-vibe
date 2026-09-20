@@ -32,6 +32,13 @@ Only the requested local changes; external actions require their exact action an
 - Define durable payloads, idempotent effects, lease/retry/dead-letter behavior, implement checkpoints where needed, and test crash/restart paths.
 - Specify payload version, stable job identity, lease expiry, ack timing, bounded retry and dead-letter inspection before coding the worker.
 
+## Technical method
+
+- **Inspect:** Inspect queue delivery guarantees, claim/lease mechanism, retry policy, payload version and effect identity.
+- **Apply:** Couple durable progress with business-effect deduplication; define stale lease takeover, poison-message handling and resumable checkpoints.
+- **Avoid misdiagnosis:** Acknowledging before durable progress loses work; assuming a timed-out worker stopped can duplicate an effect.
+- **Check the result:** Interrupt before effect, after effect and before acknowledgment, then restart; verify bounded retries and no duplicate business result.
+
 ## Decision branches
 
 - **When a worker dies after the external effect but before acknowledgement:** Reconcile the effect using durable identity before replaying it.

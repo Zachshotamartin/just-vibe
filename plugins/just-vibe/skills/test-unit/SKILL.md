@@ -32,6 +32,13 @@ Only the requested local changes; external actions require their exact action an
 - Identify observable inputs/outputs, choose meaningful boundaries, create focused tests, check error cases, and run the relevant suite.
 - Select a public behavior and independent expected result, use minimal valid fixtures and cover a meaningful invalid or boundary input without asserting private implementation steps.
 
+## Technical method
+
+- **Inspect:** Identify the public behavior, pure boundary, dependencies and independently derivable expectations.
+- **Apply:** Choose small examples around equivalence classes and exact boundaries; control clock/randomness rather than sleeping.
+- **Avoid misdiagnosis:** Asserting internal helper calls or computing expected results with the implementation repeats its mistakes.
+- **Check the result:** Demonstrate that a plausible wrong result fails an assertion while valid empty/zero/boundary cases pass.
+
 ## Decision branches
 
 - **When heavy mocking hides the behavior under test:** Move the test to the appropriate integration layer or replace only the true external boundary.

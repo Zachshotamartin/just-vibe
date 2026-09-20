@@ -33,6 +33,13 @@ Only the requested local changes; external actions require their exact action an
 - Choose a stable initial contract and move browser-only transitions to the appropriate lifecycle. Ensure request-specific state is isolated across server requests; do not silence hydration warnings or disable rendering broadly to conceal the cause.
 - Verify direct server navigation and client navigation under differing locale/timezone and repeated requests where relevant. Confirm the page becomes interactive and retains its intended initial content, not merely that warnings disappeared.
 
+## Technical method
+
+- **Inspect:** Compare server HTML and first client render with timezone, locale, random IDs, browser storage and DOM nesting.
+- **Apply:** Find the first deterministic divergence; choose server-provided stable inputs or an explicit client-only boundary with appropriate loading behavior.
+- **Avoid misdiagnosis:** Suppressing hydration warnings does not repair invalid markup or mismatched event/state attachment.
+- **Check the result:** Load the real SSR page directly with varied timezone or saved state, inspect warnings and verify the affected interaction after hydration.
+
 ## Decision branches
 
 - **When mismatch depends on user-specific data unavailable to the server:** Define a consistent initial snapshot or intentional client-only boundary for that region.

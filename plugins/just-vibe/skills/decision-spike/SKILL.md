@@ -34,6 +34,13 @@ None by default. Plan artifacts may be saved when requested.
 - Execute within authorization and record raw observations, versions and deviations from the plan. Preserve failures and resource-limit outcomes; do not change the success threshold after seeing the result.
 - Classify supported, rejected or inconclusive. Explain the implication for the original decision and the limits of the sample; prototype success does not establish production readiness.
 
+## Technical method
+
+- **Inspect:** Identify one uncertainty, representative input, budget and rejection condition.
+- **Apply:** Run the smallest experiment that separates alternatives; retain failure evidence and mark prototype shortcuts.
+- **Avoid misdiagnosis:** Building a polished prototype can consume the budget without testing the disputed assumption.
+- **Check the result:** Apply the predeclared criterion to raw observations, including an inconclusive outcome when the sample cannot distinguish options.
+
 ## Decision branches
 
 - **When budget expires without separation:** Preserve measurements and report inconclusive, including what a larger experiment would need.

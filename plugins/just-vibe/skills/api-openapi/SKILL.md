@@ -32,6 +32,13 @@ Only the requested local changes; external actions require their exact action an
 - Inspect routes and serializers, compare schema coverage, resolve documentation-versus-code discrepancies, update the correct source, and validate references/examples.
 - Identify the authoritative schema source, compare serializers and route validators, then check references, required/null distinctions and representative examples.
 
+## Technical method
+
+- **Inspect:** Identify OpenAPI version, source-of-truth convention, generators, serializers and client usage.
+- **Apply:** Reconcile path parameters, required/null semantics, security schemes and error responses; regenerate derived artifacts from their source.
+- **Avoid misdiagnosis:** OpenAPI 3.0 and 3.1 null/schema semantics differ; a valid schema can still document behavior the server never emits.
+- **Check the result:** Validate references/examples with the supported tooling and compare representative real requests/responses against the contract.
+
 ## Decision branches
 
 - **When generated schema disagrees with runtime behavior:** Correct the source of generation or document a deliberate contract change; do not patch generated output alone.

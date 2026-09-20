@@ -35,6 +35,13 @@ None by default. Plan artifacts may be saved when requested.
 - Re-read the resulting PR identity and head/base. Checks for an older SHA do not establish readiness of the current head; if it changed during review, report that and validate the new candidate before claiming readiness.
 - Use the matching bundled evidence collector when available; read its result and limitations rather than treating exit zero as readiness. Revalidate identity before a dependent action.
 
+## Technical method
+
+- **Inspect:** Verify base/head repositories and SHAs, actual diff, template, related issues and check attempts.
+- **Apply:** Describe final behavior and validation for the pushed head; inspect an existing matching PR before retrying creation.
+- **Avoid misdiagnosis:** A local green test can cover unstaged code absent from the PR; same branch names in forks identify different heads.
+- **Check the result:** Re-read remote head and rendered body after requested submission; include only demonstrated checks and user-owned attribution.
+
 ## Read when relevant
 
 - Resolving check, deployment or migration identity: [Delivery evidence](../../references/scenarios/delivery-evidence.md).

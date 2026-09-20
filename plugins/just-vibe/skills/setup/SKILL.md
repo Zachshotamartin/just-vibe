@@ -36,6 +36,13 @@ Selected host plugin registration and its managed just-vibe payload directory on
 
 Task-specific method: Resolve host/scope, check prerequisites and marketplace identity, run the bundled installer, preserve conflict checks, verify result, and explain fresh-session loading requirements. Resolve host, scope and source before mutation; inspect the proposed native operations and preserve unrelated marketplace entries and user configuration.
 
+## Technical method
+
+- **Inspect:** Resolve host, scope, source channel, native plugin inventory and candidate bundled version.
+- **Apply:** Use the supported installer lifecycle and persistent payload, reconciling existing source identity before update or removal.
+- **Avoid misdiagnosis:** A package-manager install alone does not register a native plugin; deleting package cache must not break the managed payload.
+- **Check the result:** Exercise install/repeat/doctor/update/uninstall in isolated host roots and verify native enabled state, source identity and payload version.
+
 ## Decision branches
 
 - **When an existing managed source conflicts with the selected channel:** Report the conflicting identity and supported switch procedure instead of overwriting arbitrary directories.

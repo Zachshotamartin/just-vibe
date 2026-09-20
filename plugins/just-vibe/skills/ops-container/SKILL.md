@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Compare build/runtime stages and host assumptions, inspect image metadata/logs, reproduce in isolation when authorized, and propose or apply a focused fix.
 - Compare build context, multi-stage copy paths, runtime user, working directory, ports and volume permissions with logs from the intended image digest.
 
+## Technical method
+
+- **Inspect:** Inspect build stages, image digest, architecture, user, filesystem permissions, entrypoint and signal handling.
+- **Apply:** Separate build-time assets from runtime requirements; use least-needed privileges and remove secrets from build layers.
+- **Avoid misdiagnosis:** Deleting a secret in a later layer leaves it in earlier layers; a running process does not prove readiness or graceful shutdown.
+- **Check the result:** Build/run an isolated image, exercise readiness, SIGTERM and read-only/non-root requirements, and inspect final-image contents.
+
 ## Decision branches
 
 - **When local build and deployed digest differ:** Establish artifact identity before patching source or diagnosing runtime configuration.

@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Resolve applicable rules, evaluate against the identified snapshot, separate warnings from failures, compare history where available, and identify likely upstream causes.
 - Freeze applicable thresholds before observing results, evaluate completeness/freshness/validity separately and count excluded or unreadable records.
 
+## Technical method
+
+- **Inspect:** Resolve completeness, freshness, validity and consistency rules with denominators and consumer impact.
+- **Apply:** Separate no data from valid zero volume; define late-arrival windows and missing-check behavior.
+- **Avoid misdiagnosis:** A green dashboard can reflect a query that stopped receiving rows rather than healthy data.
+- **Check the result:** Inject missing, stale and inconsistent synthetic batches and a healthy control; verify the right failure reason and recovery condition.
+
 ## Decision branches
 
 - **When required rule evidence is missing:** Mark the rule unknown and preserve the failed/unknown result rather than changing thresholds to pass.

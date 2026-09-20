@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Verify backup provenance/completeness, plan target isolation, execute authorized restore, check schema/counts/integrity and application behavior, and record recovery duration/data loss window.
 - Verify backup identity, completeness, keys and destination isolation, then reconcile schema, counts, integrity and application behavior after authorized restoration.
 
+## Technical method
+
+- **Inspect:** Resolve backup identity, encryption access, retention, destination isolation and recovery objectives.
+- **Apply:** Restore into a verified separate target and validate schema, membership, constraints and application behavior.
+- **Avoid misdiagnosis:** A readable archive or backup job success does not prove restoration; testing on production can overwrite current data.
+- **Check the result:** Measure restored data cutoff and elapsed recovery, verify integrity and application checks, and retain the failed-step recovery plan.
+
 ## Decision branches
 
 - **When backup reads successfully but application checks fail:** Treat recovery as incomplete and preserve the isolated target for diagnosis; do not overwrite the live source.

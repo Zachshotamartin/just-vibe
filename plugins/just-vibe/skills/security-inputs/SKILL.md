@@ -32,6 +32,18 @@ None by default. Plan artifacts may be saved when requested.
 - Trace untrusted values through transformations to sensitive sinks, assess contextual escaping/parameterization, distinguish validation from authorization, and propose safe regression cases.
 - Trace source, transformations, validation and final sink; assess parameterization or contextual encoding at the actual interpreter boundary.
 
+## Technical method
+
+- **Inspect:** Identify attacker-controlled sources, transformations and actual SQL/shell/template/URL/parser/path sinks.
+- **Apply:** Load matching vulnerability cards and framework defaults; trace a reachable path and effective parameterization, encoding or allowlist controls.
+- **Avoid misdiagnosis:** A dangerous-looking API with trusted constants is not automatically exploitable; input validation alone does not make every interpreter safe.
+- **Check the result:** Exercise a safe local regression for the unsafe boundary and a valid control; retain unknown reachability/configuration as conditional.
+
+## Read when relevant
+
+- Untrusted values reach queries, commands, rendering, URLs or parsers: [Injection and interpreter boundaries](../../references/security/injection.md).
+- An available scanner or dependency advisory check can answer the scoped question: [Scanner selection and evidence](../../references/security/scanners.md).
+
 ## Decision branches
 
 - **When the input reaches a safe parameterized sink:** Do not flag injection solely because the input is user controlled; inspect other reachable sinks separately.

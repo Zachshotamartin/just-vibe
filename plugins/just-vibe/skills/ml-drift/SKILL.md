@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Align schemas/windows, choose meaningful per-feature and aggregate checks, account for sample size/seasonality, inspect effect sizes, and define follow-up on signals.
 - Align schema, sampling and seasonal windows, compare effect sizes and support changes and separate data-pipeline changes from population changes.
 
+## Technical method
+
+- **Inspect:** Establish a reference population, feature semantics, seasonality, sample sizes and missing-data behavior.
+- **Apply:** Monitor meaningful distribution changes with declared windows and thresholds; separate drift alerts from proven quality degradation.
+- **Avoid misdiagnosis:** A small p-value on a huge sample can flag irrelevant change, while missing labels prevent conclusions about accuracy.
+- **Check the result:** Inject a known distribution shift and a stable control, then check alert volume, cohort mix and delayed-label follow-up.
+
 ## Decision branches
 
 - **When drift is statistically significant but outcomes are unavailable:** Report a monitoring signal and follow-up, not confirmed accuracy degradation.

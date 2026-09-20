@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Identify original assumptions, compare them to current facts, estimate transition consequences, and recommend retaining, modifying, or superseding the decision.
 - Compare original assumptions with current facts and include migration costs, disruption and option value in retaining versus replacing.
 
+## Technical method
+
+- **Inspect:** Read the original premise, accepted status, trigger and new evidence with dates.
+- **Apply:** Change only conclusions affected by the new premise; compare continuing, adapting and replacing, preserving the original record.
+- **Avoid misdiagnosis:** A hindsight rewrite loses the information needed to understand why the earlier choice was reasonable.
+- **Check the result:** Show the changed premise, resulting recommendation and migration cost; unchanged conditions should not trigger automatic reversal.
+
 ## Decision branches
 
 - **When only preferences or fashion changed:** Retain the decision unless an explicit new priority justifies transition costs.

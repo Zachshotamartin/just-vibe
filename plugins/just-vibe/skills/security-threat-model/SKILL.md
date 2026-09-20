@@ -32,6 +32,17 @@ None by default. Plan artifacts may be saved when requested.
 - Trace data and privilege boundaries, identify entry points, model misuse scenarios, assess existing controls, and prioritize gaps by realistic impact/exposure.
 - Enumerate assets, actors, entry points and trust transitions, then connect realistic misuse chains to existing controls and observable impact.
 
+## Technical method
+
+- **Inspect:** Inventory assets, actors, entry points, trust transitions, deployment assumptions and existing controls.
+- **Apply:** Build source-to-effect attack paths with prerequisites; route relevant paths to the vulnerability and framework guides.
+- **Avoid misdiagnosis:** A generic OWASP list is not a project threat model, and a hypothetical deployment must not become an observed exposure.
+- **Check the result:** Walk a high-impact misuse path and its legitimate control case; distinguish demonstrated, conditional and unknown risks.
+
+## Read when relevant
+
+- Reviewing code or security boundaries: select and read the matching technical branches before concluding: [Review selection and evidence](../../references/security/review.md).
+
 ## Decision branches
 
 - **When a threat depends on an unverified deployment assumption:** State the condition and required evidence instead of declaring an incident or guaranteed exploit.

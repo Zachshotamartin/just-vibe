@@ -34,6 +34,17 @@ None by default. Plan artifacts may be saved when requested.
 - Validate before irreversible work and keep related invariant checks inside the serialization boundary when their inputs can race. Handle lock acquisition failure, deadlock/serialization conflict and cancellation with bounded retries only when replay is safe.
 - Force contention using separate real connections or workers and deterministic coordination. Exercise success, rejection, interruption after partial work and cleanup; assert final state and number of effects, not just the number of returned responses.
 
+## Technical method
+
+- **Inspect:** Write the invariant and a concrete violating interleaving; inspect isolation, lock order and actual worker topology.
+- **Apply:** Choose supported conditional updates, version checks or transactions at the shared state boundary; retry whole units only when safe.
+- **Avoid misdiagnosis:** A process mutex does not protect multiple servers, and a pre-transaction balance read can become stale.
+- **Check the result:** Coordinate separate workers/connections at the contested read and verify one valid outcome, bounded retry and rollback after injected failure.
+
+## Read when relevant
+
+- Language/runtime semantics, concurrency or resource ownership can change the result: [Language and runtime review methods](../../references/scenarios/language-review.md).
+
 ## Decision branches
 
 - **When a caller already owns a transaction:** Follow the API contract: participate with documented savepoint semantics or reject before touching it. Do not use unconditional commit/rollback cleanup that can consume unrelated work.

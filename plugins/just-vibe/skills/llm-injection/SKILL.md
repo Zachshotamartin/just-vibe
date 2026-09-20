@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Map data-to-authority boundaries, create benign canary scenarios, run authorized isolated tests, inspect tool actions as well as text, and propose enforceable mitigations.
 - Map untrusted documents and tool results into model context, plant benign canaries and inspect tool actions as well as generated text.
 
+## Technical method
+
+- **Inspect:** Identify untrusted surfaces, sensitive capabilities, instruction boundaries and observable tool-call logs.
+- **Apply:** Use synthetic canaries and harmless target changes to test direct/indirect injection; enforce trust and permission boundaries outside generated text.
+- **Avoid misdiagnosis:** A refusal in the final response does not prove no unsafe tool call occurred; keyword blocking is not a general defense.
+- **Check the result:** Inspect attempted calls, retrieved context and output for canary exposure; include benign quoted instructions as a false-positive control.
+
 ## Decision branches
 
 - **When an attack is blocked in one finite fixture:** Report the tested boundary and remaining coverage; do not claim universal prompt-injection immunity.

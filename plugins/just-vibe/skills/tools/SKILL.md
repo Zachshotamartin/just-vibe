@@ -36,6 +36,13 @@ None by default. Plan artifacts may be saved when requested.
 
 Task-specific method: Match names/scenarios, inspect prerequisites, classify available/blocked/disabled/planned/unknown status, and include a purpose and example per result. Canonicalize aliases in recommendations while displaying requested names; distinguish installed instructions, observed capability and behavioral evaluation status. Start with a small relevant selection, not the full catalog. Use route reasons, detected stack, explicit workflow names and ambiguity; preserve negative constraints and separate relevance from prerequisite availability. Offer tools --all for the complete inventory.
 
+## Technical method
+
+- **Inspect:** Inspect catalog entries, aliases, search terms and discovered capability evidence.
+- **Apply:** Separate workflow names from external integrations and show available, missing and unknown prerequisites.
+- **Avoid misdiagnosis:** An installed CLI is not authenticated access; a skill description is not an executable scanner.
+- **Check the result:** Reconcile displayed results with canonical commands and preserve alias identity while avoiding duplicated recommendations.
+
 ## Read when relevant
 
 - Browsing, routing or explaining the new utilities: [Discovery and daily utilities](../../references/daily-workflows.md).

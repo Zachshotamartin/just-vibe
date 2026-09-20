@@ -39,6 +39,13 @@ Only the requested local changes; external actions require their exact action an
 
 Task-specific method: Choose the smallest useful workflow and proportionate execution path. Complete authorized work with carried context, meaningful verification and a clear result.
 
+## Technical method
+
+- **Inspect:** Read the complete goal, exclusions, pinned profile, project evidence and stage dependencies.
+- **Apply:** Choose only the needed workflows, load their technical methods and start a bounded local path; escalate bookkeeping when effects or recovery require it.
+- **Avoid misdiagnosis:** Lexical routing is a suggestion, not authorization or a reason to execute every matching command.
+- **Check the result:** Check each selected stage against the original outcome and carry constraints through retries, continuation and workflow changes.
+
 ## Read when relevant
 
 - Choosing quick versus tracked work: [Daily workflow paths](../../references/daily-workflows.md).

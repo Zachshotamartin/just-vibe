@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Validate schema, select a representative bounded sample or authorized aggregate scan, compute summaries, and flag anomalies relative to declared semantics.
 - Inspect schema and volume before scanning, distinguish nulls from sentinels and sample across relevant time/group strata with stated selection limits.
 
+## Technical method
+
+- **Inspect:** Establish snapshot, row grain, sample method, units, timezones, sensitive fields and denominator.
+- **Apply:** Report missingness, duplicates and distributions by meaningful group; distinguish sample observations from whole-population claims.
+- **Avoid misdiagnosis:** Converting numeric-looking IDs or imputing during profiling silently changes evidence.
+- **Check the result:** Reconcile row counts and missing-value definitions and inspect bounded anomalies without exporting private rows.
+
 ## Decision branches
 
 - **When the sample is convenience-based or filtered:** Label its population and avoid extrapolating exact counts or representativeness.

@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Identify persisted data, external promises, switching mechanisms, and operational costs; classify reversibility with evidence and design cheaper experiments.
 - Inventory persisted data, external promises and dependency adoption; distinguish rollback of code from reversal of consequences.
 
+## Technical method
+
+- **Inspect:** Identify persisted data, external promises, migrations, lock-in and rollback dependencies.
+- **Apply:** Describe reversal steps, time, retained artifacts and irreversible consequences separately from changing a feature flag.
+- **Avoid misdiagnosis:** A reversible code change may already have sent messages or transformed data irreversibly.
+- **Check the result:** Walk reversal after partial adoption and identify what the previous version can no longer read or undo.
+
 ## Decision branches
 
 - **When a configuration toggle has irreversible downstream effects:** Classify those effects separately and design a bounded trial with cleanup or reconciliation.

@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Identify required fields and keys, define ranges/nullability/time semantics, set freshness expectations, and specify versioning and violation handling.
 - Specify grain, keys, types, units, nullability, event/arrival time, freshness and allowed schema evolution from actual consumption paths.
 
+## Technical method
+
+- **Inspect:** Identify producer/consumer schema, semantic units, key uniqueness, timeliness and allowed evolution.
+- **Apply:** Specify compatibility and quarantine behavior for missing, late, duplicate and newly introduced values.
+- **Avoid misdiagnosis:** Type-valid data can still be wrong in units, timezone or row grain.
+- **Check the result:** Test valid, structurally invalid and semantically wrong records plus a compatible schema evolution with real consumer decoding.
+
 ## Decision branches
 
 - **When thresholds or ownership have not been agreed:** Mark them proposed with rationale and name the decision needed before enforcement.

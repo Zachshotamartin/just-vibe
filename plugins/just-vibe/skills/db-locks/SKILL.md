@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Correlate blocked/blocking sessions and queries, inspect transaction boundaries, distinguish transient waits from persistent contention, and propose targeted remedies.
 - Correlate wait and blocker snapshots with transaction age, query identity and application transaction boundaries; follow the root blocker rather than the noisiest victim.
 
+## Technical method
+
+- **Inspect:** Inspect blocking chain, lock modes, transaction age, statements and isolation on the exact database.
+- **Apply:** Find the root blocker and conflicting access order; consider shorter transactions, consistent ordering or bounded retries against the invariant.
+- **Avoid misdiagnosis:** The busiest blocked query may be a victim; terminating a session is an operational mutation with rollback consequences.
+- **Check the result:** Reproduce the interleaving with separate isolated connections and verify bounded recovery, not merely lower observed lock counts.
+
 ## Decision branches
 
 - **When the reported deadlock already resolved:** Separate historical deadlock analysis from current blocking and avoid terminating unrelated live sessions.

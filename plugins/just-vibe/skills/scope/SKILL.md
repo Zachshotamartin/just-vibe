@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Identify user outcomes, map dependencies, distinguish essentials from enhancements, and assess what remains viable under the limits.
 - Trace each proposed cut through a complete user journey and its operational dependencies; preserve the smallest usable outcome.
 
+## Technical method
+
+- **Inspect:** Identify the core user outcome, hard deadline/resources and dependencies between requested capabilities.
+- **Apply:** Separate essential behavior from enhancements while preserving a usable end-to-end path.
+- **Avoid misdiagnosis:** Dropping error recovery or required authorization can make a smaller release unusable rather than merely simpler.
+- **Check the result:** Verify the retained scope completes the core journey and list deferred items with their explicit impact.
+
 ## Decision branches
 
 - **When the remaining scope still exceeds a hard limit:** Offer concrete tradeoffs in outcome, deadline or resources instead of unsupported estimates.

@@ -32,6 +32,13 @@ Only the requested local changes; external actions require their exact action an
 - Record immutable references or hashes where feasible, schema, transformation/code versions, split identity, and creation parameters; verify referential accessibility.
 - Record source snapshot or content identity, transformation revision, schema, split membership and immutable access references without storing secrets or raw private data.
 
+## Technical method
+
+- **Inspect:** Inventory source snapshot IDs, transforms, schema, split membership and label-version policy.
+- **Apply:** Create a manifest that identifies exact inputs and processing without embedding confidential rows; state mutable external sources explicitly.
+- **Avoid misdiagnosis:** A filename, seed or hash of only a sample cannot identify the full dataset.
+- **Check the result:** Reconstruct membership from the manifest or record inaccessible components; changed upstream revisions must change or qualify dataset identity.
+
 ## Decision branches
 
 - **When only a mutable source URL exists:** Mark identity provisional and define the snapshot/hash mechanism needed for reproducibility.

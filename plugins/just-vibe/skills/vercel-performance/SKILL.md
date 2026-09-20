@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Correlate timing with runtime/cache state, separate server from network/client delays, compare like-for-like requests, and rank optimizations by evidence.
 - Separate cold start, warm handler, dependency, network and browser timing; compare matching regions, payloads and cache states.
 
+## Technical method
+
+- **Inspect:** Obtain equivalent revision/region/payload samples, cache status and cold/warm conditions.
+- **Apply:** Attribute latency to network, application, data access and cache; optimize the measured dominant stage.
+- **Avoid misdiagnosis:** Comparing a cold miss before with a warm hit after does not demonstrate an improvement.
+- **Check the result:** Repeat matched conditions, retain error rates and tail latency, and verify cache changes do not mix users or stale personalized content.
+
 ## Decision branches
 
 - **When a fast sample is cached and a slow sample is uncached:** Report separate distributions and investigate cache eligibility before claiming compute regression.

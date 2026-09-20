@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Inspect actual tooling/configuration, document prerequisites and target checks, order low-risk diagnostics first, mark destructive steps, and specify observable success/abort criteria.
 - Resolve actual environment/tool conventions, order diagnostics before mutation and give each action a target check, expected observation and abort/recovery path.
 
+## Technical method
+
+- **Inspect:** Verify target identity, command support, preconditions, expected observations and recovery dependencies.
+- **Apply:** Write steps that branch on real outcomes with abort conditions and explicit irreversible boundaries.
+- **Avoid misdiagnosis:** A plausible command copied from another version or environment can be dangerous; documentation is not evidence it was exercised.
+- **Check the result:** Rehearse in an appropriate isolated environment or mark untested steps, recording the exact observations needed to proceed.
+
 ## Decision branches
 
 - **When a command cannot be exercised safely:** Mark it unverified and state its prerequisites rather than presenting it as rehearsed.

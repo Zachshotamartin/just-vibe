@@ -32,6 +32,13 @@ Only the requested local changes; external actions require their exact action an
 - Validate schemas, create stable row/partition identities, implement checkpointed writes, track failures and model versions, and test resume/replay on controlled input.
 - Freeze model and input snapshot identity, partition by stable keys, stage outputs and commit a manifest/checkpoint only after durable complete partitions.
 
+## Technical method
+
+- **Inspect:** Identify input snapshot, stable record IDs, model version, partitioning and output commit/checkpoint policy.
+- **Apply:** Write resumable idempotent partitions with provenance and reconcile partial output before advancing progress.
+- **Avoid misdiagnosis:** Restarting with a different model under the same output partition silently mixes incompatible predictions.
+- **Check the result:** Interrupt before/after output commit and retry; verify full membership, no duplicate records and consistent model/data identity.
+
 ## Decision branches
 
 - **When a restart finds partial output or a different model version:** Reconcile or isolate it before resuming; never silently mix incompatible predictions.

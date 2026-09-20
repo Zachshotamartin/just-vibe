@@ -35,6 +35,13 @@ Only the requested local changes; external actions require their exact action an
 - For an external effect, walk the crash before send, timeout after possible success and failure before local recording. Use supported provider idempotency or durable reconciliation; a local key alone cannot prove exactly-once external execution.
 - Test equal replay, conflicting payload, separate tenants, simultaneous claims and failure after each durable step. Assert state, stored result and hook/provider call count; verify a retry after rollback can succeed without repeating a completed effect.
 
+## Technical method
+
+- **Inspect:** Identify key scope, normalized payload, unique storage constraint, external provider support and retention.
+- **Apply:** Atomically bind a key to payload and result; distinguish completed, in-progress and uncertain external outcomes with reconciliation.
+- **Avoid misdiagnosis:** An in-memory map fails across processes; deleting a pending key after a timeout can permit a second charge.
+- **Check the result:** Send concurrent equal requests and same-key different-payload requests, then interrupt after external success before local recording.
+
 ## Decision branches
 
 - **When the same key arrives with a different payload or while pending:** Return explicit conflict/pending behavior; do not execute another effect or replay an unrelated result.

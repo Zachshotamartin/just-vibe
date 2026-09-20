@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Read effective configuration sources and version compatibility, trace conflicting options, compare development/production behavior, and propose focused corrections.
 - Resolve command, mode, root, envDir, aliases and plugin order from the actual invoked script; compare TypeScript resolution with bundler resolution.
 
+## Technical method
+
+- **Inspect:** Read effective command/mode, root/envDir, aliases, plugins, define replacements and server restrictions.
+- **Apply:** Trace each disputed option to its consuming tool; reconcile TypeScript paths with actual bundler resolution.
+- **Avoid misdiagnosis:** A config file can execute arbitrary imports; read-only inspection should not evaluate it just to discover values.
+- **Check the result:** Check the relevant dev and production resolution paths, including case-sensitive filenames and browser-exposed replacements.
+
 ## Decision branches
 
 - **When a config function branches on command or mode:** Assess each relevant branch statically before executing potentially side-effecting configuration.

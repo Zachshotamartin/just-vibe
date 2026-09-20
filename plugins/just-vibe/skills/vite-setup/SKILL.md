@@ -32,6 +32,13 @@ Only the requested local changes; external actions require their exact action an
 - Inspect existing setup, choose compatible plugins, configure development/build/preview scripts, preserve existing source, and validate basic development and production paths.
 - Inspect package manager, workspace root, framework plugin and Node support; preserve existing entry files and establish dev/build/preview paths using project conventions.
 
+## Technical method
+
+- **Inspect:** Inspect framework, installed Node/Vite/plugin versions, workspace scripts, module format and deployment base path.
+- **Apply:** Adapt the existing build convention; align dev entry, production output and asset resolution using supported version-specific settings.
+- **Avoid misdiagnosis:** Copying a config for another major or adding a second package manager can create a setup that only works on one machine.
+- **Check the result:** Verify dev startup, production build and a direct nested route against generated output with the chosen package manager.
+
 ## Decision branches
 
 - **When an existing app already has a bundler or non-root deployment path:** Plan an explicit transition and base-path handling rather than copying a new template over it.

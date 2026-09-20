@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Compare fit, integration, maintenance, migration, service dependence, and total-cost assumptions; verify current vendor capabilities when relevant.
 - Compare integration, operations, staffing, exit/export and failure ownership over a stated usage horizon; include the current workaround.
 
+## Technical method
+
+- **Inspect:** Establish functional requirements, integration surfaces, support burden, data export and verified pricing terms.
+- **Apply:** Compare lifecycle scenarios including maintenance, incident response, migration and exit; retain uncertainty ranges instead of invented estimates.
+- **Avoid misdiagnosis:** Vendor feature lists do not prove compatibility with the actual identity, offline or data-residency requirements.
+- **Check the result:** Validate the decisive integration with a bounded example and compare exit costs as well as the happy-path purchase.
+
 ## Decision branches
 
 - **When a vendor lacks a hard requirement or usable export:** Exclude it or state the explicit compromise before calculating weighted convenience.

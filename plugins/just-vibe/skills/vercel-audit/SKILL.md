@@ -32,6 +32,17 @@ None by default. Plan artifacts may be saved when requested.
 - Compare repository scripts/configuration with project settings, inspect recent deployment metadata, and identify drift or unsupported assumptions.
 - Record team/project/revision and compare root directory, build/install command, output directory, framework preset and runtime against the relevant package.
 
+## Technical method
+
+- **Inspect:** Read team/project identity, root directory, framework preset, package manager, build/output settings and deployment SHA.
+- **Apply:** Compare each setting to the workspace actually owning the app; distinguish monorepo install root from build root.
+- **Avoid misdiagnosis:** Relinking to inspect settings mutates project state; local hoisting can conceal undeclared dependencies.
+- **Check the result:** Produce an evidence-backed mismatch list and mark unavailable remote settings unknown instead of assuming local config is authoritative.
+
+## Read when relevant
+
+- The task depends on framework defaults, middleware, RLS, server/client or deployment behavior: [Framework-specific review branches](../../references/security/frameworks.md).
+
 ## Decision branches
 
 - **When a monorepo's deployed root differs from the package under review:** Trace install/build working directories and workspace dependency resolution before changing settings.

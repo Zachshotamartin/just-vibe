@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Define one meaningful variation at a time or a justified factorial design, hold data/evaluation constant, repeat seeds when needed, and compare uncertainty/cost.
 - State the causal comparison, hold data/protocol constant and repeat seeds or matched runs where variance could overwhelm the effect.
 
+## Technical method
+
+- **Inspect:** Identify the component claim, matched data/protocol, randomness and comparison metric.
+- **Apply:** Remove or vary one meaningful component while holding the rest fixed and repeat enough to expose relevant variance within budget.
+- **Avoid misdiagnosis:** A changed preprocessing pipeline or compute budget can confound a claimed component improvement.
+- **Check the result:** Compare paired outcomes where possible, report uncertainty and preserve a no-change control when evaluation noise matters.
+
 ## Decision branches
 
 - **When removing a component changes another required contract:** Redesign the comparison or disclose the confound instead of attributing all change to one component.

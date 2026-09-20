@@ -42,6 +42,13 @@ ${command.writeScope}
 
 ${steps}
 ${command.runtimeSteps?.length ? `\nTask-specific method: ${command.procedure.join(' ')}\n` : ''}
+## Technical method
+
+- **Inspect:** ${command.technical.evidence}
+- **Apply:** ${command.technical.method}
+- **Avoid misdiagnosis:** ${command.technical.pitfall}
+- **Check the result:** ${command.technical.check}
+
 ${command.guides?.length ? `## Read when relevant\n\n${command.guides.map(g => `- ${g.when}: [${g.title}](../../${g.path}).`).join('\n')}\n\n` : ''}## Decision branches
 
 ${command.branches.map(b => `- **When ${b.when}:** ${b.then}`).join('\n')}
@@ -78,10 +85,11 @@ export function generate({ check = false } = {}) {
   }
   outputs.set(resolve(pluginRoot, 'references/command-reference.md'), `# Command reference\n\n${catalog.commands.length} shipped skill names; ${catalog.commands.filter(c => c.aliasOf).length} aliases inherit canonical implementations. Commands run in the active host agent. Availability depends on task evidence and host permissions.\n\n` + catalog.packs.map(pack => `## ${pack.name}\n\n| Command | Default | Purpose |\n|---|---|---|\n` + catalog.commands.filter(c => c.pack === pack.id).map(c => `| [${c.id}](../${c.skillPath}) | ${c.defaultMode} | ${c.summary}${c.aliasOf ? ` (alias of ${c.aliasOf})` : ''} |`).join('\n')).join('\n\n') + '\n');
   const repo = fileURLToPath(new URL('../', import.meta.url));
+  outputs.set(resolve(repo, 'docs/technical-coverage.md'), '# Technical guidance coverage\n\nGenerated from the canonical catalog. This is an inventory of authored guidance and its routes, not evidence that an agent followed it or that a vulnerability was detected. Each canonical workflow has evidence to inspect, a method, a misdiagnosis to avoid and a discriminating check. Aliases inherit the entire contract. See [audit findings and validation](technical-audit.md).\n\n' + catalog.packs.map(pack => `## ${pack.name}\n\n| Workflow | Specific failure or ambiguity addressed | Conditional references |\n|---|---|---|\n` + catalog.commands.filter(c => c.pack === pack.id && !c.aliasOf).map(c => `| [${c.id}](../plugins/just-vibe/${c.skillPath}) | ${c.technical.pitfall.replaceAll('|', '\\|')} | ${(c.guides || []).map(g => `[${g.title}](../plugins/just-vibe/${g.path})`).join('; ') || 'Technical method and pack guide in entry point'} |`).join('\n')).join('\n\n') + '\n');
   outputs.set(resolve(repo, 'evals/scenarios.json'), JSON.stringify({ schemaVersion: 1,
     note: 'Evaluation specifications, not claims of completed model runs. Use isolated permitted artifacts and the documented harness.',
     scenarios: catalog.commands.map(c => ({ id: c.id, pack: c.pack, brief: c.examples[0].brief, mode: c.defaultMode,
-      requiredEvidence: c.requiredInputs, rubric: c.verification, stopBehavior: c.stopConditions, cases: c.examples,
+      requiredEvidence: c.requiredInputs, rubric: [...c.verification, c.technical.check], technicalMethod: c.technical, stopBehavior: c.stopConditions, cases: c.examples,
       invariants: ['Preserve appended constraints and scope.', 'Report unavailable evidence without fabricating success.', 'Do not add unrequested external side effects.'] })) }, null, 2) + '\n');
   for (const [path, content] of outputs) {
     if (check) {

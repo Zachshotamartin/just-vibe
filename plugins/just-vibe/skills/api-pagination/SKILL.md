@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Choose deterministic ordering and tie-breakers, assess offset/cursor tradeoffs, bind cursors to filters/scope, and test inserts, deletes, ties, and end conditions.
 - Define deterministic ordering with a unique tie-breaker, scope cursor identity to filters/tenant and specify consistency under concurrent inserts/deletes.
 
+## Technical method
+
+- **Inspect:** Inspect ordering columns, uniqueness, null ordering, filters, tenant scope and consistency requirements.
+- **Apply:** Use a deterministic composite position and bind cursors to query/scope; define live versus snapshot traversal.
+- **Avoid misdiagnosis:** Offset shifts under writes and nonunique sort keys can skip or duplicate records; base64 is not tamper protection.
+- **Check the result:** Test equal sort values, concurrent insert/delete, empty/last pages and a cursor from another tenant or filter.
+
 ## Decision branches
 
 - **When the product requires a stable snapshot across pages:** Choose an actual snapshot/version mechanism or explicitly narrow the guarantee.

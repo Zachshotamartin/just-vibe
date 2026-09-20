@@ -34,6 +34,13 @@ None by default. Plan artifacts may be saved when requested.
 
 Task-specific method: Inspect manifests and scripts, sample representative modules, reconcile documentation with code, and identify the shortest path to the user's goal. Label unexecuted commands as inferred. Read manifests and actual entry points before listing scripts; follow one reachable user path and identify generated or vendored boundaries.
 
+## Technical method
+
+- **Inspect:** Inspect bounded manifests, entry points, scripts, workspace layout and applicable project instructions.
+- **Apply:** Distinguish declared stack from observed runnable commands; follow a representative entry point to its owner.
+- **Avoid misdiagnosis:** A package script's name does not prove it works, and importing configuration can execute code during inspection.
+- **Check the result:** Cite the source of stack/build claims and identify commands actually executed versus merely discovered.
+
 ## Decision branches
 
 - **When multiple packages or stale documentation:** Identify each package's role and distinguish configured commands from commands actually exercised.

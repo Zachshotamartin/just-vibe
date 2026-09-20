@@ -32,6 +32,13 @@ None by default. Plan artifacts may be saved when requested.
 - Form answerable subquestions, inspect project constraints, consult authoritative sources, compare evidence dates, and distinguish facts from inference.
 - Turn the question into compatibility claims; inspect the project's pinned versions and check primary documentation with dates and exact feature boundaries.
 
+## Technical method
+
+- **Inspect:** Resolve the precise question, installed versions, decision constraints and primary source availability.
+- **Apply:** Search authoritative version-relevant material, distinguish quoted facts from inference and compare conflicting evidence.
+- **Avoid misdiagnosis:** Current documentation may describe a different major than the project; search snippets alone can omit decisive conditions.
+- **Check the result:** Link claims to supporting passages and identify the uncertainty that remains relevant to the decision.
+
 ## Decision branches
 
 - **When authoritative sources conflict or describe another version:** State the conflict and testable assumption; do not combine incompatible APIs into one recommendation.
