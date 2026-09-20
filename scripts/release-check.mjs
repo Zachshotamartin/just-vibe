@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { readFileSync, lstatSync, existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { npm } from './lib/npm.mjs';
+import { npm, packResult } from './lib/npm.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const pkg = JSON.parse(readFileSync(resolve(root, 'package.json'), 'utf8'));
@@ -17,7 +17,7 @@ assert.ok(readFileSync(resolve(root, 'CHANGELOG.md'), 'utf8').includes(`## ${pkg
 const lock = JSON.parse(readFileSync(resolve(root, 'package-lock.json'), 'utf8'));
 assert.equal(lock.version, pkg.version);
 assert.equal(lock.packages[''].version, pkg.version);
-const [archive] = JSON.parse(npm(['pack', '--dry-run', '--json', '--ignore-scripts'], { cwd: root, encoding: 'utf8' }));
+const archive = packResult(npm(['pack', '--dry-run', '--json', '--ignore-scripts'], { cwd: root, encoding: 'utf8' }));
 const paths = new Set(archive.files.map(file => file.path));
 for (const required of ['LICENSE', 'README.md', 'CHANGELOG.md', 'docs/releases.md', 'docs/compatibility.md', 'plugins/just-vibe/LICENSE']) assert.ok(paths.has(required), `Missing: ${required}`);
 for (const path of paths) {

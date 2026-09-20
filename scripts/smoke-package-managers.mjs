@@ -4,14 +4,14 @@ import { mkdtempSync, mkdirSync, readFileSync, writeFileSync, rmSync } from 'nod
 import { tmpdir } from 'node:os';
 import { resolve, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { npm } from './lib/npm.mjs';
+import { npm, packResult } from './lib/npm.mjs';
 import { stageBundle, validateBundle } from '../plugins/just-vibe/scripts/lib/bundle.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const pkg = JSON.parse(readFileSync(join(root, 'package.json'), 'utf8'));
 const temp = mkdtempSync(join(tmpdir(), 'just-vibe pm '));
 try {
-  const archive = process.argv[2] ? resolve(process.argv[2]) : join(temp, JSON.parse(npm(['pack', '--json', '--ignore-scripts', '--pack-destination', temp], { cwd: root, encoding: 'utf8' }))[0].filename);
+  const archive = process.argv[2] ? resolve(process.argv[2]) : join(temp, packResult(npm(['pack', '--json', '--ignore-scripts', '--pack-destination', temp], { cwd: root, encoding: 'utf8' })).filename);
   const bootstrap = join(temp, 'managers');
   mkdirSync(bootstrap);
   writeFileSync(join(bootstrap, 'package.json'), '{"private":true}\n');

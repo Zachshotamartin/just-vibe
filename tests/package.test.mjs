@@ -1,5 +1,5 @@
 import test from 'node:test';
-import { npm } from '../scripts/lib/npm.mjs';
+import { npm, packResult } from '../scripts/lib/npm.mjs';
 import assert from 'node:assert/strict';
 import { execFileSync, spawnSync } from 'node:child_process';
 import { readFileSync, mkdtempSync, rmSync, existsSync, symlinkSync } from 'node:fs';
@@ -12,7 +12,7 @@ const root = fileURLToPath(new URL('../', import.meta.url));
 
 test('npm archive contains the runnable installer and both complete plugin manifests, but no planning files', () => {
   const output = npm(['pack', '--dry-run', '--json', '--ignore-scripts'], { cwd: root, encoding: 'utf8' });
-  const [{ files }] = JSON.parse(output);
+  const { files } = packResult(output);
   const paths = files.map(file => file.path);
   for (const required of [
     'bin/just-vibe.mjs', 'plugins/just-vibe/scripts/installer.mjs',
@@ -70,7 +70,7 @@ test('packed CLI and every skill work without the source checkout, plan or depen
   const dir = mkdtempSync(join(tmpdir(), 'just-vibe-package-'));
   t.after(() => rmSync(dir, { recursive: true, force: true }));
   const output = npm(['pack', '--json', '--ignore-scripts', '--pack-destination', dir], { cwd: root, encoding: 'utf8' });
-  const [{ filename }] = JSON.parse(output);
+  const { filename } = packResult(output);
   execFileSync('tar', ['-xzf', join(dir, filename), '-C', dir]);
   const cli = join(dir, 'package/bin/just-vibe.mjs');
   const json = execFileSync(process.execPath, [cli, 'tools', '--all', '--root', dir, '--json'], { cwd: dir, encoding: 'utf8' });

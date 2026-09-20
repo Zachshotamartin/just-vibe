@@ -3,13 +3,13 @@ import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createHash } from 'node:crypto';
-import { npm } from './lib/npm.mjs';
+import { npm, packResult } from './lib/npm.mjs';
 const root = fileURLToPath(new URL('../', import.meta.url));
 const destination = resolve(root, 'dist');
 if (execFileSync('git', ['status', '--porcelain'], { cwd: root, encoding: 'utf8' }).trim()) throw new Error('Commit or stash source changes before preparing a release artifact.');
 npm(['run', 'release:check'], { cwd: root, stdio: 'inherit' });
 mkdirSync(destination, { recursive: true });
-const [packed] = JSON.parse(npm(['pack', '--json', '--ignore-scripts', '--pack-destination', destination], { cwd: root, encoding: 'utf8' }));
+const packed = packResult(npm(['pack', '--json', '--ignore-scripts', '--pack-destination', destination], { cwd: root, encoding: 'utf8' }));
 const archive = resolve(destination, packed.filename);
 execFileSync(process.execPath, [resolve(root, 'scripts/smoke-package-managers.mjs'), archive], { cwd: root, stdio: 'inherit' });
 // An absolute path avoids npm interpreting a bare dir/file argument as GitHub shorthand.
