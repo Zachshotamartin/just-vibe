@@ -1,11 +1,9 @@
 # Changelog
 
-## Unreleased
+## 0.7.0
 
 - Extend remember to merge explicit rules or current conversation decisions into CLAUDE.md/AGENTS.md, with shared instructions for both hosts, preview mode and optional named checkpoints in one invocation. Preserve existing guidance, user corrections and scope; distinguish saved files from verified host loading.
 - Route instruction-memory requests to remember without confusing application caches or ML memory usage with project instructions.
-
-## 0.7.0
 
 - Let auto complete small local tasks without formal stage calls, escalating to tracked execution when dependencies, recovery or effects require it.
 - Show a small starter catalog by default; keep the complete catalog under tools --all. Rank routes using task intent, detected JS/Python frameworks and prerequisite status, with reasons and ambiguity instead of implied certainty.

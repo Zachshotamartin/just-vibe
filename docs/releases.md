@@ -1,6 +1,6 @@
 # Releasing just-vibe
 
-The repository is prepared for npm distribution. A prepared archive is not a published package. No install command using the npm name works until the first publication succeeds.
+Releases use the public `just-vibe` package on npm. A prepared archive is not a published package: verify the exact version and archive integrity in the registry after publication.
 
 ## Check and package
 

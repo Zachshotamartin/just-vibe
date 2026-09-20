@@ -49,7 +49,7 @@ Save decisions and corrections from the current conversation in one invocation:
 
 In Codex, select **remember** from just-vibe and append the same brief. The skill updates the established `CLAUDE.md` or `AGENTS.md`, merges existing guidance and saves only explicit instructions and accepted decisions. `both` keeps common rules in `AGENTS.md` with a relative import in `CLAUDE.md`. A checkpoint keeps temporary progress separate. You can also append one specific rule or ask for a preview without writing.
 
-This is an agent workflow using the host's file tools; terminal `project remember` only stores JSON notes. Saved instructions improve continuity but do not guarantee adherence or recover unavailable chat history. See [merging, host loading and examples](plugins/just-vibe/references/instruction-memory.md). This extension is in the current source checkout; previously installed copies require an update from this source.
+This is an agent workflow using the host's file tools; terminal `project remember` only stores JSON notes. Saved instructions improve continuity but do not guarantee adherence or recover unavailable chat history. See [merging, host loading and examples](plugins/just-vibe/references/instruction-memory.md). Update older installations to receive this extension.
 
 ## Engineering profiles
 
@@ -119,7 +119,7 @@ Plain `tools` shows a starter selection; `tools --all` lists everything. `route`
 
 You need **Node.js 22+** and **Codex CLI** or **Claude Code** with native plugin support on your `PATH`. See [compatibility and known limits](docs/compatibility.md).
 
-**Publication status:** npm release preparation is complete in this source tree, but the first npm publication still requires the maintainer's npm login. The short registry commands below work after that publication.
+Install the public `just-vibe` package from npm with your preferred package manager:
 
 ```sh
 # Choose your package manager; all use the same npm package.
@@ -135,7 +135,7 @@ The installer copies the included plugin into a persistent directory under `~/.j
 
 **Start a new conversation after installation.** In Claude Code, run `/just-vibe:help what is available?`. In Codex, select the `help` skill from the just-vibe plugin and add your request.
 
-Before npm publication, users with repository access can fetch the package from GitHub and still use the bundled installer:
+For development builds, users with repository access can fetch the package from GitHub and still use the bundled installer:
 
 ```sh
 pnpm --package=git+https://github.com/Zachshotamartin/just-vibe.git dlx just-vibe setup
