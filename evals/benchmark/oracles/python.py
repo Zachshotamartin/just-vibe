@@ -62,7 +62,12 @@ if case=='ledger':
                 finally:c.close()
             with ThreadPoolExecutor(4) as pool:results=list(pool.map(worker,range(4)))
             equal(results,[{'tenant':'t','key':'shared','source':'a','destination':'b','amount':20}]*4)
-            c=connect(path);equal(c.execute('SELECT balance FROM accounts WHERE tenant="t" AND id="a"').fetchone()[0],80);equal(c.execute('SELECT count(*) FROM transfers').fetchone()[0],1)
+            c=connect(path)
+            try:
+                equal(c.execute('SELECT balance FROM accounts WHERE tenant="t" AND id="a"').fetchone()[0],80)
+                equal(c.execute('SELECT count(*) FROM transfers').fetchone()[0],1)
+            finally:
+                c.close()
     check('concurrent connections serialize one effect',concurrent)
 elif case=='temporal-ml':
     from src.features import features_for

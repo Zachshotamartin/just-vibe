@@ -157,16 +157,17 @@ export function gradeTrial(directory){
   }
   const metrics=existsSync(join(root,'metrics.json'))?json(join(root,'metrics.json')):null;
   const artifactCorrect=checks.every(c=>c.pass);
-  checks.push({name:'agent turn completed within limit',pass:Boolean(metrics?.turnCompleted&&metrics.exitCode===0&&!metrics.timedOut&&!metrics.spawnError)});
+  checks.push({name:'agent turn completed within limit',pass:Boolean(metrics?.turnCompleted&&metrics.exitCode===0&&!metrics.timedOut&&!metrics.cancelled&&!metrics.spawnError)});
   const result={schemaVersion:1,scorerVersion:2,case:manifest.case,arm:manifest.arm,repetition:manifest.repetition,changed,checks,artifactCorrect,correct:checks.every(c=>c.pass),metrics,gradedAt:new Date().toISOString(),promptSha256:manifest.promptSha256,instructionHashes:Object.fromEntries(Object.entries(manifest.inputs).filter(([p])=>p.startsWith('_instructions/')))};
   if(existsSync(join(root,'grade.json'))&&!existsSync(join(root,'grade-v1.json'))&&!json(join(root,'grade.json')).scorerVersion)cpSync(join(root,'grade.json'),join(root,'grade-v1.json'));
   save(join(root,'grade.json'),result);return result;
 }
-export async function runTrial(directory,{codex,authHome,model,effort='medium',seconds=240}){
+export async function runTrial(directory,{codex,authHome,model,effort='medium',seconds=240,signal}){
   const root=resolve(directory),manifest=json(join(root,'run.json'));
   if(JSON.stringify(snapshot(manifest.workspace))!==JSON.stringify(manifest.inputs))throw Error('Prepared trial inputs changed.');
   if(['metrics.json','events.jsonl','stderr.log'].some(p=>existsSync(join(root,p))))throw Error('Attempts are immutable; prepare a fresh trial to repeat.');
   if(!model||!codex||!authHome||!Number.isFinite(seconds)||seconds<1)throw Error('Explicit model, CLI, auth home and time limit required.');
+  if(signal?.aborted)throw Error('Trial cancelled before launch.');
   const auth=join(resolve(authHome),'auth.json');if(!existsSync(auth))throw Error('Saved CLI authentication is unavailable.');
   const cliVersion=execFileSync(codex,['--version'],{encoding:'utf8'}).trim();
   const host=join(root,'host');mkdirSync(host,{recursive:true});
@@ -174,21 +175,26 @@ export async function runTrial(directory,{codex,authHome,model,effort='medium',s
   const args=['exec','--ignore-user-config','--ignore-rules','--ephemeral','--json','--sandbox','workspace-write','--add-dir',join(manifest.workspace,'.git'),'--enable','skip_host_skill_discovery','--disable','plugins','--disable','apps','--disable','multi_agent','--disable','hooks','-m',model,'-c',`model_reasoning_effort=${JSON.stringify(effort)}`,'-c','web_search="disabled"','-C',manifest.workspace,'-o',join(root,'answer.md'),'-'];
   const env={};for(const key of ['PATH','HOME','USER','LOGNAME','TMPDIR','LANG','LC_ALL','SHELL','SystemRoot','ComSpec','PATHEXT'])if(process.env[key])env[key]=process.env[key];
   Object.assign(env,{CODEX_HOME:host,PYTHONDONTWRITEBYTECODE:'1',GIT_CONFIG_NOSYSTEM:'1',GIT_CONFIG_GLOBAL:join(host,'empty-gitconfig')});
-  const startedAt=new Date().toISOString(),start=performance.now();let stdout='',stderr='',timedOut=false;
+  const startedAt=new Date().toISOString(),start=performance.now();let stdout='',stderr='',timedOut=false,cancelled=false;
   const child=spawn(codex,args,{cwd:manifest.workspace,env,stdio:['pipe','pipe','pipe'],detached:process.platform!=='win32'});
   const kill=signal=>{try{if(process.platform!=='win32')process.kill(-child.pid,signal);else child.kill(signal)}catch{}};
-  let hardTimer;const timer=setTimeout(()=>{timedOut=true;kill('SIGTERM');hardTimer=setTimeout(()=>kill('SIGKILL'),3000)},seconds*1000);
+  let hardTimer;const terminate=()=>{kill('SIGTERM');hardTimer??=setTimeout(()=>kill('SIGKILL'),3000);};
+  const abort=()=>{cancelled=true;terminate();};signal?.addEventListener('abort',abort,{once:true});
+  const timer=setTimeout(()=>{timedOut=true;terminate();},seconds*1000);
   child.stdout.on('data',b=>{stdout+=b;writeFileSync(join(root,'events.jsonl'),stdout)});child.stderr.on('data',b=>{stderr+=b;writeFileSync(join(root,'stderr.log'),stderr)});
   let spawnError;child.on('error',e=>{spawnError=e.message});child.stdin.on('error',()=>{});child.stdin.end(readFileSync(join(root,'prompt.txt')));
-  const exitCode=await new Promise(done=>child.on('close',done));clearTimeout(timer);clearTimeout(hardTimer);
-  const parsed=parseEvents(stdout);const metrics={model,effort,startedAt,finishedAt:new Date().toISOString(),wallMs:Math.round(performance.now()-start),exitCode,timedOut,spawnError,usage:parsed.usage,turnCompleted:parsed.completed,invalidEventLines:parsed.invalidLines,toolCalls:parsed.toolCalls,failedCommands:parsed.failedCommands,errors:parsed.errors,userInterventions:0,costUsd:null,costReason:'ChatGPT-authenticated CLI reports tokens, not a per-run monetary charge.',host:{cli:cliVersion,sandbox:'workspace-write',writableGitMetadata:true,externalTools:false,plugins:false,hostSkillDiscovery:false}};
+  const exitCode=await new Promise(done=>child.on('close',done));clearTimeout(timer);clearTimeout(hardTimer);signal?.removeEventListener('abort',abort);
+  const parsed=parseEvents(stdout);const metrics={model,effort,startedAt,finishedAt:new Date().toISOString(),wallMs:Math.round(performance.now()-start),exitCode,exitSignal:child.signalCode??null,timedOut,cancelled,spawnError,usage:parsed.usage,turnCompleted:parsed.completed,invalidEventLines:parsed.invalidLines,toolCalls:parsed.toolCalls,failedCommands:parsed.failedCommands,errors:parsed.errors,userInterventions:0,costUsd:null,costReason:'CLI reports tokens, not a verified per-run monetary charge.',host:{cli:cliVersion,sandbox:'workspace-write',writableGitMetadata:true,externalTools:false,plugins:false,hostSkillDiscovery:false}};
   try{save(join(root,'metrics.json'),metrics);}finally{rmSync(host,{recursive:true,force:true});}
   return gradeTrial(root);
 }
 export async function runStudy(out,options){
   const plan=json(join(out,'study.json'));if(JSON.stringify(plan.oracleHashes)!==JSON.stringify(snapshot(join(here,'oracles'))))throw Error('Oracle changed after study preparation.');
   if(JSON.stringify(plan.fixtureHashes)!==JSON.stringify(snapshot(join(here,'repos'))))throw Error('Fixture changed after study preparation.');
-  let next=0;const results=[];async function worker(){while(next<plan.order.length){
+  if(!options.model||!options.codex||!options.authHome||!Number.isFinite(options.seconds)||options.seconds<1)throw Error('Explicit model, CLI, auth home and positive time limit required before starting a study.');
+  if(!existsSync(join(resolve(options.authHome),'auth.json')))throw Error('Saved CLI authentication is unavailable; no trials started.');
+  execFileSync(options.codex,['--version'],{encoding:'utf8',stdio:['ignore','pipe','pipe']});
+  let next=0;const results=[];async function worker(){while(next<plan.order.length&&!options.signal?.aborted){
     const job=plan.order[next++],directory=join(out,job.directory);let result;
     try{result=existsSync(join(directory,'metrics.json'))?gradeTrial(directory):await runTrial(directory,options);}
     catch(error){result={schemaVersion:1,case:job.id,arm:job.arm,repetition:job.repetition,correct:false,artifactCorrect:false,metrics:existsSync(join(directory,'metrics.json'))?json(join(directory,'metrics.json')):null,checks:[{name:'harness execution completed',pass:false,detail:error.message}]};save(join(directory,'harness-error.json'),result);}
@@ -197,11 +203,22 @@ export async function runStudy(out,options){
   const concurrency=options.concurrency??2;if(!Number.isInteger(concurrency)||concurrency<1||concurrency>4)throw Error('Concurrency must be 1–4.');
   await Promise.all(Array.from({length:concurrency},worker));save(join(out,'results.json'),results);return results;
 }
-function options(argv){const [operation,...rest]=argv,result={};for(let i=0;i<rest.length;i+=2){if(!rest[i].startsWith('--')||!rest[i+1]||rest[i+1].startsWith('--'))throw Error('Options require values.');const key=rest[i].slice(2);if(key in result)throw Error('Duplicate option');result[key]=rest[i+1];}return {operation,o:result};}
+export function options(argv){
+  const [operation,...rest]=argv,result={};
+  const allowed={prepare:['out','ecc-root','repetitions','seed','cases','arms'],run:['study','codex','auth-home','model','effort','seconds','concurrency'],grade:['trial']}[operation];
+  if(!allowed)throw Error('Use prepare, run or grade.');
+  for(let i=0;i<rest.length;i+=2){if(!rest[i].startsWith('--')||!rest[i+1]||rest[i+1].startsWith('--'))throw Error('Options require values.');const key=rest[i].slice(2);if(!allowed.includes(key))throw Error(`Unknown ${operation} option: ${rest[i]}`);if(key in result)throw Error('Duplicate option');result[key]=rest[i+1];}
+  for(const key of {prepare:['out'],run:['study','codex','auth-home','model'],grade:['trial']}[operation])if(!result[key])throw Error(`Missing --${key}`);
+  return {operation,o:result};
+}
 if(process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url)){
   try{const {operation,o}=options(process.argv.slice(2));
     if(operation==='prepare')console.log(JSON.stringify(prepareStudy({out:o.out,eccRoot:o['ecc-root'],repetitions:Number(o.repetitions??2),seed:Number(o.seed??5192026),...(o.cases?{selectedCases:o.cases.split(',')}:{}),...(o.arms?{selectedArms:o.arms.split(',')}:{})}),null,2));
-    else if(operation==='run')await runStudy(o.study,{codex:resolve(o.codex),authHome:resolve(o['auth-home']),model:o.model,effort:o.effort||'medium',seconds:Number(o.seconds??240),concurrency:Number(o.concurrency??2)});
+    else if(operation==='run'){
+      const controller=new AbortController(),abort=()=>controller.abort();process.on('SIGINT',abort);process.on('SIGTERM',abort);
+      try{await runStudy(o.study,{codex:resolve(o.codex),authHome:resolve(o['auth-home']),model:o.model,effort:o.effort||'medium',seconds:Number(o.seconds??240),concurrency:Number(o.concurrency??2),signal:controller.signal});}
+      finally{process.removeListener('SIGINT',abort);process.removeListener('SIGTERM',abort);if(controller.signal.aborted)process.exitCode=130;}
+    }
     else if(operation==='grade')console.log(JSON.stringify(gradeTrial(o.trial),null,2));
     else throw Error('Use prepare --out DIR --ecc-root DIR, run --study DIR --codex PATH --auth-home DIR --model ID, or grade --trial DIR.');
   }catch(error){console.error(error.stack);process.exitCode=1;}

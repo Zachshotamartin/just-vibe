@@ -1,10 +1,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {mkdtempSync,mkdirSync,rmSync,cpSync,readFileSync,writeFileSync,existsSync} from 'node:fs';
+import {mkdtempSync,mkdirSync,rmSync,cpSync,readFileSync,writeFileSync,existsSync,chmodSync} from 'node:fs';
 import {tmpdir} from 'node:os';
 import {join,resolve} from 'node:path';
 import {execFileSync} from 'node:child_process';
-import {prepareTrial,prepareStudy,gradeTrial,parseEvents,regressionSensitivity,runTrial,cases} from '../evals/benchmark/harness.mjs';
+import {prepareTrial,prepareStudy,gradeTrial,parseEvents,regressionSensitivity,runTrial,runStudy,options,cases} from '../evals/benchmark/harness.mjs';
 import {summarize,paired,exportStudy} from '../evals/benchmark/report.mjs';
 const fixtureRoot=resolve('tests/fixtures/benchmark');
 function temporary(t){const root=mkdtempSync(join(tmpdir(),'just-vibe-benchmark-'));t.after(()=>rmSync(root,{recursive:true,force:true}));return root;}
@@ -14,6 +14,13 @@ test('event accounting preserves missing usage and failed turns',()=>{
   assert.equal(parseEvents('').usage,null);
   const report=parseEvents([JSON.stringify({type:'turn.completed',usage:{input_tokens:25,cached_input_tokens:10,output_tokens:7}}),JSON.stringify({type:'turn.completed',usage:{input_tokens:5,output_tokens:2}}),JSON.stringify({type:'turn.failed',error:{message:'failed'}}),'malformed'].join('\n'));
   assert.deepEqual(report.usage,{input_tokens:30,cached_input_tokens:10,output_tokens:9});assert.equal(report.completed,false);assert.equal(report.invalidLines,1);assert.deepEqual(report.errors,['failed']);
+});
+test('model-run configuration mistakes fail before attempts are created',async t=>{
+  assert.throws(()=>options(['prepare','--out','somewhere','--repetition','1']),/Unknown/);
+  assert.throws(()=>options(['run','--study','somewhere']),/Missing/);
+  const root=temporary(t),out=join(root,'study');const plan=prepareStudy({out,selectedCases:['ledger'],selectedArms:['baseline'],repetitions:1});
+  await assert.rejects(()=>runStudy(out,{codex:process.execPath,model:'fixture',authHome:root,seconds:5}),/no trials started/);
+  assert.equal(existsSync(join(out,plan.order[0].directory,'metrics.json')),false);assert.equal(existsSync(join(out,plan.order[0].directory,'harness-error.json')),false);
 });
 test('regression sensitivity retains completed assertions but rejects setup failures',()=>{
   assert.equal(regressionSensitivity('node',{status:1,stdout:"not ok 1\ncode: 'ERR_ASSERTION'\n",error:{code:'ETIMEDOUT'}}),true);
@@ -26,6 +33,7 @@ test('regression sensitivity retains completed assertions but rejects setup fail
 test('comparison reporting retains failed denominators and unavailable metrics',()=>{
   const rows=[{arm:'baseline',case:'a',repetition:1,correct:true,artifactCorrect:true,metrics:{turnCompleted:true,exitCode:0,wallMs:100,usage:{input_tokens:20,cached_input_tokens:10,output_tokens:4}}},{arm:'baseline',case:'a',repetition:2,correct:false,metrics:null},{arm:'just-vibe',case:'a',repetition:1,correct:false,metrics:{timedOut:true,wallMs:200,usage:null}}];
   const summary=summarize(rows);assert.equal(summary.baseline.trials,2);assert.equal(summary.baseline.passed,1);assert.equal(summary.baseline.usage.input_tokens.sumAvailable,20);assert.equal(summary.baseline.usage.input_tokens.availableTrials,1);assert.equal(summary['just-vibe'].usage.input_tokens.sumAvailable,null);assert.equal(summary.baseline.costUsd,null);
+  assert.equal(summary.baseline.toolCalls,null);assert.equal(summary.baseline.countMetricsAvailableTrials.toolCalls,0);
   const pair=paired(rows,'baseline','just-vibe');assert.equal(pair.pairs,1);assert.equal(pair.leftOnly,1);assert.equal(pair.rightOnly,0);
 });
 test('failed CLI attempts remain failures and remove only ephemeral authentication links',{skip:process.platform==='win32'},async t=>{
@@ -36,6 +44,16 @@ test('failed CLI attempts remain failures and remove only ephemeral authenticati
   assert.equal(result.correct,false);assert.equal(result.metrics.turnCompleted,false);assert.equal(result.metrics.usage,null);
   assert.equal(existsSync(join(out,'host')),false);assert.equal(readFileSync(join(authHome,'auth.json'),'utf8'),'{}');
   await assert.rejects(()=>runTrial(out,{codex:process.execPath,authHome,model:'fixture',seconds:5}),/immutable/);
+});
+test('cancellation stops an owned CLI that ignores graceful termination',{skip:process.platform==='win32',timeout:15000},async t=>{
+  const root=temporary(t),out=join(root,'trial'),authHome=join(root,'auth'),cli=join(root,'fake-cli.cjs');mkdirSync(authHome);writeFileSync(join(authHome,'auth.json'),'{}');
+  writeFileSync(cli,"#!/usr/bin/env node\nif(process.argv.includes('--version')) { console.log('fixture-cli'); process.exit(0); }\nprocess.on('SIGTERM',()=>{}); require('node:fs').writeFileSync('.fake-ready','ready'); process.stdin.resume(); setInterval(()=>{},1000);\n");chmodSync(cli,0o755);
+  const manifest=prepareTrial({out,id:'scoped-commit',arm:'baseline'}),controller=new AbortController();
+  const pending=runTrial(out,{codex:cli,authHome,model:'fixture',seconds:10,signal:controller.signal});
+  const deadline=Date.now()+5000;while(!existsSync(join(manifest.workspace,'.fake-ready'))&&Date.now()<deadline)await new Promise(done=>setTimeout(done,20));
+  assert.equal(existsSync(join(manifest.workspace,'.fake-ready')),true);controller.abort();
+  const result=await pending;assert.equal(result.metrics.cancelled,true);assert.equal(result.metrics.timedOut,false);assert.equal(result.metrics.exitSignal,'SIGKILL');assert.equal(result.correct,false);
+  assert.equal(existsSync(join(out,'host')),false);assert.equal(readFileSync(join(authHome,'auth.json'),'utf8'),'{}');
 });
 test('study ordering is reproducible and invalid selections are rejected',t=>{
   const root=temporary(t);const options={selectedArms:['baseline'],repetitions:2,seed:17};

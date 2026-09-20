@@ -10,6 +10,7 @@ const median=values=>{if(!values.length)return null;const a=[...values].sort((a,
 export function summarize(rows){
   return Object.fromEntries([...new Set(rows.map(r=>r.arm))].map(arm=>{
     const trials=rows.filter(r=>r.arm===arm),metrics=trials.map(r=>r.metrics).filter(Boolean);
+    const totalMetric=key=>{const available=metrics.filter(m=>Number.isFinite(m[key]));return available.length?available.reduce((n,m)=>n+m[key],0):null;};
     const usageFields=['input_tokens','cached_input_tokens','output_tokens','reasoning_output_tokens'];
     const usage=Object.fromEntries(usageFields.map(key=>{
       const available=metrics.filter(m=>Number.isFinite(m.usage?.[key]));
@@ -18,8 +19,8 @@ export function summarize(rows){
     return [arm,{passed:trials.filter(r=>r.correct).length,trials:trials.length,artifactPassed:trials.filter(r=>r.artifactCorrect).length,
       completed:metrics.filter(m=>m.turnCompleted&&m.exitCode===0&&!m.timedOut).length,timeouts:metrics.filter(m=>m.timedOut).length,
       medianWallMs:median(metrics.map(m=>m.wallMs).filter(Number.isFinite)),wallTimeAvailableTrials:metrics.filter(m=>Number.isFinite(m.wallMs)).length,
-      toolCalls:metrics.length?metrics.reduce((n,m)=>n+(m.toolCalls??0),0):null,failedCommands:metrics.length?metrics.reduce((n,m)=>n+(m.failedCommands??0),0):null,
-      userInterventions:metrics.length?metrics.reduce((n,m)=>n+(m.userInterventions??0),0):null,usage,costUsd:null}];
+      toolCalls:totalMetric('toolCalls'),failedCommands:totalMetric('failedCommands'),userInterventions:totalMetric('userInterventions'),
+      countMetricsAvailableTrials:Object.fromEntries(['toolCalls','failedCommands','userInterventions'].map(key=>[key,metrics.filter(m=>Number.isFinite(m[key])).length])),usage,costUsd:null}];
   }));
 }
 export function paired(rows,left,right){
@@ -48,7 +49,7 @@ export function exportStudy(directory,{regrade=false}={}){
       selectedInstructions:manifest.instructions.map(path=>({path,sha256:manifest.inputs[path]})),artifactHashes:hashes});
   }
   const source=fileURLToPath(new URL('./',import.meta.url));
-  return {schemaVersion:1,exportedAt:new Date().toISOString(),scorer:{version:2,files:Object.fromEntries(['harness.mjs','support/python-test-report.py','support/commit-tree.mjs'].map(p=>[p,hash(readFileSync(join(source,p)))]))},protocol:{...plan,order:undefined},summary:summarize(trials),
+  return {schemaVersion:1,exportedAt:new Date().toISOString(),scorer:{version:2,files:Object.fromEntries(['harness.mjs','oracles/node.mjs','oracles/python.py','support/python-test-report.py','support/commit-tree.mjs'].map(p=>[p,hash(readFileSync(join(source,p)))]))},protocol:{...plan,order:undefined},summary:summarize(trials),
     paired:[['just-vibe','baseline'],['just-vibe','ecc'],['just-vibe-profile','just-vibe']].map(([a,b])=>paired(trials,a,b)).filter(p=>p.pairs),trials,
     limitations:['Newly authored bounded fixture repositories, not third-party production repositories.','Matched supplied ECC instructions at a pinned snapshot; native hooks/memory integrations are excluded.','Two repeats per original case/arm are insufficient to establish general superiority.','No monetary charge is reported by this authenticated CLI; cached input is a subset of input.','A stable model name does not guarantee an immutable service backend.','See the protocol for pilots and the uniform scorer correction; original scores are retained.']};
 }
