@@ -46,7 +46,7 @@ If npm's GitHub shorthand attempts SSH and you only have HTTPS credentials, use 
 npx --package=git+https://github.com/Zachshotamartin/just-vibe.git just-vibe setup
 ```
 
-The installer itself registers the HTTPS GitHub repository through the host CLI. Do not put access tokens in the command. Nothing is published to the npm registry; the command fetches this Git repository. `package.json` is marked private to prevent accidental npm publication.
+The installer registers the GitHub repository through the host CLI, which controls SSH/HTTPS authentication and fallback. Do not put access tokens in the command. Nothing is published to the npm registry; the command fetches this Git repository. `package.json` is marked private to prevent accidental npm publication.
 
 ## Preview, diagnose, update, remove
 
