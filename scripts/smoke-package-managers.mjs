@@ -6,9 +6,12 @@ import { resolve, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { npm, packResult } from './lib/npm.mjs';
 import { stageBundle, validateBundle } from '../plugins/just-vibe/scripts/lib/bundle.mjs';
+import { loadCatalog } from '../plugins/just-vibe/scripts/lib/catalog.mjs';
+import { loadProfiles } from '../plugins/just-vibe/scripts/lib/profiles.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const pkg = JSON.parse(readFileSync(join(root, 'package.json'), 'utf8'));
+const skillCount = loadCatalog().commands.length, profileCount = loadProfiles().profiles.length;
 const temp = mkdtempSync(join(tmpdir(), 'just-vibe pm '));
 try {
   const archive = process.argv[2] ? resolve(process.argv[2]) : join(temp, packResult(npm(['pack', '--json', '--ignore-scripts', '--pack-destination', temp], { cwd: root, encoding: 'utf8' })).filename);
@@ -32,13 +35,14 @@ try {
       env: { ...process.env, JUST_VIBE_HOME: join(cwd, 'managed'), npm_config_cache: join(cwd, 'npm-cache'), YARN_ENABLE_TELEMETRY: '0', YARN_ENABLE_IMMUTABLE_INSTALLS: 'false' } };
     assert.equal(run(['--version']).trim(), pkg.version, `${name}: wrong version`);
     const inventory = JSON.parse(run(['tools', '--all', '--json']));
-    assert.equal(inventory.tools.length, 213);
+    assert.equal(inventory.tools.length, skillCount);
+    assert.equal(JSON.parse(run(['profiles', '--json'])).profiles.length, profileCount);
     for (const target of ['codex', 'claude']) {
       const output = run(['setup', '--target', target, '--dry-run']);
       assert.ok(output.includes('Copy bundled plugin files'));
       assert.ok(!output.includes('Zachshotamartin/just-vibe'));
     }
-    console.log(`${name}: archive execution, 213 skills and both bundled setup previews passed.`);
+    console.log(`${name}: archive execution, ${skillCount} skills, ${profileCount} profiles and both bundled setup previews passed.`);
   }
   // Copy from the actual archive, then delete the extracted package as a dlx-cache eviction check.
   const extracted = join(temp, 'extracted'); mkdirSync(extracted);
@@ -48,6 +52,8 @@ try {
   rmSync(extracted, { recursive: true, force: true });
   assert.equal(validateBundle(retained), pkg.version);
   const output = execFileSync(process.execPath, [join(retained, 'plugins/just-vibe/scripts/toolkit.mjs'), 'tools', '--all', '--root', temp, '--json'], { encoding: 'utf8' });
-  assert.equal(JSON.parse(output).tools.length, 213);
+  assert.equal(JSON.parse(output).tools.length, skillCount);
+  const profiles = execFileSync(process.execPath, [join(retained, 'plugins/just-vibe/scripts/toolkit.mjs'), 'profiles', '--json'], { encoding: 'utf8' });
+  assert.equal(JSON.parse(profiles).profiles.length, profileCount);
   console.log('Persistent installed payload still runs after deleting the package cache.');
 } finally { rmSync(temp, { recursive: true, force: true }); }

@@ -33,10 +33,11 @@ export function prepare({ id, out, arm = 'just-vibe', eccRoot }) {
   if (arm === 'just-vibe') {
     const target = join(workspace, '_instructions/just-vibe');
     for (const name of ['scripts', 'catalog']) cpSync(join(pluginRoot, name), join(target, name), { recursive: true });
-    for (const name of ['execution.md', 'runtime.md', 'teaching.md', 'teach-test.md']) {
+    for (const name of ['execution.md', 'runtime.md', 'teaching.md', 'teach-test.md', 'profiles.md', 'profile-reference.md']) {
       mkdirSync(join(target, 'references'), { recursive: true });
       cpSync(join(pluginRoot, 'references', name), join(target, 'references', name));
     }
+    cpSync(join(pluginRoot, 'references/profiles'), join(target, 'references/profiles'), { recursive: true });
     for (const id of fixture.commands) {
       const c = getCommand(catalog, id, { canonical: true });
       cpSync(join(pluginRoot, 'skills', c.id), join(target, 'skills', c.id), { recursive: true });

@@ -1,6 +1,6 @@
 # Command reference
 
-213 shipped skill names; 3 aliases inherit canonical implementations. Commands run in the active host agent. Availability depends on task evidence and host permissions.
+215 shipped skill names; 3 aliases inherit canonical implementations. Commands run in the active host agent. Availability depends on task evidence and host permissions.
 
 ## General
 
@@ -58,6 +58,8 @@
 | [tools](../skills/tools/SKILL.md) | inspect | List and search commands and integrations, showing availability and prerequisites |
 | [auto](../skills/auto/SKILL.md) | apply | Use the goal and project context to select, execute, and verify appropriate workflows |
 | [do](../skills/do/SKILL.md) | apply | Use the goal and project context to select, execute, and verify appropriate workflows (alias of auto) |
+| [profiles](../skills/profiles/SKILL.md) | inspect | Browse engineering role profiles and compare their priorities, boundaries and verification |
+| [profile](../skills/profile/SKILL.md) | inspect | Set, inspect, automatically select or clear task-scoped engineering profiles |
 
 ## Architecture
 

@@ -31,6 +31,7 @@ Only the requested local changes; external actions require their exact action an
 
 - Validate endpoints, create/use an isolated worktree, run the bounded pass/fail oracle, distinguish unbuildable revisions as skips, and confirm the candidate.
 - Confirm good/bad endpoints and oracle exit semantics, run in an isolated worktree, treat untestable revisions as skips and retest the candidate and parent.
+- All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
 
 ## Decision branches
 
@@ -44,6 +45,7 @@ Only the requested local changes; external actions require their exact action an
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
 - A deterministic regression yields a confirmed boundary; flaky or skipped revisions produce qualified results.
+- Review newly prepared commit/PR/message text, including template or hook additions, for agent self-attribution before submission; verify the resulting artifact when available. Do not silently rewrite existing history or remove human credits.
 
 ## Stop and recover
 

@@ -31,6 +31,7 @@ None by default. Plan artifacts may be saved when requested.
 
 - Resolve refs, inspect rename/binary/submodule metadata, read surrounding context, group by purpose, and identify unrelated edits.
 - Separate index versus HEAD, worktree versus index and branch versus merge-base; resolve the requested comparison before summarizing hunks.
+- All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
 
 ## Decision branches
 
@@ -44,6 +45,7 @@ None by default. Plan artifacts may be saved when requested.
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
 - Staged and unstaged changes are not conflated; a binary change is acknowledged without invented contents.
+- Review newly prepared commit/PR/message text, including template or hook additions, for agent self-attribution before submission; verify the resulting artifact when available. Do not silently rewrite existing history or remove human credits.
 
 ## Stop and recover
 

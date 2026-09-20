@@ -31,6 +31,7 @@ None by default. Plan artifacts may be saved when requested.
 
 - Inspect existing worktrees/branch ownership, validate target paths, create the requested checkout or inspect removal safety, and verify the resulting state.
 - List existing worktrees and branch ownership, resolve the requested ref or current-state transfer, and verify destination emptiness before creation.
+- All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
 
 ## Decision branches
 
@@ -44,6 +45,7 @@ None by default. Plan artifacts may be saved when requested.
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
 - An existing occupied branch is handled explicitly; removing a dirty worktree stops before losing changes.
+- Review newly prepared commit/PR/message text, including template or hook additions, for agent self-attribution before submission; verify the resulting artifact when available. Do not silently rewrite existing history or remove human credits.
 
 ## Stop and recover
 

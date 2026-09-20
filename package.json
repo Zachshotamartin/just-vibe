@@ -1,6 +1,6 @@
 {
   "name": "just-vibe",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Tools, skills, and commands for coding agents.",
   "type": "module",
   "bin": {

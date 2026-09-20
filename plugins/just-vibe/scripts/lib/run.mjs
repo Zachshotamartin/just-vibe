@@ -2,6 +2,7 @@ import { randomUUID } from 'node:crypto';
 import { realpathSync, lstatSync, statSync } from 'node:fs';
 import { resolve, dirname, relative, isAbsolute } from 'node:path';
 import { getCommand, availability, MODES } from './catalog.mjs';
+import { loadProfiles, selectProfiles, validateProfileSelection } from './profiles.mjs';
 
 const terminal = new Set(['completed', 'partial', 'blocked', 'failed', 'cancelled']);
 const effects = new Set(['read', 'plan-artifact', 'local-write', 'external-write', 'destructive', 'paid']);
@@ -41,6 +42,9 @@ export function createRun(catalog, invokedAs, options, now = Date.now()) {
   const mode = options.mode || command.defaultMode;
   if (!MODES.includes(mode)) throw new Error('Invalid mode.');
   const context = options.context || {};
+  if (context.profile !== undefined && context.profile !== null) validateProfileSelection(loadProfiles(), context.profile);
+  if (options.profile && context.profile) throw new Error('Use --profile or context.profile, not both.');
+  const profile = options.profile ? selectProfiles(loadProfiles(), { primary: options.profile, selectedBy: 'user', reason: 'Explicit workflow profile option.' }) : context.profile;
   for (const key of ['constraints', 'references', 'successCriteria', 'assumptions', 'authorization']) {
     if (context[key] !== undefined && !Array.isArray(context[key])) throw new Error(`context.${key} must be an array.`);
   }
@@ -51,7 +55,7 @@ export function createRun(catalog, invokedAs, options, now = Date.now()) {
     maxMinutes: positive(options.budget?.maxMinutes ?? 60, 'maxMinutes', 1440),
   };
   return { schemaVersion: 1, id: randomUUID(), invokedAs, command: command.id, root, scope, mode,
-    brief, context: { objective: brief, constraints: [], references: [], successCriteria: [], assumptions: [], authorization: [], ...clone(context) },
+    brief, context: { objective: brief, constraints: [], references: [], successCriteria: [], assumptions: [], authorization: [], ...clone(context), ...(profile ? { profile: clone(profile) } : {}) },
     budget, createdAt: new Date(now).toISOString(), status: 'ready', stages: [],
     note: 'This record validates workflow state. It does not sandbox the host or independently prove evidence/authorization. Host tool permissions still apply.' };
 }
@@ -62,9 +66,21 @@ export function validateRun(run) {
   required(run.id, 'Run id'); required(run.brief, 'Original brief');
   required(run.root, 'Root'); required(run.scope, 'Scope');
   if (!run.context || !Array.isArray(run.context.authorization) || !Array.isArray(run.context.successCriteria)) throw new Error('Invalid run context.');
+  if (run.context.profile !== undefined && run.context.profile !== null) validateProfileSelection(loadProfiles(), run.context.profile);
   for (const [name, max] of [['maxStages', 100], ['maxAttempts', 20], ['maxMinutes', 1440]]) positive(run.budget?.[name], name, max);
   if (!Number.isFinite(Date.parse(run.createdAt))) throw new Error('Invalid run timestamp.');
   return run;
+}
+
+export function setRunProfiles(run, request, now = Date.now()) {
+  active(run, now);
+  const selection = selectProfiles(loadProfiles(), request, run.context.profile);
+  const result = clone(run);
+  result.context.profile = selection;
+  result.profileHistory ??= [];
+  result.profileHistory.push({ previous: clone(run.context.profile ?? null), next: clone(selection), selectedBy: request.selectedBy,
+    reason: request.reason, changedAt: new Date(now).toISOString() });
+  return result;
 }
 
 function active(run, now) {

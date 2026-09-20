@@ -2,6 +2,7 @@ import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { loadCatalog, pluginRoot } from '../plugins/just-vibe/scripts/lib/catalog.mjs';
+import { loadProfiles } from '../plugins/just-vibe/scripts/lib/profiles.mjs';
 
 export function renderSkill(command, pack) {
   if (command.aliasOf) return `---\nname: ${command.id}\ndescription: ${JSON.stringify(`${command.summary} Alias for ${command.aliasOf}.`)}\n---\n\n# ${command.id}\n\nRead [${command.aliasOf}](../${command.aliasOf}/SKILL.md) and execute that single canonical workflow. It owns selection, inputs, mode, scope, methods, outputs, recovery, and verification. Preserve the complete appended request and original invoked name (${command.id}); use ${command.aliasOf} as the canonical command in run records. Do not add a routing stage, change permissions, or reset counters for an alias. This entry deliberately contains no independent behavioral contract.\n`;
@@ -66,6 +67,11 @@ ${command.examples.map((example, i) => `- **${example.kind || (i ? 'Additional' 
 export function generate({ check = false } = {}) {
   const catalog = loadCatalog();
   const outputs = new Map();
+  const profiles = loadProfiles();
+  outputs.set(resolve(pluginRoot, 'references/profile-reference.md'), '# Engineering profiles\n\n' + profiles.profiles.length + ' task profiles. [Selection, scope and precedence](profiles.md). Read only the roles relevant to the request. Suggested workflows do not imply available tools or authorization.\n\n' + profiles.families.map(f => `## ${f.name}\n\n| Profile | Purpose |\n|---|---|\n` + profiles.profiles.filter(p => p.family === f.id).map(p => `| [${p.name}](profiles/${p.id}.md) | ${p.summary} |`).join('\n')).join('\n\n') + '\n');
+  for (const p of profiles.profiles) {
+    outputs.set(resolve(pluginRoot, `references/profiles/${p.id}.md`), `# ${p.name}\n\n${p.summary}\n\nApply [profile scope and precedence](../profiles.md). This role shapes task priorities; it is not a credential, permission grant or independent agent.\n\n## Priorities\n\n${p.priorities.map(v => `- ${v}`).join('\n')}\n\n## Decision rule\n\n${p.decision}\n\n## Verify when relevant\n\n${p.verification.map(v => `- ${v}`).join('\n')}\n\n## Boundary\n\n${p.boundary}\n\n## Candidate workflows\n\n${p.workflows.map(id => `- [${id}](../../skills/${id}/SKILL.md)`).join('\n')}\n\nExample: ${p.example}\n`);
+  }
   for (const command of catalog.commands) {
     const pack = catalog.packs.find(p => p.id === command.pack);
     outputs.set(resolve(pluginRoot, command.skillPath), renderSkill(command, pack));

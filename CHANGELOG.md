@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.5.0
+
+- Add 112 task-scoped engineering profiles with distinct priorities, decision rules, verification, boundaries and candidate workflows. Include senior, staff, principal and architecture specialties.
+- Add profile discovery and selection skills plus CLI profile utilities. User choices are pinned by default; agent choices cannot override user pins. Role changes preserve task scope, permissions, budgets and history.
+- Require user ownership and no agent self-attribution in commits, PRs, comments, release notes or other messages. Preserve human attribution and required third-party notices.
+- Package every profile with the plugin and test discovery, pinning, clearing, state preservation and archive execution. Profile instructions are guidance, not a claim of evaluation for every profession or model.
+
 ## 0.4.0
 
 - Expand all 210 canonical command contracts with selection boundaries, concrete decision branches, outputs and normal/edge/missing-evidence examples; add applied methods to all 22 pack guides.

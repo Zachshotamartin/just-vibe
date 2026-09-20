@@ -31,6 +31,7 @@ None by default. Plan artifacts may be saved when requested.
 
 - Inspect diff and checks, detect existing PRs, prepare accurate title/body, resolve push authorization if needed, and verify the submitted head/base.
 - Resolve owner/repository/head/base, including fork owner; inspect pushed commits and existing matching PRs before deciding to create or update.
+- All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
 
 ## Decision branches
 
@@ -44,6 +45,7 @@ None by default. Plan artifacts may be saved when requested.
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
 - An existing matching PR is reused; a dirty local file absent from the pushed head is not described as part of the PR.
+- Review newly prepared commit/PR/message text, including template or hook additions, for agent self-attribution before submission; verify the resulting artifact when available. Do not silently rewrite existing history or remove human credits.
 
 ## Stop and recover
 

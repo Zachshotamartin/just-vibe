@@ -31,6 +31,7 @@ None by default. Plan artifacts may be saved when requested.
 
 - Fetch the correct diff, read surrounding code and relevant discussion, verify findings against the current head, and distinguish blockers from optional observations.
 - Record head/base SHA, inspect changed and surrounding source, map each finding to a current diff location and revalidate head before requested posting.
+- All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
 
 ## Decision branches
 
@@ -44,6 +45,7 @@ None by default. Plan artifacts may be saved when requested.
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
 - A finding fixed in the latest revision is not repeated; review comments use locations that exist in the reviewed diff.
+- Review newly prepared commit/PR/message text, including template or hook additions, for agent self-attribution before submission; verify the resulting artifact when available. Do not silently rewrite existing history or remove human credits.
 
 ## Stop and recover
 

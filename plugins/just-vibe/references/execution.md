@@ -8,6 +8,8 @@ Keep all context appended to the invocation, including paragraphs, quoted text, 
 
 Resolve objective, project, scope, environment, success criteria, and authority. The command's default mode is a fallback: an explicit audit/plan/fix request can select a different supported mode. Do not resolve contradictory instructions by silently choosing the more permissive mode.
 
+Honor the active task profile using [profile selection](profiles.md). Read only the selected role references. A user may pin a role; the agent may select an unpinned role when it materially helps, but cannot override a user pin. Role priorities never expand the task, grant permissions, change budgets or replace explicit constraints.
+
 - Inspect: read existing evidence without changing project or external state. Even tests, package installation, browser form submission, and analyzed queries may write.
 - Plan: inspect and propose; save a planning artifact only when requested.
 - Apply: perform the requested changes and relevant validation. Local implementation does not imply pushing, deploying, purchasing, changing production, or sending messages.
@@ -44,3 +46,11 @@ Stop on completion, cancellation, exhausted budget, unresolved target/authority,
 Report the outcome, changed artifacts, relevant verification, remaining uncertainty, and any necessary next action. Distinguish facts, hypotheses, proposals, and verified results. Use `completed`, `partial`, `blocked`, `failed`, or `cancelled` accurately. Missing checks cannot become passes. Save persistent context only when requested, in the existing approved project location; exclude secrets and unnecessary personal data.
 
 No workflow automatically spawns other agents, posts comments, creates scheduled work, changes host settings, or installs new global rules.
+
+## Ownership and attribution
+
+All changes and resulting work are owned by the user. Do not add agent or model self-attribution to commit messages, PR titles or bodies, issues, review comments, release notes, handoffs or other messages. Omit agent Co-authored-by trailers, generated-by signatures, AI badges and claims that the agent authored the work. Describe the change and its evidence directly.
+
+Use the user's existing configured Git identity. Do not invent an author, switch to an agent identity, or change local/global identity settings merely to make a commit succeed. Preserve legitimate human authors/co-authors and required third-party license or provenance notices. This rule does not authorize rewriting old commits or removing other people's credits.
+
+Review newly prepared text, including template content, for self-attribution before committing or submitting. Inspect the resulting new commit or remote artifact where available, since hooks or host tooling may append text. If that tooling prevents a compliant result, report the exact conflict; do not bypass required hooks or silently rewrite published history.

@@ -1,5 +1,7 @@
 # Git methods
 
+All changes belong to the user. Follow [ownership and attribution](../execution.md#ownership-and-attribution): use the existing user Git identity and add no agent Co-authored-by trailer, model credit, generated-by signature or agent self-attribution. Check the prepared message and resulting new commit, including hook additions. Preserve legitimate human credits and existing history.
+
 Resolve the repository and inspect `git status --short`, `git diff`, `git diff --cached`, branch/HEAD and relevant refs before mutations. Use argument arrays and `--` before path arguments. For observation use `--no-optional-locks`, disable filesystem-monitor hooks, and avoid external diff/textconv execution. Do not fetch merely to explain last-fetched divergence.
 
 Commit/split workflows inspect the pre-existing index before staging. Select named paths/hunks, review the exact staged result, and preserve unrelated staged work. If it cannot be separated safely, resolve the ambiguity before the commit. Do not use `git add .`, amend, bypass hooks, force push or rewrite published history as a default.

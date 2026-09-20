@@ -31,6 +31,7 @@ Only the requested local changes; external actions require their exact action an
 
 - Inspect triggers and trust boundaries, design job dependencies, choose documented action versions, implement safe cache/artifact handling, and validate syntax and scenarios.
 - Trace event, ref and permissions through every job; pin external code deliberately and keep untrusted PR data out of shell source.
+- All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
 
 ## Decision branches
 
@@ -44,6 +45,7 @@ Only the requested local changes; external actions require their exact action an
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
 - Untrusted fork contributions do not gain secret-bearing privileged execution; cache invalidation follows dependency changes.
+- Review newly prepared commit/PR/message text, including template or hook additions, for agent self-attribution before submission; verify the resulting artifact when available. Do not silently rewrite existing history or remove human credits.
 
 ## Stop and recover
 

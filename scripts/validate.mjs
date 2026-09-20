@@ -3,6 +3,7 @@ import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { loadCatalog, skillFile } from '../plugins/just-vibe/scripts/lib/catalog.mjs';
+import { loadProfiles } from '../plugins/just-vibe/scripts/lib/profiles.mjs';
 import { generate } from './build-skills.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -27,9 +28,9 @@ for (const path of ['.agents/plugins/marketplace.json', '.claude-plugin/marketpl
 const skillRoot = resolve(root, 'plugins/just-vibe/skills');
 const skills = readdirSync(skillRoot);
 const catalog = loadCatalog();
-assert.equal(catalog.commands.length, 213);
+assert.equal(catalog.commands.length, 215);
 assert.deepEqual(skills.sort(), catalog.commands.map(c => c.id).sort());
-assert.equal(catalog.commands.filter(c => c.pack === 'general').length, 52);
+assert.equal(catalog.commands.filter(c => c.pack === 'general').length, 54);
 assert.equal(catalog.commands.filter(c => !['general', 'installation'].includes(c.pack)).length, 160);
 for (const name of skills) {
   const content = readFileSync(resolve(skillRoot, name, 'SKILL.md'), 'utf8');
@@ -44,6 +45,8 @@ for (const name of skills) {
 }
 assert.ok(existsSync(resolve(skillRoot, 'setup', '../../scripts/installer.mjs')));
 for (const c of catalog.commands) assert.ok(existsSync(skillFile(catalog, c)));
+const profiles = loadProfiles();
+assert.deepEqual(readdirSync(resolve(catalog.root, 'references/profiles')).sort(), profiles.profiles.map(p => `${p.id}.md`).sort());
 const behavioral = read('evals/releases/0.4.0-results.json');
 for (const command of catalog.commands.filter(c => c.validation.behavioral !== 'not-evaluated')) {
   assert.ok(existsSync(resolve(catalog.root, command.validation.record)), `Missing behavioral record: ${command.id}`);

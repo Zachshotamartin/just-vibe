@@ -4,7 +4,8 @@ import { isDirectRun } from './lib/entrypoint.mjs';
 import { loadCatalog, getCommand, skillFile, invocation, HOSTS, MODES } from './lib/catalog.mjs';
 import { inspectProject } from './lib/project.mjs';
 import { discoverCapabilities, readCapabilityReport, listTools, recommend } from './lib/discovery.mjs';
-import { createRun, startStage, recordStage, finishRun, resumeRun, amendStage, supersedeStage } from './lib/run.mjs';
+import { createRun, startStage, recordStage, finishRun, resumeRun, amendStage, supersedeStage, setRunProfiles } from './lib/run.mjs';
+import { loadProfiles, getProfile, searchProfiles } from './lib/profiles.mjs';
 import { createQuiz, presentQuestion, answerQuestion, reviewFreeText, quizReport } from './lib/teaching.mjs';
 import { main as installerMain, HELP as INSTALLER_HELP } from './installer.mjs';
 
@@ -12,12 +13,15 @@ export const HELP = `${INSTALLER_HELP}
 Workflow utilities (read-only unless you explicitly save their output):
   tools [query]          Browse/search shipped workflows and prerequisites
   show <workflow>        Read a workflow's full instructions
+  profiles [query]       Browse engineering profiles (not capability grants)
+  profile <id>           Read a role's priorities, decisions and verification
   inspect               Inspect project manifests and Git identity
   discover              Report local capabilities; never log in or call services
   route <goal>           Suggest candidates for the host agent, not execute them
   workflow <id> <brief>  Produce a context/run record for the host agent
   session <operation>   Transform a run record from JSON on stdin
-                        Operations: create, start, record, finish, resume
+                        Operations: create, start, amend, supersede, profile,
+                        record, finish, resume
   quiz <operation>      Native-dialog quiz state from JSON on stdin
                         Operations: create, present, answer, review, report
 
@@ -31,6 +35,7 @@ Options:
   --capabilities <file> Host-observed capability report, valid for 15 minutes
   --mode inspect|plan|apply
   --scope <path>        Restrict workflow scope within the project
+  --profile <id>        Pin a task profile when creating a workflow record
   --brief-file <file>   Preserve a UTF-8 brief verbatim (max 1 MiB)
   --stdin              Read the brief or session/quiz JSON from stdin
   -- <brief>           Treat all remaining arguments as context, not flags
@@ -40,9 +45,9 @@ the active Codex/Claude agent. This CLI does not launch a model or execute
 candidate workflows. Use show to inspect a workflow and invoke it in your host.
 `;
 
-const operations = new Set(['tools', 'show', 'inspect', 'discover', 'route', 'workflow', 'session', 'quiz']);
+const operations = new Set(['tools', 'show', 'profiles', 'profile', 'inspect', 'discover', 'route', 'workflow', 'session', 'quiz']);
 const booleans = new Set(['--json', '--available', '--all', '--stdin']);
-const values = new Set(['--root', '--target', '--pack', '--capabilities', '--mode', '--scope', '--brief-file']);
+const values = new Set(['--root', '--target', '--pack', '--capabilities', '--mode', '--scope', '--profile', '--brief-file']);
 
 export function parseToolkitArgs(args) {
   const [operation, ...rest] = args;
@@ -70,12 +75,13 @@ export function parseToolkitArgs(args) {
   const allowed = {
     tools: ['json', 'available', 'all', 'root', 'target', 'pack', 'capabilities'],
     show: ['json', 'target'], inspect: ['json', 'root'], discover: ['json', 'root', 'capabilities'],
+    profiles: ['json'], profile: ['json'],
     route: ['json', 'root', 'target', 'capabilities', 'stdin', 'brief-file'],
-    workflow: ['json', 'root', 'target', 'mode', 'scope', 'stdin', 'brief-file'], session: ['json', 'target', 'stdin'], quiz: ['json', 'stdin'],
+    workflow: ['json', 'root', 'target', 'mode', 'scope', 'profile', 'stdin', 'brief-file'], session: ['json', 'target', 'stdin'], quiz: ['json', 'stdin'],
   };
   for (const flag of seen) if (!allowed[operation].includes(flag.slice(2))) throw new Error(`${flag} does not apply to ${operation}.`);
   if (['inspect', 'discover'].includes(operation) && options.positionals.length) throw new Error(`${operation} takes no positional arguments.`);
-  if (['show', 'session', 'quiz'].includes(operation) && options.positionals.length !== 1) throw new Error(`${operation} requires exactly one name.`);
+  if (['show', 'profile', 'session', 'quiz'].includes(operation) && options.positionals.length !== 1) throw new Error(`${operation} requires exactly one name.`);
   return options;
 }
 
@@ -128,7 +134,9 @@ export async function main(args, { log = console.log, error = console.error, inp
     } else if (options.operation === 'show') {
       const command = getCommand(data, options.positionals[0]);
       result = { ...command, invocation: invocation(command, options.target), instructions: readFileSync(skillFile(data, command), 'utf8') };
-    } else if (options.operation === 'inspect') result = inspectProject(options.root);
+    } else if (options.operation === 'profiles') result = { profiles: searchProfiles(loadProfiles(), options.positionals.join(' ')), note: 'Role priorities for the task; search matches are candidates, not automatic selections.' };
+    else if (options.operation === 'profile') result = getProfile(loadProfiles(), options.positionals[0]);
+    else if (options.operation === 'inspect') result = inspectProject(options.root);
     else if (options.operation === 'discover') result = discovery();
     else if (options.operation === 'route') result = recommend(data, discovery(), await getBrief(options, options.positionals, input), { host: options.target });
     else if (options.operation === 'workflow') {
@@ -153,12 +161,15 @@ export async function main(args, { log = console.log, error = console.error, inp
         result = startStage(data, payload.run, payload.stage, found.capabilities, options.target);
       } else if (op === 'amend') result = amendStage(payload.run, payload.action);
       else if (op === 'supersede') result = supersedeStage(payload.run, payload.resolution);
+      else if (op === 'profile') result = setRunProfiles(payload.run, payload.selection);
       else if (op === 'record') result = recordStage(payload.run, payload.outcome);
       else if (op === 'finish') result = finishRun(payload.run, payload.outcome);
       else if (op === 'resume') result = resumeRun(payload.run, payload.observation);
       else throw new Error(`Unknown session operation: ${op}`);
     }
     if (options.operation === 'tools' && !options.json) log(formatTools(result));
+    else if (options.operation === 'profiles' && !options.json) log([result.note, ...result.profiles.map(p => `${p.id} [${p.family}]\n  ${p.summary}`)].join('\n\n'));
+    else if (options.operation === 'profile' && !options.json) log(`${result.name}\n${result.summary}\n\nPriorities:\n${result.priorities.map(p => `- ${p}`).join('\n')}\n\nDecision: ${result.decision}\n\nVerify:\n${result.verification.map(p => `- ${p}`).join('\n')}\n\nBoundary: ${result.boundary}\nWorkflows: ${result.workflows.join(', ')}\nExample: ${result.example}`);
     else if (options.operation === 'show' && !options.json) log(result.instructions);
     else log(JSON.stringify(result, null, 2));
     return 0;

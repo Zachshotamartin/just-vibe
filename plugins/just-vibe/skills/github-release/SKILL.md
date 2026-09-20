@@ -31,6 +31,7 @@ None by default. Plan artifacts may be saved when requested.
 
 - Verify commit range and existing releases, compile notes, inspect compatibility/checks, validate asset identities, and execute authorized publication once.
 - Resolve tag and commit immutably, verify asset hashes and existing release state, and reconcile partial uploads before publication or retry.
+- All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
 
 ## Decision branches
 
@@ -44,6 +45,7 @@ None by default. Plan artifacts may be saved when requested.
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
 - Notes exclude unmerged unrelated changes; a duplicate version is detected before publication.
+- Review newly prepared commit/PR/message text, including template or hook additions, for agent self-attribution before submission; verify the resulting artifact when available. Do not silently rewrite existing history or remove human credits.
 
 ## Stop and recover
 

@@ -2,7 +2,7 @@
 
 The catalog owns each canonical command's scope, mode, required inputs, selection boundary, procedure, decision branches, outputs, observable verification, recovery conditions and examples. Pack references add reusable methods and worked scenarios. Generated SKILL.md files expose all examples and link the applicable guide; they are not independently edited.
 
-213 names resolve to 210 canonical workflows. `do` inherits `auto`, `responsive` inherits `ui-responsive`, and `a11y` inherits `ui-accessibility`. Alias source records contain identity/search metadata only. Loading materializes the canonical behavior; validation rejects scope, mode, method, evidence or other behavioral drift. Routing collapses matching aliases to one canonical recommendation while preserving matched names.
+215 names resolve to 212 canonical workflows. `do` inherits `auto`, `responsive` inherits `ui-responsive`, and `a11y` inherits `ui-accessibility`. Alias source records contain identity/search metadata only. Loading materializes the canonical behavior; validation rejects scope, mode, method, evidence or other behavioral drift. Routing collapses matching aliases to one canonical recommendation while preserving matched names.
 
 ## Writing useful guidance
 
@@ -22,3 +22,11 @@ Keep generic execution rules in the shared guide. Use current primary documentat
 6. Update behavioral validation only for the named commands and fixtures actually evaluated. Keep native-host, browser, external-service and model-quality claims separate.
 
 The schema verifies the presence and shape of this contract, not the quality of its prose. The independent fixtures and review of actual agent decisions provide the stronger evidence.
+
+## Profiles and ownership
+
+`catalog/profiles.json` owns role guidance independently of action contracts. Maintain a distinct purpose, priorities, a decision rule, relevant verification, a boundary and valid canonical workflow links for each role. Generate the profile index and individual references with the same build command. A title alone is not a useful profile; nearby roles must change emphasis in an explainable way.
+
+Test profile state transitions for pin protection, scope and budget preservation. Keep role discovery separate from activation. Do not claim that structural validation proves role expertise or that previous workflow trials evaluate newly added role guidance.
+
+All generated work belongs to the user. Shared execution and Git/GitHub guidance prohibit agent self-attribution in commits, PRs and messages while preserving human credits and required third-party notices.

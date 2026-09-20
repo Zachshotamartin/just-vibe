@@ -31,6 +31,7 @@ Statuses: `available`, `missing`, `disabled`, `unknown`. Reported availability i
 | Operation | Input fields | Result |
 |---|---|---|
 | `create` | `command`, `brief`, `root`, optional `mode`, `scope`, `context`, `budget` | Initial run record |
+| `profile` | `run`, `selection` | Update task profile with pin protection and preserved run history; see [profiles](profiles.md) |
 | `start` | `run`, `stage`, optional `capabilityReport` | A running stage after availability, mode, target and budget checks |
 | `amend` | `run`, `action` | Additional checked action on a running attempt; retains history and counters |
 | `supersede` | `run`, `resolution` | Link a failed/blocked stage to completed alternatives with matching criteria |

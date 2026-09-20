@@ -31,6 +31,7 @@ None by default. Plan artifacts may be saved when requested.
 
 - Inspect changes since the verified previous release, group user-facing outcomes, surface breaking changes, and review required checks and migration guidance.
 - Resolve the previous release boundary, identify breaking contracts and migrations, and map artifacts to the exact candidate revision.
+- All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
 
 ## Decision branches
 
@@ -44,6 +45,7 @@ None by default. Plan artifacts may be saved when requested.
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
 - Included changes fall within the release range; an unresolved breaking migration blocks a ready-to-release claim.
+- Review newly prepared commit/PR/message text, including template or hook additions, for agent self-attribution before submission; verify the resulting artifact when available. Do not silently rewrite existing history or remove human credits.
 
 ## Stop and recover
 

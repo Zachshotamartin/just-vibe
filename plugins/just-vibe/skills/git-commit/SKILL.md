@@ -31,6 +31,7 @@ Only the requested local changes; external actions require their exact action an
 
 - Inspect existing index and worktree, identify intended hunks, preserve unrelated staging, review the final staged diff, run relevant checks, and create an accurate message.
 - Snapshot the index diff and unrelated work, stage only selected hunks, inspect the entire resulting index and verify the created commit's actual contents.
+- All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
 
 ## Decision branches
 
@@ -44,6 +45,7 @@ Only the requested local changes; external actions require their exact action an
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
 - Unrelated edits remain outside the commit; a rejected hook stops without bypassing it.
+- Review newly prepared commit/PR/message text, including template or hook additions, for agent self-attribution before submission; verify the resulting artifact when available. Do not silently rewrite existing history or remove human credits.
 
 ## Stop and recover
 

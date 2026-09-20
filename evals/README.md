@@ -6,7 +6,7 @@ Validation has three separate dimensions in the catalog:
 - `runtime: fixtures-tested | not-applicable`: deterministic utilities have relevant fixture coverage. This does not measure an agent's judgment.
 - `behavioral: not-evaluated | passed-fixtures | partial-fixtures`: observed agent outcomes on named bounded fixtures. Evaluated entries name an evidence record; no label means universal reliability or host parity.
 
-The generated [scenarios.json](scenarios.json) supplies normal, edge and missing-evidence invocations plus evidence requirements and a rubric for all 213 skill names. These are specifications, not completed model runs. Aliases inherit their canonical contract and validation.
+The generated [scenarios.json](scenarios.json) supplies normal, edge and missing-evidence invocations plus evidence requirements and a rubric for all 215 skill names. These are specifications, not completed model runs. Aliases inherit their canonical contract and validation.
 
 ## Independent behavioral fixtures
 

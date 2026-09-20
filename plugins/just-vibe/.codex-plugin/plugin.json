@@ -1,7 +1,7 @@
 {
   "name": "just-vibe",
-  "version": "0.4.0",
-  "description": "212 coding-agent workflow names for development, delivery, data and ML, plus native setup.",
+  "version": "0.5.0",
+  "description": "Engineering role profiles and coding workflows for development, architecture, delivery, data and ML.",
   "author": {
     "name": "Zachary Martin",
     "url": "https://github.com/Zachshotamartin"
@@ -10,8 +10,8 @@
   "skills": "./skills/",
   "interface": {
     "displayName": "just-vibe",
-    "shortDescription": "Workflows for development, delivery, and ML.",
-    "longDescription": "Discover and run focused coding workflows with shared context, verification and bounded routing. Includes Git, GitHub, Vercel, Vite, React, backend, databases, data, ML, LLMs, testing, security and operations.",
+    "shortDescription": "Engineering profiles and coding workflows.",
+    "longDescription": "Select task-scoped engineering profiles and execute focused workflows with shared context, verification and bounded routing. Includes architecture and seniority profiles, Git, GitHub, frontend, backend, databases, data, ML, security and operations.",
     "developerName": "Zachary Martin",
     "category": "Productivity",
     "capabilities": [],

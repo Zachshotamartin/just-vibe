@@ -31,6 +31,7 @@ Only the requested local changes; external actions require their exact action an
 
 - Classify each comment, verify its premise, identify conflicts, implement coherent changes, run relevant checks, and map each change to feedback.
 - Map comments to current code and accepted contracts, resolve conflicting suggestions, and keep a per-comment disposition tied to the final diff.
+- All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
 
 ## Decision branches
 
@@ -44,6 +45,7 @@ Only the requested local changes; external actions require their exact action an
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
 - A valid review bug is fixed; a suggestion contradicting the accepted API contract is explained rather than blindly applied.
+- Review newly prepared commit/PR/message text, including template or hook additions, for agent self-attribution before submission; verify the resulting artifact when available. Do not silently rewrite existing history or remove human credits.
 
 ## Stop and recover
 

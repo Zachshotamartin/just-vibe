@@ -2,7 +2,7 @@
 
 Tools, skills, and commands for coding agents.
 
-**v0.4 ships 213 skill names backed by 210 canonical workflows** for Codex and Claude Code: focused skills for development, architecture, decisions, Git/GitHub, Vercel, Vite, React, UI, backend, APIs, databases, data, ML, LLMs, testing, security, and operations. Each canonical workflow has selection guidance, scope, concrete decision branches, evidence requirements, outputs, verification, recovery conditions and three example requests. Applied methods live in 22 pack guides.
+**v0.5 ships 112 engineering profiles and 215 skill names backed by 212 canonical workflows** for Codex and Claude Code: focused skills for development, architecture, decisions, Git/GitHub, Vercel, Vite, React, UI, backend, APIs, databases, data, ML, LLMs, testing, security, and operations. Each canonical workflow has selection guidance, scope, concrete decision branches, evidence requirements, outputs, verification, recovery conditions and three example requests. Applied methods live in 22 pack guides.
 
 The active coding agent executes the workflows with its available tools. The dependency-free Node.js utilities provide catalog search, project inspection, capability discovery, and bounded run-state validation. Installing just-vibe does not connect services, grant permissions, provision compute, or make every workflow's prerequisites available.
 
@@ -35,6 +35,42 @@ Release testing verified a real native quiz in Claude Code. The tested Codex CLI
 
 Shared host packaging and context behavior follow the [OpenAI skill format](https://developers.openai.com/plugins/build/skills) and [Claude Code skill argument handling](https://code.claude.com/docs/en/skills#pass-arguments-to-skills). No dynamic shell interpolation is used in skill files.
 
+## Engineering profiles
+
+Profiles shape the agent's priorities and verification throughout a task. They are separate from commands: a machine learning engineer emphasizes prediction-time data, evaluation and serving parity; a frontend engineer emphasizes state, interactions and rendered behavior. Each of the **112 profiles** has concrete priorities, a decision rule, checks, a scope boundary and candidate workflows.
+
+```text
+/just-vibe:profiles architecture
+/just-vibe:profile machine-learning-engineer with mlops-engineer as secondary
+/just-vibe:profile frontend-engineer for this task
+/just-vibe:profile principal-engineer; review the design without expanding the project
+/just-vibe:profile auto — choose an appropriate role for this task
+/just-vibe:profile status
+/just-vibe:profile clear
+```
+
+In Codex, select the **profile** or **profiles** skill in the plugin picker and append the same request. Explicit choices are pinned for the current task. The agent may choose an unpinned role from task evidence, but cannot replace a user pin. Choose one primary role and up to two complementary roles. Profiles preserve the original brief, scope, mode, permissions and budgets; they do not create additional agents or persist global preferences.
+
+The catalog covers application engineering, interface and experience, platform/infrastructure, data/databases, ML/AI, security/privacy, quality/technical leadership, and systems/specialized computing. Examples include firmware, robotics, compilers, graphics, game networking, geospatial computing, scientific software, privacy, identity, AI evaluation, agent systems, inference, and data governance.
+
+Architecture and seniority profiles have different emphasis:
+
+| Profile | Focus |
+|---|---|
+| Senior software engineer | Complete a bounded implementation with maintainable choices |
+| Staff engineer | Cross-team interfaces, migration and adoption |
+| Principal engineer | Systemic constraints, technical direction and reversible strategy |
+| Software architect | System responsibilities, boundaries and contracts |
+| Solutions architect | Fit a specific use case to a workable system |
+| Enterprise architect | Shared capabilities and transitions across systems |
+| Domain architects | Frontend, data, cloud, security, ML, platform and integration architecture |
+
+Titles vary across companies; these are working approaches, not credentials or grants of authority. Browse the [complete profile catalog](plugins/just-vibe/references/profile-reference.md) and [selection/runtime guide](plugins/just-vibe/references/profiles.md).
+
+The [v0.5 validation record](evals/releases/0.5.0.md) distinguishes tested profile selection and packaging from profession-specific model judgment.
+
+All changes are owned by the user. Commit messages, PRs, comments and other messages must contain **no agent self-attribution**, agent co-author trailers, generated-by signatures or AI badges. Existing human attribution and required third-party notices are preserved. See the [ownership rule](plugins/just-vibe/references/execution.md#ownership-and-attribution).
+
 ## Terminal utilities
 
 From this checkout:
@@ -44,15 +80,18 @@ node bin/just-vibe.mjs tools
 node bin/just-vibe.mjs tools --pack ml-evaluation --json
 node bin/just-vibe.mjs tools --available --root /path/to/project
 node bin/just-vibe.mjs show auto
+node bin/just-vibe.mjs profiles architecture
+node bin/just-vibe.mjs profile principal-engineer
 node bin/just-vibe.mjs inspect --root /path/to/project
 node bin/just-vibe.mjs discover --root /path/to/project
 node bin/just-vibe.mjs route --root /path/to/project -- "Investigate failing GitHub checks"
 node bin/just-vibe.mjs workflow fix --root /path/to/project --mode plan -- "Fix checkout; preserve the API"
+node bin/just-vibe.mjs workflow auto --profile machine-learning-engineer --stdin
 ```
 
 `route` suggests candidates for the host agent; it does not execute them or call a model. `workflow` creates a JSON context record on stdout. Use `--stdin` or `--brief-file` to preserve multiline context verbatim. The CLI inventories the shipped payload; native host enablement still applies. It never treats a CLI on PATH as proof of authenticated access.
 
-External capabilities stay unknown until the host observes relevant access or supplied evidence. Explicit capability reports expire after 15 minutes and are bound to a project. The [runtime interface](plugins/just-vibe/references/runtime.md) documents their format and `session create/start/record/finish/resume`. These utilities validate bookkeeping; they do not sandbox host tools or independently prove the agent's evidence.
+External capabilities stay unknown until the host observes relevant access or supplied evidence. Explicit capability reports expire after 15 minutes and are bound to a project. The [runtime interface](plugins/just-vibe/references/runtime.md) documents their format and `session create/start/amend/supersede/profile/record/finish/resume`. These utilities validate bookkeeping; they do not sandbox host tools or independently prove the agent's evidence.
 
 ## Quick install
 
@@ -189,8 +228,8 @@ Every workflow has normal, edge and missing-evidence cases in [evals/scenarios.j
 | `plugins/just-vibe/scripts/installer.mjs` | Self-contained installer, also shipped inside the plugin |
 | `plugins/just-vibe/scripts/toolkit.mjs` | Search, inspection, discovery, routing candidates, run records, and quiz CLI |
 | `plugins/just-vibe/scripts/lib/` | Catalog, capability, project, run-state, and native quiz adapter modules |
-| `plugins/just-vibe/catalog/` | Canonical command contracts, examples, prerequisites and pack metadata |
-| `plugins/just-vibe/skills/` | 213 installed names, including three canonical aliases and setup |
+| `plugins/just-vibe/catalog/` | Canonical command contracts, 112 role profiles, examples, prerequisites and pack metadata |
+| `plugins/just-vibe/skills/` | 215 installed names, including three canonical aliases and setup |
 | `plugins/just-vibe/references/` | Shared execution rules, runtime interface, domain guidance and command index |
 | `.agents/plugins/marketplace.json` | Codex marketplace |
 | `.claude-plugin/marketplace.json` | Claude Code marketplace |

@@ -7,6 +7,7 @@ import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { loadCatalog } from '../plugins/just-vibe/scripts/lib/catalog.mjs';
+import { loadProfiles } from '../plugins/just-vibe/scripts/lib/profiles.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 
@@ -21,11 +22,14 @@ test('npm archive contains the runnable installer and both complete plugin manif
     'plugins/just-vibe/skills/setup/SKILL.md', 'plugins/just-vibe/skills/help/SKILL.md',
     'plugins/just-vibe/scripts/toolkit.mjs', 'plugins/just-vibe/scripts/lib/run.mjs',
     'plugins/just-vibe/catalog/commands.json', 'plugins/just-vibe/catalog/packs.json',
+    'plugins/just-vibe/catalog/profiles.json', 'plugins/just-vibe/scripts/lib/profiles.mjs',
+    'plugins/just-vibe/references/profiles.md', 'plugins/just-vibe/references/profile-reference.md',
     'plugins/just-vibe/references/execution.md', 'plugins/just-vibe/references/runtime.md',
   ]) assert.ok(paths.includes(required), `Missing from archive: ${required}`);
   const catalog = loadCatalog();
   for (const c of catalog.commands) assert.ok(paths.includes(`plugins/just-vibe/${c.skillPath}`), `Missing packaged workflow: ${c.id}`);
   for (const p of catalog.packs) assert.ok(paths.includes(`plugins/just-vibe/references/packs/${p.id}.md`), `Missing runbook: ${p.id}`);
+  for (const p of loadProfiles().profiles) assert.ok(paths.includes(`plugins/just-vibe/references/profiles/${p.id}.md`), `Missing profile: ${p.id}`);
   assert.ok(paths.every(path => !/PLAN\.md|NAMING\.md|node_modules|\.tmp\/|\.env/.test(path)));
 });
 
@@ -75,7 +79,12 @@ test('packed CLI and every skill work without the source checkout, plan or depen
   const cli = join(dir, 'package/bin/just-vibe.mjs');
   const json = execFileSync(process.execPath, [cli, 'tools', '--all', '--root', dir, '--json'], { cwd: dir, encoding: 'utf8' });
   const inventory = JSON.parse(json);
-  assert.equal(inventory.tools.length, 213);
+  assert.equal(inventory.tools.length, loadCatalog().commands.length);
+  const profiles = JSON.parse(execFileSync(process.execPath, [cli, 'profiles', '--json'], { cwd: dir, encoding: 'utf8' }));
+  assert.equal(profiles.profiles.length, loadProfiles().profiles.length);
+  const run = JSON.parse(execFileSync(process.execPath, [cli, 'workflow', 'auto', '--root', dir, '--profile', 'principal-engineer', '--', 'Review this design only'], { cwd: dir, encoding: 'utf8' }));
+  assert.equal(run.context.profile.primary, 'principal-engineer');
+  assert.equal(run.context.profile.pinned, true);
   assert.ok(!inventory.tools.some(c => c.status === 'uninstalled'));
   const skill = execFileSync(process.execPath, [cli, 'show', 'auto'], { cwd: dir, encoding: 'utf8' });
   assert.ok(skill.includes('session start'));

@@ -15,3 +15,7 @@ Capabilities such as GitHub, Vercel, databases, deployment and training require 
 `teach-test` requires a native question tool available and permitted for assessment in the current host mode. Real Claude interaction was verified in v0.2; the tested Codex mode restricted question tools to clarification/planning and correctly declined the quiz. ML findings still require review; the previous Claude leakage fixture had a partial behavioral result. See the [v0.2 validation record](../evals/releases/0.2.0.md).
 
 The v0.4 release adds 21 passing supplied-instruction Codex fixture trials and a three-case matched comparison that tied across all arms. These results do not establish native invocation or Claude parity for those workflows. See the [v0.4 validation record](../evals/releases/0.4.0.md).
+
+## v0.5 profile support
+
+The profile/profile-discovery skills and all 112 role guides ship in both host payloads. Profile selection is task context: user pins are protected by the run-state utilities, and no host-global preference is installed. Native installation checks cover the 215-skill payload; they do not establish profession-specific agent behavior. See the [v0.5 validation record](../evals/releases/0.5.0.md).
