@@ -6,6 +6,9 @@ import { fileURLToPath } from 'node:url';
 import { isDirectRun } from './lib/entrypoint.mjs';
 import { managedSource, stageBundle, inspectManaged, validateBundle } from './lib/bundle.mjs';
 import { commandInvocation } from './lib/command.mjs';
+import { adapters, ADAPTERS } from './lib/editor-adapters.mjs';
+import { selectPayload } from './lib/selection.mjs';
+import { loadCatalog } from './lib/catalog.mjs';
 
 export const REPOSITORY = 'Zachshotamartin/just-vibe';
 export const MARKETPLACE = 'just-vibe';
@@ -26,12 +29,20 @@ Commands:
   help        Show this help
 
 Options:
-  --target codex|claude   Host to configure (default: codex)
+  --target codex|claude|cursor|opencode|copilot|gemini|kimi|qwen|windsurf|antigravity|zed|hermes|adal|codebuddy|joycode|kiro|openclaw|pi|trae
+                         Host to configure (default: codex)
+  --profile full|core|frontend|backend|ml
+                         Select native skills (default: full)
+  --packs <comma-list>    Select specialist packs plus core workflows
+  --rules <comma-list>    Include language/framework rule packs
+  --root <directory>     Project root for editor file adapters
   --scope user|project|local
                          Claude installation scope (default: user)
   --local                Register this persistent repository checkout
   --github               Register the GitHub repository (requires access)
   --dry-run              Print steps without running any host commands
+  --guided               Interactive bundled setup/update and runtime configuration
+  --editor-hooks         Opt into Cursor/OpenCode/Kiro native events and tools
   --version              Print the package version
   --help                 Show this help
 
@@ -56,10 +67,11 @@ export function parseArgs(args) {
     const arg = args[i];
     if (arg === '--help' || arg === '-h') return { ...options, command: 'help' };
     if (arg === '--version') return { ...options, command: 'version' };
-    if (['--target', '--scope', '--local', '--github', '--dry-run'].includes(arg)) {
+    if (['--target', '--scope', '--local', '--github', '--dry-run', '--profile', '--packs', '--rules', '--root', '--editor-hooks'].includes(arg)) {
       if (flags.has(arg)) throw new Error(`Duplicate option: ${arg}`);
       flags.add(arg);
       if (arg === '--local') options.local = true;
+      else if (arg === '--editor-hooks') options.editorHooks = true;
       else if (arg === '--github') options.github = true;
       else if (arg === '--dry-run') options.dryRun = true;
       else {
@@ -74,18 +86,26 @@ export function parseArgs(args) {
       commandSeen = true;
     } else throw new Error(`Unexpected argument: ${arg}`);
   }
-  if (!['codex', 'claude'].includes(options.target)) throw new Error('--target must be codex or claude.');
+  if (!ADAPTERS.some(a => a.id === options.target)) throw new Error('Unsupported --target.');
+  if (options.editorHooks && !['cursor','opencode','kiro'].includes(options.target)) throw Error('--editor-hooks requires Cursor, OpenCode or Kiro.');
+  if (options.target === 'hermes' && !options.root) throw Error('Hermes requires --root pointing to its configured HERMES_HOME, usually ~/.hermes.');
   if (!SCOPES.has(options.scope)) throw new Error('--scope must be user, project, or local.');
   if (options.local && options.github) throw new Error('--local and --github cannot be combined.');
   if (scopeSeen && options.target !== 'claude') throw new Error('--scope applies only to Claude Code.');
+  if (options.root && ['codex', 'claude'].includes(options.target)) throw Error('--root applies to editor adapters; native host plugins use their installation scope.');
+  if ((options.local || options.github) && (options.profile || options.packs || options.rules || !['codex', 'claude'].includes(options.target))) throw Error('Selective installs and editor adapters require the bundled source.');
+  if (options.profile || options.packs || options.rules) {
+    options.selection = { ...(options.profile ? { profile: options.profile, packs: [] } : {}), ...(options.packs ? { packs: options.packs.split(',') } : {}), ...(options.rules ? { rules: options.rules === 'none' ? [] : options.rules.split(',') } : {}) };
+    selectPayload(loadCatalog(), options.selection);
+  }
   return options;
 }
 
 // Pass arguments separately: user input is never evaluated as shell code.
-export function execute(binary, args) {
+export function execute(binary, args, cwd) {
   const [program, parameters] = commandInvocation(binary, args);
   const result = spawnSync(program, parameters, {
-    encoding: 'utf8', shell: false, timeout: 120_000, maxBuffer: 8 * 1024 * 1024,
+    cwd, encoding: 'utf8', shell: false, timeout: 120_000, maxBuffer: 8 * 1024 * 1024,
     stdio: ['ignore', 'pipe', 'pipe'],
   });
   if (result.error?.code === 'ENOENT') {
@@ -187,10 +207,18 @@ function display(host, args) {
 }
 
 export function install(options, { run = execute, log = console.log, source = sourceFor(options), prepare = stageBundle } = {}) {
+  if (!['codex', 'claude'].includes(options.target)) {
+    const operation = options.command === 'setup' ? 'install' : options.command;
+    const result = adapters(options.root || process.cwd(), operation, { target: options.target, ...options.selection, dryRun: options.dryRun, ...(options.editorHooks ? { hooks: true } : {}) });
+    log(JSON.stringify(result, null, 2));
+    if (operation === 'doctor' && (!result.installed || result.conflicts.length || result.missing.length || result.outdated.length || result.interrupted)) throw Error('Editor adapter needs installation, update or repair; inspect the reported files.');
+    return;
+  }
   if (options.dryRun) {
     log('Dry run — no commands executed; installed state has not been inspected.');
     log(`Target: ${options.target}${options.target === 'claude' ? ` (${options.scope} scope)` : ''}`);
     log(`Expected marketplace source: ${source}`);
+    if (options.selection) log(`Selected native skills and rule packs: ${JSON.stringify(options.selection)}. Helpers and reference methods remain available.`);
     log('Preflight: host CLI, native plugin subcommands, marketplace and plugin inventory.');
     if (!options.github && !options.local && ['setup', 'update'].includes(options.command)) log(`Copy bundled plugin files to ${source} after preflight (setup preserves an existing copy; update replaces it).`);
     if (options.command === 'doctor') log('Inspect installation and report health.');
@@ -235,7 +263,7 @@ export function install(options, { run = execute, log = console.log, source = so
   for (const args of steps) run(host, [...args.slice(0, args[1] === 'marketplace' ? 3 : 2), '--help']);
   let expectedVersion;
   if (!options.github && !options.local && ['setup', 'update'].includes(options.command)) {
-    const version = prepare(source, { replace: options.command === 'update' });
+    const version = prepare(source, { target: options.target, replace: options.command === 'update', ...(options.selection ? { selection: options.selection } : {}) });
     expectedVersion = version;
     log(`Bundled source: v${version} at ${source}.`);
   }

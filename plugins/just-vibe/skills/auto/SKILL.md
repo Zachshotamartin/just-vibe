@@ -55,6 +55,9 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 - Automatic routing, tool selection, missing evidence or explicit feedback needs handling: [Adaptive assistance](../../references/adaptive.md).
 - Choosing quick versus tracked work: [Daily workflow paths](../../references/daily-workflows.md).
 - Selecting saved-rule, alternative, exercise, proof, experiment, undo or decision support: [Intent and evidence workflows](../../references/intent-workflows.md).
+- The task needs scoped memory search, a persistent goal, independent review, configuration scanning, worker control, learned-pattern review or editor installation: [Native memory, goals, specialists and runtime controls](../../references/runtime-platform.md).
+- The request needs proactive context warnings, detected checks, native editor events, GitHub epic coordination or configuration audit reports: [Context health, check presets, editor events and shared work](../../references/runtime-depth.md).
+- Discovering session, inventory, rule, council, scheduler, monitor, graph, evaluation, operator or domain-specific capabilities: [Extended capabilities and optional method library](../../references/runtime-expansion.md).
 
 ## Decision branches
 

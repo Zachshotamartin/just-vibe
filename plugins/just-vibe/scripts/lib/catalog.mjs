@@ -104,6 +104,7 @@ export function getCommand(catalog, id, { canonical = false } = {}) {
 export function skillFile(catalog, command) {
   const path = resolve(catalog.root, command.skillPath);
   if (!path.startsWith(resolve(catalog.root) + sep)) throw new Error('Skill path escapes plugin.');
+  if (!existsSync(path) && existsSync(path.replace(/SKILL\.md$/, 'REFERENCE.md'))) return path.replace(/SKILL\.md$/, 'REFERENCE.md');
   return path;
 }
 
@@ -116,7 +117,7 @@ export function availability(catalog, command, capabilities = {}, host = 'claude
   if (!HOSTS.includes(host)) throw new Error(`Unsupported host: ${host}`);
   if (command.implementationStatus === 'planned') return { status: 'planned', reasons: ['Workflow is not implemented.'] };
   if (!command.hostSupport.includes(host)) return { status: 'unsupported', reasons: [`No ${host} mapping.`] };
-  if (!existsSync(skillFile(catalog, command))) return { status: 'uninstalled', reasons: ['Skill file is absent from this payload.'] };
+  if (!existsSync(resolve(catalog.root, command.skillPath))) return { status: 'uninstalled', reasons: ['Skill is excluded from this installation; its reference method may still be readable.'] };
   if (command.aliasOf) return availability(catalog, getCommand(catalog, command.aliasOf, { canonical: true }), capabilities, host);
   const checks = command.capabilities.map(id => ({ id, ...(capabilities[id] || { status: 'unknown', reason: 'Not observed in this session.' }) }));
   const blocked = checks.filter(c => ['missing', 'disabled'].includes(c.status));

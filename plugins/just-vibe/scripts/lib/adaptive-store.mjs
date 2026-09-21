@@ -12,7 +12,7 @@ export function textField(value, label, max = 2000) {
 }
 
 // Personal state stays outside repositories: a checkout cannot supply learned instructions.
-export function adaptiveStore(root, { home = process.env.JUST_VIBE_HOME || join(homedir(), '.just-vibe') } = {}) {
+export function adaptiveStore(root, { home = process.env.JUST_VIBE_HOME || join(homedir(), '.just-vibe'), allowUser = true } = {}) {
   root = projectRoot(root);
   if (existsSync(home) && lstatSync(home).isSymbolicLink()) throw Error('Adaptive home must not be a symlink.');
   const project = `adaptive/projects/${digest(root)}`;
@@ -43,7 +43,7 @@ export function adaptiveStore(root, { home = process.env.JUST_VIBE_HOME || join(
     if (!record || record.kind !== 'task') throw Error('Unknown task in this project.');
     return record;
   };
-  return { root, home, project, read, write, list, remove, config, taskPath, task,
+  return { root, home, project, allowUser, read, write, list, remove, config, taskPath, task,
     saveTask: (value, revision = value.revision ?? 0) => write(taskPath(value.id), value, revision),
     sessionPath: (host, session) => `${project}/sessions/${digest(`${host}:${textField(session, 'session ID', 256)}`)}.json`,
   };

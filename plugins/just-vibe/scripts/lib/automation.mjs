@@ -4,12 +4,14 @@ import { homedir } from 'node:os';
 import { atomicJson, digest, within, readJson, projectRoot, fingerprint, privateName } from './storage.mjs';
 import { gitRead } from './project.mjs';
 import { runCommand, redact } from './process.mjs';
+import { editedFiles } from './edited-files.mjs';
 
 const configPath = '.just-vibe/automation.json';
 function validate(config) {
   if (!config || config.schemaVersion !== 1 || typeof config.enabled !== 'boolean' || typeof config.saveSummary !== 'boolean'
       || !Array.isArray(config.checks) || !Array.isArray(config.formatters) || config.checks.length + config.formatters.length > 4
-      || Object.keys(config).some(k => !['schemaVersion', 'revision', 'enabled', 'saveSummary', 'checks', 'formatters'].includes(k))) throw Error('Invalid automation configuration.');
+      || Object.keys(config).some(k => !['schemaVersion', 'revision', 'enabled', 'saveSummary', 'checks', 'formatters', 'batch', 'commit'].includes(k))) throw Error('Invalid automation configuration.');
+  for (const key of ['batch', 'commit']) if (config[key] !== undefined && typeof config[key] !== 'boolean') throw Error(`${key} must be boolean.`);
   const names = new Set();
   for (const [kind, list] of [['check', config.checks], ['formatter', config.formatters]]) for (const item of list) {
     if (!item || typeof item.name !== 'string' || !/^[a-z0-9-]{1,64}$/.test(item.name) || names.has(item.name)
@@ -77,19 +79,14 @@ export function manageHooks(root, operation, payload = {}, { home } = {}) {
   throw Error(`Unknown hooks operation: ${operation}`);
 }
 
-function touchedFiles(event) {
-  const direct = event.tool_input?.file_path || event.tool_input?.path;
-  if (typeof direct === 'string') return [direct];
-  if (event.tool_name === 'apply_patch') return [...String(event.tool_input?.command || '').matchAll(/^\*\*\* (?:Add|Update) File: (.+)$/gm)].map(m => m[1]);
-  return [];
-}
+const touchedFiles = editedFiles;
 
-export async function handleHook(event, { home, run = runCommand } = {}) {
+export async function handleHook(event, { home, run = runCommand, projectRoot: boundRoot, timeBudgetMs = 20000 } = {}) {
   if (!event || !['Stop', 'PostToolUse'].includes(event.hook_event_name) || typeof event.cwd !== 'string') return { skipped: 'unsupported-event' };
   if (event.hook_event_name === 'PostToolUse' && !['Write', 'Edit', 'MultiEdit', 'apply_patch'].includes(event.tool_name)) return { skipped: 'not-an-edit' };
   // Use the exact configured project, or its Git root when launched in a subdirectory.
-  let root = projectRoot(event.cwd);
-  if (!existsSync(within(root, configPath))) root = gitRead(root, ['rev-parse', '--show-toplevel']) || root;
+  let root = projectRoot(boundRoot || event.cwd);
+  if (!boundRoot && !existsSync(within(root, configPath))) root = gitRead(root, ['rev-parse', '--show-toplevel']) || root;
   const selected = config(root);
   if (!selected?.enabled) return { skipped: 'disabled' };
   if (trustRecord(root, home)?.configHash !== configHash(selected)) return { skipped: 'untrusted', message: 'just-vibe automation configuration changed or is untrusted. Review it with hooks status, then use hooks trust if intended.' };
@@ -98,14 +95,40 @@ export async function handleHook(event, { home, run = runCommand } = {}) {
   const lock = join(directory, 'active.lock'); let handle;
   try { handle = openSync(lock, 'wx', 0o600); writeFileSync(handle, JSON.stringify({ pid: process.pid, startedAt: new Date().toISOString() })); } catch { return { skipped: 'busy' }; }
   try {
+    const deadline = Date.now() + Math.min(20000, Math.max(100, timeBudgetMs)), batchResults = [];
+    const queuePath = '.just-vibe/automation/pending-files.json', queueFile = within(root, queuePath);
+    const queue = existsSync(queueFile) ? readJson(queueFile) : { revision: 0, files: [] };
+    if (selected.batch && event.hook_event_name === 'PostToolUse') {
+      const files = [...new Set([...queue.files, ...touchedFiles(event).map(file => relative(root, within(root, resolve(event.cwd, file))).replaceAll('\\', '/'))])];
+      if (files.length > 200) throw Error('Formatter queue exceeds 200 files. Run the reviewed formatter explicitly.');
+      atomicJson(root, queuePath, { files }, queue.revision);
+      return { results: [], queued: files.length };
+    }
+    if (selected.batch && event.hook_event_name === 'Stop' && !event.just_vibe_commit_check && queue.files.length) {
+      const staged = gitRead(root, ['diff', '--cached', '--name-only', '-z']);
+      const completed = new Set(), failed = new Set();
+      for (const formatter of selected.formatters) {
+        const files = queue.files.filter(file => existsSync(within(root, file)) && !privateName(file.split('/').pop()) && (!formatter.extensions.length || formatter.extensions.includes(extname(file))) && staged !== null && !staged.split('\0').includes(file));
+        if (!files.length) continue;
+        const time = Math.min(formatter.timeoutMs, deadline - Date.now());
+        if (time <= 0) { files.forEach(file => failed.add(file)); batchResults.push({ name: formatter.name, result: 'skipped', reason: 'Total hook time budget exhausted' }); continue; }
+        const result = await run(formatter.command.flatMap(arg => arg === '{file}' ? files.map(file => within(root, file)) : [arg]), { cwd: root, timeoutMs: time, maxBytes: 64000 });
+        const passed = result.status === 0 && !result.error && !result.timedOut && !result.truncated;
+        batchResults.push({ name: formatter.name, result: passed ? 'passed' : 'failed', files, output: redact(result.error || result.stderr || result.stdout).slice(-2000) });
+        if (passed) files.forEach(file => completed.add(file));
+        else files.forEach(file => failed.add(file));
+      }
+      const remaining = queue.files.filter(file => !completed.has(file) || failed.has(file));
+      if (remaining.length && !failed.size) batchResults.push({ name: 'batch-format', result: 'skipped', files: remaining, reason: 'Staged, private, missing or unsupported files were not formatted.' });
+      atomicJson(root, queuePath, { files: remaining }, queue.revision);
+    }
     const snapshot = fingerprint(root), key = event.hook_event_name === 'Stop' ? 'stop' : 'edit';
     const statePath = `.just-vibe/automation/${key}.json`, path = within(root, statePath);
     const previous = existsSync(path) ? readJson(path) : null;
     const candidates = key === 'edit' ? touchedFiles(event).map(file => within(root, resolve(projectRoot(event.cwd), isAbsolute(file) ? relative(resolve(event.cwd), file) : file))) : [];
     const inputHash = digest(JSON.stringify({ snapshot, config: configHash(selected), candidates }));
-    const results = [];
-    if (snapshot.partial || previous?.inputHash !== inputHash) {
-      const deadline = Date.now() + 20000;
+    const results = [...batchResults];
+    if (event.just_vibe_force_checks || snapshot.partial || previous?.inputHash !== inputHash || batchResults.length) {
       if (key === 'stop') {
         for (const check of selected.checks) {
           const time = Math.min(check.timeoutMs, deadline - Date.now());
@@ -133,7 +156,7 @@ export async function handleHook(event, { home, run = runCommand } = {}) {
       if (changedDuringChecks) for (const result of results) if (result.result === 'passed') { result.result = 'stale'; result.reason = 'Project changed while checks ran; verify the current tree.'; }
       atomicJson(root, statePath, { schemaVersion: 1, inputHash: key === 'edit' ? digest(JSON.stringify({ snapshot: finalSnapshot, config: configHash(selected), candidates })) : inputHash, observedAt: new Date().toISOString(), changedDuringChecks, results }, previous?.revision || 0);
     }
-    if (key === 'stop' && selected.saveSummary) {
+    if (key === 'stop' && selected.saveSummary && !event.just_vibe_commit_check) {
       const file = '.just-vibe/automation/continuation.json', previousSummary = existsSync(within(root, file)) ? readJson(within(root, file)) : null;
       const summary = redact(event.last_assistant_message || '').slice(0, 6000);
       if (previousSummary?.summary !== summary || previousSummary?.snapshot?.content !== snapshot.content || previousSummary?.snapshot?.head !== snapshot.head) atomicJson(root, file, { schemaVersion: 1, kind: 'automatic-continuation', observedAt: new Date().toISOString(), snapshot: fingerprint(root), summary, note: 'Last response and filesystem identity only; verify task state and checks before continuing.' }, previousSummary?.revision || 0);

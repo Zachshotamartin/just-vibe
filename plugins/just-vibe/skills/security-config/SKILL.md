@@ -47,6 +47,11 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 - When a concrete decision or deliverable example would clarify this workflow: [Security worked example](../../references/examples/security.md).
 - Dependencies, builds, secrets, hooks or privileged execution cross a trust boundary: [Dependency and execution provenance](../../references/security/supply-chain.md).
 - The task depends on framework defaults, middleware, RLS, server/client or deployment behavior: [Framework-specific review branches](../../references/security/frameworks.md).
+- The affected project uses Django / DRF: [Django / DRF](../../references/frameworks/django.md).
+- The affected project uses FastAPI: [FastAPI](../../references/frameworks/fastapi.md).
+- The affected project uses Spring Boot: [Spring Boot](../../references/frameworks/spring-boot.md).
+- The request needs proactive context warnings, detected checks, native editor events, GitHub epic coordination or configuration audit reports: [Context health, check presets, editor events and shared work](../../references/runtime-depth.md).
+- The task specifically involves bug bounty, authorized pentest, security proof; load only the matching method: [Authorized vulnerability research](../../references/methods/authorized-security-research.md).
 
 ## Decision branches
 

@@ -1,0 +1,350 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-09-21T07:03:53.533Z",
+  "baseCommit": "a3df78b",
+  "packageVersion": "0.9.0",
+  "releaseStatus": "unreleased",
+  "findings": {
+    "R1": {
+      "status": "fixed",
+      "sources": [
+        {
+          "path": "plugins/just-vibe/scripts/lib/behavior-rules.mjs",
+          "sha256": "9bee26cd0e8fc3bf65ddd96e30c7e5e3b8cb948ea5d0fd4945f789f73ad14e68"
+        },
+        {
+          "path": "plugins/just-vibe/scripts/hooks.mjs",
+          "sha256": "d603ea7ff325e20b22c74657355c25f9d7ee06d9fc231cf2d05ae6e29fca71fb"
+        }
+      ],
+      "checks": [
+        {
+          "path": "tests/release-regressions.test.mjs",
+          "case": "R1 real hook enforcement survives audit contention and composes later policy guards",
+          "result": "passed"
+        }
+      ]
+    },
+    "R2": {
+      "status": "fixed",
+      "sources": [
+        {
+          "path": "plugins/just-vibe/scripts/lib/native-sessions.mjs",
+          "sha256": "84b33c5243f75b8b0f247f41f10538cf5f46db69effa58ac484497ff7fd37d81"
+        }
+      ],
+      "checks": [
+        {
+          "path": "tests/release-regressions.test.mjs",
+          "case": "R2 restricted MCP capture and import cannot replace or re-scope user history",
+          "result": "passed"
+        }
+      ]
+    },
+    "R3": {
+      "status": "fixed",
+      "sources": [
+        {
+          "path": "plugins/just-vibe/scripts/lib/managed-fragment.mjs",
+          "sha256": "677cc3465f8ced172f9b665f1dcf3abf1853e173f6caf8ae2ad30db090575c80"
+        },
+        {
+          "path": "plugins/just-vibe/scripts/lib/file-lock.mjs",
+          "sha256": "a84f5b4702f42475cf56de3ba012e8b114a39e1c0f9328d8e55a05ea519d2a2f"
+        }
+      ],
+      "checks": [
+        {
+          "path": "tests/release-regressions.test.mjs",
+          "case": "R3 shared configuration serializes different connector writers and preserves both after retry",
+          "result": "passed"
+        }
+      ]
+    },
+    "R4": {
+      "status": "fixed",
+      "sources": [
+        {
+          "path": "plugins/just-vibe/scripts/lib/managed-files.mjs",
+          "sha256": "b8f24ec465d47bf98fad92eac5c98d96953f60aa826cee29ac2906262b4ec547"
+        },
+        {
+          "path": "plugins/just-vibe/scripts/lib/managed-fragment.mjs",
+          "sha256": "677cc3465f8ced172f9b665f1dcf3abf1853e173f6caf8ae2ad30db090575c80"
+        },
+        {
+          "path": "plugins/just-vibe/scripts/lib/file-lock.mjs",
+          "sha256": "a84f5b4702f42475cf56de3ba012e8b114a39e1c0f9328d8e55a05ea519d2a2f"
+        },
+        {
+          "path": "plugins/just-vibe/scripts/lib/storage.mjs",
+          "sha256": "e47a3fb24511aa805ee9f42b5a8def20d2c4c598e4f5fc05c3cf8235e8f9c5a9"
+        }
+      ],
+      "checks": [
+        {
+          "path": "tests/release-regressions.test.mjs",
+          "case": "R4 owned installer recovers real process exits at every publication boundary without torn files",
+          "result": "passed"
+        },
+        {
+          "path": "tests/release-regressions.test.mjs",
+          "case": "R4 locks preserve live owners and malformed ownership",
+          "result": "passed"
+        },
+        {
+          "path": "tests/release-regressions.test.mjs",
+          "case": "R4 shared fragment recovery preserves foreign entries and blocks other writers until reconciled",
+          "result": "passed"
+        }
+      ]
+    },
+    "R5": {
+      "status": "fixed",
+      "sources": [
+        {
+          "path": "plugins/just-vibe/scripts/lib/bounded-jobs.mjs",
+          "sha256": "6f8104ea63874c239dd6d990df24e56a35b70cab80fbd21e4aec1c881ab07306"
+        },
+        {
+          "path": "plugins/just-vibe/scripts/lib/trusted-runners.mjs",
+          "sha256": "a444d6ddd1759ca4093be56172d0f7cc23635c0c9cf394ceeb082e3d1742b4de"
+        },
+        {
+          "path": "plugins/just-vibe/scripts/lib/process.mjs",
+          "sha256": "41006d9603bdb9573b20422847b326545537f6e09e3b58e72ab9d51d0b4b07a2"
+        },
+        {
+          "path": "plugins/just-vibe/scripts/lib/execution-control.mjs",
+          "sha256": "22436938ee215b31d76da4d3b6d65df75505890018cb3901c2a828bc5282962f"
+        }
+      ],
+      "checks": [
+        {
+          "path": "tests/release-regressions.test.mjs",
+          "case": "R5 cancellation from a separate CLI kills the owned child and never starts the verifier",
+          "result": "passed"
+        },
+        {
+          "path": "tests/release-regressions.test.mjs",
+          "case": "R5 deadline and revoked trust prevent follow-up verification",
+          "result": "passed"
+        }
+      ]
+    },
+    "R6": {
+      "status": "fixed",
+      "sources": [
+        {
+          "path": "plugins/just-vibe/scripts/lib/mcp-health.mjs",
+          "sha256": "11a45dcfe02d87a4912f43cc0f53b2ff6a0c3984eeff72bd9f97fb8f0aeebfac"
+        }
+      ],
+      "checks": [
+        {
+          "path": "tests/release-regressions.test.mjs",
+          "case": "R6 reconnect reserves before execution and dead attempts require explicit recovery",
+          "result": "passed"
+        },
+        {
+          "path": "tests/release-regressions.test.mjs",
+          "case": "R6 health retention never evicts unresolved reconnect reservations",
+          "result": "passed"
+        }
+      ]
+    },
+    "R7": {
+      "status": "fixed",
+      "sources": [
+        {
+          "path": "plugins/just-vibe/scripts/lib/dev-services.mjs",
+          "sha256": "2b7ad2440b20d092c515d811d0ebe9fb5e1cbdce27f8ee95c1524230d03edb71"
+        },
+        {
+          "path": "plugins/just-vibe/scripts/service-supervisor.mjs",
+          "sha256": "a87ed702360a129a0ddd68b7bae3178cb6e973868cfa60c7be38cc583b25e26c"
+        }
+      ],
+      "checks": [
+        {
+          "path": "tests/release-regressions.test.mjs",
+          "case": "R7 supervisor refuses pre-stopped, expired or revoked startup reservations",
+          "result": "passed"
+        }
+      ]
+    },
+    "R8": {
+      "status": "fixed",
+      "sources": [
+        {
+          "path": "plugins/just-vibe/scripts/lib/canary.mjs",
+          "sha256": "2d99a752bac2ac7440bdc7de9c8d877a4c63f13e6dfda34338de237538f67c9a"
+        },
+        {
+          "path": "plugins/just-vibe/scripts/lib/execution-control.mjs",
+          "sha256": "22436938ee215b31d76da4d3b6d65df75505890018cb3901c2a828bc5282962f"
+        }
+      ],
+      "checks": [
+        {
+          "path": "tests/release-regressions.test.mjs",
+          "case": "R8 canary aborts active fetch and preserves stop without later targets or notifications",
+          "result": "passed"
+        }
+      ]
+    },
+    "R9": {
+      "status": "fixed",
+      "sources": [
+        {
+          "path": "plugins/just-vibe/scripts/lib/native-sessions.mjs",
+          "sha256": "84b33c5243f75b8b0f247f41f10538cf5f46db69effa58ac484497ff7fd37d81"
+        },
+        {
+          "path": "plugins/just-vibe/scripts/lib/workbench-access.mjs",
+          "sha256": "bd01ee65b034e9fd5a5a635b6dba1f1047daff2cf1561fc34879ff86f5789692"
+        }
+      ],
+      "checks": [
+        {
+          "path": "tests/release-regressions.test.mjs",
+          "case": "R9 transcript windows disclose truncation, retain distinct suffixes and reject stale/private sources",
+          "result": "passed"
+        }
+      ]
+    },
+    "R10": {
+      "status": "fixed",
+      "sources": [
+        {
+          "path": "plugins/just-vibe/scripts/lib/usage-ledger.mjs",
+          "sha256": "e3160b4e70987761f3e28f267f4296a7971afd60cfe0f084423a4af6c2a5924b"
+        }
+      ],
+      "checks": [
+        {
+          "path": "tests/release-regressions.test.mjs",
+          "case": "R10 usage preserves prior valuations and discloses unknown price-boundary deltas and currencies",
+          "result": "passed"
+        }
+      ]
+    },
+    "R11": {
+      "status": "fixed",
+      "sources": [
+        {
+          "path": "plugins/just-vibe/scripts/lib/telemetry.mjs",
+          "sha256": "d9225db96815c16cc539c5507ae1b7c7aa637d4248086302a749bd60519287ec"
+        },
+        {
+          "path": "plugins/just-vibe/scripts/lib/operator.mjs",
+          "sha256": "bf14fe672aca08c063b4550e6361e8f2ab1cc47979880101f8f327d5d02344f8"
+        }
+      ],
+      "checks": [
+        {
+          "path": "tests/release-regressions.test.mjs",
+          "case": "R11 observed dispatch transitions have distinct event IDs while unchanged exports deduplicate",
+          "result": "passed"
+        }
+      ]
+    },
+    "R12": {
+      "status": "fixed",
+      "sources": [
+        {
+          "path": "plugins/just-vibe/scripts/lib/operator.mjs",
+          "sha256": "bf14fe672aca08c063b4550e6361e8f2ab1cc47979880101f8f327d5d02344f8"
+        },
+        {
+          "path": "plugins/just-vibe/scripts/lib/operator-http.mjs",
+          "sha256": "9087457482f80453701b330f2f544aaaeaf7d3ca21a5d3d48de802dbafcabf28"
+        },
+        {
+          "path": "plugins/just-vibe/scripts/lib/workbench-access.mjs",
+          "sha256": "bd01ee65b034e9fd5a5a635b6dba1f1047daff2cf1561fc34879ff86f5789692"
+        }
+      ],
+      "checks": [
+        {
+          "path": "tests/release-regressions.test.mjs",
+          "case": "R12 terminal dispatch retirement restores capacity and retains durable duplicate protection",
+          "result": "passed"
+        }
+      ]
+    }
+  },
+  "testSources": [
+    {
+      "path": "tests/release-regressions.test.mjs",
+      "sha256": "3d747bdf33a5c343195c6e5e3355d4f59728f4b2af200cdd217d1a659dc0bc33"
+    },
+    {
+      "path": "tests/updater-archive.test.mjs",
+      "sha256": "5fc14d0fa3ebf3d44a5611ecfd3a56283fe04105edbeac50042446fcb16ebce1"
+    },
+    {
+      "path": "tests/implementation-ledger.test.mjs",
+      "sha256": "cff582de6581b24dcbd57291234ae0cfc68711a64bc831838911dc1e26b58935"
+    },
+    {
+      "path": "scripts/check-ecc-implementation.mjs",
+      "sha256": "edac5ac5770b6cb41d5d937131dc4d9dad5c2abfeed57df848c7b5e6fdf107bc"
+    },
+    {
+      "path": "scripts/smoke-operator-browser.mjs",
+      "sha256": "de0c58a8ba3b372add8a32866412627c04e0cb9a5221416bc9980bf447fbf84f"
+    }
+  ],
+  "verification": {
+    "fullSuites": [
+      {
+        "node": "26.7.0",
+        "platform": "macOS",
+        "passed": 326,
+        "skipped": 1,
+        "failed": 0
+      },
+      {
+        "node": "22.23.2",
+        "platform": "macOS",
+        "passed": 326,
+        "skipped": 1,
+        "failed": 0
+      }
+    ],
+    "finalNode22RegressionCases": 17,
+    "operatorBrowser": {
+      "engine": "Chromium 153.0.8010.12",
+      "viewports": [
+        1440,
+        390
+      ],
+      "pageErrors": 0,
+      "accessibilityViolations": 0,
+      "dispatchRetirement": true
+    },
+    "hostInstallations": [
+      "Codex 0.152.0",
+      "Claude Code 2.1.258"
+    ],
+    "packageManagers": [
+      "npm",
+      "pnpm 10",
+      "pnpm 12",
+      "Yarn"
+    ],
+    "website": {
+      "node": "24.21.0",
+      "pages": 353,
+      "testsPassed": 4
+    }
+  },
+  "acceptance": {
+    "deliveredGroups": 49,
+    "status": "partial",
+    "record": "docs/audits/ecc-implementation.json",
+    "note": "Fixing these twelve defects does not verify unrun framework, live-provider, editor or OS acceptance requirements."
+  },
+  "published": false
+}

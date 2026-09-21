@@ -47,6 +47,8 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 - When a concrete decision or deliverable example would clarify this workflow: [General worked example](../../references/examples/general.md).
 - Browsing, routing or explaining the new utilities: [Discovery and daily utilities](../../references/daily-workflows.md).
+- The task needs scoped memory search, a persistent goal, independent review, configuration scanning, worker control, learned-pattern review or editor installation: [Native memory, goals, specialists and runtime controls](../../references/runtime-platform.md).
+- Discovering session, inventory, rule, council, scheduler, monitor, graph, evaluation, operator or domain-specific capabilities: [Extended capabilities and optional method library](../../references/runtime-expansion.md).
 
 ## Decision branches
 

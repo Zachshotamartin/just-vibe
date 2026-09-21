@@ -46,6 +46,10 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 - When a concrete decision or deliverable example would clarify this workflow: [Security worked example](../../references/examples/security.md).
 - Identity, ownership, tenant isolation, replay or privilege changes affect the task: [Identity and authorization](../../references/security/identity.md).
+- The affected project uses Django / DRF: [Django / DRF](../../references/frameworks/django.md).
+- The affected project uses FastAPI: [FastAPI](../../references/frameworks/fastapi.md).
+- The affected project uses Spring Boot: [Spring Boot](../../references/frameworks/spring-boot.md).
+- The task specifically involves bug bounty, authorized pentest, security proof; load only the matching method: [Authorized vulnerability research](../../references/methods/authorized-security-research.md).
 
 ## Decision branches
 

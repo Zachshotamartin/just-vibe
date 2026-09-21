@@ -49,6 +49,9 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 
 - When a concrete decision or deliverable example would clarify this workflow: [Databases worked example](../../references/examples/database.md).
 - Resolving check, deployment or migration identity: [Delivery evidence](../../references/scenarios/delivery-evidence.md).
+- The affected project uses Django / DRF: [Django / DRF](../../references/frameworks/django.md).
+- The affected project uses FastAPI: [FastAPI](../../references/frameworks/fastapi.md).
+- The affected project uses Spring Boot: [Spring Boot](../../references/frameworks/spring-boot.md).
 
 ## Decision branches
 

@@ -34,17 +34,19 @@ export function redactCommand(command) {
     && sensitiveKey.test(command[index - 1].replace(/^--?/, '')) ? '[REDACTED]' : redact(arg));
 }
 
-export async function runCommand(command, { cwd, timeoutMs = 15000, maxBytes = 512 * 1024, env = process.env } = {}) {
+export async function runCommand(command, { cwd, timeoutMs = 15000, maxBytes = 512 * 1024, env = process.env, signal } = {}) {
   if (!Array.isArray(command) || !command.length || command.some(s => typeof s !== 'string' || s.includes('\0'))) throw Error('Command must be an argv array.');
   if (!Number.isInteger(timeoutMs) || timeoutMs < 1 || timeoutMs > 120000) throw Error('Invalid command timeout.');
+  if (signal?.aborted) return { status: null, stdout: '', stderr: '', cancelled: true, timedOut: false, truncated: false };
   let child;
   try {
     const [binary, args] = commandInvocation(command[0], command.slice(1));
     child = spawn(binary, args, { cwd, env: { ...env, CI: '1', NO_COLOR: '1', GH_PROMPT_DISABLED: '1', GIT_TERMINAL_PROMPT: '0' }, shell: false, detached: process.platform !== 'win32', stdio: ['ignore', 'pipe', 'pipe'] });
   } catch (error) { return { status: null, error: redact(error.message), stdout: '', stderr: '', timedOut: false, truncated: false }; }
   return new Promise(resolve => {
-    let stdout = '', stderr = '', bytes = 0, timedOut = false, truncated = false, error;
+    let stdout = '', stderr = '', bytes = 0, timedOut = false, truncated = false, error, cancelled = false;
     const stop = () => {
+      if (!child.pid) return;
       try {
         if (process.platform === 'win32') {
           const killer = spawn('taskkill', ['/pid', String(child.pid), '/T', '/F'], { stdio: 'ignore', shell: false });
@@ -53,6 +55,9 @@ export async function runCommand(command, { cwd, timeoutMs = 15000, maxBytes = 5
       } catch { child.kill('SIGKILL'); }
     };
     const timer = setTimeout(() => { timedOut = true; stop(); }, timeoutMs);
+    const abort = () => { cancelled = true; stop(); };
+    signal?.addEventListener('abort', abort, { once: true });
+    if (signal?.aborted) abort();
     const collect = key => data => {
       const remaining = Math.max(0, maxBytes - bytes); bytes += data.length;
       if (key === 'stdout') stdout += data.subarray(0, remaining).toString(); else stderr += data.subarray(0, remaining).toString();
@@ -60,11 +65,11 @@ export async function runCommand(command, { cwd, timeoutMs = 15000, maxBytes = 5
     };
     child.stdout.on('data', collect('stdout')); child.stderr.on('data', collect('stderr'));
     child.on('error', e => { error = redact(e.message); });
-    child.on('close', (status, signal) => { clearTimeout(timer); resolve({ status, signal, stdout, stderr, timedOut, truncated, ...(error ? { error } : {}) }); });
+    child.on('close', (status, exitSignal) => { clearTimeout(timer); signal?.removeEventListener('abort', abort); resolve({ status, signal: exitSignal, stdout, stderr, timedOut, truncated, cancelled, ...(error ? { error } : {}) }); });
   });
 }
 
 export function requireResult(result, accepted = [0]) {
-  if (result.error || result.timedOut || result.truncated || !accepted.includes(result.status)) throw Error(result.error || (result.timedOut ? 'Command timed out; evidence is incomplete.' : result.truncated ? 'Command exceeded output limit; evidence is incomplete.' : redact(result.stderr.trim()).slice(0, 1000) || `Command exited ${result.status}.`));
+  if (result.error || result.cancelled || result.timedOut || result.truncated || !accepted.includes(result.status)) throw Error(result.error || (result.cancelled ? 'Command cancelled; evidence is incomplete.' : result.timedOut ? 'Command timed out; evidence is incomplete.' : result.truncated ? 'Command exceeded output limit; evidence is incomplete.' : redact(result.stderr.trim()).slice(0, 1000) || `Command exited ${result.status}.`));
   return result.stdout;
 }

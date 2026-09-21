@@ -45,7 +45,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 ## Read when relevant
 
 - When a concrete decision or deliverable example would clarify this workflow: [General worked example](../../references/examples/general.md).
-
+- The task needs scoped memory search, a persistent goal, independent review, configuration scanning, worker control, learned-pattern review or editor installation: [Native memory, goals, specialists and runtime controls](../../references/runtime-platform.md).
 
 ## Decision branches
 

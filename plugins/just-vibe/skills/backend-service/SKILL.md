@@ -47,6 +47,12 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 - When a concrete decision or deliverable example would clarify this workflow: [Backend worked example](../../references/examples/backend.md).
 - The task depends on framework defaults, middleware, RLS, server/client or deployment behavior: [Framework-specific review branches](../../references/security/frameworks.md).
 - Language/runtime semantics, concurrency or resource ownership can change the result: [Language and runtime review methods](../../references/scenarios/language-review.md).
+- The affected project uses Django / DRF: [Django / DRF](../../references/frameworks/django.md).
+- The affected project uses FastAPI: [FastAPI](../../references/frameworks/fastapi.md).
+- The affected project uses Spring Boot: [Spring Boot](../../references/frameworks/spring-boot.md).
+- The task specifically involves kubernetes, readiness probe, rolling update; load only the matching method: [Kubernetes release and failure recovery](../../references/methods/kubernetes-release.md).
+- The task specifically involves flox, uncloud, dev environment, reproducible environment; load only the matching method: [Flox, containers and reproducible development](../../references/methods/reproducible-environments.md).
+- The task specifically involves tail latency, latency critical, p99, benchmark optimization; load only the matching method: [Latency budgets and performance experiments](../../references/methods/latency-systems.md).
 
 ## Decision branches
 

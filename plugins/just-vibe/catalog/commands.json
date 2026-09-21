@@ -898,7 +898,8 @@
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
       "procedure": [
         "Find affected modules, check existing patterns, order dependencies, identify verification and rollout needs, and separate discovery tasks from known changes.",
-        "Connect each step to actual files, interfaces and a completion check; put discovery before changes that depend on uncertain contracts."
+        "Connect each step to actual files, interfaces and a completion check; put discovery before changes that depend on uncertain contracts.",
+        "For a multi-phase feature, fix, refactor or MVP, use the relevant phase contract in the composed-workflows guide. Keep simple work direct. Delegate only when authorized, and use the reviewed worker result and acceptance flow before dependent work. Offer the plan-review canvas only when browser feedback is useful or requested."
       ],
       "outputs": [
         "File/component-level steps, success criteria, risks, recovery approach, and dependencies.",
@@ -952,7 +953,19 @@
         "method": "Order concrete changes by dependency and attach discriminating checks and recovery boundaries to consequential steps.",
         "pitfall": "A list of filenames or tool names is not an implementation plan; invented repo structure produces unusable tasks.",
         "check": "Ensure each step maps to an observed location or justified new artifact and contributes to a stated acceptance criterion."
-      }
+      },
+      "guides": [
+        {
+          "title": "Composed workflows and reviewed coordination",
+          "path": "references/composed-workflows.md",
+          "when": "Coordinating feature, fix, refactor or MVP phases; use exact worker and canvas operations only when needed"
+        },
+        {
+          "title": "PRD, implementation plans and team handoffs",
+          "path": "references/methods/planning-teams.md",
+          "when": "The task specifically involves prd, prp, team plan, delegation plan; load only the matching method"
+        }
+      ]
     },
     {
       "id": "scope",
@@ -1195,7 +1208,14 @@
         "method": "Create tasks with a verifiable outcome and prerequisites; split by coherent behavior rather than arbitrary file count.",
         "pitfall": "Marking a task complete because its code exists overlooks unrun verification or blocked integration.",
         "check": "Check that all acceptance criteria have an owner task and that dependent tasks cannot complete ahead of missing prerequisites."
-      }
+      },
+      "guides": [
+        {
+          "title": "Context health, check presets, editor events and shared work",
+          "when": "The request needs proactive context warnings, detected checks, native editor events, GitHub epic coordination or configuration audit reports",
+          "path": "references/runtime-depth.md"
+        }
+      ]
     },
     {
       "id": "build",
@@ -1224,7 +1244,8 @@
       "writeScope": "Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.",
       "procedure": [
         "Inspect current patterns, resolve critical ambiguity, implement coherent changes, handle error states, and run checks appropriate to the behavior changed.",
-        "Trace the closest existing journey, implement the smallest complete vertical slice, and exercise failure recovery before expanding optional states."
+        "Trace the closest existing journey, implement the smallest complete vertical slice, and exercise failure recovery before expanding optional states.",
+        "For a multi-phase feature, fix, refactor or MVP, use the relevant phase contract in the composed-workflows guide. Keep simple work direct. Delegate only when authorized, and use the reviewed worker result and acceptance flow before dependent work. Offer the plan-review canvas only when browser feedback is useful or requested."
       ],
       "outputs": [
         "Working changes, validation evidence, and material limitations.",
@@ -1284,6 +1305,106 @@
           "path": "references/scenarios/language-review.md",
           "title": "Language and runtime review methods",
           "when": "Language/runtime semantics, concurrency or resource ownership can change the result"
+        },
+        {
+          "title": "Composed workflows and reviewed coordination",
+          "path": "references/composed-workflows.md",
+          "when": "Coordinating feature, fix, refactor or MVP phases; use exact worker and canvas operations only when needed"
+        },
+        {
+          "title": "Django / DRF",
+          "when": "The affected project uses Django / DRF",
+          "path": "references/frameworks/django.md"
+        },
+        {
+          "title": "FastAPI",
+          "when": "The affected project uses FastAPI",
+          "path": "references/frameworks/fastapi.md"
+        },
+        {
+          "title": "Spring Boot",
+          "when": "The affected project uses Spring Boot",
+          "path": "references/frameworks/spring-boot.md"
+        },
+        {
+          "title": "Flutter",
+          "when": "The affected project uses Flutter",
+          "path": "references/frameworks/flutter.md"
+        },
+        {
+          "title": "React Native / Expo",
+          "when": "The affected project uses React Native / Expo",
+          "path": "references/frameworks/react-native.md"
+        },
+        {
+          "title": "Python packaging and Celery delivery semantics",
+          "path": "references/methods/python-celery.md",
+          "when": "The task specifically involves celery, python packaging, task redelivery; load only the matching method"
+        },
+        {
+          "title": "JPA, Exposed and JVM transaction boundaries",
+          "path": "references/methods/jvm-persistence.md",
+          "when": "The task specifically involves jpa, hibernate, exposed, quarkus; load only the matching method"
+        },
+        {
+          "title": "Ktor, coroutines and small JVM service frameworks",
+          "path": "references/methods/kotlin-services.md",
+          "when": "The task specifically involves ktor, kotlin coroutines, tinystruct; load only the matching method"
+        },
+        {
+          "title": "Laravel and Rails persistence, policies and jobs",
+          "path": "references/methods/laravel-rails.md",
+          "when": "The task specifically involves laravel, rails, eloquent, active record; load only the matching method"
+        },
+        {
+          "title": "Android and Compose Multiplatform lifecycle",
+          "path": "references/methods/android-compose.md",
+          "when": "The task specifically involves android compose, compose multiplatform, android architecture; load only the matching method"
+        },
+        {
+          "title": "SwiftUI, actors and Swift concurrency",
+          "path": "references/methods/swift-concurrency.md",
+          "when": "The task specifically involves swiftui, swift 6, actor persistence, foundation models, liquid glass; load only the matching method"
+        },
+        {
+          "title": "HarmonyOS and ArkTS state/lifecycle",
+          "path": "references/methods/harmonyos-arkts.md",
+          "when": "The task specifically involves harmonyos, arkts, arkui; load only the matching method"
+        },
+        {
+          "title": "Angular, Vue and Nuxt reactive boundaries",
+          "path": "references/methods/angular-vue.md",
+          "when": "The task specifically involves angular, vue, nuxt, ui to vue; load only the matching method"
+        },
+        {
+          "title": "Next.js, NestJS and Bun runtime behavior",
+          "path": "references/methods/next-nest-bun.md",
+          "when": "The task specifically involves next.js, turbopack, nestjs, bun runtime; load only the matching method"
+        },
+        {
+          "title": "C#, EF Core and F# contracts",
+          "path": "references/methods/dotnet-fsharp.md",
+          "when": "The task specifically involves ef core, asp.net, c#, f#, dotnet; load only the matching method"
+        },
+        {
+          "title": "Go, Rust and C++ ownership and concurrency",
+          "path": "references/methods/systems-languages.md",
+          "when": "The task specifically involves go race, rust lifetime, cpp sanitizer, c++, systems review; load only the matching method"
+        },
+        {
+          "title": "Perl input handling and test isolation",
+          "path": "references/methods/perl-security.md",
+          "when": "The task specifically involves perl, cpan, taint mode; load only the matching method"
+        },
+        {
+          "title": "PostgreSQL and MySQL query/migration behavior",
+          "path": "references/methods/postgres-mysql.md",
+          "when": "The task specifically involves postgresql, mysql, database execution plan; load only the matching method"
+        },
+        {
+          "title": "ClickHouse, Redis and Prisma semantics",
+          "path": "references/methods/clickhouse-redis-prisma.md",
+          "when": "The task specifically involves clickhouse, redis, prisma; load only the matching method"
         }
       ]
     },
@@ -1315,7 +1436,8 @@
       "procedure": [
         "Read the behavior contract, nearby callers and existing checks before inferring expected behavior from the defective implementation. Separate the reproduced trigger, intended result and compatibility requirements; record conflicting evidence instead of choosing whichever makes the patch easiest.",
         "Trace the failing input through validation, state transitions and the observable result. Choose a focused change that corrects the cause and preserves neighboring valid behavior; distinguish missing, null, zero, false and empty values where the contract does.",
-        "Reproduce the original failure, apply the fix and run relevant checks with actual exit statuses. Where a regression test is warranted, derive its expected result independently from the contract and establish that it detects the defect rather than incidental setup failure."
+        "Reproduce the original failure, apply the fix and run relevant checks with actual exit statuses. Where a regression test is warranted, derive its expected result independently from the contract and establish that it detects the defect rather than incidental setup failure.",
+        "For a multi-phase feature, fix, refactor or MVP, use the relevant phase contract in the composed-workflows guide. Keep simple work direct. Delegate only when authorized, and use the reviewed worker result and acceptance flow before dependent work. Offer the plan-review canvas only when browser feedback is useful or requested."
       ],
       "outputs": [
         "Trigger, contract evidence, causal location, focused patch, actual before/after checks and remaining uncertainty."
@@ -1387,6 +1509,106 @@
           "path": "references/scenarios/language-review.md",
           "title": "Language and runtime review methods",
           "when": "Language/runtime semantics, concurrency or resource ownership can change the result"
+        },
+        {
+          "title": "Composed workflows and reviewed coordination",
+          "path": "references/composed-workflows.md",
+          "when": "Coordinating feature, fix, refactor or MVP phases; use exact worker and canvas operations only when needed"
+        },
+        {
+          "title": "Django / DRF",
+          "when": "The affected project uses Django / DRF",
+          "path": "references/frameworks/django.md"
+        },
+        {
+          "title": "FastAPI",
+          "when": "The affected project uses FastAPI",
+          "path": "references/frameworks/fastapi.md"
+        },
+        {
+          "title": "Spring Boot",
+          "when": "The affected project uses Spring Boot",
+          "path": "references/frameworks/spring-boot.md"
+        },
+        {
+          "title": "Flutter",
+          "when": "The affected project uses Flutter",
+          "path": "references/frameworks/flutter.md"
+        },
+        {
+          "title": "React Native / Expo",
+          "when": "The affected project uses React Native / Expo",
+          "path": "references/frameworks/react-native.md"
+        },
+        {
+          "title": "Python packaging and Celery delivery semantics",
+          "path": "references/methods/python-celery.md",
+          "when": "The task specifically involves celery, python packaging, task redelivery; load only the matching method"
+        },
+        {
+          "title": "JPA, Exposed and JVM transaction boundaries",
+          "path": "references/methods/jvm-persistence.md",
+          "when": "The task specifically involves jpa, hibernate, exposed, quarkus; load only the matching method"
+        },
+        {
+          "title": "Ktor, coroutines and small JVM service frameworks",
+          "path": "references/methods/kotlin-services.md",
+          "when": "The task specifically involves ktor, kotlin coroutines, tinystruct; load only the matching method"
+        },
+        {
+          "title": "Laravel and Rails persistence, policies and jobs",
+          "path": "references/methods/laravel-rails.md",
+          "when": "The task specifically involves laravel, rails, eloquent, active record; load only the matching method"
+        },
+        {
+          "title": "Android and Compose Multiplatform lifecycle",
+          "path": "references/methods/android-compose.md",
+          "when": "The task specifically involves android compose, compose multiplatform, android architecture; load only the matching method"
+        },
+        {
+          "title": "SwiftUI, actors and Swift concurrency",
+          "path": "references/methods/swift-concurrency.md",
+          "when": "The task specifically involves swiftui, swift 6, actor persistence, foundation models, liquid glass; load only the matching method"
+        },
+        {
+          "title": "HarmonyOS and ArkTS state/lifecycle",
+          "path": "references/methods/harmonyos-arkts.md",
+          "when": "The task specifically involves harmonyos, arkts, arkui; load only the matching method"
+        },
+        {
+          "title": "Angular, Vue and Nuxt reactive boundaries",
+          "path": "references/methods/angular-vue.md",
+          "when": "The task specifically involves angular, vue, nuxt, ui to vue; load only the matching method"
+        },
+        {
+          "title": "Next.js, NestJS and Bun runtime behavior",
+          "path": "references/methods/next-nest-bun.md",
+          "when": "The task specifically involves next.js, turbopack, nestjs, bun runtime; load only the matching method"
+        },
+        {
+          "title": "C#, EF Core and F# contracts",
+          "path": "references/methods/dotnet-fsharp.md",
+          "when": "The task specifically involves ef core, asp.net, c#, f#, dotnet; load only the matching method"
+        },
+        {
+          "title": "Go, Rust and C++ ownership and concurrency",
+          "path": "references/methods/systems-languages.md",
+          "when": "The task specifically involves go race, rust lifetime, cpp sanitizer, c++, systems review; load only the matching method"
+        },
+        {
+          "title": "Perl input handling and test isolation",
+          "path": "references/methods/perl-security.md",
+          "when": "The task specifically involves perl, cpan, taint mode; load only the matching method"
+        },
+        {
+          "title": "PostgreSQL and MySQL query/migration behavior",
+          "path": "references/methods/postgres-mysql.md",
+          "when": "The task specifically involves postgresql, mysql, database execution plan; load only the matching method"
+        },
+        {
+          "title": "ClickHouse, Redis and Prisma semantics",
+          "path": "references/methods/clickhouse-redis-prisma.md",
+          "when": "The task specifically involves clickhouse, redis, prisma; load only the matching method"
         }
       ]
     },
@@ -1477,6 +1699,101 @@
           "path": "references/scenarios/language-review.md",
           "title": "Language and runtime review methods",
           "when": "Language/runtime semantics, concurrency or resource ownership can change the result"
+        },
+        {
+          "title": "Django / DRF",
+          "when": "The affected project uses Django / DRF",
+          "path": "references/frameworks/django.md"
+        },
+        {
+          "title": "FastAPI",
+          "when": "The affected project uses FastAPI",
+          "path": "references/frameworks/fastapi.md"
+        },
+        {
+          "title": "Spring Boot",
+          "when": "The affected project uses Spring Boot",
+          "path": "references/frameworks/spring-boot.md"
+        },
+        {
+          "title": "Flutter",
+          "when": "The affected project uses Flutter",
+          "path": "references/frameworks/flutter.md"
+        },
+        {
+          "title": "React Native / Expo",
+          "when": "The affected project uses React Native / Expo",
+          "path": "references/frameworks/react-native.md"
+        },
+        {
+          "title": "Python packaging and Celery delivery semantics",
+          "path": "references/methods/python-celery.md",
+          "when": "The task specifically involves celery, python packaging, task redelivery; load only the matching method"
+        },
+        {
+          "title": "JPA, Exposed and JVM transaction boundaries",
+          "path": "references/methods/jvm-persistence.md",
+          "when": "The task specifically involves jpa, hibernate, exposed, quarkus; load only the matching method"
+        },
+        {
+          "title": "Ktor, coroutines and small JVM service frameworks",
+          "path": "references/methods/kotlin-services.md",
+          "when": "The task specifically involves ktor, kotlin coroutines, tinystruct; load only the matching method"
+        },
+        {
+          "title": "Laravel and Rails persistence, policies and jobs",
+          "path": "references/methods/laravel-rails.md",
+          "when": "The task specifically involves laravel, rails, eloquent, active record; load only the matching method"
+        },
+        {
+          "title": "Android and Compose Multiplatform lifecycle",
+          "path": "references/methods/android-compose.md",
+          "when": "The task specifically involves android compose, compose multiplatform, android architecture; load only the matching method"
+        },
+        {
+          "title": "SwiftUI, actors and Swift concurrency",
+          "path": "references/methods/swift-concurrency.md",
+          "when": "The task specifically involves swiftui, swift 6, actor persistence, foundation models, liquid glass; load only the matching method"
+        },
+        {
+          "title": "HarmonyOS and ArkTS state/lifecycle",
+          "path": "references/methods/harmonyos-arkts.md",
+          "when": "The task specifically involves harmonyos, arkts, arkui; load only the matching method"
+        },
+        {
+          "title": "Angular, Vue and Nuxt reactive boundaries",
+          "path": "references/methods/angular-vue.md",
+          "when": "The task specifically involves angular, vue, nuxt, ui to vue; load only the matching method"
+        },
+        {
+          "title": "Next.js, NestJS and Bun runtime behavior",
+          "path": "references/methods/next-nest-bun.md",
+          "when": "The task specifically involves next.js, turbopack, nestjs, bun runtime; load only the matching method"
+        },
+        {
+          "title": "C#, EF Core and F# contracts",
+          "path": "references/methods/dotnet-fsharp.md",
+          "when": "The task specifically involves ef core, asp.net, c#, f#, dotnet; load only the matching method"
+        },
+        {
+          "title": "Go, Rust and C++ ownership and concurrency",
+          "path": "references/methods/systems-languages.md",
+          "when": "The task specifically involves go race, rust lifetime, cpp sanitizer, c++, systems review; load only the matching method"
+        },
+        {
+          "title": "Perl input handling and test isolation",
+          "path": "references/methods/perl-security.md",
+          "when": "The task specifically involves perl, cpan, taint mode; load only the matching method"
+        },
+        {
+          "title": "PostgreSQL and MySQL query/migration behavior",
+          "path": "references/methods/postgres-mysql.md",
+          "when": "The task specifically involves postgresql, mysql, database execution plan; load only the matching method"
+        },
+        {
+          "title": "ClickHouse, Redis and Prisma semantics",
+          "path": "references/methods/clickhouse-redis-prisma.md",
+          "when": "The task specifically involves clickhouse, redis, prisma; load only the matching method"
         }
       ]
     },
@@ -1507,7 +1824,8 @@
       "writeScope": "Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.",
       "procedure": [
         "Capture relevant behavior, identify seams, transform incrementally, preserve call contracts, and compare results against the baseline.",
-        "Identify public exports, serialization and error contracts; transform one seam at a time and compare behavior against existing consumer checks."
+        "Identify public exports, serialization and error contracts; transform one seam at a time and compare behavior against existing consumer checks.",
+        "For a multi-phase feature, fix, refactor or MVP, use the relevant phase contract in the composed-workflows guide. Keep simple work direct. Delegate only when authorized, and use the reviewed worker result and acceptance flow before dependent work. Offer the plan-review canvas only when browser feedback is useful or requested."
       ],
       "outputs": [
         "Focused structural changes, rationale, compatibility evidence, and remaining debt.",
@@ -1567,6 +1885,106 @@
           "path": "references/scenarios/language-review.md",
           "title": "Language and runtime review methods",
           "when": "Language/runtime semantics, concurrency or resource ownership can change the result"
+        },
+        {
+          "title": "Composed workflows and reviewed coordination",
+          "path": "references/composed-workflows.md",
+          "when": "Coordinating feature, fix, refactor or MVP phases; use exact worker and canvas operations only when needed"
+        },
+        {
+          "title": "Django / DRF",
+          "when": "The affected project uses Django / DRF",
+          "path": "references/frameworks/django.md"
+        },
+        {
+          "title": "FastAPI",
+          "when": "The affected project uses FastAPI",
+          "path": "references/frameworks/fastapi.md"
+        },
+        {
+          "title": "Spring Boot",
+          "when": "The affected project uses Spring Boot",
+          "path": "references/frameworks/spring-boot.md"
+        },
+        {
+          "title": "Flutter",
+          "when": "The affected project uses Flutter",
+          "path": "references/frameworks/flutter.md"
+        },
+        {
+          "title": "React Native / Expo",
+          "when": "The affected project uses React Native / Expo",
+          "path": "references/frameworks/react-native.md"
+        },
+        {
+          "title": "Python packaging and Celery delivery semantics",
+          "path": "references/methods/python-celery.md",
+          "when": "The task specifically involves celery, python packaging, task redelivery; load only the matching method"
+        },
+        {
+          "title": "JPA, Exposed and JVM transaction boundaries",
+          "path": "references/methods/jvm-persistence.md",
+          "when": "The task specifically involves jpa, hibernate, exposed, quarkus; load only the matching method"
+        },
+        {
+          "title": "Ktor, coroutines and small JVM service frameworks",
+          "path": "references/methods/kotlin-services.md",
+          "when": "The task specifically involves ktor, kotlin coroutines, tinystruct; load only the matching method"
+        },
+        {
+          "title": "Laravel and Rails persistence, policies and jobs",
+          "path": "references/methods/laravel-rails.md",
+          "when": "The task specifically involves laravel, rails, eloquent, active record; load only the matching method"
+        },
+        {
+          "title": "Android and Compose Multiplatform lifecycle",
+          "path": "references/methods/android-compose.md",
+          "when": "The task specifically involves android compose, compose multiplatform, android architecture; load only the matching method"
+        },
+        {
+          "title": "SwiftUI, actors and Swift concurrency",
+          "path": "references/methods/swift-concurrency.md",
+          "when": "The task specifically involves swiftui, swift 6, actor persistence, foundation models, liquid glass; load only the matching method"
+        },
+        {
+          "title": "HarmonyOS and ArkTS state/lifecycle",
+          "path": "references/methods/harmonyos-arkts.md",
+          "when": "The task specifically involves harmonyos, arkts, arkui; load only the matching method"
+        },
+        {
+          "title": "Angular, Vue and Nuxt reactive boundaries",
+          "path": "references/methods/angular-vue.md",
+          "when": "The task specifically involves angular, vue, nuxt, ui to vue; load only the matching method"
+        },
+        {
+          "title": "Next.js, NestJS and Bun runtime behavior",
+          "path": "references/methods/next-nest-bun.md",
+          "when": "The task specifically involves next.js, turbopack, nestjs, bun runtime; load only the matching method"
+        },
+        {
+          "title": "C#, EF Core and F# contracts",
+          "path": "references/methods/dotnet-fsharp.md",
+          "when": "The task specifically involves ef core, asp.net, c#, f#, dotnet; load only the matching method"
+        },
+        {
+          "title": "Go, Rust and C++ ownership and concurrency",
+          "path": "references/methods/systems-languages.md",
+          "when": "The task specifically involves go race, rust lifetime, cpp sanitizer, c++, systems review; load only the matching method"
+        },
+        {
+          "title": "Perl input handling and test isolation",
+          "path": "references/methods/perl-security.md",
+          "when": "The task specifically involves perl, cpan, taint mode; load only the matching method"
+        },
+        {
+          "title": "PostgreSQL and MySQL query/migration behavior",
+          "path": "references/methods/postgres-mysql.md",
+          "when": "The task specifically involves postgresql, mysql, database execution plan; load only the matching method"
+        },
+        {
+          "title": "ClickHouse, Redis and Prisma semantics",
+          "path": "references/methods/clickhouse-redis-prisma.md",
+          "when": "The task specifically involves clickhouse, redis, prisma; load only the matching method"
         }
       ]
     },
@@ -2003,6 +2421,16 @@
           "title": "Frontend iconography",
           "when": "Creating, editing or reviewing frontend UI, copy, states or visual assets",
           "path": "references/frontend-icons.md"
+        },
+        {
+          "title": "Flutter",
+          "when": "The affected project uses Flutter",
+          "path": "references/frameworks/flutter.md"
+        },
+        {
+          "title": "React Native / Expo",
+          "when": "The affected project uses React Native / Expo",
+          "path": "references/frameworks/react-native.md"
         }
       ]
     },
@@ -2093,6 +2521,16 @@
           "title": "Frontend iconography",
           "when": "Creating, editing or reviewing frontend UI, copy, states or visual assets",
           "path": "references/frontend-icons.md"
+        },
+        {
+          "title": "Flutter",
+          "when": "The affected project uses Flutter",
+          "path": "references/frameworks/flutter.md"
+        },
+        {
+          "title": "React Native / Expo",
+          "when": "The affected project uses React Native / Expo",
+          "path": "references/frameworks/react-native.md"
         }
       ]
     },
@@ -2406,6 +2844,106 @@
           "path": "references/scenarios/language-review.md",
           "title": "Language and runtime review methods",
           "when": "Language/runtime semantics, concurrency or resource ownership can change the result"
+        },
+        {
+          "title": "Native memory, goals, specialists and runtime controls",
+          "path": "references/runtime-platform.md",
+          "when": "The task needs scoped memory search, a persistent goal, independent review, configuration scanning, worker control, learned-pattern review or editor installation"
+        },
+        {
+          "title": "Django / DRF",
+          "when": "The affected project uses Django / DRF",
+          "path": "references/frameworks/django.md"
+        },
+        {
+          "title": "FastAPI",
+          "when": "The affected project uses FastAPI",
+          "path": "references/frameworks/fastapi.md"
+        },
+        {
+          "title": "Spring Boot",
+          "when": "The affected project uses Spring Boot",
+          "path": "references/frameworks/spring-boot.md"
+        },
+        {
+          "title": "Flutter",
+          "when": "The affected project uses Flutter",
+          "path": "references/frameworks/flutter.md"
+        },
+        {
+          "title": "React Native / Expo",
+          "when": "The affected project uses React Native / Expo",
+          "path": "references/frameworks/react-native.md"
+        },
+        {
+          "title": "Python packaging and Celery delivery semantics",
+          "path": "references/methods/python-celery.md",
+          "when": "The task specifically involves celery, python packaging, task redelivery; load only the matching method"
+        },
+        {
+          "title": "JPA, Exposed and JVM transaction boundaries",
+          "path": "references/methods/jvm-persistence.md",
+          "when": "The task specifically involves jpa, hibernate, exposed, quarkus; load only the matching method"
+        },
+        {
+          "title": "Ktor, coroutines and small JVM service frameworks",
+          "path": "references/methods/kotlin-services.md",
+          "when": "The task specifically involves ktor, kotlin coroutines, tinystruct; load only the matching method"
+        },
+        {
+          "title": "Laravel and Rails persistence, policies and jobs",
+          "path": "references/methods/laravel-rails.md",
+          "when": "The task specifically involves laravel, rails, eloquent, active record; load only the matching method"
+        },
+        {
+          "title": "Android and Compose Multiplatform lifecycle",
+          "path": "references/methods/android-compose.md",
+          "when": "The task specifically involves android compose, compose multiplatform, android architecture; load only the matching method"
+        },
+        {
+          "title": "SwiftUI, actors and Swift concurrency",
+          "path": "references/methods/swift-concurrency.md",
+          "when": "The task specifically involves swiftui, swift 6, actor persistence, foundation models, liquid glass; load only the matching method"
+        },
+        {
+          "title": "HarmonyOS and ArkTS state/lifecycle",
+          "path": "references/methods/harmonyos-arkts.md",
+          "when": "The task specifically involves harmonyos, arkts, arkui; load only the matching method"
+        },
+        {
+          "title": "Angular, Vue and Nuxt reactive boundaries",
+          "path": "references/methods/angular-vue.md",
+          "when": "The task specifically involves angular, vue, nuxt, ui to vue; load only the matching method"
+        },
+        {
+          "title": "Next.js, NestJS and Bun runtime behavior",
+          "path": "references/methods/next-nest-bun.md",
+          "when": "The task specifically involves next.js, turbopack, nestjs, bun runtime; load only the matching method"
+        },
+        {
+          "title": "C#, EF Core and F# contracts",
+          "path": "references/methods/dotnet-fsharp.md",
+          "when": "The task specifically involves ef core, asp.net, c#, f#, dotnet; load only the matching method"
+        },
+        {
+          "title": "Go, Rust and C++ ownership and concurrency",
+          "path": "references/methods/systems-languages.md",
+          "when": "The task specifically involves go race, rust lifetime, cpp sanitizer, c++, systems review; load only the matching method"
+        },
+        {
+          "title": "Perl input handling and test isolation",
+          "path": "references/methods/perl-security.md",
+          "when": "The task specifically involves perl, cpan, taint mode; load only the matching method"
+        },
+        {
+          "title": "PostgreSQL and MySQL query/migration behavior",
+          "path": "references/methods/postgres-mysql.md",
+          "when": "The task specifically involves postgresql, mysql, database execution plan; load only the matching method"
+        },
+        {
+          "title": "ClickHouse, Redis and Prisma semantics",
+          "path": "references/methods/clickhouse-redis-prisma.md",
+          "when": "The task specifically involves clickhouse, redis, prisma; load only the matching method"
         }
       ],
       "inputPolicy": {
@@ -2495,7 +3033,104 @@
         "method": "Choose the lowest layer that observes the invariant, load its testing method and include a meaningful failure case.",
         "pitfall": "Mock call assertions or tests mirroring helper logic can pass while behavior is wrong.",
         "check": "Verify a plausible bad implementation fails for the intended reason and that the legitimate path passes."
-      }
+      },
+      "guides": [
+        {
+          "title": "Django / DRF",
+          "when": "The affected project uses Django / DRF",
+          "path": "references/frameworks/django.md"
+        },
+        {
+          "title": "FastAPI",
+          "when": "The affected project uses FastAPI",
+          "path": "references/frameworks/fastapi.md"
+        },
+        {
+          "title": "Spring Boot",
+          "when": "The affected project uses Spring Boot",
+          "path": "references/frameworks/spring-boot.md"
+        },
+        {
+          "title": "Flutter",
+          "when": "The affected project uses Flutter",
+          "path": "references/frameworks/flutter.md"
+        },
+        {
+          "title": "React Native / Expo",
+          "when": "The affected project uses React Native / Expo",
+          "path": "references/frameworks/react-native.md"
+        },
+        {
+          "title": "Python packaging and Celery delivery semantics",
+          "path": "references/methods/python-celery.md",
+          "when": "The task specifically involves celery, python packaging, task redelivery; load only the matching method"
+        },
+        {
+          "title": "JPA, Exposed and JVM transaction boundaries",
+          "path": "references/methods/jvm-persistence.md",
+          "when": "The task specifically involves jpa, hibernate, exposed, quarkus; load only the matching method"
+        },
+        {
+          "title": "Ktor, coroutines and small JVM service frameworks",
+          "path": "references/methods/kotlin-services.md",
+          "when": "The task specifically involves ktor, kotlin coroutines, tinystruct; load only the matching method"
+        },
+        {
+          "title": "Laravel and Rails persistence, policies and jobs",
+          "path": "references/methods/laravel-rails.md",
+          "when": "The task specifically involves laravel, rails, eloquent, active record; load only the matching method"
+        },
+        {
+          "title": "Android and Compose Multiplatform lifecycle",
+          "path": "references/methods/android-compose.md",
+          "when": "The task specifically involves android compose, compose multiplatform, android architecture; load only the matching method"
+        },
+        {
+          "title": "SwiftUI, actors and Swift concurrency",
+          "path": "references/methods/swift-concurrency.md",
+          "when": "The task specifically involves swiftui, swift 6, actor persistence, foundation models, liquid glass; load only the matching method"
+        },
+        {
+          "title": "HarmonyOS and ArkTS state/lifecycle",
+          "path": "references/methods/harmonyos-arkts.md",
+          "when": "The task specifically involves harmonyos, arkts, arkui; load only the matching method"
+        },
+        {
+          "title": "Angular, Vue and Nuxt reactive boundaries",
+          "path": "references/methods/angular-vue.md",
+          "when": "The task specifically involves angular, vue, nuxt, ui to vue; load only the matching method"
+        },
+        {
+          "title": "Next.js, NestJS and Bun runtime behavior",
+          "path": "references/methods/next-nest-bun.md",
+          "when": "The task specifically involves next.js, turbopack, nestjs, bun runtime; load only the matching method"
+        },
+        {
+          "title": "C#, EF Core and F# contracts",
+          "path": "references/methods/dotnet-fsharp.md",
+          "when": "The task specifically involves ef core, asp.net, c#, f#, dotnet; load only the matching method"
+        },
+        {
+          "title": "Go, Rust and C++ ownership and concurrency",
+          "path": "references/methods/systems-languages.md",
+          "when": "The task specifically involves go race, rust lifetime, cpp sanitizer, c++, systems review; load only the matching method"
+        },
+        {
+          "title": "Perl input handling and test isolation",
+          "path": "references/methods/perl-security.md",
+          "when": "The task specifically involves perl, cpan, taint mode; load only the matching method"
+        },
+        {
+          "title": "PostgreSQL and MySQL query/migration behavior",
+          "path": "references/methods/postgres-mysql.md",
+          "when": "The task specifically involves postgresql, mysql, database execution plan; load only the matching method"
+        },
+        {
+          "title": "ClickHouse, Redis and Prisma semantics",
+          "path": "references/methods/clickhouse-redis-prisma.md",
+          "when": "The task specifically involves clickhouse, redis, prisma; load only the matching method"
+        }
+      ]
     },
     {
       "id": "verify",
@@ -2586,6 +3221,36 @@
           "title": "Requirement evidence",
           "when": "A task needs a reviewable acceptance report or durable evidence",
           "path": "references/proofs.md"
+        },
+        {
+          "title": "Django / DRF",
+          "when": "The affected project uses Django / DRF",
+          "path": "references/frameworks/django.md"
+        },
+        {
+          "title": "FastAPI",
+          "when": "The affected project uses FastAPI",
+          "path": "references/frameworks/fastapi.md"
+        },
+        {
+          "title": "Spring Boot",
+          "when": "The affected project uses Spring Boot",
+          "path": "references/frameworks/spring-boot.md"
+        },
+        {
+          "title": "Flutter",
+          "when": "The affected project uses Flutter",
+          "path": "references/frameworks/flutter.md"
+        },
+        {
+          "title": "React Native / Expo",
+          "when": "The affected project uses React Native / Expo",
+          "path": "references/frameworks/react-native.md"
+        },
+        {
+          "title": "Context health, check presets, editor events and shared work",
+          "when": "The request needs proactive context warnings, detected checks, native editor events, GitHub epic coordination or configuration audit reports",
+          "path": "references/runtime-depth.md"
         }
       ],
       "technical": {
@@ -2692,6 +3357,31 @@
           "path": "references/security/scanners.md",
           "title": "Scanner selection and evidence",
           "when": "An available scanner or dependency advisory check can answer the scoped question"
+        },
+        {
+          "title": "Native memory, goals, specialists and runtime controls",
+          "path": "references/runtime-platform.md",
+          "when": "The task needs scoped memory search, a persistent goal, independent review, configuration scanning, worker control, learned-pattern review or editor installation"
+        },
+        {
+          "title": "Django / DRF",
+          "when": "The affected project uses Django / DRF",
+          "path": "references/frameworks/django.md"
+        },
+        {
+          "title": "FastAPI",
+          "when": "The affected project uses FastAPI",
+          "path": "references/frameworks/fastapi.md"
+        },
+        {
+          "title": "Spring Boot",
+          "when": "The affected project uses Spring Boot",
+          "path": "references/frameworks/spring-boot.md"
+        },
+        {
+          "title": "Context health, check presets, editor events and shared work",
+          "when": "The request needs proactive context warnings, detected checks, native editor events, GitHub epic coordination or configuration audit reports",
+          "path": "references/runtime-depth.md"
         }
       ]
     },
@@ -2776,7 +3466,19 @@
         "method": "Profile the critical path before optimizing and compare under matched revision/data/cache conditions.",
         "pitfall": "Lower allocation or fewer renders may not improve observed latency; averages hide regressions in tails or errors.",
         "check": "Repeat the same workload, retain correctness checks and report distributions, tradeoffs and measurement uncertainty."
-      }
+      },
+      "guides": [
+        {
+          "title": "Flutter",
+          "when": "The affected project uses Flutter",
+          "path": "references/frameworks/flutter.md"
+        },
+        {
+          "title": "React Native / Expo",
+          "when": "The affected project uses React Native / Expo",
+          "path": "references/frameworks/react-native.md"
+        }
+      ]
     },
     {
       "id": "repro",
@@ -3735,6 +4437,16 @@
           "title": "Project continuity",
           "when": "Saving requested preferences, decisions or a named continuation",
           "path": "references/daily-workflows.md"
+        },
+        {
+          "title": "Native memory, goals, specialists and runtime controls",
+          "path": "references/runtime-platform.md",
+          "when": "The task needs scoped memory search, a persistent goal, independent review, configuration scanning, worker control, learned-pattern review or editor installation"
+        },
+        {
+          "title": "Context health, check presets, editor events and shared work",
+          "when": "The request needs proactive context warnings, detected checks, native editor events, GitHub epic coordination or configuration audit reports",
+          "path": "references/runtime-depth.md"
         }
       ],
       "technical": {
@@ -3826,6 +4538,21 @@
           "title": "Project continuity",
           "when": "Saving requested preferences, decisions or a named continuation",
           "path": "references/daily-workflows.md"
+        },
+        {
+          "title": "Native memory, goals, specialists and runtime controls",
+          "path": "references/runtime-platform.md",
+          "when": "The task needs scoped memory search, a persistent goal, independent review, configuration scanning, worker control, learned-pattern review or editor installation"
+        },
+        {
+          "title": "Context health, check presets, editor events and shared work",
+          "when": "The request needs proactive context warnings, detected checks, native editor events, GitHub epic coordination or configuration audit reports",
+          "path": "references/runtime-depth.md"
+        },
+        {
+          "title": "Side questions and durable context",
+          "path": "references/methods/session-aside.md",
+          "when": "The task specifically involves side question, aside, remember context, compaction summary; load only the matching method"
         }
       ],
       "technical": {
@@ -3956,6 +4683,16 @@
           "title": "Rules, provenance and guards",
           "when": "Inspecting instruction loading or saving a checkable correction",
           "path": "references/memory-checks.md"
+        },
+        {
+          "title": "Native memory, goals, specialists and runtime controls",
+          "path": "references/runtime-platform.md",
+          "when": "The task needs scoped memory search, a persistent goal, independent review, configuration scanning, worker control, learned-pattern review or editor installation"
+        },
+        {
+          "title": "Side questions and durable context",
+          "path": "references/methods/session-aside.md",
+          "when": "The task specifically involves side question, aside, remember context, compaction summary; load only the matching method"
         }
       ],
       "technical": {
@@ -4044,7 +4781,14 @@
         "method": "Extract a scoped reusable lesson with its trigger and limits; save only when requested in the approved location.",
         "pitfall": "Generalizing one incident into an unconditional global rule can harm unrelated work.",
         "check": "Check the lesson against both the triggering case and a nearby case where it should not apply."
-      }
+      },
+      "guides": [
+        {
+          "title": "Native memory, goals, specialists and runtime controls",
+          "path": "references/runtime-platform.md",
+          "when": "The task needs scoped memory search, a persistent goal, independent review, configuration scanning, worker control, learned-pattern review or editor installation"
+        }
+      ]
     },
     {
       "id": "skill",
@@ -4133,6 +4877,21 @@
           "path": "references/security/supply-chain.md",
           "title": "Dependency and execution provenance",
           "when": "Dependencies, builds, secrets, hooks or privileged execution cross a trust boundary"
+        },
+        {
+          "title": "Native memory, goals, specialists and runtime controls",
+          "path": "references/runtime-platform.md",
+          "when": "The task needs scoped memory search, a persistent goal, independent review, configuration scanning, worker control, learned-pattern review or editor installation"
+        },
+        {
+          "title": "Agent harness and MCP server engineering",
+          "path": "references/methods/agent-harness.md",
+          "when": "The task specifically involves agent harness, mcp server, prompt optimization, tool routing; load only the matching method"
+        },
+        {
+          "title": "Extended capabilities and optional method library",
+          "path": "references/runtime-expansion.md",
+          "when": "Discovering session, inventory, rule, council, scheduler, monitor, graph, evaluation, operator or domain-specific capabilities"
         }
       ]
     },
@@ -4216,7 +4975,29 @@
         "method": "Distinguish absent, disabled, conflicting source and stale cached payload using read-only evidence.",
         "pitfall": "Finding an executable or directory does not prove the plugin is enabled or the current session loaded its latest skills.",
         "check": "Report exact observed status and a target-specific repair; diagnose must not silently become install/update or cache deletion."
-      }
+      },
+      "guides": [
+        {
+          "title": "Native memory, goals, specialists and runtime controls",
+          "path": "references/runtime-platform.md",
+          "when": "The task needs scoped memory search, a persistent goal, independent review, configuration scanning, worker control, learned-pattern review or editor installation"
+        },
+        {
+          "title": "Context health, check presets, editor events and shared work",
+          "when": "The request needs proactive context warnings, detected checks, native editor events, GitHub epic coordination or configuration audit reports",
+          "path": "references/runtime-depth.md"
+        },
+        {
+          "title": "Focused quality, console and documentation hooks",
+          "path": "references/methods/quality-hook-recipes.md",
+          "when": "The task specifically involves console cleanup, documentation hook, design quality hook, pre-push gate; load only the matching method"
+        },
+        {
+          "title": "Extended capabilities and optional method library",
+          "path": "references/runtime-expansion.md",
+          "when": "Discovering session, inventory, rule, council, scheduler, monitor, graph, evaluation, operator or domain-specific capabilities"
+        }
+      ]
     },
     {
       "id": "help",
@@ -4298,6 +5079,16 @@
           "title": "Discovery and daily utilities",
           "when": "Browsing, routing or explaining the new utilities",
           "path": "references/daily-workflows.md"
+        },
+        {
+          "title": "Native memory, goals, specialists and runtime controls",
+          "path": "references/runtime-platform.md",
+          "when": "The task needs scoped memory search, a persistent goal, independent review, configuration scanning, worker control, learned-pattern review or editor installation"
+        },
+        {
+          "title": "Extended capabilities and optional method library",
+          "path": "references/runtime-expansion.md",
+          "when": "Discovering session, inventory, rule, council, scheduler, monitor, graph, evaluation, operator or domain-specific capabilities"
         }
       ],
       "technical": {
@@ -4388,6 +5179,16 @@
           "title": "Discovery and daily utilities",
           "when": "Browsing, routing or explaining the new utilities",
           "path": "references/daily-workflows.md"
+        },
+        {
+          "title": "Native memory, goals, specialists and runtime controls",
+          "path": "references/runtime-platform.md",
+          "when": "The task needs scoped memory search, a persistent goal, independent review, configuration scanning, worker control, learned-pattern review or editor installation"
+        },
+        {
+          "title": "Extended capabilities and optional method library",
+          "path": "references/runtime-expansion.md",
+          "when": "Discovering session, inventory, rule, council, scheduler, monitor, graph, evaluation, operator or domain-specific capabilities"
         }
       ],
       "technical": {
@@ -4499,6 +5300,21 @@
           "title": "Intent and evidence workflows",
           "when": "Selecting saved-rule, alternative, exercise, proof, experiment, undo or decision support",
           "path": "references/intent-workflows.md"
+        },
+        {
+          "title": "Native memory, goals, specialists and runtime controls",
+          "path": "references/runtime-platform.md",
+          "when": "The task needs scoped memory search, a persistent goal, independent review, configuration scanning, worker control, learned-pattern review or editor installation"
+        },
+        {
+          "title": "Context health, check presets, editor events and shared work",
+          "when": "The request needs proactive context warnings, detected checks, native editor events, GitHub epic coordination or configuration audit reports",
+          "path": "references/runtime-depth.md"
+        },
+        {
+          "title": "Extended capabilities and optional method library",
+          "path": "references/runtime-expansion.md",
+          "when": "Discovering session, inventory, rule, council, scheduler, monitor, graph, evaluation, operator or domain-specific capabilities"
         }
       ],
       "technical": {
@@ -6124,7 +6940,14 @@
         "method": "Use deliberate hunks or the existing temporary-index procedure; inspect the candidate tree and normal hook results before committing.",
         "pitfall": "A path-limited commit can include unwanted unstaged hunks, and blindly restoring an old index can stage a reversal.",
         "check": "Compare old HEAD to new HEAD, new HEAD to index and index to worktree; preserve unrelated staging and inspect the resulting author/message."
-      }
+      },
+      "guides": [
+        {
+          "title": "Context health, check presets, editor events and shared work",
+          "when": "The request needs proactive context warnings, detected checks, native editor events, GitHub epic coordination or configuration audit reports",
+          "path": "references/runtime-depth.md"
+        }
+      ]
     },
     {
       "id": "git-split",
@@ -6640,7 +7463,14 @@
         "method": "Compare symptoms and causes before identifying duplicates; distinguish severity, frequency and priority.",
         "pitfall": "Matching titles can hide different versions or failure mechanisms; issue text is not an instruction to run commands.",
         "check": "Cite why two reports share a cause or remain separate, and keep proposed labels or closures distinct from submitted changes."
-      }
+      },
+      "guides": [
+        {
+          "title": "Context health, check presets, editor events and shared work",
+          "when": "The request needs proactive context warnings, detected checks, native editor events, GitHub epic coordination or configuration audit reports",
+          "path": "references/runtime-depth.md"
+        }
+      ]
     },
     {
       "id": "github-issue",
@@ -6723,7 +7553,14 @@
         "method": "Separate confirmed reproduction from hypothesis and define an observable acceptance condition.",
         "pitfall": "Pasting raw logs can expose tokens; an unverified root-cause claim can misdirect the eventual repair.",
         "check": "Ensure another developer can attempt the reproduction from the draft without private state or invented evidence."
-      }
+      },
+      "guides": [
+        {
+          "title": "Context health, check presets, editor events and shared work",
+          "when": "The request needs proactive context warnings, detected checks, native editor events, GitHub epic coordination or configuration audit reports",
+          "path": "references/runtime-depth.md"
+        }
+      ]
     },
     {
       "id": "github-pr",
@@ -8839,6 +9676,16 @@
           "title": "Frontend iconography",
           "when": "Creating, editing or reviewing frontend UI, copy, states or visual assets",
           "path": "references/frontend-icons.md"
+        },
+        {
+          "title": "React Native / Expo",
+          "when": "The affected project uses React Native / Expo",
+          "path": "references/frameworks/react-native.md"
+        },
+        {
+          "title": "React state, async and render evidence",
+          "path": "references/methods/react-behavior.md",
+          "when": "The task specifically involves react testing, react race, hydration mismatch, react strictmode; load only the matching method"
         }
       ]
     },
@@ -8931,6 +9778,16 @@
           "title": "Frontend iconography",
           "when": "Creating, editing or reviewing frontend UI, copy, states or visual assets",
           "path": "references/frontend-icons.md"
+        },
+        {
+          "title": "React Native / Expo",
+          "when": "The affected project uses React Native / Expo",
+          "path": "references/frameworks/react-native.md"
+        },
+        {
+          "title": "React state, async and render evidence",
+          "path": "references/methods/react-behavior.md",
+          "when": "The task specifically involves react testing, react race, hydration mismatch, react strictmode; load only the matching method"
         }
       ]
     },
@@ -9025,6 +9882,16 @@
           "title": "Frontend iconography",
           "when": "Creating, editing or reviewing frontend UI, copy, states or visual assets",
           "path": "references/frontend-icons.md"
+        },
+        {
+          "title": "React Native / Expo",
+          "when": "The affected project uses React Native / Expo",
+          "path": "references/frameworks/react-native.md"
+        },
+        {
+          "title": "React state, async and render evidence",
+          "path": "references/methods/react-behavior.md",
+          "when": "The task specifically involves react testing, react race, hydration mismatch, react strictmode; load only the matching method"
         }
       ]
     },
@@ -9115,6 +9982,16 @@
           "title": "Frontend iconography",
           "when": "Creating, editing or reviewing frontend UI, copy, states or visual assets",
           "path": "references/frontend-icons.md"
+        },
+        {
+          "title": "React Native / Expo",
+          "when": "The affected project uses React Native / Expo",
+          "path": "references/frameworks/react-native.md"
+        },
+        {
+          "title": "React state, async and render evidence",
+          "path": "references/methods/react-behavior.md",
+          "when": "The task specifically involves react testing, react race, hydration mismatch, react strictmode; load only the matching method"
         }
       ]
     },
@@ -9226,6 +10103,16 @@
           "title": "Frontend iconography",
           "when": "Creating, editing or reviewing frontend UI, copy, states or visual assets",
           "path": "references/frontend-icons.md"
+        },
+        {
+          "title": "React Native / Expo",
+          "when": "The affected project uses React Native / Expo",
+          "path": "references/frameworks/react-native.md"
+        },
+        {
+          "title": "React state, async and render evidence",
+          "path": "references/methods/react-behavior.md",
+          "when": "The task specifically involves react testing, react race, hydration mismatch, react strictmode; load only the matching method"
         }
       ],
       "technical": {
@@ -9322,6 +10209,16 @@
           "title": "Frontend iconography",
           "when": "Creating, editing or reviewing frontend UI, copy, states or visual assets",
           "path": "references/frontend-icons.md"
+        },
+        {
+          "title": "React Native / Expo",
+          "when": "The affected project uses React Native / Expo",
+          "path": "references/frameworks/react-native.md"
+        },
+        {
+          "title": "React state, async and render evidence",
+          "path": "references/methods/react-behavior.md",
+          "when": "The task specifically involves react testing, react race, hydration mismatch, react strictmode; load only the matching method"
         }
       ]
     },
@@ -9422,6 +10319,16 @@
           "title": "Frontend iconography",
           "when": "Creating, editing or reviewing frontend UI, copy, states or visual assets",
           "path": "references/frontend-icons.md"
+        },
+        {
+          "title": "React Native / Expo",
+          "when": "The affected project uses React Native / Expo",
+          "path": "references/frameworks/react-native.md"
+        },
+        {
+          "title": "React state, async and render evidence",
+          "path": "references/methods/react-behavior.md",
+          "when": "The task specifically involves react testing, react race, hydration mismatch, react strictmode; load only the matching method"
         }
       ]
     },
@@ -9515,6 +10422,16 @@
           "title": "Frontend iconography",
           "when": "Creating, editing or reviewing frontend UI, copy, states or visual assets",
           "path": "references/frontend-icons.md"
+        },
+        {
+          "title": "React Native / Expo",
+          "when": "The affected project uses React Native / Expo",
+          "path": "references/frameworks/react-native.md"
+        },
+        {
+          "title": "React state, async and render evidence",
+          "path": "references/methods/react-behavior.md",
+          "when": "The task specifically involves react testing, react race, hydration mismatch, react strictmode; load only the matching method"
         }
       ]
     },
@@ -9605,6 +10522,21 @@
           "title": "Frontend iconography",
           "when": "Creating, editing or reviewing frontend UI, copy, states or visual assets",
           "path": "references/frontend-icons.md"
+        },
+        {
+          "title": "Flutter",
+          "when": "The affected project uses Flutter",
+          "path": "references/frameworks/flutter.md"
+        },
+        {
+          "title": "React Native / Expo",
+          "when": "The affected project uses React Native / Expo",
+          "path": "references/frameworks/react-native.md"
+        },
+        {
+          "title": "Motion, visual direction and click paths",
+          "path": "references/methods/motion-design.md",
+          "when": "The task specifically involves gsap, motion design, framer motion, view transition, click path; load only the matching method"
         }
       ]
     },
@@ -9695,6 +10627,21 @@
           "title": "Frontend iconography",
           "when": "Creating, editing or reviewing frontend UI, copy, states or visual assets",
           "path": "references/frontend-icons.md"
+        },
+        {
+          "title": "Flutter",
+          "when": "The affected project uses Flutter",
+          "path": "references/frameworks/flutter.md"
+        },
+        {
+          "title": "React Native / Expo",
+          "when": "The affected project uses React Native / Expo",
+          "path": "references/frameworks/react-native.md"
+        },
+        {
+          "title": "Motion, visual direction and click paths",
+          "path": "references/methods/motion-design.md",
+          "when": "The task specifically involves gsap, motion design, framer motion, view transition, click path; load only the matching method"
         }
       ]
     },
@@ -9785,6 +10732,21 @@
           "title": "Frontend iconography",
           "when": "Creating, editing or reviewing frontend UI, copy, states or visual assets",
           "path": "references/frontend-icons.md"
+        },
+        {
+          "title": "Flutter",
+          "when": "The affected project uses Flutter",
+          "path": "references/frameworks/flutter.md"
+        },
+        {
+          "title": "React Native / Expo",
+          "when": "The affected project uses React Native / Expo",
+          "path": "references/frameworks/react-native.md"
+        },
+        {
+          "title": "Motion, visual direction and click paths",
+          "path": "references/methods/motion-design.md",
+          "when": "The task specifically involves gsap, motion design, framer motion, view transition, click path; load only the matching method"
         }
       ]
     },
@@ -9877,6 +10839,21 @@
           "title": "Frontend iconography",
           "when": "Creating, editing or reviewing frontend UI, copy, states or visual assets",
           "path": "references/frontend-icons.md"
+        },
+        {
+          "title": "Flutter",
+          "when": "The affected project uses Flutter",
+          "path": "references/frameworks/flutter.md"
+        },
+        {
+          "title": "React Native / Expo",
+          "when": "The affected project uses React Native / Expo",
+          "path": "references/frameworks/react-native.md"
+        },
+        {
+          "title": "Motion, visual direction and click paths",
+          "path": "references/methods/motion-design.md",
+          "when": "The task specifically involves gsap, motion design, framer motion, view transition, click path; load only the matching method"
         }
       ]
     },
@@ -9979,6 +10956,21 @@
           "title": "Frontend iconography",
           "when": "Creating, editing or reviewing frontend UI, copy, states or visual assets",
           "path": "references/frontend-icons.md"
+        },
+        {
+          "title": "Flutter",
+          "when": "The affected project uses Flutter",
+          "path": "references/frameworks/flutter.md"
+        },
+        {
+          "title": "React Native / Expo",
+          "when": "The affected project uses React Native / Expo",
+          "path": "references/frameworks/react-native.md"
+        },
+        {
+          "title": "Motion, visual direction and click paths",
+          "path": "references/methods/motion-design.md",
+          "when": "The task specifically involves gsap, motion design, framer motion, view transition, click path; load only the matching method"
         }
       ]
     },
@@ -10069,6 +11061,21 @@
           "title": "Frontend iconography",
           "when": "Creating, editing or reviewing frontend UI, copy, states or visual assets",
           "path": "references/frontend-icons.md"
+        },
+        {
+          "title": "Flutter",
+          "when": "The affected project uses Flutter",
+          "path": "references/frameworks/flutter.md"
+        },
+        {
+          "title": "React Native / Expo",
+          "when": "The affected project uses React Native / Expo",
+          "path": "references/frameworks/react-native.md"
+        },
+        {
+          "title": "Motion, visual direction and click paths",
+          "path": "references/methods/motion-design.md",
+          "when": "The task specifically involves gsap, motion design, framer motion, view transition, click path; load only the matching method"
         }
       ]
     },
@@ -10159,6 +11166,21 @@
           "title": "Frontend iconography",
           "when": "Creating, editing or reviewing frontend UI, copy, states or visual assets",
           "path": "references/frontend-icons.md"
+        },
+        {
+          "title": "Flutter",
+          "when": "The affected project uses Flutter",
+          "path": "references/frameworks/flutter.md"
+        },
+        {
+          "title": "React Native / Expo",
+          "when": "The affected project uses React Native / Expo",
+          "path": "references/frameworks/react-native.md"
+        },
+        {
+          "title": "Motion, visual direction and click paths",
+          "path": "references/methods/motion-design.md",
+          "when": "The task specifically involves gsap, motion design, framer motion, view transition, click path; load only the matching method"
         }
       ]
     },
@@ -10249,6 +11271,21 @@
           "title": "Frontend iconography",
           "when": "Creating, editing or reviewing frontend UI, copy, states or visual assets",
           "path": "references/frontend-icons.md"
+        },
+        {
+          "title": "Flutter",
+          "when": "The affected project uses Flutter",
+          "path": "references/frameworks/flutter.md"
+        },
+        {
+          "title": "React Native / Expo",
+          "when": "The affected project uses React Native / Expo",
+          "path": "references/frameworks/react-native.md"
+        },
+        {
+          "title": "Motion, visual direction and click paths",
+          "path": "references/methods/motion-design.md",
+          "when": "The task specifically involves gsap, motion design, framer motion, view transition, click path; load only the matching method"
         }
       ]
     },
@@ -10344,6 +11381,36 @@
           "path": "references/scenarios/language-review.md",
           "title": "Language and runtime review methods",
           "when": "Language/runtime semantics, concurrency or resource ownership can change the result"
+        },
+        {
+          "title": "Django / DRF",
+          "when": "The affected project uses Django / DRF",
+          "path": "references/frameworks/django.md"
+        },
+        {
+          "title": "FastAPI",
+          "when": "The affected project uses FastAPI",
+          "path": "references/frameworks/fastapi.md"
+        },
+        {
+          "title": "Spring Boot",
+          "when": "The affected project uses Spring Boot",
+          "path": "references/frameworks/spring-boot.md"
+        },
+        {
+          "title": "Kubernetes release and failure recovery",
+          "path": "references/methods/kubernetes-release.md",
+          "when": "The task specifically involves kubernetes, readiness probe, rolling update; load only the matching method"
+        },
+        {
+          "title": "Flox, containers and reproducible development",
+          "path": "references/methods/reproducible-environments.md",
+          "when": "The task specifically involves flox, uncloud, dev environment, reproducible environment; load only the matching method"
+        },
+        {
+          "title": "Latency budgets and performance experiments",
+          "path": "references/methods/latency-systems.md",
+          "when": "The task specifically involves tail latency, latency critical, p99, benchmark optimization; load only the matching method"
         }
       ]
     },
@@ -10450,6 +11517,36 @@
           "path": "references/security/frameworks.md",
           "title": "Framework-specific review branches",
           "when": "The task depends on framework defaults, middleware, RLS, server/client or deployment behavior"
+        },
+        {
+          "title": "Django / DRF",
+          "when": "The affected project uses Django / DRF",
+          "path": "references/frameworks/django.md"
+        },
+        {
+          "title": "FastAPI",
+          "when": "The affected project uses FastAPI",
+          "path": "references/frameworks/fastapi.md"
+        },
+        {
+          "title": "Spring Boot",
+          "when": "The affected project uses Spring Boot",
+          "path": "references/frameworks/spring-boot.md"
+        },
+        {
+          "title": "Kubernetes release and failure recovery",
+          "path": "references/methods/kubernetes-release.md",
+          "when": "The task specifically involves kubernetes, readiness probe, rolling update; load only the matching method"
+        },
+        {
+          "title": "Flox, containers and reproducible development",
+          "path": "references/methods/reproducible-environments.md",
+          "when": "The task specifically involves flox, uncloud, dev environment, reproducible environment; load only the matching method"
+        },
+        {
+          "title": "Latency budgets and performance experiments",
+          "path": "references/methods/latency-systems.md",
+          "when": "The task specifically involves tail latency, latency critical, p99, benchmark optimization; load only the matching method"
         }
       ],
       "technical": {
@@ -10546,6 +11643,36 @@
           "path": "references/security/identity.md",
           "title": "Identity and authorization",
           "when": "Identity, ownership, tenant isolation, replay or privilege changes affect the task"
+        },
+        {
+          "title": "Django / DRF",
+          "when": "The affected project uses Django / DRF",
+          "path": "references/frameworks/django.md"
+        },
+        {
+          "title": "FastAPI",
+          "when": "The affected project uses FastAPI",
+          "path": "references/frameworks/fastapi.md"
+        },
+        {
+          "title": "Spring Boot",
+          "when": "The affected project uses Spring Boot",
+          "path": "references/frameworks/spring-boot.md"
+        },
+        {
+          "title": "Kubernetes release and failure recovery",
+          "path": "references/methods/kubernetes-release.md",
+          "when": "The task specifically involves kubernetes, readiness probe, rolling update; load only the matching method"
+        },
+        {
+          "title": "Flox, containers and reproducible development",
+          "path": "references/methods/reproducible-environments.md",
+          "when": "The task specifically involves flox, uncloud, dev environment, reproducible environment; load only the matching method"
+        },
+        {
+          "title": "Latency budgets and performance experiments",
+          "path": "references/methods/latency-systems.md",
+          "when": "The task specifically involves tail latency, latency critical, p99, benchmark optimization; load only the matching method"
         }
       ]
     },
@@ -10630,7 +11757,39 @@
         "method": "Couple durable progress with business-effect deduplication; define stale lease takeover, poison-message handling and resumable checkpoints.",
         "pitfall": "Acknowledging before durable progress loses work; assuming a timed-out worker stopped can duplicate an effect.",
         "check": "Interrupt before effect, after effect and before acknowledgment, then restart; verify bounded retries and no duplicate business result."
-      }
+      },
+      "guides": [
+        {
+          "title": "Django / DRF",
+          "when": "The affected project uses Django / DRF",
+          "path": "references/frameworks/django.md"
+        },
+        {
+          "title": "FastAPI",
+          "when": "The affected project uses FastAPI",
+          "path": "references/frameworks/fastapi.md"
+        },
+        {
+          "title": "Spring Boot",
+          "when": "The affected project uses Spring Boot",
+          "path": "references/frameworks/spring-boot.md"
+        },
+        {
+          "title": "Kubernetes release and failure recovery",
+          "path": "references/methods/kubernetes-release.md",
+          "when": "The task specifically involves kubernetes, readiness probe, rolling update; load only the matching method"
+        },
+        {
+          "title": "Flox, containers and reproducible development",
+          "path": "references/methods/reproducible-environments.md",
+          "when": "The task specifically involves flox, uncloud, dev environment, reproducible environment; load only the matching method"
+        },
+        {
+          "title": "Latency budgets and performance experiments",
+          "path": "references/methods/latency-systems.md",
+          "when": "The task specifically involves tail latency, latency critical, p99, benchmark optimization; load only the matching method"
+        }
+      ]
     },
     {
       "id": "backend-idempotency",
@@ -10726,7 +11885,39 @@
         "method": "Atomically bind a key to payload and result; distinguish completed, in-progress and uncertain external outcomes with reconciliation.",
         "pitfall": "An in-memory map fails across processes; deleting a pending key after a timeout can permit a second charge.",
         "check": "Send concurrent equal requests and same-key different-payload requests, then interrupt after external success before local recording."
-      }
+      },
+      "guides": [
+        {
+          "title": "Django / DRF",
+          "when": "The affected project uses Django / DRF",
+          "path": "references/frameworks/django.md"
+        },
+        {
+          "title": "FastAPI",
+          "when": "The affected project uses FastAPI",
+          "path": "references/frameworks/fastapi.md"
+        },
+        {
+          "title": "Spring Boot",
+          "when": "The affected project uses Spring Boot",
+          "path": "references/frameworks/spring-boot.md"
+        },
+        {
+          "title": "Kubernetes release and failure recovery",
+          "path": "references/methods/kubernetes-release.md",
+          "when": "The task specifically involves kubernetes, readiness probe, rolling update; load only the matching method"
+        },
+        {
+          "title": "Flox, containers and reproducible development",
+          "path": "references/methods/reproducible-environments.md",
+          "when": "The task specifically involves flox, uncloud, dev environment, reproducible environment; load only the matching method"
+        },
+        {
+          "title": "Latency budgets and performance experiments",
+          "path": "references/methods/latency-systems.md",
+          "when": "The task specifically involves tail latency, latency critical, p99, benchmark optimization; load only the matching method"
+        }
+      ]
     },
     {
       "id": "backend-concurrency",
@@ -10820,6 +12011,36 @@
           "path": "references/scenarios/language-review.md",
           "title": "Language and runtime review methods",
           "when": "Language/runtime semantics, concurrency or resource ownership can change the result"
+        },
+        {
+          "title": "Django / DRF",
+          "when": "The affected project uses Django / DRF",
+          "path": "references/frameworks/django.md"
+        },
+        {
+          "title": "FastAPI",
+          "when": "The affected project uses FastAPI",
+          "path": "references/frameworks/fastapi.md"
+        },
+        {
+          "title": "Spring Boot",
+          "when": "The affected project uses Spring Boot",
+          "path": "references/frameworks/spring-boot.md"
+        },
+        {
+          "title": "Kubernetes release and failure recovery",
+          "path": "references/methods/kubernetes-release.md",
+          "when": "The task specifically involves kubernetes, readiness probe, rolling update; load only the matching method"
+        },
+        {
+          "title": "Flox, containers and reproducible development",
+          "path": "references/methods/reproducible-environments.md",
+          "when": "The task specifically involves flox, uncloud, dev environment, reproducible environment; load only the matching method"
+        },
+        {
+          "title": "Latency budgets and performance experiments",
+          "path": "references/methods/latency-systems.md",
+          "when": "The task specifically involves tail latency, latency critical, p99, benchmark optimization; load only the matching method"
         }
       ]
     },
@@ -10910,7 +12131,39 @@
         "method": "Use identity-aware keys and generation checks on replacement/deletion; separate a waiter's cancellation from shared fill lifetime.",
         "pitfall": "Old completion can resurrect invalidated data; treating zero or an empty list as a miss changes semantics.",
         "check": "Test cross-tenant keys, zero TTL, empty values, invalidate-during-fill, late rejection and one canceled waiter with another still active."
-      }
+      },
+      "guides": [
+        {
+          "title": "Django / DRF",
+          "when": "The affected project uses Django / DRF",
+          "path": "references/frameworks/django.md"
+        },
+        {
+          "title": "FastAPI",
+          "when": "The affected project uses FastAPI",
+          "path": "references/frameworks/fastapi.md"
+        },
+        {
+          "title": "Spring Boot",
+          "when": "The affected project uses Spring Boot",
+          "path": "references/frameworks/spring-boot.md"
+        },
+        {
+          "title": "Kubernetes release and failure recovery",
+          "path": "references/methods/kubernetes-release.md",
+          "when": "The task specifically involves kubernetes, readiness probe, rolling update; load only the matching method"
+        },
+        {
+          "title": "Flox, containers and reproducible development",
+          "path": "references/methods/reproducible-environments.md",
+          "when": "The task specifically involves flox, uncloud, dev environment, reproducible environment; load only the matching method"
+        },
+        {
+          "title": "Latency budgets and performance experiments",
+          "path": "references/methods/latency-systems.md",
+          "when": "The task specifically involves tail latency, latency critical, p99, benchmark optimization; load only the matching method"
+        }
+      ]
     },
     {
       "id": "backend-resilience",
@@ -10993,7 +12246,39 @@
         "method": "Budget retries with jitter and bounded attempts, propagate owned cancellation and reconcile uncertain mutations before replay.",
         "pitfall": "Retrying at every layer multiplies traffic; a timeout does not prove the remote operation failed.",
         "check": "Simulate slow dependency, transient error, permanent refusal and response loss after success; verify total deadline and effect count."
-      }
+      },
+      "guides": [
+        {
+          "title": "Django / DRF",
+          "when": "The affected project uses Django / DRF",
+          "path": "references/frameworks/django.md"
+        },
+        {
+          "title": "FastAPI",
+          "when": "The affected project uses FastAPI",
+          "path": "references/frameworks/fastapi.md"
+        },
+        {
+          "title": "Spring Boot",
+          "when": "The affected project uses Spring Boot",
+          "path": "references/frameworks/spring-boot.md"
+        },
+        {
+          "title": "Kubernetes release and failure recovery",
+          "path": "references/methods/kubernetes-release.md",
+          "when": "The task specifically involves kubernetes, readiness probe, rolling update; load only the matching method"
+        },
+        {
+          "title": "Flox, containers and reproducible development",
+          "path": "references/methods/reproducible-environments.md",
+          "when": "The task specifically involves flox, uncloud, dev environment, reproducible environment; load only the matching method"
+        },
+        {
+          "title": "Latency budgets and performance experiments",
+          "path": "references/methods/latency-systems.md",
+          "when": "The task specifically involves tail latency, latency critical, p99, benchmark optimization; load only the matching method"
+        }
+      ]
     },
     {
       "id": "api-design",
@@ -11080,6 +12365,21 @@
           "path": "references/security/identity.md",
           "title": "Identity and authorization",
           "when": "Identity, ownership, tenant isolation, replay or privilege changes affect the task"
+        },
+        {
+          "title": "Django / DRF",
+          "when": "The affected project uses Django / DRF",
+          "path": "references/frameworks/django.md"
+        },
+        {
+          "title": "FastAPI",
+          "when": "The affected project uses FastAPI",
+          "path": "references/frameworks/fastapi.md"
+        },
+        {
+          "title": "Spring Boot",
+          "when": "The affected project uses Spring Boot",
+          "path": "references/frameworks/spring-boot.md"
         }
       ]
     },
@@ -11164,7 +12464,24 @@
         "method": "Reconcile path parameters, required/null semantics, security schemes and error responses; regenerate derived artifacts from their source.",
         "pitfall": "OpenAPI 3.0 and 3.1 null/schema semantics differ; a valid schema can still document behavior the server never emits.",
         "check": "Validate references/examples with the supported tooling and compare representative real requests/responses against the contract."
-      }
+      },
+      "guides": [
+        {
+          "title": "Django / DRF",
+          "when": "The affected project uses Django / DRF",
+          "path": "references/frameworks/django.md"
+        },
+        {
+          "title": "FastAPI",
+          "when": "The affected project uses FastAPI",
+          "path": "references/frameworks/fastapi.md"
+        },
+        {
+          "title": "Spring Boot",
+          "when": "The affected project uses Spring Boot",
+          "path": "references/frameworks/spring-boot.md"
+        }
+      ]
     },
     {
       "id": "api-breaking",
@@ -11247,7 +12564,24 @@
         "method": "Classify wire, semantic and operational compatibility separately; propose a migration when old clients cannot interpret the new result.",
         "pitfall": "An additive enum value or new required permission can break clients even without deleting a field.",
         "check": "Run old consumer fixtures against the proposed provider and identify a deployment sequence that preserves supported versions."
-      }
+      },
+      "guides": [
+        {
+          "title": "Django / DRF",
+          "when": "The affected project uses Django / DRF",
+          "path": "references/frameworks/django.md"
+        },
+        {
+          "title": "FastAPI",
+          "when": "The affected project uses FastAPI",
+          "path": "references/frameworks/fastapi.md"
+        },
+        {
+          "title": "Spring Boot",
+          "when": "The affected project uses Spring Boot",
+          "path": "references/frameworks/spring-boot.md"
+        }
+      ]
     },
     {
       "id": "api-contract-test",
@@ -11330,7 +12664,24 @@
         "method": "Exercise real serialization and decoding with valid, absent, null, unknown-field and error cases; keep mocks scoped to what they establish.",
         "pitfall": "A provider-generated mock validating itself is circular evidence of compatibility.",
         "check": "Run a known incompatible response through the consumer and a valid control; record which real boundary and version were exercised."
-      }
+      },
+      "guides": [
+        {
+          "title": "Django / DRF",
+          "when": "The affected project uses Django / DRF",
+          "path": "references/frameworks/django.md"
+        },
+        {
+          "title": "FastAPI",
+          "when": "The affected project uses FastAPI",
+          "path": "references/frameworks/fastapi.md"
+        },
+        {
+          "title": "Spring Boot",
+          "when": "The affected project uses Spring Boot",
+          "path": "references/frameworks/spring-boot.md"
+        }
+      ]
     },
     {
       "id": "api-errors",
@@ -11413,7 +12764,24 @@
         "method": "Map expected domain failures to stable public errors; redact internal details while retaining correlated server diagnostics.",
         "pitfall": "Returning 200 with an error-shaped body or retryable status for a permanent denial misleads clients.",
         "check": "Exercise invalid input, forbidden resource, dependency timeout and unexpected exception; verify public redaction and useful internal correlation."
-      }
+      },
+      "guides": [
+        {
+          "title": "Django / DRF",
+          "when": "The affected project uses Django / DRF",
+          "path": "references/frameworks/django.md"
+        },
+        {
+          "title": "FastAPI",
+          "when": "The affected project uses FastAPI",
+          "path": "references/frameworks/fastapi.md"
+        },
+        {
+          "title": "Spring Boot",
+          "when": "The affected project uses Spring Boot",
+          "path": "references/frameworks/spring-boot.md"
+        }
+      ]
     },
     {
       "id": "api-pagination",
@@ -11496,7 +12864,24 @@
         "method": "Use a deterministic composite position and bind cursors to query/scope; define live versus snapshot traversal.",
         "pitfall": "Offset shifts under writes and nonunique sort keys can skip or duplicate records; base64 is not tamper protection.",
         "check": "Test equal sort values, concurrent insert/delete, empty/last pages and a cursor from another tenant or filter."
-      }
+      },
+      "guides": [
+        {
+          "title": "Django / DRF",
+          "when": "The affected project uses Django / DRF",
+          "path": "references/frameworks/django.md"
+        },
+        {
+          "title": "FastAPI",
+          "when": "The affected project uses FastAPI",
+          "path": "references/frameworks/fastapi.md"
+        },
+        {
+          "title": "Spring Boot",
+          "when": "The affected project uses Spring Boot",
+          "path": "references/frameworks/spring-boot.md"
+        }
+      ]
     },
     {
       "id": "api-webhooks",
@@ -11585,6 +12970,21 @@
           "path": "references/security/identity.md",
           "title": "Identity and authorization",
           "when": "Identity, ownership, tenant isolation, replay or privilege changes affect the task"
+        },
+        {
+          "title": "Django / DRF",
+          "when": "The affected project uses Django / DRF",
+          "path": "references/frameworks/django.md"
+        },
+        {
+          "title": "FastAPI",
+          "when": "The affected project uses FastAPI",
+          "path": "references/frameworks/fastapi.md"
+        },
+        {
+          "title": "Spring Boot",
+          "when": "The affected project uses Spring Boot",
+          "path": "references/frameworks/spring-boot.md"
         }
       ]
     },
@@ -11669,7 +13069,24 @@
         "method": "Separate transport, protocol and domain failures; validate untrusted responses where needed and restrict credential forwarding across redirects/origins.",
         "pitfall": "Static types disappear at runtime; automatically retrying every POST can repeat an external effect.",
         "check": "Exercise malformed response, cancellation, rate limit and uncertain mutation, verifying bounded retry, typed failure and no credential leakage."
-      }
+      },
+      "guides": [
+        {
+          "title": "Django / DRF",
+          "when": "The affected project uses Django / DRF",
+          "path": "references/frameworks/django.md"
+        },
+        {
+          "title": "FastAPI",
+          "when": "The affected project uses FastAPI",
+          "path": "references/frameworks/fastapi.md"
+        },
+        {
+          "title": "Spring Boot",
+          "when": "The affected project uses Spring Boot",
+          "path": "references/frameworks/spring-boot.md"
+        }
+      ]
     },
     {
       "id": "db-schema",
@@ -11750,7 +13167,24 @@
         "method": "Encode durable invariants with supported constraints and types; model money/time precision and tenant-aware uniqueness deliberately.",
         "pitfall": "Application-only uniqueness races under concurrency; nullable columns can alter uniqueness semantics by engine/version.",
         "check": "Test boundary values, duplicate keys, orphan writes and delete behavior on the target engine in an isolated database."
-      }
+      },
+      "guides": [
+        {
+          "title": "Django / DRF",
+          "when": "The affected project uses Django / DRF",
+          "path": "references/frameworks/django.md"
+        },
+        {
+          "title": "FastAPI",
+          "when": "The affected project uses FastAPI",
+          "path": "references/frameworks/fastapi.md"
+        },
+        {
+          "title": "Spring Boot",
+          "when": "The affected project uses Spring Boot",
+          "path": "references/frameworks/spring-boot.md"
+        }
+      ]
     },
     {
       "id": "db-migrate",
@@ -11849,6 +13283,21 @@
           "title": "Delivery evidence",
           "when": "Resolving check, deployment or migration identity",
           "path": "references/scenarios/delivery-evidence.md"
+        },
+        {
+          "title": "Django / DRF",
+          "when": "The affected project uses Django / DRF",
+          "path": "references/frameworks/django.md"
+        },
+        {
+          "title": "FastAPI",
+          "when": "The affected project uses FastAPI",
+          "path": "references/frameworks/fastapi.md"
+        },
+        {
+          "title": "Spring Boot",
+          "when": "The affected project uses Spring Boot",
+          "path": "references/frameworks/spring-boot.md"
         }
       ],
       "technical": {
@@ -11948,7 +13397,24 @@
         "method": "Hand-compute a small fixture before optimizing; aggregate each many-side at the correct grain and constrain tenant identity.",
         "pitfall": "Two one-to-many joins can multiply totals; NOT IN with null values can produce unexpected exclusion.",
         "check": "Check no rows, nulls, duplicate children, two tenants and boundary predicates against independently calculated results."
-      }
+      },
+      "guides": [
+        {
+          "title": "Django / DRF",
+          "when": "The affected project uses Django / DRF",
+          "path": "references/frameworks/django.md"
+        },
+        {
+          "title": "FastAPI",
+          "when": "The affected project uses FastAPI",
+          "path": "references/frameworks/fastapi.md"
+        },
+        {
+          "title": "Spring Boot",
+          "when": "The affected project uses Spring Boot",
+          "path": "references/frameworks/spring-boot.md"
+        }
+      ]
     },
     {
       "id": "db-explain",
@@ -12031,7 +13497,24 @@
         "method": "Locate the first major estimation or repeated-work divergence and relate it to predicates, statistics and access paths.",
         "pitfall": "Abstract cost is not milliseconds; EXPLAIN ANALYZE executes the statement and may mutate data or consume production resources.",
         "check": "Compare plans under equivalent parameters/data and verify unchanged results; without execution permission, report hypotheses from saved plans only."
-      }
+      },
+      "guides": [
+        {
+          "title": "Django / DRF",
+          "when": "The affected project uses Django / DRF",
+          "path": "references/frameworks/django.md"
+        },
+        {
+          "title": "FastAPI",
+          "when": "The affected project uses FastAPI",
+          "path": "references/frameworks/fastapi.md"
+        },
+        {
+          "title": "Spring Boot",
+          "when": "The affected project uses Spring Boot",
+          "path": "references/frameworks/spring-boot.md"
+        }
+      ]
     },
     {
       "id": "db-index",
@@ -12114,7 +13597,24 @@
         "method": "Choose key order, covering/partial options and rollout method using supported engine behavior and measured plans.",
         "pitfall": "More indexes increase write/storage cost; an index on a low-selectivity column may not improve the actual workload.",
         "check": "Compare read plans/latency and representative write cost; verify validity after online/concurrent creation before declaring completion."
-      }
+      },
+      "guides": [
+        {
+          "title": "Django / DRF",
+          "when": "The affected project uses Django / DRF",
+          "path": "references/frameworks/django.md"
+        },
+        {
+          "title": "FastAPI",
+          "when": "The affected project uses FastAPI",
+          "path": "references/frameworks/fastapi.md"
+        },
+        {
+          "title": "Spring Boot",
+          "when": "The affected project uses Spring Boot",
+          "path": "references/frameworks/spring-boot.md"
+        }
+      ]
     },
     {
       "id": "db-integrity",
@@ -12198,7 +13698,24 @@
         "method": "Use bounded aggregate queries and redacted synthetic examples; separate diagnosis, business reconciliation and constraint rollout.",
         "pitfall": "Automatically deleting orphans can erase legitimate records awaiting asynchronous completion.",
         "check": "Verify each invariant with both valid and invalid fixtures and show unresolved real-data policy decisions before any live repair."
-      }
+      },
+      "guides": [
+        {
+          "title": "Django / DRF",
+          "when": "The affected project uses Django / DRF",
+          "path": "references/frameworks/django.md"
+        },
+        {
+          "title": "FastAPI",
+          "when": "The affected project uses FastAPI",
+          "path": "references/frameworks/fastapi.md"
+        },
+        {
+          "title": "Spring Boot",
+          "when": "The affected project uses Spring Boot",
+          "path": "references/frameworks/spring-boot.md"
+        }
+      ]
     },
     {
       "id": "db-locks",
@@ -12283,7 +13800,24 @@
         "method": "Find the root blocker and conflicting access order; consider shorter transactions, consistent ordering or bounded retries against the invariant.",
         "pitfall": "The busiest blocked query may be a victim; terminating a session is an operational mutation with rollback consequences.",
         "check": "Reproduce the interleaving with separate isolated connections and verify bounded recovery, not merely lower observed lock counts."
-      }
+      },
+      "guides": [
+        {
+          "title": "Django / DRF",
+          "when": "The affected project uses Django / DRF",
+          "path": "references/frameworks/django.md"
+        },
+        {
+          "title": "FastAPI",
+          "when": "The affected project uses FastAPI",
+          "path": "references/frameworks/fastapi.md"
+        },
+        {
+          "title": "Spring Boot",
+          "when": "The affected project uses Spring Boot",
+          "path": "references/frameworks/spring-boot.md"
+        }
+      ]
     },
     {
       "id": "db-access",
@@ -12377,6 +13911,21 @@
           "path": "references/security/frameworks.md",
           "title": "Framework-specific review branches",
           "when": "The task depends on framework defaults, middleware, RLS, server/client or deployment behavior"
+        },
+        {
+          "title": "Django / DRF",
+          "when": "The affected project uses Django / DRF",
+          "path": "references/frameworks/django.md"
+        },
+        {
+          "title": "FastAPI",
+          "when": "The affected project uses FastAPI",
+          "path": "references/frameworks/fastapi.md"
+        },
+        {
+          "title": "Spring Boot",
+          "when": "The affected project uses Spring Boot",
+          "path": "references/frameworks/spring-boot.md"
         }
       ]
     },
@@ -13134,7 +14683,19 @@
         "method": "Translate product value into a measurable objective with a naive comparator and deployment population.",
         "pitfall": "Optimizing an available label can answer a different question from the real decision; missing follow-up is not a negative outcome.",
         "check": "Walk one positive, negative and censored example through feature availability, prediction and eventual label eligibility."
-      }
+      },
+      "guides": [
+        {
+          "title": "PyTorch autograd, device and distributed debugging",
+          "path": "references/methods/pytorch-debug.md",
+          "when": "The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method"
+        },
+        {
+          "title": "Retrieval, ranking and recommendation evaluation",
+          "path": "references/methods/recommender-systems.md",
+          "when": "The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method"
+        }
+      ]
     },
     {
       "id": "ml-dataset",
@@ -13217,7 +14778,19 @@
         "method": "Assess whether observations cover the intended deployment population and whether outcomes are observable without selection artifacts.",
         "pitfall": "More rows do not remove survivor bias or dependence between observations.",
         "check": "Reconcile sample membership and label coverage by important groups; distinguish observed gaps from unsupported population conclusions."
-      }
+      },
+      "guides": [
+        {
+          "title": "PyTorch autograd, device and distributed debugging",
+          "path": "references/methods/pytorch-debug.md",
+          "when": "The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method"
+        },
+        {
+          "title": "Retrieval, ranking and recommendation evaluation",
+          "path": "references/methods/recommender-systems.md",
+          "when": "The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method"
+        }
+      ]
     },
     {
       "id": "ml-labels",
@@ -13300,7 +14873,19 @@
         "method": "Separate absent, unresolved and negative labels; trace a disagreement to policy or observation error before changing it.",
         "pitfall": "Majority vote can erase systematic ambiguity; labels recorded after prediction may be valid outcomes but unavailable for historical fitting.",
         "check": "Hand-check boundary examples, censored cases and disagreement resolution; report which historical training rows were label-eligible."
-      }
+      },
+      "guides": [
+        {
+          "title": "PyTorch autograd, device and distributed debugging",
+          "path": "references/methods/pytorch-debug.md",
+          "when": "The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method"
+        },
+        {
+          "title": "Retrieval, ranking and recommendation evaluation",
+          "path": "references/methods/recommender-systems.md",
+          "when": "The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method"
+        }
+      ]
     },
     {
       "id": "ml-split",
@@ -13394,7 +14979,19 @@
         "method": "Choose temporal/group boundaries that match known-entity versus unseen-entity deployment; derive gaps from actual information overlap.",
         "pitfall": "Random splits can leak repeated entities, while universal group holdout can test a different task than the intended deployment.",
         "check": "Assert disjoint required identities and training-time availability; report the exact generalization question and unresolved provenance."
-      }
+      },
+      "guides": [
+        {
+          "title": "PyTorch autograd, device and distributed debugging",
+          "path": "references/methods/pytorch-debug.md",
+          "when": "The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method"
+        },
+        {
+          "title": "Retrieval, ranking and recommendation evaluation",
+          "path": "references/methods/recommender-systems.md",
+          "when": "The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method"
+        }
+      ]
     },
     {
       "id": "ml-leakage",
@@ -13496,7 +15093,19 @@
         "method": "Resolve the latest visible record version before applying historical windows; fit learned transforms within each training fold.",
         "pitfall": "Correlation or overlapping metadata alone does not prove leakage; filtering versions before selecting the visible revision can resurrect stale data.",
         "check": "Test late correction, boundary timestamps, duplicate versions and labels unavailable at fit time; state precisely which evaluation is invalidated."
-      }
+      },
+      "guides": [
+        {
+          "title": "PyTorch autograd, device and distributed debugging",
+          "path": "references/methods/pytorch-debug.md",
+          "when": "The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method"
+        },
+        {
+          "title": "Retrieval, ranking and recommendation evaluation",
+          "path": "references/methods/recommender-systems.md",
+          "when": "The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method"
+        }
+      ]
     },
     {
       "id": "ml-features",
@@ -13585,7 +15194,19 @@
         "method": "Build transformations in the training/inference pipeline and evaluate usefulness under the same split protocol.",
         "pitfall": "Target encoding or imputation fitted outside the training fold contaminates validation; feature importance is not causal effect.",
         "check": "Hand-compute a small example and exercise future-only input, unseen categories and missing values through both train and serving paths."
-      }
+      },
+      "guides": [
+        {
+          "title": "PyTorch autograd, device and distributed debugging",
+          "path": "references/methods/pytorch-debug.md",
+          "when": "The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method"
+        },
+        {
+          "title": "Retrieval, ranking and recommendation evaluation",
+          "path": "references/methods/recommender-systems.md",
+          "when": "The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method"
+        }
+      ]
     },
     {
       "id": "ml-imbalance",
@@ -13668,7 +15289,19 @@
         "method": "Apply resampling or weighting only within training folds; evaluate ranking, precision/recall and probability interpretation separately.",
         "pitfall": "Accuracy can hide zero minority recall; resampling changes prevalence and can distort uncorrected probabilities.",
         "check": "Compare with an appropriate naive baseline, retain minority denominators and verify thresholds on untouched selection/evaluation data."
-      }
+      },
+      "guides": [
+        {
+          "title": "PyTorch autograd, device and distributed debugging",
+          "path": "references/methods/pytorch-debug.md",
+          "when": "The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method"
+        },
+        {
+          "title": "Retrieval, ranking and recommendation evaluation",
+          "path": "references/methods/recommender-systems.md",
+          "when": "The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method"
+        }
+      ]
     },
     {
       "id": "ml-dataset-version",
@@ -13751,7 +15384,19 @@
         "method": "Create a manifest that identifies exact inputs and processing without embedding confidential rows; state mutable external sources explicitly.",
         "pitfall": "A filename, seed or hash of only a sample cannot identify the full dataset.",
         "check": "Reconstruct membership from the manifest or record inaccessible components; changed upstream revisions must change or qualify dataset identity."
-      }
+      },
+      "guides": [
+        {
+          "title": "PyTorch autograd, device and distributed debugging",
+          "path": "references/methods/pytorch-debug.md",
+          "when": "The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method"
+        },
+        {
+          "title": "Retrieval, ranking and recommendation evaluation",
+          "path": "references/methods/recommender-systems.md",
+          "when": "The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method"
+        }
+      ]
     },
     {
       "id": "ml-baseline",
@@ -13836,7 +15481,19 @@
         "method": "Evaluate a constant/last-value or other task-appropriate naive model and a simple fitted model under identical preprocessing and data boundaries.",
         "pitfall": "A strong model with a different split is not a fair baseline; test-set selection makes later comparisons optimistic.",
         "check": "Preserve predictions, denominators and protocol identity and verify the baseline handles the same missing/rare cases as candidate models."
-      }
+      },
+      "guides": [
+        {
+          "title": "PyTorch autograd, device and distributed debugging",
+          "path": "references/methods/pytorch-debug.md",
+          "when": "The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method"
+        },
+        {
+          "title": "Retrieval, ranking and recommendation evaluation",
+          "path": "references/methods/recommender-systems.md",
+          "when": "The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method"
+        }
+      ]
     },
     {
       "id": "ml-train",
@@ -13934,6 +15591,16 @@
           "title": "Training scenarios",
           "when": "Selecting classical, tensor or distributed/resumable methods",
           "path": "references/scenarios/training.md"
+        },
+        {
+          "title": "PyTorch autograd, device and distributed debugging",
+          "path": "references/methods/pytorch-debug.md",
+          "when": "The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method"
+        },
+        {
+          "title": "Retrieval, ranking and recommendation evaluation",
+          "path": "references/methods/recommender-systems.md",
+          "when": "The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method"
         }
       ],
       "technical": {
@@ -14030,6 +15697,16 @@
           "path": "references/scenarios/language-review.md",
           "title": "Language and runtime review methods",
           "when": "Language/runtime semantics, concurrency or resource ownership can change the result"
+        },
+        {
+          "title": "PyTorch autograd, device and distributed debugging",
+          "path": "references/methods/pytorch-debug.md",
+          "when": "The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method"
+        },
+        {
+          "title": "Retrieval, ranking and recommendation evaluation",
+          "path": "references/methods/recommender-systems.md",
+          "when": "The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method"
         }
       ]
     },
@@ -14116,7 +15793,19 @@
         "method": "Track every trial including failures and choose using validation only; reserve the held-out test for final evaluation.",
         "pitfall": "More trials can overfit the validation set; dropping failed runs understates cost and instability.",
         "check": "Enforce trial/time caps and inspect selection provenance; evaluate the chosen configuration once under the reserved protocol."
-      }
+      },
+      "guides": [
+        {
+          "title": "PyTorch autograd, device and distributed debugging",
+          "path": "references/methods/pytorch-debug.md",
+          "when": "The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method"
+        },
+        {
+          "title": "Retrieval, ranking and recommendation evaluation",
+          "path": "references/methods/recommender-systems.md",
+          "when": "The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method"
+        }
+      ]
     },
     {
       "id": "ml-ablation",
@@ -14201,7 +15890,19 @@
         "method": "Remove or vary one meaningful component while holding the rest fixed and repeat enough to expose relevant variance within budget.",
         "pitfall": "A changed preprocessing pipeline or compute budget can confound a claimed component improvement.",
         "check": "Compare paired outcomes where possible, report uncertainty and preserve a no-change control when evaluation noise matters."
-      }
+      },
+      "guides": [
+        {
+          "title": "PyTorch autograd, device and distributed debugging",
+          "path": "references/methods/pytorch-debug.md",
+          "when": "The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method"
+        },
+        {
+          "title": "Retrieval, ranking and recommendation evaluation",
+          "path": "references/methods/recommender-systems.md",
+          "when": "The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method"
+        }
+      ]
     },
     {
       "id": "ml-experiments",
@@ -14287,6 +15988,16 @@
           "title": "Recorded experiment comparisons",
           "when": "Comparing supplied MLflow, W&B or JSON runs with row-level predictions",
           "path": "references/experiments.md"
+        },
+        {
+          "title": "PyTorch autograd, device and distributed debugging",
+          "path": "references/methods/pytorch-debug.md",
+          "when": "The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method"
+        },
+        {
+          "title": "Retrieval, ranking and recommendation evaluation",
+          "path": "references/methods/recommender-systems.md",
+          "when": "The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method"
         }
       ],
       "technical": {
@@ -14379,7 +16090,19 @@
         "method": "Recreate the stated protocol; document each unavoidable substitution and whether it affects exact reproduction or only qualitative comparison.",
         "pitfall": "Matching a seed or top-line metric does not establish the same data, selection process or training trajectory.",
         "check": "Compare artifacts and outputs under declared tolerances and preserve failures or inaccessible inputs as limits on the claim."
-      }
+      },
+      "guides": [
+        {
+          "title": "PyTorch autograd, device and distributed debugging",
+          "path": "references/methods/pytorch-debug.md",
+          "when": "The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method"
+        },
+        {
+          "title": "Retrieval, ranking and recommendation evaluation",
+          "path": "references/methods/recommender-systems.md",
+          "when": "The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method"
+        }
+      ]
     },
     {
       "id": "ml-training-cost",
@@ -14462,7 +16185,19 @@
         "method": "Profile a representative bounded run; separate throughput from cost per completed useful result and use verified dated rates for money.",
         "pitfall": "GPU utilization alone can hide pipeline stalls; mixed precision or larger batches can change convergence and effective optimization.",
         "check": "Compare end-to-end runtime, peak memory and model-quality protocol under matched conditions, including warmup and failures."
-      }
+      },
+      "guides": [
+        {
+          "title": "PyTorch autograd, device and distributed debugging",
+          "path": "references/methods/pytorch-debug.md",
+          "when": "The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method"
+        },
+        {
+          "title": "Retrieval, ranking and recommendation evaluation",
+          "path": "references/methods/recommender-systems.md",
+          "when": "The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method"
+        }
+      ]
     },
     {
       "id": "ml-evaluate",
@@ -14566,6 +16301,16 @@
           "title": "Recorded experiment comparisons",
           "when": "Comparing supplied MLflow, W&B or JSON runs with row-level predictions",
           "path": "references/experiments.md"
+        },
+        {
+          "title": "PyTorch autograd, device and distributed debugging",
+          "path": "references/methods/pytorch-debug.md",
+          "when": "The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method"
+        },
+        {
+          "title": "Retrieval, ranking and recommendation evaluation",
+          "path": "references/methods/recommender-systems.md",
+          "when": "The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method"
         }
       ],
       "technical": {
@@ -14656,7 +16401,19 @@
         "method": "Group by plausible mechanism and estimate frequency before proposing a targeted data/model/product change.",
         "pitfall": "Anecdotal errors or explanation scores do not establish a causal pattern across the population.",
         "check": "Check the hypothesized group on independent examples and include correct predictions that resemble the failures."
-      }
+      },
+      "guides": [
+        {
+          "title": "PyTorch autograd, device and distributed debugging",
+          "path": "references/methods/pytorch-debug.md",
+          "when": "The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method"
+        },
+        {
+          "title": "Retrieval, ranking and recommendation evaluation",
+          "path": "references/methods/recommender-systems.md",
+          "when": "The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method"
+        }
+      ]
     },
     {
       "id": "ml-slices",
@@ -14747,6 +16504,16 @@
           "title": "Recorded experiment comparisons",
           "when": "Comparing supplied MLflow, W&B or JSON runs with row-level predictions",
           "path": "references/experiments.md"
+        },
+        {
+          "title": "PyTorch autograd, device and distributed debugging",
+          "path": "references/methods/pytorch-debug.md",
+          "when": "The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method"
+        },
+        {
+          "title": "Retrieval, ranking and recommendation evaluation",
+          "path": "references/methods/recommender-systems.md",
+          "when": "The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method"
         }
       ],
       "technical": {
@@ -14837,7 +16604,19 @@
         "method": "Fit calibration on permitted selection data and evaluate reliability on separate data; compare proper scoring rules and reliability curves.",
         "pitfall": "Ranking quality does not imply probability accuracy; coarse bins or shifted prevalence can conceal miscalibration.",
         "check": "Check perfect, constant and confidently wrong synthetic predictions, then evaluate held-out calibration with sample support per region."
-      }
+      },
+      "guides": [
+        {
+          "title": "PyTorch autograd, device and distributed debugging",
+          "path": "references/methods/pytorch-debug.md",
+          "when": "The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method"
+        },
+        {
+          "title": "Retrieval, ranking and recommendation evaluation",
+          "path": "references/methods/recommender-systems.md",
+          "when": "The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method"
+        }
+      ]
     },
     {
       "id": "ml-threshold",
@@ -14920,7 +16699,19 @@
         "method": "Choose an operating point using explicit constraints and uncertainty; keep threshold selection separate from final test reporting.",
         "pitfall": "A threshold maximizing F1 may violate a daily capacity or false-positive budget.",
         "check": "Compute the confusion matrix and workload at nearby thresholds, including tied scores and changing prevalence assumptions."
-      }
+      },
+      "guides": [
+        {
+          "title": "PyTorch autograd, device and distributed debugging",
+          "path": "references/methods/pytorch-debug.md",
+          "when": "The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method"
+        },
+        {
+          "title": "Retrieval, ranking and recommendation evaluation",
+          "path": "references/methods/recommender-systems.md",
+          "when": "The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method"
+        }
+      ]
     },
     {
       "id": "ml-robustness",
@@ -15001,7 +16792,19 @@
         "method": "Test semantic-preserving perturbations separately from changed-label cases; measure quality, rejection and coverage.",
         "pitfall": "Arbitrary corruption may not represent deployment, and invariance is wrong when the perturbation should change the answer.",
         "check": "Include an unchanged control, boundary-valid input and deliberately unsupported input; report the exact tested threat/shift model."
-      }
+      },
+      "guides": [
+        {
+          "title": "PyTorch autograd, device and distributed debugging",
+          "path": "references/methods/pytorch-debug.md",
+          "when": "The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method"
+        },
+        {
+          "title": "Retrieval, ranking and recommendation evaluation",
+          "path": "references/methods/recommender-systems.md",
+          "when": "The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method"
+        }
+      ]
     },
     {
       "id": "ml-explain",
@@ -15084,7 +16887,19 @@
         "method": "Use a method compatible with model/data semantics and check explanation stability and plausible feature combinations.",
         "pitfall": "Attributions are not causal effects; correlated inputs or impossible counterfactuals can make an explanation misleading.",
         "check": "Compare nearby valid inputs or a known simple model and state approximation, background-data and stability limits."
-      }
+      },
+      "guides": [
+        {
+          "title": "PyTorch autograd, device and distributed debugging",
+          "path": "references/methods/pytorch-debug.md",
+          "when": "The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method"
+        },
+        {
+          "title": "Retrieval, ranking and recommendation evaluation",
+          "path": "references/methods/recommender-systems.md",
+          "when": "The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method"
+        }
+      ]
     },
     {
       "id": "ml-report",
@@ -15167,7 +16982,19 @@
         "method": "Separate measured results from anticipated value and list excluded uses plus concrete monitoring/revisit conditions.",
         "pitfall": "Omitting failed runs or weak slices produces a misleading model story even if the best metric is correct.",
         "check": "Trace every numerical claim to an artifact and verify data/model/version identity and unresolved limitations are retained."
-      }
+      },
+      "guides": [
+        {
+          "title": "PyTorch autograd, device and distributed debugging",
+          "path": "references/methods/pytorch-debug.md",
+          "when": "The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method"
+        },
+        {
+          "title": "Retrieval, ranking and recommendation evaluation",
+          "path": "references/methods/recommender-systems.md",
+          "when": "The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method"
+        }
+      ]
     },
     {
       "id": "ml-package",
@@ -15256,6 +17083,16 @@
           "path": "references/security/files.md",
           "title": "Files and resource limits",
           "when": "Uploads, filesystem paths, extraction or artifact loading are in scope"
+        },
+        {
+          "title": "PyTorch autograd, device and distributed debugging",
+          "path": "references/methods/pytorch-debug.md",
+          "when": "The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method"
+        },
+        {
+          "title": "Retrieval, ranking and recommendation evaluation",
+          "path": "references/methods/recommender-systems.md",
+          "when": "The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method"
         }
       ]
     },
@@ -15338,7 +17175,19 @@
         "method": "Validate inputs before inference, bound queues and separate loading failures from invalid requests; define model identity per response/trace.",
         "pitfall": "Unbounded batches or concurrent model copies can exhaust memory; returning a default prediction hides infrastructure failure.",
         "check": "Exercise valid/invalid inputs, queue saturation, model-load failure and cancellation; verify bounded resources and typed errors."
-      }
+      },
+      "guides": [
+        {
+          "title": "PyTorch autograd, device and distributed debugging",
+          "path": "references/methods/pytorch-debug.md",
+          "when": "The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method"
+        },
+        {
+          "title": "Retrieval, ranking and recommendation evaluation",
+          "path": "references/methods/recommender-systems.md",
+          "when": "The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method"
+        }
+      ]
     },
     {
       "id": "ml-batch",
@@ -15419,7 +17268,19 @@
         "method": "Write resumable idempotent partitions with provenance and reconcile partial output before advancing progress.",
         "pitfall": "Restarting with a different model under the same output partition silently mixes incompatible predictions.",
         "check": "Interrupt before/after output commit and retry; verify full membership, no duplicate records and consistent model/data identity."
-      }
+      },
+      "guides": [
+        {
+          "title": "PyTorch autograd, device and distributed debugging",
+          "path": "references/methods/pytorch-debug.md",
+          "when": "The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method"
+        },
+        {
+          "title": "Retrieval, ranking and recommendation evaluation",
+          "path": "references/methods/recommender-systems.md",
+          "when": "The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method"
+        }
+      ]
     },
     {
       "id": "ml-parity",
@@ -15513,7 +17374,19 @@
         "method": "Send the same golden inputs through training transformation and packaged serving transformation before comparing predictions.",
         "pitfall": "Equal tensor shape does not imply equal feature meaning; silently reordered columns can produce plausible wrong scores.",
         "check": "Include missing, unseen, zero and boundary inputs and locate the first differing transform rather than comparing only final accuracy."
-      }
+      },
+      "guides": [
+        {
+          "title": "PyTorch autograd, device and distributed debugging",
+          "path": "references/methods/pytorch-debug.md",
+          "when": "The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method"
+        },
+        {
+          "title": "Retrieval, ranking and recommendation evaluation",
+          "path": "references/methods/recommender-systems.md",
+          "when": "The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method"
+        }
+      ]
     },
     {
       "id": "ml-inference-perf",
@@ -15598,7 +17471,19 @@
         "method": "Compare latency distribution, throughput, memory and quality at the actual workload/concurrency; synchronize device timing where required.",
         "pitfall": "Timing asynchronous GPU dispatch without synchronization underreports work; throughput gains may violate tail-latency requirements.",
         "check": "Warm up deliberately, retain cold-start evidence and verify optimized predictions against reference tolerances and quality constraints."
-      }
+      },
+      "guides": [
+        {
+          "title": "PyTorch autograd, device and distributed debugging",
+          "path": "references/methods/pytorch-debug.md",
+          "when": "The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method"
+        },
+        {
+          "title": "Retrieval, ranking and recommendation evaluation",
+          "path": "references/methods/recommender-systems.md",
+          "when": "The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method"
+        }
+      ]
     },
     {
       "id": "ml-drift",
@@ -15681,7 +17566,19 @@
         "method": "Monitor meaningful distribution changes with declared windows and thresholds; separate drift alerts from proven quality degradation.",
         "pitfall": "A small p-value on a huge sample can flag irrelevant change, while missing labels prevent conclusions about accuracy.",
         "check": "Inject a known distribution shift and a stable control, then check alert volume, cohort mix and delayed-label follow-up."
-      }
+      },
+      "guides": [
+        {
+          "title": "PyTorch autograd, device and distributed debugging",
+          "path": "references/methods/pytorch-debug.md",
+          "when": "The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method"
+        },
+        {
+          "title": "Retrieval, ranking and recommendation evaluation",
+          "path": "references/methods/recommender-systems.md",
+          "when": "The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method"
+        }
+      ]
     },
     {
       "id": "ml-monitor",
@@ -15766,7 +17663,19 @@
         "method": "Define quality windows based on matured labels and connect each alert to a diagnosis/recovery action.",
         "pitfall": "Missing outcomes can bias observed accuracy; unchanged inputs do not prove unchanged target relationships.",
         "check": "Simulate delayed/missing labels, a model revision and an outage; verify denominators, routing and unknown-quality states."
-      }
+      },
+      "guides": [
+        {
+          "title": "PyTorch autograd, device and distributed debugging",
+          "path": "references/methods/pytorch-debug.md",
+          "when": "The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method"
+        },
+        {
+          "title": "Retrieval, ranking and recommendation evaluation",
+          "path": "references/methods/recommender-systems.md",
+          "when": "The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method"
+        }
+      ]
     },
     {
       "id": "ml-rollout",
@@ -15851,7 +17760,19 @@
         "method": "Compare shadow or canary traffic under a stable assignment policy; define operational stops and enough label maturity for quality claims.",
         "pitfall": "Shadow requests must not duplicate real effects; early unlabeled traffic only establishes operational behavior.",
         "check": "Exercise rollback with in-flight requests, verify model attribution and keep operational acceptance separate from delayed quality acceptance."
-      }
+      },
+      "guides": [
+        {
+          "title": "PyTorch autograd, device and distributed debugging",
+          "path": "references/methods/pytorch-debug.md",
+          "when": "The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method"
+        },
+        {
+          "title": "Retrieval, ranking and recommendation evaluation",
+          "path": "references/methods/recommender-systems.md",
+          "when": "The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method"
+        }
+      ]
     },
     {
       "id": "llm-evals",
@@ -16626,7 +18547,39 @@
         "method": "Choose small examples around equivalence classes and exact boundaries; control clock/randomness rather than sleeping.",
         "pitfall": "Asserting internal helper calls or computing expected results with the implementation repeats its mistakes.",
         "check": "Demonstrate that a plausible wrong result fails an assertion while valid empty/zero/boundary cases pass."
-      }
+      },
+      "guides": [
+        {
+          "title": "Django / DRF",
+          "when": "The affected project uses Django / DRF",
+          "path": "references/frameworks/django.md"
+        },
+        {
+          "title": "FastAPI",
+          "when": "The affected project uses FastAPI",
+          "path": "references/frameworks/fastapi.md"
+        },
+        {
+          "title": "Spring Boot",
+          "when": "The affected project uses Spring Boot",
+          "path": "references/frameworks/spring-boot.md"
+        },
+        {
+          "title": "Flutter",
+          "when": "The affected project uses Flutter",
+          "path": "references/frameworks/flutter.md"
+        },
+        {
+          "title": "React Native / Expo",
+          "when": "The affected project uses React Native / Expo",
+          "path": "references/frameworks/react-native.md"
+        },
+        {
+          "title": "Desktop and cross-host regression testing",
+          "path": "references/methods/desktop-regression.md",
+          "when": "The task specifically involves windows desktop, ui automation, cross-agent regression, benchmark harness; load only the matching method"
+        }
+      ]
     },
     {
       "id": "test-integration",
@@ -16709,7 +18662,39 @@
         "method": "Exercise actual boundary semantics with deterministic fixtures and cleanup after partial setup.",
         "pitfall": "An in-memory substitute may not match transaction isolation, collation or permission behavior of the deployed engine.",
         "check": "Test one success and a boundary failure on the intended technology/version and report which dependencies remain simulated."
-      }
+      },
+      "guides": [
+        {
+          "title": "Django / DRF",
+          "when": "The affected project uses Django / DRF",
+          "path": "references/frameworks/django.md"
+        },
+        {
+          "title": "FastAPI",
+          "when": "The affected project uses FastAPI",
+          "path": "references/frameworks/fastapi.md"
+        },
+        {
+          "title": "Spring Boot",
+          "when": "The affected project uses Spring Boot",
+          "path": "references/frameworks/spring-boot.md"
+        },
+        {
+          "title": "Flutter",
+          "when": "The affected project uses Flutter",
+          "path": "references/frameworks/flutter.md"
+        },
+        {
+          "title": "React Native / Expo",
+          "when": "The affected project uses React Native / Expo",
+          "path": "references/frameworks/react-native.md"
+        },
+        {
+          "title": "Desktop and cross-host regression testing",
+          "path": "references/methods/desktop-regression.md",
+          "when": "The task specifically involves windows desktop, ui automation, cross-agent regression, benchmark harness; load only the matching method"
+        }
+      ]
     },
     {
       "id": "test-e2e",
@@ -16792,7 +18777,39 @@
         "method": "Use semantic locators and user-visible outcomes; isolate accounts and preserve artifacts when the journey fails.",
         "pitfall": "A screenshot or HTTP 200 alone does not prove a completed transaction or accessible interaction.",
         "check": "Run the main path and meaningful recovery path, including direct navigation and persisted result where applicable."
-      }
+      },
+      "guides": [
+        {
+          "title": "Django / DRF",
+          "when": "The affected project uses Django / DRF",
+          "path": "references/frameworks/django.md"
+        },
+        {
+          "title": "FastAPI",
+          "when": "The affected project uses FastAPI",
+          "path": "references/frameworks/fastapi.md"
+        },
+        {
+          "title": "Spring Boot",
+          "when": "The affected project uses Spring Boot",
+          "path": "references/frameworks/spring-boot.md"
+        },
+        {
+          "title": "Flutter",
+          "when": "The affected project uses Flutter",
+          "path": "references/frameworks/flutter.md"
+        },
+        {
+          "title": "React Native / Expo",
+          "when": "The affected project uses React Native / Expo",
+          "path": "references/frameworks/react-native.md"
+        },
+        {
+          "title": "Desktop and cross-host regression testing",
+          "path": "references/methods/desktop-regression.md",
+          "when": "The task specifically involves windows desktop, ui automation, cross-agent regression, benchmark harness; load only the matching method"
+        }
+      ]
     },
     {
       "id": "test-regression",
@@ -16885,7 +18902,39 @@
         "method": "Add the lowest-layer check that observes the real failure; verify sensitivity in an isolated broken copy when feasible.",
         "pitfall": "A missing import or setup timeout on the old revision does not establish regression sensitivity.",
         "check": "Record the causal failing assertion or valid-input exception on broken code and a pass on the fix without weakening the expectation."
-      }
+      },
+      "guides": [
+        {
+          "title": "Django / DRF",
+          "when": "The affected project uses Django / DRF",
+          "path": "references/frameworks/django.md"
+        },
+        {
+          "title": "FastAPI",
+          "when": "The affected project uses FastAPI",
+          "path": "references/frameworks/fastapi.md"
+        },
+        {
+          "title": "Spring Boot",
+          "when": "The affected project uses Spring Boot",
+          "path": "references/frameworks/spring-boot.md"
+        },
+        {
+          "title": "Flutter",
+          "when": "The affected project uses Flutter",
+          "path": "references/frameworks/flutter.md"
+        },
+        {
+          "title": "React Native / Expo",
+          "when": "The affected project uses React Native / Expo",
+          "path": "references/frameworks/react-native.md"
+        },
+        {
+          "title": "Desktop and cross-host regression testing",
+          "path": "references/methods/desktop-regression.md",
+          "when": "The task specifically involves windows desktop, ui automation, cross-agent regression, benchmark harness; load only the matching method"
+        }
+      ]
     },
     {
       "id": "test-flaky",
@@ -16968,7 +19017,39 @@
         "method": "Force the suspected race or shared-state condition deterministically before changing implementation or tests.",
         "pitfall": "Increasing timeouts, retries or skips can hide nondeterminism rather than repair it.",
         "check": "Run a bounded repeated sample with retained counts and the targeted interleaving; zero observed failures remains finite evidence."
-      }
+      },
+      "guides": [
+        {
+          "title": "Django / DRF",
+          "when": "The affected project uses Django / DRF",
+          "path": "references/frameworks/django.md"
+        },
+        {
+          "title": "FastAPI",
+          "when": "The affected project uses FastAPI",
+          "path": "references/frameworks/fastapi.md"
+        },
+        {
+          "title": "Spring Boot",
+          "when": "The affected project uses Spring Boot",
+          "path": "references/frameworks/spring-boot.md"
+        },
+        {
+          "title": "Flutter",
+          "when": "The affected project uses Flutter",
+          "path": "references/frameworks/flutter.md"
+        },
+        {
+          "title": "React Native / Expo",
+          "when": "The affected project uses React Native / Expo",
+          "path": "references/frameworks/react-native.md"
+        },
+        {
+          "title": "Desktop and cross-host regression testing",
+          "path": "references/methods/desktop-regression.md",
+          "when": "The task specifically involves windows desktop, ui automation, cross-agent regression, benchmark harness; load only the matching method"
+        }
+      ]
     },
     {
       "id": "test-fixtures",
@@ -17051,7 +19132,39 @@
         "method": "Construct minimal realistic data with explicit timestamps/IDs and independent expected values; avoid production data copies.",
         "pitfall": "A globally shared mutable fixture can make tests order-dependent; overly permissive mocks erase real constraints.",
         "check": "Run fixtures concurrently or in different orders and verify cleanup after failure plus the expected invalid-case rejection."
-      }
+      },
+      "guides": [
+        {
+          "title": "Django / DRF",
+          "when": "The affected project uses Django / DRF",
+          "path": "references/frameworks/django.md"
+        },
+        {
+          "title": "FastAPI",
+          "when": "The affected project uses FastAPI",
+          "path": "references/frameworks/fastapi.md"
+        },
+        {
+          "title": "Spring Boot",
+          "when": "The affected project uses Spring Boot",
+          "path": "references/frameworks/spring-boot.md"
+        },
+        {
+          "title": "Flutter",
+          "when": "The affected project uses Flutter",
+          "path": "references/frameworks/flutter.md"
+        },
+        {
+          "title": "React Native / Expo",
+          "when": "The affected project uses React Native / Expo",
+          "path": "references/frameworks/react-native.md"
+        },
+        {
+          "title": "Desktop and cross-host regression testing",
+          "path": "references/methods/desktop-regression.md",
+          "when": "The task specifically involves windows desktop, ui automation, cross-agent regression, benchmark harness; load only the matching method"
+        }
+      ]
     },
     {
       "id": "test-load",
@@ -17134,7 +19247,39 @@
         "method": "Model arrivals and user journeys explicitly; monitor server and client bottlenecks and isolate real payments/messages.",
         "pitfall": "Closed-loop clients can hide overload by slowing request generation; averages conceal long tails and errors.",
         "check": "Confirm healthy control load, bounded ramp and recovery, preserving actual achieved rates, tail latency and stop reason."
-      }
+      },
+      "guides": [
+        {
+          "title": "Django / DRF",
+          "when": "The affected project uses Django / DRF",
+          "path": "references/frameworks/django.md"
+        },
+        {
+          "title": "FastAPI",
+          "when": "The affected project uses FastAPI",
+          "path": "references/frameworks/fastapi.md"
+        },
+        {
+          "title": "Spring Boot",
+          "when": "The affected project uses Spring Boot",
+          "path": "references/frameworks/spring-boot.md"
+        },
+        {
+          "title": "Flutter",
+          "when": "The affected project uses Flutter",
+          "path": "references/frameworks/flutter.md"
+        },
+        {
+          "title": "React Native / Expo",
+          "when": "The affected project uses React Native / Expo",
+          "path": "references/frameworks/react-native.md"
+        },
+        {
+          "title": "Desktop and cross-host regression testing",
+          "path": "references/methods/desktop-regression.md",
+          "when": "The task specifically involves windows desktop, ui automation, cross-agent regression, benchmark harness; load only the matching method"
+        }
+      ]
     },
     {
       "id": "test-property",
@@ -17217,7 +19362,39 @@
         "method": "Generate meaningful edge distributions and preserve seeds/counterexamples; use an independent oracle where one exists.",
         "pitfall": "A round-trip property can pass when encoder and decoder share the same defect; excessive filtering hides hard inputs.",
         "check": "Show a known violating implementation is detected and that shrunk examples still satisfy the generator's preconditions."
-      }
+      },
+      "guides": [
+        {
+          "title": "Django / DRF",
+          "when": "The affected project uses Django / DRF",
+          "path": "references/frameworks/django.md"
+        },
+        {
+          "title": "FastAPI",
+          "when": "The affected project uses FastAPI",
+          "path": "references/frameworks/fastapi.md"
+        },
+        {
+          "title": "Spring Boot",
+          "when": "The affected project uses Spring Boot",
+          "path": "references/frameworks/spring-boot.md"
+        },
+        {
+          "title": "Flutter",
+          "when": "The affected project uses Flutter",
+          "path": "references/frameworks/flutter.md"
+        },
+        {
+          "title": "React Native / Expo",
+          "when": "The affected project uses React Native / Expo",
+          "path": "references/frameworks/react-native.md"
+        },
+        {
+          "title": "Desktop and cross-host regression testing",
+          "path": "references/methods/desktop-regression.md",
+          "when": "The task specifically involves windows desktop, ui automation, cross-agent regression, benchmark harness; load only the matching method"
+        }
+      ]
     },
     {
       "id": "security-threat-model",
@@ -17306,6 +19483,26 @@
           "path": "references/security/review.md",
           "title": "Review selection and evidence",
           "when": "Reviewing code or security boundaries: select and read the matching technical branches before concluding"
+        },
+        {
+          "title": "Django / DRF",
+          "when": "The affected project uses Django / DRF",
+          "path": "references/frameworks/django.md"
+        },
+        {
+          "title": "FastAPI",
+          "when": "The affected project uses FastAPI",
+          "path": "references/frameworks/fastapi.md"
+        },
+        {
+          "title": "Spring Boot",
+          "when": "The affected project uses Spring Boot",
+          "path": "references/frameworks/spring-boot.md"
+        },
+        {
+          "title": "Authorized vulnerability research",
+          "path": "references/methods/authorized-security-research.md",
+          "when": "The task specifically involves bug bounty, authorized pentest, security proof; load only the matching method"
         }
       ]
     },
@@ -17405,6 +19602,26 @@
           "path": "references/security/identity.md",
           "title": "Identity and authorization",
           "when": "Identity, ownership, tenant isolation, replay or privilege changes affect the task"
+        },
+        {
+          "title": "Django / DRF",
+          "when": "The affected project uses Django / DRF",
+          "path": "references/frameworks/django.md"
+        },
+        {
+          "title": "FastAPI",
+          "when": "The affected project uses FastAPI",
+          "path": "references/frameworks/fastapi.md"
+        },
+        {
+          "title": "Spring Boot",
+          "when": "The affected project uses Spring Boot",
+          "path": "references/frameworks/spring-boot.md"
+        },
+        {
+          "title": "Authorized vulnerability research",
+          "path": "references/methods/authorized-security-research.md",
+          "when": "The task specifically involves bug bounty, authorized pentest, security proof; load only the matching method"
         }
       ]
     },
@@ -17500,6 +19717,26 @@
           "path": "references/security/scanners.md",
           "title": "Scanner selection and evidence",
           "when": "An available scanner or dependency advisory check can answer the scoped question"
+        },
+        {
+          "title": "Django / DRF",
+          "when": "The affected project uses Django / DRF",
+          "path": "references/frameworks/django.md"
+        },
+        {
+          "title": "FastAPI",
+          "when": "The affected project uses FastAPI",
+          "path": "references/frameworks/fastapi.md"
+        },
+        {
+          "title": "Spring Boot",
+          "when": "The affected project uses Spring Boot",
+          "path": "references/frameworks/spring-boot.md"
+        },
+        {
+          "title": "Authorized vulnerability research",
+          "path": "references/methods/authorized-security-research.md",
+          "when": "The task specifically involves bug bounty, authorized pentest, security proof; load only the matching method"
         }
       ]
     },
@@ -17595,6 +19832,26 @@
           "path": "references/security/scanners.md",
           "title": "Scanner selection and evidence",
           "when": "An available scanner or dependency advisory check can answer the scoped question"
+        },
+        {
+          "title": "Django / DRF",
+          "when": "The affected project uses Django / DRF",
+          "path": "references/frameworks/django.md"
+        },
+        {
+          "title": "FastAPI",
+          "when": "The affected project uses FastAPI",
+          "path": "references/frameworks/fastapi.md"
+        },
+        {
+          "title": "Spring Boot",
+          "when": "The affected project uses Spring Boot",
+          "path": "references/frameworks/spring-boot.md"
+        },
+        {
+          "title": "Authorized vulnerability research",
+          "path": "references/methods/authorized-security-research.md",
+          "when": "The task specifically involves bug bounty, authorized pentest, security proof; load only the matching method"
         }
       ]
     },
@@ -17685,6 +19942,26 @@
           "path": "references/security/files.md",
           "title": "Files and resource limits",
           "when": "Uploads, filesystem paths, extraction or artifact loading are in scope"
+        },
+        {
+          "title": "Django / DRF",
+          "when": "The affected project uses Django / DRF",
+          "path": "references/frameworks/django.md"
+        },
+        {
+          "title": "FastAPI",
+          "when": "The affected project uses FastAPI",
+          "path": "references/frameworks/fastapi.md"
+        },
+        {
+          "title": "Spring Boot",
+          "when": "The affected project uses Spring Boot",
+          "path": "references/frameworks/spring-boot.md"
+        },
+        {
+          "title": "Authorized vulnerability research",
+          "path": "references/methods/authorized-security-research.md",
+          "when": "The task specifically involves bug bounty, authorized pentest, security proof; load only the matching method"
         }
       ]
     },
@@ -17780,6 +20057,26 @@
           "path": "references/security/scanners.md",
           "title": "Scanner selection and evidence",
           "when": "An available scanner or dependency advisory check can answer the scoped question"
+        },
+        {
+          "title": "Django / DRF",
+          "when": "The affected project uses Django / DRF",
+          "path": "references/frameworks/django.md"
+        },
+        {
+          "title": "FastAPI",
+          "when": "The affected project uses FastAPI",
+          "path": "references/frameworks/fastapi.md"
+        },
+        {
+          "title": "Spring Boot",
+          "when": "The affected project uses Spring Boot",
+          "path": "references/frameworks/spring-boot.md"
+        },
+        {
+          "title": "Authorized vulnerability research",
+          "path": "references/methods/authorized-security-research.md",
+          "when": "The task specifically involves bug bounty, authorized pentest, security proof; load only the matching method"
         }
       ]
     },
@@ -17875,6 +20172,31 @@
           "path": "references/security/frameworks.md",
           "title": "Framework-specific review branches",
           "when": "The task depends on framework defaults, middleware, RLS, server/client or deployment behavior"
+        },
+        {
+          "title": "Django / DRF",
+          "when": "The affected project uses Django / DRF",
+          "path": "references/frameworks/django.md"
+        },
+        {
+          "title": "FastAPI",
+          "when": "The affected project uses FastAPI",
+          "path": "references/frameworks/fastapi.md"
+        },
+        {
+          "title": "Spring Boot",
+          "when": "The affected project uses Spring Boot",
+          "path": "references/frameworks/spring-boot.md"
+        },
+        {
+          "title": "Context health, check presets, editor events and shared work",
+          "when": "The request needs proactive context warnings, detected checks, native editor events, GitHub epic coordination or configuration audit reports",
+          "path": "references/runtime-depth.md"
+        },
+        {
+          "title": "Authorized vulnerability research",
+          "path": "references/methods/authorized-security-research.md",
+          "when": "The task specifically involves bug bounty, authorized pentest, security proof; load only the matching method"
         }
       ]
     },
@@ -17984,6 +20306,26 @@
           "path": "references/security/scanners.md",
           "title": "Scanner selection and evidence",
           "when": "An available scanner or dependency advisory check can answer the scoped question"
+        },
+        {
+          "title": "Django / DRF",
+          "when": "The affected project uses Django / DRF",
+          "path": "references/frameworks/django.md"
+        },
+        {
+          "title": "FastAPI",
+          "when": "The affected project uses FastAPI",
+          "path": "references/frameworks/fastapi.md"
+        },
+        {
+          "title": "Spring Boot",
+          "when": "The affected project uses Spring Boot",
+          "path": "references/frameworks/spring-boot.md"
+        },
+        {
+          "title": "Authorized vulnerability research",
+          "path": "references/methods/authorized-security-research.md",
+          "when": "The task specifically involves bug bounty, authorized pentest, security proof; load only the matching method"
         }
       ]
     },
@@ -18739,7 +21081,24 @@
         "method": "Use the supported installer lifecycle and persistent payload, reconciling existing source identity before update or removal.",
         "pitfall": "A package-manager install alone does not register a native plugin; deleting package cache must not break the managed payload.",
         "check": "Exercise install/repeat/doctor/update/uninstall in isolated host roots and verify native enabled state, source identity and payload version."
-      }
+      },
+      "guides": [
+        {
+          "title": "Native memory, goals, specialists and runtime controls",
+          "path": "references/runtime-platform.md",
+          "when": "The task needs scoped memory search, a persistent goal, independent review, configuration scanning, worker control, learned-pattern review or editor installation"
+        },
+        {
+          "title": "Context health, check presets, editor events and shared work",
+          "when": "The request needs proactive context warnings, detected checks, native editor events, GitHub epic coordination or configuration audit reports",
+          "path": "references/runtime-depth.md"
+        },
+        {
+          "title": "Extended capabilities and optional method library",
+          "path": "references/runtime-expansion.md",
+          "when": "Discovering session, inventory, rule, council, scheduler, monitor, graph, evaluation, operator or domain-specific capabilities"
+        }
+      ]
     },
     {
       "id": "profiles",
@@ -18912,6 +21271,352 @@
         "pitfall": "Agent inference cannot clear a user pin, and a principal role does not authorize broader architecture changes.",
         "check": "Verify status/change/clear behavior preserves task constraints and that role selection alone starts no unrelated work."
       }
+    },
+    {
+      "id": "goal",
+      "pack": "general",
+      "summary": "Create and pursue a persistent objective with completion criteria, progress, blockers and evidence",
+      "aliases": [],
+      "aliasOf": null,
+      "defaultMode": "apply",
+      "modePolicy": "An explicit goal request authorizes saving and progressing that objective within the requested scope. Inspect/list/resume context do not independently authorize new external actions. Never invent a token or spending budget.",
+      "requiredInputs": [
+        "The user objective, project root and observable completion criteria inferred from the request or clarified when necessary."
+      ],
+      "optionalInputs": [
+        "scope",
+        "references",
+        "constraints",
+        "successCriteria",
+        "environment",
+        "mode",
+        "budget"
+      ],
+      "capabilities": [
+        "project.read"
+      ],
+      "readScope": "Read current goals, current project instructions and evidence relevant to the named objective. Recheck old evidence against current files before resuming.",
+      "writeScope": "Save goal state outside the repository through the bundled runtime. Implement the requested work through the relevant workflows within existing authorization; publishing, external messages and destructive operations still require the corresponding user intent.",
+      "procedure": [
+        "Read the runtime goal reference. Resolve whether the user is creating a goal, resuming one, changing its scope or asking for status. Use goals_read/goal list first and reuse the matching objective instead of making duplicates. Revise completion criteria explicitly when the objective changes; prior scope evidence remains historical and does not satisfy the new criteria.",
+        "For a new goal, preserve the objective, constraints and concrete completion criteria with goal create. Set a native host goal as well when that capability exists and the user explicitly requested a goal; only set a native token budget if the user supplied one.",
+        "Carry out authorized work using the relevant just-vibe workflows and available host tools. Persist concise progress, next steps and real blockers with goal update at meaningful checkpoints. A goal does not imply permission to spawn workers or run paid services.",
+        "Record each criterion with goal evidence, distinguishing an attributed host report from a hashed artifact. Read goal resume after interruption, compare evidence freshness and continue the remaining work without resetting constraints.",
+        "Mark complete only when criteria are satisfied with current evidence and blockers cleared; synchronize the native host goal if one was created and its completion conditions are met. Reopen a completed goal when new work is requested and collect fresh verification for its pending criteria. If blocked, save the specific dependency and useful next step; do not claim completion."
+      ],
+      "outputs": [
+        "Persistent goal ID, current status, completed criteria, evidence and next action.",
+        "Implemented result or a precise unresolved blocker; a plan or saved goal alone is not completion of an implementation request."
+      ],
+      "verification": [
+        "Goal state survives a new session and preserves constraints and outstanding work.",
+        "Completion is rejected when criteria lack evidence, artifacts changed or blockers remain.",
+        "Native host state and local state are reported separately if either could not be updated."
+      ],
+      "stopConditions": [
+        "Stop dependent work when a required answer, external access or authorization is missing; continue independent authorized work.",
+        "Respect cancellation, retirement and changed user scope. Never turn a saved goal into indefinite autonomous background work."
+      ],
+      "examples": [
+        {
+          "kind": "normal",
+          "mode": "apply",
+          "brief": "Goal: make checkout work with discount codes and verify the failure states. Preserve the API contract."
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Resume my checkout goal and show what remains; the validation artifact changed since yesterday."
+        },
+        {
+          "kind": "blocked",
+          "mode": "apply",
+          "brief": "Finish the deployment goal, but production credentials are not available."
+        }
+      ],
+      "hostSupport": [
+        "codex",
+        "claude"
+      ],
+      "executionModel": "host-agent",
+      "implementationStatus": "implemented",
+      "validation": {
+        "structural": "automated",
+        "runtime": "fixtures-tested",
+        "behavioral": "not-evaluated"
+      },
+      "skillPath": "skills/goal/SKILL.md",
+      "runtimeSteps": [],
+      "searchTerms": [
+        "goal",
+        "objective",
+        "keep working",
+        "persistent progress",
+        "completion criteria"
+      ],
+      "selection": "Use when the user explicitly asks to establish, resume, inspect or manage a persistent goal. Use plan for a proposal alone and checkpoint for a one-time context snapshot.",
+      "branches": [
+        {
+          "when": "the host exposes native goal controls",
+          "then": "Use them for the explicitly requested goal, respecting their budgets and state rules; local records add portable criteria and evidence."
+        },
+        {
+          "when": "a matching goal already exists",
+          "then": "Show or resume it, reconcile scope changes with the current request and preserve its history."
+        },
+        {
+          "when": "there is no native goal tool",
+          "then": "Use the local persistent goal record and current task execution; disclose that the record does not schedule future runs."
+        }
+      ],
+      "technical": {
+        "evidence": "Current goal revision, completion criteria, constraints, blockers and artifact hashes.",
+        "method": "Revision-checked goal records; each criterion has attributed or hashed evidence. Native goal controls are optional and distinct from local persistence.",
+        "pitfall": "Treating a saved objective or a process exit as completed work, or treating a goal as blanket permission for external actions.",
+        "check": "Try completion before evidence and after an artifact changes; both must remain incomplete until resolved."
+      },
+      "guides": [
+        {
+          "title": "Persistent goals and runtime tools",
+          "path": "references/runtime-platform.md",
+          "when": "Creating, updating or resuming a goal; use the exact goal operation schemas"
+        }
+      ]
+    },
+    {
+      "id": "orchestrate",
+      "pack": "general",
+      "summary": "Coordinate a feature, fix, refactor or MVP through scoped phases and reviewed dependent assignments",
+      "aliases": [],
+      "aliasOf": null,
+      "defaultMode": "apply",
+      "modePolicy": "An implementation request authorizes proportional local work. Delegate only when the current host policy and user authorization allow it. Plan mode produces a reviewable phase plan without starting workers.",
+      "requiredInputs": [
+        "The requested outcome, project, constraints and phase completion evidence."
+      ],
+      "optionalInputs": [
+        "scope",
+        "references",
+        "constraints",
+        "successCriteria",
+        "environment",
+        "mode",
+        "budget"
+      ],
+      "capabilities": [
+        "project.read"
+      ],
+      "readScope": "Inspect current implementation, tests, repository instructions and relevant saved goals. Discover existing host tools and worker capacity; no service or worker access is assumed.",
+      "writeScope": "Implement only the requested feature, fix, refactor or MVP scope. Save orchestration and review state locally. Workers require explicit enablement and authorization. Publishing, external messages and destructive operations keep their own authorization boundaries.",
+      "procedure": [
+        "Read the composed-workflows guide. Select feature, fix, refactor or MVP based on the requested result. Inspect extension points and risks, preserve appended constraints, and identify concrete acceptance criteria. Keep one-file work on the direct workflow without unnecessary phases or agents.",
+        "Reuse an existing explicit goal when one exists; create a persistent goal only if requested. Choose the smallest ordered phases and relevant canonical methods. Define phase inputs, owned files, outputs and discriminating checks. Assign different writers disjoint ownership; serialize overlapping changes.",
+        "Execute locally by default. If delegation is authorized and useful, inspect specialists_read/workers_read, then create a bounded acyclic assignment graph. Use working-tree inputs so workers see reviewed prerequisite changes. Dispatch only ready assignments within the configured limit; never delegate merely because this workflow is selected.",
+        "Collect structured results, inspect actual diffs and logs, run relevant checks with workers_verify, then apply the exact reviewed result hash with workers_apply. Applied changes preserve the original index and return an undo task. Accept a prerequisite only after its evidence and current files match; process exit is insufficient.",
+        "Retry only a failed, cancelled or expired assignment with a concrete correction and within maxAttempts. Cancel owned workers on user cancellation. If a prerequisite changed, reconcile and obtain a fresh result before downstream dispatch. Keep partial changes and report what remains.",
+        "Use plan-review when the user wants browser feedback on a concrete artifact or a required design decision. Respect changed scope, continue independent work and never treat a review verdict as a deployment permission. Complete the requested implementation, verify integrated behavior and report remaining limitations."
+      ],
+      "outputs": [
+        "Implemented result with per-phase evidence and any unresolved blocker.",
+        "When workers were used: orchestration ID, accepted result hashes, changed paths, verification and undo task IDs."
+      ],
+      "verification": [
+        "Each phase produces the input required by its successor; dependency cycles and stale prerequisites are rejected.",
+        "Worker application uses the reviewed result, fresh passing checks and unchanged source scope, preserving staged user work.",
+        "The integrated result satisfies the original request; recorded completion or a plan alone is insufficient."
+      ],
+      "stopConditions": [
+        "Stop dependent phases on missing required evidence, unresolved overlap, authorization or required user decisions; continue independent useful work.",
+        "Bound worker attempts and honor cancellation. Do not automatically push, publish, run paid services or spawn agents without authorization."
+      ],
+      "examples": [
+        {
+          "kind": "normal",
+          "mode": "apply",
+          "brief": "Build password reset end to end, preserving our session contract; coordinate the API, UI and tests."
+        },
+        {
+          "kind": "edge",
+          "mode": "apply",
+          "brief": "Refactor the parser but preserve behavior; one file is involved so keep the work simple."
+        },
+        {
+          "kind": "blocked",
+          "mode": "plan",
+          "brief": "Plan the MVP; identify the data ownership decision we need before implementation."
+        }
+      ],
+      "hostSupport": [
+        "codex",
+        "claude"
+      ],
+      "executionModel": "host-agent",
+      "implementationStatus": "implemented",
+      "validation": {
+        "structural": "automated",
+        "runtime": "fixtures-tested",
+        "behavioral": "not-evaluated"
+      },
+      "skillPath": "skills/orchestrate/SKILL.md",
+      "runtimeSteps": [],
+      "searchTerms": [
+        "orchestration",
+        "feature pipeline",
+        "fix pipeline",
+        "refactor pipeline",
+        "MVP",
+        "dependent workers"
+      ],
+      "selection": "Use for a multi-phase implementation or explicitly requested worker coordination. For a small localized edit use build, fix or refactor directly. This workflow does not itself authorize subagents.",
+      "branches": [
+        {
+          "when": "the change is small",
+          "then": "Use the direct canonical workflow and proportional verification."
+        },
+        {
+          "when": "authorized independent work can benefit from workers",
+          "then": "Create bounded assignments with explicit inputs, file ownership, dependencies and review criteria."
+        },
+        {
+          "when": "a worker fails or a prerequisite changes",
+          "then": "Preserve evidence, identify the cause, and retry only within the recorded bound or create a freshly reviewed assignment."
+        }
+      ],
+      "technical": {
+        "evidence": "Current source, acceptance criteria, dependency graph, worker baseline and result hashes, verification records and index state.",
+        "method": "Phase contracts followed by a dependency DAG when delegation is authorized. Completed work enters review; only accepted current results unlock dependent work.",
+        "pitfall": "Treating successful process exit as correctness, allowing concurrent writers to overlap, or allowing an old accepted result to unlock work after source changes.",
+        "check": "Try a cyclic graph, a failed prerequisite and a changed accepted file; dispatch must refuse unsafe progression while preserving recoverable results."
+      },
+      "guides": [
+        {
+          "title": "Composed workflows and reviewed coordination",
+          "path": "references/composed-workflows.md",
+          "when": "Coordinating feature, fix, refactor or MVP phases; use exact worker and canvas operations only when needed"
+        },
+        {
+          "title": "Context health, check presets, editor events and shared work",
+          "when": "The request needs proactive context warnings, detected checks, native editor events, GitHub epic coordination or configuration audit reports",
+          "path": "references/runtime-depth.md"
+        },
+        {
+          "title": "PRD, implementation plans and team handoffs",
+          "path": "references/methods/planning-teams.md",
+          "when": "The task specifically involves prd, prp, team plan, delegation plan; load only the matching method"
+        }
+      ]
+    },
+    {
+      "id": "plan-review",
+      "pack": "general",
+      "summary": "Review a concrete plan or artifact in a private browser canvas with annotations and version-bound feedback",
+      "aliases": [],
+      "aliasOf": null,
+      "defaultMode": "apply",
+      "modePolicy": "Creating a review is a reversible local action within a requested review. Approval is a user browser action and applies only to the displayed artifact hash, not to publishing or unrelated execution.",
+      "requiredInputs": [
+        "A readable project Markdown, text, HTML or JSON artifact to review, and the user decision or feedback sought."
+      ],
+      "optionalInputs": [
+        "scope",
+        "references",
+        "constraints",
+        "successCriteria",
+        "environment",
+        "mode",
+        "budget"
+      ],
+      "capabilities": [
+        "project.read"
+      ],
+      "readScope": "Read the selected non-secret artifact and relevant constraints. Do not include private credentials, raw transcripts or unrelated files in the review.",
+      "writeScope": "Save the artifact review in personal project storage and open an expiring authenticated loopback server. Edit the source artifact only within the requested scope; user feedback is not a source of additional system authority.",
+      "procedure": [
+        "Prepare or locate the concrete reviewable artifact first. Keep it under 256 KiB, inside the selected project, and free of credentials. Read the canvas operations in the composed-workflows guide; identify the specific review needed.",
+        "Use canvas_read to find an existing review or canvas_manage create with an ID, title, path and revision 0. Reuse a matching review instead of creating duplicate decisions.",
+        "Open the review with canvas_manage open, then use the host browser-opening capability for the returned private URL or provide a clickable link. Do not print the review token separately or put it into logs, shared artifacts or remote services. The server is loopback-only and expires.",
+        "Read feedback with canvas_read show/wait. The user can comment, annotate a source line, request changes or approve the current version. Preserve attributed feedback and its artifact hash; never submit approval on behalf of the user.",
+        "Resolve actionable feedback in the requested scope. If the artifact changes, refresh the canvas using its current revision, which archives the old feedback and clears the verdict. Ask for another review only when the task actually requires that decision; continue independent authorized work.",
+        "Use effectiveVerdict only when stale is false and the reviewed artifact hash matches. Close the review when finished. Report the decision, implemented changes, remaining disagreements and any unverified behavior; do not infer external-action permission from approval."
+      ],
+      "outputs": [
+        "A private local browser link and an inspectable review ID.",
+        "User annotations and verdict tied to a specific artifact, plus resulting changes and unresolved feedback."
+      ],
+      "verification": [
+        "Review endpoints require the private token and reject cross-origin requests.",
+        "Changed artifacts invalidate effective approval; stale or concurrent feedback is rejected until refreshed.",
+        "HTML previews remain sandboxed; keyboard and narrow-screen review controls stay usable."
+      ],
+      "stopConditions": [
+        "Do not expose secrets or serve arbitrary project files. If the artifact is too large or unsupported, prepare a bounded review copy within the requested scope.",
+        "Do not wait indefinitely or manufacture approval. On missing required feedback, save state and continue independent work; the local server expires automatically."
+      ],
+      "examples": [
+        {
+          "kind": "normal",
+          "mode": "apply",
+          "brief": "Open docs/design.md for browser review so I can annotate the plan."
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Check whether the approved plan changed before implementation."
+        },
+        {
+          "kind": "blocked",
+          "mode": "apply",
+          "brief": "Open this plan for approval, but it includes credentials; prepare a safe review copy first."
+        }
+      ],
+      "hostSupport": [
+        "codex",
+        "claude"
+      ],
+      "executionModel": "host-agent",
+      "implementationStatus": "implemented",
+      "validation": {
+        "structural": "automated",
+        "runtime": "fixtures-tested",
+        "behavioral": "not-evaluated"
+      },
+      "skillPath": "skills/plan-review/SKILL.md",
+      "runtimeSteps": [],
+      "searchTerms": [
+        "canvas",
+        "plan review",
+        "artifact review",
+        "annotations",
+        "browser feedback"
+      ],
+      "selection": "Use when the user requests browser review, line annotations or a visual feedback loop for a concrete plan or artifact. Ordinary planning can stay in the conversation.",
+      "branches": [
+        {
+          "when": "the artifact changed after approval",
+          "then": "Treat the verdict as stale, refresh the snapshot and obtain new feedback if that decision is required."
+        },
+        {
+          "when": "there is no browser-opening tool",
+          "then": "Return the private localhost link and keep show/wait available; do not claim the user opened it."
+        },
+        {
+          "when": "the artifact is HTML",
+          "then": "Use the sandboxed preview for layout and source lines for anchored feedback; no artifact scripts or remote resources execute."
+        }
+      ],
+      "technical": {
+        "evidence": "Artifact content hash, current file, review revision, attributed annotations and effective verdict.",
+        "method": "Serve only the saved snapshot through a token-authenticated loopback API. Bind each feedback mutation to both record revision and content hash.",
+        "pitfall": "Reusing approval after the underlying plan changed, executing embedded HTML, or granting publication permission from a review decision.",
+        "check": "Edit the artifact after browser approval; effectiveVerdict must become null and a new submission must fail until refresh."
+      },
+      "guides": [
+        {
+          "title": "Composed workflows and reviewed coordination",
+          "path": "references/composed-workflows.md",
+          "when": "Coordinating feature, fix, refactor or MVP phases; use exact worker and canvas operations only when needed"
+        }
+      ]
     }
   ]
 }

@@ -1,5 +1,34 @@
 # Changelog
 
+## 0.10.0
+
+- Deliver source and focused methods for the 49-group frozen ECC backlog; track partial acceptance separately from implementation and retain the original comparison as a historical snapshot.
+- Correct twelve release-review defects in enforcement, session privacy, concurrent installation/recovery, cancellation, reconnect reservations, service startup, transcript truncation, historical pricing, telemetry identity and dispatch retention. Add process/crash regressions and an actual packed-archive upgrade/rollback test.
+- Add scoped configuration cleanup, skill maintenance, visible session imports/checkpoints, declarative behavior rules, MCP health and exact-version dependency indicators.
+- Add trusted runners, pre-commit/pre-push hooks, bounded jobs and services, cross-host councils, evaluation/promotion receipts, code tours, context graph, usage and telemetry exports.
+- Add the loopback operator and offline catalog, with explicitly enabled preview/apply project-adapter management.
+- Add 43 focused methods, 12 additional specialists, seven skill-file adapters, Kiro v1 event support, 22 connector recipes and an optional Python OpenAI/Anthropic/Ollama client.
+- Add integrity-pinned reviewed updates/rollback previews, edited-file protection, maintained getting-started translations and CPU evaluation examples.
+
+- Add bounded context-capacity, repeated-call and scope warnings, plus an optional Claude status-line bridge using actual host metrics.
+- Add inert quality-preset discovery, separately trusted batched formatting and staged-content commit checks that reject stale or incomplete evidence.
+- Add Cursor event hooks and OpenCode plugin events/tools behind explicit installation choices, with shared-configuration preservation and interruption recovery. Add Zed project skills and Hermes home skills.
+- Add GitHub epic snapshots, dependency/ownership/progress plans, exact comment previews, stale-state checks and uncertain-publication recovery/reconciliation.
+- Add JSON, Markdown and SARIF security reports with CI severity gates, broader configuration indicators and an explicitly pinned/trusted optional AgentShield runner.
+- Add conditional Django, FastAPI, Spring Boot, Flutter and React Native guides to existing build, repair, review and test workflows. Expand the native MCP interface to 45 tools.
+
+- Add guided project configuration, native task selection/evidence tools, grounded preference proposals with conditions/exceptions, and recoverable context backup/import/transfer.
+- Add `/orchestrate` and `/plan-review`, feature/fix/refactor/MVP phase contracts, dependent assignments with bounded retries, reviewed worker application with undo, and a private browser canvas with version-bound feedback.
+- Bind all goal evidence to source/branch/index state; preserve negative-learning decisions through pruning; scan structured MCP settings and exact loopback hosts; register Claude failure events.
+- Deliver complete canonical methods, selected technical rules and approved preferences to native specialists. Generate Codex-compatible MCP launch paths for persistent bundled installs.
+- Add Kimi, Qwen, Windsurf and Antigravity IDE adapters and opt-in real-host/browser verification runners.
+
+- Add the goal skill and persistent criteria, progress, blockers, evidence and resume context.
+- Add scoped memory and handoffs, native MCP tools, 12 specialist agents and bounded worktree workers.
+- Add optional action guards, a static agent-configuration scanner, observed-pattern review, preference sharing and skill/agent draft generation.
+- Add a local activity/health report, selective skill installation, 16 language/framework rule packs and owned-file adapters for Cursor, OpenCode, Copilot, Gemini, Kimi, Qwen, Windsurf and Antigravity IDE.
+- Preserve existing defaults and user edits; document activation, privacy, host coverage and verification limits.
+
 ## 0.9.0
 
 - Add automatic request routing and compaction/resume context through native Codex/Claude plugin hooks, with focused workflow loading and guidance for discovering actual host capabilities.

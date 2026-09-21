@@ -55,6 +55,8 @@ Update the requested project CLAUDE.md, AGENTS.md or established scoped instruct
 - Building or updating CLAUDE.md/AGENTS.md from an explicit rule or conversation context: [Instruction memory](../../references/instruction-memory.md).
 - Saving requested preferences, decisions or a named continuation: [Project continuity](../../references/daily-workflows.md).
 - Inspecting instruction loading or saving a checkable correction: [Rules, provenance and guards](../../references/memory-checks.md).
+- The task needs scoped memory search, a persistent goal, independent review, configuration scanning, worker control, learned-pattern review or editor installation: [Native memory, goals, specialists and runtime controls](../../references/runtime-platform.md).
+- The task specifically involves side question, aside, remember context, compaction summary; load only the matching method: [Side questions and durable context](../../references/methods/session-aside.md).
 
 ## Decision branches
 

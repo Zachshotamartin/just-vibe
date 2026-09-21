@@ -2,6 +2,7 @@ import { existsSync, lstatSync, realpathSync, readFileSync, readlinkSync, mkdirS
 import { resolve, join, relative, sep, dirname, isAbsolute } from 'node:path';
 import { createHash, randomUUID } from 'node:crypto';
 import { gitRead } from './project.mjs';
+import { withFileLock, atomicFile } from './file-lock.mjs';
 
 export const digest = value => createHash('sha256').update(value).digest('hex');
 export const projectRoot = root => realpathSync(resolve(root));
@@ -30,25 +31,15 @@ export function atomicJson(root, relativePath, value, expectedRevision, maxBytes
   const path = within(root, relativePath);
   within(root, dirname(path));
   mkdirSync(dirname(path), { recursive: true });
-  const lock = `${path}.lock`;
-  let handle;
-  try { handle = openSync(lock, 'wx', 0o600); } catch { throw Error('State is being updated; retry after the current writer finishes.'); }
-  const temporary = `${path}.${randomUUID()}.tmp`;
-  try {
-    writeFileSync(handle, JSON.stringify({ pid: process.pid, createdAt: new Date().toISOString() }));
+  return withFileLock(`${path}.lock`, () => {
     const previous = existsSync(path) ? readJson(path, maxBytes) : null;
     if ((previous?.revision ?? 0) !== expectedRevision) throw Error('State revision changed. Read it again before updating.');
     const record = { ...value, revision: expectedRevision + 1 };
     const text = JSON.stringify(record, null, 2) + '\n';
     if (Buffer.byteLength(text) > maxBytes) throw Error(`State exceeds ${maxBytes} bytes.`);
-    writeFileSync(temporary, text, { flag: 'wx', mode: 0o600 });
-    renameSync(temporary, path);
+    atomicFile(path, text);
     return record;
-  } finally {
-    closeSync(handle);
-    if (existsSync(temporary)) unlinkSync(temporary);
-    unlinkSync(lock);
-  }
+  });
 }
 
 export function fingerprint(root) {

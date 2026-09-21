@@ -1,6 +1,6 @@
 # Compatibility and support
 
-The runtime requires Node.js 22 or newer. CI exercises Node 22 and 24 on Linux, macOS and Windows, including an extracted npm archive. npm, pnpm 10.14.0/12.5.1 and Yarn 4.18.0 execution checks run on Node 24. Node 26 is also used for local development checks.
+The runtime requires Node.js 22 or newer. The CI matrix is configured to exercise Node 22 and 24 on Linux, macOS and Windows, including an extracted npm archive. npm, pnpm 10.14.0/12.5.1 and Yarn 4.18.0 execution checks run on Node 24. Node 26 is also used for local development checks.
 
 Real native Codex/Claude plugin lifecycle checks are performed separately on macOS. Windows and Linux CI checks validate the toolkit and packaging; they do not establish native agent-host support. On Windows, use a host CLI that supports native plugins. Native executables and standard npm-generated Node `.cmd` shims are supported; other batch wrappers are rejected with guidance rather than interpreted as shell code. WSL can use the Linux setup path when the selected host supports it. Host and operating-system support remain subject to the host's own requirements.
 
@@ -41,3 +41,19 @@ Version 0.9.0 adds request routing, resume/compaction restoration, tool-activity
 Codex supplies the CLAUDE_PLUGIN_ROOT compatibility variable used by the shared hook command. Both adapters are exercised with fixture events; native install/update/uninstall lifecycle checks run separately on macOS. This does not establish every event on every host/OS or perfect model adherence. Hosted tools and some specialized paths can be absent from tool-hook observations. Use actual attributed evidence rather than inferring success from missing or returned tool events.
 
 Personal learning and task state live under ~/.just-vibe/adaptive (or JUST_VIBE_HOME), keyed by canonical project and host/session. See the [adaptive reference](../plugins/just-vibe/references/adaptive.md) and [implementation/validation record](adaptive-assistance.md).
+
+## Runtime expansion in v0.10.0
+
+The source checkout adds native stdio MCP tools, a persistent goal skill, project/user/team memory, reviewed pattern learning, configuration scans, targeted PreToolUse policy, independent specialists and optional local workers. Native Codex/Claude plugin integration remains the primary path. Cursor and OpenCode provide project skills plus optional native event adapters selected with `--editor-hooks`. Copilot, Gemini, Kimi, Qwen, Windsurf, Antigravity IDE and Zed provide project skills; Hermes targets the explicitly chosen Hermes home. These installers preserve host permissions and provider configuration. Codex specialist definitions use a separate project adapter. Read the [runtime feature and verification guide](runtime-tools.md), [host matrix](../plugins/just-vibe/references/runtime-platform.md) and [event schemas and limits](../plugins/just-vibe/references/runtime-depth.md).
+
+Cursor event fixtures cover prompt routing, policy denial and owned configuration changes. OpenCode uses its host-provided plugin SDK, including the version-sensitive experimental system-context hook. Neither establishes live event delivery on every editor version. Only Claude has an included capacity status-line bridge; other hosts need real metrics through the documented observation interface. Commit checks recognize direct shell invocations and do not replace native Git/CI enforcement. AgentShield is separately installed and trusted; its optional paid analysis was not run during fixture validation.
+
+Policy, observation and workers remain opt-in. MCP memory/preference writes, user scope and worker launch have separate enablement. Worker CLI support requires the selected host's documented flags and account access. Fixture process tests do not establish live model behavior or Windows host parity. The 0.10.0 release record covers this expansion; the older 0.9.0 publication record remains historical.
+
+## Current backlog expansion contracts
+
+The source adds 43 methods, 24 total specialists and 48 total MCP tools. Nineteen adapter targets are enumerated, including the Codex/Claude specialist adapters; native plugin installation remains separate. AdaL, CodeBuddy, JoyCode, OpenClaw, Pi and Trae are skill-file contracts. Kiro also has explicit v1 hook and steering support. Current local fixtures cover their owned-file install/update/uninstall and Kiro event translation; live activation in these hosts is unverified.
+
+The operator/catalog browser was checked in Chromium at desktop/mobile widths, with keyboard interaction, reduced motion, accessibility scanning, local record actions and a reviewed fixture installation. Python provider tests use loopback HTTP and visible streaming/request fixtures; paid OpenAI/Anthropic and real Ollama requests were not run. CPU ranking/split examples do not establish CUDA/distributed behavior.
+
+Native Git pre-commit/pre-push hooks are opt-in and preserve foreign hook managers. Pre-push requires an explicitly trusted verifier and a clean checkout matching the pushed HEAD. Service supervisors own only their child processes; stale PID recovery requires inspection. Cross-platform CI configuration is not a claim of a completed CI run, especially while GitHub Actions minutes are unavailable. Source/baseline comparisons and current evidence are tracked separately in the [frozen-backlog implementation](ecc-implementation-plan.md).

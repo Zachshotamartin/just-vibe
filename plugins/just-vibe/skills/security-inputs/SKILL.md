@@ -47,6 +47,10 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 - When a concrete decision or deliverable example would clarify this workflow: [Security worked example](../../references/examples/security.md).
 - Untrusted values reach queries, commands, rendering, URLs or parsers: [Injection and interpreter boundaries](../../references/security/injection.md).
 - An available scanner or dependency advisory check can answer the scoped question: [Scanner selection and evidence](../../references/security/scanners.md).
+- The affected project uses Django / DRF: [Django / DRF](../../references/frameworks/django.md).
+- The affected project uses FastAPI: [FastAPI](../../references/frameworks/fastapi.md).
+- The affected project uses Spring Boot: [Spring Boot](../../references/frameworks/spring-boot.md).
+- The task specifically involves bug bounty, authorized pentest, security proof; load only the matching method: [Authorized vulnerability research](../../references/methods/authorized-security-research.md).
 
 ## Decision branches
 

@@ -35,6 +35,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 1. Find affected modules, check existing patterns, order dependencies, identify verification and rollout needs, and separate discovery tasks from known changes.
 2. Connect each step to actual files, interfaces and a completion check; put discovery before changes that depend on uncertain contracts.
+3. For a multi-phase feature, fix, refactor or MVP, use the relevant phase contract in the composed-workflows guide. Keep simple work direct. Delegate only when authorized, and use the reviewed worker result and acceptance flow before dependent work. Offer the plan-review canvas only when browser feedback is useful or requested.
 ## Technical method
 
 - **Inspect:** Inspect relevant code, dependencies, current tests and the requested result.
@@ -45,7 +46,8 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 ## Read when relevant
 
 - When a concrete decision or deliverable example would clarify this workflow: [General worked example](../../references/examples/general.md).
-
+- Coordinating feature, fix, refactor or MVP phases; use exact worker and canvas operations only when needed: [Composed workflows and reviewed coordination](../../references/composed-workflows.md).
+- The task specifically involves prd, prp, team plan, delegation plan; load only the matching method: [PRD, implementation plans and team handoffs](../../references/methods/planning-teams.md).
 
 ## Decision branches
 

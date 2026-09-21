@@ -46,7 +46,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 ## Read when relevant
 
 - When a concrete decision or deliverable example would clarify this workflow: [GitHub worked example](../../references/examples/github.md).
-
+- The request needs proactive context warnings, detected checks, native editor events, GitHub epic coordination or configuration audit reports: [Context health, check presets, editor events and shared work](../../references/runtime-depth.md).
 
 ## Decision branches
 

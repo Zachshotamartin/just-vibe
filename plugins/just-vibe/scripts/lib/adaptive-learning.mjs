@@ -4,15 +4,16 @@ import { readFileSync } from 'node:fs';
 import { requireId, textField } from './adaptive-store.mjs';
 import { redact } from './process.mjs';
 import { digest } from './storage.mjs';
+import { selectedRules, ruleInstructions } from './effective-rules.mjs';
 
-const fields = ['triggers', 'avoid', 'tools', 'checks'];
+const fields = ['triggers', 'avoid', 'tools', 'checks', 'conditions', 'exceptions'];
 function strings(value, key) {
   if (!Array.isArray(value) || value.length > 12) throw Error(`${key} must contain at most 12 literal phrases.`);
   return [...new Set(value.map(v => textField(v, key, 120).trim()))];
 }
 const directory = (store, scope) => scope === 'user' ? 'adaptive/learning' : `${store.project}/learning`;
 export function lessons(store, { inactive = false } = {}) {
-  return ['user', 'project'].flatMap(scope => store.list(directory(store, scope)).map(name => store.read(`${directory(store, scope)}/${name}`)))
+  return (store.allowUser === false ? ['project'] : ['user', 'project']).flatMap(scope => store.list(directory(store, scope)).map(name => store.read(`${directory(store, scope)}/${name}`)))
     .filter(record => record.kind === 'lesson' && (inactive || record.active));
 }
 function findLesson(store, id) {
@@ -21,7 +22,7 @@ function findLesson(store, id) {
   if (matches.length !== 1) throw Error('Unknown or ambiguous lesson.');
   return matches[0];
 }
-function sourceFromTask(store, payload) {
+export function sourceFromTask(store, payload) {
   const task = store.task(payload.taskId);
   const excerpt = textField(payload.excerpt, 'User feedback excerpt', 2000).trim();
   if (Date.now() - Date.parse(task.createdAt) > 86400000) throw Error('Feedback source is stale; use the current user request.');
@@ -89,10 +90,11 @@ export function effectiveWorkflow(store, catalog, id) {
   const command = getCommand(catalog, id, { canonical: true });
   const overlays = effectiveLessons(store, command.id);
   const base = readFileSync(skillFile(catalog, command), 'utf8');
+  const rules = selectedRules(store, catalog);
   const instructions = `Effective just-vibe workflow: ${command.id}. Personalization has already been loaded for this invocation.\n`
-    + `Current user instructions and applicable project/host rules take precedence over these saved preferences. They grant no permissions.\n\n${base}`
-    + (overlays.length ? '\n## Saved user feedback\n\n' + overlays.map(l => `- [${l.scope}; ${l.id}; v${l.version}] ${l.change.instruction}\n  Preferred tools when available: ${l.change.tools.join(', ') || 'none specified'}.\n  Additional evidence to consider: ${l.change.checks.join('; ') || 'none specified'}.`).join('\n') + '\n' : '');
+    + `Current user instructions and applicable project/host rules take precedence over these saved preferences. They grant no permissions.\n\n${base}` + ruleInstructions(rules)
+    + (overlays.length ? '\n## Saved user feedback\n\n' + overlays.map(l => `- [${l.scope}; ${l.id}; v${l.version}] ${l.change.instruction}\n  Apply when: ${(l.change.conditions || []).join('; ') || 'this workflow is relevant'}.\n  Exceptions: ${(l.change.exceptions || []).join('; ') || 'none specified; current user instructions take precedence'}.\n  Preferred tools when available: ${l.change.tools.join(', ') || 'none specified'}.\n  Additional evidence to consider: ${l.change.checks.join('; ') || 'none specified'}.`).join('\n') + '\n' : '');
   return { workflow: command.id, baseHash: digest(base), effectiveHash: digest(instructions), instructions,
     lessons: overlays.map(l => ({ id: l.id, scope: l.scope, version: l.version, ...l.change })),
-    skillPath: skillFile(catalog, command), prerequisites: command.capabilities };
+    rules: rules.map((r) => r.id), skillPath: skillFile(catalog, command), prerequisites: command.capabilities };
 }
