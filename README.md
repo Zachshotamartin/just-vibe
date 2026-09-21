@@ -46,7 +46,7 @@ v0.8.0 adds working runtime helpers behind natural-language skill requests:
 
 See the [workflow guide](plugins/just-vibe/references/intent-workflows.md) for examples, boundaries and recovery. Users provide ordinary briefs; the agent prepares the helper inputs. These features support judgment rather than claiming an objective quality score.
 
-**Release version: 0.10.0.** Check [npm](https://www.npmjs.com/package/just-vibe) for the current `latest` tag. The [0.10.0 release validation record](evals/releases/0.10.0.md) describes the tested capabilities, platform limits and release-specific GitHub Actions waiver. No CI pass is claimed.
+**Publication status:** [just-vibe 0.10.0 is published on npm](https://www.npmjs.com/package/just-vibe/v/0.10.0) as `latest`. Registry integrity and fresh-cache execution match the tested archive. See the [publication record](evals/releases/0.10.0-publication.json) and [release validation](evals/releases/0.10.0.md). GitHub Actions was waived for this release because account billing prevented jobs from starting; no CI pass is claimed.
 
 
 ## Use the workflows

@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "name": "just-vibe",
+  "version": "0.10.0",
+  "registry": "https://registry.npmjs.org/",
+  "sourceCommit": "8ccd58b2b635a6ef2613d76fb2805eeabf0d2655",
+  "sha256": "5ce8e52fe8a7fa3abda0cfd95b4cd5b0e30a9e1c0fac195a3d2b5d554c5f389a",
+  "integrity": "sha512-VtHo38fk14S2yJbadwxe6fbk4ySPHuhEMXIUBME3hzzE7ONF46r9rbxWTfOUzHb9xadQgRaMFyQkR6EVuZ6p5g==",
+  "shasum": "da1c3873f48b7ba257a4cd326997f4c9ffaba334",
+  "verifiedAt": "2026-09-21T07:25:46.500Z",
+  "distTag": "latest",
+  "registryExecution": "0.10.0",
+  "ci": {
+    "status": "waived",
+    "authorization": "Maintainer requested merge and release, retaining the instruction to proceed with local checks while Actions minutes are unavailable.",
+    "reason": "Jobs could not start because of account billing/spending restrictions.",
+    "run": "https://github.com/Zachshotamartin/just-vibe/actions/runs/35572110903",
+    "scope": "0.10.0 only; normal publisher CI gate unchanged."
+  },
+  "localValidation": {
+    "tests": 328,
+    "passed": 327,
+    "failed": 0,
+    "skipped": 1,
+    "skipReason": "Windows-only test on macOS",
+    "releaseNode": "v24.21.0",
+    "skillsValidated": 219,
+    "archiveFiles": 784,
+    "archivePackageManagers": [
+      "npm",
+      "pnpm 10.14.0",
+      "pnpm 12.5.1",
+      "Yarn 4.18.0"
+    ],
+    "nativeHosts": {
+      "codex": "0.152.0",
+      "claude": "2.1.258",
+      "result": "Both isolated installation lifecycles passed"
+    },
+    "website": {
+      "pages": 353,
+      "tests": 4,
+      "result": "Vercel production deployment succeeded; release, workbench and goals pages return HTTP 200 and show 0.10.0."
+    },
+    "record": "0.10.0.md"
+  },
+  "publicationNote": "Published once after required browser verification. The accepted upload was reconciled through read-only registry checks while processing; it was not resubmitted."
+}
