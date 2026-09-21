@@ -357,8 +357,7 @@
     width: 100%;
     height: auto;
     aspect-ratio: 1;
-    object-fit: cover;
-    mix-blend-mode: multiply;
+    object-fit: contain;
   }
   .art-caption {
     display: flex;
@@ -1407,7 +1406,6 @@
   }
   .hero-art img {
     min-height: 0;
-    object-fit: cover;
   }
   .art-caption {
     font-size: 8px;
@@ -1647,9 +1645,6 @@
   .hero-art img {
     height: 325px;
     min-height: 0;
-    object-fit: cover;
-    object-position: center 53%;
-    mix-blend-mode: multiply;
   }
   .art-caption {
     flex-direction: row;
