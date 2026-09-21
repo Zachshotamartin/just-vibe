@@ -379,11 +379,11 @@
         },
         {
           "path": "tests/release-regressions.test.mjs",
-          "sha256": "361825a1a45c12565298cc2adec07c27d47771e6a0b3bde3457d33763d4579da"
+          "sha256": "cfd117e4dfbb7b1a5c781620b51a56572cb77e8c26fc4e7a848c64ab6aabf551"
         },
         {
           "path": "plugins/just-vibe/scripts/lib/file-lock.mjs",
-          "sha256": "40efcf3fc640ba124e6207f919cabe885f5a160e41b20b0d7a4f079c7ebe2afb"
+          "sha256": "2195eecdcc87c85b6082cc21b5e077e6cc99556fd54930b81376ddd16d6ec7e0"
         },
         {
           "path": "plugins/just-vibe/scripts/lib/execution-control.mjs",
@@ -538,11 +538,11 @@
         },
         {
           "path": "tests/release-regressions.test.mjs",
-          "sha256": "361825a1a45c12565298cc2adec07c27d47771e6a0b3bde3457d33763d4579da"
+          "sha256": "cfd117e4dfbb7b1a5c781620b51a56572cb77e8c26fc4e7a848c64ab6aabf551"
         },
         {
           "path": "plugins/just-vibe/scripts/lib/file-lock.mjs",
-          "sha256": "40efcf3fc640ba124e6207f919cabe885f5a160e41b20b0d7a4f079c7ebe2afb"
+          "sha256": "2195eecdcc87c85b6082cc21b5e077e6cc99556fd54930b81376ddd16d6ec7e0"
         },
         {
           "path": "plugins/just-vibe/scripts/lib/execution-control.mjs",
@@ -599,11 +599,11 @@
         },
         {
           "path": "tests/release-regressions.test.mjs",
-          "sha256": "361825a1a45c12565298cc2adec07c27d47771e6a0b3bde3457d33763d4579da"
+          "sha256": "cfd117e4dfbb7b1a5c781620b51a56572cb77e8c26fc4e7a848c64ab6aabf551"
         },
         {
           "path": "plugins/just-vibe/scripts/lib/file-lock.mjs",
-          "sha256": "40efcf3fc640ba124e6207f919cabe885f5a160e41b20b0d7a4f079c7ebe2afb"
+          "sha256": "2195eecdcc87c85b6082cc21b5e077e6cc99556fd54930b81376ddd16d6ec7e0"
         },
         {
           "path": "plugins/just-vibe/scripts/lib/execution-control.mjs",
@@ -656,11 +656,11 @@
         },
         {
           "path": "tests/release-regressions.test.mjs",
-          "sha256": "361825a1a45c12565298cc2adec07c27d47771e6a0b3bde3457d33763d4579da"
+          "sha256": "cfd117e4dfbb7b1a5c781620b51a56572cb77e8c26fc4e7a848c64ab6aabf551"
         },
         {
           "path": "plugins/just-vibe/scripts/lib/file-lock.mjs",
-          "sha256": "40efcf3fc640ba124e6207f919cabe885f5a160e41b20b0d7a4f079c7ebe2afb"
+          "sha256": "2195eecdcc87c85b6082cc21b5e077e6cc99556fd54930b81376ddd16d6ec7e0"
         },
         {
           "path": "plugins/just-vibe/scripts/lib/execution-control.mjs",
@@ -715,11 +715,11 @@
         },
         {
           "path": "tests/release-regressions.test.mjs",
-          "sha256": "361825a1a45c12565298cc2adec07c27d47771e6a0b3bde3457d33763d4579da"
+          "sha256": "cfd117e4dfbb7b1a5c781620b51a56572cb77e8c26fc4e7a848c64ab6aabf551"
         },
         {
           "path": "plugins/just-vibe/scripts/lib/file-lock.mjs",
-          "sha256": "40efcf3fc640ba124e6207f919cabe885f5a160e41b20b0d7a4f079c7ebe2afb"
+          "sha256": "2195eecdcc87c85b6082cc21b5e077e6cc99556fd54930b81376ddd16d6ec7e0"
         },
         {
           "path": "plugins/just-vibe/scripts/lib/execution-control.mjs",
@@ -813,11 +813,11 @@
         },
         {
           "path": "tests/release-regressions.test.mjs",
-          "sha256": "361825a1a45c12565298cc2adec07c27d47771e6a0b3bde3457d33763d4579da"
+          "sha256": "cfd117e4dfbb7b1a5c781620b51a56572cb77e8c26fc4e7a848c64ab6aabf551"
         },
         {
           "path": "plugins/just-vibe/scripts/lib/file-lock.mjs",
-          "sha256": "40efcf3fc640ba124e6207f919cabe885f5a160e41b20b0d7a4f079c7ebe2afb"
+          "sha256": "2195eecdcc87c85b6082cc21b5e077e6cc99556fd54930b81376ddd16d6ec7e0"
         },
         {
           "path": "plugins/just-vibe/scripts/lib/execution-control.mjs",
@@ -925,11 +925,11 @@
         },
         {
           "path": "tests/release-regressions.test.mjs",
-          "sha256": "361825a1a45c12565298cc2adec07c27d47771e6a0b3bde3457d33763d4579da"
+          "sha256": "cfd117e4dfbb7b1a5c781620b51a56572cb77e8c26fc4e7a848c64ab6aabf551"
         },
         {
           "path": "plugins/just-vibe/scripts/lib/file-lock.mjs",
-          "sha256": "40efcf3fc640ba124e6207f919cabe885f5a160e41b20b0d7a4f079c7ebe2afb"
+          "sha256": "2195eecdcc87c85b6082cc21b5e077e6cc99556fd54930b81376ddd16d6ec7e0"
         },
         {
           "path": "plugins/just-vibe/scripts/lib/execution-control.mjs",
@@ -984,11 +984,11 @@
         },
         {
           "path": "tests/release-regressions.test.mjs",
-          "sha256": "361825a1a45c12565298cc2adec07c27d47771e6a0b3bde3457d33763d4579da"
+          "sha256": "cfd117e4dfbb7b1a5c781620b51a56572cb77e8c26fc4e7a848c64ab6aabf551"
         },
         {
           "path": "plugins/just-vibe/scripts/lib/file-lock.mjs",
-          "sha256": "40efcf3fc640ba124e6207f919cabe885f5a160e41b20b0d7a4f079c7ebe2afb"
+          "sha256": "2195eecdcc87c85b6082cc21b5e077e6cc99556fd54930b81376ddd16d6ec7e0"
         },
         {
           "path": "plugins/just-vibe/scripts/lib/execution-control.mjs",
@@ -1569,11 +1569,11 @@
         },
         {
           "path": "tests/release-regressions.test.mjs",
-          "sha256": "361825a1a45c12565298cc2adec07c27d47771e6a0b3bde3457d33763d4579da"
+          "sha256": "cfd117e4dfbb7b1a5c781620b51a56572cb77e8c26fc4e7a848c64ab6aabf551"
         },
         {
           "path": "plugins/just-vibe/scripts/lib/file-lock.mjs",
-          "sha256": "40efcf3fc640ba124e6207f919cabe885f5a160e41b20b0d7a4f079c7ebe2afb"
+          "sha256": "2195eecdcc87c85b6082cc21b5e077e6cc99556fd54930b81376ddd16d6ec7e0"
         },
         {
           "path": "plugins/just-vibe/scripts/lib/execution-control.mjs",
@@ -1991,11 +1991,11 @@
         },
         {
           "path": "tests/release-regressions.test.mjs",
-          "sha256": "361825a1a45c12565298cc2adec07c27d47771e6a0b3bde3457d33763d4579da"
+          "sha256": "cfd117e4dfbb7b1a5c781620b51a56572cb77e8c26fc4e7a848c64ab6aabf551"
         },
         {
           "path": "plugins/just-vibe/scripts/lib/file-lock.mjs",
-          "sha256": "40efcf3fc640ba124e6207f919cabe885f5a160e41b20b0d7a4f079c7ebe2afb"
+          "sha256": "2195eecdcc87c85b6082cc21b5e077e6cc99556fd54930b81376ddd16d6ec7e0"
         },
         {
           "path": "plugins/just-vibe/scripts/lib/execution-control.mjs",
@@ -2103,11 +2103,11 @@
         },
         {
           "path": "tests/release-regressions.test.mjs",
-          "sha256": "361825a1a45c12565298cc2adec07c27d47771e6a0b3bde3457d33763d4579da"
+          "sha256": "cfd117e4dfbb7b1a5c781620b51a56572cb77e8c26fc4e7a848c64ab6aabf551"
         },
         {
           "path": "plugins/just-vibe/scripts/lib/file-lock.mjs",
-          "sha256": "40efcf3fc640ba124e6207f919cabe885f5a160e41b20b0d7a4f079c7ebe2afb"
+          "sha256": "2195eecdcc87c85b6082cc21b5e077e6cc99556fd54930b81376ddd16d6ec7e0"
         },
         {
           "path": "plugins/just-vibe/scripts/lib/execution-control.mjs",
@@ -2168,11 +2168,11 @@
         },
         {
           "path": "tests/release-regressions.test.mjs",
-          "sha256": "361825a1a45c12565298cc2adec07c27d47771e6a0b3bde3457d33763d4579da"
+          "sha256": "cfd117e4dfbb7b1a5c781620b51a56572cb77e8c26fc4e7a848c64ab6aabf551"
         },
         {
           "path": "plugins/just-vibe/scripts/lib/file-lock.mjs",
-          "sha256": "40efcf3fc640ba124e6207f919cabe885f5a160e41b20b0d7a4f079c7ebe2afb"
+          "sha256": "2195eecdcc87c85b6082cc21b5e077e6cc99556fd54930b81376ddd16d6ec7e0"
         },
         {
           "path": "plugins/just-vibe/scripts/lib/execution-control.mjs",
@@ -2343,11 +2343,11 @@
         },
         {
           "path": "tests/release-regressions.test.mjs",
-          "sha256": "361825a1a45c12565298cc2adec07c27d47771e6a0b3bde3457d33763d4579da"
+          "sha256": "cfd117e4dfbb7b1a5c781620b51a56572cb77e8c26fc4e7a848c64ab6aabf551"
         },
         {
           "path": "plugins/just-vibe/scripts/lib/file-lock.mjs",
-          "sha256": "40efcf3fc640ba124e6207f919cabe885f5a160e41b20b0d7a4f079c7ebe2afb"
+          "sha256": "2195eecdcc87c85b6082cc21b5e077e6cc99556fd54930b81376ddd16d6ec7e0"
         },
         {
           "path": "plugins/just-vibe/scripts/lib/execution-control.mjs",
@@ -2416,11 +2416,11 @@
         },
         {
           "path": "tests/release-regressions.test.mjs",
-          "sha256": "361825a1a45c12565298cc2adec07c27d47771e6a0b3bde3457d33763d4579da"
+          "sha256": "cfd117e4dfbb7b1a5c781620b51a56572cb77e8c26fc4e7a848c64ab6aabf551"
         },
         {
           "path": "plugins/just-vibe/scripts/lib/file-lock.mjs",
-          "sha256": "40efcf3fc640ba124e6207f919cabe885f5a160e41b20b0d7a4f079c7ebe2afb"
+          "sha256": "2195eecdcc87c85b6082cc21b5e077e6cc99556fd54930b81376ddd16d6ec7e0"
         },
         {
           "path": "plugins/just-vibe/scripts/lib/execution-control.mjs",
@@ -2495,11 +2495,11 @@
         },
         {
           "path": "tests/release-regressions.test.mjs",
-          "sha256": "361825a1a45c12565298cc2adec07c27d47771e6a0b3bde3457d33763d4579da"
+          "sha256": "cfd117e4dfbb7b1a5c781620b51a56572cb77e8c26fc4e7a848c64ab6aabf551"
         },
         {
           "path": "plugins/just-vibe/scripts/lib/file-lock.mjs",
-          "sha256": "40efcf3fc640ba124e6207f919cabe885f5a160e41b20b0d7a4f079c7ebe2afb"
+          "sha256": "2195eecdcc87c85b6082cc21b5e077e6cc99556fd54930b81376ddd16d6ec7e0"
         },
         {
           "path": "plugins/just-vibe/scripts/lib/execution-control.mjs",
