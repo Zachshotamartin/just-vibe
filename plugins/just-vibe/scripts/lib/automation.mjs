@@ -86,6 +86,7 @@ function touchedFiles(event) {
 
 export async function handleHook(event, { home, run = runCommand } = {}) {
   if (!event || !['Stop', 'PostToolUse'].includes(event.hook_event_name) || typeof event.cwd !== 'string') return { skipped: 'unsupported-event' };
+  if (event.hook_event_name === 'PostToolUse' && !['Write', 'Edit', 'MultiEdit', 'apply_patch'].includes(event.tool_name)) return { skipped: 'not-an-edit' };
   // Use the exact configured project, or its Git root when launched in a subdirectory.
   let root = projectRoot(event.cwd);
   if (!existsSync(within(root, configPath))) root = gitRead(root, ['rev-parse', '--show-toplevel']) || root;

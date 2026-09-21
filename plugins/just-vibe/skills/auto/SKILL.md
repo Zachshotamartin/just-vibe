@@ -1,15 +1,15 @@
 ---
 name: auto
-description: "Use the goal and project context to select, execute, and verify appropriate workflows Use to complete a bounded multi-step goal across workflows; direct commands are preferable for one clear operation."
+description: "Select and apply the relevant engineering workflows from an ordinary request Use for ordinary coding, debugging, review, UI, delivery, architecture or ML requests that benefit from project workflows, including multi-step tasks without a command name. Skip unrelated conversation; use a directly relevant skill when it is already selected."
 ---
 
 # auto
 
-Use the goal and project context to select, execute, and verify appropriate workflows
+Select and apply the relevant engineering workflows from an ordinary request
 
 ## Choose this workflow
 
-Use to complete a bounded multi-step goal across workflows; direct commands are preferable for one clear operation.
+Use for ordinary coding, debugging, review, UI, delivery, architecture or ML requests that benefit from project workflows, including multi-step tasks without a command name. Skip unrelated conversation; use a directly relevant skill when it is already selected.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [General methods](../../references/packs/general.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -33,14 +33,15 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Execute
 
-1. Preserve the complete brief, project, scope, constraints, success criteria and current task profile. Inspect only the context needed to choose the next useful workflow. Honor an explicit profile pin.
-2. Choose quick or tracked execution using the daily-workflows guide. A small local fix, explanation or review can stay in conversation context without JSON session calls. The route utility suggests candidates, reasons and a strategy; the host resolves actual intent and effects.
-3. For quick work, read the selected skill and relevant scenario guide, perform the bounded task, verify its actual output and summarize the result. Preserve user constraints and report unavailable evidence. Do not add a planning-only stop to a clear implementation request.
-4. When reversibility is requested, use the task-undo guide to begin a bounded ownership record before the first edit and capture only reviewed task changes afterward. A checkpoint is not an undo snapshot. Use proof reports or the other intent helpers when the brief calls for them; do not make every small task require stored JSON.
-5. Use tracked execution for dependent stages, repeated recovery, saved continuation, external mutations or requested detailed records. Create a run through session create and use session start/record/finish around meaningful stages; use session amend for additional effects and session supersede for evidence-backed alternatives.
-6. If quick work grows, carry the original brief, completed work, observations, selected profile and consumed budget into tracked context. Record remaining stages; never fabricate earlier validated transitions or restart a user limit.
-7. Reconcile uncertain external effects before retrying. Keep failures and stop within the applicable stage/attempt/time budget. Finish only when original success conditions are supported; report partial or blocked results plainly.
-8. Check the original outcome and exclusions before each workflow transition; a new routing suggestion does not expand scope.
+1. When automatic hook context includes a task ID, use the adaptive-assistance guide to select and load only relevant workflows, discover the actual host tools and record meaningful evidence. If hooks are unavailable, use assist start with the current request and host session identity when known, or load the appropriate workflow directly. Do not require the user to name a command.
+2. Preserve the complete brief, project, scope, constraints, success criteria and current task profile. Inspect only the context needed to choose the next useful workflow. Honor an explicit profile pin.
+3. Choose quick or tracked execution using the daily-workflows guide. A small local fix, explanation or review can stay in conversation context without JSON session calls. The route utility suggests candidates, reasons and a strategy; the host resolves actual intent and effects.
+4. For quick work, read the selected skill and relevant scenario guide, perform the bounded task, verify its actual output and summarize the result. Preserve user constraints and report unavailable evidence. Do not add a planning-only stop to a clear implementation request.
+5. When reversibility is requested, use the task-undo guide to begin a bounded ownership record before the first edit and capture only reviewed task changes afterward. A checkpoint is not an undo snapshot. Use proof reports or the other intent helpers when the brief calls for them; do not make every small task require stored JSON.
+6. Use tracked execution for dependent stages, repeated recovery, saved continuation, external mutations or requested detailed records. Create a run through session create and use session start/record/finish around meaningful stages; use session amend for additional effects and session supersede for evidence-backed alternatives.
+7. If quick work grows, carry the original brief, completed work, observations, selected profile and consumed budget into tracked context. Record remaining stages; never fabricate earlier validated transitions or restart a user limit.
+8. Reconcile uncertain external effects before retrying. Keep failures and stop within the applicable stage/attempt/time budget. Finish only when original success conditions are supported; report partial or blocked results plainly.
+9. Check the original outcome and exclusions before each workflow transition; a new routing suggestion does not expand scope.
 ## Technical method
 
 - **Inspect:** Read the complete goal, exclusions, pinned profile, project evidence and stage dependencies.
@@ -51,6 +52,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 ## Read when relevant
 
 - When a concrete decision or deliverable example would clarify this workflow: [General worked example](../../references/examples/general.md).
+- Automatic routing, tool selection, missing evidence or explicit feedback needs handling: [Adaptive assistance](../../references/adaptive.md).
 - Choosing quick versus tracked work: [Daily workflow paths](../../references/daily-workflows.md).
 - Selecting saved-rule, alternative, exercise, proof, experiment, undo or decision support: [Intent and evidence workflows](../../references/intent-workflows.md).
 

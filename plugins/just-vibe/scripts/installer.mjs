@@ -22,7 +22,7 @@ Commands:
   setup       Install through the selected host's native plugin manager
   update      Refresh this marketplace and update its installed plugin
   uninstall   Remove this plugin; keep its marketplace and persistent data
-  doctor      Check prerequisites, marketplace source, and installation
+  doctor      Check prerequisites, source, installation and activation guidance
   help        Show this help
 
 Options:
@@ -43,6 +43,8 @@ Examples:
 Requires Node.js 22+ and the selected host CLI with plugin support.
 Default: install bundled files into ~/.just-vibe (override JUST_VIBE_HOME).
 No GitHub access is needed for bundled installs. --github also requires Git.
+After setup/update, review the plugin hooks in your host and start a new conversation.
+Trusted hooks activate relevant workflows from ordinary requests; slash commands are optional.
 `;
 
 export function parseArgs(args) {
@@ -226,6 +228,7 @@ export function install(options, { run = execute, log = console.log, source = so
       if (state.installed.version !== version) throw new Error(`Installed plugin version differs from the managed source (${version}). Run update to finish applying it.`);
     }
     log(`Healthy: ${PLUGIN}${state.installed.version ? ` v${state.installed.version}` : ''}.`);
+    log('Automatic assistance requires a host with UserPromptSubmit/SessionStart/PostToolUse/Stop hooks and native hook trust. Installation health does not prove event delivery. Use assist status for local settings; inspect hooks in your host if ordinary requests do not activate workflows.');
     return;
   }
   const steps = mutationSteps(options, state, source);
@@ -256,6 +259,7 @@ export function install(options, { run = execute, log = console.log, source = so
     }
     if (expectedVersion && final.installed.version !== expectedVersion) throw new Error(`Host still reports v${final.installed.version || 'unknown'} instead of bundled v${expectedVersion}. Run update and inspect its plugin list.`);
     log(`Ready: ${PLUGIN}. Start a new conversation to load the skills.`);
+    log('Review new or changed plugin hooks in your host (Codex: /hooks). Once trusted, describe your task normally. No workflow name is required. The installer does not grant hook trust or service permissions.');
   }
 }
 

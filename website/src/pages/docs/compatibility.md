@@ -18,7 +18,7 @@ The toolkit's scope rules and state bookkeeping are not a security sandbox. Curr
 
 ## Optional capabilities
 
-GitHub workflows need appropriate GitHub access. Vercel operations need your team, project, and authenticated tool. Database operations need the selected engine and environment. Training needs data, a compute budget, and authorized hardware. Browser evidence requires project-installed Playwright and Chromium.
+GitHub workflows need appropriate GitHub access. Vercel operations need your team, project, and authenticated tool. Database operations need the selected engine and environment. Training needs data, a compute budget, and authorized hardware. The standalone browser evidence collector requires project-installed Playwright and Chromium; an active agent can also use its available native browser tools.
 
 Installation does not install those optional providers or authenticate external services.
 
@@ -28,7 +28,7 @@ Teach-test requires a question tool that permits assessment in the active mode. 
 
 ## Local state and ownership
 
-Supporting state lives in `.just-vibe/` in the selected project. Instructions can be saved to AGENTS.md or CLAUDE.md. Nothing is uploaded automatically by these helpers. Local reports may contain paths, source excerpts, and command output, so share them intentionally.
+Most supporting state lives in `.just-vibe/` in the selected project. Automatic assistance in v0.9.0 and later keeps personal/project learning and bounded task records under `~/.just-vibe/adaptive`, outside the repository. Instructions can be saved to AGENTS.md or CLAUDE.md. Nothing is uploaded automatically by these helpers. Local reports may contain paths, source excerpts, and command output, so share them intentionally.
 
 All changes belong to the user. Agents are instructed not to add self-attribution to commits, pull requests, or messages.
 

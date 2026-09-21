@@ -4400,7 +4400,7 @@
     {
       "id": "auto",
       "pack": "general",
-      "summary": "Use the goal and project context to select, execute, and verify appropriate workflows",
+      "summary": "Select and apply the relevant engineering workflows from an ordinary request",
       "aliases": [
         "do"
       ],
@@ -4423,6 +4423,7 @@
       "readScope": "Smallest useful sequence completing that goal; no extra product work or authority expansion.",
       "writeScope": "Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.",
       "procedure": [
+        "When automatic hook context includes a task ID, use the adaptive-assistance guide to select and load only relevant workflows, discover the actual host tools and record meaningful evidence. If hooks are unavailable, use assist start with the current request and host session identity when known, or load the appropriate workflow directly. Do not require the user to name a command.",
         "Preserve the complete brief, project, scope, constraints, success criteria and current task profile. Inspect only the context needed to choose the next useful workflow. Honor an explicit profile pin.",
         "Choose quick or tracked execution using the daily-workflows guide. A small local fix, explanation or review can stay in conversation context without JSON session calls. The route utility suggests candidates, reasons and a strategy; the host resolves actual intent and effects.",
         "For quick work, read the selected skill and relevant scenario guide, perform the bounded task, verify its actual output and summarize the result. Preserve user constraints and report unavailable evidence. Do not add a planning-only stop to a clear implementation request.",
@@ -4472,7 +4473,7 @@
       "skillPath": "skills/auto/SKILL.md",
       "runtimeSteps": [],
       "searchTerms": [],
-      "selection": "Use to complete a bounded multi-step goal across workflows; direct commands are preferable for one clear operation.",
+      "selection": "Use for ordinary coding, debugging, review, UI, delivery, architecture or ML requests that benefit from project workflows, including multi-step tasks without a command name. Skip unrelated conversation; use a directly relevant skill when it is already selected.",
       "branches": [
         {
           "when": "one bounded local workflow is sufficient",
@@ -4484,6 +4485,11 @@
         }
       ],
       "guides": [
+        {
+          "when": "Automatic routing, tool selection, missing evidence or explicit feedback needs handling",
+          "title": "Adaptive assistance",
+          "path": "references/adaptive.md"
+        },
         {
           "title": "Daily workflow paths",
           "when": "Choosing quick versus tracked work",

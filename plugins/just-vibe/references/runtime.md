@@ -6,6 +6,8 @@ The utilities are dependency-free Node.js 22+ modules. Their paths and manifests
 
 Use [daily workflows](daily-workflows.md) for project preferences/checkpoints, evidence collectors and explicitly configured hooks. Use the [intent workflow index](intent-workflows.md) for managed rules and guards, memory inspection, working alternatives, requirement proofs, project exercises, ML imports/comparisons, task undo and decision history. Those guides define each operation's JSON input, limits, persistent files and recovery behavior.
 
+Use [adaptive assistance](adaptive.md) for ordinary-request activation, focused workflow loading, actual tool discovery, scoped feedback updates, evidence records and bounded completion reminders. Its personal state is outside the repository. The active host interprets the request and feedback; the runtime does not call a model.
+
 Persistent intent operations run as `node toolkit.mjs NAMESPACE OPERATION [NAME] --root PROJECT`, with `--stdin` for the operations that accept JSON. Mutations require the current record revision; new records use zero. Unlike the session state machine below, these helpers can write local state/files and execute explicitly requested checks or previews. They do not launch a model or treat a saved command as fresh permission.
 
 ## Capability observations
@@ -71,6 +73,6 @@ Example: stage A cannot obtain a local configuration through one inspection meth
 
 Claude Code discovers skill directories beneath the plugin's `skills/` path. Invoke `/just-vibe:fix` followed by the complete brief. The files use ordinary name/description frontmatter and let the host append invocation arguments, avoiding shell interpolation or dynamic pre-execution.
 
-Codex uses its native plugin skill picker. Select a just-vibe skill and append the brief. Do not claim that Claude's namespaced slash syntax is supported by every Codex surface. Both hosts read the same instruction files and bundled references. Optional bundled hooks remain inactive without project configuration and local trust; Codex native hook trust is separate. No model override, auto-delegation, MCP permission or automatic network connection is installed. See [daily workflows](daily-workflows.md) for project persistence, evidence collectors and hook configuration.
+With automatic hooks enabled and trusted, ordinary requests activate a compact workflow selection path. Direct selection remains available in Codex's native plugin skill picker and Claude's namespaced slash commands; do not claim identical syntax on every surface. Both hosts read the same instruction files and personal overlays. Optional project check/formatter hooks remain inactive without project configuration and local trust, separate from automatic routing and native hook trust. No model override, auto-delegation, MCP permission or automatic network connection is installed. See [adaptive assistance](adaptive.md) for activation and [daily workflows](daily-workflows.md) for project persistence, collectors and configured checks.
 
 Source references: [OpenAI skill format](https://developers.openai.com/plugins/build/skills), [OpenAI plugin packaging](https://developers.openai.com/plugins/build/plugins), and [Claude Code skill arguments](https://code.claude.com/docs/en/skills#pass-arguments-to-skills).

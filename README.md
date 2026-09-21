@@ -4,7 +4,7 @@ Tools, skills, and commands for coding agents.
 
 [Website](https://just-vibe-tools.vercel.app/) · [Documentation](https://just-vibe-tools.vercel.app/docs/) · [Command library](https://just-vibe-tools.vercel.app/commands/) · [Engineering profiles](https://just-vibe-tools.vercel.app/profiles/)
 
-**v0.8.1 contains 112 engineering profiles and 216 skill names backed by 213 canonical workflows** for Codex and Claude Code: focused skills for development, architecture, decisions, Git/GitHub, Vercel, Vite, React, UI, backend, APIs, databases, data, ML, LLMs, testing, security, and operations. Each canonical workflow has selection guidance, scope, concrete decision branches, evidence requirements, outputs, verification, recovery conditions and at least three example requests. Each entry point also contains an authored technical method: evidence to inspect, a procedure, a likely misdiagnosis and a discriminating check. Applied methods live in 22 pack guides. The v0.8.1 prompt update adds explicit infer/default/ask policies, a conditional worked example for each pack, and guidance for preserving corrections across turns; see [prompt improvements](docs/prompt-improvements.md).
+**v0.9.0 contains 112 engineering profiles and 216 skill names backed by 213 canonical workflows** for Codex and Claude Code: focused skills for development, architecture, decisions, Git/GitHub, Vercel, Vite, React, UI, backend, APIs, databases, data, ML, LLMs, testing, security, and operations. Each canonical workflow has selection guidance, scope, concrete decision branches, evidence requirements, outputs, verification, recovery conditions and at least three example requests. Each entry point also contains an authored technical method: evidence to inspect, a procedure, a likely misdiagnosis and a discriminating check. Applied methods live in 22 pack guides. The v0.8.1 prompt update adds explicit infer/default/ask policies, a conditional worked example for each pack, and guidance for preserving corrections across turns; see [prompt improvements](docs/prompt-improvements.md).
 
 The [technical audit](docs/technical-audit.md) and [complete coverage inventory](docs/technical-coverage.md) document the latest expansion across every canonical workflow. Review/security commands now route to concrete vulnerability, framework, language and scanner guides. [Security fixture controls](evals/security/README.md) distinguish seeded defects from legitimate behavior; they do not claim model-review accuracy.
 
@@ -12,6 +12,14 @@ The active coding agent executes the workflows with its available tools. The dep
 
 v0.7 adds a quick path for simple work, a small starter catalog, contextual routing with reasons, project preferences and checkpoints, explicit evidence collectors, and optional project hooks. Detailed auth, component, training and delivery scenarios load only when relevant. See [daily workflows](plugins/just-vibe/references/daily-workflows.md) for configuration and examples, and the [v0.7 validation record](evals/releases/0.7.0.md) for tested scope and limits.
 
+
+## Automatic assistance
+
+Describe the outcome normally: “Fix the mobile menu,” “Why is training unstable?” or “Address this PR’s feedback.” Trusted native hooks now route each request to a focused shortlist, restore selected work after compaction, and direct the agent to discover and use its actual tools. Command names remain optional.
+
+The agent loads the relevant full workflow with versioned personal/project feedback. Explicit corrections and endorsements can change instructions, routing triggers, preferred tools and required checks. History, rollback, retirement and forgetting are supported. Silence and passing tests do not create preferences. Source and artifact changes invalidate old evidence; completion can request one bounded follow-up for missing evidence, then reports unresolved work honestly.
+
+Automatic assistance is included starting in **v0.9.0**. Native hook support and host trust are required; setup does not grant that trust. Personal state lives under `~/.just-vibe/adaptive`, outside repositories, with bounded task retention. No additional model service or runtime dependency is used. See [automatic assistance, schemas and limits](plugins/just-vibe/references/adaptive.md) and [validation](docs/adaptive-assistance.md).
 
 ## Intent, evidence and reversible work
 
@@ -26,12 +34,12 @@ v0.8.0 adds working runtime helpers behind natural-language skill requests:
 
 See the [workflow guide](plugins/just-vibe/references/intent-workflows.md) for examples, boundaries and recovery. Users provide ordinary briefs; the agent prepares the helper inputs. These features support judgment rather than claiming an objective quality score.
 
-**Publication status:** [just-vibe 0.8.1 is published on npm](https://www.npmjs.com/package/just-vibe/v/0.8.1) as `latest`. Registry integrity and fresh-cache execution match the tested archive. GitHub Actions was explicitly waived for this release because its jobs could not start; see the [publication record](evals/releases/0.8.1-publication.json) and [validation record](evals/releases/0.8.1.md).
+**Release information:** Check [npm for just-vibe 0.9.0](https://www.npmjs.com/package/just-vibe/v/0.9.0) and the [release validation record](evals/releases/0.9.0.md) for registry verification and tested scope. This release uses the maintainer-authorized local-check exception because GitHub Actions minutes are unavailable; no CI pass is claimed.
 
 
 ## Use the workflows
 
-In Claude Code, use a command followed by as much context as needed:
+With trusted hooks, use an ordinary request. For explicit shortcuts, Claude Code supports a command followed by as much context as needed:
 
 ```text
 /just-vibe:auto fix checkout, add regression coverage, and verify.
@@ -267,7 +275,7 @@ The [conversation harness](evals/conversation/README.md) records review, selecte
 
 The [v0.6 results](evals/releases/0.6.0.md) record 32 controlled implementation trials and eight revised-command development trials. All passed their bounded checks; this does not rank overall output quality or convenience. The tasks supplied detailed contracts and did not measure user effort or preference. The [command-depth review](docs/command-quality.md#focused-depth-review) explains 27 focused revisions, and the [contextual review guide](docs/command-quality.md#output-quality-and-convenience) covers judgment, clarity, discovery and correction burden. [Benchmark protocol and supporting metrics](evals/benchmark/README.md) remain available for reproduction. External integration, browser and deployment checks require the relevant task environment.
 
-The [technical-guidance validation record](evals/releases/0.8.0-technical-guidance.md) covers the v0.8.0 command expansion and security controls. The earlier [v0.8 validation record](evals/releases/0.8.0.md) covers the new intent helpers, real browser reports, installation checks and the pending Windows confirmation. GitHub CI remains blocked by account billing. The maintainer waived that gate for the [verified v0.8.1 npm publication](evals/releases/0.8.1-publication.json); Windows validation remains pending.
+The [technical-guidance validation record](evals/releases/0.8.0-technical-guidance.md) covers the v0.8.0 command expansion and security controls. The earlier [v0.8 validation record](evals/releases/0.8.0.md) covers the new intent helpers, real browser reports, installation checks and the pending Windows confirmation. GitHub CI remains blocked by account billing. The [v0.9.0 release record](evals/releases/0.9.0.md) records the current local checks and release-specific waiver; Windows validation remains pending.
 
 ### Repository layout
 
@@ -285,7 +293,7 @@ The [technical-guidance validation record](evals/releases/0.8.0-technical-guidan
 | `scripts/` and `tests/` | Validation and lifecycle tests |
 | `evals/` | Behavior scenarios and isolated project/data fixtures |
 
-The installer has no runtime npm dependencies or lifecycle install scripts. Optional bundled hooks do no work until configured and trusted for a project; native host trust also applies. It adds no MCP servers, rules or permissions. Provider/check commands use argument arrays rather than interpolating user input into a shell. Host CLIs own installation state and caches. Local planning and naming documents are excluded from both Git and the npm archive.
+The installer has no runtime npm dependencies or lifecycle install scripts. Automatic routing hooks use native host trust and keep personal task records. Optional project check/formatter hooks still do no work until separately configured and trusted. It adds no MCP servers, rules or permissions. Provider/check commands use argument arrays rather than interpolating user input into a shell. Host CLIs own installation state and caches. Local planning and naming documents are excluded from both Git and the npm archive.
 
 ## Troubleshooting
 

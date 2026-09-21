@@ -5,6 +5,11 @@ import { readPreferences } from './continuity.mjs';
 
 const starter = ['auto', 'fix', 'explain', 'plan', 'review', 'test', 'teach', 'tools', 'profile', 'checkpoint', 'resume', 'help'];
 const intents = [
+  { test: /\b(?:sql injection|xss|cross.site scripting|csrf|ssrf|path traversal|insecure deserialization|vulnerabilit(?:y|ies)|security review)\b/i, ids: ['security', 'review'], reason: 'Security review with a concrete vulnerability class' },
+  { test: /\b(?:docker|container)\b.*\b(?:build|fail|broken|runtime)|\b(?:broken|fail)\w*\b.*\b(?:docker|container)\b/i, ids: ['ops-container'], reason: 'Container build or runtime diagnosis' },
+  { test: /\b(?:mobile menu|hamburger|navigation menu|dropdown|responsive|layout|spacing|overlap)\b/i, ids: ['ui-states', 'ui-responsive'], reason: 'UI state and viewport behavior' },
+  { test: /\b(?:training|loss|gradient)\b.*\b(?:unstable|diverg|nan|explod|plateau)|\b(?:unstable|diverg|nan|explod)\w*\b.*\b(?:training|loss|gradient)\b/i, ids: ['ml-debug-training'], reason: 'Training stability diagnosis' },
+  { test: /\b(?:address|resolve|fix|respond)\b.*\b(?:pr|pull request|review)\b.*\b(?:feedback|comments?|requests?)\b|\b(?:pr|pull request)\b.*\bfeedback\b/i, ids: ['github-address-review'], reason: 'Requested pull request feedback' },
   { test: /\b(?:undo|reverse)\b.*\b(?:task|recorded|later|changes)\b/i, ids: ['undo'], reason: 'Selective local task reversal' },
   { test: /\b(?:build|implement|try)\b.*\b(?:alternatives|variants|two versions|three versions)\b/i, ids: ['compare'], reason: 'Working alternatives with common requirements' },
   { test: /\b(?:exercise|practice)\b.*\b(?:project|repo|code)\b/i, ids: ['teach'], reason: 'Hands-on project learning' },

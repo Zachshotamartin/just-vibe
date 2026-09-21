@@ -6,7 +6,9 @@ description: Choose a starting point. Add the context that matters. Let the agen
 
 ## Start with the outcome
 
-In Claude Code, append your request directly after a command:
+Starting in v0.9.0, just-vibe can select workflows from ordinary requests after its native hooks are trusted. Say “Fix the mobile menu” or “Why is training unstable?” without remembering a command. Read [automatic assistance](/docs/automatic/) for setup, feedback and limits. Update older installations to receive it.
+
+When you prefer an explicit shortcut, append your request after a command in Claude Code:
 
 ```text
 /just-vibe:auto Fix the checkout bug, add regression coverage,

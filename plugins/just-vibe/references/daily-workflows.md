@@ -112,7 +112,7 @@ Use actual hashes and observation time. It reports pending files, missing/change
 
 ## Optional project hooks
 
-The package includes PostToolUse and Stop adapters using the [Claude hook contract](https://code.claude.com/docs/en/hooks) and [Codex hook contract](https://developers.openai.com/codex/hooks). They perform no work until this project is configured, enabled and locally trusted. Codex additionally requires native approval of the plugin hook definition. The utilities do not edit host settings or grant that approval.
+The package includes PostToolUse and Stop adapters using the [Claude hook contract](https://code.claude.com/docs/en/hooks) and [Codex hook contract](https://developers.openai.com/codex/hooks). The project check/formatter operations described here perform no work until this project is configured, enabled and locally trusted. The separate [automatic assistance](adaptive.md) handler routes requests and keeps personal task records after native hook trust; its bounded completion reminders are controlled by `assist configure`. Codex additionally requires native approval of the plugin hook definition. The utilities do not edit host settings or grant that approval.
 
 Example configuration for `hooks configure --stdin`:
 

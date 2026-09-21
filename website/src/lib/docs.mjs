@@ -7,7 +7,13 @@ export const docs = [
   {
     slug: 'usage',
     title: 'Your first workflow',
-    description: 'Pick a command, add your context, and understand the execution modes.',
+    description: 'Describe the result you want, add context, and understand the execution modes.',
+  },
+  {
+    slug: 'automatic',
+    title: 'Automatic assistance',
+    description:
+      'Workflow selection, tool discovery, feedback and evidence from ordinary requests.',
   },
   {
     slug: 'profiles',

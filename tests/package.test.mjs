@@ -27,6 +27,8 @@ test('npm archive contains the runnable installer and both complete plugin manif
     'plugins/just-vibe/references/profiles.md', 'plugins/just-vibe/references/profile-reference.md',
     'plugins/just-vibe/references/execution.md', 'plugins/just-vibe/references/runtime.md',
     'plugins/just-vibe/hooks/hooks.json', 'plugins/just-vibe/scripts/hooks.mjs',
+    ...['adaptive-store', 'adaptive-learning', 'assistant-runtime', 'assistant-hooks', 'capability-guidance'].map(n => `plugins/just-vibe/scripts/lib/${n}.mjs`),
+    'plugins/just-vibe/references/adaptive.md',
     'plugins/just-vibe/scripts/lib/continuity.mjs', 'plugins/just-vibe/scripts/lib/evidence.mjs',
     'plugins/just-vibe/references/daily-workflows.md',
     ...['workbench','memory','workspaces','proof','practice','experiments','tasks','decisions','intent-runtime'].map(n=>`plugins/just-vibe/scripts/lib/${n}.mjs`),

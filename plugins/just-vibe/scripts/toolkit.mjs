@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import { readFileSync, statSync } from 'node:fs';
 import { isDirectRun } from './lib/entrypoint.mjs';
-import { loadCatalog, getCommand, skillFile, invocation, HOSTS, MODES } from './lib/catalog.mjs';
+import { loadCatalog, getCommand, invocation, HOSTS, MODES } from './lib/catalog.mjs';
 import { inspectProject } from './lib/project.mjs';
 import { discoverCapabilities, readCapabilityReport, listTools, recommend } from './lib/discovery.mjs';
 import { createRun, startStage, recordStage, finishRun, resumeRun, amendStage, supersedeStage, setRunProfiles } from './lib/run.mjs';
@@ -13,9 +13,14 @@ import { continuity } from './lib/continuity.mjs';
 import { collectEvidence } from './lib/evidence.mjs';
 import { manageHooks } from './lib/automation.mjs';
 import { INTENT_OPERATIONS, validateIntentArgs, intentRuntime } from './lib/intent-runtime.mjs';
+import { assistantRuntime } from './lib/assistant-runtime.mjs';
 
 export const HELP = `${INSTALLER_HELP}
 Workflow utilities:
+  assist <operation>    Automatic routing, workflow loading, evidence and learning
+                        status, route, start, select, load, evidence, report,
+                        feedback, history, rollback, retire, forget, configure, prune, recover
+                        Agent operations use --stdin JSON; see references/adaptive.md
   tools [query]          Browse/search shipped workflows and prerequisites
   show <workflow>        Read a workflow's full instructions
   profiles [query]       Browse engineering profiles (not capability grants)
@@ -74,7 +79,7 @@ the active Codex/Claude agent. This CLI does not launch a model or execute
 candidate workflows. Use show to inspect a workflow and invoke it in your host.
 `;
 
-const operations = new Set(['tools', 'show', 'profiles', 'profile', 'inspect', 'discover', 'route', 'workflow', 'session', 'quiz', 'project', 'evidence', 'hooks', ...Object.keys(INTENT_OPERATIONS)]);
+const operations = new Set(['assist', 'tools', 'show', 'profiles', 'profile', 'inspect', 'discover', 'route', 'workflow', 'session', 'quiz', 'project', 'evidence', 'hooks', ...Object.keys(INTENT_OPERATIONS)]);
 const booleans = new Set(['--json', '--available', '--all', '--stdin']);
 const values = new Set(['--root', '--target', '--pack', '--capabilities', '--mode', '--scope', '--profile', '--brief-file', '--limit', '--repo', '--pr', '--deployment', '--team', '--url', '--steps', '--directory', '--applied']);
 
@@ -103,8 +108,9 @@ export function parseToolkitArgs(args) {
   if (options.stdin && options['brief-file']) throw new Error('Use only one brief source.');
   if (options.limit !== undefined) { options.limit = Number(options.limit); if (!Number.isInteger(options.limit) || options.limit < 1 || options.limit > 1000) throw Error('limit must be between 1 and 1000.'); }
   const allowed = {
+    assist: ['json', 'root', 'stdin'],
     tools: ['json', 'available', 'all', 'root', 'target', 'pack', 'capabilities', 'limit'],
-    show: ['json', 'target'], inspect: ['json', 'root'], discover: ['json', 'root', 'capabilities'],
+    show: ['json', 'target', 'root'], inspect: ['json', 'root'], discover: ['json', 'root', 'capabilities'],
     profiles: ['json'], profile: ['json'],
     route: ['json', 'root', 'target', 'capabilities', 'stdin', 'brief-file', 'limit'],
     workflow: ['json', 'root', 'target', 'mode', 'scope', 'profile', 'stdin', 'brief-file'], session: ['json', 'target', 'stdin'], quiz: ['json', 'stdin'],
@@ -127,6 +133,12 @@ export function parseToolkitArgs(args) {
     if (!writes.includes(options.positionals[0]) && options.stdin) throw Error('--stdin does not apply to this operation.');
   }
   if (Object.hasOwn(INTENT_OPERATIONS, operation)) validateIntentArgs(options);
+  if (operation === 'assist') {
+    const op = options.positionals[0];
+    if (options.positionals.length !== 1 || !['status', 'route', 'start', 'select', 'load', 'evidence', 'report', 'feedback', 'history', 'rollback', 'retire', 'forget', 'configure', 'prune', 'recover'].includes(op)) throw Error('Choose a supported assist operation.');
+    if (!['status', 'history', 'prune'].includes(op) && !options.stdin) throw Error('This assist operation requires --stdin JSON.');
+    if (['status', 'prune'].includes(op) && options.stdin) throw Error('--stdin does not apply to this assist operation.');
+  }
   return options;
 }
 
@@ -179,7 +191,8 @@ export async function main(args, { log = console.log, error = console.error, inp
     const discovery = () => discoverCapabilities(options.root, {
       report: options.capabilities ? readCapabilityReport(options.capabilities, options.root) : undefined,
     });
-    if (options.operation === 'tools') {
+    if (options.operation === 'assist') result = assistantRuntime(options.root, options.positionals[0], options.stdin ? JSON.parse(await input()) : {}, { catalog: data });
+    else if (options.operation === 'tools') {
       const found = discovery();
       let tools = listTools(data, found, { query: options.positionals.join(' '), pack: options.pack,
         available: options.available, all: options.all, host: options.target });
@@ -189,7 +202,7 @@ export async function main(args, { log = console.log, error = console.error, inp
         note: starter ? 'Start here, search tools <scenario>, or use tools --all for the full catalog. Status reports observed prerequisites, not executed model behavior.' : 'Shipped workflow inventory; host enablement and permissions still apply. Available means declared task prerequisites were observed, not that a model has executed the workflow.' };
     } else if (options.operation === 'show') {
       const command = getCommand(data, options.positionals[0]);
-      result = { ...command, invocation: invocation(command, options.target), instructions: readFileSync(skillFile(data, command), 'utf8') };
+      result = { ...command, invocation: invocation(command, options.target), ...assistantRuntime(options.root, 'load', { workflow: command.id }, { catalog: data }) };
     } else if (options.operation === 'profiles') result = { profiles: searchProfiles(loadProfiles(), options.positionals.join(' ')), note: 'Role priorities for the task; search matches are candidates, not automatic selections.' };
     else if (options.operation === 'profile') result = getProfile(loadProfiles(), options.positionals[0]);
     else if (options.operation === 'inspect') result = inspectProject(options.root);

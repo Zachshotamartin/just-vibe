@@ -1,6 +1,12 @@
 # Changelog
 
-## Unreleased
+## 0.9.0
+
+- Add automatic request routing and compaction/resume context through native Codex/Claude plugin hooks, with focused workflow loading and guidance for discovering actual host capabilities.
+- Add personal/project feedback overlays that change effective command instructions and routing, retain source/version history, and support rollback, retirement and forgetting without rewriting package caches.
+- Add attributed evidence with source/artifact freshness, tool-activity records, and one bounded missing-evidence continuation; preserve current instructions and distinguish blockers from successful verification.
+- Add local activation settings, task retention, natural-language personalization controls, packaged runtime tests and native installation checks.
+- Preserve task identity across host continuation turns, enforce task-only feedback restrictions against the complete user message, and isolate optional project-hook failures while checking evidence after project commands finish.
 
 - Refine website spacing and long-text wrapping across the full catalog; add page transitions, section entrances, animated menus and pickers, state feedback, reduced-motion handling, and layout/navigation regression checks.
 - Default all frontend workflows to no emojis unless explicitly requested; route UI, React, Vite, design, polish, matching and UI copy through shared iconography guidance, including general workflows and role profiles used for frontend work.
