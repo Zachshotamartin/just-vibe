@@ -45,7 +45,9 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 ## Read when relevant
 
 - When a concrete decision or deliverable example would clarify this workflow: [Databases worked example](../../references/examples/database.md).
-
+- The affected project uses Django / DRF: [Django / DRF](../../references/frameworks/django.md).
+- The affected project uses FastAPI: [FastAPI](../../references/frameworks/fastapi.md).
+- The affected project uses Spring Boot: [Spring Boot](../../references/frameworks/spring-boot.md).
 
 ## Decision branches
 

@@ -45,7 +45,12 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 ## Read when relevant
 
 - When a concrete decision or deliverable example would clarify this workflow: [Testing worked example](../../references/examples/testing.md).
-
+- The affected project uses Django / DRF: [Django / DRF](../../references/frameworks/django.md).
+- The affected project uses FastAPI: [FastAPI](../../references/frameworks/fastapi.md).
+- The affected project uses Spring Boot: [Spring Boot](../../references/frameworks/spring-boot.md).
+- The affected project uses Flutter: [Flutter](../../references/frameworks/flutter.md).
+- The affected project uses React Native / Expo: [React Native / Expo](../../references/frameworks/react-native.md).
+- The task specifically involves windows desktop, ui automation, cross-agent regression, benchmark harness; load only the matching method: [Desktop and cross-host regression testing](../../references/methods/desktop-regression.md).
 
 ## Decision branches
 

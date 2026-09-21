@@ -1,4 +1,27 @@
 export const docs = [
+  {slug:'workbench',title:'Local workbench and focused methods',description:'Session continuity, reviewed execution, independent reviews and the offline tool browser.'},
+  {
+    slug: 'integrations',
+    title: 'Checks and integrations',
+    description:
+      'Context warnings, trusted checks, editor events, GitHub coordination and security reports.',
+  },
+  {
+    slug: 'coordination',
+    title: 'Coordination and plan review',
+    description:
+      'Composed workflows, reviewed dependent work, browser feedback and portable context.',
+  },
+  {
+    slug: 'goals',
+    title: 'Persistent goals',
+    description: 'Keep objectives, criteria, progress and evidence across sessions.',
+  },
+  {
+    slug: 'runtime',
+    title: 'Memory and runtime tools',
+    description: 'Native tools, specialists, reviewed learning, activity and installation choices.',
+  },
   {
     slug: 'installation',
     title: 'Install just-vibe',

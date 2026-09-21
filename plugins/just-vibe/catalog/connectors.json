@@ -1,0 +1,226 @@
+{
+  "schemaVersion": 1,
+  "reviewedAt": "2026-09-20",
+  "recipes": [
+    {
+      "id": "github",
+      "title": "GitHub",
+      "documentation": "https://docs.github.com/en/copilot/how-tos/provide-context/use-mcp-in-your-ide",
+      "endpoint": "https://api.githubcopilot.com/mcp/readonly",
+      "authentication": "OAuth or documented token; choose the user-owned account",
+      "scope": "Read repository issues, PRs and code; writes require separately requested authority",
+      "availability": "recipe-only; installation/authentication/live protocol not verified",
+      "credentialPolicy": "Never include credentials in a preview, prompt, repository or connection URL."
+    },
+    {
+      "id": "vercel",
+      "title": "Vercel",
+      "documentation": "https://vercel.com/docs/ai-tooling/vercel-mcp",
+      "endpoint": "https://mcp.vercel.com",
+      "authentication": "Host-managed OAuth; verify team/project",
+      "scope": "Inspect projects/logs; deployment and environment writes are separate actions",
+      "availability": "recipe-only; installation/authentication/live protocol not verified",
+      "credentialPolicy": "Never include credentials in a preview, prompt, repository or connection URL."
+    },
+    {
+      "id": "linear",
+      "title": "Linear",
+      "documentation": "https://linear.app/docs/mcp",
+      "endpoint": "https://mcp.linear.app/mcp/readonly",
+      "authentication": "Host-managed OAuth; read scope preferred",
+      "scope": "Read issue/project context; do not infer issue creation authority",
+      "availability": "recipe-only; installation/authentication/live protocol not verified",
+      "credentialPolicy": "Never include credentials in a preview, prompt, repository or connection URL."
+    },
+    {
+      "id": "notion",
+      "title": "Notion",
+      "documentation": "https://developers.notion.com/docs/mcp",
+      "endpoint": null,
+      "authentication": "Use current official host connection instructions",
+      "scope": "Read selected pages; sharing and page writes need exact scope",
+      "availability": "recipe-only; installation/authentication/live protocol not verified",
+      "credentialPolicy": "Never include credentials in a preview, prompt, repository or connection URL."
+    },
+    {
+      "id": "atlassian",
+      "title": "Jira and Confluence",
+      "documentation": "https://support.atlassian.com/atlassian-rovo-mcp-server/",
+      "endpoint": null,
+      "authentication": "Host OAuth with the selected Atlassian site",
+      "scope": "Read named tickets/pages; preserve issue identity and publication authority",
+      "availability": "recipe-only; installation/authentication/live protocol not verified",
+      "credentialPolicy": "Never include credentials in a preview, prompt, repository or connection URL."
+    },
+    {
+      "id": "supabase",
+      "title": "Supabase",
+      "documentation": "https://supabase.com/docs/guides/getting-started/mcp",
+      "endpoint": null,
+      "authentication": "Project-scoped access and read-only configuration when supported",
+      "scope": "Inspect schema; data writes/migrations require correct environment",
+      "availability": "recipe-only; installation/authentication/live protocol not verified",
+      "credentialPolicy": "Never include credentials in a preview, prompt, repository or connection URL."
+    },
+    {
+      "id": "stripe",
+      "title": "Stripe",
+      "documentation": "https://docs.stripe.com/mcp",
+      "endpoint": null,
+      "authentication": "Restricted keys/host authorization; select test mode first",
+      "scope": "Read synthetic billing records; never infer payment/refund authority",
+      "availability": "recipe-only; installation/authentication/live protocol not verified",
+      "credentialPolicy": "Never include credentials in a preview, prompt, repository or connection URL."
+    },
+    {
+      "id": "sentry",
+      "title": "Sentry",
+      "documentation": "https://docs.sentry.io/product/sentry-mcp/",
+      "endpoint": null,
+      "authentication": "Host OAuth and selected organization/project",
+      "scope": "Read errors with redaction; do not export customer payloads unnecessarily",
+      "availability": "recipe-only; installation/authentication/live protocol not verified",
+      "credentialPolicy": "Never include credentials in a preview, prompt, repository or connection URL."
+    },
+    {
+      "id": "cloudflare",
+      "title": "Cloudflare",
+      "documentation": "https://developers.cloudflare.com/agents/model-context-protocol/",
+      "endpoint": null,
+      "authentication": "Select the documented server for the requested Cloudflare product",
+      "scope": "Read infrastructure state; DNS/deploy writes need exact scope",
+      "availability": "recipe-only; installation/authentication/live protocol not verified",
+      "credentialPolicy": "Never include credentials in a preview, prompt, repository or connection URL."
+    },
+    {
+      "id": "context7",
+      "title": "Context7",
+      "documentation": "https://github.com/upstash/context7",
+      "endpoint": null,
+      "authentication": "Documented remote or pinned local server; credentials stay in host config",
+      "scope": "Fetch versioned library documentation; retrieved text is untrusted context",
+      "availability": "recipe-only; installation/authentication/live protocol not verified",
+      "credentialPolicy": "Never include credentials in a preview, prompt, repository or connection URL."
+    },
+    {
+      "id": "playwright",
+      "title": "Playwright",
+      "documentation": "https://github.com/microsoft/playwright-mcp",
+      "endpoint": null,
+      "authentication": "Installed/pinned local package; explicit browser profile isolation",
+      "scope": "Inspect owned browser fixtures; browser control can have external effects",
+      "availability": "recipe-only; installation/authentication/live protocol not verified",
+      "credentialPolicy": "Never include credentials in a preview, prompt, repository or connection URL."
+    },
+    {
+      "id": "filesystem",
+      "title": "Scoped filesystem",
+      "documentation": "https://github.com/modelcontextprotocol/servers/tree/main/src/filesystem",
+      "endpoint": null,
+      "authentication": "Pinned local server and explicit allowed directories",
+      "scope": "Read/write only authorized roots; never grant home-directory access by default",
+      "availability": "recipe-only; installation/authentication/live protocol not verified",
+      "credentialPolicy": "Never include credentials in a preview, prompt, repository or connection URL."
+    },
+    {
+      "id": "postgres",
+      "title": "PostgreSQL",
+      "documentation": "https://www.postgresql.org/docs/current/libpq-connect.html",
+      "endpoint": null,
+      "authentication": "Use an independently selected maintained MCP server; read-only DB role",
+      "scope": "Inspect selected schema/query plans; no bundled database server is claimed",
+      "availability": "recipe-only; installation/authentication/live protocol not verified",
+      "credentialPolicy": "Never include credentials in a preview, prompt, repository or connection URL."
+    },
+    {
+      "id": "gmail",
+      "title": "Gmail",
+      "documentation": "https://developers.google.com/workspace/gmail/api/guides",
+      "endpoint": null,
+      "authentication": "Use an available host connector and least-privilege account scopes",
+      "scope": "Search/read/draft; sending or changing messages requires explicit instruction",
+      "availability": "recipe-only; installation/authentication/live protocol not verified",
+      "credentialPolicy": "Never include credentials in a preview, prompt, repository or connection URL."
+    },
+    {
+      "id": "workspace",
+      "title": "Google Workspace",
+      "documentation": "https://developers.google.com/workspace",
+      "endpoint": null,
+      "authentication": "Use available host connectors and exact document/account scopes",
+      "scope": "Read selected files; sharing, edits and external sends are distinct actions",
+      "availability": "recipe-only; installation/authentication/live protocol not verified",
+      "credentialPolicy": "Never include credentials in a preview, prompt, repository or connection URL."
+    },
+    {
+      "id": "slack",
+      "title": "Slack",
+      "documentation": "https://docs.slack.dev/",
+      "endpoint": null,
+      "authentication": "Use the organization-approved connected app/tool",
+      "scope": "Read requested conversations; never send from inferred intent",
+      "availability": "recipe-only; installation/authentication/live protocol not verified",
+      "credentialPolicy": "Never include credentials in a preview, prompt, repository or connection URL."
+    },
+    {
+      "id": "firecrawl",
+      "title": "Firecrawl",
+      "documentation": "https://docs.firecrawl.dev/mcp-server",
+      "endpoint": null,
+      "authentication": "Documented API key/host config; inspect usage limits",
+      "scope": "Retrieve requested public pages; respect content boundaries and source provenance",
+      "availability": "recipe-only; installation/authentication/live protocol not verified",
+      "credentialPolicy": "Never include credentials in a preview, prompt, repository or connection URL."
+    },
+    {
+      "id": "tavily",
+      "title": "Tavily",
+      "documentation": "https://docs.tavily.com/documentation/mcp",
+      "endpoint": null,
+      "authentication": "Documented API key/host config",
+      "scope": "Search/retrieve sources; verify primary evidence for technical claims",
+      "availability": "recipe-only; installation/authentication/live protocol not verified",
+      "credentialPolicy": "Never include credentials in a preview, prompt, repository or connection URL."
+    },
+    {
+      "id": "huggingface",
+      "title": "Hugging Face",
+      "documentation": "https://huggingface.co/docs/hub/en/mcp",
+      "endpoint": null,
+      "authentication": "Host OAuth/token with scoped permissions",
+      "scope": "Inspect models/datasets; uploads, jobs and compute cost require authority",
+      "availability": "recipe-only; installation/authentication/live protocol not verified",
+      "credentialPolicy": "Never include credentials in a preview, prompt, repository or connection URL."
+    },
+    {
+      "id": "ito",
+      "title": "Itô compute bridge",
+      "documentation": "https://github.com/affaan-m/ECC",
+      "endpoint": null,
+      "authentication": "Verify the independently installed vendor bridge and available backend",
+      "scope": "Quote/reservation/training are different effects; unavailable backends stay unavailable",
+      "availability": "recipe-only; installation/authentication/live protocol not verified",
+      "credentialPolicy": "Never include credentials in a preview, prompt, repository or connection URL."
+    },
+    {
+      "id": "nasiko",
+      "title": "Nasiko bridge",
+      "documentation": "https://github.com/affaan-m/ECC",
+      "endpoint": null,
+      "authentication": "Review the pinned upstream bridge and current vendor documentation",
+      "scope": "Preview lifecycle actions before execution; never run remote bootstrap by default",
+      "availability": "recipe-only; installation/authentication/live protocol not verified",
+      "credentialPolicy": "Never include credentials in a preview, prompt, repository or connection URL."
+    },
+    {
+      "id": "insaits",
+      "title": "InsAIts",
+      "documentation": "https://github.com/affaan-m/ECC",
+      "endpoint": null,
+      "authentication": "Discover an independently installed integration and verify its actual interface",
+      "scope": "External model analysis is separate from static verified findings",
+      "availability": "recipe-only; installation/authentication/live protocol not verified",
+      "credentialPolicy": "Never include credentials in a preview, prompt, repository or connection URL."
+    }
+  ]
+}

@@ -1,0 +1,512 @@
+{
+  "recordedAt": "2026-09-21T06:31:03.623Z",
+  "baseCommit": "a3df78b",
+  "scope": "Unreleased dirty/untracked expansion, package metadata 0.9.0",
+  "recommendation": "hold-publication",
+  "productCodeChangedByReview": false,
+  "planGroups": 49,
+  "observations": [
+    {
+      "finding": "cancelled-job-dispatches-verifier",
+      "confirmed": true,
+      "calls": [
+        "console.log(\"main\")",
+        "console.log(\"verify\")"
+      ],
+      "status": "cancelled"
+    },
+    {
+      "finding": "adapter-crash-permanently-locks-recovery",
+      "confirmed": true,
+      "signal": "SIGKILL",
+      "error": "Another adapter operation is in progress.",
+      "pending": true
+    },
+    {
+      "finding": "concurrent-connectors-lose-successful-install",
+      "confirmed": true,
+      "exits": [
+        {
+          "status": 0,
+          "signal": null,
+          "output": "{\"path\":\".mcp.json\",\"operation\":\"install\",\"changed\":true}\n"
+        },
+        {
+          "status": 0,
+          "signal": null,
+          "output": "{\"path\":\".mcp.json\",\"operation\":\"install\",\"changed\":true}\n"
+        }
+      ],
+      "finalServers": [
+        "foreign",
+        "just-vibe-beta"
+      ],
+      "ownershipRecords": [
+        true,
+        true
+      ]
+    },
+    {
+      "finding": "disabled-user-session-access-still-allows-overwrite",
+      "confirmed": true,
+      "before": "imported",
+      "after": "checkpoint",
+      "revision": 2
+    },
+    {
+      "finding": "session-silent-message-truncation",
+      "confirmed": true,
+      "retainedCharacters": 4000,
+      "truncated": false
+    },
+    {
+      "finding": "price-change-revalues-past-usage",
+      "confirmed": true,
+      "amount": 4,
+      "knownPriorMillionCost": 1,
+      "newMillionCost": 2
+    },
+    {
+      "finding": "reconnect-executes-twice-before-revision-conflict",
+      "confirmed": true,
+      "calls": 2,
+      "outcomes": [
+        {
+          "status": "fulfilled"
+        },
+        {
+          "status": "rejected",
+          "error": "State revision changed. Read it again before updating."
+        }
+      ]
+    },
+    {
+      "finding": "stopped-canary-continues-requests-and-becomes-failed",
+      "confirmed": true,
+      "requests": [
+        "http://127.0.0.1/first",
+        "http://127.0.0.1/second"
+      ],
+      "acknowledged": "stopped",
+      "final": "failed"
+    },
+    {
+      "finding": "blocking-rule-fails-open-when-audit-state-is-locked",
+      "confirmed": true,
+      "control": "deny",
+      "underLock": {
+        "systemMessage": "just-vibe optional automation could not run. Inspect hooks status and local automation state; no successful check is implied."
+      },
+      "exitCode": 0
+    },
+    {
+      "finding": "service-starts-after-stop-was-acknowledged",
+      "confirmed": true,
+      "stopRequested": true,
+      "final": "completed",
+      "output": "started\n"
+    },
+    {
+      "finding": "telemetry-status-transition-reuses-event-identity",
+      "confirmed": true,
+      "before": {
+        "id": "request",
+        "at": "2026-09-21T06:27:21.672Z",
+        "kind": "dispatch",
+        "outcome": "queued",
+        "subject": "job"
+      },
+      "after": {
+        "id": "request",
+        "at": "2026-09-21T06:27:21.672Z",
+        "kind": "dispatch",
+        "outcome": "finished",
+        "subject": "job"
+      }
+    },
+    {
+      "finding": "completed-dispatches-exhaust-capacity-with-no-retirement-operation",
+      "confirmed": true,
+      "completedRecords": 100,
+      "error": "Operator capacity reached; retire old records."
+    }
+  ],
+  "sourceEvidence": [
+    {
+      "path": ".github/workflows/ci.yml",
+      "sha256": "a77d23bbfd1060bb1ea7d5a162c832b3629b412f08f10a60b0a890550a653836"
+    },
+    {
+      "path": ".github/workflows/publish.yml",
+      "sha256": "28333657439b6d61306c2de89e10605f80e6b42b1480012775867b856761dd2d"
+    },
+    {
+      "path": "docs/ecc-implementation-plan.md",
+      "sha256": "29e1b745ba45b2b779a8e55e044508e6a0b131d91b739e2a165ee9fdcd3cc15e"
+    },
+    {
+      "path": "docs/locales/es.md",
+      "sha256": "691842c06aa743b54ec9104014635a6dc255726d25780c82f566e366dd7675b2"
+    },
+    {
+      "path": "docs/locales/ja.md",
+      "sha256": "f2d4d714af3937ecb5029dacbd376fc41fd62b3e81a95af479dab0aeb5b93c05"
+    },
+    {
+      "path": "docs/locales/manifest.json",
+      "sha256": "778871bb9d29c34ee546d53338f59803be5ec31b5c3c49b3f913d3f36cbce497"
+    },
+    {
+      "path": "plugins/just-vibe/catalog/connectors.json",
+      "sha256": "0e17356b1e15bc01b95e4ee349bdaa4c6047d617574ec3ff3bc5f27db8c96a58"
+    },
+    {
+      "path": "plugins/just-vibe/examples/ml/ranking.py",
+      "sha256": "50f27cd350cf5034a314312fce9b8704687267a735efc6a11d46c952107953c1"
+    },
+    {
+      "path": "plugins/just-vibe/references/methods/agent-harness.md",
+      "sha256": "620f56a386d23578029320d6b042fdfd4613fc9efc41dabe64233d04c9c55af2"
+    },
+    {
+      "path": "plugins/just-vibe/references/methods/agent-payments.md",
+      "sha256": "a1e202984fa31a82d149fd8cf5c8a86a37b4dcebee264aefb6c394cf7497e46e"
+    },
+    {
+      "path": "plugins/just-vibe/references/methods/agreements-workspace.md",
+      "sha256": "97fbc147f9fd1d5e430d0de260acde5853bdebd570a3ba217fc195fdce6cc5ee"
+    },
+    {
+      "path": "plugins/just-vibe/references/methods/android-compose.md",
+      "sha256": "a4d1d8f877db40a6a7fba69c774afa5b8a2c38aaac51968bd06fd8953ac0f907"
+    },
+    {
+      "path": "plugins/just-vibe/references/methods/angular-vue.md",
+      "sha256": "39f7f8d616e9e0ab4703b1699e74d37201c9ea754ac351b6a2f088909c9e830d"
+    },
+    {
+      "path": "plugins/just-vibe/references/methods/blockchain-protocols.md",
+      "sha256": "c5a0d456a13eecaabe4cd05207b2fa837fd202699c4c3b4d050457d6dbf9f167"
+    },
+    {
+      "path": "plugins/just-vibe/references/methods/brand-production.md",
+      "sha256": "551524322bc4d6b93e0c6f3cac93419177a813dc49e10b13509dd8f47f51a496"
+    },
+    {
+      "path": "plugins/just-vibe/references/methods/business-operations.md",
+      "sha256": "2d96e800b16ca0d5ab5cadac214d6e089c237abe9c8075b61ae2900853520deb"
+    },
+    {
+      "path": "plugins/just-vibe/references/methods/clickhouse-redis-prisma.md",
+      "sha256": "125e6de111ec51e96b28fe6844fe67eca1fb96e4b67d610490096030a20fe8f9"
+    },
+    {
+      "path": "plugins/just-vibe/references/methods/content-marketing.md",
+      "sha256": "27cf8d6f3c349e77da26ae0cc0e17454e1ec98370478b4c1588771bf02bcde7a"
+    },
+    {
+      "path": "plugins/just-vibe/references/methods/desktop-regression.md",
+      "sha256": "2d41cf34fb028c3d7fab76def493caa5d9c65d6de4a3b86513af1ed08a5aec20"
+    },
+    {
+      "path": "plugins/just-vibe/references/methods/document-production.md",
+      "sha256": "bb0a79312084cc31d52be42317e52e6ca9290915aaa2b3487547d1ff97e535da"
+    },
+    {
+      "path": "plugins/just-vibe/references/methods/dotnet-fsharp.md",
+      "sha256": "84e60170829d77ae25e4e68f8be0d49d02343e6634f4780d12e65a1978fcf295"
+    },
+    {
+      "path": "plugins/just-vibe/references/methods/harmonyos-arkts.md",
+      "sha256": "07c39987876cae61c49572548da341817568fc9cac7af8f4a0f19f2c3382306f"
+    },
+    {
+      "path": "plugins/just-vibe/references/methods/healthcare-software.md",
+      "sha256": "2817f5b263b568e08aafe85390a0ac95cc9c44ad3f9ddabcbee66a53469365f2"
+    },
+    {
+      "path": "plugins/just-vibe/references/methods/jvm-persistence.md",
+      "sha256": "9f512c20d39c2351856b40bf24eda1c4923379041911e8d22ecb5352706a500e"
+    },
+    {
+      "path": "plugins/just-vibe/references/methods/kotlin-services.md",
+      "sha256": "5a01983585576195729508674e02abf86e1989909b41a0c70cfd523729463791"
+    },
+    {
+      "path": "plugins/just-vibe/references/methods/kubernetes-release.md",
+      "sha256": "880cea19068f14cce1c611d53bbdd2eca0501d621f6399815d471bd87335c7ae"
+    },
+    {
+      "path": "plugins/just-vibe/references/methods/laravel-rails.md",
+      "sha256": "ae6494aa7b0e35b3d8429b152bf0fc363726bb57794df035f6e5e1c610772435"
+    },
+    {
+      "path": "plugins/just-vibe/references/methods/latency-systems.md",
+      "sha256": "b50d3ea0ade01656a03054de3cbd69b7e40a7e7952d58323dccb365c2f3ecc81"
+    },
+    {
+      "path": "plugins/just-vibe/references/methods/localization-maintenance.md",
+      "sha256": "c2e0285e15bfdd17f2b31ad44daa580088dd2d49b6893562560aed8105606a05"
+    },
+    {
+      "path": "plugins/just-vibe/references/methods/motion-design.md",
+      "sha256": "1e91992dda1df656711900e90a84ed5cbb6448a5739c746cac19477836383a93"
+    },
+    {
+      "path": "plugins/just-vibe/references/methods/network-operations.md",
+      "sha256": "299ac563a53d1c56b574164e40865466dfd578a05d9ae0109ad7d0caeb63ebb1"
+    },
+    {
+      "path": "plugins/just-vibe/references/methods/next-nest-bun.md",
+      "sha256": "932a167ac36988f9e2dd66da17017b69517410ca80614e3026c8d33b977074af"
+    },
+    {
+      "path": "plugins/just-vibe/references/methods/patent-research.md",
+      "sha256": "c372386c8b9943a03e89a0e52fc15649da162c620e395da532a1fc1e7c5a4f7a"
+    },
+    {
+      "path": "plugins/just-vibe/references/methods/perl-security.md",
+      "sha256": "054b04940c8f3627766605463b56770f522d7b02cd061e016c909add7a55bef9"
+    },
+    {
+      "path": "plugins/just-vibe/references/methods/postgres-mysql.md",
+      "sha256": "06401e57f3a55b8e5d4b93f3cb18fe61082e78c4a4429ceb3913a783f69e861a"
+    },
+    {
+      "path": "plugins/just-vibe/references/methods/provider-bridges.md",
+      "sha256": "299dc5d83ceacc5f26ef2bfda4bd23abf06e003a9126d40153efcf2bc370a442"
+    },
+    {
+      "path": "plugins/just-vibe/references/methods/python-celery.md",
+      "sha256": "23e6f1214674bd870ca7adecc6360868880d51678c8d761fee54502fadaeaa59"
+    },
+    {
+      "path": "plugins/just-vibe/references/methods/pytorch-debug.md",
+      "sha256": "2d31d50aaeeb97dcca52583054da1b5e454b6066355665edfab90968616a2729"
+    },
+    {
+      "path": "plugins/just-vibe/references/methods/react-behavior.md",
+      "sha256": "3245e4a6a182e88f39e2d01b8f2e4ffe57a383949976934f0571505a95512f54"
+    },
+    {
+      "path": "plugins/just-vibe/references/methods/recommender-systems.md",
+      "sha256": "ebf291b9a0013cccfdd01c0430da4c984d29acf8c61059d824789ecfd1c0f6cb"
+    },
+    {
+      "path": "plugins/just-vibe/references/methods/release-maintenance.md",
+      "sha256": "27ff47754aa0f05cfb3f482e36f3924d33f93bd812e1b3fd5e6a2b1f8145d4a1"
+    },
+    {
+      "path": "plugins/just-vibe/references/methods/reproducible-environments.md",
+      "sha256": "fcf7095f39caac4f279e994ca323d2b064c8c3830cff201d21c74852db96fdc6"
+    },
+    {
+      "path": "plugins/just-vibe/references/methods/sales-investor-research.md",
+      "sha256": "5562b06f790616c367e42a9796b2eacb6c10862a3adf828c35522df3974242d3"
+    },
+    {
+      "path": "plugins/just-vibe/references/methods/scientific-evidence.md",
+      "sha256": "a7bafacb67775b168f6d65c047c1998a844d1d19adf1a5e9a74989e1a4f8d991"
+    },
+    {
+      "path": "plugins/just-vibe/references/methods/swift-concurrency.md",
+      "sha256": "ec8ae2a861c43b26dc96eca6c9e8899d9b522f96b786ed2d29ef2cbb09c62c28"
+    },
+    {
+      "path": "plugins/just-vibe/references/methods/systems-languages.md",
+      "sha256": "4a06124b8288f04ab725170fcb9236b88c73f1fd04e68289f92ec1312e7c278b"
+    },
+    {
+      "path": "plugins/just-vibe/references/methods/video-3d-production.md",
+      "sha256": "b7b94e3f8286aec9b5fa5289ff9789f439dd2f4c395232eddcfc010cfe98710f"
+    },
+    {
+      "path": "plugins/just-vibe/scripts/hooks.mjs",
+      "sha256": "e3e250e3bf4c4378c1805a9725be94e71a26a42412b148fc56bf049d9ab36801"
+    },
+    {
+      "path": "plugins/just-vibe/scripts/kiro-hooks.mjs",
+      "sha256": "916c78363577c307954e35d95043bab8747b91c8d3cac38509d50139e88f973d"
+    },
+    {
+      "path": "plugins/just-vibe/scripts/lib/behavior-rules.mjs",
+      "sha256": "8662761ceb4eb698a9986b97fa87a898811d4eac3bbd2a0db71f543793d3efaa"
+    },
+    {
+      "path": "plugins/just-vibe/scripts/lib/bounded-jobs.mjs",
+      "sha256": "1ddb0cc7590e47d5a592c7e63e938e118b3ae52d966a3f1e13b305f4ea3a38e5"
+    },
+    {
+      "path": "plugins/just-vibe/scripts/lib/bundle.mjs",
+      "sha256": "03d691c56537e38a4e0e97ad3d32105a35c0700c2a3624af214152f68bfe7bf0"
+    },
+    {
+      "path": "plugins/just-vibe/scripts/lib/canary.mjs",
+      "sha256": "193c599769c255fd54873d79a69e5dc5db5d6af786d960da2eb53c9b7dc2e802"
+    },
+    {
+      "path": "plugins/just-vibe/scripts/lib/code-atlas.mjs",
+      "sha256": "0f26993670ba745049812a1d0a1a35fa4cbce1ab8b8bd7cddd8d4f33acca904c"
+    },
+    {
+      "path": "plugins/just-vibe/scripts/lib/config-inventory.mjs",
+      "sha256": "2ec5e61aef17de05f0f80167abd5cca5ca01e64cd7af0a4e776e3a0ae2c1d8cb"
+    },
+    {
+      "path": "plugins/just-vibe/scripts/lib/connectors.mjs",
+      "sha256": "8a14ed47fcba65af47239f0ec0fd8ceb0fee02f315275f796590cdeaf96ae6b5"
+    },
+    {
+      "path": "plugins/just-vibe/scripts/lib/context-graph.mjs",
+      "sha256": "b85cd2a00ef198aefaf5843c93cf3a095e3b70cee829457b3005b7590ab81aa7"
+    },
+    {
+      "path": "plugins/just-vibe/scripts/lib/council.mjs",
+      "sha256": "667e346bed8cef817e80815d1e176bdfb7738960afc275672a7b0e0a4ffbf8e4"
+    },
+    {
+      "path": "plugins/just-vibe/scripts/lib/dependency-ioc.mjs",
+      "sha256": "08b485ee494caa16ab645188458f0e49db781657645711feb361eee77ed6f00a"
+    },
+    {
+      "path": "plugins/just-vibe/scripts/lib/dev-services.mjs",
+      "sha256": "caffc0a583c5c8de8889d71f41d72a1a17909e8b5dcf1ec931b1fa74a6515a92"
+    },
+    {
+      "path": "plugins/just-vibe/scripts/lib/editor-adapters.mjs",
+      "sha256": "7dcb660f7e77ceb288c5c430512b9654da84527180bcdd7528ea1580b5cb6a14"
+    },
+    {
+      "path": "plugins/just-vibe/scripts/lib/editor-events.mjs",
+      "sha256": "e2e6c2b1e41eb00f72e89ea8296672d92543f9adba83ccecf5ab833613389d29"
+    },
+    {
+      "path": "plugins/just-vibe/scripts/lib/evaluation-capsule.mjs",
+      "sha256": "caf8ea9d1eae7afaa587c6a2362be4621c9ba7929c8642a343ea97de32ff3503"
+    },
+    {
+      "path": "plugins/just-vibe/scripts/lib/git-hooks.mjs",
+      "sha256": "4fd3e3366a58943e74e87c1e7e4d9d31f486bef3f9ba34355d16bc5e4f261bc1"
+    },
+    {
+      "path": "plugins/just-vibe/scripts/lib/investigation.mjs",
+      "sha256": "46afe11fe0ac0cd506776841ec0b39497f43572434b29fc750febdae8e411abd"
+    },
+    {
+      "path": "plugins/just-vibe/scripts/lib/lifecycle.mjs",
+      "sha256": "7719b93bf03c893a799cb34b330837941c38241db53e87606ab5705ae7d4d9f5"
+    },
+    {
+      "path": "plugins/just-vibe/scripts/lib/managed-files.mjs",
+      "sha256": "07f7ce0fef09eee6f671f95d72380fc7da3d24918445b61140c3f8056d03a23e"
+    },
+    {
+      "path": "plugins/just-vibe/scripts/lib/managed-fragment.mjs",
+      "sha256": "ad8b1754beb8e0f9551c68ecd7bb60c8e2621c66f3bb15e5b6b68b8a732b5584"
+    },
+    {
+      "path": "plugins/just-vibe/scripts/lib/mcp-health.mjs",
+      "sha256": "fb7a675981a7a9a1a1db3ae96ef9adc33c07e64c1a71a243f147608368244369"
+    },
+    {
+      "path": "plugins/just-vibe/scripts/lib/native-sessions.mjs",
+      "sha256": "84c4b1dc62111a5a59e3f5bb31cb895979858d353e7172386873af0d57e9b853"
+    },
+    {
+      "path": "plugins/just-vibe/scripts/lib/opencode-plugin.mjs",
+      "sha256": "07a128cfe174a0481e31fcfb4cf53534ad12d21952a7295645887d1d28fde8dd"
+    },
+    {
+      "path": "plugins/just-vibe/scripts/lib/operator-http.mjs",
+      "sha256": "25d9ad16d83fc90e7a37c13b6085d3fadf1ac754776a3f8c1ef285ecbdc8148a"
+    },
+    {
+      "path": "plugins/just-vibe/scripts/lib/operator.mjs",
+      "sha256": "47fcdd542cf47c209678582f7e581d37ddbfa31b7d50def8f6b905a3db0b1254"
+    },
+    {
+      "path": "plugins/just-vibe/scripts/lib/orchestration.mjs",
+      "sha256": "32c5b3691d0d6087663aa8c2f0492fb85994b3c9b1040e8365817dd16e7766be"
+    },
+    {
+      "path": "plugins/just-vibe/scripts/lib/quality.mjs",
+      "sha256": "3b12a019dc6c73628eec6ebe472a9e7f3bd4062242e75fddc577207c528a82e4"
+    },
+    {
+      "path": "plugins/just-vibe/scripts/lib/security-audit.mjs",
+      "sha256": "edfe51ac459a2de80336d1a095f2acac56c0f0c3ae87ff6c321d254e7d16c70b"
+    },
+    {
+      "path": "plugins/just-vibe/scripts/lib/skill-portfolio.mjs",
+      "sha256": "448a37f7a411cc52697102db4de4da3a4aa9c05bd41c58e609ec8dc65239b9f3"
+    },
+    {
+      "path": "plugins/just-vibe/scripts/lib/specialists.mjs",
+      "sha256": "52ff70d8f6714fd67dd78c0c2423e1555e6afbcc8ca13256e95388b9bb8c82bd"
+    },
+    {
+      "path": "plugins/just-vibe/scripts/lib/telemetry.mjs",
+      "sha256": "22a0b4767e34d0946e878f07936be602925121336b03e2dffda3c5c2d1ef2ef5"
+    },
+    {
+      "path": "plugins/just-vibe/scripts/lib/updater.mjs",
+      "sha256": "7995207843d0a60210918b27750515369d21fd9cc1179ab2619fed352f653345"
+    },
+    {
+      "path": "plugins/just-vibe/scripts/lib/usage-ledger.mjs",
+      "sha256": "d4dfc9695ddb1c6bdbb4298d182a64422bae0e72a05d7fd2d55a324e3928426b"
+    },
+    {
+      "path": "plugins/just-vibe/scripts/lib/workers.mjs",
+      "sha256": "b865b0981c5c61ce7bdca8d1dfcf5007015bc95e70c58c5127f7742cbb91a06d"
+    },
+    {
+      "path": "plugins/just-vibe/scripts/python/just_vibe_llm.py",
+      "sha256": "bf72af316f86880c914992c3d1fb8b0199c8cea737ca946e4b39e2e7fc3f71e3"
+    },
+    {
+      "path": "plugins/just-vibe/scripts/service-supervisor.mjs",
+      "sha256": "37a393e08ad3583b4f84a8c3870260db9c877e3ae5462a768e424268300d0b80"
+    },
+    {
+      "path": "scripts/check-localizations.mjs",
+      "sha256": "2b0184c942057ba53100422fe6898ce11e22e07052d45c7b7cb7bc0dce9eb543"
+    },
+    {
+      "path": "scripts/smoke-operator-browser.mjs",
+      "sha256": "458ff08659d0cbb803d8a1c2b09b03672db99dea1b209104db5717a7fc3f832e"
+    },
+    {
+      "path": "tests/bundle.test.mjs",
+      "sha256": "17ae10a054d92d8d9bac3ae202795e3f62506caa1dcf51179a3f705df04035c5"
+    },
+    {
+      "path": "tests/capability-runtime.test.mjs",
+      "sha256": "a02eafeec1278661907981743377e99d7c17308f0d9cfed313391d972709cb44"
+    },
+    {
+      "path": "tests/expansion-contracts.test.mjs",
+      "sha256": "04572b68f9e8e4332c9bc5688c612c68c263e79c8de8456c935ac300fc67e6fd"
+    },
+    {
+      "path": "tests/extended-workbench.test.mjs",
+      "sha256": "dabd51602fcdf8bc9686b89cc14749cce89b3dcb2bbdf659e1ff61324bfbf8de"
+    },
+    {
+      "path": "tests/gap-closure.test.mjs",
+      "sha256": "68fe2c5095c222fddc569b6bf2924fcabb3b5b14a1d5067dd23a720e4d740bfa"
+    },
+    {
+      "path": "tests/provider-host-fixtures.py",
+      "sha256": "2e683d87a52491f818e93987a1e0c757231451e316cf934bfb628d4aad3e98da"
+    },
+    {
+      "path": "tests/runtime-depth.test.mjs",
+      "sha256": "b98d6e9fb88f0dd47800bfd5932889cd2ac25abaea71fba61fca94bd68dec335"
+    },
+    {
+      "path": "tests/runtime-platform.test.mjs",
+      "sha256": "c234cd20be244f764c2e77cb4d327aa5840217e2abd979a6001aec27ca6a07ab"
+    }
+  ]
+}

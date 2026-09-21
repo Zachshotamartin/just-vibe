@@ -10411,6 +10411,162 @@
         "Report unavailable evidence without fabricating success.",
         "Do not add unrequested external side effects."
       ]
+    },
+    {
+      "id": "goal",
+      "pack": "general",
+      "brief": "Goal: make checkout work with discount codes and verify the failure states. Preserve the API contract.",
+      "mode": "apply",
+      "requiredEvidence": [
+        "The user objective, project root and observable completion criteria inferred from the request or clarified when necessary."
+      ],
+      "inputPolicy": {
+        "infer": "Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.",
+        "assume": "Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.",
+        "ask": "Ask when competing targets or incompatible success conditions would change the result; continue independent inspection first."
+      },
+      "rubric": [
+        "Goal state survives a new session and preserves constraints and outstanding work.",
+        "Completion is rejected when criteria lack evidence, artifacts changed or blockers remain.",
+        "Native host state and local state are reported separately if either could not be updated.",
+        "Try completion before evidence and after an artifact changes; both must remain incomplete until resolved."
+      ],
+      "technicalMethod": {
+        "evidence": "Current goal revision, completion criteria, constraints, blockers and artifact hashes.",
+        "method": "Revision-checked goal records; each criterion has attributed or hashed evidence. Native goal controls are optional and distinct from local persistence.",
+        "pitfall": "Treating a saved objective or a process exit as completed work, or treating a goal as blanket permission for external actions.",
+        "check": "Try completion before evidence and after an artifact changes; both must remain incomplete until resolved."
+      },
+      "stopBehavior": [
+        "Stop dependent work when a required answer, external access or authorization is missing; continue independent authorized work.",
+        "Respect cancellation, retirement and changed user scope. Never turn a saved goal into indefinite autonomous background work."
+      ],
+      "cases": [
+        {
+          "kind": "normal",
+          "mode": "apply",
+          "brief": "Goal: make checkout work with discount codes and verify the failure states. Preserve the API contract."
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Resume my checkout goal and show what remains; the validation artifact changed since yesterday."
+        },
+        {
+          "kind": "blocked",
+          "mode": "apply",
+          "brief": "Finish the deployment goal, but production credentials are not available."
+        }
+      ],
+      "invariants": [
+        "Preserve appended constraints and scope.",
+        "Report unavailable evidence without fabricating success.",
+        "Do not add unrequested external side effects."
+      ]
+    },
+    {
+      "id": "orchestrate",
+      "pack": "general",
+      "brief": "Build password reset end to end, preserving our session contract; coordinate the API, UI and tests.",
+      "mode": "apply",
+      "requiredEvidence": [
+        "The requested outcome, project, constraints and phase completion evidence."
+      ],
+      "inputPolicy": {
+        "infer": "Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.",
+        "assume": "Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.",
+        "ask": "Ask when competing targets or incompatible success conditions would change the result; continue independent inspection first."
+      },
+      "rubric": [
+        "Each phase produces the input required by its successor; dependency cycles and stale prerequisites are rejected.",
+        "Worker application uses the reviewed result, fresh passing checks and unchanged source scope, preserving staged user work.",
+        "The integrated result satisfies the original request; recorded completion or a plan alone is insufficient.",
+        "Try a cyclic graph, a failed prerequisite and a changed accepted file; dispatch must refuse unsafe progression while preserving recoverable results."
+      ],
+      "technicalMethod": {
+        "evidence": "Current source, acceptance criteria, dependency graph, worker baseline and result hashes, verification records and index state.",
+        "method": "Phase contracts followed by a dependency DAG when delegation is authorized. Completed work enters review; only accepted current results unlock dependent work.",
+        "pitfall": "Treating successful process exit as correctness, allowing concurrent writers to overlap, or allowing an old accepted result to unlock work after source changes.",
+        "check": "Try a cyclic graph, a failed prerequisite and a changed accepted file; dispatch must refuse unsafe progression while preserving recoverable results."
+      },
+      "stopBehavior": [
+        "Stop dependent phases on missing required evidence, unresolved overlap, authorization or required user decisions; continue independent useful work.",
+        "Bound worker attempts and honor cancellation. Do not automatically push, publish, run paid services or spawn agents without authorization."
+      ],
+      "cases": [
+        {
+          "kind": "normal",
+          "mode": "apply",
+          "brief": "Build password reset end to end, preserving our session contract; coordinate the API, UI and tests."
+        },
+        {
+          "kind": "edge",
+          "mode": "apply",
+          "brief": "Refactor the parser but preserve behavior; one file is involved so keep the work simple."
+        },
+        {
+          "kind": "blocked",
+          "mode": "plan",
+          "brief": "Plan the MVP; identify the data ownership decision we need before implementation."
+        }
+      ],
+      "invariants": [
+        "Preserve appended constraints and scope.",
+        "Report unavailable evidence without fabricating success.",
+        "Do not add unrequested external side effects."
+      ]
+    },
+    {
+      "id": "plan-review",
+      "pack": "general",
+      "brief": "Open docs/design.md for browser review so I can annotate the plan.",
+      "mode": "apply",
+      "requiredEvidence": [
+        "A readable project Markdown, text, HTML or JSON artifact to review, and the user decision or feedback sought."
+      ],
+      "inputPolicy": {
+        "infer": "Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.",
+        "assume": "Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.",
+        "ask": "Ask when competing targets or incompatible success conditions would change the result; continue independent inspection first."
+      },
+      "rubric": [
+        "Review endpoints require the private token and reject cross-origin requests.",
+        "Changed artifacts invalidate effective approval; stale or concurrent feedback is rejected until refreshed.",
+        "HTML previews remain sandboxed; keyboard and narrow-screen review controls stay usable.",
+        "Edit the artifact after browser approval; effectiveVerdict must become null and a new submission must fail until refresh."
+      ],
+      "technicalMethod": {
+        "evidence": "Artifact content hash, current file, review revision, attributed annotations and effective verdict.",
+        "method": "Serve only the saved snapshot through a token-authenticated loopback API. Bind each feedback mutation to both record revision and content hash.",
+        "pitfall": "Reusing approval after the underlying plan changed, executing embedded HTML, or granting publication permission from a review decision.",
+        "check": "Edit the artifact after browser approval; effectiveVerdict must become null and a new submission must fail until refresh."
+      },
+      "stopBehavior": [
+        "Do not expose secrets or serve arbitrary project files. If the artifact is too large or unsupported, prepare a bounded review copy within the requested scope.",
+        "Do not wait indefinitely or manufacture approval. On missing required feedback, save state and continue independent work; the local server expires automatically."
+      ],
+      "cases": [
+        {
+          "kind": "normal",
+          "mode": "apply",
+          "brief": "Open docs/design.md for browser review so I can annotate the plan."
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Check whether the approved plan changed before implementation."
+        },
+        {
+          "kind": "blocked",
+          "mode": "apply",
+          "brief": "Open this plan for approval, but it includes credentials; prepare a safe review copy first."
+        }
+      ],
+      "invariants": [
+        "Preserve appended constraints and scope.",
+        "Report unavailable evidence without fabricating success.",
+        "Do not add unrequested external side effects."
+      ]
     }
   ]
 }

@@ -14,9 +14,42 @@ import { collectEvidence } from './lib/evidence.mjs';
 import { manageHooks } from './lib/automation.mjs';
 import { INTENT_OPERATIONS, validateIntentArgs, intentRuntime } from './lib/intent-runtime.mjs';
 import { assistantRuntime } from './lib/assistant-runtime.mjs';
+import { PLATFORM_OPERATIONS, platformRuntime } from './lib/platform-runtime.mjs';
+import { mcpMain } from './mcp.mjs';
+import { guidedSetup } from './lib/guided-setup.mjs';
 
 export const HELP = `${INSTALLER_HELP}
 Workflow utilities:
+  inventory / portfolio / sessions / behavior / mcp-health / runners
+                        Configuration, skill maintenance, history, rules and trusted execution
+  atlas / graph / usage / council / jobs / canary / evaluation
+                        Tours, recall, accounting, reviews, bounded work, monitoring and receipts
+  methods / telemetry / connectors / updater
+  operator / services / ioc / git-hooks
+                        Local coordination, owned processes, dependency indicators and Git gates
+                        Each family accepts an operation and --stdin JSON. See runtime-expansion.md.
+  health <operation>   Context capacity, repeated-call and scope monitoring
+  quality <operation>  Preview/configure detected checks; verify staged commits
+  epic <operation>     GitHub issue coordination: sync/plan/publish/recover
+  audit <operation>    Native reports and an explicitly trusted AgentShield runner
+  integration <op>     Guided choices: status/preview/configure/recover
+  context <operation>   Explicit backup/preview/import/transfer/recover/status
+  orchestrate <op>      Dependent worker assignments and reviewed acceptance
+  canvas <operation>    Private local artifact review and version-bound feedback
+  goal <operation>      Persistent objectives, criteria, progress and evidence
+  vault <operation>     Scoped memory search/read/save/handoff/retire/forget
+  learn <operation>     Observe patterns, review candidates, import/export lessons
+  policy <operation>    Optional before-action checks and exact-action exceptions
+  scan config           Static agent-configuration security scan
+  agents list|show      Independent specialist definitions
+  workers <operation>   Opt-in model workers: configure/start/status/logs/result/verify/apply/stop/cleanup
+  activity show|health|report
+                        Recorded activity and a local interactive HTML report
+  adapters <operation>  Project editor/agent adapters: list/install/update/doctor/uninstall
+  rules list|show       Language and framework rule packs
+  mcp --root <path>     Native tools over stdio; saved project access or read-only defaults
+                        Optional --allow-write, --allow-user, --allow-workers
+                        Runtime operations accept --stdin JSON; see references/runtime-platform.md
   assist <operation>    Automatic routing, workflow loading, evidence and learning
                         status, route, start, select, load, evidence, report,
                         feedback, history, rollback, retire, forget, configure, prune, recover
@@ -74,12 +107,11 @@ Project checkpoint/resume takes a name after the operation. JSON updates
 include the current revision (0 to create). Project writes go in .just-vibe.
 Browser steps may interact with the chosen site; other collectors only read.
 
-Commands such as fix, React, database and ML workflows execute as skills in
-the active Codex/Claude agent. This CLI does not launch a model or execute
-candidate workflows. Use show to inspect a workflow and invoke it in your host.
+Domain workflows execute as skills in the active host. Only an explicitly
+enabled workers start operation launches an additional model process.
 `;
 
-const operations = new Set(['assist', 'tools', 'show', 'profiles', 'profile', 'inspect', 'discover', 'route', 'workflow', 'session', 'quiz', 'project', 'evidence', 'hooks', ...Object.keys(INTENT_OPERATIONS)]);
+const operations = new Set(['assist', 'tools', 'show', 'profiles', 'profile', 'inspect', 'discover', 'route', 'workflow', 'session', 'quiz', 'project', 'evidence', 'hooks', ...Object.keys(INTENT_OPERATIONS), ...Object.keys(PLATFORM_OPERATIONS)]);
 const booleans = new Set(['--json', '--available', '--all', '--stdin']);
 const values = new Set(['--root', '--target', '--pack', '--capabilities', '--mode', '--scope', '--profile', '--brief-file', '--limit', '--repo', '--pr', '--deployment', '--team', '--url', '--steps', '--directory', '--applied']);
 
@@ -108,6 +140,7 @@ export function parseToolkitArgs(args) {
   if (options.stdin && options['brief-file']) throw new Error('Use only one brief source.');
   if (options.limit !== undefined) { options.limit = Number(options.limit); if (!Number.isInteger(options.limit) || options.limit < 1 || options.limit > 1000) throw Error('limit must be between 1 and 1000.'); }
   const allowed = {
+    ...Object.fromEntries(Object.keys(PLATFORM_OPERATIONS).map(op => [op, ['json', 'root', 'stdin']])),
     assist: ['json', 'root', 'stdin'],
     tools: ['json', 'available', 'all', 'root', 'target', 'pack', 'capabilities', 'limit'],
     show: ['json', 'target', 'root'], inspect: ['json', 'root'], discover: ['json', 'root', 'capabilities'],
@@ -133,6 +166,7 @@ export function parseToolkitArgs(args) {
     if (!writes.includes(options.positionals[0]) && options.stdin) throw Error('--stdin does not apply to this operation.');
   }
   if (Object.hasOwn(INTENT_OPERATIONS, operation)) validateIntentArgs(options);
+  if (Object.hasOwn(PLATFORM_OPERATIONS, operation) && (options.positionals.length !== 1 || !PLATFORM_OPERATIONS[operation].includes(options.positionals[0]))) throw Error(`Choose a ${operation} operation: ${PLATFORM_OPERATIONS[operation].join(', ')}.`);
   if (operation === 'assist') {
     const op = options.positionals[0];
     if (options.positionals.length !== 1 || !['status', 'route', 'start', 'select', 'load', 'evidence', 'report', 'feedback', 'history', 'rollback', 'retire', 'forget', 'configure', 'prune', 'recover'].includes(op)) throw Error('Choose a supported assist operation.');
@@ -182,6 +216,8 @@ function formatRoute(result) {
 
 export async function main(args, { log = console.log, error = console.error, input = readStdin, catalog = loadCatalog } = {}) {
   try {
+    if (['setup', 'update'].includes(args[0]) && args.includes('--guided')) { await guidedSetup(args, { log }); return 0; }
+    if (args[0] === 'mcp') return await mcpMain(args.slice(1));
     if (!args.length || ['--help', '-h'].includes(args[0]) || (args[0] === 'help' && args.length === 1)) { log(HELP); return 0; }
     if (['setup', 'doctor', 'update', 'uninstall', '--version'].includes(args[0])) return installerMain(args, { log, error });
     if (args[0] === 'help') args = ['tools', ...args.slice(1)];
@@ -191,7 +227,8 @@ export async function main(args, { log = console.log, error = console.error, inp
     const discovery = () => discoverCapabilities(options.root, {
       report: options.capabilities ? readCapabilityReport(options.capabilities, options.root) : undefined,
     });
-    if (options.operation === 'assist') result = assistantRuntime(options.root, options.positionals[0], options.stdin ? JSON.parse(await input()) : {}, { catalog: data });
+    if (Object.hasOwn(PLATFORM_OPERATIONS, options.operation)) result = await platformRuntime(options.operation, options.root, options.positionals[0], options.stdin ? JSON.parse(await input()) : {});
+    else if (options.operation === 'assist') result = assistantRuntime(options.root, options.positionals[0], options.stdin ? JSON.parse(await input()) : {}, { catalog: data });
     else if (options.operation === 'tools') {
       const found = discovery();
       let tools = listTools(data, found, { query: options.positionals.join(' '), pack: options.pack,
@@ -245,7 +282,10 @@ export async function main(args, { log = console.log, error = console.error, inp
     else if (options.operation === 'profiles' && !options.json) log([result.note, ...result.profiles.map(p => `${p.id} [${p.family}]\n  ${p.summary}`)].join('\n\n'));
     else if (options.operation === 'profile' && !options.json) log(`${result.name}\n${result.summary}\n\nPriorities:\n${result.priorities.map(p => `- ${p}`).join('\n')}\n\nDecision: ${result.decision}\n\nVerify:\n${result.verification.map(p => `- ${p}`).join('\n')}\n\nBoundary: ${result.boundary}\nWorkflows: ${result.workflows.join(', ')}\nExample: ${result.example}`);
     else if (options.operation === 'show' && !options.json) log(result.instructions);
+    else if (options.operation === 'audit' && ['report', 'run'].includes(options.positionals[0]) && !options.json) log(typeof result.report === 'string' ? result.report : JSON.stringify(result.report, null, 2));
     else log(JSON.stringify(result, null, 2));
+    if (options.operation === 'audit' && result.exitCode !== undefined) return result.exitCode;
+    if (options.operation === 'quality' && options.positionals[0] === 'check-commit') return result.passed ? 0 : 2;
     return (options.operation === 'evidence' || Object.hasOwn(INTENT_OPERATIONS, options.operation)) && ['failed', 'stale', 'incomplete', 'drift', 'conflict', 'invalid', 'incomparable', 'unverified', 'unknown'].includes(result.result) ? 2 : 0;
   } catch (failure) { error(`just-vibe: ${failure.message}`); return 1; }
 }

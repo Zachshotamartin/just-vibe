@@ -46,7 +46,10 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 ## Read when relevant
 
 - When a concrete decision or deliverable example would clarify this workflow: [General worked example](../../references/examples/general.md).
-
+- The task needs scoped memory search, a persistent goal, independent review, configuration scanning, worker control, learned-pattern review or editor installation: [Native memory, goals, specialists and runtime controls](../../references/runtime-platform.md).
+- The request needs proactive context warnings, detected checks, native editor events, GitHub epic coordination or configuration audit reports: [Context health, check presets, editor events and shared work](../../references/runtime-depth.md).
+- The task specifically involves console cleanup, documentation hook, design quality hook, pre-push gate; load only the matching method: [Focused quality, console and documentation hooks](../../references/methods/quality-hook-recipes.md).
+- Discovering session, inventory, rule, council, scheduler, monitor, graph, evaluation, operator or domain-specific capabilities: [Extended capabilities and optional method library](../../references/runtime-expansion.md).
 
 ## Decision branches
 

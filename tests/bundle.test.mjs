@@ -61,9 +61,13 @@ test('setup preserves the stored version; update replaces it from the selected p
   const root = temporary(t), source = join(root, 'managed');
   const version = stageBundle(source);
   const payload = join(source, 'plugins/just-vibe/skills/help/SKILL.md');
+  const original = readFileSync(payload, 'utf8');
   writeFileSync(payload, 'old version sentinel');
   assert.equal(stageBundle(source), version);
   assert.equal(readFileSync(payload, 'utf8'), 'old version sentinel');
+  assert.throws(() => stageBundle(source, { replace: true }), /user edits/);
+  assert.equal(readFileSync(payload, 'utf8'), 'old version sentinel');
+  writeFileSync(payload, original);
   stageBundle(source, { replace: true });
   assert.notEqual(readFileSync(payload, 'utf8'), 'old version sentinel');
 });

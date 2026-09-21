@@ -1,7 +1,10 @@
+import { createHash } from 'node:crypto';
 import { cpSync, existsSync, lstatSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, renameSync, rmSync, writeFileSync } from 'node:fs';
 import { join, dirname, resolve } from 'node:path';
 import { homedir } from 'node:os';
 import { fileURLToPath } from 'node:url';
+import { applySelection } from './selection.mjs';
+import { loadCatalog } from './catalog.mjs';
 
 export const packageRoot = fileURLToPath(new URL('../../../../', import.meta.url));
 const marker = '.just-vibe-managed.json';
@@ -29,7 +32,8 @@ export function validateBundle(root) {
   const catalog = JSON.parse(readFileSync(join(root, 'plugins/just-vibe/catalog/commands.json'), 'utf8'));
   for (const command of catalog.commands) {
     if (!/^[a-z0-9-]+$/.test(command.id)
-        || !existsSync(join(root, `plugins/just-vibe/skills/${command.id}/SKILL.md`))) throw new Error('Incomplete bundled skills.');
+        || (!existsSync(join(root, `plugins/just-vibe/skills/${command.id}/SKILL.md`))
+          && !existsSync(join(root, `plugins/just-vibe/skills/${command.id}/REFERENCE.md`)))) throw new Error('Incomplete bundled skills.');
   }
   if (!existsSync(join(root, 'plugins/just-vibe/scripts/toolkit.mjs'))) throw new Error('Missing bundled runtime.');
   return versions[0];
@@ -47,6 +51,22 @@ export function inspectManaged(root) {
   return data;
 }
 
+export function bundleFileHashes(root) {
+  const hashes = {}; let count = 0, bytes = 0;
+  function walk(path, prefix = '') {
+    for (const entry of readdirSync(path, { withFileTypes: true })) {
+      if (!prefix && entry.name === marker) continue;
+      const full = join(path, entry.name), key = prefix ? prefix + '/' + entry.name : entry.name;
+      if (entry.isSymbolicLink()) throw Error('Managed bundle contains a symlink.');
+      if (entry.isDirectory()) walk(full, key);
+      else if (entry.isFile()) {
+        if (++count > 10000 || (bytes += lstatSync(full).size) > 64 * 1024 * 1024) throw Error('Managed bundle exceeds inspection limits.');
+        hashes[key] = createHash('sha256').update(readFileSync(full)).digest('hex');
+      } else throw Error('Managed bundle contains a special file.');
+    }
+  }
+  walk(root); return Object.fromEntries(Object.entries(hashes).sort(([a],[b]) => a.localeCompare(b)));
+}
 function rejectLinks(path) {
   const stat = lstatSync(path);
   if (stat.isSymbolicLink() || (!stat.isDirectory() && !stat.isFile())) throw new Error(`Unsupported bundled file: ${path}`);
@@ -55,8 +75,9 @@ function rejectLinks(path) {
 
 // Only the explicit package payload is copied. A failed copy leaves the previous source intact.
 // Retain a valid managed copy on host failure so the same operation can be retried.
-export function stageBundle(destination, { root = packageRoot, replace = false } = {}) {
+export function stageBundle(destination, { root = packageRoot, replace = false, selection, target = 'codex' } = {}) {
   const existing = inspectManaged(destination);
+  if (selection && existing && !replace && JSON.stringify(selection) !== JSON.stringify(existing.selection)) throw Error('Use update to change an existing installation selection.');
   if (existing && !replace) { validateBundle(destination); return existing.version; }
   let version;
   try { version = validateBundle(root); }
@@ -73,15 +94,27 @@ export function stageBundle(destination, { root = packageRoot, replace = false }
   let committed = false;
   try {
     // Recheck ownership while holding the copy lock.
-    inspectManaged(destination);
+    const locked = inspectManaged(destination);
+    if (locked?.files && JSON.stringify(locked.files) !== JSON.stringify(bundleFileHashes(destination))) throw Error('Managed bundle has user edits or added files; preserve them before updating.');
     staging = mkdtempSync(join(dirname(destination), '.just-vibe-stage-'));
     for (const asset of assets) {
       mkdirSync(dirname(join(staging, asset)), { recursive: true });
       cpSync(join(root, asset), join(staging, asset), { recursive: true, dereference: false });
     }
     if (existsSync(join(root, 'LICENSE'))) cpSync(join(root, 'LICENSE'), join(staging, 'LICENSE'));
+    const chosen = selection ? { ...existing?.selection, ...selection } : existing?.selection;
+    if (selection?.profile !== undefined && selection.packs === undefined) chosen.packs = [];
+    if (chosen) applySelection(join(staging, 'plugins/just-vibe'), chosen, loadCatalog(join(root, 'plugins/just-vibe')));
+    // Codex's compatibility MCP format does not expand Claude's plugin-root
+    // placeholder. Pin the bundled server to this persistent managed source,
+    // leaving its cwd unset so it binds to the host's actual project directory.
+    if (target === 'codex') writeFileSync(join(staging, 'plugins/just-vibe/.mcp.json'), JSON.stringify({ mcpServers: { 'just-vibe': {
+      command: 'node',
+      args: [join(resolve(destination), 'plugins/just-vibe/scripts/mcp.mjs')],
+      env_vars: ['JUST_VIBE_HOME'],
+    } } }, null, 2) + '\n');
     validateBundle(staging);
-    writeFileSync(join(staging, marker), `${JSON.stringify({ schemaVersion: 1, owner: 'just-vibe', version })}\n`);
+    writeFileSync(join(staging, marker), `${JSON.stringify({ schemaVersion: 1, owner: 'just-vibe', version, files: bundleFileHashes(staging), ...(chosen ? { selection: chosen } : {}) })}\n`);
     if (existsSync(destination)) {
       backup = `${staging}-previous`;
       renameSync(destination, backup);
@@ -94,7 +127,8 @@ export function stageBundle(destination, { root = packageRoot, replace = false }
   } finally {
     if (staging) rmSync(staging, { recursive: true, force: true });
     // Never delete the recovery copy if restoring the old destination failed.
-    if (backup && committed) rmSync(backup, { recursive: true, force: true });
+    if (backup && committed && existing?.files) rmSync(backup, { recursive: true, force: true });
+    // Legacy installs lack baseline hashes. Retain their complete recovery copy.
     rmSync(lock, { recursive: true, force: true });
   }
 }

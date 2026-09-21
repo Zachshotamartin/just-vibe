@@ -1,6 +1,6 @@
 {
   "name": "just-vibe",
-  "version": "0.9.0",
+  "version": "0.10.0",
   "description": "Tools, skills, and commands for coding agents.",
   "homepage": "https://just-vibe-tools.vercel.app/",
   "type": "module",
@@ -30,7 +30,14 @@
     "eval:conversation": "node evals/conversation/harness.mjs",
     "website:dev": "npm --prefix website run dev",
     "website:build": "npm --prefix website run build",
-    "website:test": "npm --prefix website test"
+    "website:test": "npm --prefix website test",
+    "test:runtime-browser": "node scripts/smoke-runtime-browser.mjs",
+    "test:canvas-browser": "node scripts/smoke-canvas-browser.mjs",
+    "eval:hosts": "node scripts/eval-live-hosts.mjs",
+    "audit:ecc": "node scripts/audit-ecc.mjs",
+    "test:operator-browser": "node scripts/smoke-operator-browser.mjs",
+    "check:localizations": "node scripts/check-localizations.mjs",
+    "audit:implementation": "node scripts/check-ecc-implementation.mjs"
   },
   "files": [
     "bin/",

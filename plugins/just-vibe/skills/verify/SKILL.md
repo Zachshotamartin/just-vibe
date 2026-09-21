@@ -49,6 +49,12 @@ Run checks when verification is requested, using existing tooling and owned isol
 
 - When a concrete decision or deliverable example would clarify this workflow: [General worked example](../../references/examples/general.md).
 - A task needs a reviewable acceptance report or durable evidence: [Requirement evidence](../../references/proofs.md).
+- The affected project uses Django / DRF: [Django / DRF](../../references/frameworks/django.md).
+- The affected project uses FastAPI: [FastAPI](../../references/frameworks/fastapi.md).
+- The affected project uses Spring Boot: [Spring Boot](../../references/frameworks/spring-boot.md).
+- The affected project uses Flutter: [Flutter](../../references/frameworks/flutter.md).
+- The affected project uses React Native / Expo: [React Native / Expo](../../references/frameworks/react-native.md).
+- The request needs proactive context warnings, detected checks, native editor events, GitHub epic coordination or configuration audit reports: [Context health, check presets, editor events and shared work](../../references/runtime-depth.md).
 
 ## Decision branches
 

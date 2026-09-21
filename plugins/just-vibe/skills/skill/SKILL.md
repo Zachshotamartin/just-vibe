@@ -46,6 +46,9 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 - When a concrete decision or deliverable example would clarify this workflow: [General worked example](../../references/examples/general.md).
 - Dependencies, builds, secrets, hooks or privileged execution cross a trust boundary: [Dependency and execution provenance](../../references/security/supply-chain.md).
+- The task needs scoped memory search, a persistent goal, independent review, configuration scanning, worker control, learned-pattern review or editor installation: [Native memory, goals, specialists and runtime controls](../../references/runtime-platform.md).
+- The task specifically involves agent harness, mcp server, prompt optimization, tool routing; load only the matching method: [Agent harness and MCP server engineering](../../references/methods/agent-harness.md).
+- Discovering session, inventory, rule, council, scheduler, monitor, graph, evaluation, operator or domain-specific capabilities: [Extended capabilities and optional method library](../../references/runtime-expansion.md).
 
 ## Decision branches
 

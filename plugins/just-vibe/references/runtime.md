@@ -10,6 +10,10 @@ Use [adaptive assistance](adaptive.md) for ordinary-request activation, focused 
 
 Persistent intent operations run as `node toolkit.mjs NAMESPACE OPERATION [NAME] --root PROJECT`, with `--stdin` for the operations that accept JSON. Mutations require the current record revision; new records use zero. Unlike the session state machine below, these helpers can write local state/files and execute explicitly requested checks or previews. They do not launch a model or treat a saved command as fresh permission.
 
+Use [runtime tools and persistent goals](runtime-platform.md) for scoped memory, native MCP tools, goal state, specialist agents, optional worker processes, pattern review/sharing, action policy, configuration scans, activity reports and editor adapters. Only explicitly enabled worker starts launch additional model processes.
+
+Use [runtime depth and integrations](runtime-depth.md) for context monitoring, detected quality presets, batching, staged commit checks, native editor events, GitHub epic coordination and security reports. Read-only previews do not grant trust; GitHub publication and optional external scans retain their explicit activation boundaries.
+
 ## Capability observations
 
 `discover` probes only project readability, Git repository identity, and executable presence. Network access, authentication, browser inspection, database data, artifacts, and telemetry remain unknown until the host actually observes relevant access. Capability names describe task evidence, not permission grants.
@@ -73,6 +77,6 @@ Example: stage A cannot obtain a local configuration through one inspection meth
 
 Claude Code discovers skill directories beneath the plugin's `skills/` path. Invoke `/just-vibe:fix` followed by the complete brief. The files use ordinary name/description frontmatter and let the host append invocation arguments, avoiding shell interpolation or dynamic pre-execution.
 
-With automatic hooks enabled and trusted, ordinary requests activate a compact workflow selection path. Direct selection remains available in Codex's native plugin skill picker and Claude's namespaced slash commands; do not claim identical syntax on every surface. Both hosts read the same instruction files and personal overlays. Optional project check/formatter hooks remain inactive without project configuration and local trust, separate from automatic routing and native hook trust. No model override, auto-delegation, MCP permission or automatic network connection is installed. See [adaptive assistance](adaptive.md) for activation and [daily workflows](daily-workflows.md) for project persistence, collectors and configured checks.
+With automatic hooks enabled and trusted, ordinary requests activate a compact workflow selection path. Direct selection remains available in Codex's native plugin skill picker and Claude's namespaced slash commands; do not claim identical syntax on every surface. Both hosts read the same instruction files and personal overlays. Optional project check/formatter hooks remain inactive without project configuration and local trust, separate from automatic routing and native hook trust. No model override, auto-delegation or host permission is installed. The local MCP server exposes scoped toolkit tools; it has no network service. See [adaptive assistance](adaptive.md) for activation and [daily workflows](daily-workflows.md) for project persistence, collectors and configured checks.
 
 Source references: [OpenAI skill format](https://developers.openai.com/plugins/build/skills), [OpenAI plugin packaging](https://developers.openai.com/plugins/build/plugins), and [Claude Code skill arguments](https://code.claude.com/docs/en/skills#pass-arguments-to-skills).

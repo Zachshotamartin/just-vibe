@@ -109,7 +109,7 @@ export function createWorkspace(root, record, variant) {
     writeState(path, p, state);
   return path;
 }
-function initialFile(root, record, path) {
+export function initialFile(root, record, path) {
   if (Object.hasOwn(record.base.overlay, path))
     return record.base.overlay[path];
   const tree = git(root, ["ls-tree", record.base.repo.head, "--", path]).trim();

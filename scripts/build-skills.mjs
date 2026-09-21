@@ -2,7 +2,10 @@ import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { loadCatalog, pluginRoot } from '../plugins/just-vibe/scripts/lib/catalog.mjs';
+import { loadMethods } from '../plugins/just-vibe/scripts/lib/method-library.mjs';
 import { loadProfiles } from '../plugins/just-vibe/scripts/lib/profiles.mjs';
+import { SPECIALISTS, specialistInstructions } from '../plugins/just-vibe/scripts/lib/specialists.mjs';
+import { nativeAgentInstructions } from '../plugins/just-vibe/scripts/lib/agent-instructions.mjs';
 
 export function renderSkill(command, pack) {
   if (command.aliasOf) return `---\nname: ${command.id}\ndescription: ${JSON.stringify(`${command.summary} Alias for ${command.aliasOf}.`)}\n---\n\n# ${command.id}\n\nRead [${command.aliasOf}](../${command.aliasOf}/SKILL.md) and execute that single canonical workflow. It owns selection, inputs, mode, scope, methods, outputs, recovery, and verification. Preserve the complete appended request and original invoked name (${command.id}); use ${command.aliasOf} as the canonical command in run records. Do not add a routing stage, change permissions, or reset counters for an alias. This entry deliberately contains no independent behavioral contract.\n`;
@@ -82,6 +85,15 @@ ${command.examples.map((example, i) => `- **${example.kind || (i ? 'Additional' 
 export function generate({ check = false } = {}) {
   const catalog = loadCatalog();
   const outputs = new Map();
+  for (const m of loadMethods()) {
+    const out = `# ${m.title}\n\nUse when: ${m.triggers.join(', ')}.\n\n${m.scope}\n\n## Inspect first\n\n${m.inspect.map(s=>'- '+s).join('\n')}\n\n## Method\n\n${m.procedure.map((s,i)=>`${i+1}. ${s}`).join('\n')}\n\n## Failure cases\n\n${m.failureCases.map(s=>'- '+s).join('\n')}\n\n## Verification\n\n${m.verification.map(s=>'- '+s).join('\n')}\n\n## Worked scenario\n\n${m.example}\n\n## Version-sensitive primary references\n\n${m.references.map(r=>`- [${new URL(r.url).hostname}](${r.url}) — ${r.policy}`).join('\n')}\n\nThis is a host-agent method, not an installed vendor service. Inspect versions and available tools, preserve the requested scope, and report unavailable live checks. Do not treat a checklist as proof of correctness or compliance.\n`;
+    outputs.set(resolve(pluginRoot, `references/methods/${m.id}.md`), out);
+  }
+  for (const agent of SPECIALISTS) {
+    const command = catalog.commands.find(c => c.id === agent.workflow);
+    const method = renderSkill(command, catalog.packs.find(p => p.id === command.pack));
+    outputs.set(resolve(pluginRoot, `agents/${agent.id}.md`), `---\nname: ${agent.id}\ndescription: ${JSON.stringify(agent.description)}\ntools: ${agent.mode === 'inspect' ? 'Read, Glob, Grep' : 'Read, Glob, Grep, Edit, Write, Bash'}\nmodel: inherit\n---\n\n${nativeAgentInstructions(agent, catalog, { method }).trimEnd()}\n`);
+  }
   const profiles = loadProfiles();
   outputs.set(resolve(pluginRoot, 'references/profile-reference.md'), '# Engineering profiles\n\n' + profiles.profiles.length + ' task profiles. [Selection, scope and precedence](profiles.md). Read only the roles relevant to the request. Suggested workflows do not imply available tools or authorization.\n\n' + profiles.families.map(f => `## ${f.name}\n\n| Profile | Purpose |\n|---|---|\n` + profiles.profiles.filter(p => p.family === f.id).map(p => `| [${p.name}](profiles/${p.id}.md) | ${p.summary} |`).join('\n')).join('\n\n') + '\n');
   for (const p of profiles.profiles) {

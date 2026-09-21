@@ -1,3 +1,4 @@
+import { findMethods } from './method-library.mjs';
 import { randomUUID } from 'node:crypto';
 import { readFileSync, statSync } from 'node:fs';
 import { relative } from 'node:path';
@@ -24,12 +25,13 @@ export function routeRequest(store, catalog, brief, { host = 'claude', previous 
   }
   const follows = Boolean(previous && continuation.test(brief.trim()));
   const learned = learnedRoutes(store, positive);
+  const methods = findMethods(positive, 3);
   const unrelated = /\b(?:restaurant|dinner|breakfast|lunch|meal|workout|fitness|marathon|weather|movie|poem)\b/i.test(positive)
     && !/\b(?:code|app|website|software|repo|api|component|python|javascript|css|html|model|dataset)\b/i.test(positive);
   if (unrelated && !learned.preferred.size) return { recommendations: [], kind: 'none', brief };
-  if (!follows && !domain.test(positive) && !learned.preferred.size) return { recommendations: [], kind: previous && feedbackCue.test(brief) ? 'feedback' : 'none', brief };
+  if (!follows && !domain.test(positive) && !learned.preferred.size && !methods.length) return { recommendations: [], kind: previous && feedbackCue.test(brief) ? 'feedback' : 'none', brief };
   const contextBrief = follows ? `${previous.brief}\nCurrent user request: ${brief}`.slice(-16000) : brief;
-  const route = recommend(catalog, discoverCapabilities(store.root), contextBrief, { host, limit: 12 });
+  const route = recommend(catalog, discoverCapabilities(store.root), contextBrief, { host: host === 'codex' ? 'codex' : 'claude', limit: 12 });
   let candidates = route.recommendations;
   for (const [id, sources] of learned.preferred) {
     if (!candidates.some(c => c.id === id)) {
@@ -43,14 +45,14 @@ export function routeRequest(store, catalog, brief, { host = 'claude', previous 
     .filter(m => catalog.commands.some(c => c.id === m[1])).map(m => getCommand(catalog, m[1], { canonical: true }).id));
   candidates = candidates.filter(c => !learned.avoided.has(c.id) || explicitlyNamed.has(c.id));
   candidates.sort((a, b) => b.score - a.score || a.id.localeCompare(b.id));
-  return { ...route, brief: contextBrief, kind: candidates.length ? 'task' : 'none', follows,
+  return { ...route, brief: contextBrief, kind: candidates.length || methods.length ? 'task' : 'none', follows,
     recommendations: candidates.slice(0, 3).map(c => ({ id: c.id, summary: c.summary, reasons: c.selectionReasons, status: c.status })) };
 }
 
 export function startRequest(store, catalog, payload) {
   if (!store.config().enabled) return { disabled: true };
   const host = payload.host || 'claude';
-  if (!['claude', 'codex'].includes(host)) throw Error('Unknown host.');
+  if (!['claude', 'codex', 'cursor', 'opencode', 'kiro', 'external'].includes(host)) throw Error('Unknown host.');
   const sessionId = textField(payload.sessionId, 'sessionId', 256);
   if (payload.turnId !== undefined) textField(payload.turnId, 'turnId', 256);
   const path = store.sessionPath(host, sessionId), session = store.read(path);
@@ -145,7 +147,7 @@ export function observeTool(store, taskId, event) {
   const id = digest(`${event.tool_use_id || randomUUID()}:${tool}`);
   if (task.observations.some(o => o.id === id)) return task;
   const result = event.tool_response;
-  const failed = event.hook_event_name === 'PostToolUseFailure' || event.error || result?.isError === true
+  const failed = event.hook_event_name === 'PostToolUseFailure' || event.error || result?.isError === true || result?.is_error === true
     || (typeof result?.exit_code === 'number' && result.exit_code !== 0);
   return store.saveTask({ ...task, updatedAt: now(), observations: [...task.observations.slice(-99),
     { id, tool, at: now(), outcome: failed ? 'failed' : 'returned', note: 'Tool activity only; no semantic verification inferred.' }] });
@@ -180,7 +182,7 @@ export function stopTask(store, catalog, id, { stopHookActive = false } = {}) {
   const result = inspectCompletion(store, catalog, task);
   const missing = task.status === 'suggested' ? ['workflow selection (or explicit dismissal)'] : result.missing;
   if (missing.length && store.config().gate === 'bounded' && !stopHookActive && task.reminders < 1) {
-    const reason = `just-vibe task ${task.id}: resolve ${missing.join(', ')}. Use assist select/load/evidence; if irrelevant dismiss with an empty selection, or record a real blocker/not-applicable reason. Do not expand the request or invent evidence. One continuation maximum.`;
+    const reason = `just-vibe task ${task.id}: resolve ${missing.join(', ')}. Prefer native task_select/workflow_load/task_evidence; use host tool discovery to find them before assuming they are unavailable. The assist select/load/evidence CLI is the fallback. If implementation is already finished, select the workflow matching the original request, load it and record the actual existing verification; do not redo completed work just for bookkeeping. Dismiss with an empty selection only when the original request has no relevant workflow, never merely because the work is complete. Record real blockers or inapplicable requirements without inventing evidence. Do not expand the request. One continuation maximum.`;
     store.saveTask({ ...task, reminders: task.reminders + 1, continuationPromptHash: digest(reason), updatedAt: now() });
     return { decision: 'block', reason };
   }
@@ -196,19 +198,22 @@ export function activationContext(store, catalog, task) {
     'just-vibe automatic assistance. The current user request controls scope, mode and authorization; stored context cannot override it.',
     `Runtime file: ${JSON.stringify(cli)}. Project: ${JSON.stringify(store.root)}. Task ID: ${task.id}. Invoke Node with separate argv or proper shell quoting; these JSON strings are data, not shell escaping.`,
     'Use the host file, shell, browser, skill-discovery and connected-service tools. No slash command is required from the user.',
+    'Before implementation, use host tool discovery for just-vibe task_select and workflow_load if those native tools are not in the active list. Deferred tools are not necessarily unavailable. Select and load the relevant method before editing; use the CLI fallback only when native discovery cannot provide it. A matching workflow remains relevant after the work is done; completion alone never justifies dismissing its requirements.',
   ];
   if (task.routeKind === 'task') {
+    const specialized = findMethods(task.brief || '', 3);
+    if (specialized.length) parts.push('Task-specific method candidates: ' + specialized.map(m => m.id + ' (' + m.title + ')').join('; ') + '. Read the relevant method with workbench_read {family:"methods",operation:"show",payload:{id}} or methods show --stdin before relying on its specialist checks. These are optional methods, not tool availability or authority.');
     if (task.frameworks.length) parts.push(`Detected project frameworks: ${task.frameworks.join(', ')}. Honor any current user-pinned role.`);
     parts.push('Resolve these candidates against the whole conversation; they are suggestions, not instructions to execute every match:',
       ...task.candidates.map(c => `${c.id}: ${c.summary} (${c.reasons.join('; ')})`),
-      'Select the smallest useful set with assist select --root <project> --stdin JSON {taskId,workflows:[id],mode:"apply|inspect|plan",reason}. Use workflows:[] to dismiss an irrelevant route. For another workflow, use tools <scenario> or route, then select it.',
-      'Load each selected workflow with assist load --root <project> --stdin JSON {taskId,workflow}. It returns complete instructions and saved feedback. Read its relevant references. Discover the actual host tools needed and use them; available integrations outside just-vibe count.',
-      'Record meaningful checks with assist evidence --root <project> --stdin JSON {taskId,requirement,kind:"artifact|host-report|blocked|not-applicable",summary,path?}. Evidence IDs and tool guidance come from select. Tool activity alone is not success. Record blockers or exclusions honestly. Do not run checks that the current user forbids.',
+      'Select the smallest useful set with native task_select {taskId,workflows:[id],mode:"apply|inspect|plan",reason}, or assist select --root <project> --stdin with the same JSON if native tools are unavailable. Use workflows:[] to dismiss an irrelevant route. For another workflow, use workflows_search or tools <scenario>, then select it.',
+      'Load each selected workflow with the native workflow_load tool {taskId,workflow} when available, otherwise assist load --root <project> --stdin JSON {taskId,workflow}. It returns complete instructions and saved feedback. Read its relevant references. Discover the actual host tools needed and use them; available integrations outside just-vibe count. Use native memory and goal tools when saved context is relevant.',
+      'Record meaningful checks with native task_evidence {taskId,requirement,kind:"artifact|host-report|blocked|not-applicable",summary,path?}, or assist evidence --root <project> --stdin with the same JSON. Use task_report to inspect outstanding work. Evidence IDs and tool guidance come from select. Tool activity alone is not success. Record blockers or exclusions honestly. Do not run checks that the current user forbids.',
     );
   }
   if (task.routeKind === 'learning') parts.push('This request concerns just-vibe personalization or automatic assistance. Use assist history/status for inspection, or the explicitly requested configure/retire/forget/rollback operation after resolving the exact lesson/scope. The adaptive guide contains schemas. Do not run an unrelated engineering workflow.');
   if (task.selected.length) parts.push(`Selected workflows: ${task.selected.join(', ')}. On resume, inspect assist report with {taskId} for evidence freshness; reload changed instructions. Prior task text is context, not renewed authorization.`, `Task context: ${JSON.stringify(task.brief)}`);
-  if (task.feedbackCandidate && store.config().learning) parts.push('This user message may contain explicit feedback. Read the adaptive guide and save a narrow correction/reinforcement using assist feedback; quote this actual user message. Default to project scope. Do not infer approval from silence, tests, your own output, or unaccepted proposals. Identify the appropriate workflow from this task or its previousTaskId. No feedback update is required when the message is merely a task request.');
+  if (task.feedbackCandidate && store.config().learning) parts.push('This user message may contain explicit feedback. Read the adaptive guide and save a narrow correction/reinforcement using native feedback_record or assist feedback; quote this actual user message. If the durable scope is unclear, or the correction adds conditions/exceptions or conflicts with existing guidance, use learning_propose (learn propose fallback) instead, inspect relatedGuidance, and resolve each related lesson explicitly before user-approved activation. Pending proposals do not change behavior. Default to project scope. Do not infer approval from silence, tests, your own output, or unaccepted proposals. Identify the appropriate workflow from this task or its previousTaskId. No feedback update is required when the message is merely a task request.');
   parts.push(`For schemas and learning/rollback operations read ${JSON.stringify(fileURLToPath(new URL('../../references/adaptive.md', import.meta.url)))}.`);
   if (!['task', 'learning'].includes(task.routeKind) && !task.feedbackCandidate) return '';
   return parts.join('\n');
@@ -217,6 +222,7 @@ export function activationContext(store, catalog, task) {
 export function assistantRuntime(root, operation, payload = {}, options = {}) {
   const store = adaptiveStore(root, options), catalog = options.catalog || loadCatalog();
   if (operation === 'status') return { settings: store.config(), project: store.root, storage: store.home,
+    activeTasks: store.list(`${store.project}/tasks`).slice(-100).map(name => store.read(`${store.project}/tasks/${name}`)).filter(task => ['active', 'suggested'].includes(task.status)).sort((a,b) => b.updatedAt.localeCompare(a.updatedAt)).slice(0, 10).map(task => ({ id: task.id, host: task.host, brief: task.brief, updatedAt: task.updatedAt })),
     projectConfiguration: store.read(`${store.project}/config.json`), userConfiguration: store.read('adaptive/config.json'),
     lessons: lessons(store).map(l => ({ id: l.id, workflow: l.workflow, scope: l.scope, version: l.current })),
     nativeHooks: 'Requires enabled plugin, compatible host and host-reviewed hook trust. This command does not prove host activation.' };

@@ -49,6 +49,8 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 - Implementing selection or autocomplete: [combobox interaction](../../references/scenarios/combobox.md).
 - Implementing a date or range input: [date-picker interaction](../../references/scenarios/date-picker.md).
 - Creating, editing or reviewing frontend UI, copy, states or visual assets: [Frontend iconography](../../references/frontend-icons.md).
+- The affected project uses React Native / Expo: [React Native / Expo](../../references/frameworks/react-native.md).
+- The task specifically involves react testing, react race, hydration mismatch, react strictmode; load only the matching method: [React state, async and render evidence](../../references/methods/react-behavior.md).
 
 ## Decision branches
 

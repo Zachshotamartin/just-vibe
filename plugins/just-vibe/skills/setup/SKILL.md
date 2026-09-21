@@ -47,7 +47,9 @@ Selected host plugin registration and its managed just-vibe payload directory on
 ## Read when relevant
 
 - When a concrete decision or deliverable example would clarify this workflow: [Installation worked example](../../references/examples/installation.md).
-
+- The task needs scoped memory search, a persistent goal, independent review, configuration scanning, worker control, learned-pattern review or editor installation: [Native memory, goals, specialists and runtime controls](../../references/runtime-platform.md).
+- The request needs proactive context warnings, detected checks, native editor events, GitHub epic coordination or configuration audit reports: [Context health, check presets, editor events and shared work](../../references/runtime-depth.md).
+- Discovering session, inventory, rule, council, scheduler, monitor, graph, evaluation, operator or domain-specific capabilities: [Extended capabilities and optional method library](../../references/runtime-expansion.md).
 
 ## Decision branches
 

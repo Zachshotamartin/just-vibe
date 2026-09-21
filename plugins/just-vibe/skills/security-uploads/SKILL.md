@@ -46,6 +46,10 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 - When a concrete decision or deliverable example would clarify this workflow: [Security worked example](../../references/examples/security.md).
 - Uploads, filesystem paths, extraction or artifact loading are in scope: [Files and resource limits](../../references/security/files.md).
+- The affected project uses Django / DRF: [Django / DRF](../../references/frameworks/django.md).
+- The affected project uses FastAPI: [FastAPI](../../references/frameworks/fastapi.md).
+- The affected project uses Spring Boot: [Spring Boot](../../references/frameworks/spring-boot.md).
+- The task specifically involves bug bounty, authorized pentest, security proof; load only the matching method: [Authorized vulnerability research](../../references/methods/authorized-security-research.md).
 
 ## Decision branches
 

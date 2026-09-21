@@ -48,6 +48,9 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the
 
 - When a concrete decision or deliverable example would clarify this workflow: [UI and frontend worked example](../../references/examples/ui.md).
 - Creating, editing or reviewing frontend UI, copy, states or visual assets: [Frontend iconography](../../references/frontend-icons.md).
+- The affected project uses Flutter: [Flutter](../../references/frameworks/flutter.md).
+- The affected project uses React Native / Expo: [React Native / Expo](../../references/frameworks/react-native.md).
+- The task specifically involves gsap, motion design, framer motion, view transition, click path; load only the matching method: [Motion, visual direction and click paths](../../references/methods/motion-design.md).
 
 ## Decision branches
 

@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "source": "docs/localization-source.md",
+  "locales": [
+    {
+      "language": "es",
+      "path": "docs/locales/es.md",
+      "sourceHash": "a0a1f5fdcd42c11ac65315f75a1e4b2045198229a614d2fa7a5bb356e38eef42",
+      "review": "source-and-command-consistency-checked; independent-language-review-pending"
+    },
+    {
+      "language": "ja",
+      "path": "docs/locales/ja.md",
+      "sourceHash": "a0a1f5fdcd42c11ac65315f75a1e4b2045198229a614d2fa7a5bb356e38eef42",
+      "review": "source-and-command-consistency-checked; independent-language-review-pending"
+    }
+  ]
+}

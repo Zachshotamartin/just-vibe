@@ -46,6 +46,8 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 - When a concrete decision or deliverable example would clarify this workflow: [General worked example](../../references/examples/general.md).
 - Creating, editing or reviewing frontend UI, copy, states or visual assets: [Frontend iconography](../../references/frontend-icons.md).
+- The affected project uses Flutter: [Flutter](../../references/frameworks/flutter.md).
+- The affected project uses React Native / Expo: [React Native / Expo](../../references/frameworks/react-native.md).
 
 ## Decision branches
 

@@ -1,0 +1,97 @@
+{
+  "generatedAt": "2026-09-20T12:00:00.000Z",
+  "days": 30,
+  "note": "Recorded activity only. Missing events are unknown. Loading instructions is not compliance; process success is not output quality.",
+  "tasks": [
+    {
+      "id": "sample-task",
+      "at": "2026-09-20T12:00:00.000Z",
+      "status": "incomplete",
+      "workflows": [
+        "review"
+      ],
+      "reason": "Review the checkout change for regressions.",
+      "loaded": [
+        {
+          "workflow": "review",
+          "effectiveHash": "fixture"
+        }
+      ],
+      "observations": [
+        {
+          "tool": "Read",
+          "outcome": "returned"
+        },
+        {
+          "tool": "test",
+          "outcome": "failed"
+        }
+      ]
+    }
+  ],
+  "workflows": [
+    {
+      "workflow": "review",
+      "selected": 4,
+      "loaded": 4,
+      "toolFailures": 1,
+      "feedback": 2
+    }
+  ],
+  "lessons": [
+    {
+      "id": "sample",
+      "workflow": "review",
+      "active": true,
+      "current": 2,
+      "versions": [
+        {
+          "version": 1,
+          "feedback": "correction",
+          "instruction": "Check error paths when reviewing checkout."
+        },
+        {
+          "version": 2,
+          "feedback": "reviewed-pattern",
+          "instruction": "Use repository tests when the reviewed behavior has a runnable fixture."
+        }
+      ]
+    }
+  ],
+  "candidates": [
+    {
+      "id": "candidate",
+      "status": "pending",
+      "origin": "observed-tools",
+      "change": {
+        "workflow": "review",
+        "instruction": "Consider repository search when tracing changed callers."
+      }
+    }
+  ],
+  "policyEvents": [
+    {
+      "outcome": "blocked",
+      "rules": [
+        "quality-config"
+      ],
+      "at": "2026-09-20T12:00:00.000Z"
+    }
+  ],
+  "goals": [
+    {
+      "objective": "Make checkout discount handling reliable",
+      "status": "active",
+      "criteria": [
+        {
+          "text": "Expired discounts show a readable error",
+          "status": "satisfied"
+        },
+        {
+          "text": "Valid discounts preserve the API response contract",
+          "status": "pending"
+        }
+      ]
+    }
+  ]
+}
