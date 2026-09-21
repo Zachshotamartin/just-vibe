@@ -25,11 +25,18 @@ Built-in imagegen edit of `website/src/assets/just-vibe-mark.png`, saved as `web
 
 Prompt: Use case: background-extraction. Edit this existing just-vibe brand mark for a website header and footer. Preserve the exact existing two-part dark J/V symbol silhouette, its proportions, orientation, curved edges and placement. Remove the entire off-white background and any paper texture, leaving ACTUAL TRANSPARENT alpha (not a white or checkerboard-painted background). Fill the symbol in a flat opaque charcoal #20221e with clean antialiased edges. Keep a square canvas and the same composition/padding. No redesign, no extra marks, no words, no shadow, no glow. Deliver a transparent PNG for use over a lime #d7fb52 header.
 
+## Transparent hero artwork — 2026-09-21
+
+Built-in imagegen edit of `website/src/assets/just-vibe-hero.png`, saved as `website/src/assets/just-vibe-hero-transparent.png`. The homepage uses the transparent artwork with `object-fit: contain`; Astro preserves its alpha in responsive WebP variants. The original studio render remains unchanged.
+
+Prompt: Use case: background-extraction. Asset type: transparent landing-page hero artwork for just-vibe. Input image 1 is the edit target. Remove the warm off-white studio background and floor entirely to ACTUAL transparent alpha. Preserve exactly the existing lime-green two-part J/V sculpture, its geometric silhouette, angle, proportions, chamfered edges, matte material, lighting and color. Keep a soft semi-transparent gray contact shadow beneath the sculpture, but shorten and soften the long cast shadow so that it fades completely into transparency well BEFORE every canvas edge. Square composition with clear transparent margin around all artwork and shadow. No visible rectangular backdrop, no floor plane, no opaque background, no painted checkerboard, no new elements, no words, no watermark. Do not redesign the sculpture. Deliver a clean transparent PNG suitable for compositing directly over the website's warm off-white background.
+
 ## Saved assets
 
 - Primary mark: `website/src/assets/just-vibe-mark.png`
 - Brand overview: `website/src/assets/just-vibe-brandkit.png`
 - Hero artwork: `website/src/assets/just-vibe-hero.png`
+- Transparent homepage artwork: `website/src/assets/just-vibe-hero-transparent.png`
 - Social image: `website/public/brand/just-vibe-social.png`
 
 These paths are relative to the repository root. Original outputs remain preserved; Astro generates optimized delivery variants during builds.
