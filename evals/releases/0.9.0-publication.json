@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "name": "just-vibe",
+  "version": "0.9.0",
+  "registry": "https://registry.npmjs.org/",
+  "sourceCommit": "6297c2e0fed64e26a879c28a1ede9ea7f71ef97b",
+  "sha256": "35f166a5b6eb8b9df4408ea558e495b62ccec21e1996fd1735b33d1224a7df99",
+  "integrity": "sha512-wA6lelECkz1XH6JOPiJ5PYiF7+VMMFy+VthA4fiGnlvfHzuvnYljqbHbjA0Cm0PbVM13KLK90ioyomPFt2997A==",
+  "shasum": "acf1033c451ad613bde17c24552c550cadb58201",
+  "verifiedAt": "2026-09-21T00:51:29.362Z",
+  "distTag": "latest",
+  "registryExecution": "0.9.0",
+  "ci": {
+    "status": "waived",
+    "authorization": "The maintainer requested reviewing and publishing the latest version and pushing it to GitHub, retaining the prior instruction to publish with local checks while GitHub Actions minutes are unavailable.",
+    "reason": "GitHub confirmed that jobs could not start because recent account payments failed or the spending limit needed to be increased.",
+    "run": "https://github.com/Zachshotamartin/just-vibe/actions/runs/35547052762",
+    "scope": "v0.9.0 only. No CI pass is claimed; the normal release gate is unchanged."
+  },
+  "localValidation": {
+    "tests": 203,
+    "passed": 202,
+    "failed": 0,
+    "skipped": 1,
+    "skipReason": "Windows-only test on macOS",
+    "releaseNode": "v24.21.0",
+    "skillsValidated": 216,
+    "archiveFiles": 606,
+    "archivePackageManagers": [
+      "npm",
+      "pnpm 10.14.0",
+      "pnpm 12.5.1",
+      "Yarn 4.18.0"
+    ],
+    "nativeHosts": {
+      "codex": "0.152.0",
+      "claude": "2.1.258",
+      "result": "Both isolated installation lifecycles passed"
+    },
+    "website": {
+      "pages": 345,
+      "tests": 4,
+      "result": "Build and static checks passed; production release and automatic-assistance pages return HTTP 200 and show 0.9.0."
+    },
+    "record": "0.9.0.md"
+  },
+  "publicationNote": "The initial authentication challenge expired without an accepted upload. After renewed user verification, npm accepted the upload before metadata propagated. Read-only reconciliation confirmed the original archive and latest tag; the accepted upload was not resubmitted."
+}
