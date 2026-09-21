@@ -31,23 +31,25 @@ npx playwright install chromium
 npm run test:browser
 npm run test:layout
 npm run test:motion
+npm run test:header
 ```
 
 The browser check exercises six package-manager/host installation combinations, clipboard copying, the editable prompt builder, search/filter URLs, empty and reset states, mobile navigation, keyboard focus, no-JavaScript content, 404 behavior, responsive overflow, and automated WCAG checks. Screenshots go to the ignored `.tmp/website-qa/` directory. It does not claim a full assistive-technology audit or production agent-host verification.
 
 Set `WEBSITE_URL` to run browser checks against a deployment instead. Tests do not submit any external forms or run commands from the website.
 
-The layout check measures overflow and overlapping layout regions across every page template at 15 viewport widths, including breakpoint boundaries. It also visits all 338 command, profile, and guide pages at 320px and 768px, and checks expanded text spacing. These geometry checks complement visual browser review; they cannot certify every possible text collision.
+The layout check measures overflow and overlapping layout regions across every page template at 15 viewport widths, including breakpoint boundaries. It also visits all 347 command, profile, and guide pages at 320px and 768px, and checks expanded text spacing. These geometry checks complement visual browser review; they cannot certify every possible text collision.
 
-The motion check exercises internal navigation, history and filter restoration, control initialization after navigation, keyboard dropdown selection, interrupted menu transitions, Escape, outside clicks, viewport changes, clipboard failure/reset, and reduced-motion behavior.
+The motion check exercises internal navigation, document changes from the bottom of the page, history and filter restoration, control initialization after navigation, keyboard dropdown selection, interrupted menu transitions, Escape, outside clicks, viewport changes, clipboard failure/reset, and reduced-motion behavior. The header check covers full-width header/footer surfaces, selected navigation links, catalog padding, scroll direction and jitter, keyboard focus, mobile-menu visibility, and reduced motion.
 
 ## Motion and spacing
 
-- [Astro's ClientRouter](https://docs.astro.build/en/guides/view-transitions/) supplies short page fades and accessible route announcements. `src/lib/lifecycle.ts` initializes page controls after each navigation and aborts old document listeners before the DOM changes. Preserve router history state when updating filters.
-- `src/lib/motion.ts` provides finite section entrances and selection feedback. Content remains visible if JavaScript or animation is unavailable. Animations respect reduced motion, stop when focus enters animated content, and do not run while editing a prompt.
+- [Astro's ClientRouter](https://docs.astro.build/en/guides/view-transitions/) supplies accessible route announcements and a 160ms entrance from 96% to full opacity. Page text stays at its final position, the old text layer is hidden, and the shared shell does not fade. `src/lib/lifecycle.ts` initializes page controls after each navigation and aborts old document listeners before the DOM changes. Preserve router history state when updating filters.
+- The lime header and footer span the viewport; their inner wrappers align with page content. `src/lib/header.ts` hides the header after 12px of downward travel and reveals it on upward travel, near the top, on keyboard focus, and while the mobile menu is open. Navigation resets its visibility. Keep selected sections filled with the dark ink color in both menus.
+- `src/lib/motion.ts` provides finite opacity entrances for sections revealed by scrolling and selection feedback. Already-visible sections never replay an entrance on page load or navigation. Content remains visible if JavaScript or animation is unavailable. Animations respect reduced motion, stop when focus enters animated content, and do not run while editing a prompt.
 - The mobile menu uses a custom SVG hamburger-to-close transition and an opaque panel reveal. It supports Escape, outside click, quick reversal, and closing on navigation or desktop resize. Native details behavior remains available without JavaScript.
 - Dropdowns retain native select semantics. [Customizable select CSS](https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Forms/Customizable_select) animates their picker and SVG indicator in supporting browsers; other browsers retain their native picker. Do not replace keyboard or screen-reader behavior merely to force animation.
-- Use flexible grids, wrapping controls, and real column gaps. Catalog spacing must remain consistent after filtering. Keep readable paragraph widths, avoid fixed text heights, and allow long command names and slash-separated phrases to wrap. Embedded installers need their own spacing inside prose.
+- Use flexible grids, wrapping controls, and real column gaps. Catalog spacing must remain consistent after filtering; cards need at least 20px of inline padding so labels and icons remain inset from hover backgrounds. Keep readable paragraph widths, avoid fixed text heights, and allow long command names and slash-separated phrases to wrap. Embedded installers need their own spacing inside prose.
 
 ## Content model
 
@@ -56,6 +58,7 @@ The motion check exercises internal navigation, history and filter restoration, 
 - `src/pages/docs/` contains authored usage guides. Keep them aligned with the root README and plugin references.
 - `src/lib/docs.mjs` owns documentation navigation and sitemap entries.
 - `src/assets/` contains original image-generated artwork. Astro produces optimized responsive WebP variants and small icons; original PNGs remain downloadable from the brand page.
+- The header and footer use `just-vibe-mark-transparent.png`, an alpha-preserving extraction of the original mark. Do not restore the paper-backed logo or use blend modes to conceal its background on colored surfaces.
 - `brand/PROMPTS.md` records the identity direction and exact image-generation prompts. These are maintainer records, not included in deployment uploads.
 - Geist is self-hosted with its OFL license at `/licenses/geist-OFL.txt`.
 - Interface icons use `@lucide/astro` through `src/components/Icon.astro`, rendered as inline SVG with no client runtime or font dependency. Do not substitute emojis or Unicode symbols. Keep accompanying text labels accessible; decorative SVGs are hidden from assistive technology. License notices are included at `/licenses/lucide.txt`.

@@ -7,9 +7,12 @@ import {
   rmSync,
   mkdirSync,
   symlinkSync,
+  existsSync,
 } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
+import { spawn, execFileSync } from "node:child_process";
+import { once } from "node:events";
 import {
   memory,
   guards,
@@ -22,7 +25,12 @@ import {
   applyTransaction,
   saveRecord,
   recoverTransaction,
+  locked,
+  recoverLock,
+  git,
+  repoIdentity,
 } from "../plugins/just-vibe/scripts/lib/workbench.mjs";
+import { withFileLock } from "../plugins/just-vibe/scripts/lib/file-lock.mjs";
 const fixture = (t) => {
   const p = mkdtempSync(join(tmpdir(), "jv-memory-"));
   t.after(() => rmSync(p, { recursive: true, force: true }));
@@ -246,4 +254,145 @@ test("lock recovery removes dead operation and record locks but preserves live o
     JSON.stringify({ pid: process.pid }),
   );
   assert.throws(() => recoverLock(root), /still running/);
+});
+
+test("lock recovery preserves a replacement owner for operation and record locks", (t) => {
+  const root = fixture(t);
+  mkdirSync(join(root, ".just-vibe/memory"), { recursive: true });
+  const originalKill = process.kill;
+  try {
+    for (const name of ["workbench.lock", "memory/rule.json.lock"]) {
+      const path = join(root, ".just-vibe", name);
+      writeFileSync(path, JSON.stringify({ pid: 2147483647 }));
+      process.kill = (pid, signal) => {
+        if (pid !== 2147483647) return originalKill(pid, signal);
+        // Another recoverer finished and a new writer acquired the path.
+        rmSync(path);
+        writeFileSync(path, JSON.stringify({ pid: process.pid, token: "replacement" }));
+        throw Object.assign(Error("Dead owner"), { code: "ESRCH" });
+      };
+      assert.throws(() => recoverLock(root), /changed during recovery/);
+      assert.equal(JSON.parse(readFileSync(path, "utf8")).token, "replacement");
+      rmSync(path);
+    }
+  } finally {
+    process.kill = originalKill;
+  }
+});
+
+test("async workbench cleanup preserves a replacement lock owner", async (t) => {
+  const root = fixture(t), path = join(root, ".just-vibe/workbench.lock");
+  const result = await locked(root, async () => {
+    assert.equal(typeof JSON.parse(readFileSync(path, "utf8")).token, "string");
+    await Promise.resolve();
+    rmSync(path);
+    writeFileSync(path, JSON.stringify({ pid: process.pid, token: "replacement" }));
+    return "finished";
+  });
+  assert.equal(result, "finished");
+  assert.equal(JSON.parse(readFileSync(path, "utf8")).token, "replacement");
+});
+
+test("explicit recovery shares the atomic JSON recovery mutex", async (t) => {
+  const root = fixture(t), directory = join(root, ".just-vibe/memory");
+  mkdirSync(directory, { recursive: true });
+  const path = join(directory, "rule.json.lock");
+  writeFileSync(path, JSON.stringify({ pid: 2147483647 }));
+  withFileLock(`${path}.recovery`, () => {
+    assert.throws(() => recoverLock(root), { code: "STATE_LOCKED" });
+  });
+  assert.equal(JSON.parse(readFileSync(path, "utf8")).pid, 2147483647);
+  let pending;
+  withFileLock(join(root, ".just-vibe/workbench.lock.recovery"), () => {
+    pending = locked(root, async () => assert.fail("Recovery still owns the mutex"));
+  });
+  await assert.rejects(pending, /Workbench operation in progress/);
+});
+
+test("release gate contention preserves async results and callback errors", { timeout: 10000 }, async (t) => {
+  const module = new URL("../plugins/just-vibe/scripts/lib/file-lock.mjs", import.meta.url).href;
+  for (const shouldThrow of [false, true]) {
+    const root = fixture(t), path = join(root, ".just-vibe/workbench.lock");
+    const originalError = Error("Original operation failure");
+    let child, closed;
+    try {
+      const result = locked(root, async () => {
+        const code = `import {withFileLock} from ${JSON.stringify(module)}; import {readSync} from 'node:fs'; withFileLock(process.argv[1],()=>{process.stdout.write('ready');readSync(0,Buffer.alloc(1),0,1,null);});`;
+        child = spawn(process.execPath, ["--input-type=module", "-e", code, `${path}.recovery`], { stdio: ["pipe", "pipe", "pipe"] });
+        closed = once(child, "close");
+        const [output] = await once(child.stdout, "data");
+        assert.equal(output.toString(), "ready");
+        if (shouldThrow) throw originalError;
+        return "finished";
+      });
+      if (shouldThrow) await assert.rejects(result, (error) => error === originalError);
+      else assert.equal(await result, "finished");
+      assert.equal(existsSync(path), false);
+    } finally {
+      if (child) {
+        child.stdin.end("x");
+        await closed;
+      }
+    }
+  }
+});
+
+test("project Git ignores inherited repository, index and configuration redirection", (t) => {
+  const directory = fixture(t), selected = join(directory, "selected"), foreign = join(directory, "foreign");
+  const hooks = join(directory, "empty-hooks");
+  mkdirSync(hooks);
+  const env = Object.fromEntries(Object.entries(process.env).filter(([key]) => !key.startsWith("GIT_")));
+  const direct = (root, args, options = {}) => execFileSync("git", ["-C", root, ...args], {
+    env, encoding: "utf8", stdio: ["pipe", "pipe", "pipe"], ...options,
+  });
+  for (const [root, text] of [[selected, "selected"], [foreign, "foreign"]]) {
+    mkdirSync(root);
+    direct(root, ["init", "--quiet"]);
+    direct(root, ["config", "user.name", "Fixture User"]);
+    direct(root, ["config", "user.email", "fixture@example.invalid"]);
+    writeFileSync(join(root, "value.txt"), text);
+    direct(root, ["add", "value.txt"]);
+    direct(root, ["-c", `core.hooksPath=${hooks}`, "-c", "commit.gpgSign=false", "commit", "--quiet", "-m", "Fixture"]);
+    writeFileSync(join(root, "value.txt"), `${text} staged`);
+    direct(root, ["add", "value.txt"]);
+  }
+  const initial = repoIdentity(selected), foreignIdentity = repoIdentity(foreign);
+  const foreignIndex = readFileSync(join(foreign, ".git/index"));
+  const selectedIndex = direct(selected, ["ls-files", "--stage"]);
+  const overrides = {
+    GIT_DIR: join(foreign, ".git"), GIT_WORK_TREE: selected,
+    GIT_INDEX_FILE: join(foreign, ".git/index"),
+    GIT_CONFIG_COUNT: "1", GIT_CONFIG_KEY_0: "user.name", GIT_CONFIG_VALUE_0: "Redirected Identity",
+  };
+  const previous = Object.fromEntries(Object.keys(overrides).map(key => [key, process.env[key]]));
+  try {
+    Object.assign(process.env, overrides);
+    assert.deepEqual(repoIdentity(selected), initial);
+    assert.equal(git(selected, ["ls-files", "--stage"]), selectedIndex);
+    assert.equal(git(selected, ["config", "--get", "user.name"]).trim(), "Fixture User");
+    writeFileSync(join(selected, "value.txt"), "selected changed");
+    git(selected, ["add", "value.txt"]);
+    assert.equal(direct(selected, ["show", ":value.txt"]), "selected changed");
+    assert.equal(repoIdentity(selected).head, initial.head);
+    assert.equal(direct(foreign, ["rev-parse", "HEAD"]).trim(), foreignIdentity.head);
+    assert.deepEqual(readFileSync(join(foreign, ".git/index")), foreignIndex);
+    assert.equal(readFileSync(join(foreign, "value.txt"), "utf8"), "foreign staged");
+  } finally {
+    for (const [key, value] of Object.entries(previous)) {
+      if (value === undefined) delete process.env[key];
+      else process.env[key] = value;
+    }
+  }
+});
+
+test("project Git ignores replacement objects and preserves binary input/output", (t) => {
+  const root = fixture(t);
+  git(root, ["init", "--quiet"]);
+  const original = git(root, ["hash-object", "-w", "--stdin"], { input: "original" }).trim();
+  const replacement = git(root, ["hash-object", "-w", "--stdin"], { input: "replacement" }).trim();
+  git(root, ["replace", original, replacement]);
+  assert.equal(git(root, ["cat-file", "blob", original]), "original");
+  const bytes = Buffer.from([0, 255, 127, 10]);
+  const id = git(root, ["hash-object", "-w", "--stdin"], { input: bytes }).trim();
+  assert.deepEqual(git(root, ["cat-file", "blob", id], { encoding: null }), bytes);
 });

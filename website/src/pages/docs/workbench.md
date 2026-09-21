@@ -37,19 +37,19 @@ Add `--allow-install` to enable project skill-adapter management. Select a host 
 
 ## Durable context and checked execution
 
-| Need | Runtime family | Behavior |
-| --- | --- | --- |
-| Resume visible session history | `sessions` | Import visible messages, use aliases, search and capture structured checkpoints. Private reasoning is excluded. |
-| Inspect conflicting configuration | `inventory`, `portfolio` | Inspect provenance and duplicates; review exact cleanup or amendment plans. |
-| Customize behavior | `behavior` | Preview bounded declarative rules and toggle hook features. |
-| Diagnose connectors | `mcp-health`, `connectors` | Separate reachability, configuration and real authenticated tool availability. |
-| Run bounded work | `runners`, `jobs`, `services` | Require explicit trust and execution authority; retain interrupted reservations and owned-process recovery. |
-| Get independent reviews | `council` | Create independent inspect-only assignments, including different hosts, and retain disagreement. |
-| Verify a candidate | `evaluation` | Bind checks and judgments to fresh source/artifact identities; export receipts and record reviewed promotion. |
-| Explain the codebase | `atlas`, `graph` | Maintain anchored tours and provenance-aware local context. |
-| Watch a deployment | `canary` | Check explicit endpoints during a bounded interval and use opted-in change notifications. |
-| Inspect operations | `usage`, `telemetry` | Report actual observations; unknown costs stay unknown and usage is not a quality score. |
-| Update installations | `updater` | Check, preview and apply a pinned archive while preserving selections and edited files; prepare rollback separately. |
+| Need                              | Runtime family                | Behavior                                                                                                             |
+| --------------------------------- | ----------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| Resume visible session history    | `sessions`                    | Import visible messages, use aliases, search and capture structured checkpoints. Private reasoning is excluded.      |
+| Inspect conflicting configuration | `inventory`, `portfolio`      | Inspect provenance and duplicates; review exact cleanup or amendment plans.                                          |
+| Customize behavior                | `behavior`                    | Preview bounded declarative rules and toggle hook features.                                                          |
+| Diagnose connectors               | `mcp-health`, `connectors`    | Separate reachability, configuration and real authenticated tool availability.                                       |
+| Run bounded work                  | `runners`, `jobs`, `services` | Require explicit trust and execution authority; retain interrupted reservations and owned-process recovery.          |
+| Get independent reviews           | `council`                     | Create independent inspect-only assignments, including different hosts, and retain disagreement.                     |
+| Verify a candidate                | `evaluation`                  | Bind checks and judgments to fresh source/artifact identities; export receipts and record reviewed promotion.        |
+| Explain the codebase              | `atlas`, `graph`              | Maintain anchored tours and provenance-aware local context.                                                          |
+| Watch a deployment                | `canary`                      | Check explicit endpoints during a bounded interval and use opted-in change notifications.                            |
+| Inspect operations                | `usage`, `telemetry`          | Report actual observations; unknown costs stay unknown and usage is not a quality score.                             |
+| Update installations              | `updater`                     | Check, preview and apply a pinned archive while preserving selections and edited files; prepare rollback separately. |
 
 ## Recovery and evidence
 

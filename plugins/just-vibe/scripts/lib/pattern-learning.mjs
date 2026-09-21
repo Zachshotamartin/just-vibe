@@ -385,7 +385,11 @@ export function patternLearning(root, operation, payload = {}, options = {}) {
       'patterns',
       {
         ...state,
-        candidates: state.candidates.filter((c) => c.status === 'pending'),
+        // Approval is journaled before activation. Retain its recovery data
+        // until the final lesson record has actually been published.
+        candidates: state.candidates.filter((c) => c.status === 'pending' ||
+          (c.status === 'approved' && (!c.lessonId ||
+            !store.read(`${store.project}/learning/${requireId(c.lessonId)}.json`)))),
         observations: state.observations.filter(
           (o) => Date.now() - Date.parse(o.at) < 30 * 86400000,
         ),

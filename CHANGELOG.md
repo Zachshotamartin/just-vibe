@@ -1,5 +1,17 @@
 # Changelog
 
+## Unreleased
+
+- Repair worker startup and orchestration cancellation, runner input identity, workbench lock ownership, and Git repository isolation.
+- Correct strict file-read tracking, Cursor/Kiro event handling, quiz answer identity, session alias collisions, and supported configuration discovery/auditing.
+- Preserve installed Git hooks across package-cache cleanup and make installed hook identity usable for removal after upgrades.
+- Preserve Unicode across HTTP, native-hook, and subprocess boundaries; reject stale browser installation previews and support operator-page reloads.
+- Bind release preparation to unchanged checked source and verify published execution outside the checkout. See the [full review and verification record](docs/full-code-review-2026-09-21.md).
+- Complete owned-process cleanup before terminal results, preserve literal runner arguments, bind Node preload files to trust, and redact preview output independently of chunk boundaries.
+- Protect adaptive cleanup/recovery and unfinished learning activations; preserve repeated session messages; expose implemented recovery/window operations; correct benchmark Unicode and exception evidence.
+- Inspect Git's actual commit index, recover interrupted hook ownership updates, detect managed installation drift, isolate evaluation Git operations, and bind release verification to unchanged archive bytes. See the [second review](docs/second-code-review-2026-09-21.md).
+- Refine website navigation, full-width header/footer surfaces, selected sections, catalog padding, transparent branding, and page transitions without vertical text movement.
+
 ## 0.10.0
 
 - Deliver source and focused methods for the 49-group frozen ECC backlog; track partial acceptance separately from implementation and retain the original comparison as a historical snapshot.

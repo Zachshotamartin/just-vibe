@@ -19,6 +19,12 @@ Use case: stylized-concept. Website hero art for just-vibe. Use reference image 
 
 Use case: ads-marketing. Make a clean social sharing cover image for just-vibe, landscape 1536x1024 with ALL important content in the central 1536x800 region safe for a 1.91:1 crop. Reference image 1 is the exact logo identity. Reference image 2 is the matching lime sculptural hero image, use the same precise j/v sculpture and material. Warm off-white #F5F5EE background, black #20221E type, lime #D7FB52 sculpture. Editorial composition: left half oversized geometric sans lowercase brand name exactly "just-vibe" and underneath smaller two-line headline exactly "More intent." then "Less prompting." Small bottom left text exactly "For Codex & Claude Code". Right half the reference lime logo sculpture with warm gray grounded shadow. Professional, quiet, crisp typography, strong negative space, magazine quality, easy to read at thumbnail size. Do not add other text, buttons, websites, borders, watermarks or symbols.
 
+## Transparent navigation mark — 2026-09-21
+
+Built-in imagegen edit of `website/src/assets/just-vibe-mark.png`, saved as `website/src/assets/just-vibe-mark-transparent.png`. The generated PNG has an alpha channel; the original remains unchanged.
+
+Prompt: Use case: background-extraction. Edit this existing just-vibe brand mark for a website header and footer. Preserve the exact existing two-part dark J/V symbol silhouette, its proportions, orientation, curved edges and placement. Remove the entire off-white background and any paper texture, leaving ACTUAL TRANSPARENT alpha (not a white or checkerboard-painted background). Fill the symbol in a flat opaque charcoal #20221e with clean antialiased edges. Keep a square canvas and the same composition/padding. No redesign, no extra marks, no words, no shadow, no glow. Deliver a transparent PNG for use over a lime #d7fb52 header.
+
 ## Saved assets
 
 - Primary mark: `website/src/assets/just-vibe-mark.png`

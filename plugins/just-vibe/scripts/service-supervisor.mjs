@@ -30,7 +30,7 @@ export async function supervise(args) {
   // The command returned publicly is redacted. Read the private trusted argv only
   // after its identity was checked; redaction must never alter execution.
   const exact = store.get('trusted-runners').runners.find((r) => r.id === initial.runner);
-  if (!runnerCurrent(exact)) throw Error('Service inputs changed.');
+  if (!runnerCurrent(exact, store.root)) throw Error('Service inputs changed.');
   const child = withFileLock(within(store.home, `${store.prefix}/${key}.startup.lock`), () => {
     const current = store.get(key), service = store.get(`service-${initial.service}`);
     if (current.state !== 'starting' || service?.run !== id) throw Error('Service reservation ownership changed.');
@@ -39,7 +39,7 @@ export async function supervise(args) {
       return null;
     }
     const trusted = store.get('trusted-runners')?.runners.find(r => r.id === initial.runner);
-    if (!trusted?.trusted || trusted.hash !== initial.hash || !runnerCurrent(trusted)) {
+    if (!trusted?.trusted || trusted.hash !== initial.hash || !runnerCurrent(trusted, store.root)) {
       store.put(key, { ...current, state: 'failed', error: 'Service trust changed.', updatedAt: timestamp() }, current.revision);
       return null;
     }
@@ -99,18 +99,14 @@ export async function supervise(args) {
       );
     }
   };
-  child.stdout.on('data', (chunk) => {
-    bytes += chunk.length;
-    output += chunk.toString('utf8');
-    output = output.slice(-32000);
-    if (bytes > 1024 * 1024) stop();
-  });
-  child.stderr.on('data', (chunk) => {
-    bytes += chunk.length;
-    output += chunk.toString('utf8');
-    output = output.slice(-32000);
-    if (bytes > 1024 * 1024) stop();
-  });
+  for (const pipe of [child.stdout, child.stderr]) {
+    pipe.setEncoding('utf8');
+    pipe.on('data', (chunk) => {
+      bytes += Buffer.byteLength(chunk);
+      output = (output + chunk).slice(-32000);
+      if (bytes > 1024 * 1024) stop();
+    });
+  }
   child.once('spawn', () =>
     save({ supervisorPid: process.pid, childPid: child.pid }),
   );
@@ -125,7 +121,7 @@ export async function supervise(args) {
         Date.now() >= Date.parse(initial.deadline) ||
         !trusted?.trusted ||
         trusted.hash !== initial.hash ||
-        (checkIdentity && !runnerCurrent(exact))
+        (checkIdentity && !runnerCurrent(exact, store.root))
       )
         stop();
       save({});
@@ -133,26 +129,28 @@ export async function supervise(args) {
       stop();
     }
   }, 500);
-  process.once('SIGINT', stop);
-  process.once('SIGTERM', stop);
+  const onSignal = () => stop();
+  process.once('SIGINT', onSignal);
+  process.once('SIGTERM', onSignal);
   child.once('exit', () => stop(true));
-  await new Promise((resolve) => {
-    child.once('error', () => {
-      save({ state: 'failed', error: 'Child process could not start.' });
-      resolve();
-    });
-    child.once('close', (code, signal) => {
-      requestedStop ||= store.get(key)?.stopRequested === true;
-      save({
-        state: requestedStop ? 'stopped' : code === 0 ? 'completed' : 'failed',
-        exitCode: code,
-        signal,
-        outputLimitReached: bytes > 1024 * 1024,
-      });
-      resolve();
-    });
+  let spawnError = false;
+  const result = await new Promise((resolve) => {
+    child.once('error', () => { spawnError = true; });
+    child.once('close', (code, signal) => resolve({ code, signal }));
   });
   clearInterval(interval);
   await killCompletion;
+  process.removeListener('SIGINT', onSignal);
+  process.removeListener('SIGTERM', onSignal);
+  // Keep the reservation active until the owned group's grace period and
+  // forced cleanup finish. A stop received during cleanup still wins.
+  requestedStop ||= store.get(key)?.stopRequested === true;
+  save({
+    state: requestedStop ? 'stopped' : !spawnError && result.code === 0 ? 'completed' : 'failed',
+    exitCode: result.code,
+    signal: result.signal,
+    ...(spawnError ? { error: 'Child process could not start.' } : {}),
+    outputLimitReached: bytes > 1024 * 1024,
+  });
 }
 if (isDirectRun(import.meta.url)) await supervise(process.argv.slice(2));

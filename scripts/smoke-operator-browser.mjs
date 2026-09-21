@@ -26,8 +26,25 @@ await operator(
   { home },
 );
 const app = await startOperatorServer(root, { home, allowInstall: true });
-const store = runtimeStore(root, { home }), initial = store.get('operator');
-store.put('operator', { ...initial, dispatch: [{ id: 'completed', requestId: 'completed-request', job: 'fixture', status: 'finished', outcome: 'completed', at: new Date().toISOString() }] }, initial.revision);
+const store = runtimeStore(root, { home }),
+  initial = store.get('operator');
+store.put(
+  'operator',
+  {
+    ...initial,
+    dispatch: [
+      {
+        id: 'completed',
+        requestId: 'completed-request',
+        job: 'fixture',
+        status: 'finished',
+        outcome: 'completed',
+        at: new Date().toISOString(),
+      },
+    ],
+  },
+  initial.revision,
+);
 let browser;
 const checks = [],
   errors = [];
@@ -79,6 +96,35 @@ try {
       methodSearch: true,
     });
   }
+  await page.reload();
+  await page.waitForFunction(() => document.querySelector('#status').textContent === '2 records');
+  await page.getByRole('button', { name: 'Tool catalog', exact: true }).click();
+  await page.locator('#target').selectOption('pi');
+  let releasePreview, previewArrived;
+  const arrived = new Promise((resolve) => {
+    previewArrived = resolve;
+  });
+  const held = new Promise((resolve) => {
+    releasePreview = resolve;
+  });
+  await page.route('**/api/install-preview', async (route) => {
+    const response = await route.fetch();
+    previewArrived();
+    await held;
+    await route.fulfill({ response });
+  });
+  await page.locator('#preview').click();
+  await arrived;
+  await page.locator('#target').selectOption('gemini');
+  const oldResponse = page.waitForResponse('**/api/install-preview');
+  releasePreview();
+  await (await oldResponse).finished();
+  await page.evaluate(
+    () => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))),
+  );
+  if ((await page.locator('#apply').isVisible()) || (await page.locator('#plan').textContent()))
+    throw Error('A stale install response replaced the current editor selection.');
+  await page.unroute('**/api/install-preview');
   await page.locator('#target').selectOption('pi');
   await page.getByRole('button', { name: 'Preview changes', exact: true }).click();
   await page.getByRole('button', { name: 'Apply reviewed changes', exact: true }).waitFor();
@@ -101,7 +147,9 @@ try {
       !Array.from(document.querySelectorAll('button')).some((b) => b.textContent === 'Acknowledge'),
   );
   await page.getByRole('button', { name: 'Retire finished request', exact: true }).click();
-  await page.getByRole('button', { name: 'Retire finished request', exact: true }).waitFor({ state: 'hidden' });
+  await page
+    .getByRole('button', { name: 'Retire finished request', exact: true })
+    .waitFor({ state: 'hidden' });
   if (store.get('operator').dispatch.length) throw Error('Dispatch retirement failed');
   if (errors.length) throw Error(errors.join('\n'));
   writeFileSync(
@@ -113,6 +161,8 @@ try {
         installation: true,
         acknowledgement: true,
         dispatchRetirement: true,
+        privateReload: true,
+        staleInstallPreviewRejected: true,
         reducedMotion: true,
         errors,
       },

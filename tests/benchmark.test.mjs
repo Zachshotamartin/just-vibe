@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {mkdtempSync,mkdirSync,rmSync,cpSync,readFileSync,writeFileSync,existsSync,chmodSync} from 'node:fs';
 import {tmpdir} from 'node:os';
 import {join,resolve} from 'node:path';
-import {execFileSync,spawn} from 'node:child_process';
+import {execFileSync,spawn,spawnSync} from 'node:child_process';
 import {prepareTrial,prepareStudy,gradeTrial,parseEvents,regressionSensitivity,runTrial,runStudy,options,cases} from '../evals/benchmark/harness.mjs';
 import {summarize,paired,exportStudy} from '../evals/benchmark/report.mjs';
 const fixtureRoot=resolve('tests/fixtures/benchmark');
@@ -22,8 +22,12 @@ test('model-run configuration mistakes fail before attempts are created',async t
   await assert.rejects(()=>runStudy(out,{codex:process.execPath,model:'fixture',authHome:root,seconds:5}),/no trials started/);
   assert.equal(existsSync(join(out,plan.order[0].directory,'metrics.json')),false);assert.equal(existsSync(join(out,plan.order[0].directory,'harness-error.json')),false);
 });
-test('regression sensitivity retains completed assertions but rejects setup failures',()=>{
-  assert.equal(regressionSensitivity('node',{status:1,stdout:"not ok 1\ncode: 'ERR_ASSERTION'\n",error:{code:'ETIMEDOUT'}}),true);
+test('regression sensitivity retains completed assertions but rejects setup failures',t=>{
+  const root=temporary(t);mkdirSync(join(root,'test'));
+  writeFileSync(join(root,'test/regression.test.mjs'),"import test from 'node:test';import assert from 'node:assert/strict';test('regression',()=>assert.equal(1,2));");
+  const env={...process.env};for(const key of ['NODE_OPTIONS','NODE_TEST_CONTEXT','NODE_V8_COVERAGE'])delete env[key];
+  const result=spawnSync(process.execPath,['--test','--test-reporter=tap','test/regression.test.mjs'],{cwd:root,encoding:'utf8',env});
+  assert.equal(regressionSensitivity('node',{...result,error:{code:'ETIMEDOUT'}}),true);
   assert.equal(regressionSensitivity('node',{status:1,stdout:'SyntaxError: unexpected token'}),false);
   assert.equal(regressionSensitivity('node',{status:null,stdout:'',error:{code:'ETIMEDOUT'}}),false);
   assert.equal(regressionSensitivity('python',{status:1,stdout:JSON.stringify({tests:2,failures:[{exception:'ValueError',behavior_failure:true}]})}),true);

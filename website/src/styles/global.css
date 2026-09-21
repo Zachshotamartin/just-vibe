@@ -46,7 +46,7 @@
   }
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 36px;
+    scroll-padding-top: calc(var(--site-header-height, 96px) + 20px);
   }
   ::selection {
     background: #d7fb52;
@@ -170,13 +170,26 @@
     margin-inline: auto;
   }
   .site-header {
-    position: relative;
+    position: sticky;
+    top: 0;
     z-index: 20;
+    background: var(--lime);
+    color: var(--ink);
+    border-bottom: 1px solid #20221e40;
+    transform: translateY(0);
+    transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .site-header[data-hidden='true'] {
+    transform: translateY(-100%);
+  }
+  .site-header:has(:focus-visible, .mobile-menu[open]) {
+    transform: translateY(0);
+  }
+  .site-header-inner {
     min-height: 96px;
     padding-block: 20px;
     display: flex;
     align-items: center;
-    border-bottom: 1px solid var(--line);
     gap: 40px;
   }
   .wordmark {
@@ -193,7 +206,6 @@
     width: 47px;
     height: 47px;
     object-fit: cover;
-    mix-blend-mode: multiply;
     transform: scale(1.2);
   }
   .wordmark-dot {
@@ -202,16 +214,32 @@
   }
   .desktop-nav {
     display: flex;
-    gap: 32px;
+    gap: 8px;
     margin-inline: auto;
     font-size: 14px;
   }
   .desktop-nav a {
-    padding: 10px 0;
+    padding: 10px 14px;
+    border-radius: 5px;
+    border: 1px solid transparent;
   }
-  .desktop-nav a:hover,
-  .desktop-nav a[aria-current] {
-    color: #586426;
+  .desktop-nav a:hover {
+    background: #20221e10;
+  }
+  .desktop-nav a[aria-current='page'],
+  .mobile-menu nav a[aria-current='page'] {
+    background: var(--ink);
+    color: var(--lime);
+    border-color: var(--ink);
+  }
+  .site-header .header-cta {
+    background: transparent;
+    color: var(--ink);
+    border: 1px solid currentColor;
+  }
+  .site-header .header-cta:hover {
+    background: var(--ink);
+    color: var(--lime);
   }
   .button {
     display: inline-flex;
@@ -732,7 +760,9 @@
     text-underline-offset: 3px;
   }
   .site-footer {
-    border-top: 1px solid var(--line);
+    background: var(--lime);
+    color: var(--ink);
+    border-top: 1px solid #20221e40;
   }
   .footer-top {
     display: flex;
@@ -743,16 +773,18 @@
   }
   .footer-top p {
     font-size: 14px;
-    color: var(--muted);
+    color: #3f472e;
+  }
+  .footer-divider {
+    border-top: 1px solid #20221e40;
   }
   .footer-bottom {
-    border-top: 1px solid var(--line);
     display: flex;
     justify-content: space-between;
     gap: 25px;
     padding-block: 22px 28px;
     font-size: 11px;
-    color: var(--muted);
+    color: #3f472e;
   }
   .footer-bottom nav {
     display: flex;
@@ -857,7 +889,7 @@
     gap: 14px;
     min-width: 0;
     min-height: 204px;
-    padding: 28px 0 32px;
+    padding: 28px 24px 32px;
     border-bottom: 1px solid var(--line);
   }
   .catalog-item:hover {
@@ -908,7 +940,7 @@
   .detail-sidebar {
     align-self: start;
     position: sticky;
-    top: 30px;
+    top: calc(var(--site-header-height, 96px) + 30px);
     font-size: 13px;
   }
   .back-link {
@@ -1343,12 +1375,15 @@
   }
 }
 @media (max-width: 800px) {
-  .site-header {
+  .site-header-inner {
     min-height: 78px;
     padding-block: 16px;
   }
   .desktop-nav {
-    gap: 20px;
+    gap: 4px;
+  }
+  .desktop-nav a {
+    padding-inline: 8px;
   }
   .header-cta {
     gap: 15px;
@@ -1479,7 +1514,7 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .catalog-item {
-    padding: 28px 0;
+    padding: 28px 20px;
   }
   .catalog-item h2 {
     font-size: 21px;
@@ -1521,7 +1556,7 @@
   .wrap {
     width: calc(100% - 40px);
   }
-  .site-header {
+  .site-header-inner {
     min-height: 75px;
     padding-block: 16px;
     justify-content: space-between;
@@ -1554,9 +1589,9 @@
   .mobile-menu nav {
     position: absolute;
     top: 100%;
-    left: -20px;
-    right: -20px;
-    background: var(--paper);
+    left: 0;
+    right: 0;
+    background: var(--lime);
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -1565,7 +1600,9 @@
     z-index: 10;
   }
   .mobile-menu nav a {
-    padding: 8px 0;
+    padding: 10px 12px;
+    border: 1px solid transparent;
+    border-radius: 5px;
   }
   .hero {
     grid-template-columns: 1fr;
@@ -1834,7 +1871,7 @@
     grid-template-columns: 1fr;
   }
   .catalog-item {
-    padding: 25px 0;
+    padding: 25px 20px;
     min-height: 0;
   }
   .catalog-item h2 {
@@ -1951,11 +1988,11 @@
   }
 }
 @media (max-width: 700px) {
-  .site-header {
+  .site-header-inner {
     gap: 20px;
   }
   .desktop-nav {
-    gap: 16px;
+    gap: 2px;
     font-size: 12px;
   }
   .header-cta {
@@ -2164,6 +2201,29 @@
   background: #f4e7dc;
   border-color: #986b48;
   color: #613b22;
+}
+@keyframes page-still {
+  from,
+  to {
+    opacity: 1;
+  }
+}
+@keyframes page-enter {
+  from {
+    opacity: 0.96;
+  }
+  to {
+    opacity: 1;
+  }
+}
+/* A document can be thousands of pixels above the viewport when navigation starts.
+   Keep the incoming page at its final bounds instead of tweening that scroll offset. */
+::view-transition-group(page) {
+  animation: none;
+}
+::view-transition-old(page) {
+  animation: none;
+  opacity: 0;
 }
 @media (prefers-reduced-motion: reduce) {
   select::picker(select),

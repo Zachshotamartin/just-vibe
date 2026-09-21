@@ -25,7 +25,7 @@
         },
         {
           "path": "scripts/smoke-operator-browser.mjs",
-          "sha256": "de0c58a8ba3b372add8a32866412627c04e0cb9a5221416bc9980bf447fbf84f"
+          "sha256": "9a71f2306b40e89245500d00c144370a6a070940318cff4fb13fe578e192d5e8"
         },
         {
           "path": "tests/expansion-contracts.test.mjs",
@@ -306,11 +306,11 @@
       "evidence": [
         {
           "path": "plugins/just-vibe/scripts/lib/orchestration.mjs",
-          "sha256": "32c5b3691d0d6087663aa8c2f0492fb85994b3c9b1040e8365817dd16e7766be"
+          "sha256": "a9c0a3423087c585700fde08429a53d52739d95f1943a15db1896c484ef4d010"
         },
         {
           "path": "plugins/just-vibe/scripts/lib/workers.mjs",
-          "sha256": "b865b0981c5c61ce7bdca8d1dfcf5007015bc95e70c58c5127f7742cbb91a06d"
+          "sha256": "5e962e7d84b85304fe355cd27b563628fd55fc7fbc389bfff5b767c1ccf01579"
         },
         {
           "path": "tests/gap-closure.test.mjs",
@@ -359,11 +359,11 @@
       "evidence": [
         {
           "path": "plugins/just-vibe/scripts/lib/git-hooks.mjs",
-          "sha256": "4fd3e3366a58943e74e87c1e7e4d9d31f486bef3f9ba34355d16bc5e4f261bc1"
+          "sha256": "5ce212ccf18103214956bdd0345590b41f8b9284fa07c1ababc2eec181d6a57d"
         },
         {
           "path": "plugins/just-vibe/scripts/lib/quality.mjs",
-          "sha256": "3b12a019dc6c73628eec6ebe472a9e7f3bd4062242e75fddc577207c528a82e4"
+          "sha256": "17a697ade6140ce5dfab62fd79e45d4162b9e943abcf584eba7164c90673a094"
         },
         {
           "path": "plugins/just-vibe/scripts/lib/behavior-rules.mjs",
@@ -383,7 +383,7 @@
         },
         {
           "path": "plugins/just-vibe/scripts/lib/file-lock.mjs",
-          "sha256": "2195eecdcc87c85b6082cc21b5e077e6cc99556fd54930b81376ddd16d6ec7e0"
+          "sha256": "fd2e6bae64c58482549f68d7971f59cf67cdf37e37b934689a785e22c78e111d"
         },
         {
           "path": "plugins/just-vibe/scripts/lib/execution-control.mjs",
@@ -428,11 +428,11 @@
       "evidence": [
         {
           "path": "plugins/just-vibe/scripts/lib/config-inventory.mjs",
-          "sha256": "2ec5e61aef17de05f0f80167abd5cca5ca01e64cd7af0a4e776e3a0ae2c1d8cb"
+          "sha256": "7d157a012b8b7465b65f6ffcdeba65ffafc5ace818dc6c3344b4f6e832820b36"
         },
         {
           "path": "tests/capability-runtime.test.mjs",
-          "sha256": "a02eafeec1278661907981743377e99d7c17308f0d9cfed313391d972709cb44"
+          "sha256": "a62b3c245c2526bae7ff30727f0c8d4c85a46b4f102c80dfc0ad80bc30a1f0d7"
         }
       ],
       "verification": [
@@ -473,7 +473,7 @@
         },
         {
           "path": "tests/capability-runtime.test.mjs",
-          "sha256": "a02eafeec1278661907981743377e99d7c17308f0d9cfed313391d972709cb44"
+          "sha256": "a62b3c245c2526bae7ff30727f0c8d4c85a46b4f102c80dfc0ad80bc30a1f0d7"
         },
         {
           "path": "tests/expansion-contracts.test.mjs",
@@ -522,7 +522,7 @@
         },
         {
           "path": "plugins/just-vibe/scripts/lib/investigation.mjs",
-          "sha256": "46afe11fe0ac0cd506776841ec0b39497f43572434b29fc750febdae8e411abd"
+          "sha256": "c9fab1548046a579200045bf96c15f5ad23e5655215b6cabf405d6d6df6c0fc9"
         },
         {
           "path": "plugins/just-vibe/scripts/lib/lifecycle.mjs",
@@ -530,7 +530,7 @@
         },
         {
           "path": "tests/capability-runtime.test.mjs",
-          "sha256": "a02eafeec1278661907981743377e99d7c17308f0d9cfed313391d972709cb44"
+          "sha256": "a62b3c245c2526bae7ff30727f0c8d4c85a46b4f102c80dfc0ad80bc30a1f0d7"
         },
         {
           "path": "tests/expansion-contracts.test.mjs",
@@ -542,7 +542,7 @@
         },
         {
           "path": "plugins/just-vibe/scripts/lib/file-lock.mjs",
-          "sha256": "2195eecdcc87c85b6082cc21b5e077e6cc99556fd54930b81376ddd16d6ec7e0"
+          "sha256": "fd2e6bae64c58482549f68d7971f59cf67cdf37e37b934689a785e22c78e111d"
         },
         {
           "path": "plugins/just-vibe/scripts/lib/execution-control.mjs",
@@ -591,7 +591,7 @@
         },
         {
           "path": "tests/capability-runtime.test.mjs",
-          "sha256": "a02eafeec1278661907981743377e99d7c17308f0d9cfed313391d972709cb44"
+          "sha256": "a62b3c245c2526bae7ff30727f0c8d4c85a46b4f102c80dfc0ad80bc30a1f0d7"
         },
         {
           "path": "tests/expansion-contracts.test.mjs",
@@ -603,7 +603,7 @@
         },
         {
           "path": "plugins/just-vibe/scripts/lib/file-lock.mjs",
-          "sha256": "2195eecdcc87c85b6082cc21b5e077e6cc99556fd54930b81376ddd16d6ec7e0"
+          "sha256": "fd2e6bae64c58482549f68d7971f59cf67cdf37e37b934689a785e22c78e111d"
         },
         {
           "path": "plugins/just-vibe/scripts/lib/execution-control.mjs",
@@ -648,11 +648,11 @@
       "evidence": [
         {
           "path": "plugins/just-vibe/scripts/lib/native-sessions.mjs",
-          "sha256": "84b33c5243f75b8b0f247f41f10538cf5f46db69effa58ac484497ff7fd37d81"
+          "sha256": "2b310f50a77e59761e095984347350a7c7c9793b53e9a7336a8ad6600693e6b9"
         },
         {
           "path": "tests/capability-runtime.test.mjs",
-          "sha256": "a02eafeec1278661907981743377e99d7c17308f0d9cfed313391d972709cb44"
+          "sha256": "a62b3c245c2526bae7ff30727f0c8d4c85a46b4f102c80dfc0ad80bc30a1f0d7"
         },
         {
           "path": "tests/release-regressions.test.mjs",
@@ -660,7 +660,7 @@
         },
         {
           "path": "plugins/just-vibe/scripts/lib/file-lock.mjs",
-          "sha256": "2195eecdcc87c85b6082cc21b5e077e6cc99556fd54930b81376ddd16d6ec7e0"
+          "sha256": "fd2e6bae64c58482549f68d7971f59cf67cdf37e37b934689a785e22c78e111d"
         },
         {
           "path": "plugins/just-vibe/scripts/lib/execution-control.mjs",
@@ -719,7 +719,7 @@
         },
         {
           "path": "plugins/just-vibe/scripts/lib/file-lock.mjs",
-          "sha256": "2195eecdcc87c85b6082cc21b5e077e6cc99556fd54930b81376ddd16d6ec7e0"
+          "sha256": "fd2e6bae64c58482549f68d7971f59cf67cdf37e37b934689a785e22c78e111d"
         },
         {
           "path": "plugins/just-vibe/scripts/lib/execution-control.mjs",
@@ -817,7 +817,7 @@
         },
         {
           "path": "plugins/just-vibe/scripts/lib/file-lock.mjs",
-          "sha256": "2195eecdcc87c85b6082cc21b5e077e6cc99556fd54930b81376ddd16d6ec7e0"
+          "sha256": "fd2e6bae64c58482549f68d7971f59cf67cdf37e37b934689a785e22c78e111d"
         },
         {
           "path": "plugins/just-vibe/scripts/lib/execution-control.mjs",
@@ -872,7 +872,7 @@
         },
         {
           "path": "plugins/just-vibe/scripts/lib/orchestration.mjs",
-          "sha256": "32c5b3691d0d6087663aa8c2f0492fb85994b3c9b1040e8365817dd16e7766be"
+          "sha256": "a9c0a3423087c585700fde08429a53d52739d95f1943a15db1896c484ef4d010"
         },
         {
           "path": "tests/expansion-contracts.test.mjs",
@@ -917,7 +917,7 @@
         },
         {
           "path": "plugins/just-vibe/scripts/service-supervisor.mjs",
-          "sha256": "a87ed702360a129a0ddd68b7bae3178cb6e973868cfa60c7be38cc583b25e26c"
+          "sha256": "57a91ca341c8a4e7b8069ebc6c62c6f061fab7662defd36b17809e7936e865d9"
         },
         {
           "path": "tests/extended-workbench.test.mjs",
@@ -929,7 +929,7 @@
         },
         {
           "path": "plugins/just-vibe/scripts/lib/file-lock.mjs",
-          "sha256": "2195eecdcc87c85b6082cc21b5e077e6cc99556fd54930b81376ddd16d6ec7e0"
+          "sha256": "fd2e6bae64c58482549f68d7971f59cf67cdf37e37b934689a785e22c78e111d"
         },
         {
           "path": "plugins/just-vibe/scripts/lib/execution-control.mjs",
@@ -988,7 +988,7 @@
         },
         {
           "path": "plugins/just-vibe/scripts/lib/file-lock.mjs",
-          "sha256": "2195eecdcc87c85b6082cc21b5e077e6cc99556fd54930b81376ddd16d6ec7e0"
+          "sha256": "fd2e6bae64c58482549f68d7971f59cf67cdf37e37b934689a785e22c78e111d"
         },
         {
           "path": "plugins/just-vibe/scripts/lib/execution-control.mjs",
@@ -1573,7 +1573,7 @@
         },
         {
           "path": "plugins/just-vibe/scripts/lib/file-lock.mjs",
-          "sha256": "2195eecdcc87c85b6082cc21b5e077e6cc99556fd54930b81376ddd16d6ec7e0"
+          "sha256": "fd2e6bae64c58482549f68d7971f59cf67cdf37e37b934689a785e22c78e111d"
         },
         {
           "path": "plugins/just-vibe/scripts/lib/execution-control.mjs",
@@ -1983,7 +1983,7 @@
         },
         {
           "path": "plugins/just-vibe/scripts/lib/operator-http.mjs",
-          "sha256": "9087457482f80453701b330f2f544aaaeaf7d3ca21a5d3d48de802dbafcabf28"
+          "sha256": "0ed376d6d7d97ccdcc2bf017d0595706b06320c1d87a3edcb3f9ad5830501a15"
         },
         {
           "path": "tests/expansion-contracts.test.mjs",
@@ -1995,7 +1995,7 @@
         },
         {
           "path": "plugins/just-vibe/scripts/lib/file-lock.mjs",
-          "sha256": "2195eecdcc87c85b6082cc21b5e077e6cc99556fd54930b81376ddd16d6ec7e0"
+          "sha256": "fd2e6bae64c58482549f68d7971f59cf67cdf37e37b934689a785e22c78e111d"
         },
         {
           "path": "plugins/just-vibe/scripts/lib/execution-control.mjs",
@@ -2107,7 +2107,7 @@
         },
         {
           "path": "plugins/just-vibe/scripts/lib/file-lock.mjs",
-          "sha256": "2195eecdcc87c85b6082cc21b5e077e6cc99556fd54930b81376ddd16d6ec7e0"
+          "sha256": "fd2e6bae64c58482549f68d7971f59cf67cdf37e37b934689a785e22c78e111d"
         },
         {
           "path": "plugins/just-vibe/scripts/lib/execution-control.mjs",
@@ -2172,7 +2172,7 @@
         },
         {
           "path": "plugins/just-vibe/scripts/lib/file-lock.mjs",
-          "sha256": "2195eecdcc87c85b6082cc21b5e077e6cc99556fd54930b81376ddd16d6ec7e0"
+          "sha256": "fd2e6bae64c58482549f68d7971f59cf67cdf37e37b934689a785e22c78e111d"
         },
         {
           "path": "plugins/just-vibe/scripts/lib/execution-control.mjs",
@@ -2217,7 +2217,7 @@
         },
         {
           "path": ".github/workflows/publish.yml",
-          "sha256": "28333657439b6d61306c2de89e10605f80e6b42b1480012775867b856761dd2d"
+          "sha256": "bbf290aea294981ddcb22bd9a9bb954623ca766a11b821f84a58dc3f30c5a88f"
         },
         {
           "path": "plugins/just-vibe/references/methods/release-maintenance.md",
@@ -2323,7 +2323,7 @@
         },
         {
           "path": "plugins/just-vibe/scripts/lib/editor-events.mjs",
-          "sha256": "e2e6c2b1e41eb00f72e89ea8296672d92543f9adba83ccecf5ab833613389d29"
+          "sha256": "8a518b1e95c795ed89a7dc5a290f09be3d0b33742499489428f29db0042fae55"
         },
         {
           "path": "plugins/just-vibe/scripts/lib/opencode-plugin.mjs",
@@ -2331,7 +2331,7 @@
         },
         {
           "path": "plugins/just-vibe/scripts/kiro-hooks.mjs",
-          "sha256": "916c78363577c307954e35d95043bab8747b91c8d3cac38509d50139e88f973d"
+          "sha256": "fbc993d9dbf21a5432767111caddafcb957ce90abf4b65777b71ed96fc39b934"
         },
         {
           "path": "tests/expansion-contracts.test.mjs",
@@ -2347,7 +2347,7 @@
         },
         {
           "path": "plugins/just-vibe/scripts/lib/file-lock.mjs",
-          "sha256": "2195eecdcc87c85b6082cc21b5e077e6cc99556fd54930b81376ddd16d6ec7e0"
+          "sha256": "fd2e6bae64c58482549f68d7971f59cf67cdf37e37b934689a785e22c78e111d"
         },
         {
           "path": "plugins/just-vibe/scripts/lib/execution-control.mjs",
@@ -2404,11 +2404,11 @@
       "evidence": [
         {
           "path": "plugins/just-vibe/scripts/lib/operator-http.mjs",
-          "sha256": "9087457482f80453701b330f2f544aaaeaf7d3ca21a5d3d48de802dbafcabf28"
+          "sha256": "0ed376d6d7d97ccdcc2bf017d0595706b06320c1d87a3edcb3f9ad5830501a15"
         },
         {
           "path": "scripts/smoke-operator-browser.mjs",
-          "sha256": "de0c58a8ba3b372add8a32866412627c04e0cb9a5221416bc9980bf447fbf84f"
+          "sha256": "9a71f2306b40e89245500d00c144370a6a070940318cff4fb13fe578e192d5e8"
         },
         {
           "path": "tests/expansion-contracts.test.mjs",
@@ -2420,7 +2420,7 @@
         },
         {
           "path": "plugins/just-vibe/scripts/lib/file-lock.mjs",
-          "sha256": "2195eecdcc87c85b6082cc21b5e077e6cc99556fd54930b81376ddd16d6ec7e0"
+          "sha256": "fd2e6bae64c58482549f68d7971f59cf67cdf37e37b934689a785e22c78e111d"
         },
         {
           "path": "plugins/just-vibe/scripts/lib/execution-control.mjs",
@@ -2499,7 +2499,7 @@
         },
         {
           "path": "plugins/just-vibe/scripts/lib/file-lock.mjs",
-          "sha256": "2195eecdcc87c85b6082cc21b5e077e6cc99556fd54930b81376ddd16d6ec7e0"
+          "sha256": "fd2e6bae64c58482549f68d7971f59cf67cdf37e37b934689a785e22c78e111d"
         },
         {
           "path": "plugins/just-vibe/scripts/lib/execution-control.mjs",

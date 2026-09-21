@@ -8,6 +8,7 @@ import {
   unlinkSync,
   openSync,
   closeSync,
+  fstatSync,
   readdirSync,
   mkdtempSync,
   rmSync,
@@ -15,7 +16,7 @@ import {
   chmodSync,
 } from "node:fs";
 import { dirname, relative, join } from "node:path";
-import { tmpdir } from "node:os";
+import { tmpdir, hostname } from "node:os";
 import { randomUUID } from "node:crypto";
 import { execFileSync } from "node:child_process";
 import {
@@ -27,6 +28,7 @@ import {
   privateName,
 } from "./storage.mjs";
 import { runCommand, redact, redactValue, redactCommand } from "./process.mjs";
+import { withFileLock } from "./file-lock.mjs";
 
 export { within, projectRoot, digest, readJson };
 export const MAX_STATE = 8 * 1024 * 1024;
@@ -239,44 +241,82 @@ export function expectRevision(record, rev) {
   if ((record?.revision || 0) !== revision(rev))
     throw Error("State revision changed. Read it again before updating.");
 }
+function lockOwner(path) {
+  try {
+    const stat = lstatSync(path), value = readJson(path, 4096);
+    if (!Number.isSafeInteger(value.pid) || value.pid <= 0)
+      throw Error("Malformed lock: inspect manually.");
+    if (value.host && value.host !== hostname())
+      throw Error("Lock belongs to another host; inspect manually.");
+    return { stat, value };
+  } catch (error) {
+    if (error.code === "ENOENT") return null;
+    throw error;
+  }
+}
+function sameLock(before, after) {
+  return !!before && !!after && before.stat.dev === after.stat.dev &&
+    before.stat.ino === after.stat.ino && before.stat.mtimeMs === after.stat.mtimeMs &&
+    before.stat.size === after.stat.size &&
+    JSON.stringify(before.value) === JSON.stringify(after.value);
+}
 export async function locked(root, operation) {
   const directory = within(root, ".just-vibe");
   mkdirSync(directory, { recursive: true });
   const path = within(root, ".just-vibe/workbench.lock");
-  let handle;
+  let handle, owner;
   try {
-    handle = openSync(path, "wx", 0o600);
+    withFileLock(`${path}.recovery`, () => {
+      handle = openSync(path, "wx", 0o600);
+      const value = { pid: process.pid, host: hostname(), token: randomUUID(), createdAt: now() };
+      try {
+        writeFileSync(handle, JSON.stringify(value));
+        owner = { stat: fstatSync(handle), value };
+      } catch (error) {
+        const stat = fstatSync(handle), current = lstatSync(path);
+        if (stat.dev === current.dev && stat.ino === current.ino) unlinkSync(path);
+        throw error;
+      }
+    });
   } catch {
+    if (handle !== undefined) closeSync(handle);
     throw Error(
       "Workbench operation in progress. Inspect the lock owner before recovery.",
     );
   }
-  writeFileSync(handle, JSON.stringify({ pid: process.pid, createdAt: now() }));
   try {
     return await operation();
   } finally {
     closeSync(handle);
-    unlinkSync(path);
+    // A cooperating recoverer refuses this live PID, and acquisition cannot
+    // replace its existing lock. Release must not wait for a recovery gate:
+    // contention there must not strand a completed operation's live lease.
+    if (sameLock(owner, lockOwner(path))) unlinkSync(path);
   }
 }
 export function recoverLock(root) {
   const removed = [];
   function recover(path) {
     if (!existsSync(path)) return;
-    const lock = readJson(path);
-    if (!Number.isInteger(lock.pid) || lock.pid <= 0)
-      throw Error("Malformed lock: inspect manually.");
-    try {
-      process.kill(lock.pid, 0);
-    } catch (error) {
-      if (error.code !== "ESRCH") throw error;
-      unlinkSync(path);
-      removed.push(relative(projectRoot(root), path));
-      return;
-    }
-    throw Error(
-      "The lock owner is still running; do not interrupt it by removing the lock.",
-    );
+    // Atomic JSON recovery uses this same mutex for record locks. The async
+    // operation itself remains outside the synchronous recovery callback.
+    withFileLock(`${path}.recovery`, () => {
+      const before = lockOwner(path);
+      if (!before) return;
+      try {
+        process.kill(before.value.pid, 0);
+      } catch (error) {
+        if (error.code !== "ESRCH") throw error;
+        if (!sameLock(before, lockOwner(path)))
+          throw Error("Lock changed during recovery; inspect its current owner.");
+        unlinkSync(path);
+        removed.push(relative(projectRoot(root), path));
+        return;
+      }
+      throw Error(
+        "The lock owner is still running; do not interrupt it by removing the lock.",
+      );
+    });
   }
   recover(within(root, ".just-vibe/workbench.lock"));
   for (const collection of [
@@ -354,10 +394,15 @@ export function git(
   { input, accepted = [0], encoding = "utf8" } = {},
 ) {
   const hooks = mkdtempSync(join(tmpdir(), "jv-no-hooks-"));
+  // The selected worktree owns these operations. Inherited Git metadata,
+  // index and config overrides must not redirect them to another repository.
+  const env = Object.fromEntries(
+    Object.entries(process.env).filter(([key]) => !key.startsWith("GIT_")),
+  );
   try {
     return execFileSync(
       "git",
-      ["-c", `core.hooksPath=${hooks}`, "-c", "core.fsmonitor=false", ...args],
+      ["--no-pager", "--no-replace-objects", "-c", `core.hooksPath=${hooks}`, "-c", "core.fsmonitor=false", ...args],
       {
         cwd: root,
         encoding,
@@ -366,7 +411,7 @@ export function git(
         maxBuffer: 4 * 1024 * 1024,
         stdio: ["pipe", "pipe", "pipe"],
         env: {
-          ...process.env,
+          ...env,
           GIT_TERMINAL_PROMPT: "0",
           GIT_OPTIONAL_LOCKS: "0",
         },

@@ -4,7 +4,7 @@ import { readFileSync, realpathSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { isDirectRun } from './lib/entrypoint.mjs';
-import { managedSource, stageBundle, inspectManaged, validateBundle } from './lib/bundle.mjs';
+import { managedSource, stageBundle, inspectManaged, validateBundle, bundleFileHashes } from './lib/bundle.mjs';
 import { commandInvocation } from './lib/command.mjs';
 import { adapters, ADAPTERS } from './lib/editor-adapters.mjs';
 import { selectPayload } from './lib/selection.mjs';
@@ -251,7 +251,14 @@ export function install(options, { run = execute, log = console.log, source = so
     if (!state.marketplace || !state.installed) throw new Error('just-vibe is not fully installed. Run setup for this target.');
     if (state.installed.enabled === false) throw new Error('just-vibe is installed but disabled. Run setup to enable it.');
     if (!options.github && !options.local) {
-      if (!inspectManaged(source)) throw new Error('Managed marketplace files are missing. Run setup to restore them.');
+      const managed = inspectManaged(source);
+      if (!managed) throw new Error('Managed marketplace files are missing. Run setup to restore them.');
+      if (!managed.files) throw new Error('Managed file integrity is unknown for this legacy installation. Preserve its source and use update to record a verified manifest.');
+      const currentFiles = bundleFileHashes(source);
+      const missing = Object.keys(managed.files).filter(path => !Object.hasOwn(currentFiles, path));
+      const changed = Object.keys(managed.files).filter(path => Object.hasOwn(currentFiles, path) && currentFiles[path] !== managed.files[path]);
+      const added = Object.keys(currentFiles).filter(path => !Object.hasOwn(managed.files, path));
+      if (missing.length || changed.length || added.length) throw new Error(`Managed bundle needs inspection: ${missing.length} missing, ${changed.length} changed, ${added.length} added files. Preserve edits before repair. ${JSON.stringify({ missing, changed, added })}`);
       const version = validateBundle(source);
       if (state.installed.version !== version) throw new Error(`Installed plugin version differs from the managed source (${version}). Run update to finish applying it.`);
     }

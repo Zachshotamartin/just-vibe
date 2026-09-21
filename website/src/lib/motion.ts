@@ -31,19 +31,18 @@ export function initMotion(signal: AbortSignal) {
         const element = entry.target as HTMLElement;
         observer.unobserve(element);
         if (element.contains(document.activeElement)) continue;
-        play(
-          element,
-          [
-            { opacity: 0.35, transform: 'translateY(14px)' },
-            { opacity: 1, transform: 'translateY(0)' },
-          ],
-          620,
-        );
+        play(element, [{ opacity: 0.85 }, { opacity: 1 }], 240);
       }
     },
     { threshold: 0.12 },
   );
-  document.querySelectorAll<HTMLElement>('[data-reveal]').forEach((el) => observer.observe(el));
+  document.querySelectorAll<HTMLElement>('[data-reveal]').forEach((el) => {
+    const bounds = el.getBoundingClientRect();
+    // Above-the-fold content is already presented on load or navigation. Never
+    // move or fade it again once the browser has rendered the page.
+    if (bounds.top < window.innerHeight && bounds.bottom > 0) return;
+    observer.observe(el);
+  });
   const stop = () => {
     observer.disconnect();
     active.forEach((animation) => animation.cancel());

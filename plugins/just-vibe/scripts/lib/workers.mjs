@@ -182,7 +182,10 @@ export async function workers(root, operation, payload = {}, options = {}) {
         : {}),
     };
     // Reserve before creating files/processes so concurrent starts cannot exceed the cap.
-    const reserved = store.put('workers', { ...state, jobs: [...state.jobs, job] }, state.revision);
+    const reserve = () => store.put('workers', { ...state, jobs: [...state.jobs, job] }, state.revision);
+    // Orchestration orders its authorization check and this durable reservation
+    // against cancellation. Workspace setup stays outside that short mutex.
+    const reserved = options.reserveWorker ? await options.reserveWorker(job, reserve) : reserve();
     try {
       const cwd = createWorkspace(root, { base }, { path });
       const full = within(store.home, directory);

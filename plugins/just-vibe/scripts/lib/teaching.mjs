@@ -22,7 +22,7 @@ export function createQuiz({ topic, maxQuestions = 5, difficulty = 1, mode = 'pr
 function validateQuestion(question) {
   for (const field of ['prompt', 'concept', 'explanation']) nonempty(question[field], field);
   if (!Array.isArray(question.options) || question.options.length !== 3) throw new Error('Use exactly three choices for cross-host compatibility.');
-  const ids = new Set(), labels = new Set();
+  const ids = new Set(), labels = new Set(), answers = new Map();
   for (const o of question.options) {
     if (!/^[a-z0-9_-]+$/.test(o.id)) throw new Error('Choice IDs must be stable identifiers.');
     nonempty(o.label, 'Choice label'); nonempty(o.description, 'Choice description');
@@ -30,8 +30,16 @@ function validateQuestion(question) {
     if (ids.has(o.id) || labels.has(o.label.toLowerCase())) throw new Error('Duplicate choice.');
     if (/\b(?:recommended|correct answer)\b/i.test(o.label + ' ' + o.description)) throw new Error('Do not disclose an answer through option hints.');
     ids.add(o.id); labels.add(o.label.toLowerCase());
+    for (const answer of acceptedAnswers(o)) {
+      if (answers.has(answer) && answers.get(answer) !== o.id)
+        throw new Error('Choice IDs and labels must identify an unambiguous answer.');
+      answers.set(answer, o.id);
+    }
   }
   if (!ids.has(question.correctOptionId)) throw new Error('Answer key must identify one of the choices.');
+}
+function acceptedAnswers(option) {
+  return [option.id, option.label, `${option.label} — ${option.description}`];
 }
 
 export function nativeQuestionPayload(question, dialog) {
@@ -83,7 +91,9 @@ export function answerQuestion(quiz, response) {
   if (response.questionId !== quiz.pending.id) throw new Error('Answer belongs to a different question.');
   if (response.cancelled) return { quiz: { ...structuredClone(quiz), status: 'cancelled' }, feedback: null };
   if (response.skipped) return assessed(quiz, null, 'skipped', quiz.pending.explanation);
-  const selected = quiz.pending.options.find(o => o.id === response.selection || o.label === response.selection || `${o.label} — ${o.description}` === response.selection);
+  const matches = quiz.pending.options.filter(o => acceptedAnswers(o).includes(response.selection));
+  if (matches.length > 1) throw new Error('Ambiguous answer; preserve the pending question and clarify the selected choice.');
+  const selected = matches[0];
   if (selected) return assessed(quiz, response.selection, selected.id === quiz.pending.correctOptionId ? 'correct' : 'incorrect', quiz.pending.explanation);
   if (typeof response.freeText === 'string' && response.freeText.trim()) {
     const next = structuredClone(quiz);

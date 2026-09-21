@@ -177,6 +177,30 @@ test('behavior rules combine conditions and prevent stop loops; strict requires 
   writeFileSync(join(f.root, 'app.js'), 'changed');
   assert.equal(investigationHook(edit, f.options).hookSpecificOutput.permissionDecision, 'deny');
 });
+test('strict investigation never credits failed or partial read results', (t) => {
+  const f = fixture(t);
+  behaviorRules(f.root, 'preset', { revision: 0, profile: 'strict' }, f.options);
+  writeFileSync(join(f.root, 'app.js'), 'export const value = 1;');
+  const base = { cwd: f.root, tool_input: { file_path: 'app.js' } };
+  const failures = [
+    { is_error: true }, { error: 'Read denied' },
+    { tool_response: { isError: true } }, { tool_response: { is_error: true } },
+    { tool_response: { error: 'Read failed' } },
+    ...['exit_code', 'exitCode', 'status'].map((key) => ({ tool_response: { [key]: 1 } })),
+    { hook_event_name: 'PostToolUseFailure' },
+    { tool_input: { file_path: 'app.js', limit: 1 } },
+  ];
+  for (const [i, failure] of failures.entries()) {
+    const event = { ...base, session_id: `failed-read-${i}` };
+    investigationHook({ ...event, hook_event_name: 'PostToolUse', tool_name: 'Read', ...failure }, f.options);
+    assert.equal(investigationHook({ ...event, hook_event_name: 'PreToolUse', tool_name: 'Edit' }, f.options)
+      .hookSpecificOutput.permissionDecision, 'deny');
+  }
+  const successful = { ...base, session_id: 'successful-read' };
+  investigationHook({ ...successful, hook_event_name: 'PostToolUse', tool_name: 'read_file',
+    tool_response: { isError: false, is_error: false, exit_code: 0, exitCode: 0, status: 0 } }, f.options);
+  assert.deepEqual(investigationHook({ ...successful, hook_event_name: 'PreToolUse', tool_name: 'Edit' }, f.options), {});
+});
 test('MCP health classifies authentication, honors backoff and never forwards configured credentials', async (t) => {
   const f = fixture(t);
   writeFileSync(

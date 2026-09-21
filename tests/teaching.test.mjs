@@ -119,6 +119,43 @@ test('bad questions, duplicate labels and answer hints are rejected before openi
   }
 });
 
+test('questions reject answer aliases shared by different choices before shuffling', () => {
+  for (const mutate of [
+    q => { q.options[0].label = q.options[1].id; },
+    q => { q.options[0].label = `${q.options[1].label} — ${q.options[1].description}`; },
+  ]) {
+    const q = question();
+    q.options = [
+      { id: 'a', label: 'Alpha', description: 'First variable.' },
+      { id: 'b', label: 'Beta', description: 'Second variable.' },
+      { id: 'c', label: 'Gamma', description: 'Third variable.' },
+    ];
+    q.correctOptionId = 'a'; mutate(q);
+    assert.throws(() => presentQuestion(createQuiz({ topic: 'Variable names' }), q, 'codex'), /unambiguous/);
+  }
+  const q = question(); q.options[0].label = q.options[0].id;
+  const { quiz } = presentQuestion(createQuiz({ topic: 'Variables' }), q, 'codex');
+  assert.equal(answerQuestion(quiz, response(quiz, q.options[0].id)).feedback.result, 'correct');
+});
+
+test('legacy pending questions refuse ambiguous answers in every shuffle order', () => {
+  const { quiz } = pending('codex');
+  const choices = [
+    { id: 'a', label: 'b', description: 'Variable b.' },
+    { id: 'b', label: 'a', description: 'Variable a.' },
+    { id: 'c', label: 'c', description: 'Variable c.' },
+  ];
+  for (const order of ['abc', 'acb', 'bac', 'bca', 'cab', 'cba']) {
+    const legacy = structuredClone(quiz);
+    legacy.pending.options = [...order].map(id => choices.find(o => o.id === id));
+    legacy.pending.correctOptionId = 'a';
+    const before = structuredClone(legacy);
+    assert.throws(() => answerQuestion(legacy, response(legacy, 'b')), /Ambiguous answer/);
+    assert.deepEqual(legacy, before);
+    assert.equal(answerQuestion(legacy, response(legacy, 'b — Variable b.')).feedback.result, 'correct');
+  }
+});
+
 test('quiz CLI emits adapter payloads but never calls a host tool or starts a model', async () => {
   const logs = [];
   const quiz = createQuiz({ topic: 'Linked lists' });
