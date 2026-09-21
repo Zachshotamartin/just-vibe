@@ -16,6 +16,8 @@ import { runtimeStore } from '../plugins/just-vibe/scripts/lib/runtime-store.mjs
 import { lessons } from '../plugins/just-vibe/scripts/lib/adaptive-learning.mjs';
 import { redact } from '../plugins/just-vibe/scripts/lib/process.mjs';
 import { stageBundle } from '../plugins/just-vibe/scripts/lib/bundle.mjs';
+import { releaseEnvironment } from './lib/git.mjs';
+import { fixtureGit } from './lib/host-fixture.mjs';
 const argv = process.argv.slice(2);
 if (
   !argv.includes('--run') ||
@@ -71,13 +73,16 @@ try {
     const base = join(temp, host),
       root = join(base, 'project'),
       home = join(base, 'data'),
-      config = join(base, 'config');
+      config = join(base, 'config'),
+      emptyHooks = join(base, 'empty-hooks');
     mkdirSync(root, { recursive: true });
     mkdirSync(config);
+    mkdirSync(emptyHooks);
+    const git = (args) => fixtureGit(root, emptyHooks, args);
     const payload = join(base, 'payload');
     if (host === 'claude') stageBundle(payload, { target: host, selection: { profile: 'core' } });
     const plugin = join(payload, 'plugins/just-vibe');
-    const env = { ...process.env, JUST_VIBE_HOME: home, NO_COLOR: '1' };
+    const env = { ...releaseEnvironment(), JUST_VIBE_HOME: home, NO_COLOR: '1' };
     // Test credentials never enter fixtures or reports and the temporary copy is deleted in finally.
     if (host === 'codex') {
       const auth = join(process.env.CODEX_HOME || join(homedir(), '.codex'), 'auth.json');
@@ -98,7 +103,7 @@ try {
       ['config', 'user.name', 'Fixture'],
       ['config', 'user.email', 'fixture@example.test'],
     ])
-      execFileSync('git', args, { cwd: root });
+      git(args);
     writeFileSync(join(root, 'package.json'), '{"type":"module"}\n');
     writeFileSync(
       join(root, 'app.mjs'),
@@ -109,8 +114,8 @@ try {
       'import test from "node:test"; import assert from "node:assert/strict"; import {sumEven} from "./app.mjs"; test("positive even numbers",()=>assert.equal(sumEven([1,2,4]),6));\n',
     );
     writeFileSync(join(root, '.gitignore'), '.just-vibe/\n');
-    execFileSync('git', ['add', '.'], { cwd: root });
-    execFileSync('git', ['commit', '-qm', 'fixture'], { cwd: root });
+    git(['add', '.']);
+    git(['commit', '-qm', 'fixture']);
     await integration(
       root,
       'configure',
@@ -131,7 +136,7 @@ try {
         continue;
       }
     }
-    const version = execFileSync(host, ['--version'], { encoding: 'utf8' }).trim();
+    const version = execFileSync(host, ['--version'], { env, encoding: 'utf8' }).trim();
     const prompts = [
       'Fix sumEven in app.mjs: it incorrectly excludes negative even integers. Preserve the export and add a regression test for negative values, zero and an empty input. Run node --test test.mjs. Keep the change scoped to this fixture; no dependency installs, network actions, commits or subagents.',
       'Correction to how you handle fixes: from now on, avoid adding dependencies and use the Node built-in test runner. Remember this as a project preference for the fix workflow, so it changes the instructions loaded next time. No further source changes.',
@@ -221,7 +226,7 @@ try {
           '-e',
           'import {sumEven} from "./app.mjs"; if(sumEven([-4,-1,0,2])!==-2 || sumEven([])!==0)process.exit(1)',
         ],
-        { cwd: root, stdio: 'pipe' },
+        { cwd: root, env, stdio: 'pipe' },
       );
       regression = true;
     } catch {}
@@ -235,7 +240,7 @@ try {
       ordinaryWorkflowLoaded: tasks.some(t => t.userMessage === prompts[0] && t.requirements?.some(r => r.evidence?.kind === 'runtime-load')),
       observedTools: [...new Set(tasks.flatMap((t) => t.observations?.map((o) => o.tool) || []))],
       savedProjectLessons: guidance.length,
-      sourceChanged: execFileSync('git', ['diff', '--name-only'], { cwd: root, encoding: 'utf8' })
+      sourceChanged: git(['diff', '--name-only'])
         .trim()
         .split('\n')
         .filter(Boolean),

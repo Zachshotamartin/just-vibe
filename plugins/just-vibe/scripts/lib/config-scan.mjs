@@ -3,29 +3,9 @@ import { join, relative } from 'node:path';
 import { within, projectRoot } from './storage.mjs';
 import { object } from './runtime-store.mjs';
 import { structuredConfigurations, unsafeHttp, unpinnedRunner } from './configuration-values.mjs';
+import { PROJECT_HOST_PATHS } from './host-paths.mjs';
 
-const configRoots = [
-  'AGENTS.md',
-  'CLAUDE.md',
-  'GEMINI.md',
-  '.mcp.json',
-  '.claude',
-  '.codex',
-  '.cursor',
-  '.opencode',
-  '.github/instructions',
-  '.github/skills',
-  '.gemini',
-  '.kimi',
-  '.kimi-code',
-  '.qwen',
-  '.windsurf',
-  '.agent',
-  '.github/copilot-instructions.md',
-  '.agents',
-  'opencode.json',
-  'opencode.jsonc',
-];
+const configRoots = PROJECT_HOST_PATHS;
 export function scanConfiguration(root, payload = {}) {
   root = projectRoot(root);
   object(payload, ['paths']);

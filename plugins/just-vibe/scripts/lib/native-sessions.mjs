@@ -19,19 +19,33 @@ export function parseSession(source, host, window = {}) {
   const messages = [],
     metadata = {};
   let malformed = 0,
-    ignored = 0;
-  const append = (role, content, at) => {
+    ignored = 0,
+    codexMirror = null;
+  const append = (role, content, at, row) => {
     if (!['user', 'assistant'].includes(role)) {
       ignored++;
+      codexMirror = null;
       return;
     }
     // The source is bounded by the importer. Compare complete visible text
     // before applying presentation limits, so equal prefixes are not duplicates.
     const text = visibleText(content, Infinity);
-    if (!text.trim()) return;
-    // Codex exports may repeat one visible message in response_item/event_msg.
-    const previous = messages.at(-1);
-    if (host === 'codex' && previous?.role === role && previous.text === text) return;
+    if (!text.trim()) { codexMirror = null; return; }
+    // Pair adjacent response/event mirrors only once. Equal messages from the
+    // same source, different identities or separate turns remain distinct.
+    if (host === 'codex') {
+      const current = { kind: row.type, role, text,
+        id: row.payload?.message_id ?? row.payload?.id,
+        turn: row.payload?.turn_id };
+      const previous = codexMirror;
+      const sameIdentity = key => previous?.[key] === undefined || current[key] === undefined || previous[key] === current[key];
+      if (previous && previous.kind !== current.kind && previous.role === role && previous.text === text &&
+        sameIdentity('id') && sameIdentity('turn')) {
+        codexMirror = null;
+        return;
+      }
+      codexMirror = current;
+    }
     messages.push({ role, text, ...(typeof at === 'string' ? { at: at.slice(0, 80) } : {}) });
   };
   let records;
@@ -51,8 +65,7 @@ export function parseSession(source, host, window = {}) {
       try {
         return [JSON.parse(line)];
       } catch {
-        malformed++;
-        return [];
+        return [null];
       }
     });
   }
@@ -60,6 +73,7 @@ export function parseSession(source, host, window = {}) {
   for (const row of records) {
     if (!row || typeof row !== 'object') {
       malformed++;
+      codexMirror = null;
       continue;
     }
     if (host === 'claude') {
@@ -70,15 +84,16 @@ export function parseSession(source, host, window = {}) {
       else ignored++;
     } else if (host === 'codex') {
       if (row.type === 'session_meta') {
+        codexMirror = null;
         metadata.id ||= row.payload?.id;
         metadata.cwd ||= row.payload?.cwd;
       } else if (row.type === 'response_item' && row.payload?.type === 'message')
-        append(row.payload.role, row.payload.content, row.timestamp);
+        append(row.payload.role, row.payload.content, row.timestamp, row);
       else if (row.type === 'event_msg' && row.payload?.type === 'user_message')
-        append('user', row.payload.message, row.timestamp);
+        append('user', row.payload.message, row.timestamp, row);
       else if (row.type === 'event_msg' && row.payload?.type === 'agent_message')
-        append('assistant', row.payload.message, row.timestamp);
-      else ignored++;
+        append('assistant', row.payload.message, row.timestamp, row);
+      else { ignored++; codexMirror = null; }
     } else if (host === 'opencode') {
       const role = row.info?.role || row.role;
       append(
@@ -242,7 +257,7 @@ export function sessions(root, operation, payload = {}, options = {}) {
   ]);
   requireId(payload.id);
   const destination = store.get(sessionName(payload.id));
-  if (['capture', 'import'].includes(operation)) {
+  if (['capture', 'import', 'branch'].includes(operation)) {
     if ((destination?.scope || destination?.source?.scope) === 'user' && options.allowUser === false)
       throw Error('User session access is disabled.');
     const aliases = store.get('session-aliases')?.aliases || {};

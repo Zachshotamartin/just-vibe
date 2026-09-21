@@ -44,6 +44,17 @@ function owner(path) {
   }
 }
 
+// Explicit maintenance must use the same gate as automatic dead-owner recovery.
+export function recoverFileLock(path) {
+  return withFileLock(`${path}.recovery`, () => {
+    const current = owner(path);
+    if (!current) return 'missing';
+    if (processAlive(current.pid)) return 'active';
+    unlinkSync(path);
+    return 'recovered';
+  });
+}
+
 // Publish fully written owner metadata atomically. A reaper mutex serializes
 // dead-owner recovery so another reaper cannot unlink a newly acquired lease.
 // This lock is local to one machine; PID reuse is conservatively treated as live.

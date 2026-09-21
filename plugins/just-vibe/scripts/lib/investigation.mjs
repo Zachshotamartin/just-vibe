@@ -18,11 +18,16 @@ export function investigationHook(event, options = {}) {
       return null;
     }
   };
+  const result = event.tool_response;
+  const failed = event.is_error || event.error || result?.isError === true ||
+    result?.is_error === true || result?.error ||
+    ['exit_code', 'exitCode', 'status'].some(
+      (key) => typeof result?.[key] === 'number' && result[key] !== 0,
+    );
   if (
     event.hook_event_name === 'PostToolUse' &&
     /^(Read|read_file|read)$/i.test(event.tool_name || '') &&
-    !event.is_error &&
-    !event.error
+    !failed
   ) {
     const path = event.tool_input?.file_path || event.tool_input?.path;
     if (!path) return {};

@@ -5,14 +5,16 @@ import {
   writeFileSync,
   unlinkSync,
   realpathSync,
+  lstatSync,
 } from 'node:fs';
-import { dirname, resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { dirname, resolve, join } from 'node:path';
 import { gitRead } from './project.mjs';
 import { digest, within, projectRoot } from './storage.mjs';
 import { runtimeStore, object, timestamp } from './runtime-store.mjs';
 import { stagedQuality, quality } from './quality.mjs';
 import { runners } from './trusted-runners.mjs';
+import { gitHookRuntime, stageGitHookRuntime } from './git-hook-runtime.mjs';
+import { withFileLock } from './file-lock.mjs';
 const quote = (text) => `'${text.replaceAll("'", "'\\''")}'`;
 export async function gitHooks(root, operation, payload = {}, options = {}) {
   root = projectRoot(root);
@@ -62,12 +64,25 @@ export async function gitHooks(root, operation, payload = {}, options = {}) {
         throw Error('Push verifier failed or changed source; inspect the current checkout.');
       return result;
     }
-    const staged = stagedQuality(root);
+    // Native Git can provide a temporary index for --only/--all commits.
+    // Keep project-bound Git reads sanitized and admit only this repository's
+    // own regular index file to the commit inspection path.
+    let nativeHookIndex;
+    if (process.env.GIT_INDEX_FILE) {
+      const gitDirectory = gitRead(root, ['rev-parse', '--absolute-git-dir']);
+      if (!gitDirectory) throw Error('Cannot identify the native hook Git directory.');
+      nativeHookIndex = within(gitDirectory, resolve(root, process.env.GIT_INDEX_FILE));
+      if (dirname(nativeHookIndex) !== realpathSync(gitDirectory))
+        throw Error('Native hook index belongs to a different checkout or unsupported directory.');
+      if (!lstatSync(nativeHookIndex).isFile()) throw Error('Native hook index must be a regular file.');
+    }
+    const checkOptions = { ...options, nativeHookIndex };
+    const staged = stagedQuality(root, checkOptions);
     if (staged.findings.length)
       throw Error(
         'Staged secret or conflict indicators found; run quality check-commit for details.',
       );
-    const result = await quality(root, 'check-commit', {}, options);
+    const result = await quality(root, 'check-commit', {}, checkOptions);
     if (result.available === false)
       return {
         ...staged,
@@ -86,6 +101,44 @@ export async function gitHooks(root, operation, payload = {}, options = {}) {
   if (!path.startsWith(resolve(root, '.git') + '/'))
     throw Error('Install from the main checkout; shared worktree hooks are not changed.');
   within(root, path);
+  if (existsSync(path) && (!lstatSync(path).isFile() || lstatSync(path).size > 1024 * 1024))
+    throw Error('Existing hook must be a bounded regular file; preserve it and compose manually.');
+  const installedContent = existsSync(path) ? readFileSync(path) : null;
+  const current = installedContent ? digest(installedContent) : null;
+  const managed = !!saved.fileHash
+    ? current === saved.fileHash
+    : !!saved.hash && current === saved.hash;
+  const mutate = (operation) => {
+    mkdirSync(store.home, { recursive: true, mode: 0o700 });
+    return withFileLock(within(store.home, `${store.prefix}/${name}.operation.lock`), () => {
+      if ((store.get(name)?.revision || 0) !== saved.revision)
+        throw Error('Hook ownership changed; read current status before retrying.');
+      const latest = existsSync(path) ? digest(readFileSync(within(root, path))) : null;
+      if (latest !== current) throw Error('Hook changed before mutation; preserve user edits.');
+      return operation();
+    });
+  };
+  if (operation === 'status')
+    return {
+      revision: saved.revision, path, currentHash: current, managed,
+      hash: saved.hash || null, installedHash: saved.hash || null,
+      content: installedContent?.toString('utf8') || '',
+      runner: saved.runner, runnerHash: saved.runnerHash,
+      runtime: saved.runtime || null,
+      pending: saved.pending || null,
+      available: !current || managed,
+    };
+  if (operation === 'uninstall') {
+    if (payload.revision !== saved.revision) throw Error('Read current hook revision first.');
+    if (!saved.hash || (!managed && !(saved.pending === 'uninstall' && !current)) || payload.hash !== saved.hash)
+      throw Error('Managed hook changed or missing; preserve user edits.');
+    return mutate(() => {
+      const pending = store.put(name, { ...saved, pending: 'uninstall' }, saved.revision);
+      if (current) unlinkSync(path);
+      return store.put(name, { removedAt: timestamp() }, pending.revision);
+    });
+  }
+  if (!['preview', 'install'].includes(operation)) throw Error('Unknown Git hook operation.');
   const runner = payload.runner || saved.runner,
     runnerHash = payload.runnerHash || saved.runnerHash;
   if (hook === 'pre-push' && ['preview', 'install'].includes(operation)) {
@@ -95,24 +148,23 @@ export async function gitHooks(root, operation, payload = {}, options = {}) {
   }
   const script =
     hook === 'pre-commit' ? `git-hooks check --root ${quote(root)}` : `--root ${quote(root)}`;
-  const entry = fileURLToPath(
-    new URL(hook === 'pre-commit' ? '../toolkit.mjs' : '../pre-push.mjs', import.meta.url),
-  );
+  const source = gitHookRuntime(store.home);
+  const runtime = { sourceHash: source.sourceHash, path: source.path };
+  const entry = join(runtime.path, 'scripts', hook === 'pre-commit' ? 'toolkit.mjs' : 'pre-push.mjs');
   const content = `#!/bin/sh\n# just-vibe managed ${hook}\nJUST_VIBE_HOME=${quote(store.home)} exec ${quote(realpathSync(process.execPath))} ${quote(entry)} ${script}\n`;
   const hash = digest(
     content + (hook === 'pre-push' ? JSON.stringify({ runner, runnerHash }) : ''),
   );
-  const current = existsSync(path) ? digest(readFileSync(path)) : null;
-  if (operation === 'status' || operation === 'preview')
+  if (operation === 'preview')
     return {
       revision: saved.revision,
       path,
       currentHash: current,
-      managed: !!saved.fileHash
-        ? current === saved.fileHash
-        : !!saved.hash && current === saved.hash,
+      managed,
       hash,
+      installedHash: saved.hash || null,
       content,
+      runtime,
       runner,
       runnerHash,
       available: !current || current === (saved.fileHash || saved.hash),
@@ -124,27 +176,31 @@ export async function gitHooks(root, operation, payload = {}, options = {}) {
       throw Error('Existing hook is foreign or edited; preserve it and compose manually.');
     if (current && current !== digest(content))
       throw Error('Remove the unchanged managed hook before replacing its command.');
-    if (!current) {
-      mkdirSync(dirname(path), { recursive: true });
-      writeFileSync(path, content, { flag: 'wx', mode: 0o755 });
-    }
-    return store.put(
-      name,
-      {
-        hash,
-        fileHash: digest(content),
-        path,
+    stageGitHookRuntime(store.home, source);
+    return mutate(() => {
+      // Publish ownership before changing the executable hook. A failed final
+      // state write leaves an exact, reviewable reservation that a retry can finish.
+      const pending = store.put(name, {
+        hash, fileHash: digest(content), path, runtime, pending: 'install',
         ...(hook === 'pre-push' ? { runner, runnerHash } : {}),
-        installedAt: timestamp(),
-      },
-      saved.revision,
-    );
-  }
-  if (operation === 'uninstall') {
-    if (!saved.hash || current !== (saved.fileHash || saved.hash) || payload.hash !== saved.hash)
-      throw Error('Managed hook changed or missing; preserve user edits.');
-    unlinkSync(path);
-    return store.put(name, { removedAt: timestamp() }, saved.revision);
+      }, saved.revision);
+      if (!current) {
+        mkdirSync(dirname(path), { recursive: true });
+        writeFileSync(path, content, { flag: 'wx', mode: 0o755 });
+      }
+      return store.put(
+        name,
+        {
+          hash,
+          fileHash: digest(content),
+          path,
+          runtime,
+          ...(hook === 'pre-push' ? { runner, runnerHash } : {}),
+          installedAt: timestamp(),
+        },
+        pending.revision,
+      );
+    });
   }
   throw Error('Unknown Git hook operation.');
 }

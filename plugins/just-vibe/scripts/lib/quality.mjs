@@ -94,7 +94,7 @@ export function qualityPreset(root, payload = {}) {
     note: 'Discovery only. Review script bodies and installed binaries before configuring and trusting this exact configuration. No packages are installed; executable availability is verified when checks run.',
   };
 }
-function git(root, args, maxBuffer = 4 * 1024 * 1024) {
+function git(root, args, maxBuffer = 4 * 1024 * 1024, indexFile) {
   const result = spawnSync(
     'git',
     [
@@ -111,17 +111,21 @@ function git(root, args, maxBuffer = 4 * 1024 * 1024) {
       encoding: 'utf8',
       timeout: 1000,
       maxBuffer,
-      env: Object.fromEntries(Object.entries(process.env).filter(([k]) => !k.startsWith('GIT_'))),
+      env: {
+        ...Object.fromEntries(Object.entries(process.env).filter(([k]) => !k.startsWith('GIT_'))),
+        ...(indexFile ? { GIT_INDEX_FILE: indexFile } : {}),
+      },
     },
   );
   if (result.status !== 0 || result.error)
     throw Error('Cannot inspect complete Git index; commit verification unavailable.');
   return result.stdout;
 }
-export function stagedQuality(root) {
+export function stagedQuality(root, { nativeHookIndex } = {}) {
+  const inspect = (args, limit) => git(root, args, limit, nativeHookIndex);
   const deadline = Date.now() + 2000;
-  const index = git(root, ['ls-files', '--stage', '-z']);
-  const paths = git(root, ['diff', '--cached', '--name-only', '--diff-filter=ACMR', '-z'])
+  const index = inspect(['ls-files', '--stage', '-z']);
+  const paths = inspect(['diff', '--cached', '--name-only', '--diff-filter=ACMR', '-z'])
     .split('\0')
     .filter(Boolean);
   if (paths.length > 200)
@@ -133,7 +137,7 @@ export function stagedQuality(root) {
   for (const file of paths) {
     if (Date.now() > deadline)
       throw Error('Staged inspection time budget exhausted; no passing evidence is available.');
-    const body = git(root, ['show', `:${file}`], 1024 * 1024);
+    const body = inspect(['show', `:${file}`], 1024 * 1024);
     bytes += Buffer.byteLength(body);
     if (bytes > 4 * 1024 * 1024) throw Error('Staged scan exceeds 4 MiB.');
     if (/^(?:<{7}|={7}|>{7})(?: |$)/m.test(body))
@@ -157,7 +161,7 @@ export function stagedQuality(root) {
     indexHash: digest(index),
     files: paths,
     findings,
-    unstaged: git(root, ['diff', '--name-only', '-z']).split('\0').filter(Boolean),
+    unstaged: inspect(['diff', '--name-only', '-z']).split('\0').filter(Boolean),
     note: 'Static staged-content indicators only; no secret values returned.',
   };
 }
@@ -183,7 +187,7 @@ export async function quality(root, operation, payload = {}, options = {}) {
       available: false,
       reason: 'Commit checks require enabled, trusted project automation with commit: true.',
     };
-  const before = stagedQuality(root);
+  const before = stagedQuality(root, options);
   if (before.findings.length) return { ...before, passed: false };
   if (status.configuration.checks.length && before.unstaged.length)
     return {
@@ -209,7 +213,7 @@ export async function quality(root, operation, payload = {}, options = {}) {
     },
     { ...options, timeBudgetMs: 16000 },
   );
-  const after = stagedQuality(root);
+  const after = stagedQuality(root, options);
   const unchanged =
     before.indexHash === after.indexHash &&
     JSON.stringify(source) === JSON.stringify(fingerprint(root));

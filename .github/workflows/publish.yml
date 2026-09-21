@@ -56,5 +56,9 @@ jobs:
       - name: Verify published version
         if: inputs.publish
         run: |
-          version=$(node -p 'JSON.parse(require("fs").readFileSync("package.json")).version')
-          npm exec --yes --package="just-vibe@$version" -- just-vibe --version
+          node --input-type=module <<'JS'
+          import fs from 'node:fs';
+          import { verifyRegistryExecution } from './scripts/lib/publication.mjs';
+          const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+          console.log(`Verified registry execution: ${pkg.name}@${verifyRegistryExecution(pkg)}`);
+          JS

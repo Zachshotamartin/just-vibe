@@ -53,11 +53,14 @@ export async function startCanvasServer(
       if (req.method === 'POST' && url.pathname === '/api/feedback') {
         if (req.headers.origin !== origin || req.headers['content-type'] !== 'application/json')
           throw Error('Same-origin JSON feedback required.');
-        let body = '';
+        const chunks = [];
+        let bytes = 0;
         for await (const chunk of req) {
-          body += chunk;
-          if (Buffer.byteLength(body) > 16000) throw Error('Feedback too large.');
+          bytes += chunk.length;
+          if (bytes > 16000) throw Error('Feedback too large.');
+          chunks.push(chunk);
         }
+        const body = Buffer.concat(chunks).toString('utf8');
         res.end(JSON.stringify(submitCanvasFeedback(store, id, JSON.parse(body))));
         return;
       }

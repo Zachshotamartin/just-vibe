@@ -18,7 +18,7 @@ async function checkLayout(label) {
         problems.push(`Text overflows: ${el.textContent.trim().slice(0, 70)}`);
     }
     const groups =
-      '.hero,.section-heading,.facts-strip,.pack-grid,.profile-feature,.intent-inner,.start-section,.catalog-results,.catalog-filters,.install-controls,.install-command,.demo-editor-top,.demo-editor-bottom,.footer-top,.footer-bottom,.brand-assets,.docs-grid,.code-block,.contract';
+      '.site-header-inner,.hero,.section-heading,.facts-strip,.pack-grid,.profile-feature,.intent-inner,.start-section,.catalog-results,.catalog-filters,.install-controls,.install-command,.demo-editor-top,.demo-editor-bottom,.footer-top,.footer-bottom,.brand-assets,.docs-grid,.code-block,.contract';
     for (const parent of document.querySelectorAll(groups)) {
       const children = [...parent.children].filter(visible);
       for (let i = 0; i < children.length; i++) {

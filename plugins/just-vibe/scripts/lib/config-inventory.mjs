@@ -5,24 +5,9 @@ import { within, digest } from './storage.mjs';
 import { parseJsonc } from './configuration-values.mjs';
 import { boundedText, walkFiles, checkedLocation, safeUrl, boundedList } from './capability-io.mjs';
 import { redact } from './process.mjs';
+import { PROJECT_HOST_PATHS } from './host-paths.mjs';
 
-const DEFAULT_PATHS = [
-  '.mcp.json',
-  '.lsp.json',
-  '.claude.json',
-  '.claude',
-  '.codex',
-  '.cursor',
-  '.opencode',
-  '.gemini',
-  '.agents',
-  '.github/skills',
-  '.kiro',
-  '.qwen',
-  '.windsurf',
-  'AGENTS.md',
-  'CLAUDE.md',
-];
+const DEFAULT_PATHS = PROJECT_HOST_PATHS;
 const CONFIG_NAMES =
   /(?:^|\/)(?:[^/]*settings[^/]*|config|opencode|hooks|mcp|\.mcp|\.lsp|\.claude|[^/]*plugin)\.(?:json|jsonc|toml)$/i;
 function stripComment(line) {

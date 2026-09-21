@@ -53,6 +53,96 @@ try {
   await navigate('.docs-card[href="/docs/installation/"]', '/docs/installation/');
   await page.locator('[data-install] select').selectOption('claude');
   assert.match(await page.locator('[data-install-code]').textContent(), /--target claude$/);
+  // A long document's offscreen origin must not tween up through the next document.
+  await page.evaluate(() => {
+    const start = document.startViewTransition.bind(document);
+    document.startViewTransition = (...args) => {
+      const transition = start(...args);
+      window.routePositions = transition.ready.then(
+        () =>
+          new Promise((resolve) => {
+            const positions = [];
+            const sample = () => {
+              positions.push(document.querySelector('h1').getBoundingClientRect().top);
+              if (positions.length < 60) requestAnimationFrame(sample);
+              else resolve(positions);
+            };
+            sample();
+          }),
+      );
+      window.routeMotion = transition.ready.then(() => ({
+        scroll: window.scrollY,
+        oldOpacity: getComputedStyle(document.documentElement, '::view-transition-old(page)')
+          .opacity,
+        incoming: document
+          .getAnimations()
+          .filter((animation) => animation.effect?.pseudoElement === '::view-transition-new(page)')
+          .flatMap((animation) => animation.effect.getKeyframes()),
+        geometry: document
+          .getAnimations()
+          .filter(
+            (animation) => animation.effect?.pseudoElement === '::view-transition-group(page)',
+          )
+          .flatMap((animation) => animation.effect.getKeyframes()),
+      }));
+      return transition;
+    };
+  });
+  for (const destination of ['usage', 'releases', 'installation']) {
+    await page.evaluate(() =>
+      window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'instant' }),
+    );
+    assert.ok(await page.evaluate(() => scrollY > 500), 'Start at the bottom of a real document');
+    // Focus preserves scroll position, including when the sidebar is above the footer.
+    await page
+      .locator(`.detail-sidebar a[href="/docs/${destination}/"]`)
+      .evaluate((link) => link.focus({ preventScroll: true }));
+    await page.keyboard.press('Enter');
+    await page.waitForURL(base + `/docs/${destination}/`);
+    const motion = await page.evaluate(() => window.routeMotion);
+    const positions = await page.evaluate(() => window.routePositions);
+    assert.ok(
+      Math.max(...positions) - Math.min(...positions) < 1,
+      'The new heading stays at one position through and after navigation',
+    );
+    assert.equal(
+      motion.scroll,
+      0,
+      'The new document starts at the top before its first animated frame',
+    );
+    assert.equal(motion.oldOpacity, '0', 'Old document text cannot overlap the incoming text');
+    assert.ok(
+      motion.geometry.length === 0,
+      'The document bounds must not animate between scroll positions',
+    );
+    assert.ok(motion.incoming.length > 0, 'The incoming page keeps a short entrance');
+    assert.ok(
+      motion.incoming.every((frame) => !frame.transform || frame.transform === 'none'),
+      'Page text never moves vertically during navigation',
+    );
+    assert.ok(
+      motion.incoming.every((frame) => Number(frame.opacity ?? 1) >= 0.95),
+      'Page navigation never fades readable content to a blank frame',
+    );
+    await page.waitForFunction(
+      () => !document.documentElement.hasAttribute('data-astro-transition'),
+    );
+    await page.evaluate(
+      () => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))),
+    );
+    assert.ok(
+      await page
+        .locator('.detail-body header')
+        .evaluate(
+          (element) =>
+            Number(getComputedStyle(element).opacity) >= 0.95 &&
+            element.getAnimations().length === 0,
+        ),
+      'The heading must not replay its section reveal after route navigation',
+    );
+    await settled();
+    assert.equal(await page.evaluate(() => scrollY), 0);
+  }
   await navigate('.site-header .wordmark', '/');
   await page.locator('[data-command="remember"]').click();
   assert.equal((await page.locator('#demo-command').textContent()).trim(), '/just-vibe:remember');

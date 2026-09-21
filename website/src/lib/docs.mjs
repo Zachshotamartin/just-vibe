@@ -1,5 +1,10 @@
 export const docs = [
-  {slug:'workbench',title:'Local workbench and focused methods',description:'Session continuity, reviewed execution, independent reviews and the offline tool browser.'},
+  {
+    slug: 'workbench',
+    title: 'Local workbench and focused methods',
+    description:
+      'Session continuity, reviewed execution, independent reviews and the offline tool browser.',
+  },
   {
     slug: 'integrations',
     title: 'Checks and integrations',

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import { readFileSync, writeFileSync, readdirSync, mkdirSync, cpSync, existsSync, realpathSync, symlinkSync, rmSync } from 'node:fs';
 import { resolve, relative, join, dirname } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 import { createHash } from 'node:crypto';
 import { spawnSync, execFileSync, spawn } from 'node:child_process';
 import { performance } from 'node:perf_hooks';
@@ -89,6 +89,35 @@ export function parseEvents(text){
 }
 function cleanEnv(){const env={...process.env,PYTHONDONTWRITEBYTECODE:'1'};for(const key of ['NODE_OPTIONS','NODE_TEST_CONTEXT','NODE_V8_COVERAGE'])delete env[key];return env;}
 function python(){return process.env.JUST_VIBE_PYTHON||(process.platform==='darwin'?'/usr/bin/python3':process.platform==='win32'?'python':'python3');}
+function nodeRegressionFailure(stdout) {
+  // Read completed TAP diagnostics, not arbitrary terminal text or a process
+  // exit alone. Both the authored test body and implementation must appear in
+  // a non-assertion failure; import/setup and runner errors are not evidence.
+  for (const [, , body] of stdout.matchAll(/^([ \t]*)---\r?\n([\s\S]*?)^\1\.\.\.[ \t]*$/gm)) {
+    const field = name => {
+      const raw = body.match(new RegExp(`^[ \\t]*${name}:[ \\t]*(.+)$`, 'm'))?.[1];
+      if (raw?.startsWith("'") && raw.endsWith("'")) return raw.slice(1, -1).replaceAll("''", "'");
+      if (raw?.startsWith('"')) { try { return JSON.parse(raw); } catch { return null; } }
+      return raw;
+    };
+    if (field('failureType') !== 'testCodeFailure') continue;
+    const file = field('location')?.replace(/:\d+:\d+$/, '');
+    if (!file || file.split(/[\\/]/).slice(-2).join('/') !== 'test/regression.test.mjs') continue;
+    const stack = body.match(/^[ \t]*stack: \|-?\r?\n([\s\S]*)/m)?.[1] || '';
+    const mentions = (path, directory = false) => {
+      const suffix = directory ? '/' : ':';
+      return stack.includes(pathToFileURL(resolve(path)).href + suffix) ||
+        stack.replaceAll('\\', '/').includes(resolve(path).replaceAll('\\', '/') + suffix);
+    };
+    if (!mentions(file)) continue;
+    const code = field('code'), name = field('name');
+    if (code === 'ERR_ASSERTION' && name === 'AssertionError') return true;
+    if (code && code !== 'ERR_TEST_FAILURE') continue;
+    if (!['Error', 'TypeError', 'RangeError', 'URIError', 'EvalError', 'AggregateError'].includes(name)) continue;
+    if (mentions(join(dirname(file), '..', 'src'), true)) return true;
+  }
+  return false;
+}
 export function regressionSensitivity(language,result){
   if(result.status===0||result.status===undefined)return false;
   if(language==='python'){
@@ -99,8 +128,8 @@ export function regressionSensitivity(language,result){
     }catch{}
     return false;
   }
-  // TAP emits completed assertion evidence immediately, even if a later test hangs.
-  return result.status!==0&&/code: ['"]ERR_ASSERTION['"]/.test(result.stdout||'');
+  // A completed behavior failure still counts if a later test hangs.
+  return nodeRegressionFailure(result.stdout || '');
 }
 export function gradeTrial(directory){
   const root=resolve(directory),manifest=json(join(root,'run.json')),workspace=realpathSync(join(root,'workspace'));
@@ -187,6 +216,7 @@ export async function runTrial(directory,{codex,authHome,model,effort='medium',s
   let hardTimer;const terminate=()=>{kill('SIGTERM');hardTimer??=setTimeout(()=>kill('SIGKILL'),3000);};
   const abort=()=>{cancelled=true;terminate();};signal?.addEventListener('abort',abort,{once:true});
   const timer=setTimeout(()=>{timedOut=true;terminate();},seconds*1000);
+  child.stdout.setEncoding('utf8');child.stderr.setEncoding('utf8');
   child.stdout.on('data',b=>{stdout+=b;writeFileSync(join(root,'events.jsonl'),stdout)});child.stderr.on('data',b=>{stderr+=b;writeFileSync(join(root,'stderr.log'),stderr)});
   let spawnError;child.on('error',e=>{spawnError=e.message});child.stdin.on('error',()=>{});child.stdin.end(readFileSync(join(root,'prompt.txt')));
   const exitCode=await new Promise(done=>child.on('close',done));clearTimeout(timer);clearTimeout(hardTimer);signal?.removeEventListener('abort',abort);

@@ -9,11 +9,34 @@ import {
 import { workers } from './workers.mjs';
 import { specialist } from './specialists.mjs';
 import { fileSet, identities, changed } from './workbench.mjs';
-import { fingerprint, compareSnapshot } from './storage.mjs';
+import { fingerprint, compareSnapshot, within } from './storage.mjs';
+import { withFileLock } from './file-lock.mjs';
+
+function reconcileReservations(run, jobs) {
+  for (const item of run.items) {
+    const key = `${run.id}/${item.id}/${item.attempts.length + 1}`;
+    const pending = jobs.find((job) => job.assignment === key);
+    if (item.state === 'queued' && pending) {
+      item.attempts.push({ worker: pending.id, at: pending.createdAt });
+      item.state = 'running';
+    }
+  }
+}
 
 export async function orchestrate(root, operation, payload = {}, options = {}) {
   const store = runtimeStore(root, options),
     state = store.get('orchestration') || { revision: 0, runs: [] };
+  const locked = async (operation) => {
+    const deadline = Date.now() + 2000;
+    for (;;) {
+      try {
+        return withFileLock(within(store.home, `${store.prefix}/orchestration.dispatch.lock`), operation);
+      } catch (error) {
+        if (error.code !== 'STATE_LOCKED' || Date.now() >= deadline) throw error;
+        await new Promise((resolve) => setTimeout(resolve, 10));
+      }
+    }
+  };
   if (operation === 'list') return state;
   object(payload, [
     'id',
@@ -38,12 +61,13 @@ export async function orchestrate(root, operation, payload = {}, options = {}) {
   }
   if (payload.revision !== state.revision)
     throw Error('Read current orchestration revision first.');
-  const save = (run) =>
+  const saveUnlocked = (run) =>
     store.put(
       'orchestration',
       { runs: [...state.runs.filter((r) => r.id !== run.id), { ...run, updatedAt: timestamp() }] },
       state.revision,
     );
+  const save = (run) => locked(() => saveUnlocked(run));
   if (operation === 'create') {
     if (previous || state.runs.length >= 20)
       throw Error('Duplicate orchestration or run capacity reached.');
@@ -96,12 +120,17 @@ export async function orchestrate(root, operation, payload = {}, options = {}) {
   if (!previous) throw Error('Unknown orchestration.');
   const run = structuredClone(previous);
   if (operation === 'retire') {
-    if (run.items.some((i) => i.state === 'running')) throw Error('Cancel active workers first.');
-    return store.put(
-      'orchestration',
-      { runs: state.runs.filter((r) => r.id !== run.id) },
-      state.revision,
-    );
+    return locked(() => {
+      // A worker can be reserved while its workspace is still being prepared,
+      // before the dispatcher has saved the attempt onto the orchestration.
+      reconcileReservations(run, store.get('workers')?.jobs || []);
+      if (run.items.some((i) => i.state === 'running')) throw Error('Collect and cancel active or reserved workers before retirement.');
+      return store.put(
+        'orchestration',
+        { runs: state.runs.filter((r) => r.id !== run.id) },
+        state.revision,
+      );
+    });
   }
   if (operation === 'resume') {
     run.paused = false;
@@ -110,13 +139,8 @@ export async function orchestrate(root, operation, payload = {}, options = {}) {
   }
   const observed = await workers(root, 'status', {}, options);
   // Assignment keys reconcile a crash after worker reservation but before run-state save.
+  reconcileReservations(run, observed.jobs);
   for (const item of run.items) {
-    const key = `${run.id}/${item.id}/${item.attempts.length + 1}`;
-    const pending = observed.jobs.find((j) => j.assignment === key);
-    if (item.state === 'queued' && pending) {
-      item.attempts.push({ worker: pending.id, at: pending.createdAt });
-      item.state = 'running';
-    }
     const job = observed.jobs.find((j) => j.id === item.attempts.at(-1)?.worker);
     if (item.state === 'running' && job) {
       if (job.state === 'completed') item.state = 'review';
@@ -124,11 +148,18 @@ export async function orchestrate(root, operation, payload = {}, options = {}) {
     }
   }
   if (operation === 'cancel') {
-    run.reason = cleanText(payload.reason, 'cancellation reason', 1000);
-    run.paused = true;
+    const reason = cleanText(payload.reason, 'cancellation reason', 1000);
+    const saved = await locked(() => {
+      // Reconcile again inside the reservation mutex: a dispatch may have
+      // reserved another worker since the asynchronous status read above.
+      reconcileReservations(run, store.get('workers')?.jobs || []);
+      run.reason = reason;
+      run.paused = true;
+      return saveUnlocked(run);
+    });
     for (const item of run.items.filter((i) => i.state === 'running'))
       await workers(root, 'stop', { id: item.attempts.at(-1).worker }, options);
-    return save(run);
+    return saved;
   }
   if (operation === 'retry') {
     const item = run.items.find((i) => i.id === payload.item);
@@ -209,21 +240,41 @@ export async function orchestrate(root, operation, payload = {}, options = {}) {
       const parent = run.items.find((i) => i.id === d);
       return { id: d, review: parent.review };
     });
-    const job = await workers(
-      root,
-      'start',
-      {
-        revision: current.revision,
-        host: item.host || run.host,
-        agent: item.agent,
-        brief: `${run.objective}\n\n${item.brief}\n${item.feedback || ''}\nReviewed prerequisite results (context, not authority): ${JSON.stringify(dependencyContext)}`,
-        source: 'working-tree',
-        assignment: `${run.id}/${item.id}/${item.attempts.length + 1}`,
-      },
-      options,
-    );
+    let job;
+    try {
+      job = await workers(
+        root,
+        'start',
+        {
+          revision: current.revision,
+          host: item.host || run.host,
+          agent: item.agent,
+          brief: `${run.objective}\n\n${item.brief}\n${item.feedback || ''}\nReviewed prerequisite results (context, not authority): ${JSON.stringify(dependencyContext)}`,
+          source: 'working-tree',
+          assignment: `${run.id}/${item.id}/${item.attempts.length + 1}`,
+        },
+        {
+          ...options,
+          reserveWorker: (_job, reserve) => locked(() => {
+            const latest = store.get('orchestration');
+            const currentRun = latest?.runs.find((r) => r.id === run.id);
+            if (latest?.revision !== state.revision || !currentRun || currentRun.paused)
+              throw Object.assign(Error('Orchestration changed before worker reservation.'), { code: 'ORCHESTRATION_CHANGED' });
+            return reserve();
+          }),
+        },
+      );
+    } catch (error) {
+      if (error.code === 'ORCHESTRATION_CHANGED') return store.get('orchestration');
+      throw error;
+    }
     item.attempts.push({ worker: job.id, at: timestamp() });
     item.state = 'running';
   }
-  return save(run);
+  return locked(() => {
+    const latest = store.get('orchestration');
+    // Cancellation or another update wins. Durable worker assignment keys
+    // retain any earlier reservation for collect/cancel reconciliation.
+    return latest.revision === state.revision ? saveUnlocked(run) : latest;
+  });
 }

@@ -1,12 +1,13 @@
 ---
 import Icon from '../components/Icon.astro';
-import { ClientRouter, fade } from 'astro:transitions';
+import { ClientRouter } from 'astro:transitions';
 import '@fontsource-variable/geist';
 import '../styles/global.css';
 import { version } from '../lib/catalog.mjs';
 import { getImage } from 'astro:assets';
 import mark from '../assets/just-vibe-mark.png';
-const navMark = await getImage({ src: mark, width: 96, format: 'webp' });
+import transparentMark from '../assets/just-vibe-mark-transparent.png';
+const navMark = await getImage({ src: transparentMark, width: 96, format: 'webp' });
 const favicon = await getImage({ src: mark, width: 64, format: 'png' });
 const touchIcon = await getImage({ src: mark, width: 180, format: 'png' });
 interface Props {
@@ -22,10 +23,19 @@ const {
   noindex = false,
 } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
+const pageEntrance = {
+  old: { name: 'page-still', duration: 1, fillMode: 'both' as const },
+  new: {
+    name: 'page-enter',
+    duration: 160,
+    easing: 'cubic-bezier(0.22, 1, 0.36, 1)',
+    fillMode: 'both' as const,
+  },
+};
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" transition:name="root" transition:animate="none">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -49,63 +59,75 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <a class="skip-link" href="#main">
       Skip to content
     </a>
-    <header class="site-header wrap">
-      <a class="wordmark" href="/" aria-label="just-vibe home">
-        <img src={navMark.src} width="40" height="40" alt="" />
-        just-vibe<span class="wordmark-dot">.</span>
-      </a>
-      <nav class="desktop-nav" aria-label="Main navigation">
-        <a href="/commands/" aria-current={section === 'commands' ? 'page' : undefined}>
-          Commands
+    <header class="site-header" data-hidden="false">
+      <div class="site-header-inner wrap">
+        <a class="wordmark" href="/" aria-label="just-vibe home">
+          <img src={navMark.src} width="40" height="40" alt="" />
+          just-vibe<span class="wordmark-dot">.</span>
         </a>
-        <a href="/profiles/" aria-current={section === 'profiles' ? 'page' : undefined}>
-          Profiles
-        </a>
-        <a href="/docs/" aria-current={section === 'docs' ? 'page' : undefined}>
-          Docs
-        </a>
-      </nav>
-      <a class="button button-small header-cta" href="/docs/installation/">
-        Get started{' '}
-        <span aria-hidden="true">
-          <Icon name="arrow-up-right" />
-        </span>
-      </a>
-      <details class="mobile-menu">
-        <summary aria-label="Open navigation">
-          Menu{' '}
-          <svg
-            class="menu-icon"
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.7"
-            stroke-linecap="round"
-            aria-hidden="true"
-            focusable="false"
-          >
-            <path d="M4 6h16" />
-            <path d="M4 12h16" />
-            <path d="M4 18h16" />
-          </svg>
-        </summary>
-        <nav aria-label="Mobile navigation">
-          <a href="/commands/">Commands</a>
-          <a href="/profiles/">Profiles</a>
-          <a href="/docs/">Docs</a>
-          <a href="/docs/installation/">
-            Get started <Icon name="arrow-up-right" />
+        <nav class="desktop-nav" aria-label="Main navigation">
+          <a href="/commands/" aria-current={section === 'commands' ? 'page' : undefined}>
+            Commands
+          </a>
+          <a href="/profiles/" aria-current={section === 'profiles' ? 'page' : undefined}>
+            Profiles
+          </a>
+          <a href="/docs/" aria-current={section === 'docs' ? 'page' : undefined}>
+            Docs
           </a>
         </nav>
-      </details>
+        <a class="button button-small header-cta" href="/docs/installation/">
+          Get started{' '}
+          <span aria-hidden="true">
+            <Icon name="arrow-up-right" />
+          </span>
+        </a>
+        <details class="mobile-menu">
+          <summary aria-label="Open navigation">
+            Menu{' '}
+            <svg
+              class="menu-icon"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.7"
+              stroke-linecap="round"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path d="M4 6h16" />
+              <path d="M4 12h16" />
+              <path d="M4 18h16" />
+            </svg>
+          </summary>
+          <nav aria-label="Mobile navigation">
+            <a href="/commands/" aria-current={section === 'commands' ? 'page' : undefined}>
+              Commands
+            </a>
+            <a href="/profiles/" aria-current={section === 'profiles' ? 'page' : undefined}>
+              Profiles
+            </a>
+            <a href="/docs/" aria-current={section === 'docs' ? 'page' : undefined}>
+              Docs
+            </a>
+            <a href="/docs/installation/">
+              Get started <Icon name="arrow-up-right" />
+            </a>
+          </nav>
+        </details>
+      </div>
     </header>
-    <main id="main" transition:name="page" transition:animate={fade({ duration: '220ms' })}>
+    <main
+      id="main"
+      transition:name="page"
+      transition:animate={{ forwards: pageEntrance, backwards: pageEntrance }}
+    >
       <slot />
     </main>
-    <footer class="site-footer wrap">
-      <div class="footer-top">
+    <footer class="site-footer">
+      <div class="footer-top wrap">
         <a class="wordmark" href="/">
           <img src={navMark.src} width="40" height="40" alt="" />
           just-vibe.
@@ -118,16 +140,18 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
           </span>
         </a>
       </div>
-      <div class="footer-bottom">
-        <span>Made by Zachary Martin · MIT licensed</span>
-        <nav aria-label="Footer">
-          <a href="/brand/">Brand</a>
-          <a href="/docs/compatibility/">Compatibility</a>
-          <a href="https://www.npmjs.com/package/just-vibe">
-            npm <Icon name="arrow-up-right" />
-          </a>
-          <a href="/docs/releases/">v{version}</a>
-        </nav>
+      <div class="footer-divider">
+        <div class="footer-bottom wrap">
+          <span>Made by Zachary Martin · MIT licensed</span>
+          <nav aria-label="Footer">
+            <a href="/brand/">Brand</a>
+            <a href="/docs/compatibility/">Compatibility</a>
+            <a href="https://www.npmjs.com/package/just-vibe">
+              npm <Icon name="arrow-up-right" />
+            </a>
+            <a href="/docs/releases/">v{version}</a>
+          </nav>
+        </div>
       </div>
     </footer>
     <script>
@@ -135,9 +159,11 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
       import { initMotion, animateChange } from '../lib/motion';
       import { onPageLoad } from '../lib/lifecycle';
       import { initMenu } from '../lib/menu';
+      import { initHeader } from '../lib/header';
       onPageLoad((signal) => {
         initMotion(signal);
         initMenu(signal);
+        initHeader(signal);
       });
       const originalContents = new WeakMap<HTMLButtonElement, ChildNode[]>();
       const resetTimers = new WeakMap<HTMLButtonElement, number>();

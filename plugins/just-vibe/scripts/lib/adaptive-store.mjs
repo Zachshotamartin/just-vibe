@@ -2,6 +2,7 @@ import { existsSync, mkdirSync, readdirSync, lstatSync, unlinkSync } from 'node:
 import { join } from 'node:path';
 import { homedir } from 'node:os';
 import { atomicJson, digest, projectRoot, readJson, within } from './storage.mjs';
+import { withFileLock, recoverFileLock } from './file-lock.mjs';
 
 export const ADAPTIVE_DEFAULTS = Object.freeze({ enabled: true, learning: true, gate: 'bounded', retentionDays: 30 });
 export const safeId = value => typeof value === 'string' && /^[a-z0-9][a-z0-9-]{0,79}$/.test(value);
@@ -36,6 +37,20 @@ export function adaptiveStore(root, { home = process.env.JUST_VIBE_HOME || join(
     return readdirSync(full).filter(n => /^[a-z0-9-]+\.json$/.test(n)).sort();
   };
   const remove = path => { const full = within(home, path); if (existsSync(full)) unlinkSync(full); };
+  const removeIfCurrent = (path, revision, predicate) => {
+    const full = within(home, path);
+    try {
+      return withFileLock(`${full}.lock`, () => {
+        const current = read(path);
+        if (!current || current.revision !== revision || !predicate(current)) return false;
+        unlinkSync(full);
+        return true;
+      });
+    } catch (error) {
+      if (error.code === 'STATE_LOCKED') return false;
+      throw error;
+    }
+  };
   const config = () => ({ ...ADAPTIVE_DEFAULTS, ...(read('adaptive/config.json')?.settings || {}), ...(read(`${project}/config.json`)?.settings || {}) });
   const taskPath = id => `${project}/tasks/${requireId(id)}.json`;
   const task = id => {
@@ -43,7 +58,7 @@ export function adaptiveStore(root, { home = process.env.JUST_VIBE_HOME || join(
     if (!record || record.kind !== 'task') throw Error('Unknown task in this project.');
     return record;
   };
-  return { root, home, project, allowUser, read, write, list, remove, config, taskPath, task,
+  return { root, home, project, allowUser, read, write, list, remove, removeIfCurrent, config, taskPath, task,
     saveTask: (value, revision = value.revision ?? 0) => write(taskPath(value.id), value, revision),
     sessionPath: (host, session) => `${project}/sessions/${digest(`${host}:${textField(session, 'session ID', 256)}`)}.json`,
   };
@@ -63,18 +78,27 @@ export function configureAdaptive(store, payload) {
 
 export function pruneAdaptive(store, now = Date.now()) {
   const cutoff = now - store.config().retentionDays * 86400000;
-  const records = store.list(`${store.project}/tasks`).map(name => ({ name, value: store.read(`${store.project}/tasks/${name}`) }))
+  const read = path => {
+    try { return store.read(path); }
+    catch (error) { if (error.code === 'ENOENT') return null; throw error; }
+  };
+  const records = store.list(`${store.project}/tasks`).map(name => ({ name, value: read(`${store.project}/tasks/${name}`) })).filter(r => r.value)
     .sort((a, b) => Date.parse(b.value.updatedAt) - Date.parse(a.value.updatedAt));
   const active = new Set();
   for (const name of store.list(`${store.project}/sessions`)) {
-    const path = `${store.project}/sessions/${name}`, session = store.read(path);
-    if (Date.parse(session.updatedAt) < cutoff) store.remove(path);
-    else active.add(session.taskId);
+    const path = `${store.project}/sessions/${name}`, session = read(path);
+    if (!session) continue;
+    if (Date.parse(session.updatedAt) < cutoff) {
+      if (store.removeIfCurrent(path, session.revision, current => Date.parse(current.updatedAt) < cutoff)) continue;
+      const current = read(path);
+      if (current) active.add(current.taskId);
+    } else active.add(session.taskId);
   }
   let removed = 0;
   for (const [index, { name, value }] of records.entries()) {
     if ((!active.has(value.id) && index >= 100) || Date.parse(value.updatedAt) < cutoff) {
-      store.remove(`${store.project}/tasks/${name}`); removed++;
+      if (store.removeIfCurrent(`${store.project}/tasks/${name}`, value.revision,
+        current => (!active.has(current.id) && index >= 100) || Date.parse(current.updatedAt) < cutoff)) removed++;
     }
   }
   return { removed };
@@ -99,14 +123,15 @@ export function recoverAdaptive(store, scope) {
   if (scope === 'user' && existsSync(within(store.home, 'adaptive/config.json.lock'))) locks.push('adaptive/config.json.lock');
   const recovered = [], active = [];
   for (const path of locks) {
-    const full = within(store.home, path), before = lstatSync(full), owner = readJson(full);
-    if (!Number.isInteger(owner.pid) || owner.pid < 1) throw Error('Invalid lock owner; inspect it manually.');
-    try { process.kill(owner.pid, 0); active.push(path); }
+    const full = within(store.home, path);
+    try {
+      const result = recoverFileLock(full);
+      if (result === 'recovered') recovered.push(path);
+      else if (result === 'active') active.push(path);
+    }
     catch (error) {
-      if (error.code !== 'ESRCH') { active.push(path); continue; }
-      const current = lstatSync(full);
-      if (current.ino !== before.ino || current.mtimeMs !== before.mtimeMs) { active.push(path); continue; }
-      unlinkSync(full); recovered.push(path);
+      if (error.code !== 'STATE_LOCKED') throw error;
+      active.push(path);
     }
   }
   return { recovered, active };
