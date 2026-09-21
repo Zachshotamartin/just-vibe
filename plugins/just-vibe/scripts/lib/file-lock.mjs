@@ -29,13 +29,19 @@ export function processAlive(pid) {
   }
 }
 function owner(path) {
-  const stat = lstatSync(path);
-  if (!stat.isFile() || stat.isSymbolicLink() || stat.size > 4096)
-    throw Error('Unknown or legacy lock ownership; inspect the lock before removing it.');
-  const value = JSON.parse(readFileSync(path, 'utf8'));
-  if (value.host && value.host !== hostname()) throw Error('Lock belongs to another host.');
-  processAlive(value.pid); // Validate before any recovery decision.
-  return value;
+  try {
+    const stat = lstatSync(path);
+    if (!stat.isFile() || stat.isSymbolicLink() || stat.size > 4096)
+      throw Error('Unknown or legacy lock ownership; inspect the lock before removing it.');
+    const value = JSON.parse(readFileSync(path, 'utf8'));
+    if (value.host && value.host !== hostname()) throw Error('Lock belongs to another host.');
+    processAlive(value.pid); // Validate before any recovery decision.
+    return value;
+  } catch (error) {
+    // The current writer may finish between a failed acquisition and this read.
+    if (error.code === 'ENOENT') return null;
+    throw error;
+  }
 }
 
 // Publish fully written owner metadata atomically. A reaper mutex serializes
@@ -61,12 +67,14 @@ export function withFileLock(path, operation, depth = 0) {
       linkSync(temporary, path);
     } catch (error) {
       if (error.code !== 'EEXIST') throw error;
-      if (processAlive(owner(path).pid)) throw busy();
+      const current = owner(path);
+      if (!current || processAlive(current.pid)) throw busy();
       withFileLock(
         `${path}.recovery`,
         () => {
-          if (!existsSync(path)) return;
-          if (processAlive(owner(path).pid)) throw busy();
+          const current = owner(path);
+          if (!current) return;
+          if (processAlive(current.pid)) throw busy();
           unlinkSync(path);
         },
         depth + 1,
@@ -86,7 +94,7 @@ export function withFileLock(path, operation, depth = 0) {
     if (result?.then) throw Error('File-lock callbacks must finish synchronously.');
     return result;
   } finally {
-    if (existsSync(path) && owner(path).token === token) unlinkSync(path);
+    if (owner(path)?.token === token) unlinkSync(path);
   }
 }
 

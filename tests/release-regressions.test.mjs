@@ -119,6 +119,9 @@ test('R4 locks preserve live owners and malformed ownership', t => {
   const f=fixture(t), lock=join(f.root,'operation.lock');
   withFileLock(lock,()=>assert.throws(()=>withFileLock(lock,()=>{}),/updated/));
   fs.mkdirSync(lock);assert.throws(()=>withFileLock(lock,()=>{}),/ownership/);assert.ok(fs.statSync(lock).isDirectory());
+  const code = `import fs from 'node:fs';import assert from 'node:assert/strict';import {syncBuiltinESMExports} from 'node:module';const path=process.argv[1], lstat=fs.lstatSync;fs.writeFileSync(path,JSON.stringify({pid:process.pid}));let released=false;fs.lstatSync=p=>{if(p===path&&!released){released=true;fs.unlinkSync(path);}return lstat(p);};syncBuiltinESMExports();const {withFileLock}=await import(${JSON.stringify(lib+'file-lock.mjs')});assert.throws(()=>withFileLock(path,()=>assert.fail('Must retry after an uncertain acquisition')),e=>e.code==='STATE_LOCKED');let entered=false;withFileLock(path,()=>{entered=true});assert.equal(entered,true);`;
+  const result = spawnSync(process.execPath, ['--input-type=module', '-e', code, join(f.root, 'released.lock')], { encoding: 'utf8' });
+  assert.equal(result.status, 0, result.stderr);
   if (process.platform !== 'win32') {
     const previous = process.umask(0o077);
     try { const path = join(f.root, 'permissions'); atomicFile(path, 'complete', 0o640); assert.equal(fs.statSync(path).mode & 0o777, 0o640); }
