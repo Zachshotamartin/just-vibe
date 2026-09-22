@@ -1,3 +1,4 @@
+import { releaseManifest } from '../../../plugins/just-vibe/scripts/lib/release-manifest.mjs';
 import source from '../../../plugins/just-vibe/catalog/commands.json' with { type: 'json' };
 import packSource from '../../../plugins/just-vibe/catalog/packs.json' with { type: 'json' };
 import roles from '../../../plugins/just-vibe/catalog/profiles.json' with { type: 'json' };
@@ -25,12 +26,8 @@ export const commands = catalog.commands;
 export const packs = packSource.packs;
 export const profiles = roles.profiles;
 export const families = roles.families;
-export const version = pkg.version;
-export const counts = {
-  commands: commands.length,
-  workflows: commands.filter((c) => !c.aliasOf).length,
-  profiles: profiles.length,
-  packs: packs.length,
-};
+export const release = releaseManifest(pkg, source, roles, packSource);
+export const version = release.version;
+export const counts = release.counts;
 export const packName = (id) => packs.find((p) => p.id === id)?.name || id;
 export const familyName = (id) => families.find((p) => p.id === id)?.name || id;

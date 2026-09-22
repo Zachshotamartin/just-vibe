@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.12.0 — release candidate
+
+- Add request-derived Agent QA with bounded browser assertions, screenshots, stale-evidence checks and retained failure/retest history.
+- Add local preference editing, preview, disable and restoration controls with provenance and revision checks.
+- Add observed-delivery diagnosis and opt-in live journeys through correction and a fresh host session.
+- Generate release metadata from the canonical catalog for website and portfolio consumers.
+- Repair Windows path/shim handling and cross-platform test fixtures. CI and trusted publication evidence are recorded separately.
+
 ## 0.11.0
 
 - Add owned Claude command shortcuts for every selected workflow: `/jv <command>`, `/just-vibe <command>` and `/jv:<command>`. Preserve the canonical `/just-vibe:<command>` form, appended context and workflow authority; validate conflicts before install and preserve user-edited files on uninstall.

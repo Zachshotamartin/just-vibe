@@ -101,7 +101,7 @@ function nodeRegressionFailure(stdout) {
       return raw;
     };
     if (field('failureType') !== 'testCodeFailure') continue;
-    const file = field('location')?.replace(/:\d+:\d+$/, '');
+    const file = field('location')?.replaceAll('\\\\', '\\').replace(/:\d+:\d+$/, '');
     if (!file || file.split(/[\\/]/).slice(-2).join('/') !== 'test/regression.test.mjs') continue;
     const stack = body.match(/^[ \t]*stack: \|-?\r?\n([\s\S]*)/m)?.[1] || '';
     const mentions = (path, directory = false) => {

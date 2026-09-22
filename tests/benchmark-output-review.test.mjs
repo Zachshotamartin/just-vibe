@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
-import { spawnSync } from 'node:child_process';
+import { spawnSync, spawn } from 'node:child_process';
 import { prepareTrial, runTrial, parseEvents, regressionSensitivity } from '../evals/benchmark/harness.mjs';
 
 function fixture(t) {
@@ -34,7 +34,7 @@ test('benchmark capture preserves split UTF-8 in stdout and stderr', { skip: pro
   assert.equal(fs.existsSync(join(out, 'host')), false);
 });
 
-test('Node sensitivity recognizes implementation exceptions but rejects setup and infrastructure failures', t => {
+test('Node sensitivity recognizes implementation exceptions but rejects setup and infrastructure failures', async t => {
   const root = fixture(t);
   fs.mkdirSync(join(root, 'src')); fs.mkdirSync(join(root, 'test'));
   const source = join(root, 'src/invoice.mjs'), file = join(root, 'test/regression.test.mjs');
@@ -74,9 +74,19 @@ test('Node sensitivity recognizes implementation exceptions but rejects setup an
   result = run('export const total = () => 0;', imports + "test('hang',async()=>{await new Promise(r=>setTimeout(r,10000));});", 500);
   assert.equal(result.error?.code, 'ETIMEDOUT');
   assert.equal(regressionSensitivity('node', result), false);
-  result = run('export const total = () => 5;', imports + body + "test('later hang',async()=>{await new Promise(r=>setTimeout(r,10000));});", 500);
-  assert.equal(result.error?.code, 'ETIMEDOUT');
-  assert.equal(regressionSensitivity('node', result), true, result.stdout);
+  fs.writeFileSync(source, 'export const total = () => 5;');
+  fs.writeFileSync(file, imports + body + "test('later hang',async()=>{await new Promise(r=>setTimeout(r,30000));});");
+  const child = spawn(process.execPath, ['--test', '--test-reporter=tap', 'test/regression.test.mjs'], { cwd: root, env });
+  let captured = '', recognized = false;
+  const guard = setTimeout(() => child.kill('SIGKILL'), 10000);
+  child.stdout.on('data', chunk => {
+    captured += chunk;
+    if (regressionSensitivity('node', { status: null, stdout: captured })) { recognized = true; child.kill('SIGKILL'); }
+  });
+  await new Promise((done, reject) => { child.on('close', done); child.on('error', reject); });
+  clearTimeout(guard);
+  assert.equal(recognized, true, captured);
+  assert.equal(regressionSensitivity('node', { status: null, stdout: captured }), true);
   for (const stdout of ['', 'SyntaxError: unexpected token', "not ok 1\ncode: 'ERR_ASSERTION'\n"]) {
     assert.equal(regressionSensitivity('node', { status: 1, stdout }), false);
   }

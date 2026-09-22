@@ -144,7 +144,7 @@ try {
     const prompts = [
       'Fix sumEven in app.mjs: it incorrectly excludes negative even integers. Preserve the export and add a regression test for negative values, zero and an empty input. Run node --test test.mjs. Keep the change scoped to this fixture; no dependency installs, network actions, commits or subagents.',
       'Correction to how you handle fixes: from now on, avoid adding dependencies and use the Node built-in test runner. Remember this as a project preference for the fix workflow, so it changes the instructions loaded next time. No further source changes.',
-      'Fix sumOdd in app.mjs: it excludes negative odd integers. Add regression coverage and verify it. Keep changes scoped to this fixture; no network actions, commits or subagents.',
+      'Fix sumOdd in app.mjs: it excludes negative odd integers. Add regression coverage and verify it. Keep changes scoped to this fixture; no network actions, commits or subagents. Use Read/Glob for file inspection and run node --test test.mjs directly, without pipes or shell compound commands.',
       'Continue our previous task. Explain what was fixed and actually verified, and apply the saved project preference. Do not edit source or start subagents.',
     ];
     let session,
@@ -177,7 +177,7 @@ try {
           '--allowedTools',
           'Read,Glob,Grep,Edit,Write,Bash(node --test*),mcp__just-vibe__*,mcp__plugin_just-vibe_just-vibe__*',
           '--max-turns',
-          '16',
+          '24',
           '--output-format',
           'stream-json',
           '--verbose',
@@ -275,5 +275,6 @@ try {
     JSON.stringify({ at: new Date().toISOString(), reports }, null, 2),
   );
 }
+for (const report of reports) writeFileSync(join(output, `results-${report.host}.json`), JSON.stringify(report, null, 2), { mode: 0o600 });
 console.log(JSON.stringify(reports, null, 2));
 if (reports.some((r) => r.status !== 'passed')) process.exitCode = 1;

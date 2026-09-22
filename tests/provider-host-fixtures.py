@@ -1,3 +1,5 @@
+import faulthandler
+faulthandler.dump_traceback_later(8, repeat=False)
 import importlib.util
 import io
 import json

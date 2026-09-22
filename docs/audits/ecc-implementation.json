@@ -260,7 +260,7 @@
         },
         {
           "path": "tests/provider-host-fixtures.py",
-          "sha256": "8ee900368b6ec90d2a3c8f0e649ec64ac320361d7eb1e75c2a028cbb356c293b"
+          "sha256": "0d8c1ed9a8cb8dca8defe8d94279c8656b2ee0501bd89e65b0c11c147ebd4ec7"
         },
         {
           "path": "tests/expansion-contracts.test.mjs",
@@ -1929,7 +1929,7 @@
         },
         {
           "path": "tests/provider-host-fixtures.py",
-          "sha256": "8ee900368b6ec90d2a3c8f0e649ec64ac320361d7eb1e75c2a028cbb356c293b"
+          "sha256": "0d8c1ed9a8cb8dca8defe8d94279c8656b2ee0501bd89e65b0c11c147ebd4ec7"
         },
         {
           "path": "tests/expansion-contracts.test.mjs",

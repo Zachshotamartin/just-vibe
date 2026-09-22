@@ -29,16 +29,19 @@ export function learningClient(records, { api, rows, status, reload }) {
     for (const [key, title] of [['yes', 'Request that should select this workflow'], ['no', 'Request that should not select this workflow']]) {
       const label = el('label', title), input = el('textarea'); input.maxLength = 2000; label.append(input); editor.append(label); samples[key] = input;
     }
+    let draftRevision = 0;
     const result = el('pre'); result.setAttribute('aria-live', 'polite');
     const draft = () => Object.fromEntries(Object.entries(controls).map(([key, input]) => [key, key === 'instruction' ? input.value : input.value.split('\n').map(v => v.trim()).filter(Boolean)]));
     const editorActions = el('div'); editorActions.className = 'actions';
     editorActions.append(button('Preview examples', async () => {
+      const revision = draftRevision;
       const response = await api('preferences-preview', { operation: 'preview', payload: { ...payload, draft: draft(), cases: [
         { brief: samples.yes.value, expectedAffected: true }, { brief: samples.no.value, expectedAffected: false },
       ] } });
+      if (revision !== draftRevision) return;
       result.textContent = response.cases.map(c => `${c.matchesExpectation ? 'Matches expectation' : 'Review routing'}: ${c.brief}\nBefore: ${c.before.join(', ')}\nAfter: ${c.after.join(', ')}`).join('\n\n') + '\n\n' + response.limitation;
     }), button('Save new version', () => mutate('edit', { draft: draft() })));
-    for (const input of [...Object.values(controls), ...Object.values(samples)]) input.oninput = () => { result.textContent = ''; };
+    for (const input of [...Object.values(controls), ...Object.values(samples)]) input.oninput = () => { ++draftRevision; result.textContent = ''; };
     editor.append(editorActions, result);
     const history = el('details'); history.append(el('summary', 'Version history and undo'));
     for (const version of [...lesson.history].reverse()) {
