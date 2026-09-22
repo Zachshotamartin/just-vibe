@@ -44,4 +44,4 @@ Event fixtures verify adapter logic, not live behavior on every editor version. 
 
 ## Workbench in v0.10.0
 
-The source checkout adds focused methods, native session import, configuration cleanup, behavior rules, reviewed jobs/services, cross-host councils, evaluation receipts and an offline local tool browser. See the [workbench guide](/docs/workbench/). Seven additional skill-file adapters and Kiro v1 hooks have fixture coverage; live activation and provider authentication are separate checks. These changes remain unpublished.
+The source checkout adds focused methods, native session import, configuration cleanup, behavior rules, reviewed jobs/services, cross-host councils, evaluation receipts and an offline local tool browser. See the [workbench guide](/docs/workbench/). Seven additional skill-file adapters and Kiro v1 hooks have fixture coverage; live activation and provider authentication are separate checks. These changes are included starting in v0.10.0.

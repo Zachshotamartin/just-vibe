@@ -1,12 +1,12 @@
 # just-vibe
 
-**Next-release command shortcuts:** Claude setup adds `/jv <command>`, `/just-vibe <command>` and `/jv:<command>` alongside `/just-vibe:<command>`. Append the same request after any form. For example, `/jv reprompt Make this prompt clearer: Fix stale search results.` See the [shortcut guide](https://just-vibe-tools.vercel.app/docs/command-shortcuts/) for setup, context examples and Codex's skill-picker equivalent. These additions are not in npm 0.10.0.
+**Command shortcuts (v0.11.0):** Claude setup adds `/jv <command>`, `/just-vibe <command>` and `/jv:<command>` alongside `/just-vibe:<command>`. Append the same request after any form. For example, `/jv reprompt Make this prompt clearer: Fix stale search results.` See the [shortcut guide](https://just-vibe-tools.vercel.app/docs/command-shortcuts/) for setup, context examples and Codex's skill-picker equivalent.
 
 Tools, skills, and commands for coding agents.
 
 [Website](https://just-vibe-tools.vercel.app/) · [Documentation](https://just-vibe-tools.vercel.app/docs/) · [Command library](https://just-vibe-tools.vercel.app/commands/) · [Engineering profiles](https://just-vibe-tools.vercel.app/profiles/)
 
-**v0.10.0 contains 112 engineering profiles and 219 skill names backed by 216 canonical workflows** for Codex and Claude Code: focused skills for development, architecture, decisions, Git/GitHub, Vercel, Vite, React, UI, backend, APIs, databases, data, ML, LLMs, testing, security, and operations. Each canonical workflow has selection guidance, scope, concrete decision branches, evidence requirements, outputs, verification, recovery conditions and at least three example requests. Each entry point also contains an authored technical method: evidence to inspect, a procedure, a likely misdiagnosis and a discriminating check. Applied methods live in 22 pack guides. The v0.8.1 prompt update adds explicit infer/default/ask policies, a conditional worked example for each pack, and guidance for preserving corrections across turns; see [prompt improvements](docs/prompt-improvements.md).
+**v0.11.0 contains 112 engineering profiles and 220 skill names backed by 217 canonical workflows** for Codex and Claude Code: focused skills for development, architecture, decisions, Git/GitHub, Vercel, Vite, React, UI, backend, APIs, databases, data, ML, LLMs, testing, security, and operations. Each canonical workflow has selection guidance, scope, concrete decision branches, evidence requirements, outputs, verification, recovery conditions and at least three example requests. Each entry point also contains an authored technical method: evidence to inspect, a procedure, a likely misdiagnosis and a discriminating check. Applied methods live in 22 pack guides. The v0.8.1 prompt update adds explicit infer/default/ask policies, a conditional worked example for each pack, and guidance for preserving corrections across turns; see [prompt improvements](docs/prompt-improvements.md).
 
 The [technical audit](docs/technical-audit.md) and [complete coverage inventory](docs/technical-coverage.md) document the latest expansion across every canonical workflow. Review/security commands now route to concrete vulnerability, framework, language and scanner guides. [Security fixture controls](evals/security/README.md) distinguish seeded defects from legitimate behavior; they do not claim model-review accuracy.
 
@@ -15,21 +15,21 @@ The active coding agent executes the workflows with its available tools. The dep
 v0.7 adds a quick path for simple work, a small starter catalog, contextual routing with reasons, project preferences and checkpoints, explicit evidence collectors, and optional project hooks. Detailed auth, component, training and delivery scenarios load only when relevant. See [daily workflows](plugins/just-vibe/references/daily-workflows.md) for configuration and examples, and the [v0.7 validation record](evals/releases/0.7.0.md) for tested scope and limits.
 
 
-## Next release: runtime tools and goals
+## Runtime tools and goals
 
 The frozen ECC backlog now has a separate [implementation and evidence ledger](docs/ecc-implementation-plan.md). This expansion adds 43 focused methods, 22 connector recipes, native session imports, configuration cleanup, behavior rules, MCP health, bounded jobs and services, independent councils, evaluation receipts, CodeTour exports, a context graph, usage accounting and an offline operator/catalog interface. [Use these features](plugins/just-vibe/references/runtime-expansion.md). These capabilities are included starting in **v0.10.0**. Acceptance is tracked separately: local regression and installation checks do not establish every framework, live-provider or operating-system requirement. See the [release fixes and remaining validation](docs/release-fixes-2026-09-20.md).
 
-The source checkout adds **/goal**, scoped searchable memory, 48 native MCP tools, 24 independent specialists, optional worktree workers, before-action policy, a configuration scanner, reviewed pattern learning, preference sharing/evolution, an activity report, selective installations and 16 language/framework rule packs. Cursor, OpenCode, Copilot, Gemini, Kimi, Qwen, Windsurf and Antigravity IDE have project file adapters. The source catalog now contains **220 skill names and 217 canonical workflows**, including the unreleased `reprompt` workflow. Guided setup, portable context, reviewed dependent workers and a browser plan canvas are included. These additions have not yet been published to npm.
+The toolkit includes **/goal**, scoped searchable memory, 48 native MCP tools, 24 independent specialists, optional worktree workers, before-action policy, a configuration scanner, reviewed pattern learning, preference sharing/evolution, an activity report, selective installations and 16 language/framework rule packs. Cursor, OpenCode, Copilot, Gemini, Kimi, Qwen, Windsurf and Antigravity IDE have project file adapters. The source catalog now contains **220 skill names and 217 canonical workflows**, including the `reprompt` workflow added in v0.11.0. Guided setup, portable context, reviewed dependent workers and a browser plan canvas are included.
 
 Read [the feature guide](docs/runtime-tools.md), [operation schemas and examples](plugins/just-vibe/references/runtime-platform.md), and [the implementation/validation plan](docs/runtime-expansion-plan.md). Existing installs retain their defaults; observation, blocking policy and worker launching are opt-in.
 
-The next release also includes context and repeated-call warnings, detected check presets, batched formatting, staged commit checks, Cursor/OpenCode event adapters, Zed/Hermes skill installation, GitHub epic coordination, and JSON/Markdown/SARIF security reports with an optional reviewed AgentShield runner. Focused Django, FastAPI, Spring Boot, Flutter and React Native guides extend existing workflows. See [configuration, examples and limits](plugins/just-vibe/references/runtime-depth.md) and [verification](docs/remaining-ecc-gaps-plan.md).
+The toolkit also includes context and repeated-call warnings, detected check presets, batched formatting, staged commit checks, Cursor/OpenCode event adapters, Zed/Hermes skill installation, GitHub epic coordination, and JSON/Markdown/SARIF security reports with an optional reviewed AgentShield runner. Focused Django, FastAPI, Spring Boot, Flutter and React Native guides extend existing workflows. See [configuration, examples and limits](plugins/just-vibe/references/runtime-depth.md) and [verification](docs/remaining-ecc-gaps-plan.md).
 
 The [complete ECC comparison](docs/ecc-complete-audit.md) inventories a pinned upstream snapshot and records remaining functionality, technical-depth gaps, optional products and implementation requirements. Earlier completed rounds covered their selected findings; they did not establish full ECC parity. The ledger distinguishes source presence from live verification and includes a maintainer check for upstream drift.
 
 ## Improve a prompt
 
-In the source checkout, select **just-vibe → reprompt** in Codex, or use `/just-vibe:reprompt` in Claude Code, and append the prompt:
+Starting in v0.11.0, select **just-vibe → reprompt** in Codex, or use `/just-vibe:reprompt` in Claude Code, and append the prompt:
 
 ```text
 /just-vibe:reprompt Fix our React search page when older requests finish last.
@@ -37,7 +37,7 @@ Keep the current API and dependencies. Do not deploy.
 Use relevant installed skills in the rewritten prompt.
 ```
 
-It returns a paste-ready prompt, preserves your constraints, and names only skills it can verify (with availability checks for another host). It does not execute the embedded task. Add “output only,” “no skills,” or identify an earlier prompt or file to refine. See [examples and boundaries](plugins/just-vibe/references/reprompt.md). This command is not in the published 0.10.0 package yet.
+It returns a paste-ready prompt, preserves your constraints, and names only skills it can verify (with availability checks for another host). It does not execute the embedded task. Add “output only,” “no skills,” or identify an earlier prompt or file to refine. See [examples and boundaries](plugins/just-vibe/references/reprompt.md).
 
 ## Automatic assistance
 
@@ -60,7 +60,7 @@ v0.8.0 adds working runtime helpers behind natural-language skill requests:
 
 See the [workflow guide](plugins/just-vibe/references/intent-workflows.md) for examples, boundaries and recovery. Users provide ordinary briefs; the agent prepares the helper inputs. These features support judgment rather than claiming an objective quality score.
 
-**Publication status:** [just-vibe 0.10.0 is published on npm](https://www.npmjs.com/package/just-vibe/v/0.10.0) as `latest`. Registry integrity and fresh-cache execution match the tested archive. See the [publication record](evals/releases/0.10.0-publication.json) and [release validation](evals/releases/0.10.0.md). GitHub Actions was waived for this release because account billing prevented jobs from starting; no CI pass is claimed.
+**Release:** v0.11.0 adds prompt rewriting and short command invocations, together with the runtime fixes from both recent code reviews. Check [npm](https://www.npmjs.com/package/just-vibe) for registry availability. Native syntax, installation checks and evaluation limits are documented in the [shortcut verification record](docs/audits/command-shortcuts-2026-09-21.md). GitHub Actions is unavailable because account billing prevents jobs from starting; local checks are recorded separately and no CI pass is claimed.
 
 
 ## Use the workflows

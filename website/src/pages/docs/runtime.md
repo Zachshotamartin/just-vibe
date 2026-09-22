@@ -73,4 +73,4 @@ See [coordination and plan review](/docs/coordination/) for composed feature/fix
 
 ## Expanded methods and workbench
 
-The next release contains 24 specialists, 48 MCP tools, 43 focused methods and 22 connector recipes. The [workbench guide](/docs/workbench/) covers local sessions, configuration cleanup, bounded work, evidence, catalog browsing and reviewed updates. Counts describe available surfaces, not an objective quality score. Additional file adapters include AdaL, CodeBuddy, JoyCode, Kiro, OpenClaw, Pi and Trae; their documented support levels remain separate from live model behavior.
+Version 0.10.0 contains 24 specialists, 48 MCP tools, 43 focused methods and 22 connector recipes. The [workbench guide](/docs/workbench/) covers local sessions, configuration cleanup, bounded work, evidence, catalog browsing and reviewed updates. Counts describe available surfaces, not an objective quality score. Additional file adapters include AdaL, CodeBuddy, JoyCode, Kiro, OpenClaw, Pi and Trae; their documented support levels remain separate from live model behavior.
