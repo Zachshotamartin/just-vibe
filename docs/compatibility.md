@@ -57,3 +57,9 @@ The source adds 43 methods, 24 total specialists and 48 total MCP tools. Ninetee
 The operator/catalog browser was checked in Chromium at desktop/mobile widths, with keyboard interaction, reduced motion, accessibility scanning, local record actions and a reviewed fixture installation. Python provider tests use loopback HTTP and visible streaming/request fixtures; paid OpenAI/Anthropic and real Ollama requests were not run. CPU ranking/split examples do not establish CUDA/distributed behavior.
 
 Native Git pre-commit/pre-push hooks are opt-in and preserve foreign hook managers. Pre-push requires an explicitly trusted verifier and a clean checkout matching the pushed HEAD. Service supervisors own only their child processes; stale PID recovery requires inspection. Cross-platform CI configuration is not a claim of a completed CI run, especially while GitHub Actions minutes are unavailable. Source/baseline comparisons and current evidence are tracked separately in the [frozen-backlog implementation](ecc-implementation-plan.md).
+
+## v0.11 command shortcuts
+
+Claude Code setup installs two dispatcher commands and an owned skills-directory plugin named `jv`. Every selected command supports `/jv <command>`, `/just-vibe <command>`, `/jv:<command>` and `/just-vibe:<command>`. This syntax is checked on Claude Code 2.1.258 on macOS. Setup does not overwrite foreign or edited shortcut files, and uninstall retains persistent data.
+
+Codex uses its native skill picker. The just-vibe router also accepts all four forms when supplied as ordinary prompt text through supported, trusted hooks; parser support does not register new custom commands in the Codex slash menu. Other editors retain their native skill interfaces. See [verification and limits](audits/command-shortcuts-2026-09-21.md).

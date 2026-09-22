@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, existsSync, rmSync } from 'node:fs';
-import { join } from 'node:path';
+import { join, resolve } from 'node:path';
 import { tmpdir } from 'node:os';
 import { parseInvocation } from '../plugins/just-vibe/scripts/lib/invocation.mjs';
 import { loadCatalog, getCommand, searchCommands } from '../plugins/just-vibe/scripts/lib/catalog.mjs';
@@ -99,6 +99,6 @@ test('selection expansion preflights new shortcut conflicts before changing the 
 });
 
 test('shortcut locations follow Claude user config and project scope', () => {
-  assert.equal(shortcutRoot({ scope: 'user' }, { env: { CLAUDE_CONFIG_DIR: '/custom/claude' }, cwd: '/project', home: '/home/user' }), '/custom/claude');
-  for (const scope of ['project', 'local']) assert.equal(shortcutRoot({ scope }, { env: {}, cwd: '/project', home: '/home/user' }), '/project/.claude');
+  assert.equal(shortcutRoot({ scope: 'user' }, { env: { CLAUDE_CONFIG_DIR: '/custom/claude' }, cwd: '/project', home: '/home/user' }), resolve('/custom/claude'));
+  for (const scope of ['project', 'local']) assert.equal(shortcutRoot({ scope }, { env: {}, cwd: '/project', home: '/home/user' }), resolve('/project/.claude'));
 });

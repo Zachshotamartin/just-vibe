@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.11.0
 
 - Add owned Claude command shortcuts for every selected workflow: `/jv <command>`, `/just-vibe <command>` and `/jv:<command>`. Preserve the canonical `/just-vibe:<command>` form, appended context and workflow authority; validate conflicts before install and preserve user-edited files on uninstall.
 - Recognize all four invocation forms in catalog lookup and explicit routing, with exact selection and unknown-command errors. Add a website guide and links from every command page, distinguishing Claude shortcuts from other hosts' native skill interfaces.

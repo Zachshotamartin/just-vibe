@@ -17,7 +17,7 @@ and verify. Preserve the API and avoid new dependencies.
 
 In Codex, select **auto** from the just-vibe skill picker, then send the same brief. The host agent reads the workflow and uses the tools available in your session. just-vibe does not run a separate model service.
 
-The next release adds `/jv <command>`, `/just-vibe <command>` and `/jv:<command>` alternatives in Claude, plus `reprompt` for improving a prompt. See [command shortcuts and context](/docs/command-shortcuts/) for all four forms, examples, installation and host differences.
+Version 0.11.0 adds `/jv <command>`, `/just-vibe <command>` and `/jv:<command>` alternatives in Claude, plus `reprompt` for improving a prompt. See [command shortcuts and context](/docs/command-shortcuts/) for all four forms, examples, installation and host differences.
 
 Useful context includes the target, observed behavior, desired outcome, constraints, relevant files, environment, and what would count as done. You do not need to fill out a form for every task; the agent should recover what it can from the conversation and repository.
 

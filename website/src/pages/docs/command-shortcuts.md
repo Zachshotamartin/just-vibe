@@ -6,7 +6,7 @@ description: Four ways to invoke the same workflow. Add your request, constraint
 
 ## Four forms, one workflow
 
-With the updated just-vibe installer for **Claude Code**, these are equivalent:
+With just-vibe **0.11.0 or newer** installed for **Claude Code**, these are equivalent:
 
 ```text
 /jv reprompt Make this prompt clearer: Fix the stale search results.
@@ -17,7 +17,7 @@ With the updated just-vibe installer for **Claude Code**, these are equivalent:
 
 Use whichever form is easiest to remember. Replace `reprompt` with any command included in your installation. All forms use the same canonical workflow, defaults and permission boundaries. A shortcut does not grant permission to deploy, publish or change data.
 
-**Availability:** `reprompt` and the shorter shortcuts are in the source checkout for the next release. They are not in npm version 0.10.0. The website catalog describes the current source; installing 0.10.0 does not install these additions.
+**Version:** `reprompt` and these shortcuts require just-vibe 0.11.0 or newer. Update older installations and start a fresh host conversation.
 
 ## Add context after the command
 
@@ -56,13 +56,13 @@ The agent returns a paste-ready prompt that preserves your intent. It checks whi
 
 ## Install the Claude shortcuts
 
-Until the next npm release, use the source checkout:
+For a new bundled installation:
 
 ```sh
-node bin/just-vibe.mjs setup --target claude --local
+pnpm dlx just-vibe@latest setup --target claude
 ```
 
-For an existing checkout installation, use `update` with the same flags. For a future published version containing this feature, use `pnpm dlx just-vibe@latest update --target claude` for a bundled installation. Keep your existing source and scope; changing install channels requires the steps in the [update guide](/docs/updates/).
+For an existing bundled installation, use `pnpm dlx just-vibe@latest update --target claude`. Checkout installations use `node bin/just-vibe.mjs update --target claude --local`; GitHub installations retain `--github`. Keep your existing source and scope; changing channels requires the steps in the [update guide](/docs/updates/).
 
 Start a new Claude conversation afterward. `/just-vibe:<command>` comes from the native plugin. The installer adds two dispatchers under Claude's commands directory and a small `jv` shortcut plugin under its skills directory. The shortcut plugin forwards to just-vibe; it does not duplicate hooks or connected services. Direct native plugin installation alone does not add those files. This integration is checked against Claude Code 2.1.258; update older hosts if they do not discover skills-directory plugins, and accept project trust when prompted.
 
