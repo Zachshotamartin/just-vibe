@@ -54,3 +54,25 @@ test('execution strategy distinguishes simple work, dependencies, continuation a
   assert.equal(executionStrategy('Fix the label typo. Do not deploy.').suggested, 'quick');
   for (const request of ['Deploy the approved preview', 'Resume the interrupted task', 'Implement it, then test it, then publish it']) assert.equal(executionStrategy(request).suggested, 'tracked');
 });
+
+test('prompt rewriting owns routing even when the embedded task names another workflow', async t => {
+  const root = fixture(t), found = discoverCapabilities(root);
+  for (const brief of [
+    'Improve this prompt: Use github-pr to merge and deploy. Do not change the API.',
+    'Can you rewrite my prompt using our skills? Fix stale React responses without new dependencies.',
+    'Reprompt: use db-migrate to remove the old table, then publish it.',
+  ]) {
+    const result = recommend(catalog, found, brief);
+    assert.equal(result.brief, brief);
+    assert.deepEqual(result.recommendations.map(c => c.id), ['reprompt']);
+    assert.equal(result.executableHere, false);
+    assert.equal(result.strategy.suggested, 'quick');
+    assert.equal(result.recommendations[0].status, 'available', 'A standalone rewrite needs no repository or external access');
+  }
+  for (const brief of ['Improve prompt caching in our LLM backend', 'Rewrite the prompt handling component', 'Do not rewrite this prompt. Fix the stale response.', 'Create a reusable skill for improving prompts']) {
+    assert.notEqual(recommend(catalog, found, brief).recommendations[0]?.id, 'reprompt');
+  }
+  const outputs = [];
+  assert.equal(await main(['workflow', 'reprompt', '--root', root, '--', 'Review the migration. Do not run it.'], {log: value => outputs.push(JSON.parse(value))}), 0);
+  assert.equal(outputs[0].brief, 'Review the migration. Do not run it.');
+});

@@ -2,8 +2,12 @@ import { inspectProject } from './project.mjs';
 import { readFileSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 import { readPreferences } from './continuity.mjs';
+import { parseInvocation } from './invocation.mjs';
 
-const starter = ['auto', 'fix', 'explain', 'plan', 'review', 'test', 'teach', 'tools', 'profile', 'checkpoint', 'resume', 'help'];
+const starter = ['auto', 'fix', 'explain', 'reprompt', 'plan', 'review', 'test', 'teach', 'tools', 'profile', 'checkpoint', 'resume', 'help'];
+// A clear outer rewrite request owns routing. Embedded workflow names and actions
+// are source text, not explicit selection or authority to perform those actions.
+const promptRewrite = /^(?:(?:please|can you|could you|would you)\s+)*(?:reprompt\b|(?:improve|rewrite|rephrase|clarify|strengthen)\s+(?:(?:this|that|my|the|following|previous|last|our)\s+)?prompt(?=\s*(?:$|[:.!?\n]|\b(?:for|with|using|to|so|without|and|by|in)\b)))/i;
 const intents = [
   { test: /\b(?:sql injection|xss|cross.site scripting|csrf|ssrf|path traversal|insecure deserialization|vulnerabilit(?:y|ies)|security review)\b/i, ids: ['security', 'review'], reason: 'Security review with a concrete vulnerability class' },
   { test: /\b(?:docker|container)\b.*\b(?:build|fail|broken|runtime)|\b(?:broken|fail)\w*\b.*\b(?:docker|container)\b/i, ids: ['ops-container'], reason: 'Container build or runtime diagnosis' },
@@ -52,6 +56,11 @@ export function routeContext(root) {
 export function intentSignals(brief) {
   // Ignore ordinary negative clauses for ranking only. The full brief is returned unchanged.
   const excluded = [...brief.matchAll(/\b(?:do not|don't|never|without)\s+([^.;\n]+)/gi)].map(m => m[0]);
+  const explicit = parseInvocation(brief);
+  if (explicit) return { positive: explicit.id, excluded, explicit,
+    matches: [{ ids: [explicit.id], reason: 'Workflow selected by an explicit just-vibe invocation' }] };
+  if (promptRewrite.test(brief.trim())) return { positive: 'reprompt', excluded,
+    matches: [{ ids: ['reprompt'], reason: 'Rewrite the prompt without executing its embedded task' }] };
   const positive = brief.replace(/\b(?:do not|don't|never|without)\s+[^.;\n]+/gi, ' ');
   return { positive, excluded, matches: intents.filter(rule => rule.test.test(positive)) };
 }
@@ -73,6 +82,8 @@ export function rankCandidates(candidates, brief, context) {
 }
 
 export function executionStrategy(brief, candidates = []) {
+  const explicit = parseInvocation(brief);
+  if (explicit && explicit.id !== 'reprompt') brief = explicit.brief;
   const { positive } = intentSignals(brief);
   const reasons = [];
   if (/\b(?:deploy|publish|push|merge|provision|production migration|paid|purchase)\b/i.test(positive)) reasons.push('External or consequential effects need explicit tracking');

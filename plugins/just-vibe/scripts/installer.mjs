@@ -9,6 +9,7 @@ import { commandInvocation } from './lib/command.mjs';
 import { adapters, ADAPTERS } from './lib/editor-adapters.mjs';
 import { selectPayload } from './lib/selection.mjs';
 import { loadCatalog } from './lib/catalog.mjs';
+import { claudeShortcuts } from './lib/claude-shortcuts.mjs';
 
 export const REPOSITORY = 'Zachshotamartin/just-vibe';
 export const MARKETPLACE = 'just-vibe';
@@ -206,7 +207,7 @@ function display(host, args) {
   return [host, ...args].map(arg => /^[a-zA-Z0-9_./:@+-]+$/.test(arg) ? arg : JSON.stringify(arg)).join(' ');
 }
 
-export function install(options, { run = execute, log = console.log, source = sourceFor(options), prepare = stageBundle } = {}) {
+export function install(options, { run = execute, log = console.log, source = sourceFor(options), prepare = stageBundle, shortcuts = claudeShortcuts } = {}) {
   if (!['codex', 'claude'].includes(options.target)) {
     const operation = options.command === 'setup' ? 'install' : options.command;
     const result = adapters(options.root || process.cwd(), operation, { target: options.target, ...options.selection, dryRun: options.dryRun, ...(options.editorHooks ? { hooks: true } : {}) });
@@ -218,6 +219,7 @@ export function install(options, { run = execute, log = console.log, source = so
     log('Dry run — no commands executed; installed state has not been inspected.');
     log(`Target: ${options.target}${options.target === 'claude' ? ` (${options.scope} scope)` : ''}`);
     log(`Expected marketplace source: ${source}`);
+    if (options.target === 'claude') log('Also manage owned Claude command shortcuts: /jv <command>, /just-vibe <command>, and /jv:<command>. Existing /just-vibe:<command> skills remain canonical. Conflicting user files stop before mutation.');
     if (options.selection) log(`Selected native skills and rule packs: ${JSON.stringify(options.selection)}. Helpers and reference methods remain available.`);
     log('Preflight: host CLI, native plugin subcommands, marketplace and plugin inventory.');
     if (!options.github && !options.local && ['setup', 'update'].includes(options.command)) log(`Copy bundled plugin files to ${source} after preflight (setup preserves an existing copy; update replaces it).`);
@@ -262,12 +264,17 @@ export function install(options, { run = execute, log = console.log, source = so
       const version = validateBundle(source);
       if (state.installed.version !== version) throw new Error(`Installed plugin version differs from the managed source (${version}). Run update to finish applying it.`);
     }
+    if (host === 'claude') {
+      const health = shortcuts(options, { source, operation: 'doctor' });
+      if (!health.installed || health.conflicts.length || health.missing.length || health.outdated.length || health.interrupted) throw Error('Claude command shortcuts need setup/update or repair. Preserve edited shortcut files first.');
+    }
     log(`Healthy: ${PLUGIN}${state.installed.version ? ` v${state.installed.version}` : ''}.`);
     log('Automatic assistance requires a host with UserPromptSubmit/SessionStart/PostToolUse/Stop hooks and native hook trust. Installation health does not prove event delivery. Use assist status for local settings; inspect hooks in your host if ordinary requests do not activate workflows.');
     return;
   }
   const steps = mutationSteps(options, state, source);
   for (const args of steps) run(host, [...args.slice(0, args[1] === 'marketplace' ? 3 : 2), '--help']);
+  if (host === 'claude') shortcuts(options, { source, operation: options.command === 'uninstall' ? 'uninstall' : 'install', dryRun: true });
   let expectedVersion;
   if (!options.github && !options.local && ['setup', 'update'].includes(options.command)) {
     const version = prepare(source, { target: options.target, replace: options.command === 'update', ...(options.selection ? { selection: options.selection } : {}) });
@@ -286,6 +293,7 @@ export function install(options, { run = execute, log = console.log, source = so
   const final = inventory(options, run);
   if (options.command === 'uninstall') {
     if (final.installed) throw new Error('The host still reports just-vibe installed; inspect its plugin list.');
+    if (host === 'claude') shortcuts(options, { source, operation: 'uninstall' });
     log('just-vibe is uninstalled. Marketplace registration and persistent plugin data were retained.');
   } else {
     if (!final.marketplace || !marketplaceMatches(final.marketplace, options, source)
@@ -293,6 +301,10 @@ export function install(options, { run = execute, log = console.log, source = so
       throw new Error('The host did not report an enabled just-vibe installation. Run doctor and inspect the host plugin list.');
     }
     if (expectedVersion && final.installed.version !== expectedVersion) throw new Error(`Host still reports v${final.installed.version || 'unknown'} instead of bundled v${expectedVersion}. Run update and inspect its plugin list.`);
+    if (host === 'claude') {
+      const result = shortcuts(options, { source, operation: 'install' });
+      log(`Claude shortcuts ready: ${result.files} command files. Use /jv <command>, /just-vibe <command>, /jv:<command>, or /just-vibe:<command>.`);
+    }
     log(`Ready: ${PLUGIN}. Start a new conversation to load the skills.`);
     log('Review new or changed plugin hooks in your host (Codex: /hooks). Once trusted, describe your task normally. No workflow name is required. The installer does not grant hook trust or service permissions.');
   }

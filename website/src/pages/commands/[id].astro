@@ -25,7 +25,7 @@ const related = commands
         <a href="#checks">Verification</a>
         <a href="#technical">Technical guidance</a>
       </nav>
-      <p class="fine-print">From the v{version} command catalog.</p>
+      <p class="fine-print">Current source catalog. Published package: v{version}.</p>
     </aside>
     <article class="detail-body prose">
       <header id="overview" data-reveal>
@@ -50,6 +50,11 @@ const related = commands
         <p>
           In Claude Code, use the slash command and add your context. In Codex, select{' '}
           <strong>{c.id}</strong> from the just-vibe skill picker, then send the same brief.
+        </p>
+        <p>
+          The next release also supports <code>/jv {c.id}</code>,{' '}
+          <code>/just-vibe {c.id}</code> and <code>/jv:{c.id}</code> in Claude.{' '}
+          <a href="/docs/command-shortcuts/">See shortcut setup and context examples.</a>
         </p>
         {c.examples.map((example, i) => (
           <div class="example">

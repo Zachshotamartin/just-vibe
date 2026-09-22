@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- Add owned Claude command shortcuts for every selected workflow: `/jv <command>`, `/just-vibe <command>` and `/jv:<command>`. Preserve the canonical `/just-vibe:<command>` form, appended context and workflow authority; validate conflicts before install and preserve user-edited files on uninstall.
+- Recognize all four invocation forms in catalog lookup and explicit routing, with exact selection and unknown-command errors. Add a website guide and links from every command page, distinguishing Claude shortcuts from other hosts' native skill interfaces.
+
+- Add `reprompt` for rewriting prompts with preserved constraints, verified optional skill references, portable fallbacks, and no execution of the embedded task.
+
 - Repair worker startup and orchestration cancellation, runner input identity, workbench lock ownership, and Git repository isolation.
 - Correct strict file-read tracking, Cursor/Kiro event handling, quiz answer identity, session alias collisions, and supported configuration discovery/auditing.
 - Preserve installed Git hooks across package-cache cleanup and make installed hook identity usable for removal after upgrades.

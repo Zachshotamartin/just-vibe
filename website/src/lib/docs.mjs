@@ -38,6 +38,11 @@ export const docs = [
     description: 'Describe the result you want, add context, and understand the execution modes.',
   },
   {
+    slug: 'command-shortcuts',
+    title: 'Command shortcuts and context',
+    description: 'Use /jv or /just-vibe, add your context, and improve prompts with reprompt.',
+  },
+  {
     slug: 'automatic',
     title: 'Automatic assistance',
     description:

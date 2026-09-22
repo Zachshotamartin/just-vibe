@@ -2491,7 +2491,7 @@
         },
         {
           "path": "tests/bundle.test.mjs",
-          "sha256": "17ae10a054d92d8d9bac3ae202795e3f62506caa1dcf51179a3f705df04035c5"
+          "sha256": "8ea5d1fa28a85e04f560df4a399a6bb97e10d37b1535f5af67bfb7bd30492244"
         },
         {
           "path": "tests/release-regressions.test.mjs",

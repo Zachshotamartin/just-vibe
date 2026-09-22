@@ -5,6 +5,7 @@ import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { stageBundle, packageRoot, validateBundle } from '../plugins/just-vibe/scripts/lib/bundle.mjs';
 import { install, parseArgs, PLUGIN } from '../plugins/just-vibe/scripts/installer.mjs';
+import { claudeShortcuts } from '../plugins/just-vibe/scripts/lib/claude-shortcuts.mjs';
 
 function temporary(t) {
   const root = mkdtempSync(join(tmpdir(), 'just-vibe bundle '));
@@ -14,7 +15,8 @@ function temporary(t) {
 function host(target, source) {
   const state = { installed: false, registered: false };
   const mutations = [];
-  return { source, log: () => {}, state, mutations, run(binary, args) {
+  return { source, log: () => {}, state, mutations,
+    shortcuts: (options, args) => claudeShortcuts(options, { ...args, root: `${source}-claude-config` }), run(binary, args) {
     assert.notEqual(binary, 'git', 'Bundled installs must not require Git or GitHub');
     if (args.includes('--version')) return 'fixture';
     if (args.includes('--help')) { if (state.failPreflight) throw new Error('preflight failed'); return 'help'; }

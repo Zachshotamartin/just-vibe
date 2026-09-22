@@ -1,5 +1,7 @@
 # just-vibe
 
+**Next-release command shortcuts:** Claude setup adds `/jv <command>`, `/just-vibe <command>` and `/jv:<command>` alongside `/just-vibe:<command>`. Append the same request after any form. For example, `/jv reprompt Make this prompt clearer: Fix stale search results.` See the [shortcut guide](https://just-vibe-tools.vercel.app/docs/command-shortcuts/) for setup, context examples and Codex's skill-picker equivalent. These additions are not in npm 0.10.0.
+
 Tools, skills, and commands for coding agents.
 
 [Website](https://just-vibe-tools.vercel.app/) · [Documentation](https://just-vibe-tools.vercel.app/docs/) · [Command library](https://just-vibe-tools.vercel.app/commands/) · [Engineering profiles](https://just-vibe-tools.vercel.app/profiles/)
@@ -17,13 +19,25 @@ v0.7 adds a quick path for simple work, a small starter catalog, contextual rout
 
 The frozen ECC backlog now has a separate [implementation and evidence ledger](docs/ecc-implementation-plan.md). This expansion adds 43 focused methods, 22 connector recipes, native session imports, configuration cleanup, behavior rules, MCP health, bounded jobs and services, independent councils, evaluation receipts, CodeTour exports, a context graph, usage accounting and an offline operator/catalog interface. [Use these features](plugins/just-vibe/references/runtime-expansion.md). These capabilities are included starting in **v0.10.0**. Acceptance is tracked separately: local regression and installation checks do not establish every framework, live-provider or operating-system requirement. See the [release fixes and remaining validation](docs/release-fixes-2026-09-20.md).
 
-The source checkout adds **/goal**, scoped searchable memory, 48 native MCP tools, 24 independent specialists, optional worktree workers, before-action policy, a configuration scanner, reviewed pattern learning, preference sharing/evolution, an activity report, selective installations and 16 language/framework rule packs. Cursor, OpenCode, Copilot, Gemini, Kimi, Qwen, Windsurf and Antigravity IDE have project file adapters. The source catalog now contains **219 skill names and 216 canonical workflows**. Guided setup, portable context, reviewed dependent workers and a browser plan canvas are included. These additions have not yet been published to npm.
+The source checkout adds **/goal**, scoped searchable memory, 48 native MCP tools, 24 independent specialists, optional worktree workers, before-action policy, a configuration scanner, reviewed pattern learning, preference sharing/evolution, an activity report, selective installations and 16 language/framework rule packs. Cursor, OpenCode, Copilot, Gemini, Kimi, Qwen, Windsurf and Antigravity IDE have project file adapters. The source catalog now contains **220 skill names and 217 canonical workflows**, including the unreleased `reprompt` workflow. Guided setup, portable context, reviewed dependent workers and a browser plan canvas are included. These additions have not yet been published to npm.
 
 Read [the feature guide](docs/runtime-tools.md), [operation schemas and examples](plugins/just-vibe/references/runtime-platform.md), and [the implementation/validation plan](docs/runtime-expansion-plan.md). Existing installs retain their defaults; observation, blocking policy and worker launching are opt-in.
 
 The next release also includes context and repeated-call warnings, detected check presets, batched formatting, staged commit checks, Cursor/OpenCode event adapters, Zed/Hermes skill installation, GitHub epic coordination, and JSON/Markdown/SARIF security reports with an optional reviewed AgentShield runner. Focused Django, FastAPI, Spring Boot, Flutter and React Native guides extend existing workflows. See [configuration, examples and limits](plugins/just-vibe/references/runtime-depth.md) and [verification](docs/remaining-ecc-gaps-plan.md).
 
 The [complete ECC comparison](docs/ecc-complete-audit.md) inventories a pinned upstream snapshot and records remaining functionality, technical-depth gaps, optional products and implementation requirements. Earlier completed rounds covered their selected findings; they did not establish full ECC parity. The ledger distinguishes source presence from live verification and includes a maintainer check for upstream drift.
+
+## Improve a prompt
+
+In the source checkout, select **just-vibe → reprompt** in Codex, or use `/just-vibe:reprompt` in Claude Code, and append the prompt:
+
+```text
+/just-vibe:reprompt Fix our React search page when older requests finish last.
+Keep the current API and dependencies. Do not deploy.
+Use relevant installed skills in the rewritten prompt.
+```
+
+It returns a paste-ready prompt, preserves your constraints, and names only skills it can verify (with availability checks for another host). It does not execute the embedded task. Add “output only,” “no skills,” or identify an earlier prompt or file to refine. See [examples and boundaries](plugins/just-vibe/references/reprompt.md). This command is not in the published 0.10.0 package yet.
 
 ## Automatic assistance
 
@@ -298,7 +312,7 @@ The [technical-guidance validation record](evals/releases/0.8.0-technical-guidan
 | `plugins/just-vibe/scripts/toolkit.mjs` | Discovery, routing, sessions, quizzes and persistent intent workflow CLI |
 | `plugins/just-vibe/scripts/lib/` | Catalog, capability, session, quiz, memory, guard, task, lab, proof, practice, experiment and decision modules |
 | `plugins/just-vibe/catalog/` | Canonical command contracts, 112 role profiles, examples, prerequisites and pack metadata |
-| `plugins/just-vibe/skills/` | 219 source skill names, including three aliases, goal, orchestration, plan review and setup |
+| `plugins/just-vibe/skills/` | 220 source skill names, including three aliases, goal, orchestration, plan review and setup |
 | `plugins/just-vibe/references/` | Shared execution rules, runtime interface, domain guidance and command index |
 | `.agents/plugins/marketplace.json` | Codex marketplace |
 | `.claude-plugin/marketplace.json` | Claude Code marketplace |
