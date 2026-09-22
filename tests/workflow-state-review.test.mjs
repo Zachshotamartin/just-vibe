@@ -17,7 +17,7 @@ import { runtimeStore } from '../plugins/just-vibe/scripts/lib/runtime-store.mjs
 
 const moduleUrl = file => pathToFileURL(resolve('plugins/just-vibe/scripts/lib', file)).href;
 function fixture(t) {
-  const base = fs.realpathSync(fs.mkdtempSync(join(tmpdir(), 'jv-workflow-review-')));
+  const base = fs.realpathSync.native(fs.mkdtempSync(join(tmpdir(), 'jv-workflow-review-')));
   const root = join(base, 'project'), home = join(base, 'home');
   fs.mkdirSync(root); fs.mkdirSync(home);
   t.after(() => fs.rmSync(base, { recursive: true, force: true }));

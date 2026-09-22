@@ -205,7 +205,7 @@ export function readRecord(root, collection, id, optional = false) {
   const record = readJson(path, MAX_STATE);
   if (
     record.schemaVersion !== 1 ||
-    record.root !== root ||
+    projectRoot(record.root) !== root ||
     record.collection !== collection ||
     record.id !== id ||
     !Number.isInteger(record.revision) ||

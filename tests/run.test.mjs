@@ -9,7 +9,7 @@ import { createRun, startStage, recordStage, finishRun, resumeRun, insideProject
 const catalog = loadCatalog();
 const capabilities = { 'project.read': { status: 'available', reason: 'Read fixture.' } };
 function fixture(t) {
-  const root = realpathSync(mkdtempSync(join(tmpdir(), 'just-vibe-run-')));
+  const root = realpathSync.native(mkdtempSync(join(tmpdir(), 'just-vibe-run-')));
   t.after(() => rmSync(root, { force: true, recursive: true }));
   return root;
 }

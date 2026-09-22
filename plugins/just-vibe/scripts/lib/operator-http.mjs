@@ -1,3 +1,5 @@
+import { preferences } from './preferences.mjs';
+import { learningClient } from './learning-client.mjs';
 import { operatorClient } from './operator-client.mjs';
 import { createServer } from 'node:http';
 import { randomBytes, timingSafeEqual } from 'node:crypto';
@@ -51,6 +53,10 @@ export async function startOperatorServer(root, options = {}) {
         res.end(JSON.stringify(redactValue(await operator(root, 'status', {}, options))));
         return;
       }
+      if (req.method === 'GET' && url.pathname === '/api/preferences') {
+        res.end(JSON.stringify(preferences(root, 'list', {}, options)));
+        return;
+      }
       if (req.method === 'GET' && url.pathname === '/api/catalog') {
         const catalog = loadCatalog();
         res.end(
@@ -74,7 +80,7 @@ export async function startOperatorServer(root, options = {}) {
       }
       if (
         req.method === 'POST' &&
-        ['/api/action', '/api/install-preview', '/api/install-apply'].includes(url.pathname)
+        ['/api/action', '/api/install-preview', '/api/install-apply', '/api/preferences-preview', '/api/preferences-action'].includes(url.pathname)
       ) {
         if (req.headers.origin !== origin || req.headers['content-type'] !== 'application/json')
           throw Error('Same-origin JSON action required.');
@@ -87,6 +93,13 @@ export async function startOperatorServer(root, options = {}) {
         }
         const body = Buffer.concat(chunks).toString('utf8');
         const data = JSON.parse(body);
+        if (url.pathname.startsWith('/api/preferences-')) {
+          object(data, ['operation', 'payload']);
+          const permitted = url.pathname.endsWith('-preview') ? ['preview'] : ['edit', 'toggle', 'rollback'];
+          if (!permitted.includes(data.operation)) throw Error('Unsupported preference action.');
+          res.end(JSON.stringify(preferences(root, data.operation, data.payload, options)));
+          return;
+        }
         if (url.pathname.startsWith('/api/install-')) {
           if (options.allowInstall !== true)
             throw Error(
@@ -155,5 +168,5 @@ export async function startOperatorServer(root, options = {}) {
   };
 }
 function page(nonce) {
-  return `<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>just-vibe local operator</title><style>body{font:16px/1.6 system-ui;margin:0;background:#f6f5f1;color:#242724}main{max-width:1120px;margin:auto;padding:36px 24px}nav{display:flex;gap:12px;flex-wrap:wrap}button,input,select{font:inherit;padding:10px 14px;border:1px solid #6d726d;border-radius:5px;background:white;color:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid #416f46;outline-offset:3px}input{width:min(90%,500px);margin:20px 0}article{border-top:1px solid #c6cdc6;padding:20px 0;overflow-wrap:anywhere}pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:13px}h1{font-size:clamp(32px,6vw,56px);line-height:1.12;letter-spacing:-.04em}h2{margin:0}#status{min-height:1.6em}.muted{color:#596159}[hidden]{display:none!important}@media(prefers-reduced-motion:no-preference){article{animation:enter .2s ease-out}@keyframes enter{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}}</style><main><p class="muted">just-vibe / local workspace</p><h1>Work, evidence, and tools.</h1><nav aria-label="Views"><button id="work">Workspace</button><button id="catalog">Tool catalog</button><button id="refresh">Refresh</button></nav><label for="search">Filter the current view</label><br><input id="search" type="search" placeholder="Name, status, or purpose"><p id="status" role="status" aria-live="polite"></p><section id="install" hidden aria-label="Project adapter management"><h2>Manage project skills</h2><p>Preview the owned files before applying. This does not authenticate a host or enable hooks.</p><label for="target">Editor</label> <select id="target"></select> <label for="operation">Action</label> <select id="operation"><option>install</option><option>update</option><option>uninstall</option></select> <label for="profile">Profile</label> <select id="profile"><option>core</option><option>frontend</option><option>backend</option><option>ml</option><option>full</option></select> <button id="preview">Preview changes</button><pre id="plan" tabindex="0"></pre><button id="apply" hidden>Apply reviewed changes</button></section><section id="rows" aria-label="Results"></section></main><script nonce="${nonce}">(${operatorClient.toString()})();</script></html>`;
+  return `<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>just-vibe local operator</title><style>body{font:16px/1.6 system-ui;margin:0;background:#f6f5f1;color:#242724}main{max-width:1120px;margin:auto;padding:36px 24px}nav{display:flex;gap:12px;flex-wrap:wrap}button,input,select,textarea{font:inherit;padding:10px 14px;border:1px solid #6d726d;border-radius:5px;background:white;color:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid #416f46;outline-offset:3px}textarea{box-sizing:border-box;width:100%;min-height:90px}label{display:block;margin-top:12px}.actions{display:flex;flex-wrap:wrap;gap:12px;margin:16px 0}button[aria-pressed="true"]{background:#dfff59;border-color:#242724}button:disabled{opacity:.5;cursor:wait}input{width:min(90%,500px);margin:20px 0}article{border-top:1px solid #c6cdc6;padding:20px 0;overflow-wrap:anywhere}pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:13px}h1{font-size:clamp(32px,6vw,56px);line-height:1.12;letter-spacing:-.04em}h2{margin:0}#status{min-height:1.6em}.muted{color:#596159}[hidden]{display:none!important}@media(prefers-reduced-motion:no-preference){article{animation:enter .2s ease-out}@keyframes enter{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}}</style><main><p class="muted">just-vibe / local workspace</p><h1>Work, evidence, and tools.</h1><nav aria-label="Views"><button id="work">Workspace</button><button id="catalog">Tool catalog</button><button id="learning">Preferences</button><button id="refresh">Refresh</button></nav><label for="search">Filter the current view</label><br><input id="search" type="search" placeholder="Name, status, or purpose"><p id="status" role="status" aria-live="polite"></p><section id="install" hidden aria-label="Project adapter management"><h2>Manage project skills</h2><p>Preview the owned files before applying. This does not authenticate a host or enable hooks.</p><label for="target">Editor</label> <select id="target"></select> <label for="operation">Action</label> <select id="operation"><option>install</option><option>update</option><option>uninstall</option></select> <label for="profile">Profile</label> <select id="profile"><option>core</option><option>frontend</option><option>backend</option><option>ml</option><option>full</option></select> <button id="preview">Preview changes</button><pre id="plan" tabindex="0"></pre><button id="apply" hidden>Apply reviewed changes</button></section><section id="rows" aria-label="Results"></section></main><script nonce="${nonce}">(${operatorClient.toString()})(${learningClient.toString()});</script></html>`;
 }

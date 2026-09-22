@@ -25,7 +25,7 @@ import { portfolio } from '../plugins/just-vibe/scripts/lib/skill-portfolio.mjs'
 import { platformRuntime } from '../plugins/just-vibe/scripts/lib/platform-runtime.mjs';
 
 function fixture(t) {
-  const dir = realpathSync(mkdtempSync(join(tmpdir(), 'jv-capability-'))),
+  const dir = realpathSync.native(mkdtempSync(join(tmpdir(), 'jv-capability-'))),
     root = join(dir, 'project'),
     home = join(dir, 'home');
   mkdirSync(root);

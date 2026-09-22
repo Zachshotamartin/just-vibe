@@ -37,7 +37,8 @@
     "audit:ecc": "node scripts/audit-ecc.mjs",
     "test:operator-browser": "node scripts/smoke-operator-browser.mjs",
     "check:localizations": "node scripts/check-localizations.mjs",
-    "audit:implementation": "node scripts/check-ecc-implementation.mjs"
+    "audit:implementation": "node scripts/check-ecc-implementation.mjs",
+    "test:qa-browser": "node scripts/smoke-agent-qa.mjs"
   },
   "files": [
     "bin/",

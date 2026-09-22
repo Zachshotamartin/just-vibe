@@ -55,7 +55,7 @@ function invoke(entry, root, home, bytes, cut) {
 }
 
 for (const target of ['cursor', 'kiro']) test(`${target} installed hooks preserve split UTF-8 and reject malformed or oversized byte input`, async (t) => {
-  const base = realpathSync(mkdtempSync(join(tmpdir(), 'jv-hook-input-')));
+  const base = realpathSync.native(mkdtempSync(join(tmpdir(), 'jv-hook-input-')));
   t.after(() => rmSync(base, { recursive: true, force: true }));
   const root = join(base, 'project'), home = join(base, 'home');
   mkdirSync(root);

@@ -16,14 +16,40 @@ export function textField(value, label, max = 2000) {
 export function adaptiveStore(root, { home = process.env.JUST_VIBE_HOME || join(homedir(), '.just-vibe'), allowUser = true } = {}) {
   root = projectRoot(root);
   if (existsSync(home) && lstatSync(home).isSymbolicLink()) throw Error('Adaptive home must not be a symlink.');
-  const project = `adaptive/projects/${digest(root)}`;
+  let project = `adaptive/projects/${digest(root)}`;
+  // Older Windows versions keyed state by the spelling of an 8.3 path.
+  // Preserve that store in place instead of silently losing its history.
+  if (process.platform === 'win32' && existsSync(home) && !existsSync(within(home, project))) {
+    const directory = within(home, 'adaptive/projects');
+    const matches = [];
+    if (existsSync(directory)) {
+      const projects = readdirSync(directory).filter(n => /^[a-f0-9]{64}$/.test(n));
+      if (projects.length > 500) throw Error('Too many legacy project stores; migrate their path identities explicitly.');
+      for (const key of projects) {
+        const prefix = 'adaptive/projects/' + key;
+        const candidates = ['config.json'];
+        for (const group of ['runtime', 'learning', 'tasks']) {
+          const folder = within(home, prefix + '/' + group);
+          if (existsSync(folder)) candidates.push(...readdirSync(folder).filter(n => /^[a-z0-9-]+\.json$/.test(n)).slice(0, 1).map(n => group + '/' + n));
+        }
+        for (const path of candidates) {
+          const full = within(home, prefix + '/' + path);
+          if (!existsSync(full)) continue;
+          const record = readJson(full, 1024 * 1024);
+          if (typeof record.root === 'string' && digest(record.root) === key && existsSync(record.root) && projectRoot(record.root) === root) { matches.push(prefix); break; }
+        }
+      }
+    }
+    if (matches.length > 1) throw Error('Multiple historical stores refer to this project; review them before merging preferences.');
+    if (matches.length === 1) project = matches[0];
+  }
   const read = path => {
     if (!existsSync(home)) return null;
     const full = within(home, path);
     if (!existsSync(full)) return null;
     const record = readJson(full, 1024 * 1024);
     if (record.schemaVersion !== 1 || !Number.isInteger(record.revision) || record.revision < 1) throw Error('Invalid adaptive record.');
-    if (record.root !== undefined && record.root !== root) throw Error('Adaptive record belongs to another project.');
+    if (record.root !== undefined && projectRoot(record.root) !== root) throw Error('Adaptive record belongs to another project.');
     return record;
   };
   const write = (path, value, revision = 0) => {

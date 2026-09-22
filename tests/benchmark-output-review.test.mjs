@@ -8,7 +8,7 @@ import { prepareTrial, runTrial, parseEvents, regressionSensitivity } from '../e
 
 function fixture(t) {
   // Spaces and apostrophes exercise TAP's quoted paths as well as normal paths.
-  const root = fs.realpathSync(fs.mkdtempSync(join(tmpdir(), "jv benchmark's review-")));
+  const root = fs.realpathSync.native(fs.mkdtempSync(join(tmpdir(), "jv benchmark's review-")));
   t.after(() => fs.rmSync(root, { recursive: true, force: true }));
   return root;
 }

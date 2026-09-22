@@ -1,6 +1,6 @@
 # Command reference
 
-220 shipped skill names; 3 aliases inherit canonical implementations. Commands run in the active host agent. Availability depends on task evidence and host permissions.
+221 shipped skill names; 3 aliases inherit canonical implementations. Commands run in the active host agent. Availability depends on task evidence and host permissions.
 
 ## General
 
@@ -299,6 +299,7 @@
 | [test-fixtures](../skills/test-fixtures/SKILL.md) | apply | Create representative, maintainable test data |
 | [test-load](../skills/test-load/SKILL.md) | plan | Execute bounded workloads against authorized environments |
 | [test-property](../skills/test-property/SKILL.md) | apply | Check invariants across generated inputs and edge cases |
+| [agent-qa](../skills/agent-qa/SKILL.md) | apply | Verify requested web-app outcomes through browser assertions, screenshots and bounded retests |
 
 ## Security
 

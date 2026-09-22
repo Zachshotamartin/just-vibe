@@ -48,7 +48,7 @@ test('formatter skips staged files and passes one literal authorized path withou
   assert.equal(result.results[0].result, 'skipped'); assert.equal(calls.length, 0); assert.deepEqual(readFileSync(join(root, '.git/index')), index);
   const other = join(root, 'new file.js'); writeFileSync(other, 'new');
   await handleHook({ cwd: root, hook_event_name: 'PostToolUse', tool_name: 'Edit', tool_input: { file_path: other } }, { home, run });
-  assert.deepEqual(calls[0], ['format', realpathSync(other)]); assert.deepEqual(readFileSync(join(root, '.git/index')), index);
+  assert.deepEqual(calls[0], ['format', realpathSync.native(other)]); assert.deepEqual(readFileSync(join(root, '.git/index')), index);
 });
 
 test('overlapping hooks run only once and untrust prevents later work', async t => {

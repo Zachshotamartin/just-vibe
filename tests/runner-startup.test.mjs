@@ -8,7 +8,7 @@ import { runners } from '../plugins/just-vibe/scripts/lib/trusted-runners.mjs';
 import { runtimeStore } from '../plugins/just-vibe/scripts/lib/runtime-store.mjs';
 
 function fixture(t) {
-  const root = realpathSync(mkdtempSync(join(tmpdir(), 'jv-startup-input-')));
+  const root = realpathSync.native(mkdtempSync(join(tmpdir(), 'jv-startup-input-')));
   t.after(() => rmSync(root, { recursive: true, force: true }));
   return { root, options: { home: join(root, 'home') } };
 }

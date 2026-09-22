@@ -11,7 +11,7 @@ import { runCommand } from '../plugins/just-vibe/scripts/lib/process.mjs';
 
 function fixture(t, alias = false) {
   const path = mkdtempSync(join(alias && process.platform === 'darwin' ? '/tmp' : tmpdir(), 'jv-runner-identity-'));
-  const directory = alias ? path : realpathSync(path);
+  const directory = alias ? path : realpathSync.native(path);
   t.after(() => rmSync(directory, { recursive: true, force: true }));
   const root = join(directory, 'project'), options = { home: join(directory, 'home') };
   mkdirSync(root);
@@ -80,7 +80,7 @@ test('regular script argv preserves exact execution and rejects changed inputs',
 
 test('aliased project roots and long inline Node arguments are valid runner configurations', async (t) => {
   const f = fixture(t, true);
-  if (process.platform === 'darwin') assert.notEqual(f.root, realpathSync(f.root));
+  if (process.platform === 'darwin') assert.notEqual(f.root, realpathSync.native(f.root));
   const commands = [
     [process.execPath, 'source.mjs'],
     [process.execPath, '--check', 'source.mjs'],

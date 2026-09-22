@@ -20,6 +20,9 @@ import { guidedSetup } from './lib/guided-setup.mjs';
 
 export const HELP = `${INSTALLER_HELP}
 Workflow utilities:
+  diagnose status       Observed hook, workflow and tool delivery stages
+  preferences <op>      Inspect, preview, edit, toggle and restore learned instructions
+  qa <operation>        Request-linked browser acceptance plans, runs and reports
   inventory / portfolio / sessions / behavior / mcp-health / runners
                         Configuration, skill maintenance, history, rules and trusted execution
   atlas / graph / usage / council / jobs / canary / evaluation

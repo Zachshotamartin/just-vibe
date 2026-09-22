@@ -22,5 +22,10 @@ export function commandInvocation(binary, args) {
     const script = resolve(dirname(executable), match[1]);
     if (existsSync(script)) return [process.execPath, [script, ...args]];
   }
+  // npm itself uses %~dp0 and a named CLI variable, unlike generated shims.
+  if (/^npm\.cmd$/i.test(executable.split(/[\\/]/).at(-1))) {
+    const script = resolve(dirname(executable), 'node_modules/npm/bin/npm-cli.js');
+    if (existsSync(script) && /npm-cli\.js/i.test(shim)) return [process.execPath, [script, ...args]];
+  }
   throw new Error(`Unsupported Windows command wrapper: ${executable}. Install the native executable or a standard npm CLI shim.`);
 }

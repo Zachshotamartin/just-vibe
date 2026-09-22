@@ -28,6 +28,8 @@ export function assistantHook(event, options = {}) {
   if (event.hook_event_name === 'UserPromptSubmit') {
     if (typeof event.prompt !== 'string' || event.prompt.length > 16000) return { systemMessage: 'just-vibe automatic routing skipped an oversized or unavailable prompt. Use the auto skill if needed.' };
     task = startRequest(store, catalog, { host, sessionId: event.session_id, turnId: event.turn_id, brief: event.prompt });
+    const runtime = runtimeStore(root, options), key = `hook-delivery-${host}`;
+    runtime.put(key, { at: new Date().toISOString(), event: event.hook_event_name, taskId: task.id || null }, runtime.get(key)?.revision || 0);
   } else {
     const session = store.read(store.sessionPath(host, event.session_id));
     if (session?.taskId) { try { task = store.task(session.taskId); } catch { return {}; } }

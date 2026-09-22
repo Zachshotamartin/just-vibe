@@ -15,7 +15,7 @@ const hash=value=>createHash('sha256').update(value).digest('hex');
 const git=(root,args)=>execFileSync('git',args,{cwd:root,encoding:'utf8',env:{...process.env,GIT_CONFIG_NOSYSTEM:'1',GIT_CONFIG_GLOBAL:process.platform==='win32'?'NUL':'/dev/null'}}).trimEnd();
 function sourceIdentity(){
   const root=fileURLToPath(new URL('../../',import.meta.url));
-  try{if(realpathSync(git(root,['rev-parse','--show-toplevel']))!==realpathSync(root))return {revision:null,dirty:null};return {revision:git(root,['rev-parse','HEAD']),dirty:Boolean(git(root,['status','--porcelain']))};}
+  try{if(realpathSync.native(git(root,['rev-parse','--show-toplevel']))!==realpathSync.native(root))return {revision:null,dirty:null};return {revision:git(root,['rev-parse','HEAD']),dirty:Boolean(git(root,['status','--porcelain']))};}
   catch{return {revision:null,dirty:null};}
 }
 export function snapshot(root) {
@@ -132,8 +132,8 @@ export function regressionSensitivity(language,result){
   return nodeRegressionFailure(result.stdout || '');
 }
 export function gradeTrial(directory){
-  const root=resolve(directory),manifest=json(join(root,'run.json')),workspace=realpathSync(join(root,'workspace'));
-  if(workspace!==realpathSync(manifest.workspace))throw Error('Workspace identity mismatch.');
+  const root=resolve(directory),manifest=json(join(root,'run.json')),workspace=realpathSync.native(join(root,'workspace'));
+  if(workspace!==realpathSync.native(manifest.workspace))throw Error('Workspace identity mismatch.');
   const current=snapshot(workspace),changed=[...new Set([...Object.keys(current),...Object.keys(manifest.inputs)])].filter(p=>current[p]!==manifest.inputs[p]);
   const checks=[{name:'only permitted files changed',pass:changed.every(p=>manifest.allowedWrites.includes(p))},{name:'no symlink artifacts',pass:!Object.values(current).includes('symlink')}];
   const fixture=cases.find(c=>c.id===manifest.case);const head=git(workspace,['rev-parse','HEAD']);

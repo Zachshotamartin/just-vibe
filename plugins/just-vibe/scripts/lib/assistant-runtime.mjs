@@ -122,7 +122,7 @@ export function loadWorkflow(store, catalog, payload) {
     const task = store.task(payload.taskId);
     if (!task.selected.includes(effective.workflow)) throw Error('Select this workflow for the task before loading it.');
     store.saveTask({ ...task, updatedAt: now(),
-      loaded: [...task.loaded.filter(l => l.workflow !== effective.workflow), { workflow: effective.workflow, effectiveHash: effective.effectiveHash, at: now() }],
+      loaded: [...task.loaded.filter(l => l.workflow !== effective.workflow), { workflow: effective.workflow, effectiveHash: effective.effectiveHash, lessons: effective.lessons.map(l => ({ id: l.id, version: l.version })), at: now() }],
       requirements: task.requirements.map(r => r.id === `${effective.workflow}:instructions` ? { ...r, evidence: { kind: 'runtime-load', effectiveHash: effective.effectiveHash, at: now(), summary: 'Effective workflow returned to the host. This establishes delivery, not model compliance.' } } : r) });
   }
   return effective;

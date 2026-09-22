@@ -19,7 +19,7 @@ async function waitFor(check, milliseconds = 10000) {
 }
 
 async function fixture(t) {
-  const directory = realpathSync(mkdtempSync(join(tmpdir(), 'jv-orchestration-cancel-')));
+  const directory = realpathSync.native(mkdtempSync(join(tmpdir(), 'jv-orchestration-cancel-')));
   const root = join(directory, 'project'), options = { home: join(directory, 'home') };
   const blocked = join(directory, 'setup-blocked'), release = join(directory, 'release-setup'), marker = join(directory, 'executed');
   mkdirSync(root);

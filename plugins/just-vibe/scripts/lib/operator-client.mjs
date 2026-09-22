@@ -1,5 +1,5 @@
 // Serialized into the nonce-protected local operator page; no server state is embedded.
-export function operatorClient() {
+export function operatorClient(learningClient) {
   let token = location.hash.slice(1);
   try {
     if (token) sessionStorage.setItem('just-vibe-operator-token', token);
@@ -35,6 +35,10 @@ export function operatorClient() {
       JSON.stringify(r).toLowerCase().includes(search.value.toLowerCase()),
     );
     status.textContent = filtered.length + ' records';
+    if (mode === 'learning') {
+      learningClient(filtered, { api, rows, status, reload: load });
+      return;
+    }
     for (const r of filtered) {
       const a = document.createElement('article'),
         h = document.createElement('h2'),
@@ -70,7 +74,13 @@ export function operatorClient() {
     const attempt = ++generation;
     status.textContent = 'Loading local records…';
     try {
-      if (mode === 'catalog') {
+      for (const id of ['work', 'catalog', 'learning']) document.getElementById(id).setAttribute('aria-pressed', String(mode === id));
+      if (mode === 'learning') {
+        document.querySelector('#install').hidden = true;
+        const data = await api('preferences');
+        if (attempt !== generation) return;
+        records = data.lessons;
+      } else if (mode === 'catalog') {
         const c = await api('catalog');
         if (attempt !== generation) return;
         document.querySelector('#install').hidden = !c.installationEnabled;
@@ -142,6 +152,7 @@ export function operatorClient() {
     mode = 'catalog';
     load();
   };
+  document.querySelector('#learning').onclick = () => { mode = 'learning'; load(); };
   document.querySelector('#refresh').onclick = load;
   search.oninput = draw;
   let installPreview = null,

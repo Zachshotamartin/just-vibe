@@ -24,7 +24,7 @@ import { operator } from '../plugins/just-vibe/scripts/lib/operator.mjs';
 import { processAlive, withFileLock, atomicFile } from '../plugins/just-vibe/scripts/lib/file-lock.mjs';
 const lib = pathToFileURL(resolve('plugins/just-vibe/scripts/lib/')).href + '/';
 function fixture(t) {
-  const base = fs.realpathSync(fs.mkdtempSync(join(tmpdir(), 'jv-regression-'))), root = join(base, 'project');
+  const base = fs.realpathSync.native(fs.mkdtempSync(join(tmpdir(), 'jv-regression-'))), root = join(base, 'project');
   fs.mkdirSync(root); t.after(() => fs.rmSync(base, { recursive: true, force: true }));
   return { base, root, options: { home: join(base, 'home') } };
 }

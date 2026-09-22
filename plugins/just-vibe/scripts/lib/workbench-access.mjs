@@ -1,6 +1,9 @@
 import { platformRuntime } from './platform-runtime.mjs';
 export const WORKBENCH_ACCESS = {
   read: {
+    diagnose: ['status'],
+    qa: ['list', 'show'],
+    preferences: ['list', 'preview'],
     telemetry: ['status', 'otlp', 'events'],
     connectors: ['list', 'show', 'preview'],
     updater: ['list', 'show'],
@@ -23,6 +26,8 @@ export const WORKBENCH_ACCESS = {
     services: ['available', 'list', 'show', 'logs'],
   },
   manage: {
+    qa: ['create', 'report'],
+    preferences: ['edit', 'toggle', 'rollback'],
     inventory: ['preview', 'apply', 'recover', 'restore'],
     portfolio: ['record', 'review', 'propose', 'resolve'],
     sessions: ['alias', 'import', 'capture', 'branch', 'forget'],
@@ -48,6 +53,7 @@ export const WORKBENCH_ACCESS = {
     ],
   },
   execute: {
+    qa: ['run'],
     'mcp-health': ['probe', 'observe', 'reconnect'],
     runners: ['run'],
     council: ['dispatch', 'collect', 'cancel'],

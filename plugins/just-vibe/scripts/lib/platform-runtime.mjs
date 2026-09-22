@@ -1,3 +1,6 @@
+import { diagnosis } from './diagnosis.mjs';
+import { agentQa } from './agent-qa.mjs';
+import { preferences } from './preferences.mjs';
 import { telemetry } from './telemetry.mjs';
 import { updater } from './updater.mjs';
 import { connectors } from './connectors.mjs';
@@ -38,6 +41,9 @@ import { quality } from './quality.mjs';
 import { securityAudit } from './security-audit.mjs';
 import { epic } from './github-coordination.mjs';
 export const PLATFORM_OPERATIONS = {
+  diagnose: ['status', 'trial'],
+  qa: ['list', 'create', 'show', 'report', 'run'],
+  preferences: ['list', 'preview', 'edit', 'toggle', 'rollback'],
   telemetry: ['status', 'otlp', 'events'],
   updater: ['check', 'list', 'preview', 'show', 'apply', 'resolve', 'rollback-preview'],
   connectors: ['list', 'show', 'preview', 'install', 'update', 'uninstall', 'doctor'],
@@ -176,6 +182,9 @@ export const PLATFORM_OPERATIONS = {
 export async function platformRuntime(family, root, operation, payload = {}, options = {}) {
   if (!PLATFORM_OPERATIONS[family]?.includes(operation))
     throw Error(`Unknown ${family} operation.`);
+  if (family === 'diagnose') return diagnosis(root, operation, payload, options);
+  if (family === 'qa') return agentQa(root, operation, payload, options);
+  if (family === 'preferences') return preferences(root, operation, payload, options);
   if (family === 'inventory') return inventory(root, operation, payload, options);
   if (family === 'portfolio') return portfolio(root, operation, payload, options);
   if (family === 'sessions') return sessions(root, operation, payload, options);

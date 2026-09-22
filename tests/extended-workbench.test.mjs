@@ -18,7 +18,7 @@ import { dependencyIoc } from '../plugins/just-vibe/scripts/lib/dependency-ioc.m
 import { gitHooks } from '../plugins/just-vibe/scripts/lib/git-hooks.mjs';
 import { workbenchCall } from '../plugins/just-vibe/scripts/lib/workbench-access.mjs';
 function fixture(t, git = false) {
-  const dir = realpathSync(mkdtempSync(join(tmpdir(), 'jv-extended-'))),
+  const dir = realpathSync.native(mkdtempSync(join(tmpdir(), 'jv-extended-'))),
     root = join(dir, 'project'),
     options = { home: join(dir, 'home') };
   mkdirSync(root);

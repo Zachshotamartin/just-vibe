@@ -11,7 +11,7 @@ import { runCommand } from '../plugins/just-vibe/scripts/lib/process.mjs';
 import { commandInvocation } from '../plugins/just-vibe/scripts/lib/command.mjs';
 
 test('updater executes actual pinned archives and rolls back the recorded installed version offline', { timeout: 120000 }, async t => {
-  const base=fs.realpathSync(fs.mkdtempSync(join(tmpdir(),'jv-archive-update-'))), root=join(base,'project'), source=join(base,'source');
+  const base=fs.realpathSync.native(fs.mkdtempSync(join(tmpdir(),'jv-archive-update-'))), root=join(base,'project'), source=join(base,'source');
   t.after(()=>fs.rmSync(base,{recursive:true,force:true}));fs.mkdirSync(root);fs.mkdirSync(source);
   const env={...process.env,npm_config_cache:join(base,'cache'),npm_config_offline:'true',npm_config_audit:'false',npm_config_fund:'false',npm_config_update_notifier:'false'};
   const npm=(args,cwd)=>{const [bin,argv]=commandInvocation('npm',args);return execFileSync(bin,argv,{cwd,env,encoding:'utf8',maxBuffer:4*1024*1024});};
