@@ -93,9 +93,9 @@ function nodeRegressionFailure(stdout) {
   // Read completed TAP diagnostics, not arbitrary terminal text or a process
   // exit alone. Both the authored test body and implementation must appear in
   // a non-assertion failure; import/setup and runner errors are not evidence.
-  for (const [, , body] of stdout.matchAll(/^([ \t]*)---\r?\n([\s\S]*?)^\1\.\.\.[ \t]*$/gm)) {
+  for (const [, , body] of stdout.matchAll(/^([ \t]*)---\r?\n([\s\S]*?)^\1\.\.\.[ \t]*\r?$/gm)) {
     const field = name => {
-      const raw = body.match(new RegExp(`^[ \\t]*${name}:[ \\t]*(.+)$`, 'm'))?.[1];
+      const raw = body.match(new RegExp(`^[ \\t]*${name}:[ \\t]*(.+)$`, 'm'))?.[1]?.trimEnd();
       if (raw?.startsWith("'") && raw.endsWith("'")) return raw.slice(1, -1).replaceAll("''", "'");
       if (raw?.startsWith('"')) { try { return JSON.parse(raw); } catch { return null; } }
       return raw;

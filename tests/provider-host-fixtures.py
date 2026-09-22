@@ -67,7 +67,7 @@ class ProviderContracts(unittest.TestCase):
         try:
             args = ['--provider','ollama','--model','fixture-model','--endpoint',f'http://127.0.0.1:{server.server_port}/api/chat']
             output = io.StringIO()
-            with patch('sys.stdin', io.StringIO('fixture prompt')), contextlib.redirect_stdout(output):
+            with patch('urllib.request.getproxies', side_effect=AssertionError('Loopback must bypass proxies')), patch('sys.stdin', io.StringIO('fixture prompt')), contextlib.redirect_stdout(output):
                 self.assertEqual(host.main(args), 0)
             self.assertEqual(output.getvalue(), 'visible fixture\n')
             self.assertEqual(requests[0]['messages'][0]['content'], 'fixture prompt')

@@ -121,7 +121,7 @@ test('session adapters exclude reasoning, handle corrupt lines and isolate proje
   assert.equal(r.sourceBound, true);
   sessions(f.root, 'alias', { alias: 'work', id: r.id, revision: 0 }, f.options);
   assert.equal(sessions(f.root, 'resume', { id: 'work' }, f.options).sourceFresh, true);
-  writeFileSync(join(f.root, 'session.jsonl'), source.replace(f.root, f.dir));
+  writeFileSync(join(f.root, 'session.jsonl'), source.replace(JSON.stringify(f.root), JSON.stringify(f.dir)));
   assert.throws(
     () =>
       sessions(

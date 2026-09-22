@@ -5,7 +5,7 @@ import { gitRead } from './project.mjs';
 import { withFileLock, atomicFile } from './file-lock.mjs';
 
 export const digest = value => createHash('sha256').update(value).digest('hex');
-export const projectRoot = root => realpathSync(resolve(root));
+export const projectRoot = root => realpathSync.native(resolve(root));
 export const privateName = name => /(?:^\.env(?:\.|$)|\.(?:pem|key|p12|pfx)$|credentials|secrets?\.)/i.test(name);
 
 export function within(root, path) {

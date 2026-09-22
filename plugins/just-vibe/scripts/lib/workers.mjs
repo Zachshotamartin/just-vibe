@@ -1,4 +1,4 @@
-import { existsSync, mkdirSync, writeFileSync, realpathSync } from 'node:fs';
+import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { randomUUID } from 'node:crypto';
 import { spawn } from 'node:child_process';
@@ -12,6 +12,7 @@ import {
   inheritMode,
   identities,
   repoIdentity,
+  sameDirectory,
   readRecord,
   stableJson,
 } from './workbench.mjs';
@@ -86,8 +87,10 @@ function assertOwned(store, job) {
     throw Error('Worker ownership mismatch.');
   const path = within(store.root, job.path);
   if (
-    realpathSync(resolve(path, git(path, ['rev-parse', '--git-common-dir']).trim())) !==
-    realpathSync(resolve(store.root, git(store.root, ['rev-parse', '--git-common-dir']).trim()))
+    !sameDirectory(
+      resolve(path, git(path, ['rev-parse', '--git-common-dir']).trim()),
+      resolve(store.root, git(store.root, ['rev-parse', '--git-common-dir']).trim()),
+    )
   )
     throw Error('Worker repository changed.');
   if (git(path, ['rev-parse', 'HEAD']).trim() !== job.head)

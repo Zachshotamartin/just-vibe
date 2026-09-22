@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 export function isDirectRun(moduleUrl, argument = process.argv[1]) {
   if (!argument) return false;
   try {
-    return realpathSync(argument) === realpathSync(fileURLToPath(moduleUrl));
+    return realpathSync.native(argument) === realpathSync.native(fileURLToPath(moduleUrl));
   } catch {
     // Imports from stdin/eval have no filesystem entry point.
     return false;

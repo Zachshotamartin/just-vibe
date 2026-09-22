@@ -4,7 +4,7 @@ import { delimiter, dirname, extname, isAbsolute, resolve } from 'node:path';
 export function findExecutable(name, env = process.env) {
   const directories = isAbsolute(name) ? [''] : (env.PATH || env.Path || '').split(delimiter).filter(Boolean);
   const extensions = process.platform === 'win32' && !extname(name)
-    ? ['', ...(env.PATHEXT || '.COM;.EXE;.BAT;.CMD').split(';')] : [''];
+    ? [...(env.PATHEXT || '.COM;.EXE;.BAT;.CMD').split(';'), ''] : [''];
   for (const dir of directories) for (const extension of extensions) {
     const path = resolve(dir, `${name}${extension}`);
     try { accessSync(path, constants.X_OK); if (statSync(path).isFile()) return path; } catch {}
