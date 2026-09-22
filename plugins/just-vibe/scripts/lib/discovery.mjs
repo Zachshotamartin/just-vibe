@@ -60,6 +60,17 @@ export function recommend(catalog, discovery, brief, { host = 'claude', limit = 
   if (typeof brief !== 'string' || !brief.trim()) throw new Error('A routing goal is required.');
   if (!Number.isInteger(limit) || limit < 1 || limit > 1000) throw Error('limit must be between 1 and 1000.');
   const signals = intentSignals(brief);
+  // An explicit prefix selects exactly one workflow, including auto/tools/help.
+  // Unknown names fail instead of falling through to incidental task keywords.
+  if (signals.explicit) {
+    const command = getCommand(catalog, signals.explicit.id, { canonical: true });
+    const candidate = { ...listTools(catalog, discovery, { query: command.id, host, all: true })[0],
+      matchedNames: [signals.explicit.id], selectionReasons: ['Workflow selected explicitly'] };
+    return { brief, commandBrief: signals.explicit.brief, invokedAs: signals.explicit.invocation,
+      executableHere: false, context, strategy: executionStrategy(brief, [candidate]), recommendations: [candidate],
+      confidence: 'explicit', instruction: 'Load the selected installed workflow; preserve its mode, constraints and host permissions. An invocation is not an authorization bypass.',
+      available: candidate.status === 'available' ? [candidate] : [], unavailable: candidate.status === 'available' ? [] : [candidate] };
+  }
   const query = signals.positive.trim();
   const matches = (/[a-z0-9]/i.test(query) ? listTools(catalog, discovery, { query, host, all: true, limit: catalog.commands.length }) : [])
     .filter(c => !['auto', 'do', 'help', 'tools', 'setup'].includes(c.id));

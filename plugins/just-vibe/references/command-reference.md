@@ -1,6 +1,6 @@
 # Command reference
 
-219 shipped skill names; 3 aliases inherit canonical implementations. Commands run in the active host agent. Availability depends on task evidence and host permissions.
+220 shipped skill names; 3 aliases inherit canonical implementations. Commands run in the active host agent. Availability depends on task evidence and host permissions.
 
 ## General
 
@@ -8,6 +8,7 @@
 |---|---|---|
 | [orient](../skills/orient/SKILL.md) | inspect | Identify stack, structure, conventions, and actual working commands |
 | [explain](../skills/explain/SKILL.md) | inspect | Explain code or behavior at the requested depth |
+| [reprompt](../skills/reprompt/SKILL.md) | inspect | Improve a prompt while preserving intent and incorporating relevant available skills |
 | [teach](../skills/teach/SKILL.md) | inspect | Teach a programming topic or the concepts needed to understand and implement a just-vibe workflow. |
 | [teach-test](../skills/teach-test/SKILL.md) | inspect | Quiz the user on a topic or workflow through native multiple-choice question dialogs, with feedback and adaptive practice. |
 | [trace](../skills/trace/SKILL.md) | inspect | Follow a request, event, or data value through the system |

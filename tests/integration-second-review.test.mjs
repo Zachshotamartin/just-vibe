@@ -10,6 +10,7 @@ import { stagedQuality } from '../plugins/just-vibe/scripts/lib/quality.mjs';
 import { runtimeStore } from '../plugins/just-vibe/scripts/lib/runtime-store.mjs';
 import { stageBundle } from '../plugins/just-vibe/scripts/lib/bundle.mjs';
 import { install, parseArgs } from '../plugins/just-vibe/scripts/installer.mjs';
+import { claudeShortcuts } from '../plugins/just-vibe/scripts/lib/claude-shortcuts.mjs';
 import { fixtureGit } from '../scripts/lib/host-fixture.mjs';
 import { releaseEnvironment } from '../scripts/lib/git.mjs';
 
@@ -133,7 +134,9 @@ test('native doctor detects missing, changed and added managed files without mod
       }
       throw Error('Doctor must not mutate the host');
     };
-    const doctor = () => install(parseArgs(['doctor', '--target', target]), { source, run, log() {} });
+    const shortcuts = (options, args) => claudeShortcuts(options, { ...args, root: join(base, 'claude-config') });
+    if (target === 'claude') shortcuts({ target, scope: 'user' }, { source, operation: 'install' });
+    const doctor = () => install(parseArgs(['doctor', '--target', target]), { source, run, shortcuts, log() {} });
     doctor();
     const file = join(source, 'plugins/just-vibe/scripts/lib/storage.mjs');
     const original = fs.readFileSync(file);

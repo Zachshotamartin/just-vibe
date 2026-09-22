@@ -35,7 +35,8 @@ function hostFixture(target = 'codex', initial = {}) {
     }
     return 'ok';
   };
-  return { state, calls, writes, run, log: () => {}, source: REPOSITORY };
+  return { state, calls, writes, run, log: () => {}, source: REPOSITORY,
+    shortcuts: () => ({ installed: true, conflicts: [], missing: [], outdated: [], interrupted: false, files: 222 }) };
 }
 
 for (const target of ['codex', 'claude']) {

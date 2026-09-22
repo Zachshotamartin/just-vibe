@@ -19,7 +19,13 @@ const domain = /\b(?:code|repo(?:sitory)?|file|bug|test|build|implement|refactor
 
 export function routeRequest(store, catalog, brief, { host = 'claude', previous } = {}) {
   textField(brief, 'Request', 16000);
-  const positive = intentSignals(brief).positive;
+  const signals = intentSignals(brief), positive = signals.positive;
+  // Explicit dispatch owns selection; learning and incidental words in the
+  // appended task must not redirect it. Outer prompt rewriting is equally clear.
+  if (signals.explicit || positive === 'reprompt') {
+    const route = recommend(catalog, discoverCapabilities(store.root), brief, { host: host === 'codex' ? 'codex' : 'claude' });
+    return { ...route, kind: 'task', follows: false, recommendations: route.recommendations.map(c => ({ id: c.id, summary: c.summary, reasons: c.selectionReasons, status: c.status })) };
+  }
   if (/\b(?:what (?:have you|did you) (?:learn|learned|remember)|show (?:me )?(?:my |saved )?(?:preferences|lessons)|(?:forget|retire|roll back|rollback) (?:that |the |a |my )?(?:lesson|preference)|(?:stop|disable|pause) (?:automatic assistance|learning))\b/i.test(brief)) {
     return { recommendations: [], kind: 'learning', brief };
   }

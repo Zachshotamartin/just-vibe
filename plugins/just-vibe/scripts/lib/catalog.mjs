@@ -1,6 +1,7 @@
 import { readFileSync, existsSync } from 'node:fs';
 import { resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { commandName, parseInvocation } from './invocation.mjs';
 
 export const pluginRoot = fileURLToPath(new URL('../../', import.meta.url));
 export const MODES = ['inspect', 'plan', 'apply'];
@@ -94,7 +95,7 @@ export function loadCatalog(root = pluginRoot) {
 }
 
 export function getCommand(catalog, id, { canonical = false } = {}) {
-  const name = id.replace(/^\/just-vibe:/, '').replace(/^\$/, '');
+  const name = commandName(id);
   let command = catalog.commands.find(c => c.id === name);
   if (!command) throw new Error(`Unknown workflow: ${name}. Use tools to search the catalog.`);
   if (canonical && command.aliasOf) command = catalog.commands.find(c => c.id === command.aliasOf);
@@ -138,7 +139,7 @@ function tokens(text) {
 export function searchCommands(catalog, query = '', { pack, limit = 1000 } = {}) {
   if (pack && !catalog.packs.some(p => p.id === pack)) throw new Error(`Unknown pack: ${pack}`);
   if (!Number.isInteger(limit) || limit < 1 || limit > 1000) throw new Error('limit must be between 1 and 1000.');
-  const exact = query.trim().toLowerCase().replace(/^\/just-vibe:/, '');
+  const exact = (parseInvocation(query)?.id || query.trim()).toLowerCase();
   const exactCommand = catalog.commands.find(c => c.id === exact && (!pack || c.pack === pack));
   if (exactCommand) return [{ command: exactCommand, score: 100 }];
   const exactPack = catalog.packs.find(p => p.id === exact.replace(/\s+/g, '-') || p.name.toLowerCase() === exact);

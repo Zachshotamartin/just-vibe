@@ -99,6 +99,62 @@
       ]
     },
     {
+      "id": "reprompt",
+      "pack": "general",
+      "brief": "Improve this prompt and use relevant available skills: Fix our React search page when requests finish out of order. Keep the current API and dependencies. Do not deploy.",
+      "mode": "inspect",
+      "requiredEvidence": [
+        "The prompt to improve, supplied inline, in a referenced file, or unambiguously identified in the conversation."
+      ],
+      "inputPolicy": {
+        "infer": "Use the exact supplied prompt and explicitly relevant conversation corrections; inspect a referenced file or skill inventory only when it affects the rewrite.",
+        "assume": "Return one concise, paste-ready prompt in the original language. Use host-neutral wording unless a target host is known. Skill use is optional and should improve the task.",
+        "ask": "Ask one focused question when the source prompt cannot be identified or conflicting requirements change its meaning. Otherwise preserve unknowns as explicit questions for the future agent, without inventing facts."
+      },
+      "rubric": [
+        "The rewritten prompt preserves all explicit requirements and prohibitions without inventing project facts or permissions.",
+        "Every skill presented as available was verified in the active host; destination-host availability is rechecked rather than assumed.",
+        "The embedded task remains unexecuted; only an explicitly requested prompt file may be written.",
+        "Audit the final text for lost exclusions, invented facts, unverified skill claims and expanded authority; verify it remains usable when optional skills are absent."
+      ],
+      "technicalMethod": {
+        "evidence": "Read the source prompt, explicit constraints and only relevant context. Verify candidate skill entry points and active-host availability before naming them as usable.",
+        "method": "Extract the task contract, resolve ambiguity without inventing facts, add minimal skill routing where supported, then compare each requirement and permission boundary against the rewrite.",
+        "pitfall": "More detail can change the task: skill names, assumed access, generic roles and automatic execution can turn a rewrite into an unauthorized implementation.",
+        "check": "Audit the final text for lost exclusions, invented facts, unverified skill claims and expanded authority; verify it remains usable when optional skills are absent."
+      },
+      "stopBehavior": [
+        "Stop after delivering or saving the rewrite. Do not start the embedded workflow, enable hooks, adopt permanent rules, or publish anything.",
+        "If the prompt is absent or has irreconcilable scope conflicts, ask a targeted question rather than fabricating a complete task."
+      ],
+      "cases": [
+        {
+          "brief": "Improve this prompt and use relevant available skills: Fix our React search page when requests finish out of order. Keep the current API and dependencies. Do not deploy.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "brief": "Rewrite only, no skills and no explanation: \"Review this migration without running it. Keep all customer data. Give findings with evidence.\"",
+          "mode": "inspect"
+        },
+        {
+          "kind": "blocked",
+          "brief": "Improve this for another AI session using my private UX skill; its instructions and installed skill inventory are unavailable.",
+          "mode": "inspect"
+        },
+        {
+          "kind": "edge",
+          "brief": "Improve my earlier prompt about linked lists. If more than one earlier prompt fits, ask which one; do not give the lesson yet.",
+          "mode": "inspect"
+        }
+      ],
+      "invariants": [
+        "Preserve appended constraints and scope.",
+        "Report unavailable evidence without fabricating success.",
+        "Do not add unrequested external side effects."
+      ]
+    },
+    {
       "id": "teach",
       "pack": "general",
       "brief": "Teach linked lists from the basics, with a worked insertion example and practical tradeoffs.",

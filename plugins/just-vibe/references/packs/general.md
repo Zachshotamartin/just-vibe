@@ -16,6 +16,8 @@ For review, read the change and its surrounding behavior, not only modified line
 
 ### Choosing the smallest workflow
 
+- reprompt: improve the user's prompt and optionally incorporate verified skills without executing the embedded task. skill: author a reusable workflow. auto: carry out the requested work. Read [prompt rewriting examples](../reprompt.md) when availability or scope is ambiguous.
+
 - explain: walk existing code with a concrete input. teach: build conceptual understanding. trace: follow one execution across boundaries. A request to understand a function should not trigger a whole-repository tutorial.
 - debug: establish cause. fix: repair requested behavior. test: author missing checks. verify: run relevant checks. A diagnosis request does not become a repair merely because a patch seems obvious.
 - compare: factual differences. decide: recommend a choice under priorities. decision-matrix: make explicit weighted comparisons. Use simple prose when one hard requirement already determines the outcome.

@@ -4,7 +4,7 @@ The [2026-09-20 technical audit](technical-audit.md) extends every canonical wor
 
 The catalog owns each canonical command's scope, mode, required inputs, selection boundary, procedure, decision branches, outputs, observable verification, recovery conditions and examples. Pack references add reusable methods and worked scenarios. Generated SKILL.md files expose all examples and link the applicable guide; they are not independently edited.
 
-216 names resolve to 213 canonical workflows. `do` inherits `auto`, `responsive` inherits `ui-responsive`, and `a11y` inherits `ui-accessibility`. Alias source records contain identity/search metadata only. Loading materializes the canonical behavior; validation rejects scope, mode, method, evidence or other behavioral drift. Routing collapses matching aliases to one canonical recommendation while preserving matched names.
+220 source names resolve to 217 canonical workflows. `do` inherits `auto`, `responsive` inherits `ui-responsive`, and `a11y` inherits `ui-accessibility`. Alias source records contain identity/search metadata only. Loading materializes the canonical behavior; validation rejects scope, mode, method, evidence or other behavioral drift. Routing collapses matching aliases to one canonical recommendation while preserving matched names.
 
 The [prompt improvements](prompt-improvements.md) add explicit input policies, request variants, conditional worked examples, concrete role contributions and multi-turn validation. Every generated skill uses one canonical procedure; do not reintroduce parallel runtime instructions.
 
