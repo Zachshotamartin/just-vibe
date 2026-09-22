@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "name": "just-vibe",
+  "version": "0.11.0",
+  "registry": "https://registry.npmjs.org/",
+  "sourceCommit": "a2ec29c16695d38f3eabff8f5e00e1c8305472f5",
+  "sha256": "afe8035c2854cb5604042741867d3c77e2872a00344073e49d0dbca35aac51fa",
+  "integrity": "sha512-NNMWt/t5ohs+sSyMRypt0Wxnwlsw8+QjX3ySIkiWHP0gmiOIzzzZj68rtcQrt2r5H7E92HSuuLQdIVA1DWULeg==",
+  "shasum": "e3ac2d33cb17859761adecf7e069bcd5eba86229",
+  "verifiedAt": "2026-09-22T00:27:08.399Z",
+  "distTag": "latest",
+  "registryExecution": "0.11.0",
+  "ci": {
+    "status": "waived",
+    "authorization": "Maintainer requested a new npm release after format testing, retaining the earlier instruction to use local checks while GitHub Actions minutes are unavailable.",
+    "reason": "Jobs could not start because of account billing/spending restrictions.",
+    "run": "https://github.com/Zachshotamartin/just-vibe/actions/runs/35671581514",
+    "scope": "0.11.0 only; normal publisher CI gate unchanged."
+  },
+  "localValidation": {
+    "tests": 400,
+    "passed": 399,
+    "failed": 0,
+    "skipped": 1,
+    "skipReason": "Windows-only test on macOS",
+    "releaseNode": "v24.21.0",
+    "skillsValidated": 220,
+    "archiveFiles": 796,
+    "archivePackageManagers": [
+      "npm",
+      "pnpm 10.14.0",
+      "pnpm 12.5.1",
+      "Yarn 4.18.0"
+    ],
+    "nativeHosts": {
+      "codex": "0.152.0",
+      "claude": "2.1.258",
+      "result": "Both isolated installation lifecycles passed"
+    },
+    "liveInvocations": {
+      "claude": {
+        "tested": 4,
+        "passed": 4,
+        "surface": "Native slash commands"
+      },
+      "codex": {
+        "tested": 4,
+        "passed": 4,
+        "surface": "CLI prompt text through installed plugin and trusted hooks; not custom slash-menu entries"
+      },
+      "limitations": "One Codex trial emitted extra tracking commentary; no broad prompt-quality or every-command behavioral claim."
+    },
+    "website": {
+      "pages": 355,
+      "tests": 4,
+      "result": "Manual Vercel production deployment succeeded; command shortcut guide inspected live at version 0.11.0."
+    },
+    "record": "0.11.0.md"
+  },
+  "publicationNote": "Published once after required browser verification. The accepted upload was allowed to finish registry processing without resubmission; integrity and fresh-cache execution were then verified."
+}
