@@ -63,10 +63,13 @@ function status(root, record) {
 }
 export function qaReport(root, record) {
   const result = status(root, record);
+  let embeddedBytes = 0;
   const render = attempt => `<section><h2>Attempt ${attempt.number} · ${escapeHtml(attempt.at)}</h2><p>${escapeHtml(attempt.reason)}</p>${attempt.results.map(r => {
     let picture = '';
     if (r.screenshot) try {
-      const bytes = readFileSync(safePath(root, r.screenshot.path, { managed: true }));
+      const file = safePath(root, r.screenshot.path, { managed: true });
+      if (lstatSync(file).size > 2 * 1024 * 1024 || embeddedBytes + lstatSync(file).size > 16 * 1024 * 1024) throw Error('Report image budget');
+      const bytes = readFileSync(file); embeddedBytes += bytes.length;
       if (digest(bytes) === r.screenshot.sha256) picture = `<img alt="${escapeHtml(r.criterion)} screenshot" src="data:image/png;base64,${bytes.toString('base64')}">`;
     } catch {}
     return `<h3>${escapeHtml(r.criterion)}: ${escapeHtml(r.result)}</h3><p>${escapeHtml(r.detail)}</p><pre>${escapeHtml(JSON.stringify(record.criteria.find(c => c.id === r.criterion), null, 2))}</pre>${picture}`;
@@ -154,6 +157,7 @@ export async function agentQa(root, operation, input = {}, options = {}) {
     if (!Number.isInteger(timeoutMs) || timeoutMs < 500 || timeoutMs > 15000) throw Error('Step timeout must be 500–15000 ms.');
     prior.criteria.forEach(c => validateCriterion(root, c));
     const attempt = { number: prior.attempts.length + 1, at: now(), reason: input.reason, target: prior.target, snapshot: fingerprint(root), verifier: 'bounded-playwright-runner', results: [] };
+    const reservation = saveRecord(root, 'agent-qa', prior.id, { ...prior, attempts: [...prior.attempts, { ...attempt, results: prior.criteria.map(c => ({ criterion: c.id, result: 'running', detail: 'Verification started; no completed result yet.' })) }] }, prior.revision);
     let browser, budgetTimer;
     const deadline = Date.now() + 120000;
     try {
@@ -168,7 +172,9 @@ export async function agentQa(root, operation, input = {}, options = {}) {
         if (c.kind === 'human') { attempt.results.push({ criterion: c.id, result: 'needs-human', detail: 'Subjective acceptance needs your judgment.' }); continue; }
         const context = await browser.newContext({ viewport: c.viewport, serviceWorkers: 'block', acceptDownloads: false });
         const allowedOrigin = new URL(prior.target).origin;
-        await context.route('**/*', route => new URL(route.request().url()).origin === allowedOrigin ? route.continue() : route.abort());
+        let blockedOrigin = false;
+        await context.route('**/*', route => { if (new URL(route.request().url()).origin === allowedOrigin) return route.continue(); blockedOrigin = true; return route.abort(); });
+        if (context.routeWebSocket) await context.routeWebSocket('**/*', socket => { blockedOrigin = true; socket.close(); });
         const page = await context.newPage(); page.setDefaultTimeout(timeoutMs); page.setDefaultNavigationTimeout(timeoutMs);
         const result = { criterion: c.id, result: 'passed', detail: 'All declared browser assertions passed.', completedSteps: 0 };
         try {
@@ -179,8 +185,10 @@ export async function agentQa(root, operation, input = {}, options = {}) {
           const path = `.just-vibe/qa-artifacts/${prior.id}/${attempt.number}-${c.id}-${randomUUID()}.png`;
           const full = within(root, path); mkdirSync(dirname(full), { recursive: true });
           const bytes = await page.screenshot({ path: full, fullPage: false, timeout: timeoutMs });
+          if (bytes.length > 2 * 1024 * 1024) throw Error('Screenshot exceeds report bound');
           result.screenshot = { path, sha256: digest(bytes) };
         } catch { result.screenshotUnavailable = true; }
+        if (blockedOrigin && result.result === 'failed') { result.result = 'blocked'; result.detail = 'A cross-origin request or WebSocket was blocked by the bounded runner. Verify the required dependency using authorized host browser tools. ' + result.detail; }
         attempt.results.push(result); await context.close();
       }
     } catch (error) {
@@ -188,6 +196,6 @@ export async function agentQa(root, operation, input = {}, options = {}) {
     } finally { clearTimeout(budgetTimer); if (browser) await browser.close().catch(() => {}); }
     const during = compareSnapshot(attempt.snapshot, fingerprint(root));
     if (during.stale) for (const result of attempt.results) { result.result = 'stale'; result.detail = 'Source changed during verification or snapshot coverage was incomplete.'; }
-    return qaReport(root, saveRecord(root, 'agent-qa', prior.id, { ...prior, attempts: [...prior.attempts, attempt] }, prior.revision));
+    return qaReport(root, saveRecord(root, 'agent-qa', prior.id, { ...prior, attempts: [...prior.attempts, attempt] }, reservation.revision));
   });
 }

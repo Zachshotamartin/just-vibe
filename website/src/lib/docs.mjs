@@ -1,4 +1,6 @@
 export const docs = [
+  { slug: 'agent-qa', title: 'Agent QA', description: 'Request-linked browser assertions, screenshots and retained retests.' },
+  { slug: 'preferences', title: 'Preferences and delivery diagnosis', description: 'Inspect, preview and restore learned instructions; verify host delivery.' },
   {
     slug: 'workbench',
     title: 'Local workbench and focused methods',

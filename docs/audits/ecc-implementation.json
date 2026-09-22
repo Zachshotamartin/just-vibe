@@ -260,7 +260,7 @@
         },
         {
           "path": "tests/provider-host-fixtures.py",
-          "sha256": "0d8c1ed9a8cb8dca8defe8d94279c8656b2ee0501bd89e65b0c11c147ebd4ec7"
+          "sha256": "1168475314240ca0bd79010ae1462b407000773ca99bb9156f593e80d16debc0"
         },
         {
           "path": "tests/expansion-contracts.test.mjs",
@@ -1929,7 +1929,7 @@
         },
         {
           "path": "tests/provider-host-fixtures.py",
-          "sha256": "0d8c1ed9a8cb8dca8defe8d94279c8656b2ee0501bd89e65b0c11c147ebd4ec7"
+          "sha256": "1168475314240ca0bd79010ae1462b407000773ca99bb9156f593e80d16debc0"
         },
         {
           "path": "tests/expansion-contracts.test.mjs",
@@ -2217,7 +2217,7 @@
         },
         {
           "path": ".github/workflows/publish.yml",
-          "sha256": "bbf290aea294981ddcb22bd9a9bb954623ca766a11b821f84a58dc3f30c5a88f"
+          "sha256": "ae790025dc1bf1bef7d318eb52cdfe12f19a6058e5b587bf477d3d3a55f7d4ad"
         },
         {
           "path": "plugins/just-vibe/references/methods/release-maintenance.md",

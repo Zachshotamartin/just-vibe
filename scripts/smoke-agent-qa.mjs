@@ -25,7 +25,7 @@ try {
   assert.deepEqual(failed.criteria.map(c => c.result), ['failed', 'passed', 'failed']);
   writeFileSync(join(root, 'index.html'), html(false));
   assert.equal((await agentQa(root, 'show', { id: 'audio' })).criteria[0].result, 'stale');
-  const fixed = await agentQa(root, 'run', { id: 'audio', revision: 2, reason: 'Repair processing and mobile width', authorizeTarget: target, timeoutMs: 3000 });
+  const fixed = await agentQa(root, 'run', { id: 'audio', revision: failed.revision, reason: 'Repair processing and mobile width', authorizeTarget: target, timeoutMs: 3000 });
   assert.equal(fixed.verdict, 'passed', JSON.stringify(fixed.criteria));
   assert.equal(fixed.attempts.length, 2); assert.equal(fixed.attempts[0].results[0].result, 'failed');
   for (const r of fixed.attempts.flatMap(a => a.results)) assert.ok(existsSync(join(root, r.screenshot.path)));

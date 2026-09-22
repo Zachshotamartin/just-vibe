@@ -16,7 +16,7 @@ npm run release:prepare
 
 `release:prepare` performs those checks, creates `dist/just-vibe-VERSION.tgz`, executes that exact archive through npm, pnpm 10/12 and Yarn 4 in temporary projects, checks persistence after cache removal, and writes a SHA-256 checksum plus a source-commit release record. It does not publish. Test helpers download pinned package-manager executables into temporary directories and do not replace your global tools.
 
-For installer changes, also run `npm run test:hosts`. This uses the real installed Codex and Claude CLIs with temporary configuration and managed-copy directories. It does not use your normal plugin configuration or call a model. Run `npm run test:hosts -- --local` for the development channel, and `-- --github` only after pushing the same version (private Git access required).
+For installer changes, also run `npm run test:hosts`. This uses the real installed Codex and Claude CLIs with temporary configuration and managed-copy directories. It does not use your normal plugin configuration or call a model. Run `npm run test:hosts -- --local` for the development channel, and `-- --github` only after pushing the same version (Git access required).
 
 The `prepublishOnly` hook runs `release:check` for directory-based `npm publish`. Publishing a tarball or using `--ignore-scripts` bypasses that hook. The release workflow separately validates the archive before using either.
 
@@ -30,25 +30,13 @@ The `prepublishOnly` hook runs `release:check` for directory-based `npm publish`
 
 Only publish code/assets you have the rights to distribute. Retain third-party notices if third-party code is added later. The current npm package has no runtime dependencies. All included code and workflow documents are covered by the included MIT notice unless a file states otherwise.
 
-## Subsequent GitHub releases with trusted publishing
+## Manual releases
 
-After the package exists, configure its npm **Settings → Trusted publishing**:
+Publication is deliberately manual. GitHub Actions runs the cross-platform checks; the manually dispatched `publish.yml` workflow only prepares and validates an archive. It has no publication step, npm credential or OIDC permission.
 
-- GitHub owner: `Zachshotamartin`
-- Repository: `just-vibe`
-- Workflow filename: `publish.yml`
-- Environment: leave blank (the workflow does not declare one)
-- Allow direct `npm publish` for this workflow.
+After the source commit passes CI, run `npm run release:prepare`, then `npm run release:publish -- --check` and `npm run release:publish -- --publish`. Use the personal `zachsm` account and complete npm's account verification when requested. Never place credentials in the repository.
 
-The workflow uses Node 24 and npm 12 with OIDC. It needs no long-lived npm token. Private GitHub repositories can publish public packages; npm provenance is disabled for private repositories because npm cannot generate it from private source. The workflow enables provenance automatically if the repository is later made public.
-
-Update `package.json`, both plugin manifests, the lockfile, and `CHANGELOG.md` together. Follow semantic versioning; during 0.x development, document breaking changes explicitly and increment the minor version. Published versions cannot be reused.
-
-Push the release commit and matching `vVERSION` tag. Run **Publish npm package** from that tag with **publish** checked. All six platform/Node checks must pass; the release job then builds and tests the exact archive, checks its checksum and tag, and publishes it. Leaving **publish** unchecked performs a rehearsal without publishing. Ordinary pushes and PRs never publish.
-
-If publication fails, check whether that exact version already exists before retrying. A successful upload followed by a failed verification still consumes the version. If a bad release is already live, publish a corrected new version and deprecate the affected one with a clear explanation.
-
-Official references: [npm publishing](https://docs.npmjs.com/creating-and-publishing-unscoped-public-packages/), [trusted publishing](https://docs.npmjs.com/trusted-publishers/), [semantic versioning](https://docs.npmjs.com/about-semantic-versioning/).
+After registry integrity and exact-version execution are verified, publish the corresponding website build so its generated `/release.json` describes the released package. Portfolio consumers validate its schema, fixed URLs, install command and monotonic version against a checked-in fallback, and confirm the version exists in npm before accepting an update.
 
 ## Maintainer exception for unavailable CI
 

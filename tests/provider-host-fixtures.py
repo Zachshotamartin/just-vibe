@@ -63,7 +63,14 @@ class ProviderContracts(unittest.TestCase):
                 self.end_headers()
                 self.wfile.write(body)
             def log_message(self, *args): pass
-        server = ThreadingHTTPServer(('127.0.0.1', 0), Handler)
+        # The fixture needs no reverse DNS; macOS hosted DNS can block getfqdn.
+        import socketserver
+        class LoopbackServer(ThreadingHTTPServer):
+            def server_bind(self):
+                socketserver.TCPServer.server_bind(self)
+                self.server_name = 'localhost'
+                self.server_port = self.server_address[1]
+        server = LoopbackServer(('127.0.0.1', 0), Handler)
         thread = threading.Thread(target=server.serve_forever, daemon=True)
         thread.start()
         try:
