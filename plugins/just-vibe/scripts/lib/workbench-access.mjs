@@ -27,7 +27,6 @@ export const WORKBENCH_ACCESS = {
   },
   manage: {
     qa: ['create', 'report'],
-    preferences: ['edit', 'toggle', 'rollback'],
     inventory: ['preview', 'apply', 'recover', 'restore'],
     portfolio: ['record', 'review', 'propose', 'resolve'],
     sessions: ['alias', 'import', 'capture', 'branch', 'forget'],

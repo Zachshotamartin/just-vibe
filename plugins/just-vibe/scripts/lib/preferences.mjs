@@ -64,7 +64,7 @@ export function preferences(root, operation, input = {}, options = {}) {
     const lesson = selected(store, input), change = draftChange(input.draft);
     if (lesson.history.length >= 50) throw Error('Lesson history is full; retire it and save a new instruction.');
     const version = lesson.history.length + 1, at = new Date().toISOString();
-    const source = { kind: 'explicit-edit', excerpt: change.instruction, messageHash: digest(JSON.stringify(change)), observedAt: at };
+    const source = { kind: 'explicit-edit', surface: options.preferenceSurface === 'operator' ? 'local-operator' : 'local-cli', excerpt: change.instruction, messageHash: digest(JSON.stringify(change)), observedAt: at };
     return store.write(`${lesson.scope === 'user' ? 'adaptive' : store.project}/learning/${lesson.id}.json`,
       { ...lesson, current: version, history: [...lesson.history, { version, at, feedback: 'correction', source, change }] }, lesson.revision);
   }

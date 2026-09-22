@@ -1,3 +1,6 @@
+import { assistantRuntime } from '../plugins/just-vibe/scripts/lib/assistant-runtime.mjs';
+import { loadCatalog } from '../plugins/just-vibe/scripts/lib/catalog.mjs';
+import { loadMethods } from '../plugins/just-vibe/scripts/lib/method-library.mjs';
 import { createRequire } from 'node:module';
 import { mkdtempSync, mkdirSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
@@ -25,6 +28,9 @@ await operator(
   },
   { home },
 );
+const task = assistantRuntime(root, 'start', { brief: 'Always check drawer behavior in this project.', host: 'codex', sessionId: 'operator-fixture' }, {home});
+assistantRuntime(root, 'feedback', { taskId:task.id, revision:0, scope:'project', kind:'correction', workflow:'ui-states', excerpt:task.userMessage, instruction:'Check drawer behavior.', triggers:['drawer behavior'] }, {home});
+const catalogSize = loadCatalog().commands.length + loadMethods().length;
 const app = await startOperatorServer(root, { home, allowInstall: true });
 const store = runtimeStore(root, { home }),
   initial = store.get('operator');
@@ -62,7 +68,7 @@ try {
     await page.getByRole('button', { name: 'Acknowledge', exact: true }).count();
     await page.getByRole('button', { name: 'Tool catalog', exact: true }).click();
     await page.waitForFunction(
-      () => document.querySelector('#status').textContent === '262 records',
+      size => document.querySelector('#status').textContent === size + ' records', catalogSize,
     );
     await page.locator('#search').fill('pytorch');
     await page.waitForFunction(() => document.querySelectorAll('#rows article').length === 1);
@@ -87,7 +93,26 @@ try {
       );
     await page.locator('#search').fill('nothing-will-match-this');
     if (await page.locator('#rows article').count()) throw Error('Empty filter failed');
-    checks.push({
+    await page.locator('#search').fill('');
+    await page.getByRole('button', {name:'Preferences',exact:true}).click();
+    await page.getByText('Edit and preview',{exact:true}).click();
+    await page.getByLabel('Instruction',{exact:true}).fill('Check drawer behavior and Escape.');
+    await page.getByLabel('Request that should select this workflow',{exact:true}).fill('Check drawer behavior');
+    await page.getByLabel('Request that should not select this workflow',{exact:true}).fill('Explain database indexes');
+    await page.getByRole('button',{name:'Preview examples',exact:true}).click();
+    await page.locator('#rows pre').filter({hasText:'Matches expectation'}).waitFor();
+    if(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth))throw Error('Preference editor overflows');
+    const preferencesAxe=await new AxeBuilder({page}).analyze();
+    if(preferencesAxe.violations.length)throw Error(JSON.stringify(preferencesAxe.violations));
+    await page.screenshot({path:join(directory,'preferences-'+name+'.png'),fullPage:true});
+    await page.getByRole('button',{name:'Save new version',exact:true}).click();
+    await page.locator('article > p').filter({hasText:'Edited in preferences'}).waitFor();
+    await page.getByRole('button',{name:'Disable',exact:true}).click();
+    await page.getByRole('button',{name:'Enable',exact:true}).waitFor();
+    await page.getByText('Version history and undo',{exact:true}).click();
+    await page.getByRole('button',{name:'Restore version 1',exact:true}).click();
+    await page.locator('article > p').filter({hasText:'version 1 · Enabled'}).waitFor();
+    checks.push({ preferences: true,
       name,
       width,
       overflow,

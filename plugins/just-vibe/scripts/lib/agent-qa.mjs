@@ -177,17 +177,21 @@ export async function agentQa(root, operation, input = {}, options = {}) {
         if (context.routeWebSocket) await context.routeWebSocket('**/*', socket => { blockedOrigin = true; socket.close(); });
         const page = await context.newPage(); page.setDefaultTimeout(timeoutMs); page.setDefaultNavigationTimeout(timeoutMs);
         const result = { criterion: c.id, result: 'passed', detail: 'All declared browser assertions passed.', completedSteps: 0 };
+        let targetLoaded = false;
         try {
-          await page.goto(new URL(c.path, prior.target).href, { waitUntil: 'domcontentloaded' });
+          const response = await page.goto(new URL(c.path, prior.target).href, { waitUntil: 'domcontentloaded' });
+          if ([401, 403].includes(response?.status())) throw Error('Target requires an authorized test session.');
+          targetLoaded = true;
           for (const step of c.steps) { await executeQaStep(page, step, root, timeoutMs); result.completedSteps++; }
-        } catch (error) { result.result = 'failed'; result.detail = redact(String(error.message)).slice(0, 2000); }
+        } catch (error) { result.result = targetLoaded ? 'failed' : 'blocked'; result.detail = redact(String(error.message)).slice(0, 2000); }
         try {
           const path = `.just-vibe/qa-artifacts/${prior.id}/${attempt.number}-${c.id}-${randomUUID()}.png`;
           const full = within(root, path); mkdirSync(dirname(full), { recursive: true });
           const bytes = await page.screenshot({ path: full, fullPage: false, timeout: timeoutMs });
           if (bytes.length > 2 * 1024 * 1024) throw Error('Screenshot exceeds report bound');
           result.screenshot = { path, sha256: digest(bytes) };
-        } catch { result.screenshotUnavailable = true; }
+        } catch { result.screenshotUnavailable = true; if (result.result === 'passed') { result.result = 'blocked'; result.detail = 'Browser assertions passed, but required screenshot evidence could not be captured.'; } }
+        result.networkRestrictionsObserved = blockedOrigin;
         if (blockedOrigin && result.result === 'failed') { result.result = 'blocked'; result.detail = 'A cross-origin request or WebSocket was blocked by the bounded runner. Verify the required dependency using authorized host browser tools. ' + result.detail; }
         attempt.results.push(result); await context.close();
       }

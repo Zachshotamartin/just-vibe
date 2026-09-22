@@ -25,7 +25,7 @@
         },
         {
           "path": "scripts/smoke-operator-browser.mjs",
-          "sha256": "9a71f2306b40e89245500d00c144370a6a070940318cff4fb13fe578e192d5e8"
+          "sha256": "6c8f6e4eb09d26f07b0e72f35f62af4633438ff4a6634e1765d4f34dfbc65398"
         },
         {
           "path": "tests/expansion-contracts.test.mjs",
@@ -1983,7 +1983,7 @@
         },
         {
           "path": "plugins/just-vibe/scripts/lib/operator-http.mjs",
-          "sha256": "bc72ca122573159a990b2879d544c8bc2bae7fd5d60bdd7f04f062517e247cd2"
+          "sha256": "a38ccff93b4b9f0e49b5bde8b8ecb74b9d1cf2c04b8e8ea59a75a33d5abe85f2"
         },
         {
           "path": "tests/expansion-contracts.test.mjs",
@@ -2213,7 +2213,7 @@
       "evidence": [
         {
           "path": ".github/workflows/ci.yml",
-          "sha256": "0ab571062e0c79b55b4f3f052710229c1a51d39356091489e9733d1950d3506a"
+          "sha256": "5164b59cd35a3c5eadc12eeb8c8cb1ec5ab24ee461aa5dc4f90ee3fa2e6e9710"
         },
         {
           "path": ".github/workflows/publish.yml",
@@ -2404,11 +2404,11 @@
       "evidence": [
         {
           "path": "plugins/just-vibe/scripts/lib/operator-http.mjs",
-          "sha256": "bc72ca122573159a990b2879d544c8bc2bae7fd5d60bdd7f04f062517e247cd2"
+          "sha256": "a38ccff93b4b9f0e49b5bde8b8ecb74b9d1cf2c04b8e8ea59a75a33d5abe85f2"
         },
         {
           "path": "scripts/smoke-operator-browser.mjs",
-          "sha256": "9a71f2306b40e89245500d00c144370a6a070940318cff4fb13fe578e192d5e8"
+          "sha256": "6c8f6e4eb09d26f07b0e72f35f62af4633438ff4a6634e1765d4f34dfbc65398"
         },
         {
           "path": "tests/expansion-contracts.test.mjs",

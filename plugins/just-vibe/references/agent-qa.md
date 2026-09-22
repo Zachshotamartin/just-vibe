@@ -4,7 +4,7 @@ Turn the original request into observable visitor outcomes before reading the im
 
 ## Execution choices
 
-Use the active host's browser tools to inspect actual controls. If the target project has Playwright and Chromium installed, the portable runtime executes a bounded plan. It uses fresh contexts, blocks service workers and cross-origin HTTP requests, and supports synthetic uploads, clicks, fills, visible text, playback progression and selected control geometry. A target depending on another API/CDN needs a host-browser check instead; a blocked dependency is not proof of a product defect.
+Use the active host's browser tools to inspect actual controls. If the target project has Playwright and Chromium installed, the portable runtime executes a bounded plan. It uses fresh contexts, blocks service workers, WebSockets and cross-origin HTTP requests, and supports synthetic uploads, clicks, fills, visible text, playback progression and selected control geometry. A target depending on another API/CDN needs a host-browser check instead; a blocked dependency is not proof of a product defect.
 
 The runtime does not install browser packages or start the app. Use existing project tooling, or install dependencies only if authorized. Browser interactions can change server state: use a local/staging fixture and synthetic data. Authorizing a target is not authorization for purchases, messages, destructive actions or real user uploads.
 
@@ -33,6 +33,8 @@ JSON
 Use `qa show` or `qa report` with `{"id":"audio-upload"}`. In MCP, `workbench_manage` supports family `qa` operations `create`/`report`; `workbench_read` supports `list`/`show`; `workbench_execute` supports `run` when execution authority is enabled. Ordinary verification does not grant execution authority automatically.
 
 ## Evidence and repair
+
+Each run has a two-minute total budget and records an in-progress attempt before opening a browser; an interrupted run cannot leave an earlier pass looking like its result. Missing screenshot evidence prevents a complete passing result.
 
 The report lives in `.just-vibe/reports/` and includes every attempt, screenshot, expected steps, failure detail and completed-step count. This count locates the failing step; it is not a quality score. Inspect screenshots for clipping or overlap outside the selected controls. Playback progression verifies playable media, not its perceptual quality or speaker identity.
 

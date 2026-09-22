@@ -1,3 +1,4 @@
+import { workbenchCall } from '../plugins/just-vibe/scripts/lib/workbench-access.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { mkdtempSync, mkdirSync, writeFileSync, rmSync } from 'node:fs';
@@ -16,6 +17,7 @@ async function fixture(t) {
 }
 test('preference preview is inert; edits retain provenance, disable and restore require current revision', async t => {
   const f = await fixture(t), { lesson } = f;
+  await assert.rejects(workbenchCall('manage', f.root, {family:'preferences',operation:'edit',payload:{}}, f.options), /unavailable/);
   const preview = f.run('preview', { id: lesson.id, revision: lesson.revision, draft: { instruction: 'Check keyboard focus.', triggers: ['flibbertigibbet'] }, cases: [{ brief: 'flibbertigibbet', expectedAffected: true }, { brief: 'hello', expectedAffected: false }] });
   assert.ok(preview.cases.every(c => c.matchesExpectation));
   assert.equal(f.run('list', {}).lessons[0].current, 1);

@@ -97,7 +97,7 @@ export async function startOperatorServer(root, options = {}) {
           object(data, ['operation', 'payload']);
           const permitted = url.pathname.endsWith('-preview') ? ['preview'] : ['edit', 'toggle', 'rollback'];
           if (!permitted.includes(data.operation)) throw Error('Unsupported preference action.');
-          res.end(JSON.stringify(preferences(root, data.operation, data.payload, options)));
+          res.end(JSON.stringify(preferences(root, data.operation, data.payload, { ...options, preferenceSurface: 'operator' })));
           return;
         }
         if (url.pathname.startsWith('/api/install-')) {
