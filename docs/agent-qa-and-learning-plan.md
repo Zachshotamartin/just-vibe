@@ -24,4 +24,6 @@ Requested September 21, 2026. Work is complete only when the acceptance evidence
 ## Progress
 
 - Planning: complete.
-- Implementation, behavioral verification, CI and publication: pending.
+- Implementation: complete for QA, preferences, previews, diagnosis, journeys, manifest consumption and manual-only release configuration.
+- Local browser, unit and live-host development evidence: [validation record](audits/agent-qa/validation.md); failed host trials are retained.
+- Final cross-platform CI, exact release archive validation and publication: in progress.

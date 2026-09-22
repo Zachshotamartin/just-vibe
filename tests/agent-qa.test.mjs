@@ -31,3 +31,25 @@ test('missing browser support is blocked, retained in reports and never passed; 
   assert.equal(retry.attempts.length, 2);
   await assert.rejects(agentQa(root, 'run', { id: 'upload', revision: retry.revision, reason: 'Extra', authorizeTarget: payload.target }), /budget/);
 });
+
+test('an interrupted browser run leaves an incomplete attempt rather than reusing earlier evidence', async t => {
+  const { root, payload } = fixture(t);
+  const { mkdirSync, existsSync } = await import('node:fs');
+  const { spawn } = await import('node:child_process');
+  mkdirSync(join(root, 'node_modules/playwright'), { recursive: true });
+  writeFileSync(join(root, 'node_modules/playwright/package.json'), '{"main":"index.cjs"}');
+  writeFileSync(join(root, 'node_modules/playwright/index.cjs'), "exports.chromium={launch:async()=>new Promise(()=>setInterval(()=>{},1000))};");
+  await agentQa(root, 'create', payload);
+  const moduleUrl = new URL('../plugins/just-vibe/scripts/lib/agent-qa.mjs', import.meta.url).href;
+  const code = `import {agentQa} from ${JSON.stringify(moduleUrl)}; await agentQa(${JSON.stringify(root)},'run',${JSON.stringify({id:'upload',revision:1,reason:'Interrupt fixture',authorizeTarget:payload.target})});`;
+  const child = spawn(process.execPath, ['--input-type=module', '-e', code], { stdio: 'ignore' });
+  const closed = new Promise((done, reject) => { child.on('close', done); child.on('error', reject); });
+  t.after(async () => { child.kill('SIGKILL'); await closed; });
+  const deadline=Date.now()+5000;
+  let pending;
+  while(Date.now()<deadline){pending=await agentQa(root,'show',{id:'upload'});if(pending.attempts.length)break;await new Promise(done=>setTimeout(done,20));}
+  assert.equal(pending.attempts.length,1);assert.equal(pending.criteria[0].result,'running');
+  child.kill('SIGKILL');await closed;
+  const report=await agentQa(root,'report',{id:'upload'});
+  assert.equal(report.verdict,'incomplete');assert.ok(existsSync(report.path));
+});

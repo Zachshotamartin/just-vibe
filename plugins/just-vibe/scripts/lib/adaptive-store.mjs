@@ -36,7 +36,7 @@ export function adaptiveStore(root, { home = process.env.JUST_VIBE_HOME || join(
           const full = within(home, prefix + '/' + path);
           if (!existsSync(full)) continue;
           const record = readJson(full, 1024 * 1024);
-          if (typeof record.root === 'string' && digest(record.root) === key && existsSync(record.root) && projectRoot(record.root) === root) { matches.push(prefix); break; }
+          if (typeof record.root === 'string' && existsSync(record.root) && projectRoot(record.root) === root) { matches.push(prefix); break; }
         }
       }
     }
