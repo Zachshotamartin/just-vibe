@@ -6,7 +6,7 @@ Engineering workflows, remembered preferences, and verifiable outcomes for codin
 
 Describe what you want normally. With supported, trusted host hooks, just-vibe suggests relevant workflows and directs the agent to load their methods and discover the tools it needs. Explicit corrections can refine later instructions. Current requests always take precedence, and saved preferences grant no permissions.
 
-**Release status:** npm currently has [0.11.0](https://www.npmjs.com/package/just-vibe/v/0.11.0). This branch prepares 0.12.0, including Agent QA, preference controls and live delivery diagnosis. Its source catalog has 221 skill names, 218 canonical workflows, 112 engineering profiles and 22 packs. See the [implementation and verification plan](docs/agent-qa-and-learning-plan.md). A source build is not evidence of publication.
+**Source version: 0.12.0**, including Agent QA, preference controls and live delivery diagnosis. The catalog has 221 skill names, 218 canonical workflows, 112 engineering profiles and 22 packs. Check [npm](https://www.npmjs.com/package/just-vibe) for published versions and the [implementation and verification plan](docs/agent-qa-and-learning-plan.md) for acceptance evidence. A source build is not evidence of publication.
 
 ## Install
 

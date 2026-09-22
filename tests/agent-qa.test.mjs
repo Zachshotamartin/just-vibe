@@ -17,6 +17,9 @@ test('QA plans require observable assertions, request quotes and bounded authori
   invalid.criteria[0] = { ...payload.criteria[0], sourceQuote: 'Not in request' };
   await assert.rejects(agentQa(root, 'create', invalid), /literal quotes/);
   await assert.rejects(agentQa(root, 'create', { ...payload, target: 'https://user:password@example.test/' }), /credentials/);
+  for (const viewport of [{}, { width: 390 }, { height: 844 }, { width: 390, height: 0 }]) {
+    await assert.rejects(agentQa(root, 'create', { ...payload, criteria: [{ ...payload.criteria[0], viewport }] }), /width and height/);
+  }
   const record = await agentQa(root, 'create', payload); assert.equal(record.revision, 1);
   await assert.rejects(agentQa(root, 'run', { id: 'upload', revision: 1, reason: 'Initial' }), /Authorize/);
   await assert.rejects(agentQa(root, 'run', { id: 'upload', revision: 0, reason: 'Initial', authorizeTarget: payload.target }), /revision/i);

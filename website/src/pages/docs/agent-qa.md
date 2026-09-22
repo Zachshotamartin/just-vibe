@@ -17,7 +17,7 @@ The agent translates your request into observable criteria, inspects the app's a
 
 When the target project has Playwright and Chromium, `just-vibe qa` provides a bounded browser runner. Otherwise the workflow can use your host's browser tools and retain their observations as reported evidence. It does not install dependencies or start another model service silently.
 
-The runner uses fresh browser contexts and same-origin HTTP requests. Use a local or staging app with synthetic fixtures. Apps requiring other API origins, authenticated sessions, or subjective audio/design judgments need additional host or human checks. Local source hashes cannot prove which version a remote server serves.
+The runner uses fresh browser contexts, allows same-origin HTTP requests, and blocks cross-origin requests and all WebSockets. Use a local or staging app with synthetic fixtures. Apps requiring other API origins, WebSockets, authenticated sessions, or subjective audio/design judgments need additional host or human checks. Local source hashes cannot prove which version a remote server serves.
 
 A separate runner is not a separate AI reviewer. The workflow labels self-review honestly and uses another verifier only when delegation is available and authorized. Repairs require your requested scope; QA does not grant permission to change production data or deploy.
 

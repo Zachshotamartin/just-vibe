@@ -30,7 +30,7 @@ function validateCriterion(root, c) {
   if (!['browser', 'human'].includes(c.kind)) throw Error('Criterion kind must be browser or human.');
   if (typeof c.path !== 'string' || !c.path.startsWith('/') || c.path.startsWith('//') || /[\\?#]/.test(c.path)) throw Error('Use a same-origin path without a query or fragment.');
   object(c.viewport, ['width', 'height']);
-  for (const v of Object.values(c.viewport)) if (!Number.isInteger(v) || v < 240 || v > 2560) throw Error('Viewport dimensions must be 240–2560.');
+  for (const v of [c.viewport.width, c.viewport.height]) if (!Number.isInteger(v) || v < 240 || v > 2560) throw Error('Viewport width and height must both be 240–2560.');
   if (!Array.isArray(c.steps) || c.steps.length > 30 || (c.kind === 'browser' && !c.steps.some(s => assertions.has(s.action)))) throw Error('Browser criteria require at least one assertion, with at most 30 steps.');
   for (const step of c.steps) {
     if (!actions[step.action]) throw Error('Unsupported browser step.');
@@ -53,7 +53,11 @@ function status(root, record) {
     const changes = compareSnapshot(attempt.snapshot, snapshot);
     let artifactChanged = false;
     if (result.screenshot) {
-      try { artifactChanged = digest(readFileSync(safePath(root, result.screenshot.path, { managed: true }))) !== result.screenshot.sha256; }
+      try {
+        const file = safePath(root, result.screenshot.path, { managed: true });
+        const stat = lstatSync(file);
+        artifactChanged = !stat.isFile() || stat.size > 2 * 1024 * 1024 || digest(readFileSync(file)) !== result.screenshot.sha256;
+      }
       catch { artifactChanged = true; }
     }
     return { ...c, ...result, result: changes.stale || artifactChanged ? 'stale' : result.result, staleReasons: [...changes.differences, ...(artifactChanged ? ['screenshot changed'] : [])] };

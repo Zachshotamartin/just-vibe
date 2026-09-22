@@ -5,6 +5,7 @@
 - Git commits use the name `Zachary Martin` and email `zachsm@alumni.stanford.edu`. Keep this repository's Git configuration local; do not change identities for unrelated repositories.
 - Verified service identities: GitHub `Zachshotamartin`, npm `zachsm`, and Vercel `zachsm-9644` in scope `zach-2267`. Confirm the account before authenticating or publishing if a session changes.
 - All changes belong to the user. Do not add agent self-attribution to commits, pull requests, release notes, or messages.
+- Keep npm releases manual through the CLI. GitHub Actions may validate and prepare an archive, but must not publish releases automatically or require trusted-publisher setup.
 
 # Website
 

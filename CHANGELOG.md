@@ -1,12 +1,12 @@
 # Changelog
 
-## 0.12.0 — release candidate
+## 0.12.0
 
 - Add request-derived Agent QA with bounded browser assertions, screenshots, stale-evidence checks and retained failure/retest history.
 - Add local preference editing, preview, disable and restoration controls with provenance and revision checks.
 - Add observed-delivery diagnosis and opt-in live journeys through correction and a fresh host session.
 - Generate release metadata from the canonical catalog for website and portfolio consumers.
-- Repair Windows path/shim handling and cross-platform test fixtures. CI and trusted publication evidence are recorded separately.
+- Repair Windows path/shim handling and cross-platform test fixtures. CI and manual publication evidence are recorded separately; GitHub Actions does not publish releases.
 
 ## 0.11.0
 

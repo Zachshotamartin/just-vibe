@@ -18,7 +18,7 @@ npm run release:prepare
 
 For installer changes, also run `npm run test:hosts`. This uses the real installed Codex and Claude CLIs with temporary configuration and managed-copy directories. It does not use your normal plugin configuration or call a model. Run `npm run test:hosts -- --local` for the development channel, and `-- --github` only after pushing the same version (Git access required).
 
-The `prepublishOnly` hook runs `release:check` for directory-based `npm publish`. Publishing a tarball or using `--ignore-scripts` bypasses that hook. The release workflow separately validates the archive before using either.
+The `prepublishOnly` hook runs `release:check` for directory-based `npm publish`. Publishing a tarball or using `--ignore-scripts` bypasses that hook. The manual CLI release procedure separately validates the archive before publication.
 
 ## First publication
 
