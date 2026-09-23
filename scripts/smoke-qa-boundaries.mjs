@@ -109,10 +109,16 @@ try {
   brokenExport = true;
   try {
     await assert.rejects(promisify(execFile)(process.execPath, ['--test', join(root, 'regression/acceptance.test.mjs')], { cwd: root, timeout: 30000 }), error => {
-      assert.match(error.stdout, /Expected visible text: Ready/);
+      assert.equal(error.code, 1);
+      assert.match(error.stdout, /executeQaStep/);
+      // Both errors reject the text assertion. A slower runner can exhaust the
+      // deadline while rechecking visibility instead of comparing the text.
+      assert.match(error.stdout, /Expected visible text: Ready|locator\.waitFor: Timeout \d+ms exceeded/);
       return true;
     }, 'Exported checks must also reject invisible completion text');
   } finally { brokenExport = false; }
+  const restored = await promisify(execFile)(process.execPath, ['--test', join(root, 'regression/acceptance.test.mjs')], { cwd: root, timeout: 30000 });
+  assert.match(restored.stdout, /pass 2/, 'The same exported test must pass after restoring visible completion text');
   await assert.rejects(agentQa(root,'export-test',{id:passed.id,revision:passed.revision,directory:'regression'}),/fresh passing|exist/);
   await plan('slow', criterion('complete', '/slow', [{ action: 'text', selector: 'p', contains: 'Complete' }]));
   const slow = await run('slow', { timeoutMs: 10000 });
