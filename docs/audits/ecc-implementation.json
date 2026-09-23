@@ -211,7 +211,7 @@
         },
         {
           "path": "tests/extended-workbench.test.mjs",
-          "sha256": "f173a0dfd6fed7da2eddd735a686c1c9ad79ad510d5122491685c2c47c0946ad"
+          "sha256": "b1c9fc4b7c93a7fd8236e80b1148da850567047187c6d812f69e17ee00c75a1b"
         }
       ],
       "verification": [
@@ -371,7 +371,7 @@
         },
         {
           "path": "tests/extended-workbench.test.mjs",
-          "sha256": "f173a0dfd6fed7da2eddd735a686c1c9ad79ad510d5122491685c2c47c0946ad"
+          "sha256": "b1c9fc4b7c93a7fd8236e80b1148da850567047187c6d812f69e17ee00c75a1b"
         },
         {
           "path": "tests/expansion-contracts.test.mjs",
@@ -711,7 +711,7 @@
         },
         {
           "path": "tests/extended-workbench.test.mjs",
-          "sha256": "f173a0dfd6fed7da2eddd735a686c1c9ad79ad510d5122491685c2c47c0946ad"
+          "sha256": "b1c9fc4b7c93a7fd8236e80b1148da850567047187c6d812f69e17ee00c75a1b"
         },
         {
           "path": "tests/release-regressions.test.mjs",
@@ -764,7 +764,7 @@
         },
         {
           "path": "tests/extended-workbench.test.mjs",
-          "sha256": "f173a0dfd6fed7da2eddd735a686c1c9ad79ad510d5122491685c2c47c0946ad"
+          "sha256": "b1c9fc4b7c93a7fd8236e80b1148da850567047187c6d812f69e17ee00c75a1b"
         }
       ],
       "verification": [
@@ -805,7 +805,7 @@
         },
         {
           "path": "tests/extended-workbench.test.mjs",
-          "sha256": "f173a0dfd6fed7da2eddd735a686c1c9ad79ad510d5122491685c2c47c0946ad"
+          "sha256": "b1c9fc4b7c93a7fd8236e80b1148da850567047187c6d812f69e17ee00c75a1b"
         },
         {
           "path": "tests/expansion-contracts.test.mjs",
@@ -921,7 +921,7 @@
         },
         {
           "path": "tests/extended-workbench.test.mjs",
-          "sha256": "f173a0dfd6fed7da2eddd735a686c1c9ad79ad510d5122491685c2c47c0946ad"
+          "sha256": "b1c9fc4b7c93a7fd8236e80b1148da850567047187c6d812f69e17ee00c75a1b"
         },
         {
           "path": "tests/release-regressions.test.mjs",
@@ -980,7 +980,7 @@
         },
         {
           "path": "tests/extended-workbench.test.mjs",
-          "sha256": "f173a0dfd6fed7da2eddd735a686c1c9ad79ad510d5122491685c2c47c0946ad"
+          "sha256": "b1c9fc4b7c93a7fd8236e80b1148da850567047187c6d812f69e17ee00c75a1b"
         },
         {
           "path": "tests/release-regressions.test.mjs",
@@ -1033,7 +1033,7 @@
         },
         {
           "path": "tests/extended-workbench.test.mjs",
-          "sha256": "f173a0dfd6fed7da2eddd735a686c1c9ad79ad510d5122491685c2c47c0946ad"
+          "sha256": "b1c9fc4b7c93a7fd8236e80b1148da850567047187c6d812f69e17ee00c75a1b"
         }
       ],
       "verification": [
@@ -2046,7 +2046,7 @@
         },
         {
           "path": "tests/extended-workbench.test.mjs",
-          "sha256": "f173a0dfd6fed7da2eddd735a686c1c9ad79ad510d5122491685c2c47c0946ad"
+          "sha256": "b1c9fc4b7c93a7fd8236e80b1148da850567047187c6d812f69e17ee00c75a1b"
         },
         {
           "path": "tests/expansion-contracts.test.mjs",
