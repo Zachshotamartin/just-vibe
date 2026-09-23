@@ -9,6 +9,8 @@ const starter = ['auto', 'fix', 'explain', 'reprompt', 'plan', 'review', 'test',
 // are source text, not explicit selection or authority to perform those actions.
 const promptRewrite = /^(?:(?:please|can you|could you|would you)\s+)*(?:reprompt\b|(?:improve|rewrite|rephrase|clarify|strengthen)\s+(?:(?:this|that|my|the|following|previous|last|our)\s+)?prompt(?=\s*(?:$|[:.!?\n]|\b(?:for|with|using|to|so|without|and|by|in)\b)))/i;
 const intents = [
+  { test: /^(?:please\s+)?(?:fix|repair|correct)\b(?=[\s\S]*(?:\b(?:bug|defect|function|method)\b|\.[cm]?[jt]sx?\b))/i, ids: ['fix'], boost: 25, reason: 'Repair an identified code defect and verify its behavior' },
+  { test: /\b(?:verify|check|test)\b[\s\S]*\b(?:visitor|user journey|upload|playback|acceptance)\b/i, ids: ['agent-qa', 'verify'], reason: 'Verify an observable visitor outcome in the browser' },
   { test: /\b(?:sql injection|xss|cross.site scripting|csrf|ssrf|path traversal|insecure deserialization|vulnerabilit(?:y|ies)|security review)\b/i, ids: ['security', 'review'], reason: 'Security review with a concrete vulnerability class' },
   { test: /\b(?:docker|container)\b.*\b(?:build|fail|broken|runtime)|\b(?:broken|fail)\w*\b.*\b(?:docker|container)\b/i, ids: ['ops-container'], reason: 'Container build or runtime diagnosis' },
   { test: /\b(?:mobile menu|hamburger|navigation menu|dropdown|responsive|layout|spacing|overlap)\b/i, ids: ['ui-states', 'ui-responsive'], reason: 'UI state and viewport behavior' },
@@ -72,7 +74,7 @@ export function rankCandidates(candidates, brief, context) {
     const reasons = [];
     let score = c.score;
     if (named.has(c.id) || c.matchedNames.some(id => named.has(id))) { score += 1000; reasons.push('Workflow named explicitly'); }
-    for (const rule of matches) if (rule.ids.includes(c.id)) { score += 45 - rule.ids.indexOf(c.id) * 8; reasons.push(rule.reason); }
+    for (const rule of matches) if (rule.ids.includes(c.id)) { score += (rule.boost ?? 45) - rule.ids.indexOf(c.id) * 8; reasons.push(rule.reason); }
     if (context.packs.includes(c.pack)) { score += 10; reasons.push(`Fits detected ${context.frameworks.join(', ')} project`); }
     if (c.status === 'available') { score += 3; reasons.push('Declared prerequisites observed'); }
     else reasons.push(`Prerequisites ${c.status}; inspect before execution`);

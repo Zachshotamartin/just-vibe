@@ -15,7 +15,7 @@ import { fixtureGit } from '../scripts/lib/host-fixture.mjs';
 import { releaseEnvironment } from '../scripts/lib/git.mjs';
 
 function fixture(t) {
-  const base = fs.realpathSync(fs.mkdtempSync(join(tmpdir(), 'jv-integrations-second-')));
+  const base = fs.realpathSync.native(fs.mkdtempSync(join(tmpdir(), 'jv-integrations-second-')));
   const root = join(base, 'project');
   fs.mkdirSync(root);
   t.after(() => fs.rmSync(base, { recursive: true, force: true }));

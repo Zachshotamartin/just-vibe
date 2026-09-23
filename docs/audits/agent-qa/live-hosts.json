@@ -1,0 +1,924 @@
+{
+  "observedAt": "2026-09-22T06:13:43.027Z",
+  "scope": "Author-created local fixtures and development builds. These observations do not establish reliability across arbitrary requests or services.",
+  "reports": [
+    {
+      "host": "codex",
+      "version": "codex-cli 0.152.0",
+      "turns": [
+        {
+          "phase": 1,
+          "sessionHash": "f3221b05ca012f736b07caa4f2e7b8bcf12bd3b029861c747664f2d709a45a7a",
+          "code": 0,
+          "timedOut": false,
+          "events": 36,
+          "nativeMcpCalls": 7,
+          "reportedError": false
+        },
+        {
+          "phase": 2,
+          "sessionHash": "f3221b05ca012f736b07caa4f2e7b8bcf12bd3b029861c747664f2d709a45a7a",
+          "code": 0,
+          "timedOut": false,
+          "events": 25,
+          "nativeMcpCalls": 6,
+          "reportedError": false
+        },
+        {
+          "phase": 3,
+          "sessionHash": "29baaa002fe15e88407b868c24c45f0d5d7fba154ba5a993f658012c56243b23",
+          "code": 0,
+          "timedOut": false,
+          "events": 36,
+          "nativeMcpCalls": 7,
+          "reportedError": false
+        },
+        {
+          "phase": 4,
+          "sessionHash": "29baaa002fe15e88407b868c24c45f0d5d7fba154ba5a993f658012c56243b23",
+          "code": 0,
+          "timedOut": false,
+          "events": 19,
+          "nativeMcpCalls": 4,
+          "reportedError": false
+        }
+      ],
+      "regression": true,
+      "automaticTasks": 4,
+      "selectedTasks": 4,
+      "ordinaryWorkflowLoaded": true,
+      "observedTools": [
+        "Bash",
+        "mcp__just_vibe__task_select",
+        "mcp__just_vibe__workflow_load",
+        "mcp__just_vibe__task_report",
+        "mcp__just_vibe__task_evidence",
+        "apply_patch"
+      ],
+      "savedProjectLessons": 1,
+      "freshSessionPreferenceLoaded": true,
+      "freshSessionUsed": true,
+      "noDependenciesAdded": true,
+      "diagnosis": {
+        "automaticEnabled": true,
+        "stages": [
+          {
+            "stage": "hook received",
+            "observed": true,
+            "evidence": [
+              {
+                "host": "codex",
+                "at": "2026-09-22T05:56:50.175Z",
+                "event": "UserPromptSubmit",
+                "taskId": "473c05cd-e153-4a96-8143-4eaf0a47aa4c"
+              }
+            ]
+          },
+          {
+            "stage": "workflow selected",
+            "observed": true,
+            "evidence": [
+              {
+                "taskId": "473c05cd-e153-4a96-8143-4eaf0a47aa4c",
+                "workflows": [
+                  "explain"
+                ],
+                "at": "2026-09-22T05:57:47.431Z"
+              },
+              {
+                "taskId": "bef3d221-f544-42db-bf9e-536bd5ef68b4",
+                "workflows": [
+                  "fix",
+                  "verify"
+                ],
+                "at": "2026-09-22T05:56:47.292Z"
+              },
+              {
+                "taskId": "d0c40105-174c-4267-8f22-e15bbb275d18",
+                "workflows": [
+                  "remember"
+                ],
+                "at": "2026-09-22T05:54:45.902Z"
+              },
+              {
+                "taskId": "a4a8ca76-bc86-477d-804f-127b606e6ed7",
+                "workflows": [
+                  "fix"
+                ],
+                "at": "2026-09-22T05:53:15.516Z"
+              }
+            ]
+          },
+          {
+            "stage": "workflow loaded",
+            "observed": true,
+            "evidence": [
+              {
+                "taskId": "473c05cd-e153-4a96-8143-4eaf0a47aa4c",
+                "loads": [
+                  {
+                    "workflow": "explain",
+                    "effectiveHash": "659124eb6518af2d72229dd22fc77674677cafe93b6b23b30692646bca398e39",
+                    "lessons": [],
+                    "at": "2026-09-22T05:57:14.530Z"
+                  }
+                ]
+              },
+              {
+                "taskId": "bef3d221-f544-42db-bf9e-536bd5ef68b4",
+                "loads": [
+                  {
+                    "workflow": "fix",
+                    "effectiveHash": "31d0a9319ae61ec827e209483323382d5a2b275498e11b401037865fd7ed8cbd",
+                    "lessons": [
+                      {
+                        "id": "ea52ad10-f69f-467b-af97-27148430edd7",
+                        "version": 1
+                      }
+                    ],
+                    "at": "2026-09-22T05:55:34.666Z"
+                  },
+                  {
+                    "workflow": "verify",
+                    "effectiveHash": "9dbfb4e34d84456b32ae2a3f66e0ec6deb949cfb94dd5db36ef781d9315d2aff",
+                    "lessons": [],
+                    "at": "2026-09-22T05:55:34.899Z"
+                  }
+                ]
+              },
+              {
+                "taskId": "d0c40105-174c-4267-8f22-e15bbb275d18",
+                "loads": [
+                  {
+                    "workflow": "remember",
+                    "effectiveHash": "640af5a897ef3959a9f6c271afed77acc56308372eb602af2e1fa7d8b08f82f7",
+                    "lessons": [],
+                    "at": "2026-09-22T05:53:47.188Z"
+                  }
+                ]
+              },
+              {
+                "taskId": "a4a8ca76-bc86-477d-804f-127b606e6ed7",
+                "loads": [
+                  {
+                    "workflow": "fix",
+                    "effectiveHash": "181cea651fad98d44bb18f86631b43baa4dc77400ed87ad0c7035dbc4a1ddfd6",
+                    "lessons": [],
+                    "at": "2026-09-22T05:51:54.488Z"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "stage": "tools observed",
+            "observed": true,
+            "evidence": [
+              {
+                "taskId": "473c05cd-e153-4a96-8143-4eaf0a47aa4c",
+                "tools": [
+                  "Bash",
+                  "mcp__just_vibe__task_select",
+                  "mcp__just_vibe__workflow_load",
+                  "mcp__just_vibe__task_report",
+                  "mcp__just_vibe__task_evidence"
+                ]
+              },
+              {
+                "taskId": "bef3d221-f544-42db-bf9e-536bd5ef68b4",
+                "tools": [
+                  "Bash",
+                  "mcp__just_vibe__task_select",
+                  "mcp__just_vibe__workflow_load",
+                  "apply_patch",
+                  "mcp__just_vibe__task_evidence",
+                  "mcp__just_vibe__task_report"
+                ]
+              },
+              {
+                "taskId": "d0c40105-174c-4267-8f22-e15bbb275d18",
+                "tools": [
+                  "Bash",
+                  "mcp__just_vibe__task_select",
+                  "mcp__just_vibe__workflow_load",
+                  "mcp__just_vibe__task_evidence",
+                  "mcp__just_vibe__task_report"
+                ]
+              },
+              {
+                "taskId": "a4a8ca76-bc86-477d-804f-127b606e6ed7",
+                "tools": [
+                  "Bash",
+                  "mcp__just_vibe__task_select",
+                  "mcp__just_vibe__workflow_load",
+                  "apply_patch",
+                  "mcp__just_vibe__task_report",
+                  "mcp__just_vibe__task_evidence"
+                ]
+              }
+            ]
+          }
+        ],
+        "next": "Review the task evidence and exact observation times. Loaded instructions establish delivery, not adherence or quality.",
+        "limitation": "Local runtime receipts can be replayed or edited; they are diagnostic observations, not host attestations. Historical records do not prove the current connection works. Run the opt-in live host journey for a fresh check."
+      },
+      "sourceChanged": [
+        "app.mjs",
+        "test.mjs"
+      ],
+      "status": "passed"
+    },
+    {
+      "host": "claude",
+      "version": "2.1.258 (Claude Code)",
+      "turns": [
+        {
+          "phase": 1,
+          "sessionHash": "52a30c30c201344081aacf950f0ecb70fe4522614f4f96c8ce87ad14d734b90d",
+          "code": 0,
+          "timedOut": false,
+          "events": 119,
+          "nativeMcpCalls": 3,
+          "reportedError": false
+        },
+        {
+          "phase": 2,
+          "sessionHash": "52a30c30c201344081aacf950f0ecb70fe4522614f4f96c8ce87ad14d734b90d",
+          "code": 0,
+          "timedOut": false,
+          "events": 109,
+          "nativeMcpCalls": 6,
+          "reportedError": false
+        },
+        {
+          "phase": 3,
+          "sessionHash": "546829a051a0e1d71779a2e7f388c8142c3b7a8a40d12460972e1f05d7bcc295",
+          "code": 1,
+          "timedOut": false,
+          "events": 149,
+          "nativeMcpCalls": 7,
+          "reportedError": true
+        }
+      ],
+      "regression": true,
+      "automaticTasks": 3,
+      "selectedTasks": 3,
+      "ordinaryWorkflowLoaded": true,
+      "observedTools": [
+        "Read",
+        "ToolSearch",
+        "mcp__just-vibe__task_select",
+        "mcp__just-vibe__workflow_load",
+        "Bash",
+        "Edit",
+        "mcp__just-vibe__task_evidence",
+        "Write",
+        "mcp__just-vibe__learning_status",
+        "mcp__just-vibe__feedback_record"
+      ],
+      "savedProjectLessons": 1,
+      "freshSessionPreferenceLoaded": true,
+      "freshSessionUsed": true,
+      "noDependenciesAdded": true,
+      "diagnosis": {
+        "automaticEnabled": true,
+        "stages": [
+          {
+            "stage": "hook received",
+            "observed": true,
+            "evidence": [
+              {
+                "host": "claude",
+                "at": "2026-09-22T05:52:11.377Z",
+                "event": "UserPromptSubmit",
+                "taskId": "2ee069fb-bf43-4cc6-b8c7-68f88b204e9a"
+              }
+            ]
+          },
+          {
+            "stage": "workflow selected",
+            "observed": true,
+            "evidence": [
+              {
+                "taskId": "2ee069fb-bf43-4cc6-b8c7-68f88b204e9a",
+                "workflows": [
+                  "fix",
+                  "verify"
+                ],
+                "at": "2026-09-22T05:53:12.708Z"
+              },
+              {
+                "taskId": "b586f798-711f-4318-8830-7a50aedb0694",
+                "workflows": [
+                  "remember"
+                ],
+                "at": "2026-09-22T05:52:09.433Z"
+              },
+              {
+                "taskId": "4039b6af-f465-449b-87ff-ace29d4bd258",
+                "workflows": [
+                  "fix"
+                ],
+                "at": "2026-09-22T05:50:58.876Z"
+              }
+            ]
+          },
+          {
+            "stage": "workflow loaded",
+            "observed": true,
+            "evidence": [
+              {
+                "taskId": "2ee069fb-bf43-4cc6-b8c7-68f88b204e9a",
+                "loads": [
+                  {
+                    "workflow": "fix",
+                    "effectiveHash": "c8337fc4496748b0458694a21bf66c05dddb52c9ca045280cea844840e0cbd83",
+                    "lessons": [
+                      {
+                        "id": "45bcc06d-41a7-4f64-a350-c2918da3fb61",
+                        "version": 1
+                      }
+                    ],
+                    "at": "2026-09-22T05:52:26.943Z"
+                  },
+                  {
+                    "workflow": "verify",
+                    "effectiveHash": "9dbfb4e34d84456b32ae2a3f66e0ec6deb949cfb94dd5db36ef781d9315d2aff",
+                    "lessons": [],
+                    "at": "2026-09-22T05:52:27.535Z"
+                  }
+                ]
+              },
+              {
+                "taskId": "b586f798-711f-4318-8830-7a50aedb0694",
+                "loads": [
+                  {
+                    "workflow": "remember",
+                    "effectiveHash": "640af5a897ef3959a9f6c271afed77acc56308372eb602af2e1fa7d8b08f82f7",
+                    "lessons": [],
+                    "at": "2026-09-22T05:51:32.141Z"
+                  }
+                ]
+              },
+              {
+                "taskId": "4039b6af-f465-449b-87ff-ace29d4bd258",
+                "loads": [
+                  {
+                    "workflow": "fix",
+                    "effectiveHash": "181cea651fad98d44bb18f86631b43baa4dc77400ed87ad0c7035dbc4a1ddfd6",
+                    "lessons": [],
+                    "at": "2026-09-22T05:50:22.114Z"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "stage": "tools observed",
+            "observed": true,
+            "evidence": [
+              {
+                "taskId": "2ee069fb-bf43-4cc6-b8c7-68f88b204e9a",
+                "tools": [
+                  "Read",
+                  "ToolSearch",
+                  "mcp__just-vibe__task_select",
+                  "mcp__just-vibe__workflow_load",
+                  "Bash",
+                  "Edit",
+                  "mcp__just-vibe__task_evidence"
+                ]
+              },
+              {
+                "taskId": "b586f798-711f-4318-8830-7a50aedb0694",
+                "tools": [
+                  "Read",
+                  "ToolSearch",
+                  "mcp__just-vibe__task_select",
+                  "mcp__just-vibe__learning_status",
+                  "mcp__just-vibe__workflow_load",
+                  "mcp__just-vibe__feedback_record",
+                  "Bash",
+                  "mcp__just-vibe__task_evidence"
+                ]
+              },
+              {
+                "taskId": "4039b6af-f465-449b-87ff-ace29d4bd258",
+                "tools": [
+                  "Read",
+                  "Bash",
+                  "ToolSearch",
+                  "mcp__just-vibe__task_select",
+                  "mcp__just-vibe__workflow_load",
+                  "Write",
+                  "Edit",
+                  "mcp__just-vibe__task_evidence"
+                ]
+              }
+            ]
+          }
+        ],
+        "next": "Review the task evidence and exact observation times. Loaded instructions establish delivery, not adherence or quality.",
+        "limitation": "Local runtime receipts can be replayed or edited; they are diagnostic observations, not host attestations. Historical records do not prove the current connection works. Run the opt-in live host journey for a fresh check."
+      },
+      "sourceChanged": [
+        "app.mjs",
+        "test.mjs"
+      ],
+      "status": "incomplete"
+    },
+    {
+      "host": "claude",
+      "version": "2.1.258 (Claude Code)",
+      "turns": [
+        {
+          "phase": 1,
+          "sessionHash": "12eb95c79c92f94da118aed4b80087500b1d8532ea85f236d3ee654947a21bf2",
+          "code": 0,
+          "timedOut": false,
+          "events": 145,
+          "nativeMcpCalls": 5,
+          "reportedError": false
+        },
+        {
+          "phase": 2,
+          "sessionHash": "12eb95c79c92f94da118aed4b80087500b1d8532ea85f236d3ee654947a21bf2",
+          "code": 0,
+          "timedOut": false,
+          "events": 102,
+          "nativeMcpCalls": 6,
+          "reportedError": false
+        },
+        {
+          "phase": 3,
+          "sessionHash": "a841da823166895b94a4a31fbf27138f35e7fa84bebc7e1f4e636a52138bf1bd",
+          "code": 0,
+          "timedOut": false,
+          "events": 132,
+          "nativeMcpCalls": 5,
+          "reportedError": false
+        },
+        {
+          "phase": 4,
+          "sessionHash": "a841da823166895b94a4a31fbf27138f35e7fa84bebc7e1f4e636a52138bf1bd",
+          "code": 0,
+          "timedOut": false,
+          "events": 109,
+          "nativeMcpCalls": 5,
+          "reportedError": false
+        }
+      ],
+      "regression": true,
+      "automaticTasks": 4,
+      "selectedTasks": 4,
+      "ordinaryWorkflowLoaded": true,
+      "observedTools": [
+        "ToolSearch",
+        "Glob",
+        "mcp__just-vibe__memory_search",
+        "mcp__just-vibe__lessons_read",
+        "mcp__just-vibe__task_select",
+        "Read",
+        "mcp__just-vibe__workflow_load",
+        "Bash",
+        "mcp__just-vibe__task_evidence",
+        "mcp__just-vibe__feedback_record",
+        "Edit",
+        "Write"
+      ],
+      "savedProjectLessons": 1,
+      "freshSessionPreferenceLoaded": false,
+      "freshSessionUsed": true,
+      "noDependenciesAdded": true,
+      "diagnosis": {
+        "automaticEnabled": true,
+        "stages": [
+          {
+            "stage": "hook received",
+            "observed": true,
+            "evidence": [
+              {
+                "host": "claude",
+                "at": "2026-09-22T06:01:18.465Z",
+                "event": "UserPromptSubmit",
+                "taskId": "0c2a3e9a-15a3-4487-a3e5-ee703a742939"
+              }
+            ]
+          },
+          {
+            "stage": "workflow selected",
+            "observed": true,
+            "evidence": [
+              {
+                "taskId": "0c2a3e9a-15a3-4487-a3e5-ee703a742939",
+                "workflows": [
+                  "explain"
+                ],
+                "at": "2026-09-22T06:02:23.707Z"
+              },
+              {
+                "taskId": "e25f0418-9a0c-486d-acdd-0381d41884bb",
+                "workflows": [
+                  "test-regression",
+                  "verify"
+                ],
+                "at": "2026-09-22T06:01:15.333Z"
+              },
+              {
+                "taskId": "1ea7a272-600f-4527-bfe5-c5fd7d24532c",
+                "workflows": [
+                  "remember"
+                ],
+                "at": "2026-09-22T05:59:59.495Z"
+              },
+              {
+                "taskId": "ab314350-3bc5-4ba1-bb20-13b5a97b3a34",
+                "workflows": [
+                  "fix",
+                  "test-regression"
+                ],
+                "at": "2026-09-22T05:58:48.341Z"
+              }
+            ]
+          },
+          {
+            "stage": "workflow loaded",
+            "observed": true,
+            "evidence": [
+              {
+                "taskId": "0c2a3e9a-15a3-4487-a3e5-ee703a742939",
+                "loads": [
+                  {
+                    "workflow": "explain",
+                    "effectiveHash": "659124eb6518af2d72229dd22fc77674677cafe93b6b23b30692646bca398e39",
+                    "lessons": [],
+                    "at": "2026-09-22T06:01:55.057Z"
+                  }
+                ]
+              },
+              {
+                "taskId": "e25f0418-9a0c-486d-acdd-0381d41884bb",
+                "loads": [
+                  {
+                    "workflow": "test-regression",
+                    "effectiveHash": "59535d100fb5065919ef0d41d49aa6797a2195a0571ae0497de82d66f5df7553",
+                    "lessons": [],
+                    "at": "2026-09-22T06:00:27.881Z"
+                  },
+                  {
+                    "workflow": "verify",
+                    "effectiveHash": "9dbfb4e34d84456b32ae2a3f66e0ec6deb949cfb94dd5db36ef781d9315d2aff",
+                    "lessons": [],
+                    "at": "2026-09-22T06:00:46.697Z"
+                  }
+                ]
+              },
+              {
+                "taskId": "1ea7a272-600f-4527-bfe5-c5fd7d24532c",
+                "loads": [
+                  {
+                    "workflow": "remember",
+                    "effectiveHash": "640af5a897ef3959a9f6c271afed77acc56308372eb602af2e1fa7d8b08f82f7",
+                    "lessons": [],
+                    "at": "2026-09-22T05:59:14.377Z"
+                  }
+                ]
+              },
+              {
+                "taskId": "ab314350-3bc5-4ba1-bb20-13b5a97b3a34",
+                "loads": [
+                  {
+                    "workflow": "fix",
+                    "effectiveHash": "181cea651fad98d44bb18f86631b43baa4dc77400ed87ad0c7035dbc4a1ddfd6",
+                    "lessons": [],
+                    "at": "2026-09-22T05:58:02.515Z"
+                  },
+                  {
+                    "workflow": "test-regression",
+                    "effectiveHash": "59535d100fb5065919ef0d41d49aa6797a2195a0571ae0497de82d66f5df7553",
+                    "lessons": [],
+                    "at": "2026-09-22T05:58:04.602Z"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "stage": "tools observed",
+            "observed": true,
+            "evidence": [
+              {
+                "taskId": "0c2a3e9a-15a3-4487-a3e5-ee703a742939",
+                "tools": [
+                  "ToolSearch",
+                  "Glob",
+                  "mcp__just-vibe__memory_search",
+                  "mcp__just-vibe__lessons_read",
+                  "mcp__just-vibe__task_select",
+                  "Read",
+                  "mcp__just-vibe__workflow_load",
+                  "Bash",
+                  "mcp__just-vibe__task_evidence"
+                ]
+              },
+              {
+                "taskId": "e25f0418-9a0c-486d-acdd-0381d41884bb",
+                "tools": [
+                  "Read",
+                  "Edit",
+                  "Bash",
+                  "ToolSearch",
+                  "mcp__just-vibe__task_select",
+                  "mcp__just-vibe__workflow_load",
+                  "mcp__just-vibe__task_evidence"
+                ]
+              },
+              {
+                "taskId": "1ea7a272-600f-4527-bfe5-c5fd7d24532c",
+                "tools": [
+                  "Read",
+                  "ToolSearch",
+                  "mcp__just-vibe__task_select",
+                  "mcp__just-vibe__lessons_read",
+                  "mcp__just-vibe__workflow_load",
+                  "mcp__just-vibe__feedback_record",
+                  "Bash",
+                  "mcp__just-vibe__task_evidence"
+                ]
+              },
+              {
+                "taskId": "ab314350-3bc5-4ba1-bb20-13b5a97b3a34",
+                "tools": [
+                  "Read",
+                  "Edit",
+                  "Write",
+                  "Bash",
+                  "ToolSearch",
+                  "mcp__just-vibe__task_select",
+                  "mcp__just-vibe__workflow_load",
+                  "mcp__just-vibe__task_evidence"
+                ]
+              }
+            ]
+          }
+        ],
+        "next": "Review the task evidence and exact observation times. Loaded instructions establish delivery, not adherence or quality.",
+        "limitation": "Local runtime receipts can be replayed or edited; they are diagnostic observations, not host attestations. Historical records do not prove the current connection works. Run the opt-in live host journey for a fresh check."
+      },
+      "sourceChanged": [
+        "app.mjs",
+        "test.mjs"
+      ],
+      "status": "incomplete"
+    },
+    {
+      "host": "claude",
+      "version": "2.1.258 (Claude Code)",
+      "turns": [
+        {
+          "phase": 1,
+          "sessionHash": "c2e331cbc750b57a596b1ddd4c6d0c6d2ed3a88f17886cbd49df925ac0cfd549",
+          "code": 0,
+          "timedOut": false,
+          "events": 156,
+          "nativeMcpCalls": 8,
+          "reportedError": false
+        },
+        {
+          "phase": 2,
+          "sessionHash": "c2e331cbc750b57a596b1ddd4c6d0c6d2ed3a88f17886cbd49df925ac0cfd549",
+          "code": 0,
+          "timedOut": false,
+          "events": 110,
+          "nativeMcpCalls": 9,
+          "reportedError": false
+        },
+        {
+          "phase": 3,
+          "sessionHash": "e1f322dec345f8e7fa2ce6c30bc6f507d734d4c57ccf97412a5ff410a95f1e31",
+          "code": 0,
+          "timedOut": false,
+          "events": 121,
+          "nativeMcpCalls": 7,
+          "reportedError": false
+        },
+        {
+          "phase": 4,
+          "sessionHash": "e1f322dec345f8e7fa2ce6c30bc6f507d734d4c57ccf97412a5ff410a95f1e31",
+          "code": 0,
+          "timedOut": false,
+          "events": 89,
+          "nativeMcpCalls": 4,
+          "reportedError": false
+        }
+      ],
+      "regression": true,
+      "automaticTasks": 4,
+      "selectedTasks": 4,
+      "ordinaryWorkflowLoaded": true,
+      "observedTools": [
+        "Read",
+        "Edit",
+        "ToolSearch",
+        "mcp__just-vibe__task_select",
+        "Write",
+        "Bash",
+        "mcp__just-vibe__task_evidence",
+        "mcp__just-vibe__workflow_load",
+        "mcp__just-vibe__learning_status",
+        "mcp__just-vibe__feedback_record",
+        "mcp__just-vibe__lessons_read",
+        "Glob"
+      ],
+      "savedProjectLessons": 1,
+      "freshSessionPreferenceLoaded": true,
+      "freshSessionUsed": true,
+      "noDependenciesAdded": true,
+      "diagnosis": {
+        "automaticEnabled": true,
+        "stages": [
+          {
+            "stage": "hook received",
+            "observed": true,
+            "evidence": [
+              {
+                "host": "claude",
+                "at": "2026-09-22T06:09:36.469Z",
+                "event": "UserPromptSubmit",
+                "taskId": "6b4af6b4-b4f5-4f95-b4f4-1b6e781a767c"
+              }
+            ]
+          },
+          {
+            "stage": "workflow selected",
+            "observed": true,
+            "evidence": [
+              {
+                "taskId": "6b4af6b4-b4f5-4f95-b4f4-1b6e781a767c",
+                "workflows": [
+                  "explain"
+                ],
+                "at": "2026-09-22T06:10:29.781Z"
+              },
+              {
+                "taskId": "6bb535dd-7815-4c72-b76d-beb91671c1bf",
+                "workflows": [
+                  "fix",
+                  "test-regression"
+                ],
+                "at": "2026-09-22T06:09:34.524Z"
+              },
+              {
+                "taskId": "546690cb-958b-4f3a-a11a-54eba1db7b39",
+                "workflows": [
+                  "remember"
+                ],
+                "at": "2026-09-22T06:08:39.575Z"
+              },
+              {
+                "taskId": "2d768806-0e81-4787-86bf-a3fc9d00462d",
+                "workflows": [
+                  "fix",
+                  "test-regression"
+                ],
+                "at": "2026-09-22T06:07:39.812Z"
+              }
+            ]
+          },
+          {
+            "stage": "workflow loaded",
+            "observed": true,
+            "evidence": [
+              {
+                "taskId": "6b4af6b4-b4f5-4f95-b4f4-1b6e781a767c",
+                "loads": [
+                  {
+                    "workflow": "explain",
+                    "effectiveHash": "659124eb6518af2d72229dd22fc77674677cafe93b6b23b30692646bca398e39",
+                    "lessons": [],
+                    "at": "2026-09-22T06:10:00.139Z"
+                  }
+                ]
+              },
+              {
+                "taskId": "6bb535dd-7815-4c72-b76d-beb91671c1bf",
+                "loads": [
+                  {
+                    "workflow": "fix",
+                    "effectiveHash": "d2d69f024260560671e719cc261d94818b1e79cfe77a276377f75acc51c15412",
+                    "lessons": [
+                      {
+                        "id": "a6c206fa-8f71-42d2-89a5-fd27634fbdf7",
+                        "version": 1
+                      }
+                    ],
+                    "at": "2026-09-22T06:08:53.896Z"
+                  },
+                  {
+                    "workflow": "test-regression",
+                    "effectiveHash": "59535d100fb5065919ef0d41d49aa6797a2195a0571ae0497de82d66f5df7553",
+                    "lessons": [],
+                    "at": "2026-09-22T06:08:57.072Z"
+                  }
+                ]
+              },
+              {
+                "taskId": "546690cb-958b-4f3a-a11a-54eba1db7b39",
+                "loads": [
+                  {
+                    "workflow": "remember",
+                    "effectiveHash": "640af5a897ef3959a9f6c271afed77acc56308372eb602af2e1fa7d8b08f82f7",
+                    "lessons": [],
+                    "at": "2026-09-22T06:08:03.133Z"
+                  }
+                ]
+              },
+              {
+                "taskId": "2d768806-0e81-4787-86bf-a3fc9d00462d",
+                "loads": [
+                  {
+                    "workflow": "fix",
+                    "effectiveHash": "181cea651fad98d44bb18f86631b43baa4dc77400ed87ad0c7035dbc4a1ddfd6",
+                    "lessons": [],
+                    "at": "2026-09-22T06:06:56.554Z"
+                  },
+                  {
+                    "workflow": "test-regression",
+                    "effectiveHash": "59535d100fb5065919ef0d41d49aa6797a2195a0571ae0497de82d66f5df7553",
+                    "lessons": [],
+                    "at": "2026-09-22T06:06:57.225Z"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "stage": "tools observed",
+            "observed": true,
+            "evidence": [
+              {
+                "taskId": "6b4af6b4-b4f5-4f95-b4f4-1b6e781a767c",
+                "tools": [
+                  "mcp__just-vibe__task_select",
+                  "ToolSearch",
+                  "Read",
+                  "mcp__just-vibe__workflow_load",
+                  "mcp__just-vibe__lessons_read",
+                  "Bash",
+                  "Glob",
+                  "mcp__just-vibe__task_evidence"
+                ]
+              },
+              {
+                "taskId": "6bb535dd-7815-4c72-b76d-beb91671c1bf",
+                "tools": [
+                  "Read",
+                  "ToolSearch",
+                  "mcp__just-vibe__task_select",
+                  "mcp__just-vibe__workflow_load",
+                  "Edit",
+                  "Bash",
+                  "Glob",
+                  "mcp__just-vibe__task_evidence"
+                ]
+              },
+              {
+                "taskId": "546690cb-958b-4f3a-a11a-54eba1db7b39",
+                "tools": [
+                  "Read",
+                  "ToolSearch",
+                  "mcp__just-vibe__task_select",
+                  "mcp__just-vibe__learning_status",
+                  "mcp__just-vibe__workflow_load",
+                  "mcp__just-vibe__feedback_record",
+                  "mcp__just-vibe__lessons_read",
+                  "mcp__just-vibe__task_evidence"
+                ]
+              },
+              {
+                "taskId": "2d768806-0e81-4787-86bf-a3fc9d00462d",
+                "tools": [
+                  "Read",
+                  "Edit",
+                  "ToolSearch",
+                  "mcp__just-vibe__task_select",
+                  "Write",
+                  "Bash",
+                  "mcp__just-vibe__task_evidence",
+                  "mcp__just-vibe__workflow_load"
+                ]
+              }
+            ]
+          }
+        ],
+        "next": "Review the task evidence and exact observation times. Loaded instructions establish delivery, not adherence or quality.",
+        "limitation": "Local runtime receipts can be replayed or edited; they are diagnostic observations, not host attestations. Historical records do not prove the current connection works. Run the opt-in live host journey for a fresh check."
+      },
+      "sourceChanged": [
+        "app.mjs",
+        "test.mjs"
+      ],
+      "status": "passed"
+    }
+  ]
+}

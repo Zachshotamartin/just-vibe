@@ -1,5 +1,5 @@
 // Serialized into the nonce-protected local operator page; no server state is embedded.
-export function operatorClient() {
+export function operatorClient(learningClient, contextClient) {
   let token = location.hash.slice(1);
   try {
     if (token) sessionStorage.setItem('just-vibe-operator-token', token);
@@ -8,9 +8,11 @@ export function operatorClient() {
   } catch {
     /* Keep the private fragment when session storage is unavailable. */
   }
+  const state = {};
   let mode = 'work',
     records = [],
-    generation = 0;
+    generation = 0,
+    loadedMode = null;
   const status = document.querySelector('#status'),
     rows = document.querySelector('#rows'),
     search = document.querySelector('#search');
@@ -31,10 +33,19 @@ export function operatorClient() {
   }
   function draw() {
     rows.replaceChildren();
+    if (loadedMode !== mode) { status.textContent = 'Loading local records…'; return; }
     const filtered = records.filter((r) =>
       JSON.stringify(r).toLowerCase().includes(search.value.toLowerCase()),
     );
-    status.textContent = filtered.length + ' records';
+    status.textContent = mode === 'context' ? 'Review the export or import before applying changes.' : filtered.length + (filtered.length === 1 ? ' record' : ' records');
+    search.hidden = mode === 'context';
+    document.querySelector('label[for=search]').hidden = search.hidden;
+    search.previousElementSibling.hidden = search.hidden;
+    if (mode === 'learning') {
+      learningClient(filtered, { api, rows, status, reload: load, state });
+      return;
+    }
+    if (['context', 'activity'].includes(mode)) { contextClient(mode, filtered, { api, rows, status, reload: load, state }); return; }
     for (const r of filtered) {
       const a = document.createElement('article'),
         h = document.createElement('h2'),
@@ -68,9 +79,18 @@ export function operatorClient() {
   }
   async function load() {
     const attempt = ++generation;
+    if (loadedMode !== mode) rows.replaceChildren();
     status.textContent = 'Loading local records…';
     try {
-      if (mode === 'catalog') {
+      for (const id of ['work', 'catalog', 'learning', 'activity', 'context']) document.getElementById(id).setAttribute('aria-pressed', String(mode === id));
+      if (mode === 'context') { document.querySelector('#install').hidden = true; records = []; }
+      else if (mode === 'learning' || mode === 'activity') {
+        document.querySelector('#install').hidden = true;
+        const [data, activity] = await Promise.all([api('preferences'), api('preferences-activity')]);
+        if (attempt !== generation) return;
+        state.activity = activity; state.conflicts = data.conflicts;
+        records = mode === 'learning' ? data.lessons : activity.tasks;
+      } else if (mode === 'catalog') {
         const c = await api('catalog');
         if (attempt !== generation) return;
         document.querySelector('#install').hidden = !c.installationEnabled;
@@ -129,9 +149,10 @@ export function operatorClient() {
           })),
         ];
       }
+      loadedMode = mode;
       draw();
     } catch (e) {
-      status.textContent = e.message;
+      if (attempt === generation) status.textContent = e.message;
     }
   }
   document.querySelector('#work').onclick = () => {
@@ -142,6 +163,8 @@ export function operatorClient() {
     mode = 'catalog';
     load();
   };
+  document.querySelector('#learning').onclick = () => { mode = 'learning'; load(); };
+  for (const view of ['context', 'activity']) document.getElementById(view).onclick = () => { mode = view; load(); };
   document.querySelector('#refresh').onclick = load;
   search.oninput = draw;
   let installPreview = null,
@@ -191,5 +214,9 @@ export function operatorClient() {
       for (const c of controls) c.disabled = false;
     }
   };
+  api('identity').then(identity => {
+    const region = document.querySelector('#identity');
+    for (const text of [identity.demo ? 'Demo mode: disposable sample data' : 'Running on your computer', `Project: ${identity.project}`, `Storage: ${identity.storage}`, identity.demo ? 'Demo changes are discarded when this process stops. Your real preferences are not used.' : identity.note]) { const p = document.createElement('p'); p.textContent = text; region.append(p); }
+  }).catch(e => { status.textContent = e.message; });
   load();
 }

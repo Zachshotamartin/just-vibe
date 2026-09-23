@@ -48,6 +48,8 @@ try {
     await page.getByLabel('Feedback or review reason').fill('Reuse the original key on retry.');
     await page.getByRole('button', { name: 'Add annotation' }).click();
     await page.locator('#feedback p').first().waitFor();
+    await page.waitForFunction(() => !document.querySelector('#comment').disabled);
+    assert.equal(await page.getByLabel('Feedback or review reason').inputValue(), '', 'An unchanged submitted draft should clear');
     assert.equal(
       await page.evaluate(() => document.documentElement.scrollWidth > innerWidth),
       false,
@@ -56,9 +58,60 @@ try {
     checks.push({ name, violations: axe.violations.map((v) => ({ id: v.id, impact: v.impact })) });
     await page.screenshot({ path: join(directory, `${name}.png`), fullPage: true });
   }
-  await page.getByLabel('Feedback or review reason').fill('Ready with the retry key requirement.');
-  await page.getByRole('button', { name: 'Approve version' }).click();
-  await page.getByText('This version is approved.', { exact: true }).waitFor();
+  // Typing the next comment during a delayed submission must not erase that draft.
+  let releaseFeedback, receivedFeedback;
+  const feedbackHeld = new Promise(done => { releaseFeedback = done; });
+  const feedbackReceived = new Promise(done => { receivedFeedback = done; });
+  await page.route('**/api/feedback', async route => {
+    const response = await route.fetch();
+    receivedFeedback();
+    await feedbackHeld;
+    await route.fulfill({ response });
+  });
+  try {
+    await page.getByRole('button', { name: 'Annotate line 3', exact: true }).click();
+    await page.getByLabel('Feedback or review reason').fill('Submitted comment on the original line.');
+    await page.getByRole('button', { name: 'Add annotation', exact: true }).click();
+    await feedbackReceived;
+    await page.getByLabel('Feedback or review reason').fill('Next unsaved review comment.');
+    await page.getByRole('button', { name: 'Annotate line 5', exact: true }).click();
+  } finally {
+    releaseFeedback();
+    await page.unrouteAll({ behavior: 'wait' });
+  }
+  await page.getByText('Submitted comment on the original line.', { exact: true }).waitFor();
+  await page.waitForFunction(() => !document.querySelector('#comment').disabled);
+  assert.equal(await page.getByLabel('Feedback or review reason').inputValue(), 'Next unsaved review comment.', 'Finishing an older submission must preserve newer feedback');
+  assert.equal(await page.locator('#anchor').textContent(), 'Annotating line 5.');
+  const retained = await planCanvas(root, 'show', { id: 'plan' }, options);
+  assert.equal(retained.feedback.at(-1).text, 'Submitted comment on the original line.');
+  assert.equal(retained.feedback.at(-1).anchor, 3);
+  // A poll started before approval must not overwrite the newer reviewed state.
+  for (const staleError of [false, true]) {
+    let releasePoll, receivedPoll, heldPoll = false;
+    const pollHeld = new Promise(done => { releasePoll = done; });
+    const pollReceived = new Promise(done => { receivedPoll = done; });
+    await page.route('**/api/review', async route => {
+      if (heldPoll) return route.continue();
+      heldPoll = true;
+      const response = await route.fetch(); receivedPoll();
+      await pollHeld;
+      await route.fulfill(staleError ? { status: 503, contentType: 'application/json', body: JSON.stringify({ error: 'Obsolete poll failure' }) } : { response });
+    });
+    try {
+      await pollReceived;
+      await page.getByLabel('Feedback or review reason').fill('Ready with the retry key requirement.');
+      await page.getByRole('button', { name: 'Approve version' }).click();
+      await page.waitForFunction(() => !document.querySelector('#approve').disabled && document.querySelector('#message').value === '');
+      await page.getByText('This version is approved.', { exact: true }).waitFor();
+    } finally {
+      releasePoll(); await page.unrouteAll({ behavior: 'wait' });
+    }
+    await page.evaluate(() => new Promise(done => requestAnimationFrame(() => requestAnimationFrame(done))));
+    assert.equal(await page.locator('#status').textContent(), 'This version is approved.', 'An older poll must not revert the approval state');
+    assert.equal(await page.locator('#error').textContent(), '', 'An obsolete poll error must not stop a refreshed review');
+    assert.equal(await page.getByRole('button', { name: 'Approve version' }).isDisabled(), false);
+  }
   writeFileSync(join(root, 'plan.md'), artifact + '\nA changed requirement.');
   await page.getByText('The artifact changed.', { exact: false }).waitFor({ timeout: 6000 });
   assert.equal(await page.getByRole('button', { name: 'Approve version' }).isDisabled(), true);
@@ -109,6 +162,8 @@ try {
     checks,
     errors,
     annotations: true,
+    retainedDraftDuringSubmit: true,
+    stalePollIgnored: true,
     staleApproval: true,
     reducedMotion: true,
     sandboxedHtml: true,

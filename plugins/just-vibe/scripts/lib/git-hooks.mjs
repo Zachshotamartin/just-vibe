@@ -7,8 +7,9 @@ import {
   realpathSync,
   lstatSync,
 } from 'node:fs';
-import { dirname, resolve, join } from 'node:path';
+import { dirname, resolve, join, relative, isAbsolute } from 'node:path';
 import { gitRead } from './project.mjs';
+import { sameDirectory } from './workbench.mjs';
 import { digest, within, projectRoot } from './storage.mjs';
 import { runtimeStore, object, timestamp } from './runtime-store.mjs';
 import { stagedQuality, quality } from './quality.mjs';
@@ -23,7 +24,7 @@ export async function gitHooks(root, operation, payload = {}, options = {}) {
   const hook = payload.hook || 'pre-commit';
   if (!['pre-commit', 'pre-push'].includes(hook)) throw Error('Choose pre-commit or pre-push.');
   const gitRoot = gitRead(root, ['rev-parse', '--show-toplevel']);
-  if (!gitRoot || projectRoot(gitRoot) !== root) throw Error('Select the Git project root.');
+  if (!gitRoot || !sameDirectory(gitRoot, root)) throw Error('Select the Git project root.');
   const name = hook === 'pre-commit' ? 'git-hook' : 'git-hook-push';
   const saved = store.get(name) || { revision: 0 };
   if (operation === 'check') {
@@ -72,7 +73,7 @@ export async function gitHooks(root, operation, payload = {}, options = {}) {
       const gitDirectory = gitRead(root, ['rev-parse', '--absolute-git-dir']);
       if (!gitDirectory) throw Error('Cannot identify the native hook Git directory.');
       nativeHookIndex = within(gitDirectory, resolve(root, process.env.GIT_INDEX_FILE));
-      if (dirname(nativeHookIndex) !== realpathSync(gitDirectory))
+      if (!sameDirectory(dirname(nativeHookIndex), gitDirectory))
         throw Error('Native hook index belongs to a different checkout or unsupported directory.');
       if (!lstatSync(nativeHookIndex).isFile()) throw Error('Native hook index must be a regular file.');
     }
@@ -98,7 +99,8 @@ export async function gitHooks(root, operation, payload = {}, options = {}) {
       'Existing core.hooksPath is managed elsewhere; compose just-vibe checks with that manager.',
     );
   const path = resolve(root, gitRead(root, ['rev-parse', '--git-path', `hooks/${hook}`]));
-  if (!path.startsWith(resolve(root, '.git') + '/'))
+  const hookRelative = relative(resolve(root, '.git'), path);
+  if (isAbsolute(hookRelative) || hookRelative === '..' || hookRelative.startsWith('..' + (process.platform === 'win32' ? '\\' : '/')))
     throw Error('Install from the main checkout; shared worktree hooks are not changed.');
   within(root, path);
   if (existsSync(path) && (!lstatSync(path).isFile() || lstatSync(path).size > 1024 * 1024))

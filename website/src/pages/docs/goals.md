@@ -33,7 +33,7 @@ JSON
 
 Each criterion needs supporting evidence. Evidence can be an attributed report from the agent or a project artifact whose contents are hashed. The runtime rejects completion when a criterion lacks evidence, its current artifact changed, or blockers remain.
 
-A hash establishes which file was checked; it does not establish that the implementation is correct. The agent still needs checks that exercise the requested behavior. Reopening a completed goal requires fresh verification. Revising the objective or criteria preserves the previous scope as history and resets the current criteria, so old evidence cannot complete the new work.
+A hash establishes which file was checked; it does not establish that the implementation is correct. The agent still needs checks that exercise the requested behavior. Reopening a completed goal requires fresh verification. Revising the objective, criteria or constraints preserves the previous scope as history and resets the current criteria, so old evidence cannot complete the new work. Updating progress or next steps without changing scope preserves current evidence.
 
 ## Native controls and scope
 

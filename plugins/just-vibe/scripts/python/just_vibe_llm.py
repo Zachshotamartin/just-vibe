@@ -129,7 +129,12 @@ def request(url, body, headers, timeout):
     if len(encoded) > MAX_BYTES:
         raise ValueError('Provider request exceeds input bound.')
     req = urllib.request.Request(url, encoded, {'Content-Type': 'application/json', **headers}, method='POST')
-    return urllib.request.build_opener(NoRedirect).open(req, timeout=timeout)
+    # Local providers must stay local. System proxy discovery on macOS can also
+    # block before the socket timeout starts, even for a loopback destination.
+    handlers = [NoRedirect]
+    if urllib.parse.urlparse(url).hostname in ('localhost', '127.0.0.1', '::1'):
+        handlers.append(urllib.request.ProxyHandler({}))
+    return urllib.request.build_opener(*handlers).open(req, timeout=timeout)
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)

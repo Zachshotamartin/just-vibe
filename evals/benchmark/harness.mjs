@@ -15,7 +15,7 @@ const hash=value=>createHash('sha256').update(value).digest('hex');
 const git=(root,args)=>execFileSync('git',args,{cwd:root,encoding:'utf8',env:{...process.env,GIT_CONFIG_NOSYSTEM:'1',GIT_CONFIG_GLOBAL:process.platform==='win32'?'NUL':'/dev/null'}}).trimEnd();
 function sourceIdentity(){
   const root=fileURLToPath(new URL('../../',import.meta.url));
-  try{if(realpathSync(git(root,['rev-parse','--show-toplevel']))!==realpathSync(root))return {revision:null,dirty:null};return {revision:git(root,['rev-parse','HEAD']),dirty:Boolean(git(root,['status','--porcelain']))};}
+  try{if(realpathSync.native(git(root,['rev-parse','--show-toplevel']))!==realpathSync.native(root))return {revision:null,dirty:null};return {revision:git(root,['rev-parse','HEAD']),dirty:Boolean(git(root,['status','--porcelain']))};}
   catch{return {revision:null,dirty:null};}
 }
 export function snapshot(root) {
@@ -93,15 +93,15 @@ function nodeRegressionFailure(stdout) {
   // Read completed TAP diagnostics, not arbitrary terminal text or a process
   // exit alone. Both the authored test body and implementation must appear in
   // a non-assertion failure; import/setup and runner errors are not evidence.
-  for (const [, , body] of stdout.matchAll(/^([ \t]*)---\r?\n([\s\S]*?)^\1\.\.\.[ \t]*$/gm)) {
+  for (const [, , body] of stdout.matchAll(/^([ \t]*)---\r?\n([\s\S]*?)^\1\.\.\.[ \t]*\r?$/gm)) {
     const field = name => {
-      const raw = body.match(new RegExp(`^[ \\t]*${name}:[ \\t]*(.+)$`, 'm'))?.[1];
+      const raw = body.match(new RegExp(`^[ \\t]*${name}:[ \\t]*(.+)$`, 'm'))?.[1]?.trimEnd();
       if (raw?.startsWith("'") && raw.endsWith("'")) return raw.slice(1, -1).replaceAll("''", "'");
       if (raw?.startsWith('"')) { try { return JSON.parse(raw); } catch { return null; } }
       return raw;
     };
     if (field('failureType') !== 'testCodeFailure') continue;
-    const file = field('location')?.replace(/:\d+:\d+$/, '');
+    const file = field('location')?.replaceAll('\\\\', '\\').replace(/:\d+:\d+$/, '');
     if (!file || file.split(/[\\/]/).slice(-2).join('/') !== 'test/regression.test.mjs') continue;
     const stack = body.match(/^[ \t]*stack: \|-?\r?\n([\s\S]*)/m)?.[1] || '';
     const mentions = (path, directory = false) => {
@@ -132,8 +132,8 @@ export function regressionSensitivity(language,result){
   return nodeRegressionFailure(result.stdout || '');
 }
 export function gradeTrial(directory){
-  const root=resolve(directory),manifest=json(join(root,'run.json')),workspace=realpathSync(join(root,'workspace'));
-  if(workspace!==realpathSync(manifest.workspace))throw Error('Workspace identity mismatch.');
+  const root=resolve(directory),manifest=json(join(root,'run.json')),workspace=realpathSync.native(join(root,'workspace'));
+  if(workspace!==realpathSync.native(manifest.workspace))throw Error('Workspace identity mismatch.');
   const current=snapshot(workspace),changed=[...new Set([...Object.keys(current),...Object.keys(manifest.inputs)])].filter(p=>current[p]!==manifest.inputs[p]);
   const checks=[{name:'only permitted files changed',pass:changed.every(p=>manifest.allowedWrites.includes(p))},{name:'no symlink artifacts',pass:!Object.values(current).includes('symlink')}];
   const fixture=cases.find(c=>c.id===manifest.case);const head=git(workspace,['rev-parse','HEAD']);

@@ -17,8 +17,9 @@ import { services } from '../plugins/just-vibe/scripts/lib/dev-services.mjs';
 import { dependencyIoc } from '../plugins/just-vibe/scripts/lib/dependency-ioc.mjs';
 import { gitHooks } from '../plugins/just-vibe/scripts/lib/git-hooks.mjs';
 import { workbenchCall } from '../plugins/just-vibe/scripts/lib/workbench-access.mjs';
+import { processAlive } from '../plugins/just-vibe/scripts/lib/file-lock.mjs';
 function fixture(t, git = false) {
-  const dir = realpathSync(mkdtempSync(join(tmpdir(), 'jv-extended-'))),
+  const dir = realpathSync.native(mkdtempSync(join(tmpdir(), 'jv-extended-'))),
     root = join(dir, 'project'),
     options = { home: join(dir, 'home') };
   mkdirSync(root);
@@ -340,6 +341,12 @@ test('owned service supervisor stops only its own bounded process and preserves 
   }
   assert.equal(r.run.state, 'stopped');
   assert.match(r.run.output, /started/);
+  // The terminal record is written immediately before the supervisor exits.
+  // Windows keeps its working directory locked until that process is gone.
+  assert.ok(Number.isSafeInteger(r.run.supervisorPid));
+  for (let i = 0; i < 50 && processAlive(r.run.supervisorPid); i++)
+    await new Promise(resolve => setTimeout(resolve, 100));
+  assert.equal(processAlive(r.run.supervisorPid), false, 'The owned supervisor must exit before removing its working directory');
 });
 test('dependency indicators match exact versions, retain provenance and reject stale feeds', (t) => {
   const f = fixture(t);

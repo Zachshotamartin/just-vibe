@@ -1,3 +1,4 @@
+import { preferenceChange } from './preference-values.mjs';
 import {
   runtimeStore,
   object,
@@ -7,32 +8,14 @@ import {
   timestamp,
 } from './runtime-store.mjs';
 import { getCommand, loadCatalog } from './catalog.mjs';
-import { lessons, sourceFromTask, changeLesson } from './adaptive-learning.mjs';
+import { lessons, sourceFromTask, changeLesson, saveLesson } from './adaptive-learning.mjs';
 import { digest } from './storage.mjs';
 import { gitRead } from './project.mjs';
 import { managedFiles } from './managed-files.mjs';
 
 function change(value, catalog) {
-  object(value, [
-    'workflow',
-    'instruction',
-    'triggers',
-    'avoid',
-    'tools',
-    'checks',
-    'conditions',
-    'exceptions',
-  ]);
-  return {
-    workflow: getCommand(catalog, value.workflow, { canonical: true }).id,
-    instruction: cleanText(value.instruction, 'instruction', 2000),
-    ...Object.fromEntries(
-      ['triggers', 'avoid', 'tools', 'checks', 'conditions', 'exceptions'].map((k) => [
-        k,
-        textList(value[k], k, 12),
-      ]),
-    ),
-  };
+  const { workflow, ...values } = value;
+  return { workflow: getCommand(catalog, workflow, { canonical: true }).id, ...preferenceChange(values) };
 }
 function stateFor(store) {
   const state = store.get('patterns') || {
@@ -245,7 +228,7 @@ export function patternLearning(root, operation, payload = {}, options = {}) {
         ? `${prefix}/skills/${name}/SKILL.md`
         : `${prefix}/agents/${name}.md`;
     const instruction = cleanText(current.change.instruction, 'instruction', 2000);
-    const content = `---\nname: ${name}\ndescription: ${JSON.stringify(`Reviewed personal guidance for ${lesson.workflow}; apply only when that workflow is relevant.`)}\n${payload.format === 'agent' ? 'tools: Read, Glob, Grep\nmodel: inherit\n' : ''}---\n\n# ${name}\n\nSource: lesson ${lesson.id}, version ${lesson.current}. This generated artifact is a local draft; installation is a separate action. Current user instructions and project rules take precedence. No permission is granted by this text.\n\n${instruction}\n\nConditions: ${(current.change.conditions || []).join('; ') || 'workflow relevance'}.\nExceptions: ${(current.change.exceptions || []).join('; ') || 'none specified'}.\nTriggers: ${(current.change.triggers || []).join('; ') || 'none specified'}.\nAvoid: ${(current.change.avoid || []).join('; ') || 'none specified'}.\nPreferred tools when available: ${current.change.tools.join(', ') || 'none specified'}.\nEvidence to consider: ${current.change.checks.join('; ') || 'none specified'}.\n${payload.format === 'agent' ? '\nInspect only; report findings and limitations. Do not edit files or spawn further agents.\n' : ''}`;
+    const content = `---\nname: ${name}\ndescription: ${JSON.stringify(`Reviewed personal guidance for ${lesson.workflow}; apply only when that workflow is relevant.`)}\n${payload.format === 'agent' ? 'tools: Read, Glob, Grep\nmodel: inherit\n' : ''}---\n\n# ${name}\n\nSource: lesson ${lesson.id}, version ${lesson.current}. This generated artifact is a local draft; installation is a separate action. Current user instructions and project rules take precedence. No permission is granted by this text.\n\n${instruction}${current.change.setting ? `\n\nSetting: ${current.change.setting.key}=${current.change.setting.value}.` : ''}\n\nConditions: ${(current.change.conditions || []).join('; ') || 'workflow relevance'}.\nExceptions: ${(current.change.exceptions || []).join('; ') || 'none specified'}.\nTriggers: ${(current.change.triggers || []).join('; ') || 'none specified'}.\nAvoid: ${(current.change.avoid || []).join('; ') || 'none specified'}.\nPreferred tools when available: ${current.change.tools.join(', ') || 'none specified'}.\nEvidence to consider: ${current.change.checks.join('; ') || 'none specified'}.\n${payload.format === 'agent' ? '\nInspect only; report findings and limitations. Do not edit files or spawn further agents.\n' : ''}`;
     return {
       name,
       file,
@@ -274,6 +257,7 @@ export function patternLearning(root, operation, payload = {}, options = {}) {
         'conditions',
         'exceptions',
         'origin',
+        'setting',
       ]);
       const { origin, ...values } = item,
         normalized = change(values, catalog);
@@ -403,6 +387,10 @@ export function patternLearning(root, operation, payload = {}, options = {}) {
     const reason = cleanText(payload.reason, 'reconsideration reason', 1000);
     if (!(state.decisions || []).some((d) => d.id === payload.id))
       throw Error('Unknown prior decision.');
+    const candidate = state.candidates.find((c) => c.id === payload.id);
+    if (candidate?.status === 'approved' && (!candidate.lessonId ||
+      !store.read(`${store.project}/learning/${requireId(candidate.lessonId)}.json`)))
+      throw Error('Recover the interrupted activation before reconsidering its decision.');
     return store.put(
       'patterns',
       {
@@ -420,6 +408,10 @@ export function patternLearning(root, operation, payload = {}, options = {}) {
   throw Error('Unknown learning operation.');
 }
 function activateCandidate(store, candidate) {
+  const path = `${store.project}/learning/${candidate.lessonId}.json`;
+  // Publishing this record is the last activation step. Later user changes,
+  // including a forgotten tombstone, must not replay its completed retirements.
+  if (store.read(path)) return candidate.lessonId;
   for (const resolution of candidate.resolutions || []) {
     if (resolution.action !== 'retire') continue;
     const previous = lessons(store, { inactive: true }).find((l) => l.id === resolution.id);
@@ -430,11 +422,10 @@ function activateCandidate(store, candidate) {
       );
     changeLesson(store, 'retire', resolution);
   }
-  const path = `${store.project}/learning/${candidate.lessonId}.json`;
-  if (store.read(path)) return candidate.lessonId;
   const { workflow, ...values } = candidate.change;
-  store.write(
-    path,
+  saveLesson(
+    store,
+    'project',
     {
       kind: 'lesson',
       id: candidate.lessonId,

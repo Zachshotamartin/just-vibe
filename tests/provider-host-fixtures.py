@@ -1,3 +1,5 @@
+import faulthandler
+faulthandler.dump_traceback_later(8, repeat=False)
 import importlib.util
 import io
 import json
@@ -61,13 +63,20 @@ class ProviderContracts(unittest.TestCase):
                 self.end_headers()
                 self.wfile.write(body)
             def log_message(self, *args): pass
-        server = ThreadingHTTPServer(('127.0.0.1', 0), Handler)
+        # The fixture needs no reverse DNS; macOS hosted DNS can block getfqdn.
+        import socketserver
+        class LoopbackServer(ThreadingHTTPServer):
+            def server_bind(self):
+                socketserver.TCPServer.server_bind(self)
+                self.server_name = 'localhost'
+                self.server_port = self.server_address[1]
+        server = LoopbackServer(('127.0.0.1', 0), Handler)
         thread = threading.Thread(target=server.serve_forever, daemon=True)
         thread.start()
         try:
             args = ['--provider','ollama','--model','fixture-model','--endpoint',f'http://127.0.0.1:{server.server_port}/api/chat']
             output = io.StringIO()
-            with patch('sys.stdin', io.StringIO('fixture prompt')), contextlib.redirect_stdout(output):
+            with patch('urllib.request.getproxies', side_effect=AssertionError('Loopback must bypass proxies')), patch('sys.stdin', io.StringIO('fixture prompt')), contextlib.redirect_stdout(output):
                 self.assertEqual(host.main(args), 0)
             self.assertEqual(output.getvalue(), 'visible fixture\n')
             self.assertEqual(requests[0]['messages'][0]['content'], 'fixture prompt')

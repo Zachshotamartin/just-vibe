@@ -82,7 +82,7 @@ export function safePath(root, path, { managed = false } = {}) {
       .split("/")
       .some(
         (p) =>
-          p === ".git" || (!managed && p === ".just-vibe") || privateName(p),
+          p.toLowerCase() === ".git" || (!managed && p.toLowerCase() === ".just-vibe") || privateName(p),
       )
   )
     throw Error("Private or managed paths are not eligible.");
@@ -205,7 +205,9 @@ export function readRecord(root, collection, id, optional = false) {
   const record = readJson(path, MAX_STATE);
   if (
     record.schemaVersion !== 1 ||
-    record.root !== root ||
+    typeof record.root !== "string" ||
+    !existsSync(record.root) ||
+    projectRoot(record.root) !== root ||
     record.collection !== collection ||
     record.id !== id ||
     !Number.isInteger(record.revision) ||

@@ -25,11 +25,11 @@
         },
         {
           "path": "scripts/smoke-operator-browser.mjs",
-          "sha256": "9a71f2306b40e89245500d00c144370a6a070940318cff4fb13fe578e192d5e8"
+          "sha256": "cc2d3e0746a63dea28d4c9ec8154ddb4358b2c6470a0cbc037cc2a861f9b6319"
         },
         {
           "path": "tests/expansion-contracts.test.mjs",
-          "sha256": "07690686b9ae1d07270bec053641a72263801ea5de00079e4fb360d05e677c07"
+          "sha256": "f5faa4c508ef5d3e3dbdf536445ef48b87188c327a07f062d6b3e56249dcaeea"
         }
       ],
       "verification": [
@@ -76,7 +76,7 @@
         },
         {
           "path": "tests/expansion-contracts.test.mjs",
-          "sha256": "07690686b9ae1d07270bec053641a72263801ea5de00079e4fb360d05e677c07"
+          "sha256": "f5faa4c508ef5d3e3dbdf536445ef48b87188c327a07f062d6b3e56249dcaeea"
         }
       ],
       "verification": [
@@ -125,7 +125,7 @@
         },
         {
           "path": "tests/expansion-contracts.test.mjs",
-          "sha256": "07690686b9ae1d07270bec053641a72263801ea5de00079e4fb360d05e677c07"
+          "sha256": "f5faa4c508ef5d3e3dbdf536445ef48b87188c327a07f062d6b3e56249dcaeea"
         }
       ],
       "verification": [
@@ -166,7 +166,7 @@
         },
         {
           "path": "tests/expansion-contracts.test.mjs",
-          "sha256": "07690686b9ae1d07270bec053641a72263801ea5de00079e4fb360d05e677c07"
+          "sha256": "f5faa4c508ef5d3e3dbdf536445ef48b87188c327a07f062d6b3e56249dcaeea"
         }
       ],
       "verification": [
@@ -211,7 +211,7 @@
         },
         {
           "path": "tests/extended-workbench.test.mjs",
-          "sha256": "dabd51602fcdf8bc9686b89cc14749cce89b3dcb2bbdf659e1ff61324bfbf8de"
+          "sha256": "b1c9fc4b7c93a7fd8236e80b1148da850567047187c6d812f69e17ee00c75a1b"
         }
       ],
       "verification": [
@@ -260,11 +260,11 @@
         },
         {
           "path": "tests/provider-host-fixtures.py",
-          "sha256": "2e683d87a52491f818e93987a1e0c757231451e316cf934bfb628d4aad3e98da"
+          "sha256": "1168475314240ca0bd79010ae1462b407000773ca99bb9156f593e80d16debc0"
         },
         {
           "path": "tests/expansion-contracts.test.mjs",
-          "sha256": "07690686b9ae1d07270bec053641a72263801ea5de00079e4fb360d05e677c07"
+          "sha256": "f5faa4c508ef5d3e3dbdf536445ef48b87188c327a07f062d6b3e56249dcaeea"
         }
       ],
       "verification": [
@@ -310,15 +310,15 @@
         },
         {
           "path": "plugins/just-vibe/scripts/lib/workers.mjs",
-          "sha256": "5e962e7d84b85304fe355cd27b563628fd55fc7fbc389bfff5b767c1ccf01579"
+          "sha256": "d92265c15d9ba795b59dc44f751f5bae16b3c08310b287d871ab24b2ba086260"
         },
         {
           "path": "tests/gap-closure.test.mjs",
-          "sha256": "68fe2c5095c222fddc569b6bf2924fcabb3b5b14a1d5067dd23a720e4d740bfa"
+          "sha256": "2c7ea662ab9920205cbc1cc244c6ae8384746f2a51353d168c2336589f12b521"
         },
         {
           "path": "tests/expansion-contracts.test.mjs",
-          "sha256": "07690686b9ae1d07270bec053641a72263801ea5de00079e4fb360d05e677c07"
+          "sha256": "f5faa4c508ef5d3e3dbdf536445ef48b87188c327a07f062d6b3e56249dcaeea"
         }
       ],
       "verification": [
@@ -359,7 +359,7 @@
       "evidence": [
         {
           "path": "plugins/just-vibe/scripts/lib/git-hooks.mjs",
-          "sha256": "5ce212ccf18103214956bdd0345590b41f8b9284fa07c1ababc2eec181d6a57d"
+          "sha256": "ed5f75c9e64bdcf7ababee5cc7501091c6011a00183b1fcea5b55aada82f05ea"
         },
         {
           "path": "plugins/just-vibe/scripts/lib/quality.mjs",
@@ -371,15 +371,15 @@
         },
         {
           "path": "tests/extended-workbench.test.mjs",
-          "sha256": "dabd51602fcdf8bc9686b89cc14749cce89b3dcb2bbdf659e1ff61324bfbf8de"
+          "sha256": "b1c9fc4b7c93a7fd8236e80b1148da850567047187c6d812f69e17ee00c75a1b"
         },
         {
           "path": "tests/expansion-contracts.test.mjs",
-          "sha256": "07690686b9ae1d07270bec053641a72263801ea5de00079e4fb360d05e677c07"
+          "sha256": "f5faa4c508ef5d3e3dbdf536445ef48b87188c327a07f062d6b3e56249dcaeea"
         },
         {
           "path": "tests/release-regressions.test.mjs",
-          "sha256": "cfd117e4dfbb7b1a5c781620b51a56572cb77e8c26fc4e7a848c64ab6aabf551"
+          "sha256": "e51cba1392e109f310928f67598abe5dd2be43a6454d7ec278937ebd8c568739"
         },
         {
           "path": "plugins/just-vibe/scripts/lib/file-lock.mjs",
@@ -432,7 +432,7 @@
         },
         {
           "path": "tests/capability-runtime.test.mjs",
-          "sha256": "a62b3c245c2526bae7ff30727f0c8d4c85a46b4f102c80dfc0ad80bc30a1f0d7"
+          "sha256": "a0f835efc77e10c518a48b995ddf723867cebe16e7ba7f94487e077d7c5fd0b9"
         }
       ],
       "verification": [
@@ -473,11 +473,11 @@
         },
         {
           "path": "tests/capability-runtime.test.mjs",
-          "sha256": "a62b3c245c2526bae7ff30727f0c8d4c85a46b4f102c80dfc0ad80bc30a1f0d7"
+          "sha256": "a0f835efc77e10c518a48b995ddf723867cebe16e7ba7f94487e077d7c5fd0b9"
         },
         {
           "path": "tests/expansion-contracts.test.mjs",
-          "sha256": "07690686b9ae1d07270bec053641a72263801ea5de00079e4fb360d05e677c07"
+          "sha256": "f5faa4c508ef5d3e3dbdf536445ef48b87188c327a07f062d6b3e56249dcaeea"
         }
       ],
       "verification": [
@@ -530,15 +530,15 @@
         },
         {
           "path": "tests/capability-runtime.test.mjs",
-          "sha256": "a62b3c245c2526bae7ff30727f0c8d4c85a46b4f102c80dfc0ad80bc30a1f0d7"
+          "sha256": "a0f835efc77e10c518a48b995ddf723867cebe16e7ba7f94487e077d7c5fd0b9"
         },
         {
           "path": "tests/expansion-contracts.test.mjs",
-          "sha256": "07690686b9ae1d07270bec053641a72263801ea5de00079e4fb360d05e677c07"
+          "sha256": "f5faa4c508ef5d3e3dbdf536445ef48b87188c327a07f062d6b3e56249dcaeea"
         },
         {
           "path": "tests/release-regressions.test.mjs",
-          "sha256": "cfd117e4dfbb7b1a5c781620b51a56572cb77e8c26fc4e7a848c64ab6aabf551"
+          "sha256": "e51cba1392e109f310928f67598abe5dd2be43a6454d7ec278937ebd8c568739"
         },
         {
           "path": "plugins/just-vibe/scripts/lib/file-lock.mjs",
@@ -591,15 +591,15 @@
         },
         {
           "path": "tests/capability-runtime.test.mjs",
-          "sha256": "a62b3c245c2526bae7ff30727f0c8d4c85a46b4f102c80dfc0ad80bc30a1f0d7"
+          "sha256": "a0f835efc77e10c518a48b995ddf723867cebe16e7ba7f94487e077d7c5fd0b9"
         },
         {
           "path": "tests/expansion-contracts.test.mjs",
-          "sha256": "07690686b9ae1d07270bec053641a72263801ea5de00079e4fb360d05e677c07"
+          "sha256": "f5faa4c508ef5d3e3dbdf536445ef48b87188c327a07f062d6b3e56249dcaeea"
         },
         {
           "path": "tests/release-regressions.test.mjs",
-          "sha256": "cfd117e4dfbb7b1a5c781620b51a56572cb77e8c26fc4e7a848c64ab6aabf551"
+          "sha256": "e51cba1392e109f310928f67598abe5dd2be43a6454d7ec278937ebd8c568739"
         },
         {
           "path": "plugins/just-vibe/scripts/lib/file-lock.mjs",
@@ -652,11 +652,11 @@
         },
         {
           "path": "tests/capability-runtime.test.mjs",
-          "sha256": "a62b3c245c2526bae7ff30727f0c8d4c85a46b4f102c80dfc0ad80bc30a1f0d7"
+          "sha256": "a0f835efc77e10c518a48b995ddf723867cebe16e7ba7f94487e077d7c5fd0b9"
         },
         {
           "path": "tests/release-regressions.test.mjs",
-          "sha256": "cfd117e4dfbb7b1a5c781620b51a56572cb77e8c26fc4e7a848c64ab6aabf551"
+          "sha256": "e51cba1392e109f310928f67598abe5dd2be43a6454d7ec278937ebd8c568739"
         },
         {
           "path": "plugins/just-vibe/scripts/lib/file-lock.mjs",
@@ -711,11 +711,11 @@
         },
         {
           "path": "tests/extended-workbench.test.mjs",
-          "sha256": "dabd51602fcdf8bc9686b89cc14749cce89b3dcb2bbdf659e1ff61324bfbf8de"
+          "sha256": "b1c9fc4b7c93a7fd8236e80b1148da850567047187c6d812f69e17ee00c75a1b"
         },
         {
           "path": "tests/release-regressions.test.mjs",
-          "sha256": "cfd117e4dfbb7b1a5c781620b51a56572cb77e8c26fc4e7a848c64ab6aabf551"
+          "sha256": "e51cba1392e109f310928f67598abe5dd2be43a6454d7ec278937ebd8c568739"
         },
         {
           "path": "plugins/just-vibe/scripts/lib/file-lock.mjs",
@@ -764,7 +764,7 @@
         },
         {
           "path": "tests/extended-workbench.test.mjs",
-          "sha256": "dabd51602fcdf8bc9686b89cc14749cce89b3dcb2bbdf659e1ff61324bfbf8de"
+          "sha256": "b1c9fc4b7c93a7fd8236e80b1148da850567047187c6d812f69e17ee00c75a1b"
         }
       ],
       "verification": [
@@ -805,15 +805,15 @@
         },
         {
           "path": "tests/extended-workbench.test.mjs",
-          "sha256": "dabd51602fcdf8bc9686b89cc14749cce89b3dcb2bbdf659e1ff61324bfbf8de"
+          "sha256": "b1c9fc4b7c93a7fd8236e80b1148da850567047187c6d812f69e17ee00c75a1b"
         },
         {
           "path": "tests/expansion-contracts.test.mjs",
-          "sha256": "07690686b9ae1d07270bec053641a72263801ea5de00079e4fb360d05e677c07"
+          "sha256": "f5faa4c508ef5d3e3dbdf536445ef48b87188c327a07f062d6b3e56249dcaeea"
         },
         {
           "path": "tests/release-regressions.test.mjs",
-          "sha256": "cfd117e4dfbb7b1a5c781620b51a56572cb77e8c26fc4e7a848c64ab6aabf551"
+          "sha256": "e51cba1392e109f310928f67598abe5dd2be43a6454d7ec278937ebd8c568739"
         },
         {
           "path": "plugins/just-vibe/scripts/lib/file-lock.mjs",
@@ -876,7 +876,7 @@
         },
         {
           "path": "tests/expansion-contracts.test.mjs",
-          "sha256": "07690686b9ae1d07270bec053641a72263801ea5de00079e4fb360d05e677c07"
+          "sha256": "f5faa4c508ef5d3e3dbdf536445ef48b87188c327a07f062d6b3e56249dcaeea"
         }
       ],
       "verification": [
@@ -921,11 +921,11 @@
         },
         {
           "path": "tests/extended-workbench.test.mjs",
-          "sha256": "dabd51602fcdf8bc9686b89cc14749cce89b3dcb2bbdf659e1ff61324bfbf8de"
+          "sha256": "b1c9fc4b7c93a7fd8236e80b1148da850567047187c6d812f69e17ee00c75a1b"
         },
         {
           "path": "tests/release-regressions.test.mjs",
-          "sha256": "cfd117e4dfbb7b1a5c781620b51a56572cb77e8c26fc4e7a848c64ab6aabf551"
+          "sha256": "e51cba1392e109f310928f67598abe5dd2be43a6454d7ec278937ebd8c568739"
         },
         {
           "path": "plugins/just-vibe/scripts/lib/file-lock.mjs",
@@ -980,11 +980,11 @@
         },
         {
           "path": "tests/extended-workbench.test.mjs",
-          "sha256": "dabd51602fcdf8bc9686b89cc14749cce89b3dcb2bbdf659e1ff61324bfbf8de"
+          "sha256": "b1c9fc4b7c93a7fd8236e80b1148da850567047187c6d812f69e17ee00c75a1b"
         },
         {
           "path": "tests/release-regressions.test.mjs",
-          "sha256": "cfd117e4dfbb7b1a5c781620b51a56572cb77e8c26fc4e7a848c64ab6aabf551"
+          "sha256": "e51cba1392e109f310928f67598abe5dd2be43a6454d7ec278937ebd8c568739"
         },
         {
           "path": "plugins/just-vibe/scripts/lib/file-lock.mjs",
@@ -1033,7 +1033,7 @@
         },
         {
           "path": "tests/extended-workbench.test.mjs",
-          "sha256": "dabd51602fcdf8bc9686b89cc14749cce89b3dcb2bbdf659e1ff61324bfbf8de"
+          "sha256": "b1c9fc4b7c93a7fd8236e80b1148da850567047187c6d812f69e17ee00c75a1b"
         }
       ],
       "verification": [
@@ -1074,7 +1074,7 @@
         },
         {
           "path": "tests/expansion-contracts.test.mjs",
-          "sha256": "07690686b9ae1d07270bec053641a72263801ea5de00079e4fb360d05e677c07"
+          "sha256": "f5faa4c508ef5d3e3dbdf536445ef48b87188c327a07f062d6b3e56249dcaeea"
         }
       ],
       "verification": [
@@ -1115,7 +1115,7 @@
         },
         {
           "path": "tests/expansion-contracts.test.mjs",
-          "sha256": "07690686b9ae1d07270bec053641a72263801ea5de00079e4fb360d05e677c07"
+          "sha256": "f5faa4c508ef5d3e3dbdf536445ef48b87188c327a07f062d6b3e56249dcaeea"
         }
       ],
       "verification": [
@@ -1160,7 +1160,7 @@
         },
         {
           "path": "tests/expansion-contracts.test.mjs",
-          "sha256": "07690686b9ae1d07270bec053641a72263801ea5de00079e4fb360d05e677c07"
+          "sha256": "f5faa4c508ef5d3e3dbdf536445ef48b87188c327a07f062d6b3e56249dcaeea"
         }
       ],
       "verification": [
@@ -1201,7 +1201,7 @@
         },
         {
           "path": "tests/expansion-contracts.test.mjs",
-          "sha256": "07690686b9ae1d07270bec053641a72263801ea5de00079e4fb360d05e677c07"
+          "sha256": "f5faa4c508ef5d3e3dbdf536445ef48b87188c327a07f062d6b3e56249dcaeea"
         }
       ],
       "verification": [
@@ -1250,7 +1250,7 @@
         },
         {
           "path": "tests/expansion-contracts.test.mjs",
-          "sha256": "07690686b9ae1d07270bec053641a72263801ea5de00079e4fb360d05e677c07"
+          "sha256": "f5faa4c508ef5d3e3dbdf536445ef48b87188c327a07f062d6b3e56249dcaeea"
         }
       ],
       "verification": [
@@ -1295,7 +1295,7 @@
         },
         {
           "path": "tests/expansion-contracts.test.mjs",
-          "sha256": "07690686b9ae1d07270bec053641a72263801ea5de00079e4fb360d05e677c07"
+          "sha256": "f5faa4c508ef5d3e3dbdf536445ef48b87188c327a07f062d6b3e56249dcaeea"
         }
       ],
       "verification": [
@@ -1336,7 +1336,7 @@
         },
         {
           "path": "tests/expansion-contracts.test.mjs",
-          "sha256": "07690686b9ae1d07270bec053641a72263801ea5de00079e4fb360d05e677c07"
+          "sha256": "f5faa4c508ef5d3e3dbdf536445ef48b87188c327a07f062d6b3e56249dcaeea"
         }
       ],
       "verification": [
@@ -1381,7 +1381,7 @@
         },
         {
           "path": "tests/expansion-contracts.test.mjs",
-          "sha256": "07690686b9ae1d07270bec053641a72263801ea5de00079e4fb360d05e677c07"
+          "sha256": "f5faa4c508ef5d3e3dbdf536445ef48b87188c327a07f062d6b3e56249dcaeea"
         }
       ],
       "verification": [
@@ -1426,7 +1426,7 @@
         },
         {
           "path": "tests/expansion-contracts.test.mjs",
-          "sha256": "07690686b9ae1d07270bec053641a72263801ea5de00079e4fb360d05e677c07"
+          "sha256": "f5faa4c508ef5d3e3dbdf536445ef48b87188c327a07f062d6b3e56249dcaeea"
         }
       ],
       "verification": [
@@ -1467,15 +1467,15 @@
         },
         {
           "path": "tests/runtime-platform.test.mjs",
-          "sha256": "ae096c39a59c2c3240e783e8f8a0e5e9370091f936d3dd51aece7329625199e9"
+          "sha256": "c1298d2af2f222d612b07ad4f5de86593c52e06e34163c427e9a8762a2a466b8"
         },
         {
           "path": "tests/expansion-contracts.test.mjs",
-          "sha256": "07690686b9ae1d07270bec053641a72263801ea5de00079e4fb360d05e677c07"
+          "sha256": "f5faa4c508ef5d3e3dbdf536445ef48b87188c327a07f062d6b3e56249dcaeea"
         },
         {
           "path": "tests/gap-closure.test.mjs",
-          "sha256": "68fe2c5095c222fddc569b6bf2924fcabb3b5b14a1d5067dd23a720e4d740bfa"
+          "sha256": "2c7ea662ab9920205cbc1cc244c6ae8384746f2a51353d168c2336589f12b521"
         }
       ],
       "verification": [
@@ -1520,7 +1520,7 @@
         },
         {
           "path": "tests/expansion-contracts.test.mjs",
-          "sha256": "07690686b9ae1d07270bec053641a72263801ea5de00079e4fb360d05e677c07"
+          "sha256": "f5faa4c508ef5d3e3dbdf536445ef48b87188c327a07f062d6b3e56249dcaeea"
         }
       ],
       "verification": [
@@ -1565,11 +1565,11 @@
         },
         {
           "path": "tests/expansion-contracts.test.mjs",
-          "sha256": "07690686b9ae1d07270bec053641a72263801ea5de00079e4fb360d05e677c07"
+          "sha256": "f5faa4c508ef5d3e3dbdf536445ef48b87188c327a07f062d6b3e56249dcaeea"
         },
         {
           "path": "tests/release-regressions.test.mjs",
-          "sha256": "cfd117e4dfbb7b1a5c781620b51a56572cb77e8c26fc4e7a848c64ab6aabf551"
+          "sha256": "e51cba1392e109f310928f67598abe5dd2be43a6454d7ec278937ebd8c568739"
         },
         {
           "path": "plugins/just-vibe/scripts/lib/file-lock.mjs",
@@ -1626,7 +1626,7 @@
         },
         {
           "path": "tests/expansion-contracts.test.mjs",
-          "sha256": "07690686b9ae1d07270bec053641a72263801ea5de00079e4fb360d05e677c07"
+          "sha256": "f5faa4c508ef5d3e3dbdf536445ef48b87188c327a07f062d6b3e56249dcaeea"
         }
       ],
       "verification": [
@@ -1671,7 +1671,7 @@
         },
         {
           "path": "tests/expansion-contracts.test.mjs",
-          "sha256": "07690686b9ae1d07270bec053641a72263801ea5de00079e4fb360d05e677c07"
+          "sha256": "f5faa4c508ef5d3e3dbdf536445ef48b87188c327a07f062d6b3e56249dcaeea"
         }
       ],
       "verification": [
@@ -1716,7 +1716,7 @@
         },
         {
           "path": "tests/expansion-contracts.test.mjs",
-          "sha256": "07690686b9ae1d07270bec053641a72263801ea5de00079e4fb360d05e677c07"
+          "sha256": "f5faa4c508ef5d3e3dbdf536445ef48b87188c327a07f062d6b3e56249dcaeea"
         }
       ],
       "verification": [
@@ -1761,7 +1761,7 @@
         },
         {
           "path": "tests/expansion-contracts.test.mjs",
-          "sha256": "07690686b9ae1d07270bec053641a72263801ea5de00079e4fb360d05e677c07"
+          "sha256": "f5faa4c508ef5d3e3dbdf536445ef48b87188c327a07f062d6b3e56249dcaeea"
         }
       ],
       "verification": [
@@ -1802,7 +1802,7 @@
         },
         {
           "path": "tests/expansion-contracts.test.mjs",
-          "sha256": "07690686b9ae1d07270bec053641a72263801ea5de00079e4fb360d05e677c07"
+          "sha256": "f5faa4c508ef5d3e3dbdf536445ef48b87188c327a07f062d6b3e56249dcaeea"
         }
       ],
       "verification": [
@@ -1847,7 +1847,7 @@
         },
         {
           "path": "tests/expansion-contracts.test.mjs",
-          "sha256": "07690686b9ae1d07270bec053641a72263801ea5de00079e4fb360d05e677c07"
+          "sha256": "f5faa4c508ef5d3e3dbdf536445ef48b87188c327a07f062d6b3e56249dcaeea"
         }
       ],
       "verification": [
@@ -1888,7 +1888,7 @@
         },
         {
           "path": "tests/expansion-contracts.test.mjs",
-          "sha256": "07690686b9ae1d07270bec053641a72263801ea5de00079e4fb360d05e677c07"
+          "sha256": "f5faa4c508ef5d3e3dbdf536445ef48b87188c327a07f062d6b3e56249dcaeea"
         }
       ],
       "verification": [
@@ -1925,19 +1925,19 @@
       "evidence": [
         {
           "path": "plugins/just-vibe/scripts/python/just_vibe_llm.py",
-          "sha256": "bf72af316f86880c914992c3d1fb8b0199c8cea737ca946e4b39e2e7fc3f71e3"
+          "sha256": "755e564464c13e40a85c5502f2176e53891651699eefe84d9adadf5a0661cb1f"
         },
         {
           "path": "tests/provider-host-fixtures.py",
-          "sha256": "2e683d87a52491f818e93987a1e0c757231451e316cf934bfb628d4aad3e98da"
+          "sha256": "1168475314240ca0bd79010ae1462b407000773ca99bb9156f593e80d16debc0"
         },
         {
           "path": "tests/expansion-contracts.test.mjs",
-          "sha256": "07690686b9ae1d07270bec053641a72263801ea5de00079e4fb360d05e677c07"
+          "sha256": "f5faa4c508ef5d3e3dbdf536445ef48b87188c327a07f062d6b3e56249dcaeea"
         },
         {
           "path": "tests/provider-host.test.mjs",
-          "sha256": "995c63687bc4c65f9be2527946f1d57571130f5fb606e079bfb821b23bd3bd38"
+          "sha256": "0215b6f1df44c87e6d8ed41cb226ddb923583f6dde8a1ef5c288aac731956af3"
         }
       ],
       "verification": [
@@ -1983,15 +1983,15 @@
         },
         {
           "path": "plugins/just-vibe/scripts/lib/operator-http.mjs",
-          "sha256": "0ed376d6d7d97ccdcc2bf017d0595706b06320c1d87a3edcb3f9ad5830501a15"
+          "sha256": "7f944a1b6520617ca80bf17b375012d9b7edd4ca161a00efe4992cab0ab54ddf"
         },
         {
           "path": "tests/expansion-contracts.test.mjs",
-          "sha256": "07690686b9ae1d07270bec053641a72263801ea5de00079e4fb360d05e677c07"
+          "sha256": "f5faa4c508ef5d3e3dbdf536445ef48b87188c327a07f062d6b3e56249dcaeea"
         },
         {
           "path": "tests/release-regressions.test.mjs",
-          "sha256": "cfd117e4dfbb7b1a5c781620b51a56572cb77e8c26fc4e7a848c64ab6aabf551"
+          "sha256": "e51cba1392e109f310928f67598abe5dd2be43a6454d7ec278937ebd8c568739"
         },
         {
           "path": "plugins/just-vibe/scripts/lib/file-lock.mjs",
@@ -2046,11 +2046,11 @@
         },
         {
           "path": "tests/extended-workbench.test.mjs",
-          "sha256": "dabd51602fcdf8bc9686b89cc14749cce89b3dcb2bbdf659e1ff61324bfbf8de"
+          "sha256": "b1c9fc4b7c93a7fd8236e80b1148da850567047187c6d812f69e17ee00c75a1b"
         },
         {
           "path": "tests/expansion-contracts.test.mjs",
-          "sha256": "07690686b9ae1d07270bec053641a72263801ea5de00079e4fb360d05e677c07"
+          "sha256": "f5faa4c508ef5d3e3dbdf536445ef48b87188c327a07f062d6b3e56249dcaeea"
         }
       ],
       "verification": [
@@ -2099,11 +2099,11 @@
         },
         {
           "path": "tests/expansion-contracts.test.mjs",
-          "sha256": "07690686b9ae1d07270bec053641a72263801ea5de00079e4fb360d05e677c07"
+          "sha256": "f5faa4c508ef5d3e3dbdf536445ef48b87188c327a07f062d6b3e56249dcaeea"
         },
         {
           "path": "tests/release-regressions.test.mjs",
-          "sha256": "cfd117e4dfbb7b1a5c781620b51a56572cb77e8c26fc4e7a848c64ab6aabf551"
+          "sha256": "e51cba1392e109f310928f67598abe5dd2be43a6454d7ec278937ebd8c568739"
         },
         {
           "path": "plugins/just-vibe/scripts/lib/file-lock.mjs",
@@ -2164,11 +2164,11 @@
         },
         {
           "path": "tests/expansion-contracts.test.mjs",
-          "sha256": "07690686b9ae1d07270bec053641a72263801ea5de00079e4fb360d05e677c07"
+          "sha256": "f5faa4c508ef5d3e3dbdf536445ef48b87188c327a07f062d6b3e56249dcaeea"
         },
         {
           "path": "tests/release-regressions.test.mjs",
-          "sha256": "cfd117e4dfbb7b1a5c781620b51a56572cb77e8c26fc4e7a848c64ab6aabf551"
+          "sha256": "e51cba1392e109f310928f67598abe5dd2be43a6454d7ec278937ebd8c568739"
         },
         {
           "path": "plugins/just-vibe/scripts/lib/file-lock.mjs",
@@ -2213,11 +2213,11 @@
       "evidence": [
         {
           "path": ".github/workflows/ci.yml",
-          "sha256": "a77d23bbfd1060bb1ea7d5a162c832b3629b412f08f10a60b0a890550a653836"
+          "sha256": "5164b59cd35a3c5eadc12eeb8c8cb1ec5ab24ee461aa5dc4f90ee3fa2e6e9710"
         },
         {
           "path": ".github/workflows/publish.yml",
-          "sha256": "bbf290aea294981ddcb22bd9a9bb954623ca766a11b821f84a58dc3f30c5a88f"
+          "sha256": "ae790025dc1bf1bef7d318eb52cdfe12f19a6058e5b587bf477d3d3a55f7d4ad"
         },
         {
           "path": "plugins/just-vibe/references/methods/release-maintenance.md",
@@ -2225,7 +2225,7 @@
         },
         {
           "path": "tests/expansion-contracts.test.mjs",
-          "sha256": "07690686b9ae1d07270bec053641a72263801ea5de00079e4fb360d05e677c07"
+          "sha256": "f5faa4c508ef5d3e3dbdf536445ef48b87188c327a07f062d6b3e56249dcaeea"
         }
       ],
       "verification": [
@@ -2282,7 +2282,7 @@
         },
         {
           "path": "tests/expansion-contracts.test.mjs",
-          "sha256": "07690686b9ae1d07270bec053641a72263801ea5de00079e4fb360d05e677c07"
+          "sha256": "f5faa4c508ef5d3e3dbdf536445ef48b87188c327a07f062d6b3e56249dcaeea"
         }
       ],
       "verification": [
@@ -2335,15 +2335,15 @@
         },
         {
           "path": "tests/expansion-contracts.test.mjs",
-          "sha256": "07690686b9ae1d07270bec053641a72263801ea5de00079e4fb360d05e677c07"
+          "sha256": "f5faa4c508ef5d3e3dbdf536445ef48b87188c327a07f062d6b3e56249dcaeea"
         },
         {
           "path": "tests/runtime-depth.test.mjs",
-          "sha256": "b98d6e9fb88f0dd47800bfd5932889cd2ac25abaea71fba61fca94bd68dec335"
+          "sha256": "539f38d126ad13c95d2d274c6c1f2072e27ff237f12d886b3443a682b0fc0a28"
         },
         {
           "path": "tests/release-regressions.test.mjs",
-          "sha256": "cfd117e4dfbb7b1a5c781620b51a56572cb77e8c26fc4e7a848c64ab6aabf551"
+          "sha256": "e51cba1392e109f310928f67598abe5dd2be43a6454d7ec278937ebd8c568739"
         },
         {
           "path": "plugins/just-vibe/scripts/lib/file-lock.mjs",
@@ -2404,19 +2404,19 @@
       "evidence": [
         {
           "path": "plugins/just-vibe/scripts/lib/operator-http.mjs",
-          "sha256": "0ed376d6d7d97ccdcc2bf017d0595706b06320c1d87a3edcb3f9ad5830501a15"
+          "sha256": "7f944a1b6520617ca80bf17b375012d9b7edd4ca161a00efe4992cab0ab54ddf"
         },
         {
           "path": "scripts/smoke-operator-browser.mjs",
-          "sha256": "9a71f2306b40e89245500d00c144370a6a070940318cff4fb13fe578e192d5e8"
+          "sha256": "cc2d3e0746a63dea28d4c9ec8154ddb4358b2c6470a0cbc037cc2a861f9b6319"
         },
         {
           "path": "tests/expansion-contracts.test.mjs",
-          "sha256": "07690686b9ae1d07270bec053641a72263801ea5de00079e4fb360d05e677c07"
+          "sha256": "f5faa4c508ef5d3e3dbdf536445ef48b87188c327a07f062d6b3e56249dcaeea"
         },
         {
           "path": "tests/release-regressions.test.mjs",
-          "sha256": "cfd117e4dfbb7b1a5c781620b51a56572cb77e8c26fc4e7a848c64ab6aabf551"
+          "sha256": "e51cba1392e109f310928f67598abe5dd2be43a6454d7ec278937ebd8c568739"
         },
         {
           "path": "plugins/just-vibe/scripts/lib/file-lock.mjs",
@@ -2487,7 +2487,7 @@
         },
         {
           "path": "tests/expansion-contracts.test.mjs",
-          "sha256": "07690686b9ae1d07270bec053641a72263801ea5de00079e4fb360d05e677c07"
+          "sha256": "f5faa4c508ef5d3e3dbdf536445ef48b87188c327a07f062d6b3e56249dcaeea"
         },
         {
           "path": "tests/bundle.test.mjs",
@@ -2495,7 +2495,7 @@
         },
         {
           "path": "tests/release-regressions.test.mjs",
-          "sha256": "cfd117e4dfbb7b1a5c781620b51a56572cb77e8c26fc4e7a848c64ab6aabf551"
+          "sha256": "e51cba1392e109f310928f67598abe5dd2be43a6454d7ec278937ebd8c568739"
         },
         {
           "path": "plugins/just-vibe/scripts/lib/file-lock.mjs",
@@ -2507,7 +2507,7 @@
         },
         {
           "path": "tests/updater-archive.test.mjs",
-          "sha256": "5fc14d0fa3ebf3d44a5611ecfd3a56283fe04105edbeac50042446fcb16ebce1"
+          "sha256": "5bab023cd562d2ac758ed0d3867315c1648b47ad6c4e55d6ddf2115cafeeb37d"
         }
       ],
       "verification": [

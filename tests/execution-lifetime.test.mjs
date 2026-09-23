@@ -15,7 +15,7 @@ async function until(check, timeout = 5000) {
   throw Error('Fixture condition timed out.');
 }
 function fixture(t) {
-  const root = realpathSync(mkdtempSync(join(tmpdir(), 'jv-owned-lifetime-')));
+  const root = realpathSync.native(mkdtempSync(join(tmpdir(), 'jv-owned-lifetime-')));
   t.after(() => {
     if (existsSync(join(root, 'leader'))) try { process.kill(-Number(readFileSync(join(root, 'leader'), 'utf8')), 'SIGKILL'); } catch {}
     rmSync(root, { recursive: true, force: true });

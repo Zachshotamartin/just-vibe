@@ -22,7 +22,7 @@ import { runners } from '../plugins/just-vibe/scripts/lib/trusted-runners.mjs';
 import { cursorEvent } from '../plugins/just-vibe/scripts/lib/editor-events.mjs';
 
 function fixture(t) {
-  const base = realpathSync(mkdtempSync(join(tmpdir(), 'jv-integration-review-')));
+  const base = realpathSync.native(mkdtempSync(join(tmpdir(), 'jv-integration-review-')));
   const root = join(base, 'project');
   mkdirSync(root);
   t.after(() => rmSync(base, { recursive: true, force: true }));

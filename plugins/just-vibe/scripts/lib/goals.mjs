@@ -86,9 +86,11 @@ export function goals(root, operation, payload = {}, options = {}) {
           ? previous.criteria.map((c) => c.text)
           : textList(payload.criteria, 'completion criteria', 20);
       if (!criteria.length) throw Error('At least one concrete completion criterion is required.');
+      const constraints = payload.constraints === undefined ? previous.constraints : textList(payload.constraints, 'constraints');
       const scopeChanged =
         next.objective !== previous.objective ||
-        JSON.stringify(criteria) !== JSON.stringify(previous.criteria.map((c) => c.text));
+        JSON.stringify(criteria) !== JSON.stringify(previous.criteria.map((c) => c.text)) ||
+        JSON.stringify(constraints) !== JSON.stringify(previous.constraints);
       if (scopeChanged) {
         if (next.objective !== previous.objective && payload.criteria === undefined)
           throw Error(
@@ -102,6 +104,7 @@ export function goals(root, operation, payload = {}, options = {}) {
           {
             at: timestamp(),
             objective: previous.objective,
+            constraints: previous.constraints,
             criteria: previous.criteria.map(({ id, text, status, evidence }) => ({
               id,
               text,
@@ -117,7 +120,8 @@ export function goals(root, operation, payload = {}, options = {}) {
           evidence: [],
         }));
       }
-      for (const key of ['constraints', 'next', 'blockers'])
+      next.constraints = constraints;
+      for (const key of ['next', 'blockers'])
         if (payload[key] !== undefined) next[key] = textList(payload[key], key);
       if (payload.progress !== undefined)
         next.progress = [

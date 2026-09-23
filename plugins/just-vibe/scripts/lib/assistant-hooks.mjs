@@ -26,8 +26,18 @@ export function assistantHook(event, options = {}) {
   const catalog = options.catalog || loadCatalog();
   let task;
   if (event.hook_event_name === 'UserPromptSubmit') {
-    if (typeof event.prompt !== 'string' || event.prompt.length > 16000) return { systemMessage: 'just-vibe automatic routing skipped an oversized or unavailable prompt. Use the auto skill if needed.' };
+    if (typeof event.prompt !== 'string' || !event.prompt.trim() || event.prompt.includes('\0') || event.prompt.length > 16000) {
+      // This is a new, untracked turn. Its later tools and Stop event must not
+      // be attributed to the previous task, including hosts without turn IDs.
+      const path = store.sessionPath(host, event.session_id), session = store.read(path);
+      if (session?.taskId) store.write(path, { root: store.root, taskId: null, updatedAt: new Date().toISOString() }, session.revision);
+      return { systemMessage: 'just-vibe automatic routing skipped an oversized or unavailable prompt. Use the auto skill if needed.' };
+    }
     task = startRequest(store, catalog, { host, sessionId: event.session_id, turnId: event.turn_id, brief: event.prompt });
+    const runtime = runtimeStore(root, options), key = `hook-delivery-${host}`;
+    const receipt = { host, at: new Date().toISOString(), event: event.hook_event_name, taskId: task.id || null, sessionHash: task.sessionHash };
+    runtime.put(key, receipt, runtime.get(key)?.revision || 0);
+    if (task.kind === 'task') task = store.saveTask({ ...task, hookReceipt: receipt });
   } else {
     const session = store.read(store.sessionPath(host, event.session_id));
     if (session?.taskId) { try { task = store.task(session.taskId); } catch { return {}; } }

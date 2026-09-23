@@ -34,7 +34,7 @@ import { runners } from '../plugins/just-vibe/scripts/lib/trusted-runners.mjs';
 import { boundedJobs } from '../plugins/just-vibe/scripts/lib/bounded-jobs.mjs';
 import { gitHooks } from '../plugins/just-vibe/scripts/lib/git-hooks.mjs';
 function fixture(t, git = false) {
-  const dir = realpathSync(mkdtempSync(join(tmpdir(), 'jv-contract-'))),
+  const dir = realpathSync.native(mkdtempSync(join(tmpdir(), 'jv-contract-'))),
     root = join(dir, 'project');
   mkdirSync(root);
   const options = { home: join(dir, 'home') };

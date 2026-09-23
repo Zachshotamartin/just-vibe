@@ -99,3 +99,25 @@ test('canvas and operator JSON preserve Unicode across network chunks and enforc
     assert.match(rejected.body.error, /too large/);
   }
 });
+
+test('closing local review servers terminates incomplete HTTP request bodies', async t => {
+  const root = mkdtempSync(join(tmpdir(), 'jv-http-close-')), options = { home: join(root, 'home') };
+  t.after(() => rmSync(root, { recursive: true, force: true }));
+  writeFileSync(join(root, 'plan.md'), 'Review this plan.');
+  await planCanvas(root, 'create', { id: 'review', revision: 0, title: 'Review', path: 'plan.md' }, options);
+  for (const kind of ['operator', 'canvas']) {
+    const board = kind === 'operator' ? await startOperatorServer(root, options) : await startCanvasServer(root, 'review', options);
+    const path = kind === 'operator' ? '/api/preferences-action' : '/api/feedback';
+    const tokenHeader = kind === 'operator' ? 'x-operator-token' : 'x-canvas-token';
+    const received = new Promise(done => board.server.once('request', done));
+    const req = request(board.origin + path, { method: 'POST', headers: { origin: board.origin, 'content-type': 'application/json', [tokenHeader]: new URL(board.url).hash.slice(1) } });
+    req.on('error', () => {});
+    req.write('{'); await received;
+    let timer, result;
+    const closing = board.close();
+    try {
+      result = await Promise.race([closing.then(() => 'closed'), new Promise(done => { timer = setTimeout(() => done('hung'), 1000); })]);
+    } finally { clearTimeout(timer); req.destroy(); await closing; }
+    assert.equal(result, 'closed', `${kind} must stop without waiting for an unfinished client upload`);
+  }
+});

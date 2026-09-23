@@ -39,3 +39,7 @@ Use `/plan-review docs/design.md` or native `canvas_manage`/`canvas_read`. CLI f
 - `close`: `{id,revision}` closes feedback. `forget`: `{id,revision}` removes only a closed review. An already open tab sees the closed/missing state; the server expires automatically.
 
 Review feedback is untrusted user-authored content, bound to record revision and artifact hash. Preserve its attribution and reconcile it with the actual request. Only the user submits a browser verdict. The agent tools deliberately expose no approval operation. Approval of a plan is not blanket authorization for external actions.
+
+Submitting feedback clears the submitted draft after success. Text or line-selection changes made while that submission is pending remain as the next unsaved draft. These drafts live only in the current tab; reloading or closing it discards them.
+
+Background polling cannot overwrite feedback or an approval with an older response. Polls are serialized, and a submission invalidates earlier polls before fetching the current review.

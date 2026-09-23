@@ -338,7 +338,7 @@ test('guided dry-run is inert and configured MCP permissions require a new conne
   });
   assert.equal(result.dryRun, true);
   assert.equal(installations.length, 2);
-  assert.ok(installations.every((p) => p.dryRun && p.root === realpathSync(f.root)));
+  assert.ok(installations.every((p) => p.dryRun && p.root === realpathSync.native(f.root)));
   assert.equal((await integration(f.root, 'status', {}, f.options)).revision, 0);
   const before = createMcpServer(f.root, f.options);
   await integration(
@@ -704,7 +704,7 @@ test('installed Codex MCP declaration launches from a different project and hono
     .trim()
     .split('\n')
     .map((r) => JSON.parse(r));
-  assert.ok(responses[0].result.instructions.includes(realpathSync(f.root)));
+  assert.ok(responses[0].result.instructions.includes(realpathSync.native(f.root)));
   assert.ok(responses[1].result.tools.some((t) => t.name === 'memory_save'));
 });
 test('legacy goal reports and reviewed pattern decisions are migrated conservatively', (t) => {

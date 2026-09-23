@@ -27,7 +27,7 @@ test('regression sensitivity retains completed assertions but rejects setup fail
   writeFileSync(join(root,'test/regression.test.mjs'),"import test from 'node:test';import assert from 'node:assert/strict';test('regression',()=>assert.equal(1,2));");
   const env={...process.env};for(const key of ['NODE_OPTIONS','NODE_TEST_CONTEXT','NODE_V8_COVERAGE'])delete env[key];
   const result=spawnSync(process.execPath,['--test','--test-reporter=tap','test/regression.test.mjs'],{cwd:root,encoding:'utf8',env});
-  assert.equal(regressionSensitivity('node',{...result,error:{code:'ETIMEDOUT'}}),true);
+  assert.equal(regressionSensitivity('node',{...result,error:{code:'ETIMEDOUT'}}),true,result.stdout+result.stderr);
   assert.equal(regressionSensitivity('node',{status:1,stdout:'SyntaxError: unexpected token'}),false);
   assert.equal(regressionSensitivity('node',{status:null,stdout:'',error:{code:'ETIMEDOUT'}}),false);
   assert.equal(regressionSensitivity('python',{status:1,stdout:JSON.stringify({tests:2,failures:[{exception:'ValueError',behavior_failure:true}]})}),true);

@@ -35,7 +35,7 @@ import { managedFragment } from '../plugins/just-vibe/scripts/lib/managed-fragme
 import { digest } from '../plugins/just-vibe/scripts/lib/storage.mjs';
 
 function fixture(t, git = false) {
-  const dir = realpathSync(mkdtempSync(join(tmpdir(), 'jv-depth-'))),
+  const dir = realpathSync.native(mkdtempSync(join(tmpdir(), 'jv-depth-'))),
     root = join(dir, 'project'),
     home = join(dir, 'home');
   mkdirSync(root);

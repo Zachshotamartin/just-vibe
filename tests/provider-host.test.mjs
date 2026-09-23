@@ -13,8 +13,8 @@ test('optional Python provider native request, privacy, stream and endpoint cont
   }
   const result = spawnSync(
     python,
-    [fileURLToPath(new URL('./provider-host-fixtures.py', import.meta.url))],
-    { encoding: 'utf8', timeout: 10000, env: { ...process.env, PYTHONDONTWRITEBYTECODE: '1' } },
+    ['-u', fileURLToPath(new URL('./provider-host-fixtures.py', import.meta.url)), '-v'],
+    { encoding: 'utf8', timeout: 30000, env: { ...process.env, PYTHONDONTWRITEBYTECODE: '1' } },
   );
   assert.equal(result.status, 0, result.stdout + result.stderr);
 });

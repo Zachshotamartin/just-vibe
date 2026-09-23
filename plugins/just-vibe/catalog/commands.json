@@ -21743,6 +21743,118 @@
           "when": "Coordinating feature, fix, refactor or MVP phases; use exact worker and canvas operations only when needed"
         }
       ]
+    },
+    {
+      "id": "agent-qa",
+      "pack": "testing",
+      "summary": "Verify requested web-app outcomes through browser assertions, screenshots and bounded retests",
+      "aliases": [],
+      "aliasOf": null,
+      "defaultMode": "apply",
+      "modePolicy": "Apply runs the requested browser verification and records local evidence. Inspect derives criteria and examines existing evidence without interacting with the target.",
+      "requiredInputs": [
+        "Original request and the authorized target app URL; identify any missing fixture or acceptance ambiguity before the dependent check."
+      ],
+      "optionalInputs": [
+        "scope",
+        "references",
+        "constraints",
+        "successCriteria",
+        "environment",
+        "mode",
+        "budget"
+      ],
+      "capabilities": [
+        "project.read",
+        "browser.inspect"
+      ],
+      "readScope": "Original user request, relevant source and fixtures, running target app, prior QA attempts and screenshots.",
+      "writeScope": "Create local QA plans, isolated browser sessions and evidence artifacts. Interact only with the authorized target using synthetic fixtures. Fix product code only when the user has authorized repairs; do not submit purchases, publish, delete real data or upload private recordings.",
+      "procedure": [
+        "Read the original request before implementation details. Translate each requested visitor outcome into observable acceptance criteria, quoting the relevant request text. Include successful completion, an invalid-input path and the requested viewport. Separate subjective design judgments from assertions. Do not silently treat inferred criteria as user requirements; mark assumptions in criterion text. Record a reviewed request-to-criterion coverage map with explicit uncovered reasons. Unreviewed or uncovered requirements prevent a complete acceptance claim even when assertions pass.",
+        "Read the Agent QA guide. Discover browser tools and inspect the app to select actual controls; never invent selectors. Prefer the bounded QA runtime when the target project already has Playwright and Chromium; otherwise use available host browser tools with proof records. Missing tools, authentication, fixture data or a running server make dependent checks blocked, not passed.",
+        "Create a QA plan with exact target, request-linked criteria, viewport and ordered actions/assertions. For an upload, assert processing completion and advancing media playback, not merely the existence of an upload element. For invalid files, assert visible understandable error content. For mobile, check horizontal overflow, specified control clipping and overlap; retain a screenshot for human visual review. Declare required additional origins; obtain explicit per-run authorization for them and any private test-account storage state. Mask identified private UI in screenshots; never persist passwords in steps.",
+        "Run verification in a fresh browser context against the authorized target. Prefer a separate verifier only when delegation is permitted; otherwise label this self-review with independent executable assertions. Do not describe running tests in the implementation session as an independent agent review. Keep code inspection and browser results separate.",
+        "When a check fails, preserve the actual/expected result, viewport, target URL, failed step, screenshot and reproduction sequence. Verify that it is a product defect rather than a missing prerequisite. If repairs are authorized, fix the smallest relevant cause and rerun the same criteria within the configured attempt budget. Never delete the first failure or weaken a criterion to turn the report green. Keep network restrictions separate from assertion failures: an unrelated blocked request must not erase a failure.",
+        "Recompute evidence freshness and produce the report including all attempts. Disclose unchecked request clauses, subjective judgments, blocked environments and source/build identity uncertainty. Stop on the attempt limit and report remaining work. A successful fixture run or isolated browser assertion cannot prove the entire app is correct. Offer an export of fresh, passing, reviewed journeys as runnable project regression tests, without credentials; do not export stale or incomplete acceptance as passing."
+      ],
+      "outputs": [
+        "Request-linked acceptance plan with explicit assumptions and human-only criteria.",
+        "Browser assertion results, screenshots, failure reproduction steps and complete retest history.",
+        "Current evidence freshness and remaining limitations."
+      ],
+      "verification": [
+        "A broken processing flow must fail even when the upload control is visible.",
+        "Changed source or modified screenshots invalidate previously passing evidence.",
+        "Unavailable browser dependencies remain blocked; subjective criteria remain needs-human.",
+        "Redirects never contact an unapproved origin; allowed API origins require explicit authorization.",
+        "A clipped ancestor must fail layout verification, and an unrelated blocked request must not mask a failed assertion."
+      ],
+      "stopConditions": [
+        "Stop at the attempt budget; do not weaken expectations or erase failures.",
+        "Do not interact with unapproved production data or claim remote build identity from local source hashes."
+      ],
+      "examples": [
+        {
+          "brief": "Verify that visitors can upload a sample audio file, hear the processed result, and use the mobile controls at http://127.0.0.1:3000.",
+          "mode": "apply"
+        },
+        {
+          "kind": "edge",
+          "brief": "The upload component exists but processing never completes. Reproduce the failure, preserve evidence, fix it and rerun the same checks.",
+          "mode": "apply"
+        },
+        {
+          "kind": "blocked",
+          "brief": "Plan QA for a login-gated app with no test account or recording fixture; identify blocked checks without fabricating results.",
+          "mode": "inspect"
+        }
+      ],
+      "hostSupport": [
+        "codex",
+        "claude"
+      ],
+      "executionModel": "host-agent",
+      "implementationStatus": "implemented",
+      "validation": {
+        "structural": "automated",
+        "runtime": "fixtures-tested",
+        "behavioral": "not-evaluated"
+      },
+      "skillPath": "skills/agent-qa/SKILL.md",
+      "runtimeSteps": [],
+      "searchTerms": [
+        "agent qa",
+        "acceptance criteria",
+        "visitor journey",
+        "independent verification",
+        "upload playback",
+        "browser acceptance"
+      ],
+      "selection": "Use after implementation when a user wants evidence that a visitor can complete the requested journey, including upload, playback, invalid input and mobile behavior.",
+      "branches": [
+        {
+          "when": "a required check is unavailable or fails before exercising behavior",
+          "then": "Mark that criterion unverified and report the prerequisite separately from product failure."
+        },
+        {
+          "when": "automated behavior is correct but a subjective criterion is unresolved",
+          "then": "Report the automated evidence and leave human acceptance pending rather than manufacturing a pass."
+        }
+      ],
+      "guides": [
+        {
+          "title": "Agent QA for web apps",
+          "when": "Planning, executing or reporting request-derived browser acceptance checks",
+          "path": "references/agent-qa.md"
+        }
+      ],
+      "technical": {
+        "evidence": "Original request quotes, observed controls, synthetic fixtures, target URL, source snapshot, failed step and hashed screenshots.",
+        "method": "Use bounded executable browser actions and assertions in fresh contexts; retain every attempt and compare evidence identities after repairs.",
+        "pitfall": "Component presence, HTTP success or a screenshot alone does not establish a successful visitor journey. Remote servers may serve a different revision.",
+        "check": "Exercise a deliberately broken flow and a repaired retest; preserve failures, flag changed evidence, and leave subjective or unavailable checks unresolved."
+      }
     }
   ]
 }

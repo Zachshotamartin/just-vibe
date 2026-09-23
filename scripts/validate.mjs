@@ -29,10 +29,10 @@ for (const path of ['.agents/plugins/marketplace.json', '.claude-plugin/marketpl
 const skillRoot = resolve(root, 'plugins/just-vibe/skills');
 const skills = readdirSync(skillRoot);
 const catalog = loadCatalog();
-assert.equal(catalog.commands.length, 220);
+assert.equal(catalog.commands.length, 221);
 assert.deepEqual(skills.sort(), catalog.commands.map(c => c.id).sort());
 assert.equal(catalog.commands.filter(c => c.pack === 'general').length, 59);
-assert.equal(catalog.commands.filter(c => !['general', 'installation'].includes(c.pack)).length, 160);
+assert.equal(catalog.commands.filter(c => !['general', 'installation'].includes(c.pack)).length, 161);
 for (const name of skills) {
   const content = readFileSync(resolve(skillRoot, name, 'SKILL.md'), 'utf8');
   assert.ok(content.startsWith(`---\nname: ${name}\n`), `Invalid name in ${name}`);

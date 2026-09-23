@@ -5,11 +5,25 @@ import { gitRead } from './project.mjs';
 import { withFileLock, atomicFile } from './file-lock.mjs';
 
 export const digest = value => createHash('sha256').update(value).digest('hex');
-export const projectRoot = root => realpathSync(resolve(root));
+export const projectRoot = root => realpathSync.native(resolve(root));
 export const privateName = name => /(?:^\.env(?:\.|$)|\.(?:pem|key|p12|pfx)$|credentials|secrets?\.)/i.test(name);
 
 export function within(root, path) {
-  const base = projectRoot(root), full = resolve(base, path), rel = relative(base, full);
+  const base = projectRoot(root);
+  let full = resolve(base, path);
+  // Expand Windows short names before containment checks, without following
+  // symlinks/junctions supplied below the selected root.
+  if (process.platform === 'win32' && isAbsolute(path)) {
+    let cursor = full, tail = [];
+    while (!existsSync(cursor)) { const parent = dirname(cursor); if (parent === cursor) break; tail.unshift(cursor.slice(parent.length).replace(/^[\\/]+/, '')); cursor = parent; }
+    let inspect = cursor;
+    while (inspect !== dirname(inspect)) {
+      if (lstatSync(inspect).isSymbolicLink()) throw Error('Symlink paths are not supported for managed state or evidence.');
+      inspect = dirname(inspect);
+    }
+    if (existsSync(cursor)) full = resolve(realpathSync.native(cursor), ...tail);
+  }
+  const rel = relative(base, full);
   if (isAbsolute(rel) || rel === '..' || rel.startsWith(`..${sep}`)) throw Error('Path escapes the selected project.');
   let cursor = base;
   for (const part of rel.split(sep).filter(Boolean)) {

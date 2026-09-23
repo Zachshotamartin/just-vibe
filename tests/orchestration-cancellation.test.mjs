@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { mkdtempSync, mkdirSync, writeFileSync, existsSync, readFileSync, realpathSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
+import { pathToFileURL } from 'node:url';
 import { spawn, execFileSync } from 'node:child_process';
 import { workers } from '../plugins/just-vibe/scripts/lib/workers.mjs';
 import { orchestrate } from '../plugins/just-vibe/scripts/lib/orchestration.mjs';
@@ -18,7 +19,7 @@ async function waitFor(check, milliseconds = 10000) {
 }
 
 async function fixture(t) {
-  const directory = realpathSync(mkdtempSync(join(tmpdir(), 'jv-orchestration-cancel-')));
+  const directory = realpathSync.native(mkdtempSync(join(tmpdir(), 'jv-orchestration-cancel-')));
   const root = join(directory, 'project'), options = { home: join(directory, 'home') };
   const blocked = join(directory, 'setup-blocked'), release = join(directory, 'release-setup'), marker = join(directory, 'executed');
   mkdirSync(root);
@@ -62,7 +63,7 @@ syncBuiltinESMExports();
   writeFileSync(dispatch, `import { orchestrate } from ${JSON.stringify(new URL('../plugins/just-vibe/scripts/lib/orchestration.mjs', import.meta.url).href)};
 console.log(JSON.stringify(await orchestrate(${JSON.stringify(root)}, 'dispatch', { id: 'flow', revision: ${state.revision} }, ${JSON.stringify({ ...options, command })})));
 `);
-  const child = spawn(process.execPath, ['--import', preload, dispatch], { stdio: ['ignore', 'pipe', 'pipe'] });
+  const child = spawn(process.execPath, ['--import', pathToFileURL(preload).href, dispatch], { stdio: ['ignore', 'pipe', 'pipe'] });
   let stdout = '', stderr = '';
   child.stdout.on('data', data => { stdout += data; });
   child.stderr.on('data', data => { stderr += data; });

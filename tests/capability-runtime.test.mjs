@@ -25,7 +25,7 @@ import { portfolio } from '../plugins/just-vibe/scripts/lib/skill-portfolio.mjs'
 import { platformRuntime } from '../plugins/just-vibe/scripts/lib/platform-runtime.mjs';
 
 function fixture(t) {
-  const dir = realpathSync(mkdtempSync(join(tmpdir(), 'jv-capability-'))),
+  const dir = realpathSync.native(mkdtempSync(join(tmpdir(), 'jv-capability-'))),
     root = join(dir, 'project'),
     home = join(dir, 'home');
   mkdirSync(root);
@@ -121,7 +121,7 @@ test('session adapters exclude reasoning, handle corrupt lines and isolate proje
   assert.equal(r.sourceBound, true);
   sessions(f.root, 'alias', { alias: 'work', id: r.id, revision: 0 }, f.options);
   assert.equal(sessions(f.root, 'resume', { id: 'work' }, f.options).sourceFresh, true);
-  writeFileSync(join(f.root, 'session.jsonl'), source.replace(f.root, f.dir));
+  writeFileSync(join(f.root, 'session.jsonl'), source.replace(JSON.stringify(f.root), JSON.stringify(f.dir)));
   assert.throws(
     () =>
       sessions(

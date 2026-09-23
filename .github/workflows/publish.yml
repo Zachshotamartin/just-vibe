@@ -1,29 +1,22 @@
-name: Publish npm package
+name: Prepare npm release
 
+# Manual validation only. Publishing is performed explicitly from the CLI.
 on:
   workflow_dispatch:
-    inputs:
-      publish:
-        description: Publish the verified artifact (requires running from its vVERSION tag)
-        type: boolean
-        default: false
 
 permissions:
   contents: read
 
 concurrency:
-  group: npm-publish
+  group: npm-release-validation
   cancel-in-progress: false
 
 jobs:
   checks:
     uses: ./.github/workflows/ci.yml
-  release:
+  prepare:
     needs: checks
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      id-token: write
     steps:
       - uses: actions/checkout@v7.0.1
         with:
@@ -32,33 +25,5 @@ jobs:
         with:
           node-version: 24
           registry-url: https://registry.npmjs.org
-      - run: npm install --global npm@12.0.2
       - run: npm ci --ignore-scripts
       - run: npm run release:prepare
-      - name: Verify version tag before publication
-        if: inputs.publish
-        run: node --input-type=module -e 'import fs from "node:fs"; const p = JSON.parse(fs.readFileSync("package.json")); if (process.env.GITHUB_REF !== `refs/tags/v${p.version}`) throw new Error("Publish from the matching vVERSION tag.");'
-      - name: Publish exactly the tested archive using npm trusted publishing
-        if: inputs.publish
-        env:
-          NPM_CONFIG_PROVENANCE: ${{ !github.event.repository.private }}
-        run: |
-          node --input-type=module <<'JS'
-          import fs from 'node:fs';
-          import { execFileSync } from 'node:child_process';
-          import { createHash } from 'node:crypto';
-          const { name, version } = JSON.parse(fs.readFileSync('package.json'));
-          const path = `dist/${name}-${version}.tgz`;
-          const expected = fs.readFileSync(`${path}.sha256`, 'utf8').split(' ')[0];
-          if (createHash('sha256').update(fs.readFileSync(path)).digest('hex') !== expected) throw new Error('Release artifact changed after verification.');
-          execFileSync('npm', ['publish', fs.realpathSync(path), '--access', 'public', '--ignore-scripts'], { stdio: 'inherit' });
-          JS
-      - name: Verify published version
-        if: inputs.publish
-        run: |
-          node --input-type=module <<'JS'
-          import fs from 'node:fs';
-          import { verifyRegistryExecution } from './scripts/lib/publication.mjs';
-          const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
-          console.log(`Verified registry execution: ${pkg.name}@${verifyRegistryExecution(pkg)}`);
-          JS
