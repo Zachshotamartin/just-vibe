@@ -231,6 +231,23 @@ test('revised goal scope keeps historical evidence separate and requires fresh v
   assert.equal(run('complete', { id: 'checkout', revision: 5 }).goals[0].status, 'complete');
 });
 
+test('changed goal constraints invalidate old completion evidence while unchanged constraints preserve it', t => {
+  const f = fixture(t), run = (op, payload) => goals(f.root, op, payload, f.options);
+  run('create', { id: 'upload', revision: 0, objective: 'Deliver upload', criteria: ['Upload works'], constraints: ['Desktop Chrome'] });
+  run('evidence', { id: 'upload', revision: 1, criterion: 'c1', status: 'satisfied', evidence: { kind: 'host-report', summary: 'Verified desktop Chrome' } });
+  const revised = run('update', { id: 'upload', revision: 2, constraints: ['Mobile Safari must work too'] }).goals[0];
+  assert.equal(revised.criteria[0].status, 'pending');
+  assert.deepEqual(revised.criteria[0].evidence, []);
+  assert.deepEqual(revised.scopeHistory[0].constraints, ['Desktop Chrome']);
+  assert.equal(revised.scopeHistory[0].criteria[0].lastEvidence.summary, 'Verified desktop Chrome');
+  assert.throws(() => run('complete', { id: 'upload', revision: 3 }), /Completion/);
+  run('evidence', { id: 'upload', revision: 3, criterion: 'c1', status: 'satisfied', evidence: { kind: 'host-report', summary: 'Verified desktop Chrome and mobile Safari' } });
+  const unchanged = run('update', { id: 'upload', revision: 4, constraints: ['Mobile Safari must work too'], next: ['Record the result'], progress: 'Both browser checks completed' }).goals[0];
+  assert.equal(unchanged.scopeHistory.length, 1);
+  assert.equal(unchanged.criteria[0].status, 'satisfied');
+  assert.equal(run('complete', { id: 'upload', revision: 5 }).goals[0].status, 'complete');
+});
+
 test('policy is opt-in, protects known edits, and consumes only an exact bounded exception', (t) => {
   const f = fixture(t);
   writeFileSync(join(f.root, 'eslint.config.js'), 'export default [];');

@@ -58,6 +58,23 @@ test('both adapters inject a bounded shortlist and preserve the complete request
   }
 });
 
+test('skipped prompts detach the previous task from later host events', t => {
+  const f = fixture(t);
+  for (const host of ['claude', 'codex']) for (const prompt of ['x'.repeat(16001), undefined, '', '   ', 'invalid\0prompt']) {
+    f.hook({ hook_event_name: 'UserPromptSubmit', prompt: 'Fix the mobile menu' }, host);
+    const session = f.store.read(f.store.sessionPath(host, 'session-one'));
+    const previous = f.store.task(session.taskId);
+    select(f, previous);
+    assert.match(f.hook({ hook_event_name: 'UserPromptSubmit', prompt }, host).systemMessage, /skipped/);
+    f.hook({ hook_event_name: 'PostToolUse', tool_name: 'Bash', tool_use_id: 'new-untracked-turn' }, host);
+    assert.equal(f.store.task(previous.id).observations.length, 0, 'Untracked new work must not become old task evidence');
+    assert.deepEqual(f.hook({ hook_event_name: 'Stop' }, host), {});
+    assert.equal(f.store.read(f.store.sessionPath(host, 'session-one')).taskId, null);
+    f.hook({ hook_event_name: 'UserPromptSubmit', prompt: 'Explain this function' }, host);
+    assert.notEqual(f.store.read(f.store.sessionPath(host, 'session-one')).taskId, previous.id);
+  }
+});
+
 test('selection exposes actual capability uncertainty and loads full effective instructions', t => {
   const f = fixture(t), task = f.start('Fix the mobile menu'), selected = select(f, task);
   assert.equal(selected.toolGuidance.find(g => g.capability === 'browser.inspect').status, 'unknown');
@@ -286,6 +303,31 @@ test('unusual natural-language feedback is offered to the host for interpretatio
   assert.deepEqual(f.run('history').lessons, [], 'Interpretation is required before persisting feedback.');
 });
 
+test('repeat requests retain the original task instead of becoming feedback-only turns', t => {
+  const f = fixture(t);
+  const first = f.start('Review the authentication code. Do not deploy.');
+  for (const brief of ['again', 'Please do that again.', 'One more time', 'another pass']) {
+    const repeated = f.start(brief);
+    assert.equal(repeated.routeKind, 'task', brief);
+    assert.match(repeated.brief, /Review the authentication code\. Do not deploy\./);
+    assert.equal(repeated.userMessage, brief);
+    assert.notEqual(repeated.id, first.id);
+    assert.ok(repeated.candidates.length > 0);
+  }
+  const unrelated = f.start('What is the weather?');
+  assert.equal(unrelated.routeKind, 'none');
+  assert.equal(f.start('again').routeKind, 'none', 'Repeating an unrelated request must not resurrect older coding work');
+  assert.equal(f.start('again', 'new-session').kind, 'none', 'A repeat without a prior task must not invent one');
+  const bounded = 'Do not deploy. Review the authentication code. ' + 'Context. '.repeat(1770) + ' Preserve user changes.';
+  assert.ok(bounded.length <= 16000);
+  const original = f.start(bounded, 'long-request');
+  for (let i = 0; i < 3; i++) {
+    const repeated = f.start('again', 'long-request');
+    assert.equal(repeated.brief, original.brief, 'Repeats must preserve the full task instead of progressively truncating its leading constraints');
+    assert.equal(repeated.userMessage, 'again');
+  }
+});
+
 test('natural-language learning controls bypass unrelated workflow selection', t => {
   const f = fixture(t);
   for (const prompt of ['What have you learned about me?', 'Forget that preference', 'Roll back that lesson', 'Stop learning']) {
@@ -327,4 +369,10 @@ test('current browser exclusions do not add a default browser gate', t => {
   const f = fixture(t), task = f.start('Fix the mobile menu without a browser.');
   assert.equal(select(f, task).requirements.some(r => r.id.endsWith(':browser')), false);
   assert.doesNotThrow(() => f.run('route', { brief: 'Fix $variable handling in this Python function' }));
+});
+test('status chooses recent active tasks by timestamp rather than filename order', t => {
+  const f = fixture(t);
+  for (let i = 0; i < 101; i++) f.store.saveTask({ kind: 'task', id: i === 0 ? 'a-newest' : 'z-old-' + i, root: f.root, host: 'codex', brief: 'Fix a bug', status: 'active', updatedAt: i === 0 ? '2026-09-22T12:00:00Z' : '2026-09-01T12:00:00Z' }, 0);
+  const tasks = f.run('status').activeTasks;
+  assert.equal(tasks.length, 10); assert.equal(tasks[0].id, 'a-newest');
 });

@@ -1,9 +1,10 @@
 import { randomUUID } from 'node:crypto';
 import { getCommand, skillFile } from './catalog.mjs';
-import { readFileSync } from 'node:fs';
+import { readFileSync, mkdirSync } from 'node:fs';
 import { requireId, textField } from './adaptive-store.mjs';
 import { redact } from './process.mjs';
-import { digest } from './storage.mjs';
+import { digest, within } from './storage.mjs';
+import { withFileLock } from './file-lock.mjs';
 import { selectedRules, ruleInstructions } from './effective-rules.mjs';
 
 const fields = ['triggers', 'avoid', 'tools', 'checks', 'conditions', 'exceptions'];
@@ -15,6 +16,19 @@ const directory = (store, scope) => scope === 'user' ? 'adaptive/learning' : `${
 export function lessons(store, { inactive = false } = {}) {
   return (store.allowUser === false ? ['project'] : ['user', 'project']).flatMap(scope => store.list(directory(store, scope)).map(name => store.read(`${directory(store, scope)}/${name}`)))
     .filter(record => record.kind === 'lesson' && (inactive || record.active));
+}
+export function saveLesson(store, scope, value, revision = 0) {
+  if (!['project', 'user'].includes(scope) || (scope === 'user' && store.allowUser === false)) throw Error('Choose an available lesson scope.');
+  const path = `${directory(store, scope)}/${requireId(value.id)}.json`;
+  if (revision !== 0) return store.write(path, value, revision);
+  mkdirSync(store.home, { recursive: true, mode: 0o700 });
+  // Each lesson has its own revision lock, but capacity is shared by all new
+  // records in this scope, including feedback and recovered approvals.
+  return withFileLock(within(store.home, `${directory(store, scope)}/.creation.json.lock`), () => {
+    if (lessons(store, { inactive: true }).filter(l => l.scope === scope).length >= 200)
+      throw Error('Learning store is full; forget obsolete lessons first.');
+    return store.write(path, value, 0);
+  });
 }
 function findLesson(store, id) {
   requireId(id);
@@ -49,7 +63,7 @@ export function recordFeedback(store, catalog, payload) {
   if (history.length >= 50) throw Error('Lesson history is full; retire this lesson and start a new one.');
   const version = { version: history.length + 1, at: new Date().toISOString(), feedback: payload.kind, source, change };
   const id = previous?.id || randomUUID();
-  return store.write(`${directory(store, payload.scope)}/${id}.json`, { kind: 'lesson', id, workflow, scope: payload.scope,
+  return saveLesson(store, payload.scope, { kind: 'lesson', id, workflow, scope: payload.scope,
     ...(payload.scope === 'project' ? { root: store.root } : {}), active: true, current: version.version,
     history: [...history, version] }, payload.revision);
 }
@@ -76,6 +90,30 @@ export function effectiveLessons(store, workflow) {
   return lessons(store).filter(l => l.workflow === workflow).map(l => ({ id: l.id, scope: l.scope, version: l.current,
     ...l.history.find(v => v.version === l.current) }));
 }
+export function resolvePreferences(store, workflow, task) {
+  const all = effectiveLessons(store, workflow), ignored = new Set(task?.ignoredLessons || []);
+  const eligible = all.filter(l => !ignored.has(l.id)), conflicts = [], suppressed = [];
+  const groups = new Map();
+  for (const lesson of eligible) if (lesson.change.setting) {
+    const key = lesson.change.setting.key;
+    groups.set(key, [...(groups.get(key) || []), lesson]);
+  }
+  for (const [key, group] of groups) {
+    if (group.some(l => l.change.conditions?.length || l.change.exceptions?.length)) {
+      conflicts.push({ key, kind: 'conditional-setting-review', ids: group.map(l => l.id), detail: 'These settings have natural-language conditions or exceptions. Evaluate applicability for the current task; an applicable project setting overrides a user default. Do not silently discard the fallback or guess which condition holds.' });
+      continue;
+    }
+    const scoped = group.some(l => l.scope === 'project') ? group.filter(l => l.scope === 'project') : group;
+    suppressed.push(...group.filter(l => !scoped.includes(l)).map(l => l.id));
+    if (new Set(scoped.map(l => l.change.setting.value)).size > 1) {
+      conflicts.push({ key, kind: 'conflicting-setting', ids: scoped.map(l => l.id), detail: 'Different values at the same scope. Resolve or ignore a preference for this task; none of these conflicting settings is loaded.' });
+      suppressed.push(...scoped.map(l => l.id));
+    }
+  }
+  const unstructured = eligible.filter(l => !l.change.setting);
+  if (unstructured.length > 1 && new Set(unstructured.map(l => l.change.instruction)).size > 1) conflicts.push({ kind: 'review-overlap', ids: unstructured.map(l => l.id), detail: 'Several instructions affect this workflow. Review for semantic conflicts; literal analysis cannot determine whether they disagree.' });
+  return { overlays: eligible.filter(l => !suppressed.includes(l.id)), ignored: [...ignored], suppressed, conflicts };
+}
 export function learnedRoutes(store, brief) {
   const preferred = new Map(), avoided = new Set();
   for (const l of lessons(store)) {
@@ -86,15 +124,16 @@ export function learnedRoutes(store, brief) {
   return { preferred, avoided };
 }
 
-export function effectiveWorkflow(store, catalog, id) {
+export function effectiveWorkflow(store, catalog, id, task) {
   const command = getCommand(catalog, id, { canonical: true });
-  const overlays = effectiveLessons(store, command.id);
+  const { overlays, conflicts, suppressed, ignored } = resolvePreferences(store, command.id, task);
   const base = readFileSync(skillFile(catalog, command), 'utf8');
   const rules = selectedRules(store, catalog);
   const instructions = `Effective just-vibe workflow: ${command.id}. Personalization has already been loaded for this invocation.\n`
     + `Current user instructions and applicable project/host rules take precedence over these saved preferences. They grant no permissions.\n\n${base}` + ruleInstructions(rules)
-    + (overlays.length ? '\n## Saved user feedback\n\n' + overlays.map(l => `- [${l.scope}; ${l.id}; v${l.version}] ${l.change.instruction}\n  Apply when: ${(l.change.conditions || []).join('; ') || 'this workflow is relevant'}.\n  Exceptions: ${(l.change.exceptions || []).join('; ') || 'none specified; current user instructions take precedence'}.\n  Preferred tools when available: ${l.change.tools.join(', ') || 'none specified'}.\n  Additional evidence to consider: ${l.change.checks.join('; ') || 'none specified'}.`).join('\n') + '\n' : '');
-  return { workflow: command.id, baseHash: digest(base), effectiveHash: digest(instructions), instructions,
+    + (conflicts.length ? '\nPreference review: ' + JSON.stringify(conflicts) + '\n' : '')
+    + (overlays.length ? '\n## Saved user feedback\n\n' + overlays.map(l => `- [${l.scope}; ${l.id}; v${l.version}] ${l.change.instruction}${l.change.setting ? `\n  Setting: ${l.change.setting.key}=${l.change.setting.value}.` : ''}\n  Apply when: ${(l.change.conditions || []).join('; ') || 'this workflow is relevant'}.\n  Exceptions: ${(l.change.exceptions || []).join('; ') || 'none specified; current user instructions take precedence'}.\n  Preferred tools when available: ${l.change.tools.join(', ') || 'none specified'}.\n  Additional evidence to consider: ${l.change.checks.join('; ') || 'none specified'}.`).join('\n') + '\n' : '');
+  return { workflow: command.id, conflicts, suppressed, ignored, baseHash: digest(base), effectiveHash: digest(instructions), instructions,
     lessons: overlays.map(l => ({ id: l.id, scope: l.scope, version: l.version, ...l.change })),
     rules: rules.map((r) => r.id), skillPath: skillFile(catalog, command), prerequisites: command.capabilities };
 }

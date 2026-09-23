@@ -86,7 +86,7 @@ export async function startCanvasServer(
     close: () =>
       new Promise((ok) => {
         server.close(ok);
-        server.closeIdleConnections();
+        server.closeAllConnections();
       }),
   };
 }

@@ -35,10 +35,10 @@
     "test:canvas-browser": "node scripts/smoke-canvas-browser.mjs",
     "eval:hosts": "node scripts/eval-live-hosts.mjs",
     "audit:ecc": "node scripts/audit-ecc.mjs",
-    "test:operator-browser": "node scripts/smoke-operator-browser.mjs",
+    "test:operator-browser": "node scripts/smoke-operator-browser.mjs && node scripts/smoke-operator-races.mjs",
     "check:localizations": "node scripts/check-localizations.mjs",
     "audit:implementation": "node scripts/check-ecc-implementation.mjs",
-    "test:qa-browser": "node scripts/smoke-agent-qa.mjs"
+    "test:qa-browser": "node scripts/smoke-agent-qa.mjs && node scripts/smoke-qa-boundaries.mjs"
   },
   "files": [
     "bin/",

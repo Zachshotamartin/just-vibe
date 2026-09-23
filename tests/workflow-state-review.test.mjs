@@ -14,6 +14,8 @@ import { sessions, parseSession } from '../plugins/just-vibe/scripts/lib/native-
 import { createMcpServer } from '../plugins/just-vibe/scripts/lib/mcp-server.mjs';
 import { configurationInventory } from '../plugins/just-vibe/scripts/lib/config-inventory.mjs';
 import { runtimeStore } from '../plugins/just-vibe/scripts/lib/runtime-store.mjs';
+import { preferences } from '../plugins/just-vibe/scripts/lib/preferences.mjs';
+import { changeLesson } from '../plugins/just-vibe/scripts/lib/adaptive-learning.mjs';
 
 const moduleUrl = file => pathToFileURL(resolve('plugins/just-vibe/scripts/lib', file)).href;
 function fixture(t) {
@@ -110,6 +112,84 @@ test('pruning preserves an interrupted approval until activation is recovered', 
   pruned = patternLearning(f.root, 'prune', { revision: pruned.revision }, f.options);
   assert.equal(pruned.candidates.length, 0);
   assert.equal(pruned.decisions[0].status, 'approved');
+});
+
+test('learning recovery does not replay completed retirements after the user restores or forgets guidance', t => {
+  const f = fixture(t);
+  const original = preferences(f.root, 'create', { workflow: 'review', scope: 'project', draft: { instruction: 'Check original behavior.' } }, f.options);
+  let state = patternLearning(f.root, 'import', { revision: 0, bundle: { schema: 'just-vibe.preferences.v1', items: [{ workflow: 'review', instruction: 'Check replacement behavior.' }] } }, f.options);
+  state = patternLearning(f.root, 'approve', { revision: state.revision, id: state.candidates[0].id, reason: 'Replace prior guidance', resolutions: [{ id: original.id, revision: original.revision, action: 'retire' }] }, f.options);
+  const candidate = state.candidates[0];
+  const restored = changeLesson(f.store, 'rollback', { id: original.id, revision: original.revision + 1, version: 1 });
+  for (const forget of [false, true]) {
+    if (forget) changeLesson(f.store, 'forget', { id: candidate.lessonId, revision: 1 });
+    assert.deepEqual(patternLearning(f.root, 'recover', {}, f.options).recovered, [candidate.lessonId]);
+    assert.equal(f.store.read(`${f.store.project}/learning/${original.id}.json`).revision, restored.revision);
+    const completed = f.store.read(`${f.store.project}/learning/${candidate.lessonId}.json`);
+    assert.equal(completed.kind, forget ? 'forgotten' : 'lesson');
+  }
+});
+
+test('reconsider cannot discard a partially applied preference approval', t => {
+  const f = fixture(t);
+  const original = preferences(f.root, 'create', { workflow: 'review', scope: 'project', draft: { instruction: 'Inspect the original boundary.' } }, f.options);
+  const state = patternLearning(f.root, 'import', { revision: 0, bundle: { schema: 'just-vibe.preferences.v1', items: [{ workflow: 'review', instruction: 'Inspect the replacement boundary.' }] } }, f.options);
+  const child = spawnSync(process.execPath, ['--input-type=module', '-e', `
+    import fs from 'node:fs'; import {syncBuiltinESMExports} from 'node:module';
+    const original=fs.writeFileSync; fs.writeFileSync=(path,...args)=>{
+      if(String(path).replaceAll('\\\\','/').includes('/learning/pattern-'))process.exit(77);
+      return original(path,...args);
+    }; syncBuiltinESMExports();
+    const {patternLearning}=await import(${JSON.stringify(moduleUrl('pattern-learning.mjs'))});
+    patternLearning(${JSON.stringify(f.root)},'approve',${JSON.stringify({ revision: state.revision, id: state.candidates[0].id, reason: 'Replace reviewed guidance', resolutions: [{ id: original.id, revision: original.revision, action: 'retire' }] })},${JSON.stringify(f.options)});
+  `], { encoding: 'utf8', timeout: 10000 });
+  assert.equal(child.status, 77, child.stderr);
+  const pending = patternLearning(f.root, 'status', {}, f.options), candidate = pending.candidates[0];
+  assert.equal(f.store.read(`${f.store.project}/learning/${original.id}.json`).active, false);
+  assert.equal(f.store.read(`${f.store.project}/learning/${candidate.lessonId}.json`), null);
+  const reconsider = { revision: pending.revision, id: candidate.id, reason: 'Revisit the decision' };
+  assert.throws(() => patternLearning(f.root, 'reconsider', reconsider, f.options), /recover|activation/i);
+  assert.equal(patternLearning(f.root, 'status', {}, f.options).revision, pending.revision);
+  patternLearning(f.root, 'recover', {}, f.options);
+  assert.equal(f.store.read(`${f.store.project}/learning/${candidate.lessonId}.json`).active, true);
+  assert.equal(patternLearning(f.root, 'reconsider', reconsider, f.options).candidates.length, 0);
+});
+
+for (const producer of ['preferences', 'feedback', 'approval', 'global preferences']) test(`concurrent ${producer} creation enforces the shared lesson capacity`, t => {
+  const f = fixture(t);
+  const scope = producer === 'global preferences' ? 'user' : 'project';
+  const directory = scope === 'user' ? 'adaptive/learning' : `${f.store.project}/learning`;
+  const template = preferences(f.root, 'create', { workflow: 'review', scope, draft: { instruction: 'Inspect the boundary.' } }, f.options);
+  for (let i = 0; i < 198; i++) f.store.write(`${directory}/seed-${i}.json`, { ...template, id: `seed-${i}` }, 0);
+  const competingRoot = scope === 'user' ? join(f.base, 'other-project') : f.root;
+  if (scope === 'user') fs.mkdirSync(competingRoot);
+  let create;
+  if (producer.includes('preferences')) create = () => preferences(f.root, 'create', { workflow: 'review', scope, draft: { instruction: 'Parent preference' } }, f.options);
+  else if (producer === 'feedback') {
+    const task = assistantRuntime(f.root, 'start', { host: 'claude', sessionId: 'capacity', brief: 'Always review the boundary.' }, f.options);
+    create = () => assistantRuntime(f.root, 'feedback', { taskId: task.id, revision: 0, scope: 'project', kind: 'correction', workflow: 'review', excerpt: task.userMessage, instruction: 'Review the boundary.' }, f.options);
+  } else {
+    const state = patternLearning(f.root, 'import', { revision: 0, bundle: { schema: 'just-vibe.preferences.v1', items: [{ workflow: 'review', instruction: 'Review the final boundary.' }] } }, f.options);
+    const resolutions = preferences(f.root, 'list', {}, f.options).lessons.map(l => ({ id: l.id, revision: l.revision, action: 'keep' }));
+    create = () => patternLearning(f.root, 'approve', { revision: state.revision, id: state.candidates[0].id, reason: 'Reviewed capacity fixture', resolutions }, f.options);
+  }
+  const originalWrite = fs.writeFileSync;
+  let child;
+  fs.writeFileSync = function(path, ...args) {
+    if (!child && String(path).replaceAll('\\', '/').includes('/learning/') && String(path).endsWith('.tmp')) {
+      child = spawnSync(process.execPath, ['--input-type=module', '-e', `
+        import {preferences} from ${JSON.stringify(moduleUrl('preferences.mjs'))};
+        preferences(${JSON.stringify(competingRoot)},'create',${JSON.stringify({ workflow: 'review', scope, draft: { instruction: 'Concurrent preference' } })},${JSON.stringify(f.options)});
+      `], { encoding: 'utf8', timeout: 10000 });
+    }
+    return originalWrite.call(fs, path, ...args);
+  };
+  syncBuiltinESMExports();
+  try { create(); } finally { fs.writeFileSync = originalWrite; syncBuiltinESMExports(); }
+  assert.ok(child, 'A real competing process must attempt creation before the first publishes');
+  assert.equal(preferences(f.root, 'list', {}, f.options).lessons.length, 200, 'Independent record writes must not exceed the collection limit');
+  assert.notEqual(child.status, 0);
+  assert.match(child.stderr, /STATE_LOCKED|store is full/);
 });
 
 const response = (id, turn) => ({ type: 'response_item', payload: { type: 'message', id, turn_id: turn, role: 'user', content: [{ type: 'input_text', text: 'Continue.' }] } });

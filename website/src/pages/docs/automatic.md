@@ -18,6 +18,8 @@ The request handler offers a small shortlist. The agent resolves the actual inte
 
 Slash commands remain optional shortcuts. Automatic assistance uses the same maintained workflows as the command library.
 
+Short follow-ups such as “again” or “another pass” preserve the preceding coding request and its constraints for routing. They do not create a task without earlier context. If a prompt is too large or malformed, routing reports that it was skipped and prevents later activity from being attached to the previous task.
+
 ## Learn from explicit feedback
 
 Say “You forgot the browser. Always check menu interactions in the browser.” The agent can save a project-specific lesson with that source statement. Future workflow loads include the changed instructions; the lesson can also improve routing, tool preferences and required checks.

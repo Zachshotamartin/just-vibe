@@ -4,7 +4,10 @@ export function canvasClient() {
   const token = location.hash.slice(1);
   let record,
     anchor = null,
+    draftGeneration = 0,
     lastArtifact = null,
+    refreshGeneration = 0,
+    refreshing = false,
     busy = false,
     stopped = false;
   async function api(path, body) {
@@ -24,6 +27,7 @@ export function canvasClient() {
     return data;
   }
   function select(line) {
+    if (anchor !== line) draftGeneration++;
     anchor = line;
     $('anchor').textContent = line
       ? 'Annotating line ' + line + '.'
@@ -97,14 +101,20 @@ export function canvasClient() {
       $('feedback').append(li);
     }
   }
-  async function refresh() {
-    if (busy || stopped) return;
+  async function refresh(force = false) {
+    if (busy || stopped || (refreshing && !force)) return;
+    const generation = ++refreshGeneration;
+    refreshing = true;
     try {
-      render(await api('/api/review'));
+      const next = await api('/api/review');
+      if (generation === refreshGeneration && !busy) render(next);
     } catch (error) {
+      if (generation !== refreshGeneration || busy) return;
       $('error').textContent = error.message;
       for (const id of ['comment', 'changes', 'approve']) $(id).disabled = true;
       stopped = true;
+    } finally {
+      if (generation === refreshGeneration) refreshing = false;
     }
   }
   async function submit(kind) {
@@ -115,6 +125,8 @@ export function canvasClient() {
       $('message').focus();
       return;
     }
+    const submittedGeneration = draftGeneration;
+    ++refreshGeneration;
     busy = true;
     render(record);
     $('error').textContent = '';
@@ -126,16 +138,19 @@ export function canvasClient() {
         text,
         ...(kind === 'comment' && anchor ? { anchor } : {}),
       });
-      $('message').value = '';
-      select(null);
+      if (draftGeneration === submittedGeneration) {
+        $('message').value = '';
+        select(null);
+      }
     } catch (error) {
       $('error').textContent = error.message;
     } finally {
       busy = false;
-      await refresh();
+      await refresh(true);
     }
   }
   $('comment').onclick = () => submit('comment');
+  $('message').oninput = () => { draftGeneration++; };
   $('approve').onclick = () => submit('approve');
   $('changes').onclick = () => submit('changes');
   $('clear').onclick = () => select(null);

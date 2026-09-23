@@ -16,7 +16,7 @@ await new Promise(done => server.listen(0, '127.0.0.1', done));
 const target = `http://127.0.0.1:${server.address().port}/`, request = 'Upload audio and play the result on mobile; reject unsupported files clearly.';
 const common = { sourceQuote: request, kind: 'browser', path: '/', viewport: { width: 390, height: 844 } };
 try {
-  await agentQa(root, 'create', { id: 'audio', revision: 0, title: 'Audio upload acceptance', request, target, criteria: [
+  await agentQa(root, 'create', { id: 'audio', revision: 0, title: 'Audio upload acceptance', request, target, coverage: { reviewed: true, reviewNote: 'All request clauses mapped.', requirements: [{ id: 'audio-request', text: request, sourceQuote: request, criteria: ['upload', 'invalid', 'mobile'] }] }, criteria: [
     { ...common, id: 'upload', text: 'Upload completes and the result plays', steps: [{ action: 'upload', selector: 'input', file: 'sample.wav' }, { action: 'text', selector: '[role=status]', contains: 'Complete' }, { action: 'media', selector: 'audio' }] },
     { ...common, id: 'invalid', text: 'Unsupported input gives a useful error', steps: [{ action: 'upload', selector: 'input', file: 'unsupported.txt' }, { action: 'text', selector: '[role=status]', contains: 'Choose a WAV recording' }] },
     { ...common, id: 'mobile', text: 'Mobile controls fit without overlap', steps: [{ action: 'layout', selectors: ['input', 'audio'] }] },

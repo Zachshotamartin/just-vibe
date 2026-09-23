@@ -8,6 +8,8 @@ The plugin ships `hooks/hooks.json`, using `UserPromptSubmit`, `SessionStart` (r
 
 Automatic assistance does not authenticate services, install third-party tools, execute project checks or read transcript files in a hook. Configured project checks/formatters still use their separate existing trust mechanism. Hook execution selects context and keeps local records. It cannot prove the model followed the context or control unsupported host events.
 
+Short repeat requests such as “again,” “do that again” and “another pass” retain the preceding coding task's complete brief and constraints for routing while recording the new user message separately. Repeats do not accumulate in the brief or truncate its leading constraints, including at the request-length limit. They do not invent work in a new session or resume older coding work through an unrelated request. Oversized, empty or malformed prompts are skipped and detach the session from its previous task so subsequent tool events cannot be misattributed to it.
+
 ## Agent procedure
 
 1. Preserve the complete conversation and the current request. Resolve the shortlist; choose up to three relevant workflows, or an empty selection when no workflow helps. Scope, mode and user-pinned role remain authoritative. Ranking is a local retrieval heuristic, not a semantic permission decision. For an ambiguous shortlist, inspect the relevant code/evidence before choosing. Use `tools <scenario>` for another method. No clarification is necessary merely to choose a workflow.
@@ -96,6 +98,8 @@ Use `gate: "advisory"` to report missing evidence without a continuation; `enabl
 If a process was interrupted while writing state, `assist recover --root <project> --stdin` with `{"scope":"project"}` removes only locks whose owner process is no longer running. User scope covers shared learning/configuration locks. Live or uninspectable owners remain locked. Recovery does not reset lessons or task history.
 
 Records live under `~/.just-vibe/adaptive` (or `JUST_VIBE_HOME`), separate from repository content. Project stores are keyed by canonical local root, with host/session isolation. User-wide lessons deliberately span projects. No data is uploaded and no model API is called by these utilities. Active task records contain bounded user-message/task text with best-effort credential redaction, selected workflows and evidence metadata. Do not intentionally send secrets to feedback. Task retention defaults to 30 days; old inactive tasks beyond 100 are removed. Lessons retain explicit excerpts until forgotten, with at most 200 per scope and 50 versions per lesson. Symlink state paths are rejected.
+
+The lesson limit is shared across concurrent creators in that scope, including direct preferences, feedback and recovered approvals. A competing write can return a retryable busy error. User-wide capacity is shared across projects on the same configured storage directory.
 
 Hooks observe supported host events, not arbitrary activity on your computer. Nested agents are excluded when the host identifies them. Late events with mismatched host turn IDs are ignored; older hosts without turn IDs rely on session event ordering. State updates use revision checks and atomic replacement. Conflicting simultaneous writes fail visibly rather than overwrite newer state. A partial project fingerprint cannot certify freshness; report that limitation instead of inventing a clean result.
 

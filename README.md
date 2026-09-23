@@ -99,3 +99,7 @@ Runtime and catalog checks, real host observations, subjective review and public
 ## License
 
 [MIT](LICENSE), copyright 2026 Zachary Martin. Commercial use, modification and redistribution are permitted under its terms. The license ships with the npm archive and installed plugin.
+
+### Local preference dashboard (upcoming 0.12)
+
+Run `just-vibe dashboard --root .` to manage local preferences, inspect which versions reached tasks, set task-only exclusions, and review project-context backups. `--no-open` prints the private URL; `--demo` runs an isolated disposable example. There is no website login or cloud sync. See the [dashboard guide](https://just-vibe-tools.vercel.app/docs/preferences/) and [QA coverage, test sessions and regression export](plugins/just-vibe/references/agent-qa.md). Publication remains a reviewed manual CLI step.

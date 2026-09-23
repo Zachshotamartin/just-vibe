@@ -2,6 +2,18 @@
 
 ## 0.12.0
 
+- Fix QA redirect enforcement, clipped-ancestor detection, human-only checks and assertion failure classification; isolate task-specific diagnosis and surface host startup errors.
+- Add the local `dashboard` launcher with isolated demo mode, durable preference creation, draft preservation, scoped setting conflicts, task exclusions and actual delivery history.
+- Add reviewed request coverage, explicit test-session/additional-origin authorization, screenshot masking and standalone QA regression export.
+- Add previewed project-context backup/import with stale-preview protection. Keep all publishing manual.
+- Fix dashboard loading races, duplicate preference submission, delivery ordering, import-state changes and forgotten exclusions. Preserve structured values when evolving preferences, QA timeouts in exported tests, nonzero acceptance-failure exits and network restriction reporting after log truncation.
+- Keep backup downloads consistent with their current preview, refresh learned completion checks after preference changes, and select recent tasks by time. Reject unsupported QA actions, defer custom clipping/rotation to human review, and close truncated proxy responses promptly.
+- Preserve task-exclusion drafts through view changes and concurrent saves, avoid replaying completed preference activations during recovery, and close both sides of idle QA proxy tunnels.
+- Reject mixed-case private-directory paths, detect clipping through shadow hosts and slots, and wait for fully transparent QA targets to become visible. Goal constraint changes now reset completion evidence while preserving the previous scope in history.
+- Close local dashboard and review servers even with unfinished uploads, keep downloaded backups within the import byte limit, and preserve new canvas feedback entered while an earlier submission is pending.
+- Preserve coding-task context for repeat requests, detach skipped prompts from earlier task evidence, and retain interrupted approval journals until recovery finishes. Enforce lesson capacity across concurrent creation, feedback and approval processes.
+- Keep preference mutations exclusive across dashboard refreshes, ignore obsolete canvas polls, and reject QA text matches supplied only by invisible or zero-size descendants, including slotted text.
+
 - Add request-derived Agent QA with bounded browser assertions, screenshots, stale-evidence checks and retained failure/retest history.
 - Add local preference editing, preview, disable and restoration controls with provenance and revision checks.
 - Add observed-delivery diagnosis and opt-in live journeys through correction and a fresh host session.

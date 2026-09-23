@@ -42,8 +42,8 @@ import { securityAudit } from './security-audit.mjs';
 import { epic } from './github-coordination.mjs';
 export const PLATFORM_OPERATIONS = {
   diagnose: ['status', 'trial'],
-  qa: ['list', 'create', 'show', 'report', 'run'],
-  preferences: ['list', 'preview', 'edit', 'toggle', 'rollback'],
+  qa: ['list', 'create', 'show', 'report', 'run', 'coverage', 'export-test'],
+  preferences: ['list', 'preview', 'edit', 'toggle', 'rollback', 'create', 'activity', 'exclude'],
   telemetry: ['status', 'otlp', 'events'],
   updater: ['check', 'list', 'preview', 'show', 'apply', 'resolve', 'rollback-preview'],
   connectors: ['list', 'show', 'preview', 'install', 'update', 'uninstall', 'doctor'],

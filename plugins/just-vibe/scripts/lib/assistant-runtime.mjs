@@ -14,7 +14,7 @@ import { redact } from './process.mjs';
 
 const now = () => new Date().toISOString();
 const feedbackCue = /\b(?:remember|always|never|next time|from now on|you should|you forgot|you missed|stop using|don't use|do not use|prefer|keep doing|that worked|that approach|too much|too many)\b/i;
-const continuation = /^(?:please\s+)?(?:continue|go ahead|do (?:it|that)|implement(?: it| that)?|fix(?: it| that)?|yes|keep going|proceed)[.!\s]*$/i;
+const continuation = /^(?:please\s+)?(?:continue|go ahead|do (?:it|that)|implement(?: it| that)?|fix(?: it| that)?|yes|keep going|proceed|(?:do (?:it|that|this) )?again|one more time|another pass|repeat(?: it| that)?)[.!\s]*$/i;
 const domain = /\b(?:code|repo(?:sitory)?|file|bug|test|build|implement|refactor|debug|review|deploy|publish|commit|merge|frontend|backend|api|database|sql|react|vite|vercel|github|pr|pull request|ui|css|html|website|app|component|menu|training|model|dataset|gradient|loss|architecture|migration|teach|explain|linked lists?|login|page|screen|button|modal|form|endpoint|function|typescript|javascript|python|algorithm|schema|query|container|docker|pipeline|cache|notebook|experiment|keyboard|accessibility)\b/i;
 
 export function routeRequest(store, catalog, brief, { host = 'claude', previous } = {}) {
@@ -29,14 +29,17 @@ export function routeRequest(store, catalog, brief, { host = 'claude', previous 
   if (/\b(?:what (?:have you|did you) (?:learn|learned|remember)|show (?:me )?(?:my |saved )?(?:preferences|lessons)|(?:forget|retire|roll back|rollback) (?:that |the |a |my )?(?:lesson|preference)|(?:stop|disable|pause) (?:automatic assistance|learning))\b/i.test(brief)) {
     return { recommendations: [], kind: 'learning', brief };
   }
-  const follows = Boolean(previous && continuation.test(brief.trim()));
+  const follows = Boolean(previous?.routeKind === 'task' && continuation.test(brief.trim()));
   const learned = learnedRoutes(store, positive);
   const methods = findMethods(positive, 3);
   const unrelated = /\b(?:restaurant|dinner|breakfast|lunch|meal|workout|fitness|marathon|weather|movie|poem)\b/i.test(positive)
     && !/\b(?:code|app|website|software|repo|api|component|python|javascript|css|html|model|dataset)\b/i.test(positive);
   if (unrelated && !learned.preferred.size) return { recommendations: [], kind: 'none', brief };
   if (!follows && !domain.test(positive) && !learned.preferred.size && !methods.length) return { recommendations: [], kind: previous && feedbackCue.test(brief) ? 'feedback' : 'none', brief };
-  const contextBrief = follows ? `${previous.brief}\nCurrent user request: ${brief}`.slice(-16000) : brief;
+  // Short continuations add no new task scope. Keep the complete original
+  // brief; appending each repeat eventually discards its leading constraints.
+  // The new user message is stored separately by startRequest.
+  const contextBrief = follows ? previous.brief : brief;
   const route = recommend(catalog, discoverCapabilities(store.root), contextBrief, { host: host === 'codex' ? 'codex' : 'claude', limit: 12 });
   let candidates = route.recommendations;
   for (const [id, sources] of learned.preferred) {
@@ -102,7 +105,7 @@ export function selectWorkflows(store, catalog, payload) {
   textField(payload.reason, 'Selection reason');
   const selected = [...new Set(payload.workflows.map(id => getCommand(catalog, id, { canonical: true }).id))];
   const requirements = selected.flatMap(id => {
-    const command = getCommand(catalog, id), effective = effectiveWorkflow(store, catalog, id);
+    const command = getCommand(catalog, id), effective = effectiveWorkflow(store, catalog, id, task);
     return [{ id: 'instructions', description: 'Load this workflow and its current personal instructions.' },
       ...workflowRequirements(command, payload.mode, task.brief),
       ...effective.lessons.flatMap(l => l.checks.map((description, i) => ({ id: `learned-${l.id}-${i}`, description })))].map(r => ({ ...r, id: `${id}:${r.id}`, workflow: id }));
@@ -117,13 +120,21 @@ export function selectWorkflows(store, catalog, payload) {
 }
 
 export function loadWorkflow(store, catalog, payload) {
-  const effective = effectiveWorkflow(store, catalog, payload.workflow);
+  const task = payload.taskId ? store.task(payload.taskId) : undefined;
+  const effective = effectiveWorkflow(store, catalog, payload.workflow, task);
   if (payload.taskId) {
-    const task = store.task(payload.taskId);
     if (!task.selected.includes(effective.workflow)) throw Error('Select this workflow for the task before loading it.');
+    const prior = new Map(task.requirements.map(r => [r.id, r]));
+    const learned = effective.lessons.flatMap(lesson => lesson.checks.map((description, index) => {
+      const id = `${effective.workflow}:learned-${lesson.id}-${index}`;
+      return { id, description, workflow: effective.workflow, evidence: prior.get(id)?.description === description ? prior.get(id).evidence : null };
+    }));
+    // Exclusions, restored defaults and edited preferences affect the next load,
+    // including its completion checks. Keep evidence only for unchanged checks.
+    const requirements = [...task.requirements.filter(r => !r.id.startsWith(`${effective.workflow}:learned-`)), ...learned];
     store.saveTask({ ...task, updatedAt: now(),
       loaded: [...task.loaded.filter(l => l.workflow !== effective.workflow), { workflow: effective.workflow, effectiveHash: effective.effectiveHash, lessons: effective.lessons.map(l => ({ id: l.id, version: l.version })), at: now() }],
-      requirements: task.requirements.map(r => r.id === `${effective.workflow}:instructions` ? { ...r, evidence: { kind: 'runtime-load', effectiveHash: effective.effectiveHash, at: now(), summary: 'Effective workflow returned to the host. This establishes delivery, not model compliance.' } } : r) });
+      requirements: requirements.map(r => r.id === `${effective.workflow}:instructions` ? { ...r, evidence: { kind: 'runtime-load', effectiveHash: effective.effectiveHash, at: now(), summary: 'Effective workflow returned to the host. This establishes delivery, not model compliance.' } } : r) });
   }
   return effective;
 }
@@ -164,7 +175,7 @@ export function inspectCompletion(store, catalog, task) {
   const checks = task.requirements.map(r => {
     const e = r.evidence;
     if (!e) return { ...r, result: 'missing' };
-    if (e.kind === 'runtime-load') return { ...r, result: effectiveWorkflow(store, catalog, r.workflow).effectiveHash === e.effectiveHash ? 'delivered' : 'stale' };
+    if (e.kind === 'runtime-load') return { ...r, result: effectiveWorkflow(store, catalog, r.workflow, task).effectiveHash === e.effectiveHash ? 'delivered' : 'stale' };
     if (compareSnapshot(e.snapshot, snapshot).stale) return { ...r, result: 'stale' };
     if (e.artifact) {
       try {
@@ -228,7 +239,7 @@ export function activationContext(store, catalog, task) {
 export function assistantRuntime(root, operation, payload = {}, options = {}) {
   const store = adaptiveStore(root, options), catalog = options.catalog || loadCatalog();
   if (operation === 'status') return { settings: store.config(), project: store.root, storage: store.home,
-    activeTasks: store.list(`${store.project}/tasks`).slice(-100).map(name => store.read(`${store.project}/tasks/${name}`)).filter(task => ['active', 'suggested'].includes(task.status)).sort((a,b) => b.updatedAt.localeCompare(a.updatedAt)).slice(0, 10).map(task => ({ id: task.id, host: task.host, brief: task.brief, updatedAt: task.updatedAt })),
+    activeTasks: store.list(`${store.project}/tasks`).map(name => store.read(`${store.project}/tasks/${name}`)).filter(task => task?.kind === 'task' && ['active', 'suggested'].includes(task.status)).sort((a,b) => b.updatedAt.localeCompare(a.updatedAt)).slice(0, 10).map(task => ({ id: task.id, host: task.host, brief: task.brief, updatedAt: task.updatedAt })),
     projectConfiguration: store.read(`${store.project}/config.json`), userConfiguration: store.read('adaptive/config.json'),
     lessons: lessons(store).map(l => ({ id: l.id, workflow: l.workflow, scope: l.scope, version: l.current })),
     nativeHooks: 'Requires enabled plugin, compatible host and host-reviewed hook trust. This command does not prove host activation.' };

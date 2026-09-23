@@ -10641,6 +10641,8 @@
         "A broken processing flow must fail even when the upload control is visible.",
         "Changed source or modified screenshots invalidate previously passing evidence.",
         "Unavailable browser dependencies remain blocked; subjective criteria remain needs-human.",
+        "Redirects never contact an unapproved origin; allowed API origins require explicit authorization.",
+        "A clipped ancestor must fail layout verification, and an unrelated blocked request must not mask a failed assertion.",
         "Exercise a deliberately broken flow and a repaired retest; preserve failures, flag changed evidence, and leave subjective or unavailable checks unresolved."
       ],
       "technicalMethod": {

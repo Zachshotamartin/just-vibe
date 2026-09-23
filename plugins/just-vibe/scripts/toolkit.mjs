@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import { dashboardMain } from './dashboard.mjs';
 import { readFileSync, statSync } from 'node:fs';
 import { isDirectRun } from './lib/entrypoint.mjs';
 import { loadCatalog, getCommand, invocation, HOSTS, MODES } from './lib/catalog.mjs';
@@ -21,6 +22,7 @@ import { guidedSetup } from './lib/guided-setup.mjs';
 export const HELP = `${INSTALLER_HELP}
 Workflow utilities:
   diagnose status       Observed hook, workflow and tool delivery stages
+  dashboard             Open local UI [--root PATH] [--no-open] [--demo]
   preferences <op>      Inspect, preview, edit, toggle and restore learned instructions
   qa <operation>        Request-linked browser acceptance plans, runs and reports
   inventory / portfolio / sessions / behavior / mcp-health / runners
@@ -220,6 +222,7 @@ function formatRoute(result) {
 export async function main(args, { log = console.log, error = console.error, input = readStdin, catalog = loadCatalog } = {}) {
   try {
     if (['setup', 'update'].includes(args[0]) && args.includes('--guided')) { await guidedSetup(args, { log }); return 0; }
+    if (args[0] === 'dashboard') { await dashboardMain(args.slice(1), { log }); return 0; }
     if (args[0] === 'mcp') return await mcpMain(args.slice(1));
     if (!args.length || ['--help', '-h'].includes(args[0]) || (args[0] === 'help' && args.length === 1)) { log(HELP); return 0; }
     if (['setup', 'doctor', 'update', 'uninstall', '--version'].includes(args[0])) return installerMain(args, { log, error });
@@ -288,6 +291,7 @@ export async function main(args, { log = console.log, error = console.error, inp
     else if (options.operation === 'audit' && ['report', 'run'].includes(options.positionals[0]) && !options.json) log(typeof result.report === 'string' ? result.report : JSON.stringify(result.report, null, 2));
     else log(JSON.stringify(result, null, 2));
     if (options.operation === 'audit' && result.exitCode !== undefined) return result.exitCode;
+    if (options.operation === 'qa' && ['run', 'show', 'report'].includes(options.positionals[0])) return result.verdict === 'passed' ? 0 : 2;
     if (options.operation === 'quality' && options.positionals[0] === 'check-commit') return result.passed ? 0 : 2;
     return (options.operation === 'evidence' || Object.hasOwn(INTENT_OPERATIONS, options.operation)) && ['failed', 'stale', 'incomplete', 'drift', 'conflict', 'invalid', 'incomparable', 'unverified', 'unknown'].includes(result.result) ? 2 : 0;
   } catch (failure) { error(`just-vibe: ${failure.message}`); return 1; }

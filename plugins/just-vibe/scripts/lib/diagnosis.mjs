@@ -1,3 +1,4 @@
+import { redact } from './process.mjs';
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 import { fileURLToPath } from 'node:url';
@@ -11,10 +12,18 @@ export function diagnosis(root, operation, input = {}, options = {}) {
     if (!['codex', 'claude'].includes(input.host) || input.useAccount !== true) throw Error('Choose codex or claude and explicitly set useAccount:true for a live model trial.');
     const output = within(root, '.just-vibe/reports/live-hosts-' + Date.now());
     mkdirSync(output, { recursive: true, mode: 0o700 });
+    let failure;
     return promisify(execFile)(process.execPath, [fileURLToPath(new URL('../live-hosts.mjs', import.meta.url)), '--run', '--host=' + input.host], { cwd: root, env: { ...process.env, JUST_VIBE_DIAGNOSIS_OUTPUT: output }, timeout: 900000, maxBuffer: 8 * 1024 * 1024 }).catch(error => {
       // An incomplete or blocked journey returns nonzero; preserve its actual report.
+      failure = error;
       if (error.killed) throw Error('Live trial exceeded its total time budget; inspect ' + output);
-    }).then(() => ({ path: output, ...JSON.parse(readFileSync(output + '/results.json', 'utf8')) }));
+    }).then(() => {
+      let report;
+      try { report = JSON.parse(readFileSync(output + '/results.json', 'utf8')); } catch {}
+      if (!Array.isArray(report?.reports) || !report.reports.some(r => r.host === input.host))
+        throw Error(`Live ${input.host} trial produced no host report${failure ? ` (process exit ${failure.code})` : ''}. Inspect ${output}; no delivery has been verified. ${failure ? redact(String(failure.stderr || failure.message)).slice(-1500) : ''}`);
+      return { path: output, ...report, ...(failure ? { processExit: failure.code, completed: false } : {}) };
+    });
   }
   if (operation !== 'status') throw Error('Unknown diagnosis operation.');
   object(input, ['host', 'taskId']);
@@ -22,7 +31,11 @@ export function diagnosis(root, operation, input = {}, options = {}) {
   const store = adaptiveStore(root, options), runtime = runtimeStore(root, options);
   const tasks = input.taskId ? [store.task(input.taskId)] : store.list(`${store.project}/tasks`).map(n => store.read(`${store.project}/tasks/${n}`)).filter(t => t?.kind === 'task' && (!input.host || t.host === input.host)).sort((a, b) => b.updatedAt.localeCompare(a.updatedAt)).slice(0, 10);
   const hosts = input.host ? [input.host] : ['codex', 'claude', 'cursor', 'kiro', 'opencode'];
-  const receipts = hosts.map(host => ({ host, receipt: runtime.get(`hook-delivery-${host}`) })).filter(r => r.receipt);
+  if (input.host && tasks.some(t => t.host !== input.host)) throw Error('Task belongs to a different host.');
+  const receipts = input.taskId ? tasks.flatMap(task => {
+    const receipt = task.hookReceipt || runtime.get(`hook-delivery-${task.host}`);
+    return receipt?.taskId === task.id && (!receipt.sessionHash || receipt.sessionHash === task.sessionHash) ? [{ host: task.host, receipt }] : [];
+  }) : hosts.map(host => ({ host, receipt: runtime.get(`hook-delivery-${host}`) })).filter(r => r.receipt);
   return {
     automaticEnabled: store.config().enabled,
     stages: [

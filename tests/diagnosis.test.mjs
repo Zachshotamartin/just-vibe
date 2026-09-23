@@ -23,3 +23,27 @@ test('diagnosis separates configuration, hook delivery, selection, loading and t
  assert.deepEqual(status(),[true,true,true,true]);assert.ok(native.taskId);
  assert.throws(()=>diagnosis(root,'trial',{host:'codex'},options),/useAccount/);
 });
+
+test('task-specific diagnosis cannot borrow a newer task receipt and retains its own receipt', t => {
+  const dir=mkdtempSync(join(tmpdir(),'jv-diagnosis-match-')),root=join(dir,'app'),options={home:join(dir,'home'),host:'codex'};
+  mkdirSync(root); writeFileSync(join(root,'app.mjs'),'export const x=1'); t.after(()=>rmSync(dir,{recursive:true,force:true}));
+  const a=assistantRuntime(root,'start',{brief:'Fix app.mjs bug A',host:'codex',sessionId:'a'},options);
+  assistantHook({cwd:root,session_id:'b',hook_event_name:'UserPromptSubmit',prompt:'Fix app.mjs bug B'},options);
+  const store=adaptiveStore(root,options),b=store.read(store.sessionPath('codex','b')).taskId;
+  const stage=id=>diagnosis(root,'status',{taskId:id,host:'codex'},options).stages[0];
+  assert.equal(stage(a.id).observed,false); assert.equal(stage(b).observed,true);
+  assistantHook({cwd:root,session_id:'c',hook_event_name:'UserPromptSubmit',prompt:'Fix app.mjs bug C'},options);
+  assert.equal(stage(b).evidence[0].taskId,b);
+  assert.throws(()=>diagnosis(root,'status',{taskId:b,host:'claude'},options),/different host/);
+});
+
+test('a host process startup failure is surfaced even when its harness writes an empty report', {skip:process.platform==='win32'}, async t => {
+  const dir=mkdtempSync(join(tmpdir(),'jv-diagnosis-failure-')), root=join(dir,'app'),bin=join(dir,'bin'); mkdirSync(root);mkdirSync(bin);
+  const { chmodSync }=await import('node:fs'); writeFileSync(join(bin,'claude'),'#!/bin/sh\nexit 42\n');chmodSync(join(bin,'claude'),0o700);
+  const { execFile }=await import('node:child_process'),{promisify}=await import('node:util');
+  t.after(()=>rmSync(dir,{recursive:true,force:true}));
+  const module=new URL('../plugins/just-vibe/scripts/lib/diagnosis.mjs',import.meta.url).href;
+  const code=`import {diagnosis} from ${JSON.stringify(module)}; try { await diagnosis(${JSON.stringify(root)},'trial',{host:'claude',useAccount:true});process.exitCode=2; } catch(e) { console.log(e.message); }`;
+  const result=await promisify(execFile)(process.execPath,['--input-type=module','-e',code],{env:{...process.env,PATH:bin+':'+process.env.PATH},timeout:20000});
+  assert.match(result.stdout,/no host report.*process exit/);
+});

@@ -1,3 +1,4 @@
+import { preferences } from '../plugins/just-vibe/scripts/lib/preferences.mjs';
 import { assistantRuntime } from '../plugins/just-vibe/scripts/lib/assistant-runtime.mjs';
 import { loadCatalog } from '../plugins/just-vibe/scripts/lib/catalog.mjs';
 import { loadMethods } from '../plugins/just-vibe/scripts/lib/method-library.mjs';
@@ -96,7 +97,24 @@ try {
     await page.locator('#search').fill('');
     await page.getByRole('button', {name:'Preferences',exact:true}).click();
     await page.getByText('Edit and preview',{exact:true}).click();
-    await page.getByLabel('Instruction',{exact:true}).fill('Check drawer behavior and Escape.');
+    await page.locator('article').getByLabel('Instruction',{exact:true}).fill('Check drawer behavior and Escape.');
+    await page.locator('#search').fill('ui-states');
+    if (await page.locator('article').getByLabel('Instruction',{exact:true}).inputValue() !== 'Check drawer behavior and Escape.') throw Error('Filtering discarded draft');
+    await page.getByRole('button',{name:'Workspace',exact:true}).click();
+    await page.getByRole('button',{name:'Preferences',exact:true}).click();
+    await page.locator('article').getByLabel('Instruction',{exact:true}).waitFor();
+    if (await page.locator('article').getByLabel('Instruction',{exact:true}).inputValue() !== 'Check drawer behavior and Escape.') throw Error('Switching views discarded draft');
+    await page.locator('#search').fill('');
+    if (name === 'desktop') {
+      const lesson=preferences(root,'list',{}, {home}).lessons[0];
+      preferences(root,'edit',{id:lesson.id,revision:lesson.revision,draft:{instruction:'An intervening saved change.'}},{home});
+      await page.getByRole('button',{name:'Refresh',exact:true}).click();
+      await page.getByRole('button',{name:'Keep draft against current version',exact:true}).waitFor();
+      if(await page.getByRole('button',{name:'Save new version',exact:true}).isEnabled())throw Error('Stale draft was silently rebased');
+      await page.getByRole('button',{name:'Keep draft against current version',exact:true}).click();
+      await page.getByRole('button',{name:'Keep draft against current version',exact:true}).waitFor({state:'hidden'});
+      if(await page.locator('article').getByLabel('Instruction',{exact:true}).inputValue()!=='Check drawer behavior and Escape.')throw Error('Stale draft was discarded');
+    }
     await page.getByLabel('Request that should select this workflow',{exact:true}).fill('Check drawer behavior');
     await page.getByLabel('Request that should not select this workflow',{exact:true}).fill('Explain database indexes');
     await page.getByRole('button',{name:'Preview examples',exact:true}).click();
@@ -106,7 +124,7 @@ try {
     if(preferencesAxe.violations.length)throw Error(JSON.stringify(preferencesAxe.violations));
     await page.screenshot({path:join(directory,'preferences-'+name+'.png'),fullPage:true});
     await page.getByRole('button',{name:'Save new version',exact:true}).click();
-    await page.locator('article > p').filter({hasText:'Edited in preferences'}).waitFor();
+    await page.locator('article > p').filter({hasText:'Explicit local preference'}).waitFor();
     await page.getByRole('button',{name:'Disable',exact:true}).click();
     await page.getByRole('button',{name:'Enable',exact:true}).waitFor();
     await page.getByText('Version history and undo',{exact:true}).click();
@@ -121,6 +139,33 @@ try {
       methodSearch: true,
     });
   }
+  await page.getByText('Create a preference',{exact:true}).click();
+  const create=page.locator('#rows > details');
+  await create.getByLabel('Workflow ID',{exact:true}).fill('fix');
+  await create.getByLabel('Instruction',{exact:true}).fill('Reproduce a bug before fixing it.');
+  await create.getByRole('button',{name:'Create preference',exact:true}).click();
+  await page.locator('article').filter({hasText:'Reproduce a bug before fixing it.'}).waitFor();
+  assistantRuntime(root,'select',{taskId:task.id,workflows:['ui-states'],mode:'apply',reason:'Test preference delivery'},{home});
+  assistantRuntime(root,'load',{taskId:task.id,workflow:'ui-states'},{home});
+  await page.getByRole('button',{name:'Preference activity',exact:true}).click();
+  await page.locator('article').filter({hasText:'Behavior: not independently verified'}).waitFor();
+  await page.getByText('Ignore preferences for this task only',{exact:true}).click();
+  await page.locator('article input[type=checkbox]').check();
+  const exclusionsLoaded = page.waitForResponse('**/api/preferences-activity');
+  await page.getByRole('button',{name:'Save task exclusions',exact:true}).click();
+  await exclusionsLoaded;
+  if(assistantRuntime(root,'load',{taskId:task.id,workflow:'ui-states'},{home}).lessons.length)throw Error('Task exclusion did not affect delivery');
+  await page.getByRole('button',{name:'Backup and transfer',exact:true}).click();
+  await page.getByRole('button',{name:'Review export',exact:true}).click();
+  await page.getByRole('button',{name:'Download reviewed backup',exact:true}).waitFor();
+  const backup=JSON.parse(await page.locator('#rows > pre').first().textContent());
+  await page.getByLabel('Or paste a project context bundle',{exact:true}).fill(JSON.stringify(backup));
+  await page.getByRole('button',{name:'Preview import',exact:true}).click();
+  await page.getByRole('button',{name:'Apply reviewed import',exact:true}).click();
+  await page.getByText('Project context imported.',{exact:false}).waitFor();
+  if(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth))throw Error('Transfer view overflows');
+  const transferAxe=await new AxeBuilder({page}).analyze();if(transferAxe.violations.length)throw Error(JSON.stringify(transferAxe.violations));
+  await page.screenshot({path:join(directory,'transfer-mobile.png'),fullPage:true});
   await page.reload();
   await page.waitForFunction(() => document.querySelector('#status').textContent === '2 records');
   await page.getByRole('button', { name: 'Tool catalog', exact: true }).click();

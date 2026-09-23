@@ -25,7 +25,7 @@
         },
         {
           "path": "scripts/smoke-operator-browser.mjs",
-          "sha256": "6c8f6e4eb09d26f07b0e72f35f62af4633438ff4a6634e1765d4f34dfbc65398"
+          "sha256": "cc2d3e0746a63dea28d4c9ec8154ddb4358b2c6470a0cbc037cc2a861f9b6319"
         },
         {
           "path": "tests/expansion-contracts.test.mjs",
@@ -1467,7 +1467,7 @@
         },
         {
           "path": "tests/runtime-platform.test.mjs",
-          "sha256": "ae096c39a59c2c3240e783e8f8a0e5e9370091f936d3dd51aece7329625199e9"
+          "sha256": "c1298d2af2f222d612b07ad4f5de86593c52e06e34163c427e9a8762a2a466b8"
         },
         {
           "path": "tests/expansion-contracts.test.mjs",
@@ -1983,7 +1983,7 @@
         },
         {
           "path": "plugins/just-vibe/scripts/lib/operator-http.mjs",
-          "sha256": "a38ccff93b4b9f0e49b5bde8b8ecb74b9d1cf2c04b8e8ea59a75a33d5abe85f2"
+          "sha256": "7f944a1b6520617ca80bf17b375012d9b7edd4ca161a00efe4992cab0ab54ddf"
         },
         {
           "path": "tests/expansion-contracts.test.mjs",
@@ -2404,11 +2404,11 @@
       "evidence": [
         {
           "path": "plugins/just-vibe/scripts/lib/operator-http.mjs",
-          "sha256": "a38ccff93b4b9f0e49b5bde8b8ecb74b9d1cf2c04b8e8ea59a75a33d5abe85f2"
+          "sha256": "7f944a1b6520617ca80bf17b375012d9b7edd4ca161a00efe4992cab0ab54ddf"
         },
         {
           "path": "scripts/smoke-operator-browser.mjs",
-          "sha256": "6c8f6e4eb09d26f07b0e72f35f62af4633438ff4a6634e1765d4f34dfbc65398"
+          "sha256": "cc2d3e0746a63dea28d4c9ec8154ddb4358b2c6470a0cbc037cc2a861f9b6319"
         },
         {
           "path": "tests/expansion-contracts.test.mjs",

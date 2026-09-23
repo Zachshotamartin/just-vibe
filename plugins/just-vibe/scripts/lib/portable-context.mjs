@@ -1,3 +1,4 @@
+import { preferenceChange } from './preference-values.mjs';
 import {
   runtimeStore,
   object,
@@ -47,26 +48,8 @@ function normalize(bundle) {
   });
   const catalog = loadCatalog();
   const proposed = list(bundle.lessons, 200).map((l) => {
-    object(l, [
-      'workflow',
-      'instruction',
-      'triggers',
-      'avoid',
-      'tools',
-      'checks',
-      'conditions',
-      'exceptions',
-    ]);
-    return {
-      workflow: getCommand(catalog, l.workflow, { canonical: true }).id,
-      instruction: cleanText(l.instruction, 'instruction', 2000),
-      ...Object.fromEntries(
-        ['triggers', 'avoid', 'tools', 'checks', 'conditions', 'exceptions'].map((k) => [
-          k,
-          textList(l[k], k, 12),
-        ]),
-      ),
-    };
+    const { workflow, ...change } = l;
+    return { workflow: getCommand(catalog, workflow, { canonical: true }).id, ...preferenceChange(change) };
   });
   const decisions = list(bundle.decisions || [], 1000).map((d) => {
     object(d, ['id', 'status', 'reason', 'at']);

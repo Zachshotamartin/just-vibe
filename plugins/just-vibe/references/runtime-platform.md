@@ -39,7 +39,7 @@ A goal contains an objective, concrete completion criteria, constraints, progres
 
 Evidence is `{"kind":"host-report","summary":"..."}` or `{"kind":"artifact","path":"relative/file","summary":"..."}`. Artifacts are bounded regular project files; their bytes are hashed. A hash proves identity, not correctness. A report is attributed to the host, not independently verified. Complete requires all criteria satisfied with current evidence, no stale current artifacts and no blockers. `resume` reports stale artifacts for revalidation.
 
-Changing an objective requires explicitly supplying its completion criteria. A changed objective or criteria resets all criteria to pending with empty evidence, retaining the prior objective, criteria and latest evidence in a bounded scope history (up to ten revisions). An unchanged objective and criteria preserve verification. Reopening a completed or retired goal marks its criteria pending while retaining old evidence for reference; new verification is required before completion. Use `update` to resolve blockers on an active goal.
+Changing an objective requires explicitly supplying its completion criteria. A changed objective, criteria or constraint list resets all criteria to pending with empty evidence, retaining the prior objective, constraints, criteria and latest evidence in a bounded scope history (up to ten revisions). Unchanged scope preserves verification; progress and next-step updates alone do not reset it. Reopening a completed or retired goal marks its criteria pending while retaining old evidence for reference; new verification is required before completion. Use `update` to resolve blockers on an active goal.
 
 ```sh
 just-vibe goal create --stdin <<'JSON'
@@ -185,6 +185,8 @@ Native specialists embed their complete canonical method. The trusted SubagentSt
 `learn status` surfaces related active guidance and revisions for pending candidates. Approval accepts `resolutions:[{id,revision,action:"keep"|"retire"}]`: exactly one current resolution per related active lesson. Keep compatible scoped guidance; retire a replaced project rule. Project proposals cannot retire user-wide guidance. Interrupted activation is journaled and recoverable; changed related guidance blocks recovery for reconciliation.
 
 Pruning removes resolved candidates while preserving reviewed decisions (up to 1000), including migration of older rejected candidates. Repeated analysis/import cannot silently reintroduce a rejected ID. `learn reconsider {revision,id,reason}` explicitly removes that decision so it can be proposed again; it does not activate anything or retire an existing lesson. If earlier approved guidance remains active, resolve it during the next approval. Generated skill/agent drafts preserve conditions and exceptions as well as the main instruction.
+
+Reconsidering an interrupted approval is refused until activation is recovered. Its journal may be the only record of already-applied retirements; preserve it, reconcile any changed guidance, and use `learn recover` before reconsideration.
 
 ## Portable context and worktree continuity
 

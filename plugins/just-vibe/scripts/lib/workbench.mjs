@@ -82,7 +82,7 @@ export function safePath(root, path, { managed = false } = {}) {
       .split("/")
       .some(
         (p) =>
-          p === ".git" || (!managed && p === ".just-vibe") || privateName(p),
+          p.toLowerCase() === ".git" || (!managed && p.toLowerCase() === ".just-vibe") || privateName(p),
       )
   )
     throw Error("Private or managed paths are not eligible.");
