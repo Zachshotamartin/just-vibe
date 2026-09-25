@@ -33,8 +33,9 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Execute
 
-1. Classify retry-safe operations, allocate end-to-end time budget, implement backoff/jitter where appropriate, propagate cancellation, and simulate partial dependency failures.
-2. Allocate an end-to-end deadline across attempts and dependencies, classify retry-safe effects and control exponential backoff/jitter within the total cap.
+1. Classify which operations and effects are safe to retry.
+2. Allocate an end-to-end deadline across attempts and dependencies, control exponential backoff and jitter within the total cap, and propagate cancellation.
+3. Simulate partial dependency failures.
 
 ## Technical method
 
@@ -59,8 +60,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Deliver and verify
 
-- Resilience changes and bounded failure/recovery tests.
-- Timeout/retry/fallback matrix and controlled outage/partial-effect checks.
+- Timeout/retry/fallback matrix with the resilience changes and controlled outage and partial-effect checks.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

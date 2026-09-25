@@ -33,8 +33,8 @@ No source changes in inspect/plan. Save only requested planning artifacts. fix a
 
 ## Execute
 
-1. Correlate blocked/blocking sessions and queries, inspect transaction boundaries, distinguish transient waits from persistent contention, and propose targeted remedies.
-2. Correlate wait and blocker snapshots with transaction age, query identity and application transaction boundaries; follow the root blocker rather than the noisiest victim.
+1. Correlate wait and blocker snapshots with transaction age, query identity and application transaction boundaries.
+2. Follow the root blocker rather than the noisiest victim, distinguish transient waits from persistent contention, and propose targeted remedies.
 
 ## Technical method
 
@@ -56,8 +56,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. fix a
 
 ## Deliver and verify
 
-- Blocking graph/timeline, likely cause, and safe operational/code options.
-- Blocking chain, snapshot time, transaction boundary and targeted remedy.
+- Blocking chain or timeline with snapshot time, transaction boundary, likely cause and safe operational or code remedies.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

@@ -33,8 +33,9 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Execute
 
-1. Define ordering and checkpoint transactions, handle overlap/late arrivals, make replay safe, and test crashes around write/checkpoint boundaries.
-2. Define event versus arrival order, stable keys, deletions and overlap; persist checkpoints only after durable effects and test both sides of that boundary.
+1. Define event versus arrival order, stable keys, deletions, overlap and late-arrival handling.
+2. Define the checkpoint transaction and persist checkpoints only after durable effects so replay is safe.
+3. Test crashes on both sides of the write/checkpoint boundary.
 
 ## Technical method
 
@@ -54,8 +55,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Deliver and verify
 
-- Incremental processor with state format and restart evidence.
-- Watermark/key protocol and replay, late-update, deletion and crash tests.
+- Incremental processor with its watermark/key protocol and state format, and replay, late-update, deletion and crash tests.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

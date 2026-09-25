@@ -1,6 +1,6 @@
 ---
 name: backend-idempotency
-description: "Prevent duplicate effects from retries and repeated requests. Use to make repeated operations produce the intended single effect; backend-concurrency covers broader interleavings; arch-event-flow designs delivery, ordering and dead-letter policy across producers and consumers."
+description: "Prevent duplicate effects from retries and repeated requests. Use to make repeated operations produce the intended single effect; backend-concurrency covers broader interleavings, api-webhooks owns signature verification and receipt, and arch-event-flow designs delivery, ordering and dead-letter policy across producers and consumers."
 ---
 
 # backend-idempotency
@@ -9,7 +9,7 @@ Prevent duplicate effects from retries and repeated requests.
 
 ## Choose this workflow
 
-Use to make repeated operations produce the intended single effect; backend-concurrency covers broader interleavings; arch-event-flow designs delivery, ordering and dead-letter policy across producers and consumers.
+Use to make repeated operations produce the intended single effect; backend-concurrency covers broader interleavings, api-webhooks owns signature verification and receipt, and arch-event-flow designs delivery, ordering and dead-letter policy across producers and consumers.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Backend methods](../../references/packs/backend.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 

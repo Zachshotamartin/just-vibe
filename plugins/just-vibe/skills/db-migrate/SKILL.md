@@ -1,6 +1,6 @@
 ---
 name: db-migrate
-description: "Create migrations with compatibility and rollback considerations. Use for schema/data transition mechanics; db-schema designs the target model, and db-locks diagnoses a migration currently blocked on locks."
+description: "Create migrations with compatibility and rollback considerations. Use for schema/data transition mechanics; db-schema designs the target model, db-locks diagnoses a migration currently blocked on locks, and data-backfill runs large historical recomputation outside a schema transition."
 ---
 
 # db-migrate
@@ -9,7 +9,7 @@ Create migrations with compatibility and rollback considerations.
 
 ## Choose this workflow
 
-Use for schema/data transition mechanics; db-schema designs the target model, and db-locks diagnoses a migration currently blocked on locks.
+Use for schema/data transition mechanics; db-schema designs the target model, db-locks diagnoses a migration currently blocked on locks, and data-backfill runs large historical recomputation outside a schema transition.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Databases methods](../../references/packs/database.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -61,8 +61,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 
 ## Deliver and verify
 
-- Migration plan or files, compatibility evidence, execution conditions, and rollback/forward-recovery limits.
-- Phase/SQL-or-runner-step/lock-risk/check/recovery table and compatibility evidence.
+- Migration plan or files as a phase table (SQL or runner step, lock risk, check, recovery), with compatibility evidence, execution conditions and rollback/forward-recovery limits.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

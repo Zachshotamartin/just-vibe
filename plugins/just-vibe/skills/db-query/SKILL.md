@@ -33,8 +33,9 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the
 
 ## Execute
 
-1. Resolve join cardinality and null semantics, parameterize inputs, inspect result shape, and validate with representative fixtures or bounded authorized reads.
-2. Define expected result grain and cardinality, test one-to-many joins and nullable predicates, and compare hand-computed small-fixture results before optimization.
+1. Define the expected result grain and cardinality.
+2. Write a parameterized query, resolving join cardinality and null semantics; test one-to-many joins and nullable predicates.
+3. Compare results with hand-computed small fixtures or bounded authorized reads before optimization.
 
 ## Technical method
 
@@ -56,8 +57,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the
 
 ## Deliver and verify
 
-- Query, assumptions, expected results, and verification evidence.
-- Parameterized query, expected row grain and empty/null/duplicate-boundary checks.
+- Parameterized query with its assumptions, expected row grain and empty/null/duplicate-boundary verification.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

@@ -33,8 +33,9 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Execute
 
-1. Reuse domain conventions, validate inputs, separate transport from business rules, implement persistence/error handling, and test observable behavior.
-2. Identify transaction ownership and domain invariants, keep transport parsing outside business decisions and make dependency failures observable to callers.
+1. Identify transaction ownership and domain invariants, reusing the project's domain conventions.
+2. Implement the service with input validation and persistence, keeping transport parsing outside business decisions and making dependency failures observable to callers.
+3. Test observable success and failure behavior.
 
 ## Technical method
 
@@ -61,8 +62,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Deliver and verify
 
-- Service implementation, interfaces, configuration guidance, and checks.
-- Service contract, effect/transaction boundaries and success/failure checks.
+- Service implementation with its contract, effect/transaction boundaries, configuration guidance and success/failure checks.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

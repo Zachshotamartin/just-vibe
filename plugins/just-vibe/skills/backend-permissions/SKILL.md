@@ -1,6 +1,6 @@
 ---
 name: backend-permissions
-description: "Define and test authorization for roles, resources, and ownership. Use for application action/resource policy; arch-tenancy covers propagation across the whole system."
+description: "Define and test authorization for roles, resources, and ownership. Use for application action/resource policy; security-authz audits suspected bypasses, db-access covers database roles and row policies, and arch-tenancy covers propagation across the whole system."
 ---
 
 # backend-permissions
@@ -9,7 +9,7 @@ Define and test authorization for roles, resources, and ownership.
 
 ## Choose this workflow
 
-Use for application action/resource policy; arch-tenancy covers propagation across the whole system.
+Use for application action/resource policy; security-authz audits suspected bypasses, db-access covers database roles and row policies, and arch-tenancy covers propagation across the whole system.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Backend methods](../../references/packs/backend.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -33,8 +33,9 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the
 
 ## Execute
 
-1. Build an action/resource matrix, identify enforcement boundaries, implement consistent checks when requested, and test cross-user, cross-tenant, and indirect access.
-2. Build subject/action/resource/tenant cases, locate server-side enforcement and inspect alternate read/write/export paths and ownership transfers.
+1. Build subject/action/resource/tenant cases as an access matrix, and locate the server-side enforcement boundaries.
+2. Inspect alternate read, write and export paths and ownership transfers, and implement consistent checks when requested.
+3. Test cross-user, cross-tenant and indirect access with positive and negative cases.
 
 ## Technical method
 
@@ -60,8 +61,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the
 
 ## Deliver and verify
 
-- Permission contract, enforcement changes if authorized, and negative/positive tests.
-- Access matrix, enforcement locations and positive/negative isolation checks.
+- Access matrix, enforcement locations, enforcement changes if authorized, and positive/negative isolation checks.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

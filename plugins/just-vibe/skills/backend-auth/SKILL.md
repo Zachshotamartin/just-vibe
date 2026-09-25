@@ -65,8 +65,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the
 
 ## Deliver and verify
 
-- Authentication findings or implementation with lifecycle checks.
-- Auth lifecycle, trust assumptions and expired/revoked/invalid-credential checks.
+- Authentication findings or implementation with the auth lifecycle, trust assumptions and expired/revoked/invalid-credential checks.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

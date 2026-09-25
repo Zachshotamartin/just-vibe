@@ -33,8 +33,8 @@ No source changes in inspect/plan. Save only requested planning artifacts. db-mi
 
 ## Execute
 
-1. Inspect grants and execution identities, trace connection-role behavior, evaluate policies including writes, and design isolated access checks; run read-only probes against an isolated target in scope, and leave write-policy probes to a separately scoped apply run.
-2. Trace the actual runtime role and ownership/bypass privileges; inspect read and write predicates with positive and cross-tenant negative cases.
+1. Trace the actual runtime role, grants, execution identities and ownership or bypass privileges.
+2. Inspect read and write policy predicates with positive and cross-tenant negative access cases; run read-only probes against an isolated target in scope, and leave write-policy probes to a separately scoped apply run.
 
 ## Technical method
 
@@ -58,8 +58,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. db-mi
 
 ## Deliver and verify
 
-- Access findings, policy coverage, and remediation/test proposals.
-- Role/resource/action matrix, policy paths and verified/unknown isolation checks.
+- Role/resource/action matrix with policy paths, verified and unknown isolation checks, and remediation or test proposals.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

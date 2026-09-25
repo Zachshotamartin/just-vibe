@@ -33,8 +33,9 @@ No source changes in inspect/plan. Save only requested planning artifacts. data-
 
 ## Execute
 
-1. Validate schema, select a representative bounded sample or authorized aggregate scan, compute summaries, and flag anomalies relative to declared semantics.
-2. Inspect schema and volume before scanning, distinguish nulls from sentinels and sample across relevant time/group strata with stated selection limits.
+1. Inspect schema and volume before scanning.
+2. Select a bounded sample across relevant time and group strata, or an authorized aggregate scan, and state the selection limits.
+3. Compute summaries, distinguish nulls from sentinels and flag anomalies relative to declared semantics.
 
 ## Technical method
 
@@ -54,8 +55,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. data-
 
 ## Deliver and verify
 
-- Profile with sample/full-scan distinction, counts, caveats, and follow-up checks.
-- Snapshot/sample identity, summaries, anomaly examples and coverage limits.
+- Profile with snapshot or sample identity, the sample-versus-full-scan distinction, summaries, anomaly examples, caveats and follow-up checks.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

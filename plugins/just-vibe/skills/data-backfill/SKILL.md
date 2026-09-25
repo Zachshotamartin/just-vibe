@@ -1,6 +1,6 @@
 ---
 name: data-backfill
-description: "Plan or run resumable historical-data backfills. Use for bounded historical reprocessing; data-pipeline creates normal transformation behavior."
+description: "Plan or run resumable historical-data backfills. Use for bounded historical reprocessing; data-pipeline creates normal transformation behavior, and a backfill that is a phase of a schema change belongs to db-migrate."
 ---
 
 # data-backfill
@@ -9,7 +9,7 @@ Plan or run resumable historical-data backfills.
 
 ## Choose this workflow
 
-Use for bounded historical reprocessing; data-pipeline creates normal transformation behavior.
+Use for bounded historical reprocessing; data-pipeline creates normal transformation behavior, and a backfill that is a phase of a schema change belongs to db-migrate.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Data engineering methods](../../references/packs/data.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -33,8 +33,9 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 
 ## Execute
 
-1. Estimate volume, partition work, define idempotent writes and checkpoints, validate a small authorized batch, reconcile output, and resume within limits.
-2. Partition a fixed source snapshot, define idempotent writes and checkpoints, measure a small permitted batch and account for concurrent incremental writers.
+1. Estimate volume and partition a fixed source snapshot.
+2. Define idempotent writes and checkpoints, and account for concurrent incremental writers.
+3. Measure and validate a small permitted batch, reconcile its output, then resume within limits.
 
 ## Technical method
 
@@ -55,8 +56,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 
 ## Deliver and verify
 
-- Backfill plan/script or run record with progress, discrepancies, and recovery steps.
-- Partition plan, caps, checkpoints, reconciled counts and resume instructions.
+- Backfill plan or script, or a run record, with partitions, caps, checkpoints, reconciled counts, discrepancies and resume/recovery instructions.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

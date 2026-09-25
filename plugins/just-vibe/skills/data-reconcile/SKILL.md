@@ -33,8 +33,9 @@ No source changes in inspect/plan. Save only requested planning artifacts. data-
 
 ## Execute
 
-1. Align snapshots/time windows, compare counts and keyed values, normalize only documented transformations, sample discrepancies safely, and explain likely causes.
-2. Align snapshot/window and key grain, compare membership before values and normalize only explicitly documented transformations.
+1. Align snapshots or time windows and key grain.
+2. Compare membership before values, normalizing only explicitly documented transformations.
+3. Sample discrepancies safely and explain likely causes.
 
 ## Technical method
 
@@ -54,8 +55,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. data-
 
 ## Deliver and verify
 
-- Reconciliation report, discrepancy categories, evidence, and repair candidates.
-- Snapshot pair, keyed mismatch categories, denominators and evidence limits.
+- Reconciliation report for the snapshot pair with keyed mismatch categories, denominators, evidence, repair candidates and evidence limits.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

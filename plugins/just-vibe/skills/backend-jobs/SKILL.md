@@ -33,8 +33,9 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Execute
 
-1. Define durable payloads, idempotent effects, lease/retry/dead-letter behavior, implement checkpoints where needed, and test crash/restart paths.
-2. Specify payload version, stable job identity, lease expiry, ack timing, bounded retry and dead-letter inspection before coding the worker.
+1. Specify payload version, stable job identity, lease expiry, ack timing, bounded retry and dead-letter inspection before coding the worker.
+2. Implement idempotent effects and checkpoints where needed.
+3. Test crash and restart before and after the effect.
 
 ## Technical method
 
@@ -59,8 +60,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Deliver and verify
 
-- Worker, configuration, observable failure handling, and recovery checks.
-- Job state machine, retry/lease rules and crash-before/after-effect tests.
+- Worker and configuration with its job state machine, retry/lease rules, observable failure handling and crash-before/after-effect tests.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

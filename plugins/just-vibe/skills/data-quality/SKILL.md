@@ -33,8 +33,9 @@ No source changes in inspect/plan. Save only requested planning artifacts. data-
 
 ## Execute
 
-1. Resolve applicable rules, evaluate against the identified snapshot, separate warnings from failures, compare history where available, and identify likely upstream causes.
-2. Freeze applicable thresholds before observing results, evaluate completeness/freshness/validity separately and count excluded or unreadable records.
+1. Resolve the applicable rules and freeze their thresholds before observing results.
+2. Evaluate completeness, freshness and validity separately against the identified snapshot, counting excluded or unreadable records and separating warnings from failures.
+3. Compare with history where available and identify likely upstream causes.
 
 ## Technical method
 
@@ -54,8 +55,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. data-
 
 ## Deliver and verify
 
-- Rule-by-rule results, affected counts, severity, and repair/monitoring proposals.
-- Rule/version/snapshot/result matrix with counts and likely upstream causes.
+- Rule/version/snapshot/result matrix with affected counts, severity, likely upstream causes and repair or monitoring proposals.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

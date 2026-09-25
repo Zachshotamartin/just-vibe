@@ -1,6 +1,6 @@
 ---
 name: cleanup
-description: "Remove verified dead code and unnecessary complexity. Use for evidence-backed removal of unnecessary code or assets; refactor preserves behavior through restructuring."
+description: "Remove verified dead code and unnecessary complexity. Use for evidence-backed removal of unnecessary code or assets; refactor preserves behavior through restructuring; removing a public endpoint or export first needs api-breaking's consumer impact and deprecation plan."
 ---
 
 # cleanup
@@ -9,7 +9,7 @@ Remove verified dead code and unnecessary complexity.
 
 ## Choose this workflow
 
-Use for evidence-backed removal of unnecessary code or assets; refactor preserves behavior through restructuring.
+Use for evidence-backed removal of unnecessary code or assets; refactor preserves behavior through restructuring; removing a public endpoint or export first needs api-breaking's consumer impact and deprecation plan.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [General methods](../../references/packs/general.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 

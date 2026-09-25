@@ -604,7 +604,7 @@
         "control flow",
         "trace through"
       ],
-      "selection": "Use to follow one execution or data path across boundaries; map shows topology without reconstructing a particular flow.",
+      "selection": "Use to follow one execution or data path across boundaries; map shows topology without reconstructing a particular flow; data-lineage maps where a field or metric comes from across transformations.",
       "branches": [
         {
           "when": "a queue or external service has no downstream evidence",
@@ -2672,9 +2672,10 @@
         "delete unused",
         "leftover",
         "stale flags",
-        "feature flags cleanup"
+        "feature flags cleanup",
+        "unreferenced"
       ],
-      "selection": "Use for evidence-backed removal of unnecessary code or assets; refactor preserves behavior through restructuring.",
+      "selection": "Use for evidence-backed removal of unnecessary code or assets; refactor preserves behavior through restructuring; removing a public endpoint or export first needs api-breaking's consumer impact and deprecation plan.",
       "branches": [
         {
           "when": "use cannot be excluded because loading is dynamic",
@@ -12510,12 +12511,12 @@
       "readScope": "One service boundary and necessary integration; no unrelated service decomposition.",
       "writeScope": "Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.",
       "procedure": [
-        "Reuse domain conventions, validate inputs, separate transport from business rules, implement persistence/error handling, and test observable behavior.",
-        "Identify transaction ownership and domain invariants, keep transport parsing outside business decisions and make dependency failures observable to callers."
+        "Identify transaction ownership and domain invariants, reusing the project's domain conventions.",
+        "Implement the service with input validation and persistence, keeping transport parsing outside business decisions and making dependency failures observable to callers.",
+        "Test observable success and failure behavior."
       ],
       "outputs": [
-        "Service implementation, interfaces, configuration guidance, and checks.",
-        "Service contract, effect/transaction boundaries and success/failure checks."
+        "Service implementation with its contract, effect/transaction boundaries, configuration guidance and success/failure checks."
       ],
       "verification": [
         "A valid operation persists the intended effect; validation/dependency failure leaves a consistent state."
@@ -12646,8 +12647,7 @@
         "Read only the matching cookie-session, OAuth callback, refresh-race or recovery scenario. Use the supported provider mechanism, implement the requested boundary and verify the relevant transitions."
       ],
       "outputs": [
-        "Authentication findings or implementation with lifecycle checks.",
-        "Auth lifecycle, trust assumptions and expired/revoked/invalid-credential checks."
+        "Authentication findings or implementation with the auth lifecycle, trust assumptions and expired/revoked/invalid-credential checks."
       ],
       "verification": [
         "Logout/revocation invalidates the intended session; untrusted or expired tokens fail closed."
@@ -12794,12 +12794,12 @@
       "readScope": "Server-side resource authorization across all relevant entry points.",
       "writeScope": "Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the requested local implementation and perform relevant bounded checks while preserving unrelated work. Live data changes, remote actions and paid jobs require their resolved target and existing session authorization.",
       "procedure": [
-        "Build an action/resource matrix, identify enforcement boundaries, implement consistent checks when requested, and test cross-user, cross-tenant, and indirect access.",
-        "Build subject/action/resource/tenant cases, locate server-side enforcement and inspect alternate read/write/export paths and ownership transfers."
+        "Build subject/action/resource/tenant cases as an access matrix, and locate the server-side enforcement boundaries.",
+        "Inspect alternate read, write and export paths and ownership transfers, and implement consistent checks when requested.",
+        "Test cross-user, cross-tenant and indirect access with positive and negative cases."
       ],
       "outputs": [
-        "Permission contract, enforcement changes if authorized, and negative/positive tests.",
-        "Access matrix, enforcement locations and positive/negative isolation checks."
+        "Access matrix, enforcement locations, enforcement changes if authorized, and positive/negative isolation checks."
       ],
       "verification": [
         "Owners can perform intended actions; direct-ID requests cannot bypass tenant restrictions."
@@ -12846,7 +12846,7 @@
         "role check",
         "owner only"
       ],
-      "selection": "Use for application action/resource policy; arch-tenancy covers propagation across the whole system.",
+      "selection": "Use for application action/resource policy; security-authz audits suspected bypasses, db-access covers database roles and row policies, and arch-tenancy covers propagation across the whole system.",
       "branches": [
         {
           "when": "policy is ambiguous for one role/resource combination",
@@ -12923,12 +12923,12 @@
       "readScope": "Worker implementation and local/test registration; live scheduling must be requested.",
       "writeScope": "Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.",
       "procedure": [
-        "Define durable payloads, idempotent effects, lease/retry/dead-letter behavior, implement checkpoints where needed, and test crash/restart paths.",
-        "Specify payload version, stable job identity, lease expiry, ack timing, bounded retry and dead-letter inspection before coding the worker."
+        "Specify payload version, stable job identity, lease expiry, ack timing, bounded retry and dead-letter inspection before coding the worker.",
+        "Implement idempotent effects and checkpoints where needed.",
+        "Test crash and restart before and after the effect."
       ],
       "outputs": [
-        "Worker, configuration, observable failure handling, and recovery checks.",
-        "Job state machine, retry/lease rules and crash-before/after-effect tests."
+        "Worker and configuration with its job state machine, retry/lease rules, observable failure handling and crash-before/after-effect tests."
       ],
       "verification": [
         "A worker crash can resume without duplicate irreversible effects; poison messages stop retrying after a defined bound."
@@ -13111,7 +13111,7 @@
         "retry safe",
         "duplicate payment"
       ],
-      "selection": "Use to make repeated operations produce the intended single effect; backend-concurrency covers broader interleavings; arch-event-flow designs delivery, ordering and dead-letter policy across producers and consumers.",
+      "selection": "Use to make repeated operations produce the intended single effect; backend-concurrency covers broader interleavings, api-webhooks owns signature verification and receipt, and arch-event-flow designs delivery, ordering and dead-letter policy across producers and consumers.",
       "branches": [
         {
           "when": "the same key arrives with a different payload or while pending",
@@ -13443,12 +13443,12 @@
       "readScope": "Timeouts, bounded retries, cancellation, circuit/fallback behavior, and useful errors.",
       "writeScope": "Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.",
       "procedure": [
-        "Classify retry-safe operations, allocate end-to-end time budget, implement backoff/jitter where appropriate, propagate cancellation, and simulate partial dependency failures.",
-        "Allocate an end-to-end deadline across attempts and dependencies, classify retry-safe effects and control exponential backoff/jitter within the total cap."
+        "Classify which operations and effects are safe to retry.",
+        "Allocate an end-to-end deadline across attempts and dependencies, control exponential backoff and jitter within the total cap, and propagate cancellation.",
+        "Simulate partial dependency failures."
       ],
       "outputs": [
-        "Resilience changes and bounded failure/recovery tests.",
-        "Timeout/retry/fallback matrix and controlled outage/partial-effect checks."
+        "Timeout/retry/fallback matrix with the resilience changes and controlled outage and partial-effect checks."
       ],
       "verification": [
         "A failing dependency cannot trigger unbounded retries; non-idempotent operations are not duplicated by blind retry."
@@ -14435,12 +14435,11 @@
       "readScope": "Tables, relationships, types, constraints, and lifecycle; no live DDL by default.",
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. db-migrate applies an accepted schema change.",
       "procedure": [
-        "Model ownership/cardinality, encode enforceable invariants, compare access paths, assess nullability/deletion behavior, and plan compatibility with existing data.",
-        "Derive keys/cardinality and deletion rules from explicit invariants, then check null semantics, uniqueness and access paths for the selected engine."
+        "Derive keys, ownership, cardinality and deletion rules from explicit invariants, and encode the enforceable ones.",
+        "Check null semantics, uniqueness and access paths for the selected engine, and plan compatibility with existing data."
       ],
       "outputs": [
-        "Schema proposal, rationale, migration considerations, and representative queries.",
-        "Entity/key/constraint table, deletion semantics and valid/invalid row examples."
+        "Entity/key/constraint table with rationale, deletion semantics, valid/invalid row examples, representative queries and migration considerations."
       ],
       "verification": [
         "Invalid relationships are constrained; expected deletion behavior does not orphan required data."
@@ -14550,8 +14549,7 @@
         "Use the matching bundled evidence collector when available; read its result and limitations rather than treating exit zero as readiness. Revalidate identity before a dependent action."
       ],
       "outputs": [
-        "Migration plan or files, compatibility evidence, execution conditions, and rollback/forward-recovery limits.",
-        "Phase/SQL-or-runner-step/lock-risk/check/recovery table and compatibility evidence."
+        "Migration plan or files as a phase table (SQL or runner step, lock risk, check, recovery), with compatibility evidence, execution conditions and rollback/forward-recovery limits."
       ],
       "verification": [
         "Older app versions survive the intended overlap; interruption can resume without duplicated conversion."
@@ -14608,7 +14606,7 @@
         "prisma migrate",
         "flyway"
       ],
-      "selection": "Use for schema/data transition mechanics; db-schema designs the target model, and db-locks diagnoses a migration currently blocked on locks.",
+      "selection": "Use for schema/data transition mechanics; db-schema designs the target model, db-locks diagnoses a migration currently blocked on locks, and data-backfill runs large historical recomputation outside a schema transition.",
       "branches": [
         {
           "when": "a PostgreSQL concurrent index is required",
@@ -14674,12 +14672,12 @@
       "readScope": "Correct SQL/query construction and relevant performance; no broad data repair.",
       "writeScope": "Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the requested local implementation and perform relevant bounded checks while preserving unrelated work. Live data changes, remote actions and paid jobs require their resolved target and existing session authorization.",
       "procedure": [
-        "Resolve join cardinality and null semantics, parameterize inputs, inspect result shape, and validate with representative fixtures or bounded authorized reads.",
-        "Define expected result grain and cardinality, test one-to-many joins and nullable predicates, and compare hand-computed small-fixture results before optimization."
+        "Define the expected result grain and cardinality.",
+        "Write a parameterized query, resolving join cardinality and null semantics; test one-to-many joins and nullable predicates.",
+        "Compare results with hand-computed small fixtures or bounded authorized reads before optimization."
       ],
       "outputs": [
-        "Query, assumptions, expected results, and verification evidence.",
-        "Parameterized query, expected row grain and empty/null/duplicate-boundary checks."
+        "Parameterized query with its assumptions, expected row grain and empty/null/duplicate-boundary verification."
       ],
       "verification": [
         "One-to-many joins do not silently inflate aggregates; empty/null inputs yield the intended behavior."
@@ -14791,12 +14789,11 @@
       "readScope": "Plan interpretation, estimates, scans, joins, sorting, and evidence-supported bottlenecks.",
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. db-query or db-index applies an accepted query or index change.",
       "procedure": [
-        "Read operators and row estimates, compare actuals when supplied, identify cardinality errors and costly stages, and propose discriminating measurements.",
-        "Read estimated versus actual rows, loop counts, filters, joins, sorting/spilling and buffers using engine-specific meaning; locate the first large estimation divergence."
+        "Read estimated versus actual rows, loop counts, filters, joins, sorting/spilling and buffers using engine-specific meaning.",
+        "Locate the first large estimation divergence and the costly stages, and propose discriminating measurements."
       ],
       "outputs": [
-        "Annotated plan, likely causes, and targeted query/index/statistics options.",
-        "Operator evidence, likely bottleneck, discriminating measurement and risk of running it."
+        "Annotated plan with operator evidence, the likely bottleneck, targeted query/index/statistics options, and a discriminating measurement with the risk of running it."
       ],
       "verification": [
         "Estimated costs are not mislabeled as milliseconds; a row-estimate error is distinguished from a missing index."
@@ -14898,12 +14895,11 @@
       "readScope": "Evidence-based index design, redundancy, and rollout; no automatic production DDL.",
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. db-migrate applies an accepted index change.",
       "procedure": [
-        "Analyze predicates/order/selectivity, compare existing indexes, estimate write/storage costs from evidence, and design before/after measurement and online-creation strategy where supported.",
-        "Match equality/range/order predicates and selectivity to existing indexes, account for write/storage cost and compare the exact workload before/after."
+        "Match equality, range and order predicates and their selectivity to existing indexes.",
+        "Estimate write and storage cost from evidence, and design the before/after measurement on the exact workload and an online-creation strategy where supported."
       ],
       "outputs": [
-        "Index recommendations with measured validation and a migration proposal for db-migrate.",
-        "Candidate definition, supported workload, redundant overlap and rollout/measurement plan."
+        "Candidate index definition with the workload it supports, redundant overlap, a measured validation plan and a rollout proposal for db-migrate."
       ],
       "verification": [
         "Target query improves under comparable conditions; added write cost and redundant indexes are considered."
@@ -15112,12 +15108,11 @@
       "readScope": "Blocking chains, deadlocks, transaction duration, and contention causes.",
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. fix applies an accepted code repair; operational changes need their own exact request.",
       "procedure": [
-        "Correlate blocked/blocking sessions and queries, inspect transaction boundaries, distinguish transient waits from persistent contention, and propose targeted remedies.",
-        "Correlate wait and blocker snapshots with transaction age, query identity and application transaction boundaries; follow the root blocker rather than the noisiest victim."
+        "Correlate wait and blocker snapshots with transaction age, query identity and application transaction boundaries.",
+        "Follow the root blocker rather than the noisiest victim, distinguish transient waits from persistent contention, and propose targeted remedies."
       ],
       "outputs": [
-        "Blocking graph/timeline, likely cause, and safe operational/code options.",
-        "Blocking chain, snapshot time, transaction boundary and targeted remedy."
+        "Blocking chain or timeline with snapshot time, transaction boundary, likely cause and safe operational or code remedies."
       ],
       "verification": [
         "The root blocker is distinguished from downstream victims; a completed deadlock is not confused with current blocking."
@@ -15220,12 +15215,11 @@
       "readScope": "Database privileges, tenant predicates, row-level policies, and bypass paths.",
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. db-migrate applies an accepted grant or policy change.",
       "procedure": [
-        "Inspect grants and execution identities, trace connection-role behavior, evaluate policies including writes, and design isolated access checks; run read-only probes against an isolated target in scope, and leave write-policy probes to a separately scoped apply run.",
-        "Trace the actual runtime role and ownership/bypass privileges; inspect read and write predicates with positive and cross-tenant negative cases."
+        "Trace the actual runtime role, grants, execution identities and ownership or bypass privileges.",
+        "Inspect read and write policy predicates with positive and cross-tenant negative access cases; run read-only probes against an isolated target in scope, and leave write-policy probes to a separately scoped apply run."
       ],
       "outputs": [
-        "Access findings, policy coverage, and remediation/test proposals.",
-        "Role/resource/action matrix, policy paths and verified/unknown isolation checks."
+        "Role/resource/action matrix with policy paths, verified and unknown isolation checks, and remediation or test proposals."
       ],
       "verification": [
         "A tenant cannot read/update another tenant's rows; privileged service roles are recognized as potential policy bypasses."
@@ -15337,12 +15331,12 @@
       "readScope": "Distributions, missingness, uniqueness, duplicates, ranges, and suspicious values.",
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. data-pipeline or fix applies an accepted change.",
       "procedure": [
-        "Validate schema, select a representative bounded sample or authorized aggregate scan, compute summaries, and flag anomalies relative to declared semantics.",
-        "Inspect schema and volume before scanning, distinguish nulls from sentinels and sample across relevant time/group strata with stated selection limits."
+        "Inspect schema and volume before scanning.",
+        "Select a bounded sample across relevant time and group strata, or an authorized aggregate scan, and state the selection limits.",
+        "Compute summaries, distinguish nulls from sentinels and flag anomalies relative to declared semantics."
       ],
       "outputs": [
-        "Profile with sample/full-scan distinction, counts, caveats, and follow-up checks.",
-        "Snapshot/sample identity, summaries, anomaly examples and coverage limits."
+        "Profile with snapshot or sample identity, the sample-versus-full-scan distinction, summaries, anomaly examples, caveats and follow-up checks."
       ],
       "verification": [
         "Missing and sentinel values are separated; sample statistics are not presented as exact full-population counts."
@@ -15426,12 +15420,12 @@
       "readScope": "Machine-checkable and semantic obligations across a data boundary.",
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. data-pipeline or fix applies an accepted change.",
       "procedure": [
-        "Identify required fields and keys, define ranges/nullability/time semantics, set freshness expectations, and specify versioning and violation handling.",
-        "Specify grain, keys, types, units, nullability, event/arrival time, freshness and allowed schema evolution from actual consumption paths."
+        "Identify the actual consumption paths and the required fields and keys.",
+        "Specify grain, keys, types, units, ranges, nullability, event/arrival time and freshness from them.",
+        "Define allowed schema evolution, versioning and violation handling."
       ],
       "outputs": [
-        "Data contract, examples, validation rules, and ownership questions.",
-        "Versioned field/rule/response contract with accepted and rejected examples."
+        "Versioned field/rule/response contract with accepted and rejected examples, validation rules and ownership questions."
       ],
       "verification": [
         "Syntactically valid but semantically invalid values can fail; an additive schema change has defined compatibility behavior."
@@ -15515,12 +15509,12 @@
       "readScope": "Ingestion/transformation implementation and isolated validation; activating production schedules requires that request.",
       "writeScope": "Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.",
       "procedure": [
-        "Define source identity and keys, validate inputs, implement transformations and atomic/staged writes, expose failures, and test restart and bad-record handling.",
-        "Establish stable source/output identity, validate transformations with small hand-checked fixtures and stage writes so completion markers follow durable output."
+        "Establish stable source and output identity and keys, and validate inputs.",
+        "Implement transformations validated with small hand-checked fixtures, and stage writes so completion markers follow durable output.",
+        "Expose failures and test restart and bad-record handling."
       ],
       "outputs": [
-        "Pipeline, configuration, quality checks, and operational instructions.",
-        "Transform mapping, input/output reconciliation, completion protocol and failure accounting."
+        "Pipeline and configuration with its transform mapping, input/output reconciliation, completion protocol, failure accounting and operational instructions."
       ],
       "verification": [
         "A normal batch produces reconciled output; interrupted writes do not masquerade as a completed partition."
@@ -15607,12 +15601,12 @@
       "readScope": "Incremental updates, deduplication, deletes, and resume behavior.",
       "writeScope": "Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.",
       "procedure": [
-        "Define ordering and checkpoint transactions, handle overlap/late arrivals, make replay safe, and test crashes around write/checkpoint boundaries.",
-        "Define event versus arrival order, stable keys, deletions and overlap; persist checkpoints only after durable effects and test both sides of that boundary."
+        "Define event versus arrival order, stable keys, deletions, overlap and late-arrival handling.",
+        "Define the checkpoint transaction and persist checkpoints only after durable effects so replay is safe.",
+        "Test crashes on both sides of the write/checkpoint boundary."
       ],
       "outputs": [
-        "Incremental processor with state format and restart evidence.",
-        "Watermark/key protocol and replay, late-update, deletion and crash tests."
+        "Incremental processor with its watermark/key protocol and state format, and replay, late-update, deletion and crash tests."
       ],
       "verification": [
         "Replaying a completed window does not duplicate effects; late updates and deletions follow documented rules."
@@ -15698,12 +15692,12 @@
       "readScope": "Resumable historical recomputation; execution requires the specified data/environment authorization.",
       "writeScope": "Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the requested changes or execute the requested operation within its resolved target and limits. Local preparation does not authorize live, remote, destructive or paid actions; existing explicit session authorization still applies.",
       "procedure": [
-        "Estimate volume, partition work, define idempotent writes and checkpoints, validate a small authorized batch, reconcile output, and resume within limits.",
-        "Partition a fixed source snapshot, define idempotent writes and checkpoints, measure a small permitted batch and account for concurrent incremental writers."
+        "Estimate volume and partition a fixed source snapshot.",
+        "Define idempotent writes and checkpoints, and account for concurrent incremental writers.",
+        "Measure and validate a small permitted batch, reconcile its output, then resume within limits."
       ],
       "outputs": [
-        "Backfill plan/script or run record with progress, discrepancies, and recovery steps.",
-        "Partition plan, caps, checkpoints, reconciled counts and resume instructions."
+        "Backfill plan or script, or a run record, with partitions, caps, checkpoints, reconciled counts, discrepancies and resume/recovery instructions."
       ],
       "verification": [
         "Restart skips or safely replays completed batches; live incremental processing does not race into inconsistent output."
@@ -15746,7 +15740,7 @@
         "reprocess history",
         "rerun history"
       ],
-      "selection": "Use for bounded historical reprocessing; data-pipeline creates normal transformation behavior.",
+      "selection": "Use for bounded historical reprocessing; data-pipeline creates normal transformation behavior, and a backfill that is a phase of a schema change belongs to db-migrate.",
       "branches": [
         {
           "when": "a batch fails or load exceeds the cap",
@@ -15790,12 +15784,12 @@
       "readScope": "Missing, duplicated, changed, or aggregated discrepancies; no automatic repair.",
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. data-pipeline or fix applies an accepted change.",
       "procedure": [
-        "Align snapshots/time windows, compare counts and keyed values, normalize only documented transformations, sample discrepancies safely, and explain likely causes.",
-        "Align snapshot/window and key grain, compare membership before values and normalize only explicitly documented transformations."
+        "Align snapshots or time windows and key grain.",
+        "Compare membership before values, normalizing only explicitly documented transformations.",
+        "Sample discrepancies safely and explain likely causes."
       ],
       "outputs": [
-        "Reconciliation report, discrepancy categories, evidence, and repair candidates.",
-        "Snapshot pair, keyed mismatch categories, denominators and evidence limits."
+        "Reconciliation report for the snapshot pair with keyed mismatch categories, denominators, evidence, repair candidates and evidence limits."
       ],
       "verification": [
         "Equal row counts do not hide different records; allowed rounding/timing differences are distinguished from loss."
@@ -15889,12 +15883,11 @@
       "readScope": "Origins, transformations, joins, filters, and downstream dependencies for the target data.",
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. data-pipeline or fix applies an accepted change.",
       "procedure": [
-        "Trace field expressions through jobs/views, identify version and ownership boundaries, record lossy transformations, and mark opaque external steps.",
-        "Follow expressions through joins, filters, aggregations and versioned jobs; record grain changes and lossy transformations at each boundary."
+        "Follow field expressions through jobs, views, joins, filters, aggregations and versioned jobs.",
+        "Record grain changes, lossy transformations, versions and ownership at each boundary, and mark opaque external steps."
       ],
       "outputs": [
-        "Field-level lineage graph/table with evidence links and gaps.",
-        "Field-level path with transformations, versions, owners and opaque boundaries."
+        "Field-level lineage graph or table with transformations, versions, owners, evidence links, opaque boundaries and gaps."
       ],
       "verification": [
         "Derived aggregates include filter/join semantics; an opaque imported table is shown as an unknown boundary rather than assigned invented provenance."
@@ -15936,9 +15929,15 @@
         "column come from",
         "field origin",
         "upstream sources",
-        "column lineage"
+        "column lineage",
+        "where does this field come from",
+        "where does this number come from",
+        "metric definition",
+        "upstream tables",
+        "provenance",
+        "feeds the report"
       ],
-      "selection": "Use to trace a field's origin and transformation; trace follows an execution instance.",
+      "selection": "Use to find where a field or metric comes from across transformations; trace follows one execution instance.",
       "branches": [
         {
           "when": "an imported dataset has opaque provenance",
@@ -15978,12 +15977,12 @@
       "readScope": "Freshness, completeness, validity, uniqueness, and cross-field consistency.",
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. data-pipeline embeds accepted checks, ops-observability or ops-alerts implement monitoring and data-backfill repairs records.",
       "procedure": [
-        "Resolve applicable rules, evaluate against the identified snapshot, separate warnings from failures, compare history where available, and identify likely upstream causes.",
-        "Freeze applicable thresholds before observing results, evaluate completeness/freshness/validity separately and count excluded or unreadable records."
+        "Resolve the applicable rules and freeze their thresholds before observing results.",
+        "Evaluate completeness, freshness and validity separately against the identified snapshot, counting excluded or unreadable records and separating warnings from failures.",
+        "Compare with history where available and identify likely upstream causes."
       ],
       "outputs": [
-        "Rule-by-rule results, affected counts, severity, and repair/monitoring proposals.",
-        "Rule/version/snapshot/result matrix with counts and likely upstream causes."
+        "Rule/version/snapshot/result matrix with affected counts, severity, likely upstream causes and repair or monitoring proposals."
       ],
       "verification": [
         "Stale but complete data fails freshness; missing rule evidence is unknown rather than passing."

@@ -113,6 +113,9 @@ const FIRST = [
   ['V-A6-04', 'generate a TypeScript client from our OpenAPI spec', ['api-client']],
   ['V-A6-04', 'generate an SDK from the openapi file', ['api-client']],
   ['V-A6-04', 'our OpenAPI spec is out of date with the routes', ['api-openapi']],
+  ['B7-03', 'where does the revenue number on the finance dashboard come from', ['data-lineage']],
+  ['B7-03', 'trace this field back to the source', ['data-lineage']],
+  ['V-A2-06', 'remove the old /v1/users endpoint nobody calls anymore', ['api-breaking', 'cleanup']],
 ];
 const TOP3 = [
   ['A1-01', 'which file handles password reset?', ['explain', 'trace', 'orient', 'map']],

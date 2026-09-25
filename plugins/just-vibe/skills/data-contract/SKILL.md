@@ -33,8 +33,9 @@ No source changes in inspect/plan. Save only requested planning artifacts. data-
 
 ## Execute
 
-1. Identify required fields and keys, define ranges/nullability/time semantics, set freshness expectations, and specify versioning and violation handling.
-2. Specify grain, keys, types, units, nullability, event/arrival time, freshness and allowed schema evolution from actual consumption paths.
+1. Identify the actual consumption paths and the required fields and keys.
+2. Specify grain, keys, types, units, ranges, nullability, event/arrival time and freshness from them.
+3. Define allowed schema evolution, versioning and violation handling.
 
 ## Technical method
 
@@ -54,8 +55,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. data-
 
 ## Deliver and verify
 
-- Data contract, examples, validation rules, and ownership questions.
-- Versioned field/rule/response contract with accepted and rejected examples.
+- Versioned field/rule/response contract with accepted and rejected examples, validation rules and ownership questions.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

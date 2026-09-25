@@ -33,8 +33,8 @@ No source changes in inspect/plan. Save only requested planning artifacts. db-mi
 
 ## Execute
 
-1. Analyze predicates/order/selectivity, compare existing indexes, estimate write/storage costs from evidence, and design before/after measurement and online-creation strategy where supported.
-2. Match equality/range/order predicates and selectivity to existing indexes, account for write/storage cost and compare the exact workload before/after.
+1. Match equality, range and order predicates and their selectivity to existing indexes.
+2. Estimate write and storage cost from evidence, and design the before/after measurement on the exact workload and an online-creation strategy where supported.
 
 ## Technical method
 
@@ -56,8 +56,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. db-mi
 
 ## Deliver and verify
 
-- Index recommendations with measured validation and a migration proposal for db-migrate.
-- Candidate definition, supported workload, redundant overlap and rollout/measurement plan.
+- Candidate index definition with the workload it supports, redundant overlap, a measured validation plan and a rollout proposal for db-migrate.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

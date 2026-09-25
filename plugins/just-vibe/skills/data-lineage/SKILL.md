@@ -1,6 +1,6 @@
 ---
 name: data-lineage
-description: "Trace field origins and transformations. Use to trace a field's origin and transformation; trace follows an execution instance."
+description: "Trace field origins and transformations. Use to find where a field or metric comes from across transformations; trace follows one execution instance."
 ---
 
 # data-lineage
@@ -9,7 +9,7 @@ Trace field origins and transformations.
 
 ## Choose this workflow
 
-Use to trace a field's origin and transformation; trace follows an execution instance.
+Use to find where a field or metric comes from across transformations; trace follows one execution instance.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Data engineering methods](../../references/packs/data.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -33,8 +33,8 @@ No source changes in inspect/plan. Save only requested planning artifacts. data-
 
 ## Execute
 
-1. Trace field expressions through jobs/views, identify version and ownership boundaries, record lossy transformations, and mark opaque external steps.
-2. Follow expressions through joins, filters, aggregations and versioned jobs; record grain changes and lossy transformations at each boundary.
+1. Follow field expressions through jobs, views, joins, filters, aggregations and versioned jobs.
+2. Record grain changes, lossy transformations, versions and ownership at each boundary, and mark opaque external steps.
 
 ## Technical method
 
@@ -54,8 +54,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. data-
 
 ## Deliver and verify
 
-- Field-level lineage graph/table with evidence links and gaps.
-- Field-level path with transformations, versions, owners and opaque boundaries.
+- Field-level lineage graph or table with transformations, versions, owners, evidence links, opaque boundaries and gaps.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

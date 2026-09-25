@@ -33,8 +33,8 @@ No source changes in inspect/plan. Save only requested planning artifacts. db-mi
 
 ## Execute
 
-1. Model ownership/cardinality, encode enforceable invariants, compare access paths, assess nullability/deletion behavior, and plan compatibility with existing data.
-2. Derive keys/cardinality and deletion rules from explicit invariants, then check null semantics, uniqueness and access paths for the selected engine.
+1. Derive keys, ownership, cardinality and deletion rules from explicit invariants, and encode the enforceable ones.
+2. Check null semantics, uniqueness and access paths for the selected engine, and plan compatibility with existing data.
 
 ## Technical method
 
@@ -56,8 +56,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. db-mi
 
 ## Deliver and verify
 
-- Schema proposal, rationale, migration considerations, and representative queries.
-- Entity/key/constraint table, deletion semantics and valid/invalid row examples.
+- Entity/key/constraint table with rationale, deletion semantics, valid/invalid row examples, representative queries and migration considerations.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

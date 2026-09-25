@@ -1,6 +1,6 @@
 ---
 name: trace
-description: "Follow a request, event, or data value through the system. Use to follow one execution or data path across boundaries; map shows topology without reconstructing a particular flow."
+description: "Follow a request, event, or data value through the system. Use to follow one execution or data path across boundaries; map shows topology without reconstructing a particular flow; data-lineage maps where a field or metric comes from across transformations."
 ---
 
 # trace
@@ -9,7 +9,7 @@ Follow a request, event, or data value through the system.
 
 ## Choose this workflow
 
-Use to follow one execution or data path across boundaries; map shows topology without reconstructing a particular flow.
+Use to follow one execution or data path across boundaries; map shows topology without reconstructing a particular flow; data-lineage maps where a field or metric comes from across transformations.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [General methods](../../references/packs/general.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 

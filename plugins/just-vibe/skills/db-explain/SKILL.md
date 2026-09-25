@@ -33,8 +33,8 @@ No source changes in inspect/plan. Save only requested planning artifacts. db-qu
 
 ## Execute
 
-1. Read operators and row estimates, compare actuals when supplied, identify cardinality errors and costly stages, and propose discriminating measurements.
-2. Read estimated versus actual rows, loop counts, filters, joins, sorting/spilling and buffers using engine-specific meaning; locate the first large estimation divergence.
+1. Read estimated versus actual rows, loop counts, filters, joins, sorting/spilling and buffers using engine-specific meaning.
+2. Locate the first large estimation divergence and the costly stages, and propose discriminating measurements.
 
 ## Technical method
 
@@ -56,8 +56,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. db-qu
 
 ## Deliver and verify
 
-- Annotated plan, likely causes, and targeted query/index/statistics options.
-- Operator evidence, likely bottleneck, discriminating measurement and risk of running it.
+- Annotated plan with operator evidence, the likely bottleneck, targeted query/index/statistics options, and a discriminating measurement with the risk of running it.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

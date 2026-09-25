@@ -33,8 +33,9 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Execute
 
-1. Define source identity and keys, validate inputs, implement transformations and atomic/staged writes, expose failures, and test restart and bad-record handling.
-2. Establish stable source/output identity, validate transformations with small hand-checked fixtures and stage writes so completion markers follow durable output.
+1. Establish stable source and output identity and keys, and validate inputs.
+2. Implement transformations validated with small hand-checked fixtures, and stage writes so completion markers follow durable output.
+3. Expose failures and test restart and bad-record handling.
 
 ## Technical method
 
@@ -54,8 +55,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Deliver and verify
 
-- Pipeline, configuration, quality checks, and operational instructions.
-- Transform mapping, input/output reconciliation, completion protocol and failure accounting.
+- Pipeline and configuration with its transform mapping, input/output reconciliation, completion protocol, failure accounting and operational instructions.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
