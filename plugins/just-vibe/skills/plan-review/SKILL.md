@@ -44,7 +44,7 @@ Save the artifact review in personal project storage and open an expiring authen
 - **Inspect:** Artifact content hash, current file, review revision, attributed annotations and effective verdict.
 - **Method:** Serve only the saved snapshot through a token-authenticated loopback API. Bind each feedback mutation to both record revision and content hash.
 - **Avoid misdiagnosis:** Reusing approval after the underlying plan changed, executing embedded HTML, or granting publication permission from a review decision.
-- **Check the result:** Edit the artifact after browser approval; effectiveVerdict must become null and a new submission must fail until refresh.
+- **Check the result:** Before relying on effectiveVerdict, confirm the review reports stale false and the approved hash matches the current artifact.
 
 ## Read when relevant
 

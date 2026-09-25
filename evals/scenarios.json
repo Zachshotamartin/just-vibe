@@ -10355,13 +10355,13 @@
       },
       "rubric": [
         "Repeated setup does not create duplicate registrations; an existing marketplace with another source stops without replacement.",
-        "Exercise install/repeat/doctor/update/uninstall in isolated host roots and verify native enabled state, source identity and payload version."
+        "Read back the native inventory: source, scope, enabled state and payload version match the request, and for Claude the owned shortcut files report healthy."
       ],
       "technicalMethod": {
         "evidence": "Resolve host, scope, source channel, native plugin inventory and candidate bundled version.",
         "method": "Use the supported installer lifecycle and persistent payload, reconciling existing source identity before update or removal.",
         "pitfall": "A package-manager install alone does not register a native plugin; deleting package cache must not break the managed payload.",
-        "check": "Exercise install/repeat/doctor/update/uninstall in isolated host roots and verify native enabled state, source identity and payload version."
+        "check": "Read back the native inventory: source, scope, enabled state and payload version match the request, and for Claude the owned shortcut files report healthy."
       },
       "stopBehavior": [
         "Dry run does not inspect host state and must not imply it did. No manual global-config edits or credentials embedded in commands."
@@ -10453,13 +10453,13 @@
       "rubric": [
         "Pinned user choices survive automatic routing. Profile changes preserve brief, mode, scope, authorization, budgets, attempts and original success criteria.",
         "A profile never creates a subagent, installs tools, changes credentials or claims professional expertise.",
-        "Verify status/change/clear behavior preserves task constraints and that role selection alone starts no unrelated work."
+        "Confirm the recorded selection and pin state match the request and that the brief, constraints and scope are unchanged."
       ],
       "technicalMethod": {
         "evidence": "Read current selection, explicit user pins, task scope and proposed primary/secondary roles.",
         "method": "Preserve pins and apply role priorities through the relevant workflow methods; record selection provenance and conflicts.",
         "pitfall": "Agent inference cannot clear a user pin, and a principal role does not authorize broader architecture changes.",
-        "check": "Verify status/change/clear behavior preserves task constraints and that role selection alone starts no unrelated work."
+        "check": "Confirm the recorded selection and pin state match the request and that the brief, constraints and scope are unchanged."
       },
       "stopBehavior": [
         "Keep an existing pin when an inferred role conflicts; ask only if an explicit conflicting request needs resolution.",
@@ -10505,13 +10505,13 @@
         "Goal state survives a new session and preserves constraints and outstanding work.",
         "Completion is rejected when criteria lack evidence, artifacts changed or blockers remain.",
         "Native host state and local state are reported separately if either could not be updated.",
-        "Try completion before evidence and after an artifact changes; both must remain incomplete until resolved."
+        "Complete a goal only with current evidence for every criterion; an artifact changed since its evidence reopens the affected criteria."
       ],
       "technicalMethod": {
         "evidence": "Current goal revision, completion criteria, constraints, blockers and artifact hashes.",
         "method": "Revision-checked goal records; each criterion has attributed or hashed evidence. Native goal controls are optional and distinct from local persistence.",
         "pitfall": "Treating a saved objective or a process exit as completed work, or treating a goal as blanket permission for external actions.",
-        "check": "Try completion before evidence and after an artifact changes; both must remain incomplete until resolved."
+        "check": "Complete a goal only with current evidence for every criterion; an artifact changed since its evidence reopens the affected criteria."
       },
       "stopBehavior": [
         "Stop dependent work when a required answer, external access or authorization is missing; continue independent authorized work.",
@@ -10557,13 +10557,13 @@
         "Each phase produces the input required by its successor; dependency cycles and stale prerequisites are rejected.",
         "Worker application uses the reviewed result, fresh passing checks and unchanged source scope, preserving staged user work.",
         "The integrated result satisfies the original request; recorded completion or a plan alone is insufficient.",
-        "Try a cyclic graph, a failed prerequisite and a changed accepted file; dispatch must refuse unsafe progression while preserving recoverable results."
+        "Before each downstream dispatch, confirm every accepted result it depends on is still current and its prerequisites passed."
       ],
       "technicalMethod": {
         "evidence": "Current source, acceptance criteria, dependency graph, worker baseline and result hashes, verification records and index state.",
         "method": "Phase contracts followed by a dependency DAG when delegation is authorized. Completed work enters review; only accepted current results unlock dependent work.",
         "pitfall": "Treating successful process exit as correctness, allowing concurrent writers to overlap, or allowing an old accepted result to unlock work after source changes.",
-        "check": "Try a cyclic graph, a failed prerequisite and a changed accepted file; dispatch must refuse unsafe progression while preserving recoverable results."
+        "check": "Before each downstream dispatch, confirm every accepted result it depends on is still current and its prerequisites passed."
       },
       "stopBehavior": [
         "Stop dependent phases on missing required evidence, unresolved overlap, authorization or required user decisions; continue independent useful work.",
@@ -10609,13 +10609,13 @@
         "Review endpoints require the private token and reject cross-origin requests.",
         "Changed artifacts invalidate effective approval; stale or concurrent feedback is rejected until refreshed.",
         "HTML previews remain sandboxed; keyboard and narrow-screen review controls stay usable.",
-        "Edit the artifact after browser approval; effectiveVerdict must become null and a new submission must fail until refresh."
+        "Before relying on effectiveVerdict, confirm the review reports stale false and the approved hash matches the current artifact."
       ],
       "technicalMethod": {
         "evidence": "Artifact content hash, current file, review revision, attributed annotations and effective verdict.",
         "method": "Serve only the saved snapshot through a token-authenticated loopback API. Bind each feedback mutation to both record revision and content hash.",
         "pitfall": "Reusing approval after the underlying plan changed, executing embedded HTML, or granting publication permission from a review decision.",
-        "check": "Edit the artifact after browser approval; effectiveVerdict must become null and a new submission must fail until refresh."
+        "check": "Before relying on effectiveVerdict, confirm the review reports stale false and the approved hash matches the current artifact."
       },
       "stopBehavior": [
         "Do not expose secrets or serve arbitrary project files. If the artifact is too large or unsupported, prepare a bounded review copy within the requested scope.",
@@ -10663,13 +10663,13 @@
         "Unavailable browser dependencies remain blocked; subjective criteria remain needs-human.",
         "Redirects never contact an unapproved origin; allowed API origins require explicit authorization.",
         "A clipped ancestor must fail layout verification, and an unrelated blocked request must not mask a failed assertion.",
-        "Exercise a deliberately broken flow and a repaired retest; preserve failures, flag changed evidence, and leave subjective or unavailable checks unresolved."
+        "Exercise the failing flow and, after an authorized repair, retest it against the same criteria; preserve failures, flag changed evidence, and leave subjective or unavailable checks unresolved."
       ],
       "technicalMethod": {
         "evidence": "Original request quotes, observed controls, synthetic fixtures, target URL, source snapshot, failed step and hashed screenshots.",
         "method": "Use bounded executable browser actions and assertions in fresh contexts; retain every attempt and compare evidence identities after repairs.",
         "pitfall": "Component presence, HTTP success or a screenshot alone does not establish a successful visitor journey. Remote servers may serve a different revision.",
-        "check": "Exercise a deliberately broken flow and a repaired retest; preserve failures, flag changed evidence, and leave subjective or unavailable checks unresolved."
+        "check": "Exercise the failing flow and, after an authorized repair, retest it against the same criteria; preserve failures, flag changed evidence, and leave subjective or unavailable checks unresolved."
       },
       "stopBehavior": [
         "Stop at the attempt budget; do not weaken expectations or erase failures.",

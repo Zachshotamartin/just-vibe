@@ -68,7 +68,7 @@ npx just-vibe@latest update
 npx just-vibe@latest uninstall
 ```
 
-Append `--target claude` for Claude. Repeated setup preserves the managed version; update uses the package version you execute. Uninstall removes the plugin registration and retains its marketplace, managed source and personal data. Conflicting or unmanaged installations are not silently overwritten. `doctor` inspects installation state, while `diagnose status` inspects recorded delivery.
+Append `--target claude` for Claude, and your installation `--scope` when it was `project` or `local`; the same scope is needed for doctor, update and uninstall. Repeated setup preserves the managed version; update uses the package version you execute. Uninstall removes the plugin registration and retains its marketplace, managed source and personal data. Conflicting or unmanaged installations are not silently overwritten. `doctor` inspects installation state, while `diagnose status` inspects recorded delivery. For a previewed, integrity-checked update use `updater check`, `updater preview` and `updater apply`. To remove the marketplace, adapters, hooks and personal data as well, follow "Remove everything" in [Troubleshooting](https://just-vibe-tools.vercel.app/docs/updates/).
 
 For a development checkout, use `setup --local` consistently and keep the checkout in place. Switching bundled, local or GitHub sources is deliberate: uninstall the old plugin and remove its marketplace through the host before registering the new source. [Troubleshooting](https://just-vibe-tools.vercel.app/docs/updates/).
 

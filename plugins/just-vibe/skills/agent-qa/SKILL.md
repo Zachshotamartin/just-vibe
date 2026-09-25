@@ -44,7 +44,7 @@ Create local QA plans, isolated browser sessions and evidence artifacts. Interac
 - **Inspect:** Original request quotes, observed controls, synthetic fixtures, target URL, source snapshot, failed step and hashed screenshots.
 - **Method:** Use bounded executable browser actions and assertions in fresh contexts; retain every attempt and compare evidence identities after repairs.
 - **Avoid misdiagnosis:** Component presence, HTTP success or a screenshot alone does not establish a successful visitor journey. Remote servers may serve a different revision.
-- **Check the result:** Exercise a deliberately broken flow and a repaired retest; preserve failures, flag changed evidence, and leave subjective or unavailable checks unresolved.
+- **Check the result:** Exercise the failing flow and, after an authorized repair, retest it against the same criteria; preserve failures, flag changed evidence, and leave subjective or unavailable checks unresolved.
 
 ## Read when relevant
 

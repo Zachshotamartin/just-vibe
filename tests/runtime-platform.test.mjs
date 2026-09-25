@@ -717,6 +717,20 @@ test('all project adapters place discoverable wrappers or specialist definitions
   }
 });
 
+test('agents without a shell say how to get command output instead of claiming checks (R2-08)', (t) => {
+  const agents = new URL('../plugins/just-vibe/agents/', import.meta.url);
+  const noShell = /no shell in this host[\s\S]*ask the parent agent for their output/;
+  for (const name of readdirSync(agents).filter((n) => n.endsWith('.md'))) {
+    const content = readFileSync(new URL(name, agents), 'utf8');
+    const shell = /^tools: .*\bBash\b/m.test(content);
+    assert.equal(noShell.test(content), !shell, name);
+  }
+  const f = fixture(t);
+  adapters(f.root, 'install', { target: 'codex', profile: 'core' });
+  assert.doesNotMatch(readFileSync(join(f.root, '.codex/agents/just-vibe-reviewer.toml'), 'utf8'), /no shell in this host/, 'Codex read-only agents can run commands');
+  adapters(f.root, 'uninstall', { target: 'codex' });
+});
+
 test('activity report distinguishes observations, escapes content and never activates candidates', (t) => {
   const f = fixture(t);
   goals(

@@ -5537,7 +5537,8 @@
       "procedure": [
         "Resolve the bundled installer, then run its doctor operation for the requested host, source and Claude scope. Infer the active host only when unambiguous; --local means a complete persistent source checkout.",
         "Report actual prerequisite, marketplace, installation and enablement results. Do not run setup/update or edit configuration to make a status question pass. Unknown inventory formats and conflicts remain actionable blockers.",
-        "Separate package presence, native registration, enabled state and actual version; recommend a repair for the observed failing layer only."
+        "Separate package presence, native registration, enabled state and actual version; recommend a repair for the observed failing layer only.",
+        "Claude shortcut health (commands/jv.md, commands/just-vibe.md and the jv skills plugin) is a separate layer from native registration; report it separately."
       ],
       "outputs": [
         "Status, evidence, and exact remedy for each diagnosed problem.",
@@ -5596,6 +5597,10 @@
         {
           "when": "installation is healthy but automatic assistance does not activate",
           "then": "Run diagnose status --root <project>, then assist status, and report the first unobserved stage (hook received, workflow selected, workflow loaded, tools observed) and the host hook-trust step."
+        },
+        {
+          "when": "the target is an editor adapter",
+          "then": "Run doctor with --root <project> and report the adapter JSON fields installed, conflicts, missing, outdated and interrupted instead of native plugin state."
         }
       ],
       "technical": {
@@ -22685,16 +22690,17 @@
       ],
       "capabilities": [],
       "readScope": "Install/enable just-vibe through the selected host's plugin manager; no unrelated plugin, permission, hook, or integration changes.",
-      "writeScope": "Selected host plugin registration and its managed just-vibe payload directory only.",
+      "writeScope": "Selected host plugin registration and its managed just-vibe payload directory. For Claude, also the owned shortcut files: the jv skills-directory plugin (skills/just-vibe-shortcuts), commands/jv.md, commands/just-vibe.md and .just-vibe/installations/claude-shortcuts.json, under ~/.claude at user scope or the project .claude folder at project or local scope. Editor adapters write only their listed project files.",
       "procedure": [
         "Resolve scripts/installer.mjs relative to this installed plugin. Choose doctor for a status question, setup for an install request, update for a refresh request, and uninstall only for an explicit removal request.",
-        "Honor the host, bundled default / --github / --local source and Claude --scope user|project|local; project/local operations use the requested project directory. Never place tokens in commands or files.",
+        "Honor the host, bundled default / --github / --local source and Claude --scope user|project|local; Claude project/local operations run with the project as the working directory; --root applies only to editor adapters. Never place tokens in commands or files.",
         "For a requested preview append --dry-run and report conditional steps without claiming installed state was inspected. Preserve all native source/scope/inventory conflict checks.",
         "Read back native source, scope, enabled state and version after the authorized installation; preserve unrelated plugins and report partial native failures. Explain that changed skills load in a fresh conversation. Uninstall retains marketplace registration and persistent data. Do not bypass errors with global edits or cache deletion."
       ],
       "outputs": [
         "Installation outcome or precise blocker with host/source/scope and actual verification.",
-        "Installation source/version, native host state and executable validation or precise failure."
+        "Installation source/version, native host state and executable validation or precise failure.",
+        "Changed files, including Claude shortcut files that appear as untracked repository files at project or local scope."
       ],
       "verification": [
         "Repeated setup does not create duplicate registrations; an existing marketplace with another source stops without replacement."
@@ -22743,13 +22749,17 @@
         {
           "when": "an existing managed source conflicts with the selected channel",
           "then": "Report the conflicting identity and supported switch procedure instead of overwriting arbitrary directories."
+        },
+        {
+          "when": "the target is an editor adapter (Cursor, Copilot, Gemini, Zed and the other adapter hosts)",
+          "then": "Pass --root <project> and no --local or --github flag; there is no native inventory, so verify the adapter JSON (installed, conflicts, missing, outdated) and restart the host."
         }
       ],
       "technical": {
         "evidence": "Resolve host, scope, source channel, native plugin inventory and candidate bundled version.",
         "method": "Use the supported installer lifecycle and persistent payload, reconciling existing source identity before update or removal.",
         "pitfall": "A package-manager install alone does not register a native plugin; deleting package cache must not break the managed payload.",
-        "check": "Exercise install/repeat/doctor/update/uninstall in isolated host roots and verify native enabled state, source identity and payload version."
+        "check": "Read back the native inventory: source, scope, enabled state and payload version match the request, and for Claude the owned shortcut files report healthy."
       },
       "guides": [
         {
@@ -22950,7 +22960,7 @@
         "evidence": "Read current selection, explicit user pins, task scope and proposed primary/secondary roles.",
         "method": "Preserve pins and apply role priorities through the relevant workflow methods; record selection provenance and conflicts.",
         "pitfall": "Agent inference cannot clear a user pin, and a principal role does not authorize broader architecture changes.",
-        "check": "Verify status/change/clear behavior preserves task constraints and that role selection alone starts no unrelated work."
+        "check": "Confirm the recorded selection and pin state match the request and that the brief, constraints and scope are unchanged."
       }
     },
     {
@@ -23056,7 +23066,7 @@
         "evidence": "Current goal revision, completion criteria, constraints, blockers and artifact hashes.",
         "method": "Revision-checked goal records; each criterion has attributed or hashed evidence. Native goal controls are optional and distinct from local persistence.",
         "pitfall": "Treating a saved objective or a process exit as completed work, or treating a goal as blanket permission for external actions.",
-        "check": "Try completion before evidence and after an artifact changes; both must remain incomplete until resolved."
+        "check": "Complete a goal only with current evidence for every criterion; an artifact changed since its evidence reopens the affected criteria."
       },
       "guides": [
         {
@@ -23170,7 +23180,7 @@
         "evidence": "Current source, acceptance criteria, dependency graph, worker baseline and result hashes, verification records and index state.",
         "method": "Phase contracts followed by a dependency DAG when delegation is authorized. Completed work enters review; only accepted current results unlock dependent work.",
         "pitfall": "Treating successful process exit as correctness, allowing concurrent writers to overlap, or allowing an old accepted result to unlock work after source changes.",
-        "check": "Try a cyclic graph, a failed prerequisite and a changed accepted file; dispatch must refuse unsafe progression while preserving recoverable results."
+        "check": "Before each downstream dispatch, confirm every accepted result it depends on is still current and its prerequisites passed."
       },
       "guides": [
         {
@@ -23293,7 +23303,7 @@
         "evidence": "Artifact content hash, current file, review revision, attributed annotations and effective verdict.",
         "method": "Serve only the saved snapshot through a token-authenticated loopback API. Bind each feedback mutation to both record revision and content hash.",
         "pitfall": "Reusing approval after the underlying plan changed, executing embedded HTML, or granting publication permission from a review decision.",
-        "check": "Edit the artifact after browser approval; effectiveVerdict must become null and a new submission must fail until refresh."
+        "check": "Before relying on effectiveVerdict, confirm the review reports stale false and the approved hash matches the current artifact."
       },
       "guides": [
         {
@@ -23412,7 +23422,7 @@
         "evidence": "Original request quotes, observed controls, synthetic fixtures, target URL, source snapshot, failed step and hashed screenshots.",
         "method": "Use bounded executable browser actions and assertions in fresh contexts; retain every attempt and compare evidence identities after repairs.",
         "pitfall": "Component presence, HTTP success or a screenshot alone does not establish a successful visitor journey. Remote servers may serve a different revision.",
-        "check": "Exercise a deliberately broken flow and a repaired retest; preserve failures, flag changed evidence, and leave subjective or unavailable checks unresolved."
+        "check": "Exercise the failing flow and, after an authorized repair, retest it against the same criteria; preserve failures, flag changed evidence, and leave subjective or unavailable checks unresolved."
       }
     }
   ]

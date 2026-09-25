@@ -4,11 +4,24 @@ import {
   readFileSync,
   unlinkSync,
   lstatSync,
+  readdirSync,
+  rmdirSync,
 } from 'node:fs';
 import { dirname } from 'node:path';
 import { within, readJson, digest, atomicJson } from './storage.mjs';
 import { requireId } from './runtime-store.mjs';
 import { withFileLock, atomicFile } from './file-lock.mjs';
+
+// Remove directories left empty by an owned removal, stopping at the first directory outside the
+// owner's namespace or one that still holds anything (such as a user's file).
+function pruneEmpty(root, directory, allowed) {
+  while (directory && directory !== '.' && allowed(directory)) {
+    const full = within(root, directory);
+    if (!existsSync(full) || readdirSync(full).length) return;
+    rmdirSync(full);
+    directory = dirname(directory);
+  }
+}
 
 // An interrupted update is resumed from a hash journal. Only old/new owned bytes
 // may be replaced; a user edit stops the whole preflight before any mutation.
@@ -104,7 +117,7 @@ function manage(root, id, files, operation, { dryRun, allowed }) {
     if (next[path]) {
       mkdirSync(dirname(full), { recursive: true });
       atomicFile(full, files.get(path), existsSync(full) ? lstatSync(full).mode & 0o777 : 0o600);
-    } else if (existsSync(full)) unlinkSync(full);
+    } else if (existsSync(full)) { unlinkSync(full); pruneEmpty(root, dirname(path), allowed); }
   }
   const result = atomicJson(root, recordPath, { files: next }, state.revision, 1024 * 1024);
   unlinkSync(within(root, journalPath));

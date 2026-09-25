@@ -44,7 +44,7 @@ Implement only the requested feature, fix, refactor or MVP scope. Save orchestra
 - **Inspect:** Current source, acceptance criteria, dependency graph, worker baseline and result hashes, verification records and index state.
 - **Method:** Phase contracts followed by a dependency DAG when delegation is authorized. Completed work enters review; only accepted current results unlock dependent work.
 - **Avoid misdiagnosis:** Treating successful process exit as correctness, allowing concurrent writers to overlap, or allowing an old accepted result to unlock work after source changes.
-- **Check the result:** Try a cyclic graph, a failed prerequisite and a changed accepted file; dispatch must refuse unsafe progression while preserving recoverable results.
+- **Check the result:** Before each downstream dispatch, confirm every accepted result it depends on is still current and its prerequisites passed.
 
 ## Read when relevant
 

@@ -43,7 +43,7 @@ Save goal state outside the repository through the bundled runtime. Implement th
 - **Inspect:** Current goal revision, completion criteria, constraints, blockers and artifact hashes.
 - **Method:** Revision-checked goal records; each criterion has attributed or hashed evidence. Native goal controls are optional and distinct from local persistence.
 - **Avoid misdiagnosis:** Treating a saved objective or a process exit as completed work, or treating a goal as blanket permission for external actions.
-- **Check the result:** Try completion before evidence and after an artifact changes; both must remain incomplete until resolved.
+- **Check the result:** Complete a goal only with current evidence for every criterion; an artifact changed since its evidence reopens the affected criteria.
 
 ## Read when relevant
 

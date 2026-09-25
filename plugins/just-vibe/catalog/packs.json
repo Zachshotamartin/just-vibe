@@ -235,7 +235,7 @@
     {
       "id": "installation",
       "name": "Installation",
-      "prerequisites": "Node.js 22+ and the selected host CLI with native plugin support. Git is required only for --github. Use the bundled installer; preserve marketplace and scope checks.",
+      "prerequisites": "Node.js 22+. Codex and Claude targets also need the host CLI with native plugin support; editor adapters need only the project directory. Git is required only for --github. Use the bundled installer; preserve marketplace and scope checks.",
       "inputPolicy": {
         "infer": "Inspect selected host, native CLI support, existing source/scope and package version without changing global configuration.",
         "assume": "Use the documented bundled source and existing host conventions unless the user selects another source.",

@@ -41,7 +41,7 @@ Only active task context or a supplied run record returned as JSON. Persist to a
 - **Inspect:** Read current selection, explicit user pins, task scope and proposed primary/secondary roles.
 - **Method:** Preserve pins and apply role priorities through the relevant workflow methods; record selection provenance and conflicts.
 - **Avoid misdiagnosis:** Agent inference cannot clear a user pin, and a principal role does not authorize broader architecture changes.
-- **Check the result:** Verify status/change/clear behavior preserves task constraints and that role selection alone starts no unrelated work.
+- **Check the result:** Confirm the recorded selection and pin state match the request and that the brief, constraints and scope are unchanged.
 
 ## Read when relevant
 

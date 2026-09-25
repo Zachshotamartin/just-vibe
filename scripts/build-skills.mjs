@@ -92,7 +92,7 @@ export function generate({ check = false } = {}) {
   for (const agent of SPECIALISTS) {
     const command = catalog.commands.find(c => c.id === agent.workflow);
     const method = renderSkill(command, catalog.packs.find(p => p.id === command.pack));
-    outputs.set(resolve(pluginRoot, `agents/${agent.id}.md`), `---\nname: ${agent.id}\ndescription: ${JSON.stringify(agent.description)}\ntools: ${agent.mode === 'inspect' ? 'Read, Glob, Grep' : 'Read, Glob, Grep, Edit, Write, Bash'}\nmodel: inherit\n---\n\n${nativeAgentInstructions(agent, catalog, { method }).trimEnd()}\n`);
+    outputs.set(resolve(pluginRoot, `agents/${agent.id}.md`), `---\nname: ${agent.id}\ndescription: ${JSON.stringify(agent.description)}\ntools: ${agent.mode === 'inspect' ? 'Read, Glob, Grep' : 'Read, Glob, Grep, Edit, Write, Bash'}\nmodel: inherit\n---\n\n${nativeAgentInstructions(agent, catalog, { method, shell: agent.mode !== 'inspect' }).trimEnd()}\n`);
   }
   const profiles = loadProfiles();
   outputs.set(resolve(pluginRoot, 'references/profile-reference.md'), '# Engineering profiles\n\n' + profiles.profiles.length + ' task profiles. [Selection, scope and precedence](profiles.md). Read only the roles relevant to the request. Suggested workflows do not imply available tools or authorization.\n\n' + profiles.families.map(f => `## ${f.name}\n\n| Profile | Purpose |\n|---|---|\n` + profiles.profiles.filter(p => p.family === f.id).map(p => `| [${p.name}](profiles/${p.id}.md) | ${p.summary} |`).join('\n')).join('\n\n') + '\n');

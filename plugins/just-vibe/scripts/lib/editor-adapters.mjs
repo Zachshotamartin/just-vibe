@@ -216,7 +216,7 @@ export function adapterFiles(root, target, selection = {}, { hooks = false } = {
       else
         files.set(
           `${adapter.agents}/just-vibe-${agent.id}.md`,
-          `---\nname: just-vibe-${agent.id}\ndescription: ${JSON.stringify(agent.description)}\ntools: ${agent.mode === 'inspect' ? 'Read, Glob, Grep' : 'Read, Glob, Grep, Edit, Write, Bash'}\nmodel: inherit\n---\n\n${nativeAgentInstructions(agent, catalog, { payload, destination: adapter.agents, rules: RULE_PACKS.filter((r) => chosen.rules.includes(r.id)) })}\n`,
+          `---\nname: just-vibe-${agent.id}\ndescription: ${JSON.stringify(agent.description)}\ntools: ${agent.mode === 'inspect' ? 'Read, Glob, Grep' : 'Read, Glob, Grep, Edit, Write, Bash'}\nmodel: inherit\n---\n\n${nativeAgentInstructions(agent, catalog, { payload, destination: adapter.agents, shell: agent.mode !== 'inspect', rules: RULE_PACKS.filter((r) => chosen.rules.includes(r.id)) })}\n`,
         );
     }
   if (target === 'kiro')
@@ -287,6 +287,18 @@ export function adapters(root, operation, payload = {}) {
   const { files, chosen } = adapterFiles(root, target, selection, { hooks });
   if (!['install', 'update', 'uninstall', 'doctor'].includes(operation))
     throw Error('Unknown adapter operation.');
+  // Zed and OpenClaw read the same .agents/skills folder, so one installation serves both hosts.
+  const owns = (id) => {
+    const path = within(root, `.just-vibe/installations/adapter-${id}.json`);
+    return existsSync(path) && Object.keys(JSON.parse(readFileSync(path, 'utf8')).files || {}).length > 0;
+  };
+  const sibling = adapter.skills && !owns(target)
+    && ADAPTERS.find((a) => a.id !== target && a.skills === adapter.skills && owns(a.id));
+  if (sibling) {
+    const note = `${adapter.skills} is already provided by the ${sibling.id} adapter; one installation serves both hosts. Update or remove it with --target ${sibling.id}.`;
+    if (operation === 'doctor') return { ...adapters(root, 'doctor', { ...payload, target: sibling.id }), target, providedBy: sibling.id, note, support: adapter.level };
+    return { target, operation, providedBy: sibling.id, note, support: adapter.level };
+  }
   const allowed = (path) =>
     path.startsWith(`.just-vibe/adapters/${target}/`) ||
     (adapter.skills && path.startsWith(`${adapter.skills}/just-vibe-`)) ||

@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; just-vibe host, installation source, and scope. Requires host CLI discovery.
 
-Node.js 22+ and the selected host CLI with native plugin support. Git is required only for --github. Use the bundled installer; preserve marketplace and scope checks.
+Node.js 22+. Codex and Claude targets also need the host CLI with native plugin support; editor adapters need only the project directory. Git is required only for --github. Use the bundled installer; preserve marketplace and scope checks.
 
 - **Infer from evidence:** Inspect selected host, native CLI support, existing source/scope and package version without changing global configuration.
 - **Reasonable default:** Use the documented bundled source and existing host conventions unless the user selects another source.
@@ -36,6 +36,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 1. Resolve the bundled installer, then run its doctor operation for the requested host, source and Claude scope. Infer the active host only when unambiguous; --local means a complete persistent source checkout.
 2. Report actual prerequisite, marketplace, installation and enablement results. Do not run setup/update or edit configuration to make a status question pass. Unknown inventory formats and conflicts remain actionable blockers.
 3. Separate package presence, native registration, enabled state and actual version; recommend a repair for the observed failing layer only.
+4. Claude shortcut health (commands/jv.md, commands/just-vibe.md and the jv skills plugin) is a separate layer from native registration; report it separately.
 ## Technical method
 
 - **Inspect:** Inspect selected host, source/scope, native inventory, enabled state, payload version and supported CLI commands.
@@ -54,6 +55,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 - **When wrapper reports success but host cache is stale:** Report the mismatch and exact update/check sequence; do not call the installation healthy.
 - **When installation is healthy but automatic assistance does not activate:** Run diagnose status --root <project>, then assist status, and report the first unobserved stage (hook received, workflow selected, workflow loaded, tools observed) and the host hook-trust step.
+- **When the target is an editor adapter:** Run doctor with --root <project> and report the adapter JSON fields installed, conflicts, missing, outdated and interrupted instead of native plugin state.
 
 ## Deliver and verify
 
