@@ -88,7 +88,8 @@ export function fingerprint(root, { perFile = false } = {}) {
   const index = repo ? gitRead(base, ['diff', '--cached', '--no-ext-diff', '--no-textconv', '--binary', '--', '.', ':(exclude).just-vibe']) : '';
   if (repo && index === null) partial = true;
   const snapshot = { root: base, repository: repo, head, branch, files: entries.length, content: digest(JSON.stringify(entries)), index: digest(index || ''), partial };
-  if (perFile) snapshot.entries = Object.fromEntries(entries.map(([path, ...identity]) => [path, digest(JSON.stringify(identity)).slice(0, 12)]));
+  // Reported paths use '/' on every platform, so a record reads the same wherever it is resumed.
+  if (perFile) snapshot.entries = Object.fromEntries(entries.map(([path, ...identity]) => [path.split(sep).join('/'), digest(JSON.stringify(identity)).slice(0, 12)]));
   return snapshot;
 }
 

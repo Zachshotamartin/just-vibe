@@ -22,7 +22,7 @@ test('every operation accepts --help and -h and names its operations and governi
     const result = await cli(args);
     assert.equal(result.code, 0, `${args.join(' ')}: ${result.error}`);
     assert.match(result.output, expected, args.join(' '));
-    assert.match(result.output, /references\/[a-z-]+\.md/, `${args.join(' ')} names its reference`);
+    assert.match(result.output, /references[\\/][a-z-]+\.md/, `${args.join(' ')} names its reference`);
   }
 });
 

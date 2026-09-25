@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { fileURLToPath } from 'node:url';
 import { countClaims } from '../scripts/lib/doc-counts.mjs';
 import { compareVersions, publishedVersions } from '../scripts/lib/releases.mjs';
 
@@ -16,7 +17,7 @@ test('versions order numerically and publication records define what is publishe
   assert.ok(compareVersions('0.10.0', '0.9.0') > 0);
   assert.ok(compareVersions('0.12.0-rc.1', '0.12.0') < 0);
   assert.equal(compareVersions('0.12.0', '0.12.0'), 0);
-  const published = publishedVersions(new URL('..', import.meta.url).pathname);
+  const published = publishedVersions(fileURLToPath(new URL('..', import.meta.url)));
   assert.ok(published.includes('0.12.0'));
   assert.deepEqual(published, [...published].sort(compareVersions));
 });
