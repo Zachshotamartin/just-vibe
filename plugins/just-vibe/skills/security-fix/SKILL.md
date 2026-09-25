@@ -33,8 +33,9 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Execute
 
-1. Verify the vulnerable path, implement the control at the correct boundary, test abuse and legitimate behavior, inspect alternate paths, and document remaining operational work.
-2. Reproduce the affected path in a safe fixture, enforce the control at the owning boundary and test legitimate behavior plus alternate bypass routes.
+1. Reproduce the affected vulnerable path in a safe fixture.
+2. Enforce the control at the owning boundary.
+3. Test abuse, legitimate behavior and alternate bypass routes, and document remaining operational work.
 
 ## Technical method
 
@@ -65,8 +66,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Deliver and verify
 
-- Patch, safe proof of remediation, tests, and residual exposure notes.
-- Vulnerable trigger, boundary correction, abuse/legitimate checks and residual operational tasks.
+- Patch with the vulnerable trigger, boundary correction, safe proof of remediation through abuse and legitimate checks, and residual exposure and operational tasks.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

@@ -33,8 +33,9 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Execute
 
-1. Identify questions telemetry must answer, choose stable low-cardinality dimensions, propagate correlation, redact data, and verify normal/error instrumentation locally.
-2. Start with questions operators must answer, propagate correlation across boundaries and select bounded-cardinality metrics plus redacted structured events.
+1. Start with the questions operators must answer.
+2. Propagate correlation across boundaries, and choose stable bounded-cardinality metrics plus redacted structured events.
+3. Verify normal and error instrumentation locally.
 
 ## Technical method
 
@@ -54,8 +55,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Deliver and verify
 
-- Instrumentation changes, field/metric definitions, and validation evidence.
-- Question/signal/location table, privacy/overhead decisions and success/error telemetry checks.
+- Instrumentation changes with a question/signal/location table, field and metric definitions, privacy/overhead decisions and success/error telemetry checks.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

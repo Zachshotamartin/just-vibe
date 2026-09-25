@@ -33,8 +33,8 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Inspect actual tooling/configuration, document prerequisites and target checks, order low-risk diagnostics first, mark destructive steps, and specify observable success/abort criteria.
-2. Resolve actual environment/tool conventions, order diagnostics before mutation and give each action a target check, expected observation and abort/recovery path.
+1. Resolve the actual environment, tooling and conventions, and document prerequisites and target checks.
+2. Order low-risk diagnostics before mutation, mark destructive steps, and give each action a target check, expected observation and abort/recovery path.
 
 ## Technical method
 
@@ -56,8 +56,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Runbook with exact contextualized commands, expected outcomes, escalation conditions, and recovery steps.
-- Runnable steps with target checks, expected outputs and escalation/recovery conditions.
+- Runbook of runnable, contextualized steps with target checks, expected outputs, escalation conditions and recovery steps.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

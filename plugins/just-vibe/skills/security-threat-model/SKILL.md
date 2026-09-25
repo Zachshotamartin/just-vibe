@@ -33,8 +33,9 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Trace data and privilege boundaries, identify entry points, model misuse scenarios, assess existing controls, and prioritize gaps by realistic impact/exposure.
-2. Enumerate assets, actors, entry points and trust transitions, then connect realistic misuse chains to existing controls and observable impact.
+1. Enumerate assets, actors, entry points and trust transitions, tracing data and privilege boundaries.
+2. Model realistic misuse chains and connect each to existing controls and observable impact.
+3. Prioritize gaps by realistic impact and exposure, with a validation scenario for each.
 
 ## Technical method
 
@@ -58,8 +59,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Threat model, assumptions, prioritized mitigations, and verification scenarios.
-- Boundary diagram, threat/control/gap matrix and prioritized validation.
+- Threat model with a boundary diagram, assumptions, threat/control/gap matrix, prioritized mitigations and verification scenarios.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

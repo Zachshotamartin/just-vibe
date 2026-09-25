@@ -33,8 +33,8 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Compare effective configuration with intended boundaries, distinguish dev from production requirements, trace high-impact settings, and verify available deployment evidence.
-2. Compare declared and effective settings for the exact environment, inspect trust boundaries and distinguish local development exceptions from public production exposure.
+1. Compare declared and effective settings for the exact environment with the intended boundaries.
+2. Trace high-impact settings and trust boundaries, distinguishing local development exceptions from public production exposure, and verify available deployment evidence.
 
 ## Technical method
 
@@ -60,8 +60,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Configuration findings with target-specific fixes and validation steps.
-- Setting/environment/evidence/impact table and focused remediation.
+- Setting/environment/evidence/impact table with target-specific fixes and validation steps.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

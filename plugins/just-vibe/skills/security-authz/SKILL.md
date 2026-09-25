@@ -33,8 +33,9 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Trace checks at server/data boundaries, compare alternate endpoints and methods, design negative cases, and execute only permitted isolated probes.
-2. Test policy at server/data boundaries across direct IDs, alternate methods, exports and background tasks using synthetic identities and known allowed/denied cases.
+1. Trace policy checks at server and data boundaries.
+2. Design allowed and denied cases across direct IDs, alternate endpoints and methods, exports and background tasks, using synthetic identities.
+3. Execute only permitted isolated probes.
 
 ## Technical method
 
@@ -61,8 +62,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Access findings with safe reproduction and remediation/check proposals.
-- Subject/action/resource cases, enforcement paths and evidence-backed findings.
+- Subject/action/resource cases, enforcement paths, evidence-backed findings with safe reproduction, and remediation or check proposals.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

@@ -59,8 +59,7 @@ None by default. Save lesson notes or example files only when explicitly request
 
 ## Deliver and verify
 
-- A readable lesson with a clear learning outcome, prerequisite sequence, worked example, relevant tradeoffs and mistakes, and an optional practice/check step. For tool lessons, include a concept-to-implementation map and links to actual source where available.
-- Learning objective, worked example, common misconception, and a concrete next exercise.
+- A readable lesson with a clear learning outcome, prerequisite sequence, worked example, relevant tradeoffs and a common misconception, and a concrete next exercise or check. For tool lessons, include a concept-to-implementation map and links to actual source where available.
 - Optional actual project exercise, validated controls, learner workspace, progressive hints and behavioral assessment.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:

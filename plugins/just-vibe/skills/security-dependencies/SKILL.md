@@ -33,8 +33,9 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Verify resolved versions against current authoritative advisories, inspect reachable use/configuration, distinguish runtime/dev exposure, and recommend compatible updates or mitigations.
-2. Match advisories to resolved versions and configurations, trace deployed/reachable usage and distinguish development-only tooling from production exposure.
+1. Match current authoritative advisories to resolved versions and configurations.
+2. Trace deployed and reachable usage, distinguishing development-only tooling from production exposure.
+3. Recommend compatible updates or mitigations with checks.
 
 ## Technical method
 
@@ -59,8 +60,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Prioritized findings with advisory references, exposure rationale, and remediation checks.
-- Advisory/version/reachability matrix and tested remediation options.
+- Advisory/version/reachability matrix with advisory references, exposure rationale, and tested remediation options with checks.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

@@ -56,8 +56,7 @@ Inspect/plan: design the experiment; save requested artifacts only. Apply: build
 
 ## Deliver and verify
 
-- Experiment protocol or results, reusable evidence, and decision implications.
-- Hypotheses, experiment, resource cap, observations and decision implication.
+- Experiment protocol or results with hypotheses, resource cap, observations, reusable evidence and the decision implication.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

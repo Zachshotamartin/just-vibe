@@ -33,8 +33,8 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Trace file lifecycle, inspect content/type trust, object ownership, parser behavior, and resource limits; define safe malicious/invalid-file fixtures.
-2. Follow filename/content/type trust, storage ownership, parser invocation, resource limits and download authorization across the complete file lifecycle.
+1. Follow the complete file lifecycle: filename, content and type trust, storage ownership, parser invocation, resource limits and download authorization.
+2. Define safe malicious and invalid-file fixtures covering path, size, type, processing and access.
 
 ## Technical method
 
@@ -58,8 +58,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Upload threat findings, remediation priorities, and isolated test scenarios.
-- Lifecycle/trust map and path, size, type, processing and access test cases.
+- Upload lifecycle/trust map with threat findings, remediation priorities and isolated path, size, type, processing and access test scenarios.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

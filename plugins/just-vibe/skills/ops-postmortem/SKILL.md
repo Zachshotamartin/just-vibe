@@ -33,8 +33,9 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Reconcile times and observations, distinguish trigger from contributing conditions, document detection/recovery gaps, and define specific preventive/detective actions with measurable outcomes.
-2. Reconcile timestamps and impact evidence, separate trigger from contributing conditions and tie each proposed action to a documented detection or recovery gap.
+1. Reconcile timestamps, observations and impact evidence.
+2. Separate the trigger from contributing conditions, and document detection and recovery gaps.
+3. Tie each preventive or detective action to a documented gap, with a measurable outcome.
 
 ## Technical method
 
@@ -54,8 +55,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Postmortem with evidence-linked timeline, impact, causal analysis, and follow-up proposals.
-- Evidence-backed timeline, causal factors, response gaps and measurable follow-up actions.
+- Postmortem with evidence-linked timeline, impact, causal factors, response gaps and measurable follow-up actions.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

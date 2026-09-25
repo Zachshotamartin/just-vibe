@@ -80,8 +80,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- An evidence-backed leakage audit separating confirmed defects, conditional risks and unknowns; each finding names the supporting rows/source, assumptions, affected evaluation and correction or missing evidence.
-- Finding ledger that ties every confirmed defect to supplied source or rows and bounds the affected evaluation.
+- Evidence-backed leakage audit and finding ledger separating confirmed defects, conditional risks and unknowns; each finding names the supporting rows or source, assumptions, the bounded affected evaluation and the correction or missing evidence.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

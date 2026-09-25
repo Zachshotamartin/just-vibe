@@ -33,8 +33,9 @@ Inspect/plan: triage and recommend; save requested artifacts only. Apply: carry 
 
 ## Execute
 
-1. Establish impact and timeline, separate facts from hypotheses, inspect recent changes and dependencies, prioritize reversible mitigations, and track action/evidence state.
-2. Establish impact, time window, affected revision and current changes; keep a timestamped fact/hypothesis/action ledger and prefer reversible mitigations within scope.
+1. Establish impact, time window, affected revision, and recent changes and dependencies.
+2. Keep a timestamped ledger separating facts, hypotheses and actions.
+3. Prefer reversible mitigations within scope.
 
 ## Technical method
 
@@ -57,8 +58,7 @@ Inspect/plan: triage and recommend; save requested artifacts only. Apply: carry 
 
 ## Deliver and verify
 
-- Current incident brief, supported hypotheses, next diagnostic steps, and mitigation options.
-- Impact/timeline, supported hypotheses, mitigation options and observed recovery.
+- Current incident brief with impact and timeline, supported hypotheses, next diagnostic steps, mitigation options and observed recovery.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

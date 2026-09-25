@@ -58,8 +58,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Deliver and verify
 
-- Effect repair and lifecycle/regression evidence.
-- Effect purpose, dependency/lifecycle trace and remount/race regression checks.
+- Effect repair with its purpose, dependency/lifecycle trace and remount/race regression evidence.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

@@ -33,8 +33,9 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the
 
 ## Execute
 
-1. Compare build/runtime stages and host assumptions, inspect image metadata/logs, reproduce in an isolated build after evaluating its execution effects, and propose a focused fix, applying it in apply mode.
-2. Compare build context, multi-stage copy paths, runtime user, working directory, ports and volume permissions with logs from the intended image digest.
+1. Compare build context, multi-stage copy paths, runtime user, working directory, ports and volume permissions with host assumptions.
+2. Inspect image metadata and logs from the intended image digest, and reproduce in an isolated build after evaluating its execution effects.
+3. Propose a focused fix, applying it in apply mode.
 
 ## Technical method
 
@@ -56,8 +57,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the
 
 ## Deliver and verify
 
-- Diagnosis or patch with build/start evidence and remaining environment gaps.
-- Build/runtime boundary, artifact identity and isolated reproduction or verification gaps.
+- Diagnosis or patch with the build/runtime boundary, artifact identity, build/start evidence and remaining isolated-reproduction or environment gaps.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

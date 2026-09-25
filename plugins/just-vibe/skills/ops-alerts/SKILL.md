@@ -33,8 +33,9 @@ Inspect/plan: design alerts; save requested artifacts only. Apply: write only th
 
 ## Execute
 
-1. Tie signals to impact, define windows/thresholds and missing-data behavior, test historical/fixture events, include recovery and suppression rules, and identify the responder action.
-2. Tie each alert to impact and responder action, define evaluation/recovery windows, missing-data behavior and noise suppression, then test historical or synthetic cases.
+1. Tie each alert to impact and a responder action.
+2. Define evaluation and recovery windows, thresholds, missing-data behavior and noise suppression.
+3. Test with historical or synthetic events.
 
 ## Technical method
 
@@ -55,8 +56,7 @@ Inspect/plan: design alerts; save requested artifacts only. Apply: write only th
 
 ## Deliver and verify
 
-- Alert definitions, rationale, runbook links, and false-positive/missed-event checks.
-- Alert contract, trigger/recovery examples, owner/destination assumptions and runbook action.
+- Alert definitions as a contract with rationale, trigger/recovery examples, owner/destination assumptions, runbook links and false-positive/missed-event checks.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

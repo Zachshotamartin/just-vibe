@@ -33,8 +33,9 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Scan the specified sources with redacted output, distinguish placeholders from plausible secrets, map exposure surfaces, and propose owner/provider-specific remediation.
-2. Run approved scanners with redacted output over the requested scope, classify placeholders and locate exposure surfaces without copying values into reports.
+1. Run approved scanners with redacted output over the requested sources, copying no values into reports.
+2. Distinguish placeholders from plausible secrets, and map exposure surfaces.
+3. Propose owner- and provider-specific remediation.
 
 ## Technical method
 
@@ -60,8 +61,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Redacted locations/types, confidence, exposure context, and containment plan.
-- Redacted findings, exposure scope, uncertainty and remediation sequence.
+- Redacted locations and types with confidence, exposure context and scope, uncertainty, and a containment and remediation sequence.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

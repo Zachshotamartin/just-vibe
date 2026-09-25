@@ -64,8 +64,7 @@ Run checks when verification is requested, using existing tooling and owned isol
 
 ## Deliver and verify
 
-- Check results, exit statuses, covered criteria, and blocked/unverified areas.
-- Criterion/check/result matrix with commands, exit statuses, revision and gaps.
+- Criterion/check/result matrix with commands, exit statuses, revision, covered criteria and blocked or unverified gaps.
 - Requirement-linked proof report with check output, optional screenshots, freshness, attributed human review and remaining gaps.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:

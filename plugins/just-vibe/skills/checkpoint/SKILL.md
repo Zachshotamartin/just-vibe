@@ -56,8 +56,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Deliver and verify
 
-- Concise checkpoint with timestamp and evidence references.
-- Timestamped state, evidence references and one executable next action.
+- Concise timestamped checkpoint with evidence references and one executable next action.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

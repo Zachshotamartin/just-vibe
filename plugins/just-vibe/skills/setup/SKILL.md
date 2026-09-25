@@ -59,8 +59,7 @@ Selected host plugin registration and its managed just-vibe payload directory. F
 
 ## Deliver and verify
 
-- Installation outcome or precise blocker with host/source/scope and actual verification.
-- Installation source/version, native host state and executable validation or precise failure.
+- Installation outcome with source/version, host/scope and native host state, and executable verification or the precise blocker.
 - Changed files, including Claude shortcut files that appear as untracked repository files at project or local scope.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:

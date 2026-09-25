@@ -341,8 +341,7 @@
         "Give only requested hints and let the learner make the implementation. Save progress only on request and preserve requested work before cleanup. Ordinary lessons may offer practice; native assessment belongs to teach-test under actual host restrictions."
       ],
       "outputs": [
-        "A readable lesson with a clear learning outcome, prerequisite sequence, worked example, relevant tradeoffs and mistakes, and an optional practice/check step. For tool lessons, include a concept-to-implementation map and links to actual source where available.",
-        "Learning objective, worked example, common misconception, and a concrete next exercise.",
+        "A readable lesson with a clear learning outcome, prerequisite sequence, worked example, relevant tradeoffs and a common misconception, and a concrete next exercise or check. For tool lessons, include a concept-to-implementation map and links to actual source where available.",
         "Optional actual project exercise, validated controls, learner workspace, progressive hints and behavioral assessment."
       ],
       "verification": [
@@ -3603,8 +3602,7 @@
         "Report the checks actually completed and remaining limitations. If a proof report was created, recompute its freshness before opening it and include failed, stale, missing and human-pending criteria; ordinary verification requires no saved proof."
       ],
       "outputs": [
-        "Check results, exit statuses, covered criteria, and blocked/unverified areas.",
-        "Criterion/check/result matrix with commands, exit statuses, revision and gaps.",
+        "Criterion/check/result matrix with commands, exit statuses, revision, covered criteria and blocked or unverified gaps.",
         "Requirement-linked proof report with check output, optional screenshots, freshness, attributed human review and remaining gaps."
       ],
       "verification": [
@@ -3736,8 +3734,7 @@
         "Trace each relevant attacker-controlled source through transformations and existing controls to the sensitive effect. Challenge suspected findings with legitimate controls; use available scanners according to their evidence procedure and keep unknown or skipped coverage explicit."
       ],
       "outputs": [
-        "Findings with prerequisites, impact, evidence, and remediation options.",
-        "Findings with attacker prerequisites, reachable path, evidence, impact and remediation."
+        "Findings with attacker prerequisites, reachable path, evidence, impact and remediation options."
       ],
       "verification": [
         "A reachable authorization gap is explained; a suspicious function with effective protections is not automatically labeled vulnerable."
@@ -4770,8 +4767,7 @@
         "A checkpoint does not contain reversible file content. If undo support is requested before editing, create a separate task begin/capture record; never manufacture past ownership from a later snapshot."
       ],
       "outputs": [
-        "Concise checkpoint with timestamp and evidence references.",
-        "Timestamped state, evidence references and one executable next action."
+        "Concise timestamped checkpoint with evidence references and one executable next action."
       ],
       "verification": [
         "A later session can locate the work and distinguish done from pending; stale checks retain the revision they actually tested."
@@ -7349,8 +7345,7 @@
         "Classify supported, rejected or inconclusive. Explain the implication for the original decision and the limits of the sample; prototype success does not establish production readiness."
       ],
       "outputs": [
-        "Experiment protocol or results, reusable evidence, and decision implications.",
-        "Hypotheses, experiment, resource cap, observations and decision implication."
+        "Experiment protocol or results with hypotheses, resource cap, observations, reusable evidence and the decision implication."
       ],
       "verification": [
         "The test can reject a hypothesis; reaching the budget yields an inconclusive result rather than endless expansion."
@@ -10864,8 +10859,7 @@
         "Verify rapid identity changes and repeated setup/cleanup with observable subscriptions, state and resource counts. Distinguish a verified lifecycle fix from a claimed performance improvement that has not been measured."
       ],
       "outputs": [
-        "Effect repair and lifecycle/regression evidence.",
-        "Effect purpose, dependency/lifecycle trace and remount/race regression checks."
+        "Effect repair with its purpose, dependency/lifecycle trace and remount/race regression evidence."
       ],
       "verification": [
         "Repeated setup and cleanup does not leak subscriptions, timers or listeners; effects rerun only when their real dependencies change and read current values."
@@ -16460,8 +16454,7 @@
         "Build a compact evidence ledger: field or row, availability time, prediction/fit time, observed violation, affected score and assumptions; keep overlap metadata separate from shared measurements or events."
       ],
       "outputs": [
-        "An evidence-backed leakage audit separating confirmed defects, conditional risks and unknowns; each finding names the supporting rows/source, assumptions, affected evaluation and correction or missing evidence.",
-        "Finding ledger that ties every confirmed defect to supplied source or rows and bounds the affected evaluation."
+        "Evidence-backed leakage audit and finding ledger separating confirmed defects, conditional risks and unknowns; each finding names the supporting rows or source, assumptions, the bounded affected evaluation and the correction or missing evidence."
       ],
       "verification": [
         "Future-only features and immature training labels are flagged against the stated prediction/fit times; cross-split preprocessing fitting is detected only when source or fit history establishes it.",
@@ -20927,12 +20920,12 @@
       "readScope": "Plausible attack paths and proportionate mitigations for this system.",
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
       "procedure": [
-        "Trace data and privilege boundaries, identify entry points, model misuse scenarios, assess existing controls, and prioritize gaps by realistic impact/exposure.",
-        "Enumerate assets, actors, entry points and trust transitions, then connect realistic misuse chains to existing controls and observable impact."
+        "Enumerate assets, actors, entry points and trust transitions, tracing data and privilege boundaries.",
+        "Model realistic misuse chains and connect each to existing controls and observable impact.",
+        "Prioritize gaps by realistic impact and exposure, with a validation scenario for each."
       ],
       "outputs": [
-        "Threat model, assumptions, prioritized mitigations, and verification scenarios.",
-        "Boundary diagram, threat/control/gap matrix and prioritized validation."
+        "Threat model with a boundary diagram, assumptions, threat/control/gap matrix, prioritized mitigations and verification scenarios."
       ],
       "verification": [
         "A sensitive export path has explicit access/data-handling controls; mitigations map to concrete threats rather than generic checklists."
@@ -21044,12 +21037,12 @@
       "readScope": "Authorization bypass, object ownership, privilege escalation, and cross-tenant access.",
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
       "procedure": [
-        "Trace checks at server/data boundaries, compare alternate endpoints and methods, design negative cases, and execute only permitted isolated probes.",
-        "Test policy at server/data boundaries across direct IDs, alternate methods, exports and background tasks using synthetic identities and known allowed/denied cases."
+        "Trace policy checks at server and data boundaries.",
+        "Design allowed and denied cases across direct IDs, alternate endpoints and methods, exports and background tasks, using synthetic identities.",
+        "Execute only permitted isolated probes."
       ],
       "outputs": [
-        "Access findings with safe reproduction and remediation/check proposals.",
-        "Subject/action/resource cases, enforcement paths and evidence-backed findings."
+        "Subject/action/resource cases, enforcement paths, evidence-backed findings with safe reproduction, and remediation or check proposals."
       ],
       "verification": [
         "Direct object references cannot bypass tenant policy; privileged and ordinary roles are tested distinctly."
@@ -21185,12 +21178,12 @@
       "readScope": "Locate likely exposed secrets and identify containment needs; no implicit credential rotation or history rewrite.",
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
       "procedure": [
-        "Scan the specified sources with redacted output, distinguish placeholders from plausible secrets, map exposure surfaces, and propose owner/provider-specific remediation.",
-        "Run approved scanners with redacted output over the requested scope, classify placeholders and locate exposure surfaces without copying values into reports."
+        "Run approved scanners with redacted output over the requested sources, copying no values into reports.",
+        "Distinguish placeholders from plausible secrets, and map exposure surfaces.",
+        "Propose owner- and provider-specific remediation."
       ],
       "outputs": [
-        "Redacted locations/types, confidence, exposure context, and containment plan.",
-        "Redacted findings, exposure scope, uncertainty and remediation sequence."
+        "Redacted locations and types with confidence, exposure context and scope, uncertainty, and a containment and remediation sequence."
       ],
       "verification": [
         "A committed credential is reported without its value; test placeholders do not inflate findings blindly."
@@ -21313,12 +21306,12 @@
       "readScope": "Injection, unsafe parsing, traversal, and validation gaps along reachable paths.",
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
       "procedure": [
-        "Trace untrusted values through transformations to sensitive sinks, assess contextual escaping/parameterization, distinguish validation from authorization, and propose safe regression cases.",
-        "Trace source, transformations, validation and final sink; assess parameterization or contextual encoding at the actual interpreter boundary."
+        "Trace each untrusted value from its source through transformations and validation to the final sink.",
+        "Assess parameterization or contextual encoding at the actual interpreter boundary, distinguishing validation from authorization.",
+        "Propose safe regression cases."
       ],
       "outputs": [
-        "Evidence-backed findings or justified protections with focused remediation.",
-        "Source-to-sink path, required conditions and safe regression fixture."
+        "Evidence-backed findings or justified protections with the source-to-sink path, required conditions, focused remediation and a safe regression fixture."
       ],
       "verification": [
         "A concatenated query path is assessed end to end; safe parameterization is not flagged solely due to user input presence."
@@ -21436,12 +21429,11 @@
       "readScope": "File validation, size limits, names/paths, processing isolation, storage exposure, and download authorization.",
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
       "procedure": [
-        "Trace file lifecycle, inspect content/type trust, object ownership, parser behavior, and resource limits; define safe malicious/invalid-file fixtures.",
-        "Follow filename/content/type trust, storage ownership, parser invocation, resource limits and download authorization across the complete file lifecycle."
+        "Follow the complete file lifecycle: filename, content and type trust, storage ownership, parser invocation, resource limits and download authorization.",
+        "Define safe malicious and invalid-file fixtures covering path, size, type, processing and access."
       ],
       "outputs": [
-        "Upload threat findings, remediation priorities, and isolated test scenarios.",
-        "Lifecycle/trust map and path, size, type, processing and access test cases."
+        "Upload lifecycle/trust map with threat findings, remediation priorities and isolated path, size, type, processing and access test scenarios."
       ],
       "verification": [
         "User-supplied filenames cannot escape storage boundaries; private files require authorization at download as well as upload."
@@ -21553,12 +21545,12 @@
       "readScope": "Dependency vulnerability relevance and remediation feasibility.",
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
       "procedure": [
-        "Verify resolved versions against current authoritative advisories, inspect reachable use/configuration, distinguish runtime/dev exposure, and recommend compatible updates or mitigations.",
-        "Match advisories to resolved versions and configurations, trace deployed/reachable usage and distinguish development-only tooling from production exposure."
+        "Match current authoritative advisories to resolved versions and configurations.",
+        "Trace deployed and reachable usage, distinguishing development-only tooling from production exposure.",
+        "Recommend compatible updates or mitigations with checks."
       ],
       "outputs": [
-        "Prioritized findings with advisory references, exposure rationale, and remediation checks.",
-        "Advisory/version/reachability matrix and tested remediation options."
+        "Advisory/version/reachability matrix with advisory references, exposure rationale, and tested remediation options with checks."
       ],
       "verification": [
         "A transitive runtime exposure is traced; an advisory mismatch or mitigated precondition is explained accurately."
@@ -21675,12 +21667,11 @@
       "readScope": "Debug settings, permissions, network exposure, cookies/headers, transport assumptions, and default credentials.",
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
       "procedure": [
-        "Compare effective configuration with intended boundaries, distinguish dev from production requirements, trace high-impact settings, and verify available deployment evidence.",
-        "Compare declared and effective settings for the exact environment, inspect trust boundaries and distinguish local development exceptions from public production exposure."
+        "Compare declared and effective settings for the exact environment with the intended boundaries.",
+        "Trace high-impact settings and trust boundaries, distinguishing local development exceptions from public production exposure, and verify available deployment evidence."
       ],
       "outputs": [
-        "Configuration findings with target-specific fixes and validation steps.",
-        "Setting/environment/evidence/impact table and focused remediation."
+        "Setting/environment/evidence/impact table with target-specific fixes and validation steps."
       ],
       "verification": [
         "Public debug exposure is identified; intentionally local development settings are not mislabeled as production incidents."
@@ -21804,12 +21795,12 @@
       "readScope": "Remediation of the identified weakness and necessary regression coverage.",
       "writeScope": "Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.",
       "procedure": [
-        "Verify the vulnerable path, implement the control at the correct boundary, test abuse and legitimate behavior, inspect alternate paths, and document remaining operational work.",
-        "Reproduce the affected path in a safe fixture, enforce the control at the owning boundary and test legitimate behavior plus alternate bypass routes."
+        "Reproduce the affected vulnerable path in a safe fixture.",
+        "Enforce the control at the owning boundary.",
+        "Test abuse, legitimate behavior and alternate bypass routes, and document remaining operational work."
       ],
       "outputs": [
-        "Patch, safe proof of remediation, tests, and residual exposure notes.",
-        "Vulnerable trigger, boundary correction, abuse/legitimate checks and residual operational tasks."
+        "Patch with the vulnerable trigger, boundary correction, safe proof of remediation through abuse and legitimate checks, and residual exposure and operational tasks."
       ],
       "verification": [
         "The original attack path no longer works; valid authorized behavior remains functional."
@@ -21963,12 +21954,12 @@
       "readScope": "Organize triage and recommend immediate actions; an authorized mitigation runs in apply mode.",
       "writeScope": "Inspect/plan: triage and recommend; save requested artifacts only. Apply: carry out only the specific mitigation the user authorized, such as a rollback, restart, flag change or queue drain, against its resolved target after capturing the state it may erase; one step at a time, each verified and recorded. Customer messages, failovers and unrelated changes need their own exact request.",
       "procedure": [
-        "Establish impact and timeline, separate facts from hypotheses, inspect recent changes and dependencies, prioritize reversible mitigations, and track action/evidence state.",
-        "Establish impact, time window, affected revision and current changes; keep a timestamped fact/hypothesis/action ledger and prefer reversible mitigations within scope."
+        "Establish impact, time window, affected revision, and recent changes and dependencies.",
+        "Keep a timestamped ledger separating facts, hypotheses and actions.",
+        "Prefer reversible mitigations within scope."
       ],
       "outputs": [
-        "Current incident brief, supported hypotheses, next diagnostic steps, and mitigation options.",
-        "Impact/timeline, supported hypotheses, mitigation options and observed recovery."
+        "Current incident brief with impact and timeline, supported hypotheses, next diagnostic steps, mitigation options and observed recovery."
       ],
       "verification": [
         "A coincident deployment is a hypothesis until supported; unknown customer impact is not reported as zero."
@@ -22080,12 +22071,12 @@
       "readScope": "Focused log correlation and anomaly explanation, not unrestricted telemetry export.",
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
       "procedure": [
-        "Normalize timestamps, follow request/job IDs, compare related services, separate repeated symptoms from root events, and redact sensitive fields.",
-        "Normalize time zones and identify clock skew, follow stable request/job IDs and distinguish original failures from retry cascades and repeated symptoms."
+        "Normalize time zones and identify clock skew.",
+        "Follow stable request and job IDs across related services, redacting sensitive fields.",
+        "Distinguish original failures and root events from retry cascades and repeated symptoms."
       ],
       "outputs": [
-        "Evidence-linked timeline, likely causal sequence, and gaps requiring metrics/traces.",
-        "Ordered evidence with timestamps, correlation IDs, causal candidates and redactions."
+        "Evidence-linked timeline with timestamps and correlation IDs, the likely causal sequence, redactions and gaps requiring metrics or traces."
       ],
       "verification": [
         "Clock/time-zone differences are considered; missing logs are not proof that an event never occurred."
@@ -22181,12 +22172,12 @@
       "readScope": "Useful logs, metrics, traces, correlation, and error context in the selected path.",
       "writeScope": "Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.",
       "procedure": [
-        "Identify questions telemetry must answer, choose stable low-cardinality dimensions, propagate correlation, redact data, and verify normal/error instrumentation locally.",
-        "Start with questions operators must answer, propagate correlation across boundaries and select bounded-cardinality metrics plus redacted structured events."
+        "Start with the questions operators must answer.",
+        "Propagate correlation across boundaries, and choose stable bounded-cardinality metrics plus redacted structured events.",
+        "Verify normal and error instrumentation locally."
       ],
       "outputs": [
-        "Instrumentation changes, field/metric definitions, and validation evidence.",
-        "Question/signal/location table, privacy/overhead decisions and success/error telemetry checks."
+        "Instrumentation changes with a question/signal/location table, field and metric definitions, privacy/overhead decisions and success/error telemetry checks."
       ],
       "verification": [
         "A failed operation can be traced across the intended boundary; raw user payloads or unbounded IDs do not become unsafe metric labels."
@@ -22272,12 +22263,12 @@
       "readScope": "Actionable alert rules and response guidance; enabling/sending notifications requires an explicit request.",
       "writeScope": "Inspect/plan: design alerts; save requested artifacts only. Apply: write only the requested alert-rule files and rule tests. Notification destinations, enablement and test pages stay out of scope unless explicitly requested.",
       "procedure": [
-        "Tie signals to impact, define windows/thresholds and missing-data behavior, test historical/fixture events, include recovery and suppression rules, and identify the responder action.",
-        "Tie each alert to impact and responder action, define evaluation/recovery windows, missing-data behavior and noise suppression, then test historical or synthetic cases."
+        "Tie each alert to impact and a responder action.",
+        "Define evaluation and recovery windows, thresholds, missing-data behavior and noise suppression.",
+        "Test with historical or synthetic events."
       ],
       "outputs": [
-        "Alert definitions, rationale, runbook links, and false-positive/missed-event checks.",
-        "Alert contract, trigger/recovery examples, owner/destination assumptions and runbook action."
+        "Alert definitions as a contract with rationale, trigger/recovery examples, owner/destination assumptions, runbook links and false-positive/missed-event checks."
       ],
       "verification": [
         "Sustained harmful failure triggers; expected brief transients do not page indiscriminately."
@@ -22371,12 +22362,11 @@
       "readScope": "Diagnosis, intervention, validation, and recovery instructions for a defined event.",
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
       "procedure": [
-        "Inspect actual tooling/configuration, document prerequisites and target checks, order low-risk diagnostics first, mark destructive steps, and specify observable success/abort criteria.",
-        "Resolve actual environment/tool conventions, order diagnostics before mutation and give each action a target check, expected observation and abort/recovery path."
+        "Resolve the actual environment, tooling and conventions, and document prerequisites and target checks.",
+        "Order low-risk diagnostics before mutation, mark destructive steps, and give each action a target check, expected observation and abort/recovery path."
       ],
       "outputs": [
-        "Runbook with exact contextualized commands, expected outcomes, escalation conditions, and recovery steps.",
-        "Runnable steps with target checks, expected outputs and escalation/recovery conditions."
+        "Runbook of runnable, contextualized steps with target checks, expected outputs, escalation conditions and recovery steps."
       ],
       "verification": [
         "A responder can distinguish the intended environment; each mutating step has a verification and failure path."
@@ -22479,12 +22469,12 @@
       "readScope": "Container build context, dependencies, permissions, entrypoint, networking, resources, and health checks.",
       "writeScope": "Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the requested local implementation and perform relevant bounded checks while preserving unrelated work. Live data changes, remote actions and paid jobs require their resolved target and existing session authorization.",
       "procedure": [
-        "Compare build/runtime stages and host assumptions, inspect image metadata/logs, reproduce in an isolated build after evaluating its execution effects, and propose a focused fix, applying it in apply mode.",
-        "Compare build context, multi-stage copy paths, runtime user, working directory, ports and volume permissions with logs from the intended image digest."
+        "Compare build context, multi-stage copy paths, runtime user, working directory, ports and volume permissions with host assumptions.",
+        "Inspect image metadata and logs from the intended image digest, and reproduce in an isolated build after evaluating its execution effects.",
+        "Propose a focused fix, applying it in apply mode."
       ],
       "outputs": [
-        "Diagnosis or patch with build/start evidence and remaining environment gaps.",
-        "Build/runtime boundary, artifact identity and isolated reproduction or verification gaps."
+        "Diagnosis or patch with the build/runtime boundary, artifact identity, build/start evidence and remaining isolated-reproduction or environment gaps."
       ],
       "verification": [
         "Required runtime files survive multi-stage builds; a non-root process can access only intended paths."
@@ -22588,12 +22578,12 @@
       "readScope": "Validate restoration and readiness; production replacement requires exact explicit authorization.",
       "writeScope": "Inspect/plan: plan the restore; save requested artifacts only. Apply: restore only into the named isolated destination and run integrity and application checks against it; never overwrite the source system or a shared database. Production replacement requires its exact explicit authorization.",
       "procedure": [
-        "Verify backup provenance/completeness, plan target isolation, restore into the isolated destination in apply mode, check schema/counts/integrity and application behavior, and record recovery duration/data loss window.",
-        "Verify backup identity, completeness, keys and destination isolation, then reconcile schema, counts, integrity and application behavior after restoration."
+        "Verify backup identity, provenance, completeness and keys, and plan destination isolation.",
+        "Restore into the isolated destination in apply mode.",
+        "Reconcile schema, counts, integrity and application behavior, and record recovery duration and the data-loss window."
       ],
       "outputs": [
-        "Restore procedure or exercise report with verified recovery evidence and limitations.",
-        "Source/target identities, recovery timing/data-loss window and integrity/application results."
+        "Restore procedure or exercise report with source/target identities, recovery timing and data-loss window, integrity and application results, and limitations."
       ],
       "verification": [
         "Restore succeeds into the intended isolated destination; a readable backup alone does not count as demonstrated recoverability."
@@ -22686,12 +22676,12 @@
       "readScope": "Evidence-based learning and follow-up design; no blame assignment or external publication.",
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
       "procedure": [
-        "Reconcile times and observations, distinguish trigger from contributing conditions, document detection/recovery gaps, and define specific preventive/detective actions with measurable outcomes.",
-        "Reconcile timestamps and impact evidence, separate trigger from contributing conditions and tie each proposed action to a documented detection or recovery gap."
+        "Reconcile timestamps, observations and impact evidence.",
+        "Separate the trigger from contributing conditions, and document detection and recovery gaps.",
+        "Tie each preventive or detective action to a documented gap, with a measurable outcome."
       ],
       "outputs": [
-        "Postmortem with evidence-linked timeline, impact, causal analysis, and follow-up proposals.",
-        "Evidence-backed timeline, causal factors, response gaps and measurable follow-up actions."
+        "Postmortem with evidence-linked timeline, impact, causal factors, response gaps and measurable follow-up actions."
       ],
       "verification": [
         "Unknown root cause remains explicit; each proposed action addresses a documented failure mechanism."
@@ -22776,8 +22766,7 @@
         "Read back native source, scope, enabled state and version after the authorized installation; preserve unrelated plugins and report partial native failures. Explain that changed skills load in a fresh conversation. Uninstall retains marketplace registration and persistent data. Do not bypass errors with global edits or cache deletion."
       ],
       "outputs": [
-        "Installation outcome or precise blocker with host/source/scope and actual verification.",
-        "Installation source/version, native host state and executable validation or precise failure.",
+        "Installation outcome with source/version, host/scope and native host state, and executable verification or the precise blocker.",
         "Changed files, including Claude shortcut files that appear as untracked repository files at project or local scope."
       ],
       "verification": [

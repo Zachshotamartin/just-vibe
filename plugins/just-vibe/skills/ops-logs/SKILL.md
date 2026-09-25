@@ -33,8 +33,9 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Normalize timestamps, follow request/job IDs, compare related services, separate repeated symptoms from root events, and redact sensitive fields.
-2. Normalize time zones and identify clock skew, follow stable request/job IDs and distinguish original failures from retry cascades and repeated symptoms.
+1. Normalize time zones and identify clock skew.
+2. Follow stable request and job IDs across related services, redacting sensitive fields.
+3. Distinguish original failures and root events from retry cascades and repeated symptoms.
 
 ## Technical method
 
@@ -54,8 +55,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Evidence-linked timeline, likely causal sequence, and gaps requiring metrics/traces.
-- Ordered evidence with timestamps, correlation IDs, causal candidates and redactions.
+- Evidence-linked timeline with timestamps and correlation IDs, the likely causal sequence, redactions and gaps requiring metrics or traces.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

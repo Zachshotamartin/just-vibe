@@ -33,8 +33,9 @@ Inspect/plan: plan the restore; save requested artifacts only. Apply: restore on
 
 ## Execute
 
-1. Verify backup provenance/completeness, plan target isolation, restore into the isolated destination in apply mode, check schema/counts/integrity and application behavior, and record recovery duration/data loss window.
-2. Verify backup identity, completeness, keys and destination isolation, then reconcile schema, counts, integrity and application behavior after restoration.
+1. Verify backup identity, provenance, completeness and keys, and plan destination isolation.
+2. Restore into the isolated destination in apply mode.
+3. Reconcile schema, counts, integrity and application behavior, and record recovery duration and the data-loss window.
 
 ## Technical method
 
@@ -54,8 +55,7 @@ Inspect/plan: plan the restore; save requested artifacts only. Apply: restore on
 
 ## Deliver and verify
 
-- Restore procedure or exercise report with verified recovery evidence and limitations.
-- Source/target identities, recovery timing/data-loss window and integrity/application results.
+- Restore procedure or exercise report with source/target identities, recovery timing and data-loss window, integrity and application results, and limitations.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

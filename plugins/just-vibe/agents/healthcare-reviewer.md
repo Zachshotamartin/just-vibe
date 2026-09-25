@@ -92,8 +92,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Findings with prerequisites, impact, evidence, and remediation options.
-- Findings with attacker prerequisites, reachable path, evidence, impact and remediation.
+- Findings with attacker prerequisites, reachable path, evidence, impact and remediation options.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

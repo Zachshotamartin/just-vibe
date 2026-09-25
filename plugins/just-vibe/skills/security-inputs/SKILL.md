@@ -33,8 +33,9 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Trace untrusted values through transformations to sensitive sinks, assess contextual escaping/parameterization, distinguish validation from authorization, and propose safe regression cases.
-2. Trace source, transformations, validation and final sink; assess parameterization or contextual encoding at the actual interpreter boundary.
+1. Trace each untrusted value from its source through transformations and validation to the final sink.
+2. Assess parameterization or contextual encoding at the actual interpreter boundary, distinguishing validation from authorization.
+3. Propose safe regression cases.
 
 ## Technical method
 
@@ -59,8 +60,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Evidence-backed findings or justified protections with focused remediation.
-- Source-to-sink path, required conditions and safe regression fixture.
+- Evidence-backed findings or justified protections with the source-to-sink path, required conditions, focused remediation and a safe regression fixture.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
