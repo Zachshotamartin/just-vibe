@@ -1,0 +1,1291 @@
+{
+  "schemaVersion": 1,
+  "source": "September 2026 review: PB realistic role probes plus PA1-04/PA2-02 aliases",
+  "queries": [
+    {
+      "kind": "task",
+      "request": "the product list loses its filters when I hit the back button",
+      "accept": [
+        "frontend-engineer",
+        "ui-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "add a notes field that users can edit in the UI and that gets saved to the database",
+      "accept": [
+        "fullstack-engineer",
+        "product-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "our payment endpoint sometimes charges customers twice when the client retries",
+      "accept": [
+        "backend-engineer",
+        "distributed-systems-engineer",
+        "api-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "ship a simple referral feature and measure whether people actually use it",
+      "accept": [
+        "product-engineer",
+        "experimentation-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "the app loses the user's changes when they go offline and come back",
+      "accept": [
+        "mobile-engineer",
+        "ios-engineer",
+        "android-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "SwiftUI screen resets the text field when the app returns from background",
+      "accept": [
+        "ios-engineer",
+        "mobile-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "draft is lost after screen rotation on Android",
+      "accept": [
+        "android-engineer",
+        "mobile-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "our Electron app lets the renderer read any file on disk",
+      "accept": [
+        "desktop-engineer",
+        "application-security-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "change the orders API response without breaking the mobile clients that still use the old format",
+      "accept": [
+        "api-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "Stripe webhooks arrive out of order and our subscription status gets out of sync",
+      "accept": [
+        "integration-engineer",
+        "backend-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "build the pricing page exactly like the Figma mockup",
+      "accept": [
+        "ui-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "users keep abandoning the signup form halfway through",
+      "accept": [
+        "ux-engineer",
+        "product-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "we have five different button styles across the app, make them one shared component",
+      "accept": [
+        "design-systems-engineer",
+        "ui-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "screen reader users can't tell when the form has errors",
+      "accept": [
+        "accessibility-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "our landing page takes 6 seconds to become interactive on phones",
+      "accept": [
+        "web-performance-engineer",
+        "performance-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "make an interactive 3D product viewer for the homepage",
+      "accept": [
+        "creative-technologist",
+        "graphics-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "give our teams a standard way to spin up a new service",
+      "accept": [
+        "platform-engineer",
+        "platform-architect"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "set up a pipeline that deploys to staging on every merge",
+      "accept": [
+        "devops-engineer",
+        "build-release-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "we keep getting paged at night for alerts nobody acts on",
+      "accept": [
+        "site-reliability-engineer",
+        "observability-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "move our app from a single VM to AWS managed services",
+      "accept": [
+        "cloud-engineer",
+        "cloud-architect"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "terraform wants to destroy and recreate our database",
+      "accept": [
+        "infrastructure-engineer",
+        "database-reliability-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "it takes new hires two days to get the project running locally",
+      "accept": [
+        "developer-experience-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "publish a new version of our npm package with a changelog",
+      "accept": [
+        "build-release-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "we can't tell which service is slow when a request times out",
+      "accept": [
+        "observability-engineer",
+        "site-reliability-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "DNS resolution fails intermittently between two containers",
+      "accept": [
+        "network-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "our AWS bill doubled last month and we don't know why",
+      "accept": [
+        "finops-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "make sure we can actually restore our S3 backups",
+      "accept": [
+        "storage-engineer",
+        "database-reliability-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "how many servers do we need for the product launch next month",
+      "accept": [
+        "capacity-engineer",
+        "performance-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "move auth checks into edge middleware to cut latency",
+      "accept": [
+        "edge-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "pods get OOMKilled and restart during deploys",
+      "accept": [
+        "kubernetes-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "nightly import job creates duplicate rows when it reruns",
+      "accept": [
+        "data-engineer",
+        "data-quality-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "finance and sales report different MRR numbers",
+      "accept": [
+        "analytics-engineer",
+        "data-analyst",
+        "business-intelligence-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "figure out which customer segments churn the most",
+      "accept": [
+        "data-scientist",
+        "data-analyst"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "why did signups drop last week",
+      "accept": [
+        "data-analyst",
+        "data-scientist"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "build a Looker dashboard for the ops team",
+      "accept": [
+        "business-intelligence-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "this Postgres query takes 30 seconds, add the right index",
+      "accept": [
+        "database-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "add a column to a 500 million row table without downtime",
+      "accept": [
+        "database-reliability-engineer",
+        "database-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "Kafka consumer lag keeps growing and events arrive late",
+      "accept": [
+        "streaming-data-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "let every team load their own data into the warehouse without filing tickets",
+      "accept": [
+        "data-platform-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "catch bad data before it reaches the reports",
+      "accept": [
+        "data-quality-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "delete a customer's data everywhere when they ask",
+      "accept": [
+        "data-governance-engineer",
+        "privacy-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "search results are irrelevant for misspelled product names",
+      "accept": [
+        "search-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "train a model to predict which users will cancel",
+      "accept": [
+        "machine-learning-engineer",
+        "data-scientist"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "use AI to categorize incoming support emails",
+      "accept": [
+        "applied-ai-engineer",
+        "nlp-engineer",
+        "llm-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "reproduce the results from a paper",
+      "accept": [
+        "research-engineer",
+        "research-scientist"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "design an experiment to test whether our new loss function actually helps",
+      "accept": [
+        "research-scientist",
+        "research-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "automate retraining and deployment of our model",
+      "accept": [
+        "mlops-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "build a shared GPU training service for all our data scientists",
+      "accept": [
+        "ml-platform-engineer",
+        "platform-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "our model API is too slow on GPU",
+      "accept": [
+        "inference-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "build a chatbot over our internal wiki",
+      "accept": [
+        "llm-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "classify support tickets in Spanish and English",
+      "accept": [
+        "nlp-engineer",
+        "applied-ai-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "the object detector misses people in low light",
+      "accept": [
+        "computer-vision-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "transcription accuracy drops with background noise",
+      "accept": [
+        "speech-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "improve the 'you might also like' suggestions",
+      "accept": [
+        "recommendation-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "train an agent with reinforcement learning in a simulator",
+      "accept": [
+        "reinforcement-learning-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "set up evals for our LLM agent before we change the prompt",
+      "accept": [
+        "ai-evaluation-engineer",
+        "llm-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "check if the loan model is unfair to some groups",
+      "accept": [
+        "responsible-ai-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "build a feature store without leaking future data",
+      "accept": [
+        "ml-data-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "our coding agent retries tool calls and creates duplicate pull requests",
+      "accept": [
+        "agent-systems-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "can a malicious document make our assistant leak other users' data",
+      "accept": [
+        "ai-security-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "estimate the effect of the price change without a randomized test",
+      "accept": [
+        "causal-inference-scientist",
+        "data-scientist"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "our A/B test shows a weird 48/52 split instead of 50/50",
+      "accept": [
+        "experimentation-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "users can see other customers' invoices by changing the URL",
+      "accept": [
+        "application-security-engineer",
+        "identity-access-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "threat model our new file sharing feature",
+      "accept": [
+        "product-security-engineer",
+        "security-architect"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "our S3 bucket might be public and IAM roles are too broad",
+      "accept": [
+        "cloud-security-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "alert when someone logs in from an unusual country",
+      "accept": [
+        "detection-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "an API key leaked on GitHub, what do we do",
+      "accept": [
+        "security-incident-responder"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "stop logging users' email addresses",
+      "accept": [
+        "privacy-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "add SSO with Okta and role-based permissions",
+      "accept": [
+        "identity-access-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "make sure our dependencies and build artifacts haven't been tampered with",
+      "accept": [
+        "supply-chain-security-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "automatically triage security alerts",
+      "accept": [
+        "security-automation-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "rotate the encryption keys for stored tokens",
+      "accept": [
+        "cryptography-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "write end-to-end tests for the checkout",
+      "accept": [
+        "qa-automation-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "our test suite is flaky when run in parallel",
+      "accept": [
+        "test-infrastructure-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "the service slows down badly when traffic increases",
+      "accept": [
+        "performance-engineer",
+        "capacity-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "implement this feature cleanly with good tests",
+      "accept": [
+        "senior-software-engineer",
+        "fullstack-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "three teams each built their own auth client, consolidate them",
+      "accept": [
+        "staff-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "should we rewrite the monolith or keep evolving it",
+      "accept": [
+        "principal-engineer",
+        "software-architect",
+        "enterprise-architect"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "split our monolith into modules with clear boundaries",
+      "accept": [
+        "software-architect"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "propose an architecture for a customer's SAP integration",
+      "accept": [
+        "solutions-architect",
+        "integration-architect"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "we have three CRMs across departments, plan consolidation",
+      "accept": [
+        "enterprise-architect"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "define a single source of truth for customer data",
+      "accept": [
+        "data-architect"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "design multi-region disaster recovery",
+      "accept": [
+        "cloud-architect"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "design zero trust access between our internal services",
+      "accept": [
+        "security-architect"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "break this epic into tasks for the team",
+      "accept": [
+        "tech-lead",
+        "engineering-manager"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "we can't hit the deadline with this team, what do we cut",
+      "accept": [
+        "engineering-manager"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "write the API reference and a getting started guide",
+      "accept": [
+        "technical-writer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "create a sample app that shows how to use our SDK",
+      "accept": [
+        "developer-advocate"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "several teams share one React app and keep breaking each other",
+      "accept": [
+        "frontend-architect"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "design an end-to-end ML system for fraud detection",
+      "accept": [
+        "ml-architect",
+        "machine-learning-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "design a multi-tenant internal platform",
+      "accept": [
+        "platform-architect"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "orders flow through five systems and sometimes get lost",
+      "accept": [
+        "integration-architect",
+        "integration-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "memory usage keeps growing in our Rust daemon",
+      "accept": [
+        "systems-engineer",
+        "runtime-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "two replicas disagree after a network partition",
+      "accept": [
+        "distributed-systems-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "the sensor loop misses deadlines on the microcontroller",
+      "accept": [
+        "embedded-engineer",
+        "firmware-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "the device bricks if power fails during an OTA update",
+      "accept": [
+        "firmware-engineer",
+        "iot-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "the robot arm's camera and joint frames don't line up",
+      "accept": [
+        "robotics-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "the drone oscillates when it tries to hold altitude",
+      "accept": [
+        "controls-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "the double jump breaks at high frame rates",
+      "accept": [
+        "gameplay-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "players rubber-band in multiplayer matches",
+      "accept": [
+        "game-networking-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "shadows flicker in our WebGL renderer",
+      "accept": [
+        "graphics-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "hand tracking drops in our VR app",
+      "accept": [
+        "xr-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "our optimizer pass produces wrong code for loops",
+      "accept": [
+        "compiler-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "our interpreter leaks memory when calling native extensions",
+      "accept": [
+        "runtime-engineer",
+        "systems-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "our MPI simulation doesn't scale past 64 nodes",
+      "accept": [
+        "hpc-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "validate our climate model code against known solutions",
+      "accept": [
+        "scientific-software-engineer",
+        "simulation-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "sample IDs got mixed up in the RNA-seq pipeline",
+      "accept": [
+        "bioinformatics-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "distances on the map are off near the poles",
+      "accept": [
+        "geospatial-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "our indexer shows wrong balances after a chain reorg",
+      "accept": [
+        "blockchain-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "add a new message type without breaking older peers",
+      "accept": [
+        "protocol-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "devices send duplicate readings after reconnecting",
+      "accept": [
+        "iot-engineer"
+      ]
+    },
+    {
+      "kind": "task",
+      "request": "build a discrete event simulation of our warehouse",
+      "accept": [
+        "simulation-engineer"
+      ]
+    },
+    {
+      "kind": "alias",
+      "request": "front-end developer",
+      "accept": [
+        "frontend-engineer"
+      ]
+    },
+    {
+      "kind": "alias",
+      "request": "react developer",
+      "accept": [
+        "frontend-engineer",
+        "ui-engineer"
+      ]
+    },
+    {
+      "kind": "alias",
+      "request": "full stack developer",
+      "accept": [
+        "fullstack-engineer"
+      ]
+    },
+    {
+      "kind": "alias",
+      "request": "swiftui",
+      "accept": [
+        "ios-engineer"
+      ]
+    },
+    {
+      "kind": "alias",
+      "request": "jetpack compose",
+      "accept": [
+        "android-engineer"
+      ]
+    },
+    {
+      "kind": "alias",
+      "request": "react native",
+      "accept": [
+        "mobile-engineer"
+      ]
+    },
+    {
+      "kind": "alias",
+      "request": "flutter",
+      "accept": [
+        "mobile-engineer"
+      ]
+    },
+    {
+      "kind": "alias",
+      "request": "electron",
+      "accept": [
+        "desktop-engineer"
+      ]
+    },
+    {
+      "kind": "alias",
+      "request": "kafka",
+      "accept": [
+        "streaming-data-engineer"
+      ]
+    },
+    {
+      "kind": "alias",
+      "request": "dbt",
+      "accept": [
+        "analytics-engineer"
+      ]
+    },
+    {
+      "kind": "alias",
+      "request": "airflow",
+      "accept": [
+        "data-engineer"
+      ]
+    },
+    {
+      "kind": "alias",
+      "request": "looker",
+      "accept": [
+        "business-intelligence-engineer"
+      ]
+    },
+    {
+      "kind": "alias",
+      "request": "postgres slow query",
+      "accept": [
+        "database-engineer"
+      ]
+    },
+    {
+      "kind": "alias",
+      "request": "dba",
+      "accept": [
+        "database-engineer"
+      ]
+    },
+    {
+      "kind": "alias",
+      "request": "terraform",
+      "accept": [
+        "infrastructure-engineer"
+      ]
+    },
+    {
+      "kind": "alias",
+      "request": "k8s rollout",
+      "accept": [
+        "kubernetes-engineer"
+      ]
+    },
+    {
+      "kind": "alias",
+      "request": "helm",
+      "accept": [
+        "kubernetes-engineer"
+      ]
+    },
+    {
+      "kind": "alias",
+      "request": "ci/cd pipeline",
+      "accept": [
+        "devops-engineer",
+        "build-release-engineer"
+      ]
+    },
+    {
+      "kind": "alias",
+      "request": "opentelemetry",
+      "accept": [
+        "observability-engineer"
+      ]
+    },
+    {
+      "kind": "alias",
+      "request": "error budget",
+      "accept": [
+        "site-reliability-engineer"
+      ]
+    },
+    {
+      "kind": "alias",
+      "request": "on-call",
+      "accept": [
+        "site-reliability-engineer"
+      ]
+    },
+    {
+      "kind": "alias",
+      "request": "cdn",
+      "accept": [
+        "edge-engineer"
+      ]
+    },
+    {
+      "kind": "alias",
+      "request": "cloud cost",
+      "accept": [
+        "finops-engineer"
+      ]
+    },
+    {
+      "kind": "alias",
+      "request": "appsec",
+      "accept": [
+        "application-security-engineer"
+      ]
+    },
+    {
+      "kind": "alias",
+      "request": "owasp",
+      "accept": [
+        "application-security-engineer"
+      ]
+    },
+    {
+      "kind": "alias",
+      "request": "oauth sso",
+      "accept": [
+        "identity-access-engineer"
+      ]
+    },
+    {
+      "kind": "alias",
+      "request": "sbom",
+      "accept": [
+        "supply-chain-security-engineer"
+      ]
+    },
+    {
+      "kind": "alias",
+      "request": "gdpr",
+      "accept": [
+        "privacy-engineer"
+      ]
+    },
+    {
+      "kind": "alias",
+      "request": "tls certificates",
+      "accept": [
+        "cryptography-engineer"
+      ]
+    },
+    {
+      "kind": "alias",
+      "request": "siem",
+      "accept": [
+        "detection-engineer"
+      ]
+    },
+    {
+      "kind": "alias",
+      "request": "wcag",
+      "accept": [
+        "accessibility-engineer"
+      ]
+    },
+    {
+      "kind": "alias",
+      "request": "lighthouse",
+      "accept": [
+        "web-performance-engineer"
+      ]
+    },
+    {
+      "kind": "alias",
+      "request": "elasticsearch",
+      "accept": [
+        "search-engineer"
+      ]
+    },
+    {
+      "kind": "alias",
+      "request": "usability",
+      "accept": [
+        "ux-engineer"
+      ]
+    },
+    {
+      "kind": "alias",
+      "request": "RAG",
+      "accept": [
+        "llm-engineer"
+      ]
+    },
+    {
+      "kind": "alias",
+      "request": "prompt injection",
+      "accept": [
+        "ai-security-engineer"
+      ]
+    },
+    {
+      "kind": "alias",
+      "request": "a/b test",
+      "accept": [
+        "experimentation-engineer"
+      ]
+    },
+    {
+      "kind": "alias",
+      "request": "GIS engineer",
+      "accept": [
+        "geospatial-engineer"
+      ]
+    },
+    {
+      "kind": "alias",
+      "request": "smart contract developer",
+      "accept": [
+        "blockchain-engineer"
+      ]
+    },
+    {
+      "kind": "alias",
+      "request": "bioinformatician",
+      "accept": [
+        "bioinformatics-engineer"
+      ]
+    },
+    {
+      "kind": "alias",
+      "request": "PID controller",
+      "accept": [
+        "controls-engineer"
+      ]
+    },
+    {
+      "kind": "alias",
+      "request": "SDET",
+      "accept": [
+        "qa-automation-engineer"
+      ]
+    },
+    {
+      "kind": "alias",
+      "request": "devrel",
+      "accept": [
+        "developer-advocate"
+      ]
+    },
+    {
+      "kind": "alias",
+      "request": "research software engineer",
+      "accept": [
+        "scientific-software-engineer"
+      ]
+    },
+    {
+      "kind": "alias",
+      "request": "augmented reality",
+      "accept": [
+        "xr-engineer"
+      ]
+    },
+    {
+      "kind": "alias",
+      "request": "evals",
+      "accept": [
+        "ai-evaluation-engineer"
+      ]
+    },
+    {
+      "kind": "alias",
+      "request": "agentic workflow",
+      "accept": [
+        "agent-systems-engineer"
+      ]
+    },
+    {
+      "kind": "alias",
+      "request": "ASR",
+      "accept": [
+        "speech-engineer"
+      ]
+    },
+    {
+      "kind": "alias",
+      "request": "text classification",
+      "accept": [
+        "nlp-engineer"
+      ]
+    },
+    {
+      "kind": "alias",
+      "request": "object detection",
+      "accept": [
+        "computer-vision-engineer"
+      ]
+    },
+    {
+      "kind": "alias",
+      "request": "recommender system engineer",
+      "accept": [
+        "recommendation-engineer"
+      ]
+    },
+    {
+      "kind": "alias",
+      "request": "ML ops",
+      "accept": [
+        "mlops-engineer"
+      ]
+    },
+    {
+      "kind": "alias",
+      "request": "profiling",
+      "accept": [
+        "performance-engineer"
+      ]
+    },
+    {
+      "kind": "alias",
+      "request": "systems programmer",
+      "accept": [
+        "systems-engineer"
+      ]
+    },
+    {
+      "kind": "alias",
+      "request": "consensus",
+      "accept": [
+        "distributed-systems-engineer"
+      ]
+    },
+    {
+      "kind": "alias",
+      "request": "bootloader",
+      "accept": [
+        "firmware-engineer"
+      ]
+    },
+    {
+      "kind": "alias",
+      "request": "LLVM",
+      "accept": [
+        "compiler-engineer"
+      ]
+    },
+    {
+      "kind": "alias",
+      "request": "MPI",
+      "accept": [
+        "hpc-engineer"
+      ]
+    },
+    {
+      "kind": "alias",
+      "request": "shader",
+      "accept": [
+        "graphics-engineer"
+      ]
+    },
+    {
+      "kind": "alias",
+      "request": "netcode",
+      "accept": [
+        "game-networking-engineer"
+      ]
+    },
+    {
+      "kind": "alias",
+      "request": "game developer",
+      "accept": [
+        "gameplay-engineer"
+      ]
+    },
+    {
+      "kind": "alias",
+      "request": "Show profiles for machine learning engineering and model operations.",
+      "accept": [
+        "machine-learning-engineer",
+        "mlops-engineer"
+      ]
+    },
+    {
+      "kind": "alias",
+      "request": "architecture and senior engineering roles",
+      "accept": [
+        "software-architect",
+        "senior-software-engineer",
+        "staff-engineer",
+        "principal-engineer"
+      ]
+    }
+  ]
+}

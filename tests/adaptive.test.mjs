@@ -10,6 +10,7 @@ import { assistantRuntime, stopTask, activationContext } from '../plugins/just-v
 import { assistantHook } from '../plugins/just-vibe/scripts/lib/assistant-hooks.mjs';
 import { manageHooks } from '../plugins/just-vibe/scripts/lib/automation.mjs';
 import { loadCatalog } from '../plugins/just-vibe/scripts/lib/catalog.mjs';
+import { continuity } from '../plugins/just-vibe/scripts/lib/continuity.mjs';
 
 const catalog = loadCatalog();
 const cli = fileURLToPath(new URL('../bin/just-vibe.mjs', import.meta.url));
@@ -83,6 +84,36 @@ test('a repair follow-up after an inspection offers workflows that can apply it 
   const inspected = f.start('Fix the mobile menu', 'inspected'); select(f, inspected, 'ui-states', 'inspect');
   assert.equal(f.start('fix it', 'inspected').repair, true);
   assert.equal(f.start('continue', 'inspected').repair, false, 'A plain continuation keeps the previous shortlist');
+});
+
+test('a task role carries across prompts and compaction, and a saved preference is only a suggestion (PB-01)', t => {
+  const f = fixture(t);
+  const first = f.start('Fix the mobile menu');
+  const pin = { primary: 'frontend-engineer', selectedBy: 'user', reason: 'User asked to work as the frontend engineer.' };
+  assert.equal(f.run('select', { taskId: first.id, workflows: ['ui-states'], mode: 'apply', reason: 'Menu state bug.', profile: pin }).profile.primary, 'frontend-engineer');
+  const second = f.start('now fix the modal focus bug');
+  assert.equal(second.profile.primary, 'frontend-engineer'); assert.equal(second.profile.pinned, true);
+  assert.match(activationContext(f.store, catalog, second), /Active task profile: frontend-engineer \(pinned by the user\)/);
+  assert.match(f.hook({ hook_event_name: 'SessionStart', source: 'compact' }).hookSpecificOutput.additionalContext, /Active task profile: frontend-engineer/);
+  assert.throws(() => f.run('select', { taskId: second.id, workflows: ['ui-states'], mode: 'apply', reason: 'x', profile: { primary: 'backend-engineer', selectedBy: 'agent', reason: 'Agent prefers backend.' } }), /pinned user profile/);
+  f.run('select', { taskId: second.id, workflows: ['ui-states'], mode: 'apply', reason: 'x', profile: { primary: null, selectedBy: 'user', reason: 'User cleared the role.' } });
+  assert.equal(f.start('and the footer overlaps the content').profile, null, 'A cleared role stays cleared');
+  // No framework is detected in this fixture; the pin reminder still appears.
+  assert.match(activationContext(f.store, catalog, f.start('Fix the login bug')), /Honor any current user-pinned role/);
+});
+
+test('a saved project profile preference reaches hook context as a suggestion (PB-01)', t => {
+  const f = fixture(t);
+  continuity(f.root, 'init', { preferences: { profile: 'accessibility-engineer' } });
+  const task = f.start('Fix the modal focus bug');
+  assert.equal(task.profile, null);
+  assert.match(activationContext(f.store, catalog, task), /Saved project profile preference: accessibility-engineer[^.]*\. A suggestion, not a pin/);
+});
+
+test('role-framed requests shortlist the profile workflow (PB-01)', t => {
+  const f = fixture(t);
+  assert.equal(f.run('route', { brief: 'switch the role to site reliability engineer' }).recommendations[0].id, 'profile');
+  assert.ok(f.run('route', { brief: 'As a principal engineer, review this migration plan' }).recommendations.some(r => r.id === 'profile'));
 });
 
 test('questions about which workflow to use are answered, not executed (B11-01)', t => {

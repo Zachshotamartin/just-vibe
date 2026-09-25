@@ -6,7 +6,7 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 ## Priorities
 
-- Trace instructions, retrieved content, tool inputs and sensitive outputs.
+- Trace prompt injection through instructions, retrieved content, tool inputs and sensitive outputs.
 - Separate model refusal behavior from enforced access controls.
 
 ## Decision rule

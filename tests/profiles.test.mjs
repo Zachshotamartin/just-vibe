@@ -95,6 +95,24 @@ test('role changes preserve a running task, stage identity, authority, limits an
   assert.throws(() => setRunProfiles(original, user, now + 5 * 60000), /budget exhausted/);
 });
 
+// Ratchet: raise when profile search improves. Task requests are held out from profile text; aliases
+// check the searchTerms field; own examples are indexed, so they only guard against regressions.
+const PROFILE_SEARCH = { task: 0.65, alias: 0.98, own: 0.89 };
+test('profile search ranks the intended role in the top three for realistic requests (PA2-01, PA1-04, PA2-02)', () => {
+  const { queries } = JSON.parse(readFileSync(new URL('./fixtures/profiles/queries.json', import.meta.url), 'utf8'));
+  const own = roles.profiles.map(p => ({ kind: 'own', request: p.example, accept: [p.id] }));
+  const rates = {};
+  for (const kind of Object.keys(PROFILE_SEARCH)) {
+    const rows = [...queries, ...own].filter(q => q.kind === kind);
+    const hits = rows.filter(q => searchProfiles(roles, q.request).slice(0, 3).some(p => q.accept.includes(p.id)));
+    rates[kind] = hits.length / rows.length;
+    assert.ok(rates[kind] >= PROFILE_SEARCH[kind], `${kind} top-3 ${rates[kind].toFixed(3)} fell below ${PROFILE_SEARCH[kind]}`);
+  }
+  // Stopwords and ordinary verbs no longer decide the ranking.
+  assert.ok(searchProfiles(roles, 'and').every(p => p.score === 0), 'A stopword-only query browses without ranking');
+  assert.notEqual(searchProfiles(roles, 'Add coverage for checkout failures and recovery.')[0]?.id, 'xr-engineer');
+});
+
 test('profile lookup accepts any case and display names, and suggests near matches (PB-10)', () => {
   assert.equal(getProfile(roles, 'FRONTEND-ENGINEER').id, 'frontend-engineer');
   assert.equal(getProfile(roles, 'Frontend engineer').id, 'frontend-engineer');

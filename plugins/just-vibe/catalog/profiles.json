@@ -56,7 +56,14 @@
         "ui-states"
       ],
       "example": "Add a filterable catalog while preserving deep links.",
-      "contribution": "For a feature request, produce an interaction/state map tied to components, including stale responses, URL restoration and keyboard recovery; use it to choose the smallest UI change."
+      "contribution": "For a feature request, produce an interaction/state map tied to components, including stale responses, URL restoration and keyboard recovery; use it to choose the smallest UI change.",
+      "searchTerms": [
+        "front-end",
+        "react",
+        "vue",
+        "angular",
+        "svelte"
+      ]
     },
     {
       "id": "fullstack-engineer",
@@ -79,7 +86,10 @@
         "test-integration"
       ],
       "example": "Add saved searches from browser to database.",
-      "contribution": "Produce one end-to-end contract trace from user action through authorization and storage to the rendered result, identifying old/new client compatibility before changing any layer."
+      "contribution": "Produce one end-to-end contract trace from user action through authorization and storage to the rendered result, identifying old/new client compatibility before changing any layer.",
+      "searchTerms": [
+        "fullstack"
+      ]
     },
     {
       "id": "backend-engineer",
@@ -148,7 +158,13 @@
         "test-e2e"
       ],
       "example": "Design an offline-capable field inspection app.",
-      "contribution": "Map the feature across foreground, background, offline and reconnection states; identify persisted versus transient state before selecting navigation or synchronization changes."
+      "contribution": "Map the feature across foreground, background, offline and reconnection states; identify persisted versus transient state before selecting navigation or synchronization changes.",
+      "searchTerms": [
+        "react native",
+        "flutter",
+        "expo",
+        "mobile app"
+      ]
     },
     {
       "id": "ios-engineer",
@@ -171,7 +187,13 @@
         "test-e2e"
       ],
       "example": "Repair a form that loses edits after backgrounding.",
-      "contribution": "Identify view/task ownership and main-thread updates across navigation and background transitions; deliver a focused implementation with cancellation and accessibility evidence."
+      "contribution": "Identify view/task ownership and main-thread updates across navigation and background transitions; deliver a focused implementation with cancellation and accessibility evidence.",
+      "searchTerms": [
+        "swift",
+        "swiftui",
+        "uikit",
+        "xcode"
+      ]
     },
     {
       "id": "android-engineer",
@@ -194,7 +216,12 @@
         "test-e2e"
       ],
       "example": "Preserve a draft through activity recreation and process death.",
-      "contribution": "Map state through rotation, process recreation and background limits; specify which owner restores it before editing the UI or worker."
+      "contribution": "Map state through rotation, process recreation and background limits; specify which owner restores it before editing the UI or worker.",
+      "searchTerms": [
+        "kotlin",
+        "jetpack compose",
+        "android studio"
+      ]
     },
     {
       "id": "desktop-engineer",
@@ -217,7 +244,12 @@
         "test-e2e"
       ],
       "example": "Add a safe local-file import flow to a desktop app.",
-      "contribution": "Produce a window/process/resource ownership map for the requested feature, including shutdown, stale IPC replies and persisted state across restart."
+      "contribution": "Produce a window/process/resource ownership map for the requested feature, including shutdown, stale IPC replies and persisted state across restart.",
+      "searchTerms": [
+        "electron",
+        "tauri",
+        "desktop app"
+      ]
     },
     {
       "id": "api-engineer",
@@ -309,7 +341,11 @@
         "decision-spike"
       ],
       "example": "Simplify a multi-step onboarding flow.",
-      "contribution": "Map the user’s task, recovery path and information needed at each decision; use the actual flow to justify changes rather than a generic usability checklist."
+      "contribution": "Map the user’s task, recovery path and information needed at each decision; use the actual flow to justify changes rather than a generic usability checklist.",
+      "searchTerms": [
+        "usability",
+        "user research"
+      ]
     },
     {
       "id": "design-systems-engineer",
@@ -355,7 +391,12 @@
         "test-e2e"
       ],
       "example": "Audit and repair a dialog and its focus restoration.",
-      "contribution": "Produce a keyboard/focus/semantic trace for the actual flow, with separate evidence for automated checks and exercised assistive-technology behavior."
+      "contribution": "Produce a keyboard/focus/semantic trace for the actual flow, with separate evidence for automated checks and exercised assistive-technology behavior.",
+      "searchTerms": [
+        "wcag",
+        "a11y",
+        "screen reader"
+      ]
     },
     {
       "id": "web-performance-engineer",
@@ -378,7 +419,13 @@
         "react-rerenders"
       ],
       "example": "Diagnose slow filter interactions on a product grid.",
-      "contribution": "Deliver a reproducible measurement of the relevant user interaction, identify the dominant resource or main-thread cost, and compare the same state after the change."
+      "contribution": "Deliver a reproducible measurement of the relevant user interaction, identify the dominant resource or main-thread cost, and compare the same state after the change.",
+      "searchTerms": [
+        "lighthouse",
+        "inp",
+        "lcp",
+        "core web vitals"
+      ]
     },
     {
       "id": "creative-technologist",
@@ -447,7 +494,11 @@
         "deploy"
       ],
       "example": "Make staging deployment reproducible from a commit.",
-      "contribution": "Trace a source change through build, artifact identity and deployment; make each environment transition and recovery condition explicit before changing automation."
+      "contribution": "Trace a source change through build, artifact identity and deployment; make each environment transition and recovery condition explicit before changing automation.",
+      "searchTerms": [
+        "ci/cd",
+        "deployment pipeline"
+      ]
     },
     {
       "id": "site-reliability-engineer",
@@ -470,7 +521,13 @@
         "backend-resilience"
       ],
       "example": "Reduce repeated checkout outages and noisy alerts.",
-      "contribution": "Connect the observed failure to a user-facing objective and error budget, then propose a bounded mitigation with a measurable recovery condition."
+      "contribution": "Connect the observed failure to a user-facing objective and error budget, then propose a bounded mitigation with a measurable recovery condition.",
+      "searchTerms": [
+        "sre",
+        "slo",
+        "on-call",
+        "error budget"
+      ]
     },
     {
       "id": "cloud-engineer",
@@ -516,7 +573,13 @@
         "ops-restore"
       ],
       "example": "Replace an infrastructure module without losing state.",
-      "contribution": "Produce an infrastructure plan that distinguishes in-place updates from replacements, names state ownership, and checks the actual dependency order."
+      "contribution": "Produce an infrastructure plan that distinguishes in-place updates from replacements, names state ownership, and checks the actual dependency order.",
+      "searchTerms": [
+        "terraform",
+        "iac",
+        "infrastructure as code",
+        "pulumi"
+      ]
     },
     {
       "id": "developer-experience-engineer",
@@ -585,7 +648,14 @@
         "ops-alerts"
       ],
       "example": "Diagnose a latency increase across asynchronous services.",
-      "contribution": "Define the question an operator must answer, add the missing correlated signal with bounded cardinality, and demonstrate diagnosis using a concrete failure."
+      "contribution": "Define the question an operator must answer, add the missing correlated signal with bounded cardinality, and demonstrate diagnosis using a concrete failure.",
+      "searchTerms": [
+        "monitoring",
+        "opentelemetry",
+        "tracing",
+        "prometheus",
+        "grafana"
+      ]
     },
     {
       "id": "network-engineer",
@@ -631,7 +701,11 @@
         "llm-cost"
       ],
       "example": "Reduce inference cost without violating latency goals.",
-      "contribution": "Attribute cost to workload and unit of useful output, separate fixed from demand-driven spend, and propose a change whose service impact can be measured."
+      "contribution": "Attribute cost to workload and unit of useful output, separate fixed from demand-driven spend, and propose a change whose service impact can be measured.",
+      "searchTerms": [
+        "cloud cost",
+        "cloud bill"
+      ]
     },
     {
       "id": "storage-engineer",
@@ -700,7 +774,11 @@
         "arch-scale"
       ],
       "example": "Choose which request processing belongs at the edge.",
-      "contribution": "Identify which computation and state can safely move to the edge, including propagation delay, regional failure and origin consistency requirements."
+      "contribution": "Identify which computation and state can safely move to the edge, including propagation delay, regional failure and origin consistency requirements.",
+      "searchTerms": [
+        "cdn",
+        "edge functions"
+      ]
     },
     {
       "id": "kubernetes-engineer",
@@ -723,7 +801,12 @@
         "backend-resilience"
       ],
       "example": "Diagnose a rollout that drops in-flight requests.",
-      "contribution": "Trace workload readiness, scheduling and rollout behavior through actual manifests; distinguish an application failure from resource, identity or networking constraints."
+      "contribution": "Trace workload readiness, scheduling and rollout behavior through actual manifests; distinguish an application failure from resource, identity or networking constraints.",
+      "searchTerms": [
+        "k8s",
+        "helm",
+        "kubectl"
+      ]
     },
     {
       "id": "data-engineer",
@@ -746,7 +829,14 @@
         "data-reconcile"
       ],
       "example": "Build a restartable daily ingestion pipeline.",
-      "contribution": "Deliver a source-to-target lineage and grain contract, then prove replay/backfill behavior on duplicate, late and partially processed input."
+      "contribution": "Deliver a source-to-target lineage and grain contract, then prove replay/backfill behavior on duplicate, late and partially processed input.",
+      "searchTerms": [
+        "etl",
+        "elt",
+        "airflow",
+        "data warehouse",
+        "data pipeline"
+      ]
     },
     {
       "id": "analytics-engineer",
@@ -769,7 +859,12 @@
         "db-query"
       ],
       "example": "Create a consistent subscription revenue model.",
-      "contribution": "Define the model grain, keys and metric semantics before SQL transformations; show how joins preserve denominators and historical meaning."
+      "contribution": "Define the model grain, keys and metric semantics before SQL transformations; show how joins preserve denominators and historical meaning.",
+      "searchTerms": [
+        "dbt",
+        "semantic layer",
+        "metrics layer"
+      ]
     },
     {
       "id": "data-scientist",
@@ -838,7 +933,13 @@
         "ui-audit"
       ],
       "example": "Build an operations dashboard with consistent metrics.",
-      "contribution": "Map each dashboard number to its governed metric and refresh state; test filtering and aggregation behavior that could change the interpretation."
+      "contribution": "Map each dashboard number to its governed metric and refresh state; test filtering and aggregation behavior that could change the interpretation.",
+      "searchTerms": [
+        "bi",
+        "looker",
+        "tableau",
+        "power bi"
+      ]
     },
     {
       "id": "database-engineer",
@@ -861,7 +962,15 @@
         "db-migrate"
       ],
       "example": "Improve a slow report without changing its results.",
-      "contribution": "Identify the access pattern, constraints and transactional owner, then propose schema/index/query changes with engine-specific lock and compatibility checks."
+      "contribution": "Identify the access pattern, constraints and transactional owner, then propose schema/index/query changes with engine-specific lock and compatibility checks.",
+      "searchTerms": [
+        "sql",
+        "postgres",
+        "postgresql",
+        "mysql",
+        "dba",
+        "slow query"
+      ]
     },
     {
       "id": "database-reliability-engineer",
@@ -907,7 +1016,13 @@
         "arch-event-flow"
       ],
       "example": "Compute near-real-time aggregates that tolerate late events.",
-      "contribution": "Define event-time, watermark, key and replay semantics; demonstrate how late events and duplicate delivery affect the durable result."
+      "contribution": "Define event-time, watermark, key and replay semantics; demonstrate how late events and duplicate delivery affect the durable result.",
+      "searchTerms": [
+        "kafka",
+        "flink",
+        "kinesis",
+        "event streaming"
+      ]
     },
     {
       "id": "data-platform-engineer",
@@ -999,7 +1114,13 @@
         "ml-evaluate"
       ],
       "example": "Diagnose poor results for rare product queries.",
-      "contribution": "Separate retrieval, ranking and presentation failures with query-level relevance evidence; deliver an evaluation set that includes empty, rare and permission-filtered results."
+      "contribution": "Separate retrieval, ranking and presentation failures with query-level relevance evidence; deliver an evaluation set that includes empty, rare and permission-filtered results.",
+      "searchTerms": [
+        "elasticsearch",
+        "opensearch",
+        "solr",
+        "search relevance"
+      ]
     },
     {
       "id": "machine-learning-engineer",
@@ -1114,7 +1235,12 @@
         "ml-monitor"
       ],
       "example": "Create a traceable model release pipeline.",
-      "contribution": "Connect dataset, code, configuration and model identities across the pipeline, with a concrete promotion/recovery condition at each operational boundary."
+      "contribution": "Connect dataset, code, configuration and model identities across the pipeline, with a concrete promotion/recovery condition at each operational boundary.",
+      "searchTerms": [
+        "ml ops",
+        "mlops",
+        "model registry"
+      ]
     },
     {
       "id": "ml-platform-engineer",
@@ -1183,7 +1309,13 @@
         "llm-injection"
       ],
       "example": "Build an assistant that answers from authorized documents.",
-      "contribution": "Deliver the prompt/tool/context contract and a failure-focused evaluation set; distinguish model behavior from deterministic validation and retrieval effects."
+      "contribution": "Deliver the prompt/tool/context contract and a failure-focused evaluation set; distinguish model behavior from deterministic validation and retrieval effects.",
+      "searchTerms": [
+        "rag",
+        "retrieval-augmented",
+        "chatbot",
+        "llm app"
+      ]
     },
     {
       "id": "nlp-engineer",
@@ -1206,7 +1338,12 @@
         "ml-slices"
       ],
       "example": "Train a multilingual support-ticket classifier.",
-      "contribution": "Map linguistic variation, tokenization and label policy to observed errors; test domain and language shifts before choosing preprocessing or architecture changes."
+      "contribution": "Map linguistic variation, tokenization and label policy to observed errors; test domain and language shifts before choosing preprocessing or architecture changes.",
+      "searchTerms": [
+        "text classification",
+        "named entity",
+        "sentiment"
+      ]
     },
     {
       "id": "computer-vision-engineer",
@@ -1229,7 +1366,13 @@
         "ml-error-analysis"
       ],
       "example": "Evaluate a detector across different camera conditions.",
-      "contribution": "Trace image acquisition, annotation and augmentation through evaluation; inspect geometric, lighting and device shifts that can invalidate aggregate metrics."
+      "contribution": "Trace image acquisition, annotation and augmentation through evaluation; inspect geometric, lighting and device shifts that can invalidate aggregate metrics.",
+      "searchTerms": [
+        "object detection",
+        "image classification",
+        "segmentation",
+        "opencv"
+      ]
     },
     {
       "id": "speech-engineer",
@@ -1252,7 +1395,12 @@
         "ml-evaluate"
       ],
       "example": "Evaluate streaming transcription under background noise.",
-      "contribution": "Define audio segmentation, timing and transcription/recognition conventions; compare performance across noise, speaker and latency conditions relevant to the task."
+      "contribution": "Define audio segmentation, timing and transcription/recognition conventions; compare performance across noise, speaker and latency conditions relevant to the task.",
+      "searchTerms": [
+        "asr",
+        "speech recognition",
+        "text to speech"
+      ]
     },
     {
       "id": "recommendation-engineer",
@@ -1275,7 +1423,13 @@
         "ml-slices"
       ],
       "example": "Improve recommendations for users with little history.",
-      "contribution": "Separate candidate generation, ranking and exposure feedback; assess cold-start and subgroup outcomes without treating logged engagement as unbiased preference."
+      "contribution": "Separate candidate generation, ranking and exposure feedback; assess cold-start and subgroup outcomes without treating logged engagement as unbiased preference.",
+      "searchTerms": [
+        "recommender",
+        "recommender system",
+        "recommendations",
+        "collaborative filtering"
+      ]
     },
     {
       "id": "reinforcement-learning-engineer",
@@ -1321,7 +1475,12 @@
         "test-regression"
       ],
       "example": "Create a held-out evaluation for a tool-using assistant.",
-      "contribution": "Produce an evaluation contract with independent expected outcomes, scorer controls, denominators and held-out limits; retain failed attempts rather than selecting only successful runs."
+      "contribution": "Produce an evaluation contract with independent expected outcomes, scorer controls, denominators and held-out limits; retain failed attempts rather than selecting only successful runs.",
+      "searchTerms": [
+        "evals",
+        "eval suite",
+        "llm evaluation"
+      ]
     },
     {
       "id": "responsible-ai-engineer",
@@ -1390,7 +1549,13 @@
         "backend-idempotency"
       ],
       "example": "Design an agent that can recover from a failed diagnostic step.",
-      "contribution": "Map context, tool effects and recovery state across an agent task; demonstrate constraint retention and uncertain-action reconciliation through multiple turns."
+      "contribution": "Map context, tool effects and recovery state across an agent task; demonstrate constraint retention and uncertain-action reconciliation through multiple turns.",
+      "searchTerms": [
+        "agents",
+        "agentic",
+        "ai agent",
+        "tool calling"
+      ]
     },
     {
       "id": "ai-security-engineer",
@@ -1398,7 +1563,7 @@
       "family": "ml",
       "summary": "Assess model-system trust boundaries and abuse paths.",
       "priorities": [
-        "Trace instructions, retrieved content, tool inputs and sensitive outputs.",
+        "Trace prompt injection through instructions, retrieved content, tool inputs and sensitive outputs.",
         "Separate model refusal behavior from enforced access controls."
       ],
       "decision": "Enforce authorization outside model text when tools expose privileged data or actions.",
@@ -1413,7 +1578,12 @@
         "security-threat-model"
       ],
       "example": "Threat-model a retrieval assistant with write-capable tools.",
-      "contribution": "Trace untrusted prompts, retrieved content and tool arguments to effects; use synthetic canaries to test authorization boundaries without exposing real secrets."
+      "contribution": "Trace untrusted prompts, retrieved content and tool arguments to effects; use synthetic canaries to test authorization boundaries without exposing real secrets.",
+      "searchTerms": [
+        "prompt injection",
+        "jailbreak",
+        "model security"
+      ]
     },
     {
       "id": "causal-inference-scientist",
@@ -1459,7 +1629,13 @@
         "ml-evaluate"
       ],
       "example": "Validate an A/B test before interpreting its results.",
-      "contribution": "Define randomization unit, exposure, guardrails and analysis window; verify assignment and interference before reading experiment outcomes."
+      "contribution": "Define randomization unit, exposure, guardrails and analysis window; verify assignment and interference before reading experiment outcomes.",
+      "searchTerms": [
+        "a/b test",
+        "ab test",
+        "split test",
+        "sample ratio mismatch"
+      ]
     },
     {
       "id": "application-security-engineer",
@@ -1482,7 +1658,12 @@
         "security-fix"
       ],
       "example": "Repair a cross-tenant document access flaw.",
-      "contribution": "Trace a reachable input through trust transitions to the sensitive operation, with a legitimate control and an actionable correction at the enforcing boundary."
+      "contribution": "Trace a reachable input through trust transitions to the sensitive operation, with a legitimate control and an actionable correction at the enforcing boundary.",
+      "searchTerms": [
+        "appsec",
+        "pentest",
+        "owasp"
+      ]
     },
     {
       "id": "product-security-engineer",
@@ -1551,7 +1732,12 @@
         "test-fixtures"
       ],
       "example": "Create a detection for suspicious service-account use.",
-      "contribution": "Define the behavior a signal distinguishes, validate it against benign controls and evasive variants, and report expected triage context and blind spots."
+      "contribution": "Define the behavior a signal distinguishes, validate it against benign controls and evasive variants, and report expected triage context and blind spots.",
+      "searchTerms": [
+        "siem",
+        "detection rules",
+        "sigma rules"
+      ]
     },
     {
       "id": "security-incident-responder",
@@ -1597,7 +1783,13 @@
         "data-contract"
       ],
       "example": "Remove unnecessary identifiers from an analytics pipeline.",
-      "contribution": "Trace collection, purpose, derived copies and deletion through the requested feature; verify minimization and retention at the actual storage/logging boundaries."
+      "contribution": "Trace collection, purpose, derived copies and deletion through the requested feature; verify minimization and retention at the actual storage/logging boundaries.",
+      "searchTerms": [
+        "gdpr",
+        "pii",
+        "ccpa",
+        "data retention"
+      ]
     },
     {
       "id": "identity-access-engineer",
@@ -1620,7 +1812,15 @@
         "security-authz"
       ],
       "example": "Implement tenant-scoped document permissions.",
-      "contribution": "Model principal, session, tenant and resource ownership separately; test privilege changes, stale sessions and cross-tenant access against the effective policy."
+      "contribution": "Model principal, session, tenant and resource ownership separately; test privilege changes, stale sessions and cross-tenant access against the effective policy.",
+      "searchTerms": [
+        "iam",
+        "oauth",
+        "oidc",
+        "sso",
+        "rbac",
+        "saml"
+      ]
     },
     {
       "id": "supply-chain-security-engineer",
@@ -1643,7 +1843,12 @@
         "release"
       ],
       "example": "Review a release pipeline that consumes pull-request artifacts.",
-      "contribution": "Identify which source, dependency, action or artifact becomes executable with which privilege; verify provenance and trust transitions in the real build path."
+      "contribution": "Identify which source, dependency, action or artifact becomes executable with which privilege; verify provenance and trust transitions in the real build path.",
+      "searchTerms": [
+        "sbom",
+        "slsa",
+        "dependency confusion"
+      ]
     },
     {
       "id": "security-automation-engineer",
@@ -1689,7 +1894,13 @@
         "test-property"
       ],
       "example": "Review encrypted token handling and key rotation.",
-      "contribution": "Identify the security property and trust/key lifecycle first; use established constructions and test misuse cases rather than designing a new primitive."
+      "contribution": "Identify the security property and trust/key lifecycle first; use established constructions and test misuse cases rather than designing a new primitive.",
+      "searchTerms": [
+        "encryption",
+        "tls",
+        "kms",
+        "certificates"
+      ]
     },
     {
       "id": "qa-automation-engineer",
@@ -1712,7 +1923,12 @@
         "test-e2e"
       ],
       "example": "Add coverage for checkout failures and recovery.",
-      "contribution": "Deliver a stable behavioral check that fails for the targeted defect and passes legitimate behavior; separate environment/setup failures from product failures."
+      "contribution": "Deliver a stable behavioral check that fails for the targeted defect and passes legitimate behavior; separate environment/setup failures from product failures.",
+      "searchTerms": [
+        "sdet",
+        "test automation",
+        "qa engineer"
+      ]
     },
     {
       "id": "test-infrastructure-engineer",
@@ -1758,7 +1974,13 @@
         "backend-concurrency"
       ],
       "example": "Find the cause of rising tail latency under load.",
-      "contribution": "Define the representative workload and success metric, measure the bottleneck, and compare tails/resource use without changing the workload between variants."
+      "contribution": "Define the representative workload and success metric, measure the bottleneck, and compare tails/resource use without changing the workload between variants.",
+      "searchTerms": [
+        "profiling",
+        "profiler",
+        "p99 latency",
+        "flame graph"
+      ]
     },
     {
       "id": "senior-software-engineer",
@@ -2034,7 +2256,12 @@
         "teach"
       ],
       "example": "Write an installation guide with useful failure recovery.",
-      "contribution": "Produce task-oriented documentation whose commands and examples match the current artifact, and test the reader’s starting assumptions and recovery path."
+      "contribution": "Produce task-oriented documentation whose commands and examples match the current artifact, and test the reader’s starting assumptions and recovery path.",
+      "searchTerms": [
+        "documentation",
+        "installation docs",
+        "api docs"
+      ]
     },
     {
       "id": "developer-advocate",
@@ -2057,7 +2284,11 @@
         "teach"
       ],
       "example": "Prepare a runnable integration example and feedback notes.",
-      "contribution": "Build a small accurate example that demonstrates the intended developer outcome, including prerequisites and limitations without implying unverified production readiness."
+      "contribution": "Build a small accurate example that demonstrates the intended developer outcome, including prerequisites and limitations without implying unverified production readiness.",
+      "searchTerms": [
+        "devrel",
+        "developer relations"
+      ]
     },
     {
       "id": "systems-engineer",
@@ -2080,7 +2311,12 @@
         "test-property"
       ],
       "example": "Diagnose a resource leak in a long-running service.",
-      "contribution": "Map resource ownership, lifetime and failure handling for the requested operation, then verify cleanup and bounded behavior under interruption."
+      "contribution": "Map resource ownership, lifetime and failure handling for the requested operation, then verify cleanup and bounded behavior under interruption.",
+      "searchTerms": [
+        "systems programmer",
+        "memory leak",
+        "systems programming"
+      ]
     },
     {
       "id": "distributed-systems-engineer",
@@ -2103,7 +2339,13 @@
         "backend-resilience"
       ],
       "example": "Design reliable event publication across two services.",
-      "contribution": "Specify consistency, ordering and failure-detection assumptions; trace partition, retry and recovery interleavings that could violate the shared invariant."
+      "contribution": "Specify consistency, ordering and failure-detection assumptions; trace partition, retry and recovery interleavings that could violate the shared invariant.",
+      "searchTerms": [
+        "consensus",
+        "raft",
+        "paxos",
+        "network partition"
+      ]
     },
     {
       "id": "embedded-engineer",
@@ -2149,7 +2391,12 @@
         "ops-restore"
       ],
       "example": "Review a firmware update flow for power-loss recovery.",
-      "contribution": "Map initialization, interrupt and persistent-state transitions; validate update/recovery behavior under interrupted writes before changing device state."
+      "contribution": "Map initialization, interrupt and persistent-state transitions; validate update/recovery behavior under interrupted writes before changing device state.",
+      "searchTerms": [
+        "bootloader",
+        "rtos",
+        "microcontroller"
+      ]
     },
     {
       "id": "robotics-engineer",
@@ -2195,7 +2442,11 @@
         "ml-robustness"
       ],
       "example": "Evaluate a controller in an isolated simulation.",
-      "contribution": "State plant/model assumptions, sampling and stability constraints, then compare the requested controller under disturbances and saturation with appropriate safety bounds."
+      "contribution": "State plant/model assumptions, sampling and stability constraints, then compare the requested controller under disturbances and saturation with appropriate safety bounds.",
+      "searchTerms": [
+        "pid",
+        "control loop"
+      ]
     },
     {
       "id": "gameplay-engineer",
@@ -2218,7 +2469,12 @@
         "perf"
       ],
       "example": "Implement an ability cooldown that survives save and reload.",
-      "contribution": "Describe the player-visible state transition and ownership of game objects; test input ordering, reset and frame-rate variation for the requested mechanic."
+      "contribution": "Describe the player-visible state transition and ownership of game objects; test input ordering, reset and frame-rate variation for the requested mechanic.",
+      "searchTerms": [
+        "game developer",
+        "unity",
+        "unreal"
+      ]
     },
     {
       "id": "game-networking-engineer",
@@ -2241,7 +2497,11 @@
         "security-inputs"
       ],
       "example": "Design reconciliation for a multiplayer movement prototype.",
-      "contribution": "Define authority, prediction and reconciliation for the mechanic; test latency, packet loss and reordered input without letting clients author server-owned state."
+      "contribution": "Define authority, prediction and reconciliation for the mechanic; test latency, packet loss and reordered input without letting clients author server-owned state.",
+      "searchTerms": [
+        "netcode",
+        "multiplayer"
+      ]
     },
     {
       "id": "graphics-engineer",
@@ -2264,7 +2524,13 @@
         "test-fixtures"
       ],
       "example": "Diagnose artifacts and frame spikes in a renderer.",
-      "contribution": "Identify the render stage and resource lifetime responsible for the visual or performance issue, and compare outputs under controlled camera/material/device conditions."
+      "contribution": "Identify the render stage and resource lifetime responsible for the visual or performance issue, and compare outputs under controlled camera/material/device conditions.",
+      "searchTerms": [
+        "shader",
+        "glsl",
+        "vulkan",
+        "opengl"
+      ]
     },
     {
       "id": "xr-engineer",
@@ -2287,7 +2553,14 @@
         "test-e2e"
       ],
       "example": "Prototype a spatial selection interface with tracking-loss recovery.",
-      "contribution": "Map interaction and rendering to tracking, comfort and latency constraints; include lost tracking and alternate input in the requested experience."
+      "contribution": "Map interaction and rendering to tracking, comfort and latency constraints; include lost tracking and alternate input in the requested experience.",
+      "searchTerms": [
+        "ar",
+        "vr",
+        "mixed reality",
+        "augmented reality",
+        "virtual reality"
+      ]
     },
     {
       "id": "compiler-engineer",
@@ -2310,7 +2583,12 @@
         "repro"
       ],
       "example": "Repair an optimization that changes program behavior.",
-      "contribution": "State the source-language invariant and affected transformation, then use valid/invalid programs and optimization boundaries to verify preserved semantics."
+      "contribution": "State the source-language invariant and affected transformation, then use valid/invalid programs and optimization boundaries to verify preserved semantics.",
+      "searchTerms": [
+        "llvm",
+        "codegen",
+        "parser"
+      ]
     },
     {
       "id": "runtime-engineer",
@@ -2356,7 +2634,12 @@
         "test-property"
       ],
       "example": "Analyze scaling limits of a parallel simulation.",
-      "contribution": "Connect decomposition and communication to the measured bottleneck, preserving numerical validity while comparing scaling on the same workload."
+      "contribution": "Connect decomposition and communication to the measured bottleneck, preserving numerical validity while comparing scaling on the same workload.",
+      "searchTerms": [
+        "mpi",
+        "slurm",
+        "supercomputer"
+      ]
     },
     {
       "id": "scientific-software-engineer",
@@ -2379,7 +2662,12 @@
         "docs"
       ],
       "example": "Add verification to a numerical simulation.",
-      "contribution": "State units, numerical assumptions and reference behavior, then validate the algorithm against analytic or trusted controls before interpreting a faster result."
+      "contribution": "State units, numerical assumptions and reference behavior, then validate the algorithm against analytic or trusted controls before interpreting a faster result.",
+      "searchTerms": [
+        "research software engineer",
+        "rse",
+        "scientific computing"
+      ]
     },
     {
       "id": "bioinformatics-engineer",
@@ -2402,7 +2690,12 @@
         "ml-reproduce"
       ],
       "example": "Reconcile sample metadata in a sequencing workflow.",
-      "contribution": "Record reference assembly, coordinate conventions and sample/provenance identity; validate transformations against biological and file-format controls before interpreting results."
+      "contribution": "Record reference assembly, coordinate conventions and sample/provenance identity; validate transformations against biological and file-format controls before interpreting results.",
+      "searchTerms": [
+        "bioinformatician",
+        "genomics",
+        "sequencing"
+      ]
     },
     {
       "id": "geospatial-engineer",
@@ -2425,7 +2718,12 @@
         "test-property"
       ],
       "example": "Diagnose inconsistent distances in a location service.",
-      "contribution": "Make coordinate system, units, topology and time explicit, then test projection and boundary cases that could silently change spatial meaning."
+      "contribution": "Make coordinate system, units, topology and time explicit, then test projection and boundary cases that could silently change spatial meaning.",
+      "searchTerms": [
+        "gis",
+        "crs",
+        "postgis"
+      ]
     },
     {
       "id": "blockchain-engineer",
@@ -2448,7 +2746,14 @@
         "test-property"
       ],
       "example": "Design a ledger event indexer that tolerates reorganizations.",
-      "contribution": "Trace authorization, state transitions and external calls under adversarial ordering; separate local contract tests from live-chain deployment authority."
+      "contribution": "Trace authorization, state transitions and external calls under adversarial ordering; separate local contract tests from live-chain deployment authority.",
+      "searchTerms": [
+        "smart contract",
+        "web3",
+        "ethereum",
+        "solidity",
+        "reorg"
+      ]
     },
     {
       "id": "protocol-engineer",

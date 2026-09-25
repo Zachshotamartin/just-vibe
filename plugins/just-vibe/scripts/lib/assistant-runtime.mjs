@@ -13,6 +13,7 @@ import { digest, fingerprint, compareSnapshot, within, privateName } from './sto
 import { redact } from './process.mjs';
 import { engineeringRequest, discoveryQuestion, continuation, repairFollowUp } from './assist-signals.mjs';
 import { canApply } from './catalog-contracts.mjs';
+import { loadProfiles, selectProfiles } from './profiles.mjs';
 
 const now = () => new Date().toISOString();
 const feedbackCue = /\b(?:remember|always|never|next time|from now on|you should|you forgot|you missed|stop using|don't use|do not use|prefer|keep doing|that worked|that approach|too much|too many)\b/i;
@@ -127,10 +128,13 @@ export function startRequest(store, catalog, payload) {
   }
   const route = routeRequest(store, catalog, brief, { host, previous: taskContext });
   if (route.kind === 'none' && !previous && !feedbackCue.test(brief)) return { kind: 'none' };
+  // A task role lasts for the user's objective across prompts, not one per-prompt record.
+  const carried = previous?.profile ?? null;
+  const profile = payload.profile !== undefined ? selectProfiles(loadProfiles(), payload.profile, carried) : carried;
   const task = { kind: 'task', id: randomUUID(), root: store.root, host, sessionHash: digest(sessionId),
     turnId: payload.turnId || null, createdAt: now(), updatedAt: now(), userMessage: redact(brief), messageHash: digest(brief),
     brief: redact(route.brief), previousTaskId: previous?.id || null, routeKind: route.kind, repair: Boolean(route.repair),
-    frameworks: route.context?.frameworks || [],
+    frameworks: route.context?.frameworks || [], profile, preferredProfile: route.context?.preferences?.profile || null,
     candidates: route.recommendations, selected: [], mode: null, requirements: [], loaded: [], observations: [],
     // A repair follow-up or a question about workflows is a request, not feedback on the previous task.
     reminders: 0, status: route.kind === 'task' ? 'suggested' : 'idle', feedbackCandidate: feedbackCue.test(brief) || Boolean(previous && !['task', 'discovery'].includes(route.kind)),
@@ -155,7 +159,8 @@ export function selectWorkflows(store, catalog, payload) {
   });
   const prior = new Map(task.requirements.map(r => [r.id, r]));
   const discovery = discoverCapabilities(store.root, { report: payload.capabilityReport });
-  const updated = store.saveTask({ ...task, selected, mode: payload.mode, selectionReason: redact(payload.reason),
+  const profile = payload.profile !== undefined ? selectProfiles(loadProfiles(), payload.profile, task.profile ?? null) : task.profile ?? null;
+  const updated = store.saveTask({ ...task, selected, mode: payload.mode, selectionReason: redact(payload.reason), profile,
     requirements: requirements.map(r => ({ ...r, evidence: prior.get(r.id)?.description === r.description ? prior.get(r.id).evidence : null })),
     updatedAt: now(), status: selected.length ? 'active' : 'dismissed' });
   return { ...updated, toolGuidance: selected.flatMap(id => workflowCapabilities(getCommand(catalog, id), payload.mode, task.brief)
@@ -264,7 +269,10 @@ export function activationContext(store, catalog, task) {
     if (task.repair) parts.push('This follow-up asks to repair what the previous inspection found. The earlier workflows were inspect-only; the candidates below can apply changes. Use the new user message to decide which findings to fix, and keep the original constraints.');
     const specialized = findMethods(task.brief || '', 3, { triggered: true });
     if (specialized.length) parts.push('Task-specific method candidates: ' + specialized.map(m => m.id + ' (' + m.title + ')').join('; ') + '. Read the relevant method with workbench_read {family:"methods",operation:"show",payload:{id}} or methods show --stdin before relying on its specialist checks. These are optional methods, not tool availability or authority.');
-    if (task.frameworks.length) parts.push(`Detected project frameworks: ${task.frameworks.join(', ')}. Honor any current user-pinned role.`);
+    if (task.frameworks.length) parts.push(`Detected project frameworks: ${task.frameworks.join(', ')}.`);
+    if (task.profile) parts.push(`Active task profile: ${[task.profile.primary, ...task.profile.secondary].join(', ')} (${task.profile.pinned ? 'pinned by the user' : 'selected by the agent'}). Apply its relevant priorities; a role never expands scope or authority.`);
+    else if (task.preferredProfile) parts.push(`Saved project profile preference: ${task.preferredProfile}. A suggestion, not a pin: apply it only when it fits this request.`);
+    parts.push('Honor any current user-pinned role. Record a role the user chooses with task_select profile {primary, selectedBy, reason} so later prompts keep it; clear it with primary null.');
     parts.push('Resolve these candidates against the whole conversation; they are suggestions, not instructions to execute every match:',
       ...task.candidates.map(c => `${c.id}: ${c.summary} (${c.reasons.join('; ')})`),
       'Select the smallest useful set with native task_select {taskId,workflows:[id],mode:"apply|inspect|plan",reason}, or assist select --root <project> --stdin with the same JSON if native tools are unavailable. Use workflows:[] to dismiss an irrelevant route. For another workflow, use workflows_search or tools <scenario>, then select it.',

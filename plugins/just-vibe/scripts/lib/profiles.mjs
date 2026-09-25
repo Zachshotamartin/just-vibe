@@ -2,6 +2,7 @@ import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { loadCatalog, pluginRoot } from './catalog.mjs';
 import { fail, identifier, line, lines, record } from './catalog-schema.mjs';
+import { normalize } from './search.mjs';
 
 const text = value => typeof value === 'string' && Boolean(value.trim());
 // Router and catalog entry points, not role methods; a profile link to them re-enters routing.
@@ -49,18 +50,51 @@ export function getProfile(data, id) {
   throw new Error(`Unknown profile: ${id}.${near.length ? ` Closest: ${near.join(', ')}.` : ''} Use profiles to browse supported roles.`);
 }
 
+// Profile search shares the workflow router's normalization (stems, stopwords, phrases), so
+// "and", "design" or "build" no longer decide the ranking. Distinctive name words and searchTerms
+// dominate; summaries count by rarity; examples, contributions and checks are weak detail evidence.
+const PROFILE_PHRASES = [[/\bfull[-\s]?stack\b/gi, ' fullstack '], [/\b(?:developer|dev|programmer)s?\b/gi, ' engineer ']];
+const STEM_SYNONYMS = { architectur: ['architect'] };
+const profileStems = text => normalize(PROFILE_PHRASES.reduce((t, [re, to]) => t.replace(re, to), text))
+  .flatMap(t => [t.stem, ...(STEM_SYNONYMS[t.stem] || [])]);
+const profileIndexes = new WeakMap();
+function profileIndex(data) {
+  if (profileIndexes.has(data)) return profileIndexes.get(data);
+  const entries = data.profiles.map(p => ({
+    profile: p,
+    identity: new Set(profileStems(`${p.id.replace(/-/g, ' ')} ${p.name}`)),
+    family: new Set(profileStems(p.family.replace(/-/g, ' '))),
+    summary: new Set(profileStems(p.summary)),
+    detail: new Set(profileStems([...p.priorities, p.decision, ...p.verification, p.boundary, p.example, p.contribution].join(' '))),
+    terms: (p.searchTerms || []).map(profileStems).filter(t => t.length),
+  }));
+  const df = key => { const counts = {}; for (const e of entries) for (const t of e[key]) counts[t] = (counts[t] || 0) + 1; return counts; };
+  const text = {};
+  for (const e of entries) for (const t of new Set([...e.summary, ...e.detail])) text[t] = (text[t] || 0) + 1;
+  const index = { entries, identity: df('identity'), summary: df('summary'), detail: df('detail'), text };
+  profileIndexes.set(data, index);
+  return index;
+}
+const contains = (tokens, term) => tokens.some((_, i) => term.every((t, j) => tokens[i + j] === t));
+
 export function searchProfiles(data, query = '') {
   const exact = query.trim().toLowerCase();
-  const words = exact.match(/[a-z0-9]+/g) || [];
-  const synonyms = { architecture: ['architect'], ml: ['machine', 'learning'], sre: ['site', 'reliability'], a11y: ['accessibility'] };
-  for (const word of [...words]) words.push(...(synonyms[word] || []));
-  return data.profiles.map(p => {
-    const identity = `${p.id} ${p.name} ${p.family}`.toLowerCase().match(/[a-z0-9]+/g) || [];
-    const detail = `${p.summary} ${p.priorities.join(' ')}`.toLowerCase().match(/[a-z0-9]+/g) || [];
-    const score = p.id === exact || p.name.toLowerCase() === exact ? 1000
-      : words.reduce((score, word) => score + (identity.includes(word) ? 10 : detail.includes(word) ? 1 : 0), 0);
+  const tokens = [...new Set(profileStems(query))];
+  const { entries, identity, summary, detail, text } = profileIndex(data);
+  return entries.map(({ profile: p, ...e }) => {
+    if (p.id === exact || p.name.toLowerCase() === exact) return { ...p, score: 1000 };
+    let score = 0;
+    for (const t of tokens) {
+      // A word in most profile names ("engineer") identifies nothing on its own, and a name word that
+      // is also ordinary task vocabulary ("build", "design", "test") is weaker evidence than "kubernetes".
+      if (e.identity.has(t)) score += identity[t] > 12 ? 1 : !text[t] || text[t] <= 8 ? 10 : text[t] <= 20 ? 6 : 3;
+      else if (e.summary.has(t)) score += summary[t] <= 2 ? 4 : summary[t] <= 5 ? 3 : summary[t] <= 12 ? 2 : 1;
+      else if (e.detail.has(t)) score += detail[t] <= 5 ? 1 : detail[t] <= 20 ? 0.5 : 0;
+      else if (e.family.has(t)) score += 1;
+    }
+    for (const term of e.terms) if (contains(tokens, term)) score += Math.min(8 + 2 * (term.length - 1), 14);
     return { ...p, score };
-  }).filter(p => !words.length || p.score > 0).sort((a, b) => b.score - a.score || a.name.localeCompare(b.name));
+  }).filter(p => !tokens.length || p.score > 0).sort((a, b) => b.score - a.score || a.name.localeCompare(b.name));
 }
 
 const SELECTION_FIELDS = ['primary', 'secondary', 'selectedBy', 'reason', 'pinned', 'scope'];
