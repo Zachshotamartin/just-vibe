@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.13.0
 
 - Route ordinary requests to the right workflow. On 1,183 realistic requests from the September 2026 review, the right workflow now ranks first for 63% (was 35%) and in the top three for 82% (was 53%); a ratchet on that corpus guards the rates.
 - Engage automatic assistance on everyday engineering requests, answer "which workflow should I use" questions without starting the task, and keep a chosen role across prompts, compaction and resume.
