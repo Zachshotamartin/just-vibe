@@ -168,6 +168,7 @@ export function selectWorkflows(store, catalog, payload) {
 }
 
 export function loadWorkflow(store, catalog, payload) {
+  if (typeof payload?.workflow !== 'string' || !payload.workflow.trim()) throw Error('assist load needs {"workflow": "<canonical-id>"}; include taskId when the task came from automatic routing.');
   const task = payload.taskId ? store.task(payload.taskId) : undefined;
   const effective = effectiveWorkflow(store, catalog, payload.workflow, task);
   if (payload.taskId) {
@@ -296,6 +297,7 @@ export function activationContext(store, catalog, task) {
 }
 
 export function assistantRuntime(root, operation, payload = {}, options = {}) {
+  if (['select', 'evidence', 'report'].includes(operation) && (payload?.taskId === undefined || payload?.taskId === '')) throw Error(`assist ${operation} needs taskId, from assist start or the automatic-assistance context.`);
   const store = adaptiveStore(root, options), catalog = options.catalog || loadCatalog();
   if (operation === 'status') return { settings: store.config(), project: store.root, storage: store.home,
     activeTasks: store.list(`${store.project}/tasks`).map(name => store.read(`${store.project}/tasks/${name}`)).filter(task => task?.kind === 'task' && ['active', 'suggested'].includes(task.status)).sort((a,b) => b.updatedAt.localeCompare(a.updatedAt)).slice(0, 10).map(task => ({ id: task.id, host: task.host, brief: task.brief, updatedAt: task.updatedAt })),

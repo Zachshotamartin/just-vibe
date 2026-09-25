@@ -64,10 +64,14 @@ export function listTools(catalog, discovery, { query = '', pack, available = fa
   })).filter(c => (all || !['planned', 'uninstalled', 'unsupported'].includes(c.status)) && (!available || c.status === 'available')).slice(0, limit);
 }
 
+// Routing reads the first 16,000 characters, the same bound as the hook path: intent rules scan
+// with unbounded gaps, so a pasted megabyte log would take minutes. The full brief is still returned.
+export const ROUTE_TEXT = 16000;
 export function recommend(catalog, discovery, brief, { host = 'claude', limit = 3, context = routeContext(discovery.root) } = {}) {
   if (typeof brief !== 'string' || !brief.trim()) throw new Error('A routing goal is required.');
   if (!Number.isInteger(limit) || limit < 1 || limit > 1000) throw Error('limit must be between 1 and 1000.');
-  const signals = intentSignals(brief);
+  const routed = brief.length > ROUTE_TEXT ? brief.slice(0, ROUTE_TEXT) : brief;
+  const signals = intentSignals(routed);
   // An explicit prefix selects exactly one workflow, including auto/tools/help.
   // Unknown names fail instead of falling through to incidental task keywords.
   if (signals.explicit) {
@@ -75,7 +79,7 @@ export function recommend(catalog, discovery, brief, { host = 'claude', limit = 
     const candidate = { ...listTools(catalog, discovery, { query: command.id, host, all: true })[0],
       matchedNames: [signals.explicit.id], selectionReasons: ['Workflow selected explicitly'] };
     return { brief, commandBrief: signals.explicit.brief, invokedAs: signals.explicit.invocation,
-      executableHere: false, context, strategy: executionStrategy(brief, [candidate]), recommendations: [candidate],
+      executableHere: false, context, strategy: executionStrategy(routed, [candidate]), recommendations: [candidate],
       confidence: 'explicit', instruction: 'Load the selected installed workflow; preserve its mode, constraints and host permissions. An invocation is not an authorization bypass.',
       available: candidate.status === 'available' ? [candidate] : [], unavailable: candidate.status === 'available' ? [] : [candidate] };
   }
@@ -97,9 +101,10 @@ export function recommend(catalog, discovery, brief, { host = 'claude', limit = 
     if (existing) { existing.matchedNames.push(match.id); existing.score = Math.max(existing.score, match.score); continue; }
     unique.set(id, { ...toolEntry(catalog, discovery, canonical, host), score: match.score, matchedNames: [match.id] });
   }
-  const candidates = rankCandidates([...unique.values()], brief, context);
+  const candidates = rankCandidates([...unique.values()], routed, context, signals);
   return { brief, executableHere: false,
-    context, strategy: executionStrategy(brief, candidates), recommendations: candidates.slice(0, limit),
+    ...(routed !== brief ? { routedCharacters: ROUTE_TEXT } : {}),
+    context, strategy: executionStrategy(routed, candidates), recommendations: candidates.slice(0, limit),
     confidence: candidates.length === 0 ? 'no-match' : candidates.length > 1 && candidates[0].score - candidates[1].score < 12 ? 'ambiguous' : 'candidate',
     instruction: 'Candidates only. The active host agent must resolve intent, context, scope, and authority before selecting and executing a route. Do not execute keyword matches blindly.',
     available: candidates.filter(c => c.status === 'available').slice(0, limit),

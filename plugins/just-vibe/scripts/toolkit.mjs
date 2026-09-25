@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { dashboardMain } from './dashboard.mjs';
-import { readFileSync, statSync } from 'node:fs';
+import { existsSync, readFileSync, statSync } from 'node:fs';
 import { isDirectRun } from './lib/entrypoint.mjs';
 import { loadCatalog, getCommand, invocation, HOSTS, MODES } from './lib/catalog.mjs';
 import { inspectProject } from './lib/project.mjs';
@@ -154,6 +154,7 @@ export function parseToolkitArgs(args) {
   if (!HOSTS.includes(options.target) && !adapterTarget) throw new Error(`target must be codex or claude${['tools', 'show', 'route'].includes(operation) ? ', or an editor adapter id' : ` for ${operation}; editor adapter ids apply to tools, show and route`}.`);
   if (options.mode && !MODES.includes(options.mode)) throw new Error('mode must be inspect, plan, or apply.');
   if (options.stdin && options['brief-file']) throw new Error('Use only one brief source.');
+  if (seen.has('--root') && !existsSync(options.root)) throw new Error(`Project root not found: ${options.root}`);
   if (options.limit !== undefined) { options.limit = Number(options.limit); if (!Number.isInteger(options.limit) || options.limit < 1 || options.limit > 1000) throw Error('limit must be between 1 and 1000.'); }
   const allowed = {
     ...Object.fromEntries(Object.keys(PLATFORM_OPERATIONS).map(op => [op, ['json', 'root', 'stdin']])),
@@ -163,7 +164,7 @@ export function parseToolkitArgs(args) {
     // The shared execution guide passes --root to every call; role lookup ignores it.
     profiles: ['json', 'limit', 'root'], profile: ['json', 'root'],
     route: ['json', 'root', 'target', 'capabilities', 'stdin', 'brief-file', 'limit'],
-    workflow: ['json', 'root', 'target', 'mode', 'scope', 'profile', 'stdin', 'brief-file'], session: ['json', 'target', 'stdin'], quiz: ['json', 'stdin'],
+    workflow: ['json', 'root', 'target', 'mode', 'scope', 'profile', 'stdin', 'brief-file'], session: ['json', 'target', 'stdin', 'root'], quiz: ['json', 'stdin', 'root'],
     project: ['json', 'root', 'stdin'], hooks: ['json', 'root', 'stdin'],
     evidence: ['json', 'root', 'repo', 'pr', 'deployment', 'team', 'url', 'steps', 'directory', 'applied'],
     ...Object.fromEntries(Object.keys(INTENT_OPERATIONS).map(op => [op, ['json', 'root', 'stdin']])),
@@ -231,6 +232,18 @@ function formatRoute(result) {
     '\nSuggestions only. Preserve the complete request and verify task-specific access before execution. Use --json for full context.'].join('\n');
 }
 
+// Name the missing field instead of letting a TypeError surface from deep inside the run code.
+const SESSION_FIELDS = { create: ['command', 'brief'], start: ['run', 'stage'], amend: ['run', 'action'], supersede: ['run', 'resolution'],
+  profile: ['run', 'selection'], record: ['run', 'outcome'], finish: ['run', 'outcome'], resume: ['run', 'observation'] };
+function sessionPayload(op, payload) {
+  if (!SESSION_FIELDS[op]) throw new Error(`Unknown session operation: ${op}. Operations: ${Object.keys(SESSION_FIELDS).join(', ')}.`);
+  if (!payload || typeof payload !== 'object' || Array.isArray(payload)) throw new Error(`session ${op} reads a JSON object on stdin.`);
+  const missing = SESSION_FIELDS[op].filter(key => payload[key] === undefined || payload[key] === null);
+  if (missing.length) throw new Error(`session ${op} needs ${missing.join(' and ')} in its JSON input; see references/runtime.md (Session operations).`);
+  if (op === 'create' && typeof payload.command !== 'string') throw new Error('session create command must be a workflow id such as "fix".');
+  if (op !== 'create' && (typeof payload.run !== 'object' || typeof payload.run.root !== 'string')) throw new Error(`session ${op} needs the complete run record returned by the previous session call.`);
+}
+
 export async function main(args, { log = console.log, error = console.error, input = readStdin, catalog = loadCatalog } = {}) {
   try {
     if (['setup', 'update'].includes(args[0]) && args.includes('--guided')) { await guidedSetup(args, { log }); return 0; }
@@ -289,6 +302,8 @@ export async function main(args, { log = console.log, error = console.error, inp
     } else if (options.operation === 'session') {
       const payload = JSON.parse(await input());
       const op = options.positionals[0];
+      sessionPayload(op, payload);
+      if (op === 'create' && payload.root === undefined && args.includes('--root')) payload.root = options.root;
       if (op === 'create') {
         if (typeof payload.profile === 'string') throw new Error('session create profile is a selection request {primary, selectedBy, reason}; a bare id would record a user pin. Use workflow --profile ID only for an explicit user choice.');
         result = createRun(data, payload.command, payload);

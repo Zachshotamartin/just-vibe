@@ -1,7 +1,9 @@
 import { WORKBENCH_ACCESS, workbenchCall } from './workbench-access.mjs';
 import { platformRuntime } from './platform-runtime.mjs';
 import { assistantRuntime } from './assistant-runtime.mjs';
-import { loadCatalog, searchCommands } from './catalog.mjs';
+import { loadCatalog } from './catalog.mjs';
+import { discoverCapabilities, recommend } from './discovery.mjs';
+import { routeContext } from './routing.mjs';
 import { projectRoot } from './storage.mjs';
 import { redact } from './process.mjs';
 import { StringDecoder } from 'node:string_decoder';
@@ -311,11 +313,16 @@ export const MCP_TOOLS = [
     description:
       'Find just-vibe workflows for a concrete task. Results are candidates, not permission to execute.',
     inputSchema: schema({ query: str }, ['query']),
+    // Same semantics as route: aliases collapse to one canonical workflow, router entries are
+    // excluded, negated clauses ("don't deploy") do not select, and intent rules apply.
     run: (root, a) =>
-      searchCommands(loadCatalog(), a.query, { limit: 8 }).map(({ command }) => ({
-        id: command.id,
-        summary: command.summary,
-        mode: command.defaultMode,
+      recommend(loadCatalog(), discoverCapabilities(root), a.query, { limit: 8, context: routeContext(root) }).recommendations.map(c => ({
+        id: c.id,
+        summary: c.summary,
+        mode: c.defaultMode,
+        status: c.status,
+        why: c.selectionReasons,
+        ...(c.matchedNames?.length ? { matchedNames: c.matchedNames } : {}),
       })),
   },
   {

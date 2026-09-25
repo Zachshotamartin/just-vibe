@@ -67,8 +67,8 @@ export function intentSignals(brief) {
 }
 
 const MODE_ORDER = { inspect: 0, plan: 1, apply: 2 };
-export function rankCandidates(candidates, brief, context) {
-  const { positive, excluded, matches } = intentSignals(brief);
+export function rankCandidates(candidates, brief, context, signals = intentSignals(brief)) {
+  const { positive, excluded, matches } = signals;
   const actionRequested = matches.some(rule => rule.action || rule.damp);
   const named = isLesson(brief) ? new Set() : new Set((positive.match(/\b[a-z][a-z0-9]*(?:-[a-z0-9]+)+\b/g) || []));
   return candidates.map(c => {

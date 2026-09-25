@@ -6,6 +6,7 @@ import { tmpdir } from 'node:os';
 import { loadCatalog, searchCommands } from '../plugins/just-vibe/scripts/lib/catalog.mjs';
 import { discoverCapabilities, recommend } from '../plugins/just-vibe/scripts/lib/discovery.mjs';
 import { routeContext, splitNegations } from '../plugins/just-vibe/scripts/lib/routing.mjs';
+import { intents } from '../plugins/just-vibe/scripts/lib/intents.mjs';
 
 // Each case reproduces a misroute confirmed in the September 2026 review (finding IDs in comments).
 const catalog = loadCatalog();
@@ -252,4 +253,45 @@ test('documented first-run examples route where the docs say they do (B11-02)', 
     assert.ok(text.includes(brief), `${file} still shows "${brief}"`);
     assert.ok(accept.includes(ids(env, brief)[0]), `${file}: "${brief}" -> ${ids(env, brief).slice(0, 3).join(', ')}`);
   }
+});
+
+test('every intent rule targets a canonical catalog workflow and every unless rule names a rule (R1-14)', () => {
+  const canonical = new Set(catalog.commands.filter(c => !c.aliasOf).map(c => c.id));
+  const names = new Set(intents.map(rule => rule.name).filter(Boolean));
+  for (const rule of intents) {
+    for (const id of rule.ids) assert.ok(canonical.has(id), `${rule.reason}: unknown workflow ${id}`);
+    for (const name of rule.unlessRules || []) assert.ok(names.has(name), `${rule.reason}: unknown rule ${name}`);
+  }
+});
+
+test('MCP workflows_search uses route semantics: canonical ids, no router entries, negated clauses ignored (R1-12)', async t => {
+  const { createMcpServer } = await import('../plugins/just-vibe/scripts/lib/mcp-server.mjs');
+  const root = mkdtempSync(join(tmpdir(), 'jv-mcp-search-'));
+  t.after(() => rmSync(root, { recursive: true, force: true }));
+  const server = createMcpServer(root, {});
+  await server({ jsonrpc: '2.0', id: 1, method: 'initialize', params: { protocolVersion: '2025-11-25' } });
+  await server({ jsonrpc: '2.0', method: 'notifications/initialized' });
+  const search = async query => {
+    const response = await server({ jsonrpc: '2.0', id: 2, method: 'tools/call', params: { name: 'workflows_search', arguments: { query } } });
+    return JSON.parse(response.result.content[0].text).map(r => r.id);
+  };
+  const aliases = new Set(catalog.commands.filter(c => c.aliasOf).map(c => c.id));
+  for (const query of ['screen reader support', 'make the layout responsive on mobile']) {
+    const found = await search(query);
+    assert.ok(!found.some(id => aliases.has(id)), `${query}: ${found}`);
+    assert.equal(new Set(found).size, found.length, query);
+    assert.ok(!found.some(id => ['auto', 'do', 'help', 'tools', 'setup'].includes(id)), `${query}: ${found}`);
+  }
+  assert.ok(!(await search("don't deploy, just fix the login bug")).includes('deploy'));
+});
+
+test('routing a pasted megabyte log stays fast and returns the whole brief (R1-16)', t => {
+  const env = project(t);
+  const line = 'FAIL test/checkout.spec.ts > verify the visitor can check out: expected 200 got 500\n';
+  const brief = `Fix this failing test:\n${line.repeat(Math.ceil(1024 * 1024 / line.length))}`;
+  const started = performance.now();
+  const result = recommend(catalog, env.discovery, brief, { limit: 5, context: env.context });
+  assert.ok(performance.now() - started < 3000, 'bounded routing time');
+  assert.equal(result.brief, brief);
+  assert.equal(result.routedCharacters, 16000);
 });

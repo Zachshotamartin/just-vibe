@@ -78,3 +78,25 @@ test('real hook entry point executes configured checks and emits an advisory fai
   const record = JSON.parse(readFileSync(join(root, '.just-vibe/automation/stop.json')));
   assert.equal(record.results[0].exitCode, 1); assert.equal(record.results[0].result, 'failed');
 });
+
+test('large tool events are evaluated or denied, never waved through; failures are diagnosable (R1-17)', async t => {
+  const { hookMain } = await import('../plugins/just-vibe/scripts/hooks.mjs');
+  const { diagnosis } = await import('../plugins/just-vibe/scripts/lib/diagnosis.mjs');
+  const { Readable } = await import('node:stream');
+  const root = realpathSync(fixture(t)), home = fixture(t), previous = process.env.JUST_VIBE_HOME;
+  process.env.JUST_VIBE_HOME = home;
+  t.after(() => { if (previous === undefined) delete process.env.JUST_VIBE_HOME; else process.env.JUST_VIBE_HOME = previous; });
+  const run = async text => { const out = []; await hookMain(Readable.from([Buffer.from(text)]), x => out.push(JSON.parse(x))); return out; };
+  const write = size => JSON.stringify({ cwd: root, hook_event_name: 'PreToolUse', session_id: 's', tool_name: 'Write', tool_input: { file_path: join(root, 'package-lock.json'), content: 'x'.repeat(size) } });
+  // A 2 MiB lockfile write is evaluated like any other: with no enforcement configured, no decision and no failure message.
+  assert.deepEqual(await run(write(2 * 1024 * 1024)), []);
+  // Beyond the tool-event bound the operation is denied rather than allowed unevaluated.
+  const denied = await run(write(65 * 1024 * 1024));
+  assert.equal(denied[0].hookSpecificOutput.permissionDecision, 'deny');
+  // Other events keep the 1 MiB bound, fail open with a pointer to the recorded error.
+  const stop = await run(JSON.stringify({ cwd: root, hook_event_name: 'Stop', session_id: 's', last_assistant_message: 'y'.repeat(2 * 1024 * 1024) }));
+  assert.match(stop[0].systemMessage, /diagnose status/);
+  const status = diagnosis(root, 'status', {}, { home });
+  assert.equal(status.lastHookError.event, 'Stop');
+  assert.match(status.lastHookError.message, /larger than/);
+});

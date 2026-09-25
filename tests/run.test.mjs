@@ -263,3 +263,27 @@ test('an unavailable prerequisite names the capability and the capability report
   const r = run(fixture(t));
   assert.throws(() => start(r, { command: 'github-pr' }), error => /github\.context/.test(error.message) && /capabilityReport/.test(error.message) && /runtime\.md/.test(error.message));
 });
+
+test('finishing without stages and resuming without a root say what is missing (R1-13)', t => {
+  const root = mkdtempSync(join(tmpdir(), 'jv-run-messages-'));
+  t.after(() => rmSync(root, { recursive: true, force: true }));
+  const run = createRun(catalog, 'fix', { brief: 'Fix the login bug', root });
+  assert.throws(() => finishRun(run, { status: 'completed', summary: 'Done', evidence: [{ result: 'pass', reference: 'npm test', detail: 'exit 0' }], criteria: [{ criterion: 'Login works', result: 'pass', evidence: [0] }] }), /At least one completed stage is required/);
+  assert.throws(() => resumeRun(run, { summary: 'Checked', evidence: ['x'] }), /Resume needs observation\.root/);
+});
+
+test('a continuation run names the exhausted run and the evidence it carries forward (R1-15)', t => {
+  const root = mkdtempSync(join(tmpdir(), 'jv-run-continuation-'));
+  t.after(() => rmSync(root, { recursive: true, force: true }));
+  const prior = createRun(catalog, 'fix', { brief: 'Fix the login bug', root, budget: { maxStages: 1 } });
+  const next = createRun(catalog, 'fix', { brief: 'Fix the login bug', root, context: { continuationOf: { runId: prior.id, evidence: ['Reproduced the redirect loop in stage 1.'] } } });
+  assert.equal(next.context.continuationOf.runId, prior.id);
+  assert.equal(next.stages.length, 0, 'A continuation starts fresh counters without copying stages');
+  assert.equal(validateRun(next), next);
+  for (const [value, message] of [
+    ['run-1', /must be \{runId, evidence\}/],
+    [{ runId: prior.id }, /evidence must list/],
+    [{ runId: prior.id, evidence: [] }, /evidence must list/],
+    [{ runId: prior.id, evidence: ['x'], stages: [] }, /does not accept stages/],
+  ]) assert.throws(() => createRun(catalog, 'fix', { brief: 'Fix the login bug', root, context: { continuationOf: value } }), message);
+});

@@ -78,3 +78,27 @@ test('role lookup accepts the --root every toolkit call passes (A3-19)', async t
     assert.equal(result.code, 0, `${args[0]}: ${result.error}`);
   }
 });
+
+test('malformed input names the missing field or path instead of a JavaScript error (R1-13)', async t => {
+  const root = mkdtempSync(join(tmpdir(), 'jv-malformed-'));
+  t.after(() => rmSync(root, { recursive: true, force: true }));
+  const withInput = async (args, text) => {
+    const output = [], errors = [];
+    const code = await main(args, { log: x => output.push(x), error: x => errors.push(x), input: async () => text });
+    return { code, error: errors.join('\n') };
+  };
+  for (const [args, text, expected] of [
+    [['session', 'create', '--stdin'], '{}', /session create needs command and brief/],
+    [['session', 'start', '--stdin'], '{"run":{}}', /session start needs stage in its JSON input/],
+    [['session', 'record', '--stdin'], '{}', /session record needs run and outcome/],
+    [['session', 'resume', '--stdin'], '{}', /session resume needs run and observation/],
+    [['assist', 'load', '--root', root, '--stdin'], '{}', /assist load needs \{"workflow"/],
+    [['assist', 'select', '--root', root, '--stdin'], '{}', /assist select needs taskId/],
+    [['route', 'fix the bug', '--root', join(root, 'missing', 'x')], '', /Project root not found: .*missing/],
+  ]) {
+    const result = await withInput(args, text);
+    assert.notEqual(result.code, 0, args.join(' '));
+    assert.match(result.error, expected, args.join(' '));
+    assert.doesNotMatch(result.error, /Cannot read properties|TypeError|ENOENT|paths\[0\]/, args.join(' '));
+  }
+});

@@ -63,6 +63,10 @@ A stage `outcome` includes `id`, `status`, `summary`, `evidence`, and `criteria`
 
 `observation` for resume contains the original `root`, a current-state `summary`, and nonempty `evidence`. Reconcile any running/interrupted action before resuming. Completed/cancelled runs cannot silently restart. Expired budgets require an explicitly authorized continuation with prior evidence; they do not refresh on resume.
 
+A continuation is a new run whose `context.continuationOf` is `{runId, evidence}`: the exhausted run's id and the evidence carried forward, as nonempty strings. It starts counters under the user's new budget and does not copy earlier stages; their history stays in the prior run.
+
+Under automatic assistance the assist task remains the completion ledger that the Stop check reads. Session outcomes do not satisfy assist requirements by themselves: record the run id and its finish summary as `host-report` evidence for the matching assist requirement.
+
 ## Additional actions and alternative routes
 
 For amend, action contains the running stage id, an action description, exact target, and an effects array. Every listed effect is checked before execution; a paid remote operation needs both external-write and paid. The original attempt and prior actions remain recorded. Amend does not add permissions, change mode/scope, start another attempt, or renew budgets. If the user grants a new action during the session, preserve that actual grant in context.authorization before checking it.

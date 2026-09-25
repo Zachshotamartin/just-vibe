@@ -69,6 +69,7 @@ export function createRun(catalog, invokedAs, options, now = Date.now()) {
     if (criteria.has(criterion)) throw new Error(`context.successCriteria repeats "${criterion}".`);
     criteria.add(criterion);
   }
+  if (context.continuationOf !== undefined) continuation(context.continuationOf);
   const scope = options.scope ? insideProject(root, options.scope) : root;
   const budget = {
     maxStages: positive(options.budget?.maxStages ?? 8, 'maxStages', 100),
@@ -81,6 +82,16 @@ export function createRun(catalog, invokedAs, options, now = Date.now()) {
     note: 'This record validates workflow state. It does not sandbox the host or independently prove evidence/authorization. Host tool permissions still apply.' };
 }
 
+// A continuation after an exhausted budget names the prior run and the evidence carried forward;
+// it starts fresh counters under the user's new budget and never copies earlier stages.
+function continuation(value) {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) throw new Error('context.continuationOf must be {runId, evidence}.');
+  const extra = Object.keys(value).filter(key => !['runId', 'evidence'].includes(key));
+  if (extra.length) throw new Error(`context.continuationOf does not accept ${extra.join(', ')}.`);
+  required(value.runId, 'context.continuationOf.runId');
+  if (!Array.isArray(value.evidence) || !value.evidence.length || value.evidence.some(e => typeof e !== 'string' || !e.trim())) throw new Error('context.continuationOf.evidence must list the prior evidence carried forward as nonempty strings.');
+}
+
 export function validateRun(run) {
   if (run?.schemaVersion !== 1 || !Array.isArray(run.stages) || !MODES.includes(run.mode)
       || !['ready', 'running', ...terminal].includes(run.status)) throw new Error('Invalid run record.');
@@ -88,6 +99,7 @@ export function validateRun(run) {
   required(run.root, 'Root'); required(run.scope, 'Scope');
   if (!run.context || !Array.isArray(run.context.authorization) || !Array.isArray(run.context.successCriteria)) throw new Error('Invalid run context.');
   if (run.context.profile !== undefined && run.context.profile !== null) validateProfileSelection(loadProfiles(), run.context.profile);
+  if (run.context.continuationOf !== undefined) continuation(run.context.continuationOf);
   for (const [name, max] of [['maxStages', 100], ['maxAttempts', 20]]) positive(run.budget?.[name], name, max);
   timeBudget(run.budget.maxMinutes);
   if (!Number.isFinite(Date.parse(run.createdAt))) throw new Error('Invalid run timestamp.');
@@ -248,7 +260,8 @@ export function finishRun(run, outcome, now = Date.now()) {
   required(outcome.summary, 'Run summary');
   checkEvidence(outcome.evidence || [], outcome.criteria || [], outcome.status === 'completed');
   if (outcome.status === 'completed') {
-    if (!run.stages.length || run.stages.some(s => !['completed', 'superseded'].includes(s.status))) throw new Error('Unfinished stages prevent completion.');
+    if (!run.stages.length) throw new Error('At least one completed stage is required before finishing as completed.');
+    if (run.stages.some(s => !['completed', 'superseded'].includes(s.status))) throw new Error('Unfinished stages prevent completion.');
     for (const stage of run.stages.filter(s => s.status === 'superseded')) {
       if (!stage.resolution?.replacements?.length || stage.resolution.replacements.some(id => id === stage.id || !run.stages.some(s => s.id === id && s.status === 'completed'))) throw new Error('Superseded stages require completed replacements.');
       checkEvidence(stage.resolution.evidence, stage.resolution.criteria, true);
@@ -263,12 +276,13 @@ export function finishRun(run, outcome, now = Date.now()) {
 export function resumeRun(run, observation, now = Date.now()) {
   validateRun(run);
   if (['completed', 'cancelled'].includes(run.status)) throw new Error('Start a new run for completed or cancelled work.');
+  if (typeof observation?.root !== 'string') throw new Error('Resume needs observation.root, the project directory being resumed.');
   if (realpathSync(resolve(observation.root)) !== realpathSync(run.root)) throw new Error('Resume target differs from the original project.');
   required(observation.summary, 'Current-state revalidation');
   if (!Array.isArray(observation.evidence) || !observation.evidence.length) throw new Error('Resume requires current evidence.');
   if (run.stages.some(s => s.status === 'running')) throw new Error('Reconcile the interrupted stage before resuming; do not replay uncertain effects.');
   // Preserve consumed stages/attempts/time. A new budget requires an explicit new run.
-  if (timeExpired(run, now)) throw new Error('Budget expired; create a new run with explicit budget and prior evidence.');
+  if (timeExpired(run, now)) throw new Error('Budget expired; with a new budget from the user, create a continuation run with context.continuationOf {runId, evidence}.');
   const result = { ...clone(run), status: 'ready', resumeObservations: [...(run.resumeObservations || []), clone(observation)] };
   if (result.outcome) result.previousOutcomes = [...(result.previousOutcomes || []), { ...result.outcome, finishedAt: result.finishedAt }];
   delete result.outcome;
