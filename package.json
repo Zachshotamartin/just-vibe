@@ -38,7 +38,8 @@
     "test:operator-browser": "node scripts/smoke-operator-browser.mjs && node scripts/smoke-operator-races.mjs",
     "check:localizations": "node scripts/check-localizations.mjs",
     "audit:implementation": "node scripts/check-ecc-implementation.mjs",
-    "test:qa-browser": "node scripts/smoke-agent-qa.mjs && node scripts/smoke-qa-boundaries.mjs"
+    "test:qa-browser": "node scripts/smoke-agent-qa.mjs && node scripts/smoke-qa-boundaries.mjs",
+    "eval:routing": "node scripts/routing-report.mjs"
   },
   "files": [
     "bin/",

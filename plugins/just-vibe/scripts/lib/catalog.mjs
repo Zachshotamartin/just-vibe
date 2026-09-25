@@ -176,6 +176,22 @@ function tokens(text) {
   return (text.toLowerCase().match(/[a-z0-9]+/g) || []).filter(w => !stopWords.has(w));
 }
 
+// Command token sets are derived from immutable catalog text; build them once per catalog object.
+const indexes = new WeakMap();
+function indexCommand(command) {
+  return {
+    id: new Set(tokens(command.id)),
+    summary: new Set(tokens(command.summary)),
+    detail: new Set(tokens([command.pack, ...command.procedure, ...command.examples.map(e => e.brief)].join(' '))),
+    scenarios: new Set(tokens((command.searchTerms || []).join(' '))),
+  };
+}
+function searchIndex(catalog) {
+  if (!indexes.has(catalog)) indexes.set(catalog, new WeakMap());
+  const index = indexes.get(catalog);
+  return { get: command => index.get(command) ?? index.set(command, indexCommand(command)).get(command) };
+}
+
 export function searchCommands(catalog, query = '', { pack, limit = 1000 } = {}) {
   if (pack && !catalog.packs.some(p => p.id === pack)) throw new Error(`Unknown pack: ${pack}`);
   if (!Number.isInteger(limit) || limit < 1 || limit > 1000) throw new Error('limit must be between 1 and 1000.');
@@ -187,11 +203,9 @@ export function searchCommands(catalog, query = '', { pack, limit = 1000 } = {})
   const queryTokens = tokens(query);
   const expanded = new Set(queryTokens);
   for (const token of queryTokens) for (const word of synonyms[token] || []) expanded.add(word);
+  const index = searchIndex(catalog);
   const scored = catalog.commands.filter(c => !pack || c.pack === pack).map(command => {
-    const id = new Set(tokens(command.id));
-    const summary = new Set(tokens(command.summary));
-    const detail = new Set(tokens([command.pack, ...command.procedure, ...command.examples.map(e => e.brief)].join(' ')));
-    const scenarios = new Set(tokens((command.searchTerms || []).join(' ')));
+    const { id, summary, detail, scenarios } = index.get(command);
     let score = command.id === query.toLowerCase().trim() ? 100 : 0;
     if (command.pack === query.toLowerCase().trim()) score += 40;
     for (const token of expanded) score += id.has(token) ? 8 : scenarios.has(token) ? 5 : summary.has(token) ? 4 : detail.has(token) ? 1 : 0;

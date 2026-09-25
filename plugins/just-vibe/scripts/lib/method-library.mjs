@@ -1,4 +1,4 @@
-import { readFileSync } from 'node:fs';
+import { readFileSync, statSync } from 'node:fs';
 import { object, cleanText } from './runtime-store.mjs';
 import { fail, identifier, line, lines, oneOf, record } from './catalog-schema.mjs';
 const source = new URL('../../catalog/methods.json', import.meta.url);
@@ -33,8 +33,12 @@ export function validateMethods(data) {
   return data;
 }
 
+// Routing consults the library on every prompt; re-parse only when the file changes.
+let cached = null;
 export function loadMethods() {
-  return validateMethods(JSON.parse(readFileSync(source, 'utf8'))).methods;
+  const version = statSync(source).mtimeMs;
+  if (cached?.version !== version) cached = { version, methods: validateMethods(JSON.parse(readFileSync(source, 'utf8'))).methods };
+  return structuredClone(cached.methods);
 }
 export function findMethods(query, limit = 5) {
   const terms = query.toLowerCase().match(/[a-z0-9+#.-]+/g) || [];
