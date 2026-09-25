@@ -7,6 +7,9 @@ import { loadProfiles, selectProfiles, validateProfileSelection } from './profil
 const terminal = new Set(['completed', 'partial', 'blocked', 'failed', 'cancelled']);
 const effects = new Set(['read', 'plan-artifact', 'local-write', 'external-write', 'destructive', 'paid']);
 const clone = value => structuredClone(value);
+// Effects whose outcome may persist outside the project even when the attempt failed.
+const UNCERTAIN = ['external-write', 'destructive', 'paid'];
+const hadUncertainEffect = stage => stage.attempts.some(a => UNCERTAIN.includes(a.effect) || a.actions?.some(action => action.effects.some(effect => UNCERTAIN.includes(effect))));
 const required = (value, name) => {
   if (typeof value !== 'string' || !value.trim()) throw new Error(`${name} is required.`);
   return value;
@@ -49,11 +52,22 @@ export function createRun(catalog, invokedAs, options, now = Date.now()) {
   const mode = options.mode || command.defaultMode;
   if (!MODES.includes(mode)) throw new Error('Invalid mode.');
   const context = options.context || {};
-  if (context.profile !== undefined && context.profile !== null) validateProfileSelection(loadProfiles(), context.profile);
   if (options.profile && context.profile) throw new Error('Use --profile or context.profile, not both.');
-  const profile = options.profile ? selectProfiles(loadProfiles(), { primary: options.profile, selectedBy: 'user', reason: 'Explicit workflow profile option.' }) : context.profile;
+  // A string profile is the explicit --profile flag (a user pin); an object is a selection request
+  // completed with the same defaults as session profile, whoever supplies it.
+  const requested = options.profile ?? context.profile;
+  const profile = typeof options.profile === 'string'
+    ? selectProfiles(loadProfiles(), { primary: options.profile, selectedBy: 'user', reason: 'Explicit workflow profile option.' })
+    : requested === undefined || requested === null ? requested : selectProfiles(loadProfiles(), requested);
   for (const key of ['constraints', 'references', 'successCriteria', 'assumptions', 'authorization']) {
     if (context[key] !== undefined && !Array.isArray(context[key])) throw new Error(`context.${key} must be an array.`);
+  }
+  // Completion compares criteria verbatim, so each must be a unique trimmed string.
+  const criteria = new Set();
+  for (const criterion of context.successCriteria || []) {
+    if (typeof criterion !== 'string' || !criterion.trim() || criterion !== criterion.trim()) throw new Error('context.successCriteria must be nonempty trimmed strings; each must later appear verbatim as a passing criteria[].criterion.');
+    if (criteria.has(criterion)) throw new Error(`context.successCriteria repeats "${criterion}".`);
+    criteria.add(criterion);
   }
   const scope = options.scope ? insideProject(root, options.scope) : root;
   const budget = {
@@ -123,13 +137,20 @@ export function startStage(catalog, run, request, capabilities, host = 'claude',
   if (run.stages.some(s => s.status === 'running')) throw new Error('Finish the running stage before starting another.');
   const command = getCommand(catalog, request.command, { canonical: true });
   if (command.id === 'auto') throw new Error('Recursive auto/do routing is not allowed.');
-  if (availability(catalog, command, capabilities, host).status !== 'available') throw new Error(`Workflow prerequisites are not verified: ${command.id}`);
+  const prerequisites = availability(catalog, command, capabilities, host);
+  if (prerequisites.status !== 'available') throw new Error(`Workflow prerequisites are not verified for ${command.id}: ${prerequisites.reasons.join('; ')}. Pass a fresh capabilityReport {schemaVersion:1, root, observedAt within 15 minutes, capabilities} with the stage; see references/runtime.md (Capability observations).`);
   const id = request.id || randomUUID();
   let stage = run.stages.find(s => s.id === id);
   if (stage) {
     if (!['failed', 'blocked'].includes(stage.status) || stage.command !== command.id) throw new Error('Only the same failed or blocked stage may be retried.');
     if (stage.attempts.length >= run.budget.maxAttempts) throw new Error('Stage retry budget exhausted.');
     required(request.newEvidence, 'New evidence supporting retry');
+    // A failed attempt may still have created a PR, charge or deletion; retrying blind can duplicate it.
+    if (hadUncertainEffect(stage)) {
+      const evidence = request.effectReconciliation;
+      if (!evidence || evidence.result !== 'pass') throw new Error('A prior attempt had external, destructive or paid effects; pass effectReconciliation {reference, detail, result: "pass"} showing their actual outcome before retrying.');
+      checkEvidence([evidence], [{ criterion: 'Prior effects reconciled', result: 'pass', evidence: [0] }], true);
+    }
   } else if (run.stages.length >= run.budget.maxStages) throw new Error('Workflow stage budget exhausted.');
   const effect = request.effect || 'read';
   const target = request.target || run.scope;
@@ -139,7 +160,8 @@ export function startStage(catalog, run, request, capabilities, host = 'claude',
   stage = result.stages.find(s => s.id === id);
   if (!stage) { stage = { id, command: command.id, attempts: [] }; result.stages.push(stage); }
   stage.status = 'running';
-  stage.attempts.push({ effect, target, action, startedAt: new Date(now).toISOString(), newEvidence: request.newEvidence || null });
+  stage.attempts.push({ effect, target, action, startedAt: new Date(now).toISOString(), newEvidence: request.newEvidence || null,
+    ...(request.effectReconciliation ? { effectReconciliation: clone(request.effectReconciliation) } : {}) });
   result.status = 'running';
   return result;
 }
@@ -202,9 +224,7 @@ export function supersedeStage(run, resolution, now = Date.now()) {
   const replacements = ids.map(id => run.stages.find(s => s.id === id));
   if (replacements.some(s => !s || s.status !== 'completed')) throw new Error('Replacement stages must already be completed.');
   checkEvidence(resolution.evidence, resolution.criteria, true);
-  const uncertainEffects = source.attempts.some(a => ['external-write', 'destructive', 'paid'].includes(a.effect)
-    || a.actions?.some(action => action.effects.some(effect => ['external-write', 'destructive', 'paid'].includes(effect))));
-  if (uncertainEffects) {
+  if (hadUncertainEffect(source)) {
     const evidence = resolution.effectReconciliation;
     if (!evidence || evidence.result !== 'pass') throw new Error('External effects need successful reconciliation evidence before supersession.');
     checkEvidence([evidence], [{ criterion: 'Prior effects reconciled', result: 'pass', evidence: [0] }], true);
@@ -234,7 +254,8 @@ export function finishRun(run, outcome, now = Date.now()) {
       checkEvidence(stage.resolution.evidence, stage.resolution.criteria, true);
     }
     const covered = new Set((outcome.criteria || []).filter(c => c.result === 'pass').map(c => c.criterion));
-    if (run.context.successCriteria.some(c => !covered.has(c))) throw new Error('Original success criteria have not all been verified.');
+    const uncovered = run.context.successCriteria.filter(c => !covered.has(c));
+    if (uncovered.length) throw new Error(`Original success criteria have not all been verified: ${uncovered.join('; ')}.`);
   }
   return { ...clone(run), status: outcome.status, finishedAt: new Date(now).toISOString(), outcome: clone(outcome) };
 }

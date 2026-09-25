@@ -232,3 +232,34 @@ test('superseding uncertain external effects requires explicit reconciliation ev
   const result=supersedeStage(r,{...resolution,effectReconciliation:{reference:'provider operation 123',detail:'Original deployment exists and matches the requested revision; no duplicate was created.',result:'pass'}});
   assert.equal(result.stages[0].resolution.effectReconciliation.result,'pass');
 });
+
+test('retrying a stage whose attempt had an uncertain external effect needs reconciliation first (R1-06)', t => {
+  let r = run(fixture(t));
+  r.context.authorization.push({ effect: 'external-write', target: 'github', action: 'Open the PR', basis: 'User asked to open the PR.' });
+  r = recordStage(start(r, { effect: 'external-write', target: 'github', action: 'Open the PR' }), outcome('fix-stage', 'failed'));
+  assert.throws(() => start(r, { effect: 'external-write', target: 'github', action: 'Open the PR', newEvidence: 'retrying' }), /reconcil/i);
+  assert.throws(() => start(r, { effect: 'external-write', target: 'github', action: 'Open the PR', newEvidence: 'retrying',
+    effectReconciliation: { reference: 'gh pr list', detail: 'Status still unknown.', result: 'unverified' } }), /reconcil/i);
+  const retried = start(r, { effect: 'external-write', target: 'github', action: 'Open the PR', newEvidence: 'No PR exists for the branch.',
+    effectReconciliation: { reference: 'gh pr list --head fix-branch', detail: 'No open or closed PR exists for the branch; the first attempt created nothing.', result: 'pass' } });
+  assert.equal(retried.stages[0].attempts.length, 2);
+  assert.equal(retried.stages[0].attempts[1].effectReconciliation.result, 'pass');
+  // A local-only failure still retries with new evidence alone.
+  const local = recordStage(start(run(fixture(t))), outcome('fix-stage', 'failed'));
+  assert.equal(start(local, { newEvidence: 'Found the real cause.' }).stages[0].attempts.length, 2);
+});
+
+test('success criteria are unique trimmed strings and finish names the uncovered ones (R1-08)', t => {
+  const root = fixture(t);
+  for (const successCriteria of [[{ criterion: 'Totals round' }], ['  Totals round '], ['Totals round', 'Totals round'], ['']]) {
+    assert.throws(() => run(root, 'apply', { context: { successCriteria } }), /successCriteria/, JSON.stringify(successCriteria));
+  }
+  let r = run(root, 'apply', { context: { successCriteria: ['Desired behavior works', 'Totals round'] } });
+  r = recordStage(start(r), outcome('fix-stage'));
+  assert.throws(() => finishRun(r, outcome()), /Totals round/);
+});
+
+test('an unavailable prerequisite names the capability and the capability report remedy (R1-09, A3-13)', t => {
+  const r = run(fixture(t));
+  assert.throws(() => start(r, { command: 'github-pr' }), error => /github\.context/.test(error.message) && /capabilityReport/.test(error.message) && /runtime\.md/.test(error.message));
+});

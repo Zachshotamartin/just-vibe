@@ -40,10 +40,13 @@ export function loadProfiles(root = pluginRoot) {
   return validateProfiles(JSON.parse(readFileSync(resolve(root, 'catalog/profiles.json'), 'utf8')), loadCatalog(root));
 }
 
+// Ids resolve case-insensitively and by display name; a miss suggests the closest roles.
 export function getProfile(data, id) {
-  const p = data.profiles.find(p => p.id === id);
-  if (!p) throw new Error(`Unknown profile: ${id}. Use profiles to browse supported roles.`);
-  return p;
+  const wanted = typeof id === 'string' ? id.trim().toLowerCase() : '';
+  const found = data.profiles.find(p => p.id === wanted || p.name.toLowerCase() === wanted);
+  if (found) return found;
+  const near = wanted ? searchProfiles(data, wanted).slice(0, 3).map(p => p.id) : [];
+  throw new Error(`Unknown profile: ${id}.${near.length ? ` Closest: ${near.join(', ')}.` : ''} Use profiles to browse supported roles.`);
 }
 
 export function searchProfiles(data, query = '') {
@@ -60,38 +63,44 @@ export function searchProfiles(data, query = '') {
   }).filter(p => !words.length || p.score > 0).sort((a, b) => b.score - a.score || a.name.localeCompare(b.name));
 }
 
+const SELECTION_FIELDS = ['primary', 'secondary', 'selectedBy', 'reason', 'pinned', 'scope'];
+const invalid = detail => new Error(`Invalid profile selection: ${detail}.`);
+// Stored selections use canonical ids so pin and distinctness checks compare like with like.
+const storedId = (data, id) => {
+  const canonical = getProfile(data, id).id;
+  if (canonical !== id) throw invalid(`store the profile id ${canonical}, not ${id}`);
+};
+
 export function validateProfileSelection(data, value) {
-  if (!value || value.scope !== 'task' || !['user', 'agent'].includes(value.selectedBy)
-      || typeof value.pinned !== 'boolean' || !text(value.reason)) throw new Error('Invalid profile selection.');
+  if (!value || typeof value !== 'object' || Array.isArray(value)) throw invalid('expected an object');
+  if (value.scope !== 'task') throw invalid('scope must be "task"');
+  if (!['user', 'agent'].includes(value.selectedBy)) throw invalid('selectedBy must be user or agent');
+  if (typeof value.pinned !== 'boolean') throw invalid('pinned must be true or false');
+  if (!text(value.reason)) throw invalid('reason is required');
   if (value.selectedBy === 'agent' && value.pinned) throw new Error('An agent-selected profile cannot be pinned.');
-  getProfile(data, value.primary);
+  storedId(data, value.primary);
   if (!Array.isArray(value.secondary) || value.secondary.length > 2
       || new Set([value.primary, ...value.secondary]).size !== value.secondary.length + 1) throw new Error('Choose at most two distinct secondary profiles.');
-  for (const id of value.secondary) getProfile(data, id);
+  for (const id of value.secondary) storedId(data, id);
   return value;
 }
 
 // Selection is recorded context, not proof of user authority or a host setting.
 export function selectProfiles(data, request, previous = null) {
-  if (!request || !['user', 'agent'].includes(request.selectedBy) || !text(request.reason)) throw new Error('Selection needs selectedBy and an evidence-based reason.');
-  if (Object.keys(request).some(key => !['primary', 'secondary', 'selectedBy', 'reason', 'pinned', 'scope'].includes(key))
-      || (request.scope !== undefined && request.scope !== 'task')
-      || (request.pinned !== undefined && typeof request.pinned !== 'boolean')) throw new Error('Profile selection changes task roles only.');
+  if (!request || !['user', 'agent'].includes(request.selectedBy) || !text(request.reason)) throw invalid('selectedBy (user or agent) and an evidence-based reason are required');
+  const unknown = Object.keys(request).filter(key => !SELECTION_FIELDS.includes(key));
+  if (unknown.length) throw invalid(`unknown field ${unknown.join(', ')}; a selection changes task roles only`);
+  if (request.scope !== undefined && request.scope !== 'task') throw invalid('scope must be "task"');
+  if (request.pinned !== undefined && typeof request.pinned !== 'boolean') throw invalid('pinned must be true or false');
+  if (request.secondary !== undefined && request.secondary !== null && !Array.isArray(request.secondary)) throw invalid('secondary must be a list of profile ids');
   if (previous !== null && previous !== undefined) validateProfileSelection(data, previous);
   if (previous?.pinned && request.selectedBy === 'agent') throw new Error('A pinned user profile cannot be changed or cleared by the agent.');
   if (request.primary === null) {
     if ((request.secondary !== undefined && (!Array.isArray(request.secondary) || request.secondary.length)) || request.pinned === true) throw new Error('A cleared profile cannot have secondary profiles or a pin.');
     return null;
   }
-  const result = { primary: request.primary, secondary: structuredClone(request.secondary ?? []), selectedBy: request.selectedBy,
+  const result = { primary: getProfile(data, request.primary).id, secondary: (request.secondary ?? []).map(id => getProfile(data, id).id), selectedBy: request.selectedBy,
     pinned: request.pinned ?? request.selectedBy === 'user', scope: 'task', reason: request.reason };
   validateProfileSelection(data, result);
   return result;
-}
-
-export function profileContext(data, selection) {
-  if (!selection) return null;
-  validateProfileSelection(data, selection);
-  return { selection: structuredClone(selection), roles: [selection.primary, ...selection.secondary].map(id => structuredClone(getProfile(data, id))),
-    instruction: 'Apply only priorities relevant to the original task. The primary role resolves emphasis; explicit user constraints, scope, mode, evidence and authority remain unchanged. Suggested workflows are candidates, not permissions or an execution checklist.' };
 }

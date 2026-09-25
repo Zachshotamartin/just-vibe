@@ -168,8 +168,12 @@ export function skillFile(catalog, command) {
 }
 
 export function invocation(command, host = 'claude') {
-  if (!HOSTS.includes(host)) throw new Error(`Unsupported host: ${host}`);
-  return host === 'claude' ? `/just-vibe:${command.id}` : `Select just-vibe → ${command.id} in the skill picker`;
+  // The CLI validates host names; anything other than a native host is an editor adapter id.
+  if (typeof host !== 'string' || !/^[a-z0-9-]+$/.test(host)) throw new Error(`Unsupported host: ${host}`);
+  if (host === 'claude') return `/just-vibe:${command.id}`;
+  if (host === 'codex') return `Select just-vibe → ${command.id} in the skill picker`;
+  // Editor adapters install each workflow as a skill named just-vibe-<id>.
+  return `just-vibe-${command.id}`;
 }
 
 export function availability(catalog, command, capabilities = {}, host = 'claude') {

@@ -72,7 +72,7 @@ export function validateIntentArgs(options) {
   const spec = INTENT_OPERATIONS[options.operation]?.[options.positionals[0]];
   if (!spec || options.positionals.length !== (spec[0] ? 2 : 1))
     throw Error(
-      "Unknown operation or wrong number of names; see the intent workflow guide.",
+      `Unknown ${options.operation} operation or wrong number of names. Operations: ${Object.keys(INTENT_OPERATIONS[options.operation] || {}).join(", ")}; see references/intent-workflows.md.`,
     );
   if (spec[1] === "required" && !options.stdin)
     throw Error("This operation requires --stdin JSON.");

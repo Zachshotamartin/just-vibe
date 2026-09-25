@@ -1,6 +1,6 @@
 import { realpathSync, statSync, readFileSync, accessSync, constants } from 'node:fs';
 import { resolve } from 'node:path';
-import { CAPABILITIES, availability, searchCommands, invocation, getCommand } from './catalog.mjs';
+import { CAPABILITIES, HOSTS, availability, searchCommands, invocation, getCommand } from './catalog.mjs';
 import { findExecutable, gitRead } from './project.mjs';
 import { routeContext, rankCandidates, intentSignals, executionStrategy } from './routing.mjs';
 
@@ -54,7 +54,8 @@ export function toolEntry(catalog, discovery, command, host) {
   return { id: command.id, pack: command.pack, summary: command.summary, aliasOf: command.aliasOf,
     defaultMode: command.defaultMode, invocation: invocation(command, host), example: command.examples[0],
     implementationStatus: command.implementationStatus, executionModel: command.executionModel,
-    validation: command.validation, ...availability(catalog, command, discovery.capabilities, host) };
+    // Adapter hosts load the same skill files, so prerequisite checks use the Claude mapping.
+    validation: command.validation, ...availability(catalog, command, discovery.capabilities, HOSTS.includes(host) ? host : 'claude') };
 }
 
 export function listTools(catalog, discovery, { query = '', pack, available = false, all = false, host = 'claude', limit = 1000 } = {}) {

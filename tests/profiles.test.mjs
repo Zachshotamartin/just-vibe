@@ -4,7 +4,7 @@ import { mkdtempSync, rmSync, readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { loadCatalog } from '../plugins/just-vibe/scripts/lib/catalog.mjs';
-import { loadProfiles, validateProfiles, getProfile, searchProfiles, selectProfiles, profileContext } from '../plugins/just-vibe/scripts/lib/profiles.mjs';
+import { loadProfiles, validateProfiles, getProfile, searchProfiles, selectProfiles } from '../plugins/just-vibe/scripts/lib/profiles.mjs';
 import { createRun, setRunProfiles, startStage, recordStage, finishRun } from '../plugins/just-vibe/scripts/lib/run.mjs';
 import { main } from '../plugins/just-vibe/scripts/toolkit.mjs';
 
@@ -95,14 +95,35 @@ test('role changes preserve a running task, stage identity, authority, limits an
   assert.throws(() => setRunProfiles(original, user, now + 5 * 60000), /budget exhausted/);
 });
 
-test('profile materialization supplies only selected roles without sharing mutable state', () => {
-  const selection = selectProfiles(roles, user), context = profileContext(roles, selection);
-  assert.deepEqual(context.roles.map(p => p.id), [user.primary, ...user.secondary]);
-  context.roles[0].priorities.length = 0;
-  context.selection.secondary.length = 0;
-  assert.ok(getProfile(roles, user.primary).priorities.length > 0);
-  assert.equal(selection.secondary.length, 1);
-  assert.equal(profileContext(roles, null), null);
+test('profile lookup accepts any case and display names, and suggests near matches (PB-10)', () => {
+  assert.equal(getProfile(roles, 'FRONTEND-ENGINEER').id, 'frontend-engineer');
+  assert.equal(getProfile(roles, 'Frontend engineer').id, 'frontend-engineer');
+  assert.throws(() => getProfile(roles, 'frontend engneer'), /Closest: [^.]*frontend-engineer/);
+  const selection = selectProfiles(roles, { ...agent, primary: 'Backend Engineer' });
+  assert.equal(selection.primary, 'backend-engineer', 'Selections store canonical ids');
+  assert.throws(() => selectProfiles(roles, { ...agent, role: 'x' }), /Invalid profile selection: unknown field role/);
+  assert.throws(() => selectProfiles(roles, { ...agent, scope: 'global' }), /Invalid profile selection: scope must be "task"/);
+});
+
+test('session create treats profile as a selection request, not a user pin (PB-10)', async t => {
+  const directory = root(t);
+  const pinned = await cli(['session', 'create'], { command: 'fix', brief: 'Fix it', root: directory, profile: 'frontend-engineer' });
+  assert.equal(pinned.code, 1); assert.match(pinned.error, /selection request/);
+  const created = await cli(['session', 'create'], { command: 'fix', brief: 'Fix it', root: directory, profile: { primary: 'frontend-engineer', selectedBy: 'agent', reason: 'UI task.' } });
+  assert.equal(created.code, 0, created.error);
+  const run = JSON.parse(created.output).context.profile;
+  assert.deepEqual([run.primary, run.selectedBy, run.pinned, run.scope], ['frontend-engineer', 'agent', false, 'task']);
+  const partial = createRun(commands, 'fix', { root: directory, brief: 'Fix it', context: { profile: { primary: 'frontend-engineer', selectedBy: 'agent', reason: 'UI task.' } } });
+  assert.equal(partial.context.profile.pinned, false, 'A partial context.profile is completed like session profile');
+});
+
+test('profile text shows its contribution; profiles supports limits and explains empty results (PA2-15, PB-10, R1-10)', async () => {
+  const shown = await cli(['profile', 'agent-systems-engineer']);
+  assert.equal(shown.code, 0, shown.error); assert.match(shown.output, /\nContribution: \S/);
+  const limited = await cli(['profiles', 'engineer', '--limit', '3', '--json']);
+  assert.equal(limited.code, 0, limited.error); assert.equal(JSON.parse(limited.output).profiles.length, 3);
+  const none = await cli(['profiles', 'zzzzqqq']);
+  assert.equal(none.code, 0); assert.match(none.output, /No matching profiles/);
 });
 
 test('CLI supports discovery, explicit selection and agent updates without persisting settings', async t => {

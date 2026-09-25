@@ -33,7 +33,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Use toolkit tools with the supplied scenario and the actual target host. Read only the matching command contracts with toolkit show; do not load all skills.
+1. Use toolkit tools with the supplied scenario and the actual target host: codex, claude, or the editor adapter id, which lists just-vibe-<id> skill names. Read only the matching command contracts with toolkit show; do not load all skills.
 2. Answer the immediate usage question with the smallest useful invocation for the best matching available workflow, preserving all user constraints. If a candidate is unknown or blocked, name the precise missing task evidence or integration.
 3. If the user asks installation questions, use the installed setup skill or the bundled installer help. A help question is not permission to execute the recommended workflow.
 ## Technical method

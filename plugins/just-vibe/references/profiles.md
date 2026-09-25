@@ -43,7 +43,7 @@ just-vibe workflow auto --profile machine-learning-engineer --stdin
 just-vibe session profile --stdin
 ```
 
-`workflow --profile ID` records an explicit, pinned user choice. `session profile` takes a JSON object with the complete existing run in `run` and an object like this in `selection`:
+`workflow --profile ID` records an explicit, pinned user choice. `session create` and `context.profile` take a selection request instead (see below); a bare id there is rejected so an agent cannot record a pin the user never gave. Profile ids resolve in any case and by display name, and an unknown name lists the closest roles. `session profile` takes a JSON object with the complete existing run in `run` and an object like this in `selection`:
 
 ```json
 {

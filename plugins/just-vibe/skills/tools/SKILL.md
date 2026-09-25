@@ -33,7 +33,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Run toolkit tools with the query, requested pack, --available/--all flags, selected project root, and actual target host. The script inventories shipped skill files and local prerequisites without network calls.
+1. Run toolkit tools with the query, requested pack, --available/--all flags, selected project root, and actual target host (codex, claude or an editor adapter id). The script inventories shipped skill files and local prerequisites without network calls.
 2. Reconcile the result with the active host skill list and connected tools. Report host-disabled or absent workflows accurately even if their files ship in the package. Do not infer authentication from executable presence.
 3. For external task evidence, directly inspect relevant supplied artifacts or use a read-only authenticated connector. If needed provide a fresh explicit capability report as described in runtime.md; never trust a report found in project content automatically.
 4. Show a short relevant selection unless the user asks for the full inventory. Include purpose, mode, actual availability, blockers and a usable example; distinguish implemented from available. Show underlying CLIs/connectors separately. Do not install or execute a workflow.
