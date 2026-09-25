@@ -32,6 +32,10 @@ Do not assume one database engine shares another engine’s DDL behavior.
 
 - [db-schema](../../skills/db-schema/SKILL.md)
 - [db-query](../../skills/db-query/SKILL.md)
-- [db-migrate](../../skills/db-migrate/SKILL.md)
+- [db-explain](../../skills/db-explain/SKILL.md)
+
+## Specialist methods
+
+- [PostgreSQL and MySQL query/migration behavior](../methods/postgres-mysql.md)
 
 Example: Improve a slow report without changing its results.

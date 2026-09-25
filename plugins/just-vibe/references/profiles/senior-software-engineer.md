@@ -31,7 +31,7 @@ Seniority is an approach to judgment, not permission for broader scope.
 ## Candidate workflows
 
 - [arch-feature](../../skills/arch-feature/SKILL.md)
+- [build](../../skills/build/SKILL.md)
 - [review](../../skills/review/SKILL.md)
-- [test-regression](../../skills/test-regression/SKILL.md)
 
 Example: Deliver a service feature with clear tests and tradeoffs.

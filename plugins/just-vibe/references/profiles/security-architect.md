@@ -31,7 +31,7 @@ A diagram cannot substitute for checking implementation enforcement.
 ## Candidate workflows
 
 - [security-threat-model](../../skills/security-threat-model/SKILL.md)
-- [arch-boundaries](../../skills/arch-boundaries/SKILL.md)
+- [arch-tenancy](../../skills/arch-tenancy/SKILL.md)
 - [backend-permissions](../../skills/backend-permissions/SKILL.md)
 
 Example: Design isolation between tenants and administrative services.

@@ -34,4 +34,9 @@ Do not turn a routine feature request into an unsolicited broad security audit.
 - [security-authz](../../skills/security-authz/SKILL.md)
 - [security-fix](../../skills/security-fix/SKILL.md)
 
+Also relevant when the task calls for them:
+
+- [security](../../skills/security/SKILL.md)
+- [security-uploads](../../skills/security-uploads/SKILL.md)
+
 Example: Repair a cross-tenant document access flaw.

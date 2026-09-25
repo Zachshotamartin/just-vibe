@@ -30,7 +30,7 @@ Do not expand a small feature into a platform rewrite.
 
 ## Candidate workflows
 
-- [arch-feature](../../skills/arch-feature/SKILL.md)
+- [build](../../skills/build/SKILL.md)
 - [api-design](../../skills/api-design/SKILL.md)
 - [test-integration](../../skills/test-integration/SKILL.md)
 

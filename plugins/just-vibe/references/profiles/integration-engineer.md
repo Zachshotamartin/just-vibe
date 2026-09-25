@@ -34,4 +34,8 @@ Do not treat HTTP success as proof that downstream business state converged.
 - [integrate](../../skills/integrate/SKILL.md)
 - [data-reconcile](../../skills/data-reconcile/SKILL.md)
 
+Also relevant when the task calls for them:
+
+- [api-client](../../skills/api-client/SKILL.md)
+
 Example: Synchronize subscription changes from a payment provider.

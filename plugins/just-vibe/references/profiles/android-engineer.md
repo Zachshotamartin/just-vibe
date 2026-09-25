@@ -34,4 +34,8 @@ Do not assume one emulator API level covers the supported device fleet.
 - [backend-jobs](../../skills/backend-jobs/SKILL.md)
 - [test-e2e](../../skills/test-e2e/SKILL.md)
 
+## Specialist methods
+
+- [Android and Compose Multiplatform lifecycle](../methods/android-compose.md)
+
 Example: Preserve a draft through activity recreation and process death.

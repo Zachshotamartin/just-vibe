@@ -34,4 +34,8 @@ Unobserved interactions are not automatically negative preferences.
 - [ml-evaluate](../../skills/ml-evaluate/SKILL.md)
 - [ml-slices](../../skills/ml-slices/SKILL.md)
 
+## Specialist methods
+
+- [Retrieval, ranking and recommendation evaluation](../methods/recommender-systems.md)
+
 Example: Improve recommendations for users with little history.

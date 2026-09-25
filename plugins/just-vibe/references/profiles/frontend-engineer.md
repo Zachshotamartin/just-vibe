@@ -34,4 +34,13 @@ Do not replace the design system or state library merely to implement a feature.
 - [react-state](../../skills/react-state/SKILL.md)
 - [ui-states](../../skills/ui-states/SKILL.md)
 
+Also relevant when the task calls for them:
+
+- [react-async](../../skills/react-async/SKILL.md)
+- [react-forms](../../skills/react-forms/SKILL.md)
+
+## Specialist methods
+
+- [React state, async and render evidence](../methods/react-behavior.md)
+
 Example: Add a filterable catalog while preserving deep links.

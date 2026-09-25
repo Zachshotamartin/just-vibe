@@ -34,4 +34,8 @@ Do not copy production datasets outside the allowed boundary.
 - [data-incremental](../../skills/data-incremental/SKILL.md)
 - [data-reconcile](../../skills/data-reconcile/SKILL.md)
 
+Also relevant when the task calls for them:
+
+- [data-backfill](../../skills/data-backfill/SKILL.md)
+
 Example: Build a restartable daily ingestion pipeline.

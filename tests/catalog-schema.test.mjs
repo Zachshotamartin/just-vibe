@@ -48,6 +48,7 @@ test('malformed catalog content is rejected with the record and field named', ()
     ['profile unknown key', profileCase(p => { p.searchterm = ['x']; }), /searchterm is not a known field/],
     ['too many profile workflows', profileCase(p => { p.workflows = ['fix', 'debug', 'build', 'test', 'review', 'plan']; }), /workflows must be an array of 1-5/],
     ['profile links a router command', profileCase(p => { p.workflows = ['fix', 'auto', 'build']; }), /not router or catalog commands/],
+    ['profile names an unknown method', profileCase(p => { p.methods = ['no-such-method']; }), /unknown method: no-such-method/],
     ['duplicate method id', methodCase((m, d) => { d.methods.push(structuredClone(m)); }), /duplicates another method/],
     ['method triggers string', methodCase(m => { m.triggers = 'gsap'; }), /triggers/],
     ['insecure method reference', methodCase(m => { m.references[0].url = 'http://example.com'; }), /https URL/],
@@ -79,7 +80,7 @@ test('contracts that promise writes without an apply mode are rejected', () => {
 
 test('shipped catalogs satisfy the closed schemas', () => {
   assert.equal(loadCatalog().commands.length, 221);
-  assert.equal(loadProfiles().profiles.length, 112);
+  assert.equal(loadProfiles().profiles.length, 113);
   assert.ok(loadMethods().length > 0);
   assert.deepEqual(loadProfiles().profiles.find(p => p.id === 'agent-systems-engineer').workflows, ['llm-tools', 'llm-evals', 'backend-idempotency']);
 });

@@ -32,6 +32,10 @@ Do not infer thread safety or memory safety from ordinary happy-path tests.
 
 - [backend-concurrency](../../skills/backend-concurrency/SKILL.md)
 - [perf](../../skills/perf/SKILL.md)
-- [test-property](../../skills/test-property/SKILL.md)
+- [debug](../../skills/debug/SKILL.md)
+
+## Specialist methods
+
+- [Go, Rust and C++ ownership and concurrency](../methods/systems-languages.md)
 
 Example: Diagnose a resource leak in a long-running service.

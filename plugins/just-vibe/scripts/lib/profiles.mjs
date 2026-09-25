@@ -3,13 +3,17 @@ import { resolve } from 'node:path';
 import { loadCatalog, pluginRoot } from './catalog.mjs';
 import { fail, identifier, line, lines, record } from './catalog-schema.mjs';
 import { normalize } from './search.mjs';
+import { loadMethods } from './method-library.mjs';
 
 const text = value => typeof value === 'string' && Boolean(value.trim());
 // Router and catalog entry points, not role methods; a profile link to them re-enters routing.
 export const META_WORKFLOWS = ['auto', 'do', 'help', 'tools', 'setup', 'profile', 'profiles'];
 const profileFields = ['id', 'name', 'family', 'summary', 'priorities', 'decision', 'verification', 'boundary', 'workflows', 'example', 'contribution'];
 
-export function validateProfiles(data, commands = loadCatalog()) {
+// Callers that bundle the catalogs (the website) pass the method records they imported.
+export function validateProfiles(data, commands = loadCatalog(), methods = null) {
+  let known = null;
+  const methodIds = () => (known ??= new Set((methods ?? loadMethods()).map(m => m.id)));
   if (data?.schemaVersion !== 1 || !Array.isArray(data.families) || !Array.isArray(data.profiles)) throw new Error('Invalid profile catalog.');
   const families = new Set(), ids = new Set(), names = new Set();
   for (const family of data.families) {
@@ -22,12 +26,14 @@ export function validateProfiles(data, commands = loadCatalog()) {
     if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(p?.id) || ids.has(p.id) || !families.has(p.family)) throw new Error(`Invalid profile identity: ${p?.id}`);
     ids.add(p.id);
     const label = `Profile ${p.id}`;
-    record(p, label, profileFields, ['searchTerms']);
+    record(p, label, profileFields, ['searchTerms', 'methods']);
     for (const field of ['name', 'summary']) line(p[field], label, field, { table: true });
     for (const field of ['decision', 'boundary', 'example', 'contribution']) line(p[field], label, field);
     for (const field of ['priorities', 'verification']) lines(p[field], label, field, { max: 6 });
     lines(p.workflows, label, 'workflows', { max: 5, each: identifier });
     if (p.searchTerms !== undefined) lines(p.searchTerms, label, 'searchTerms', { max: 20 });
+    // Specialist method guides the role needs even when the brief lacks their trigger words.
+    if (p.methods !== undefined) lines(p.methods, label, 'methods', { max: 5, each: (id, l, f) => { identifier(id, l, f); if (!methodIds().has(id)) fail(l, f, `names an unknown method: ${id}.`); } });
     if (names.has(p.name.toLowerCase())) fail(label, 'name', 'duplicates another profile name.');
     names.add(p.name.toLowerCase());
     if (p.workflows.some(id => !commands.commands.some(c => c.id === id && !c.aliasOf))) throw new Error(`Unknown or duplicate canonical workflow in profile: ${p.id}`);

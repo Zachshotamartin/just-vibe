@@ -32,6 +32,6 @@ Do not invent vendor capabilities or treat a sales description as verified evide
 
 - [decision-buy-build](../../skills/decision-buy-build/SKILL.md)
 - [arch-feature](../../skills/arch-feature/SKILL.md)
-- [integrate](../../skills/integrate/SKILL.md)
+- [research](../../skills/research/SKILL.md)
 
 Example: Compare deployment approaches for a customer integration.

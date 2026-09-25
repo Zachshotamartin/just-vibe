@@ -6,12 +6,12 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 ## Priorities
 
-- Define the supported path, escape hatches and ownership.
+- Offer a paved path with a documented escape hatch.
 - Treat configuration and developer interfaces as versioned products.
 
 ## Decision rule
 
-Standardize recurring needs with evidence of adoption; preserve exceptions with explicit boundaries.
+Make the supported path the easiest to adopt; measure time to first deploy and failure-diagnosis time before standardizing more.
 
 ## Concrete contribution
 
@@ -21,7 +21,7 @@ For a bounded comparison, see [the same feature through different roles](../prof
 
 ## Verify when relevant
 
-- Exercise onboarding and a representative application lifecycle.
+- Time a new service from template to first deployment, including one induced failure.
 - Check upgrade compatibility and failure diagnostics.
 
 ## Boundary

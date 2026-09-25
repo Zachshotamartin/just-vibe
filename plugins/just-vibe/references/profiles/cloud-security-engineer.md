@@ -31,7 +31,7 @@ Do not disable functioning services or rotate credentials without the requested 
 ## Candidate workflows
 
 - [security-config](../../skills/security-config/SKILL.md)
-- [db-access](../../skills/db-access/SKILL.md)
+- [security-secrets](../../skills/security-secrets/SKILL.md)
 - [ops-runbook](../../skills/ops-runbook/SKILL.md)
 
 Example: Reduce overbroad access for a deployment service account.

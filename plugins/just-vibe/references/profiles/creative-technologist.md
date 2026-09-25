@@ -34,4 +34,8 @@ Do not add expensive effects that obstruct the user task.
 - [decision-spike](../../skills/decision-spike/SKILL.md)
 - [ui-responsive](../../skills/ui-responsive/SKILL.md)
 
+## Specialist methods
+
+- [Motion, visual direction and click paths](../methods/motion-design.md)
+
 Example: Prototype an interactive product demonstration.

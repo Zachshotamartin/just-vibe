@@ -34,4 +34,8 @@ Do not claim fairness or safety from a single score or checklist.
 - [ml-robustness](../../skills/ml-robustness/SKILL.md)
 - [ml-report](../../skills/ml-report/SKILL.md)
 
+Also relevant when the task calls for them:
+
+- [ml-explain](../../skills/ml-explain/SKILL.md)
+
 Example: Assess unequal model error across affected user groups.

@@ -34,4 +34,9 @@ Do not treat vulnerability counts alone as exploitability or remediation priorit
 - [github-actions](../../skills/github-actions/SKILL.md)
 - [release](../../skills/release/SKILL.md)
 
+## Specialist methods
+
+- [Release provenance and compatibility maintenance](../methods/release-maintenance.md)
+- [Flox, containers and reproducible development](../methods/reproducible-environments.md)
+
 Example: Review a release pipeline that consumes pull-request artifacts.

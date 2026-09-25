@@ -30,8 +30,13 @@ Do not add brittle assertions that merely mirror the implementation.
 
 ## Candidate workflows
 
-- [test-regression](../../skills/test-regression/SKILL.md)
+- [test-unit](../../skills/test-unit/SKILL.md)
 - [test-integration](../../skills/test-integration/SKILL.md)
 - [test-e2e](../../skills/test-e2e/SKILL.md)
+
+Also relevant when the task calls for them:
+
+- [test-regression](../../skills/test-regression/SKILL.md)
+- [agent-qa](../../skills/agent-qa/SKILL.md)
 
 Example: Add coverage for checkout failures and recovery.

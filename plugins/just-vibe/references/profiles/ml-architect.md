@@ -31,7 +31,11 @@ Do not equate a model architecture choice with a complete production system desi
 ## Candidate workflows
 
 - [ml-frame](../../skills/ml-frame/SKILL.md)
-- [ml-serving](../../skills/ml-serving/SKILL.md)
+- [ml-rollout](../../skills/ml-rollout/SKILL.md)
 - [arch-contracts](../../skills/arch-contracts/SKILL.md)
 
-Example: Design a shared prediction platform with safe model upgrades.
+Also relevant when the task calls for them:
+
+- [ml-drift](../../skills/ml-drift/SKILL.md)
+
+Example: Design the data-to-decision lifecycle for a fraud model with delayed labels, online features and a rollback path.

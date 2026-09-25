@@ -34,4 +34,8 @@ Automating training does not authorize paid runs or model promotion.
 - [ml-rollout](../../skills/ml-rollout/SKILL.md)
 - [ml-monitor](../../skills/ml-monitor/SKILL.md)
 
+Also relevant when the task calls for them:
+
+- [ml-batch](../../skills/ml-batch/SKILL.md)
+
 Example: Create a traceable model release pipeline.

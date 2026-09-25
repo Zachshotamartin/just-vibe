@@ -30,8 +30,16 @@ Do not enforce personal editor or shell preferences across a team.
 
 ## Candidate workflows
 
-- [doctor](../../skills/doctor/SKILL.md)
-- [vite-hmr](../../skills/vite-hmr/SKILL.md)
+- [orient](../../skills/orient/SKILL.md)
 - [docs](../../skills/docs/SKILL.md)
+- [vite-hmr](../../skills/vite-hmr/SKILL.md)
+
+Also relevant when the task calls for them:
+
+- [vite-config](../../skills/vite-config/SKILL.md)
+
+## Specialist methods
+
+- [Flox, containers and reproducible development](../methods/reproducible-environments.md)
 
 Example: Shorten a slow local development feedback loop.

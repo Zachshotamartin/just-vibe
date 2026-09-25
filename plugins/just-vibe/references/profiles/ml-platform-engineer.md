@@ -11,7 +11,7 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 ## Decision rule
 
-Provide a supported default with explicit escape hatches for unusual workloads.
+Record code, data, environment and hardware identity in the job interface so any run can be reproduced and compared.
 
 ## Concrete contribution
 
@@ -21,7 +21,7 @@ For a bounded comparison, see [the same feature through different roles](../prof
 
 ## Verify when relevant
 
-- Exercise onboarding, resource limits and reproducibility.
+- Rerun a representative job from its recorded identity and compare outputs.
 - Test platform upgrades against representative models.
 
 ## Boundary

@@ -34,4 +34,9 @@ Do not present synthetic scores as field experience.
 - [vite-bundle](../../skills/vite-bundle/SKILL.md)
 - [react-rerenders](../../skills/react-rerenders/SKILL.md)
 
+Also relevant when the task calls for them:
+
+- [vite-chunks](../../skills/vite-chunks/SKILL.md)
+- [vercel-performance](../../skills/vercel-performance/SKILL.md)
+
 Example: Diagnose slow filter interactions on a product grid.

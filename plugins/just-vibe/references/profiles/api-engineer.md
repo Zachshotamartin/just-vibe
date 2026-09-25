@@ -34,4 +34,9 @@ An OpenAPI document alone does not establish deployed behavior.
 - [api-breaking](../../skills/api-breaking/SKILL.md)
 - [api-contract-test](../../skills/api-contract-test/SKILL.md)
 
+Also relevant when the task calls for them:
+
+- [api-errors](../../skills/api-errors/SKILL.md)
+- [api-openapi](../../skills/api-openapi/SKILL.md)
+
 Example: Introduce cursor pagination without breaking existing clients.

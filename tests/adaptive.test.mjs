@@ -94,6 +94,7 @@ test('a task role carries across prompts and compaction, and a saved preference 
   const second = f.start('now fix the modal focus bug');
   assert.equal(second.profile.primary, 'frontend-engineer'); assert.equal(second.profile.pinned, true);
   assert.match(activationContext(f.store, catalog, second), /Active task profile: frontend-engineer \(pinned by the user\)/);
+  assert.match(activationContext(f.store, catalog, second), /Role methods for frontend-engineer: react-behavior/, 'The pinned role brings its specialist method (PB-07)');
   assert.match(f.hook({ hook_event_name: 'SessionStart', source: 'compact' }).hookSpecificOutput.additionalContext, /Active task profile: frontend-engineer/);
   assert.throws(() => f.run('select', { taskId: second.id, workflows: ['ui-states'], mode: 'apply', reason: 'x', profile: { primary: 'backend-engineer', selectedBy: 'agent', reason: 'Agent prefers backend.' } }), /pinned user profile/);
   f.run('select', { taskId: second.id, workflows: ['ui-states'], mode: 'apply', reason: 'x', profile: { primary: null, selectedBy: 'user', reason: 'User cleared the role.' } });

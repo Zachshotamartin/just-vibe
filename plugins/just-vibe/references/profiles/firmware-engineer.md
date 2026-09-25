@@ -32,6 +32,6 @@ Do not flash hardware or alter device security settings without the requested ta
 
 - [security-config](../../skills/security-config/SKILL.md)
 - [test-fixtures](../../skills/test-fixtures/SKILL.md)
-- [ops-restore](../../skills/ops-restore/SKILL.md)
+- [test-property](../../skills/test-property/SKILL.md)
 
 Example: Review a firmware update flow for power-loss recovery.

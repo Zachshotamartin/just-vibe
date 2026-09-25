@@ -34,4 +34,8 @@ Use the project SDK and deployment target; do not claim unrun device checks.
 - [backend-concurrency](../../skills/backend-concurrency/SKILL.md)
 - [test-e2e](../../skills/test-e2e/SKILL.md)
 
+## Specialist methods
+
+- [SwiftUI, actors and Swift concurrency](../methods/swift-concurrency.md)
+
 Example: Repair a form that loses edits after backgrounding.

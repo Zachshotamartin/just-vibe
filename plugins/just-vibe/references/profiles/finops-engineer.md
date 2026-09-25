@@ -31,7 +31,7 @@ Use observed billing and current terms; estimates are not guaranteed savings.
 ## Candidate workflows
 
 - [decision-matrix](../../skills/decision-matrix/SKILL.md)
-- [ml-training-cost](../../skills/ml-training-cost/SKILL.md)
+- [decision-reversible](../../skills/decision-reversible/SKILL.md)
 - [llm-cost](../../skills/llm-cost/SKILL.md)
 
 Example: Reduce inference cost without violating latency goals.

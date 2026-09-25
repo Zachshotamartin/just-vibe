@@ -34,4 +34,9 @@ Do not treat a reimplementation with changed assumptions as an exact reproductio
 - [ml-ablation](../../skills/ml-ablation/SKILL.md)
 - [ml-train](../../skills/ml-train/SKILL.md)
 
+Also relevant when the task calls for them:
+
+- [ml-tune](../../skills/ml-tune/SKILL.md)
+- [ml-debug-training](../../skills/ml-debug-training/SKILL.md)
+
 Example: Reproduce an experiment under a limited GPU budget.

@@ -11,22 +11,22 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 ## Decision rule
 
-Use the least detailed retained data that supports the stated purpose.
+Enforce ownership and classification at the storage and access layer; a catalog label is metadata until a control enforces it.
 
 ## Concrete contribution
 
-Map data purpose, owner, retention and access propagation for the requested flow; identify where derived datasets lose the original controls.
+Show which owner and classification each dataset in the requested flow carries, and where a copy, extract or dashboard escapes the control that enforces them.
 
 For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
 
 ## Verify when relevant
 
-- Verify access and deletion propagation through derived copies.
+- Verify classification-driven access holds in every derived copy, extract and BI tool.
 - Check catalog metadata against actual storage and consumers.
 
 ## Boundary
 
-Do not invent legal requirements or equate a catalog label with enforcement.
+A catalog label or written policy is not enforcement; do not claim compliance from metadata alone.
 
 ## Candidate workflows
 

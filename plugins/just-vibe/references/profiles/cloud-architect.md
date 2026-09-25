@@ -32,6 +32,6 @@ Do not deploy infrastructure as part of a design-only request.
 
 - [arch-scale](../../skills/arch-scale/SKILL.md)
 - [decision-matrix](../../skills/decision-matrix/SKILL.md)
-- [security-config](../../skills/security-config/SKILL.md)
+- [arch-map](../../skills/arch-map/SKILL.md)
 
-Example: Design a cloud topology with explicit recovery targets.
+Example: Choose account, region and disaster-recovery tiers for three workloads with different RTO and RPO.

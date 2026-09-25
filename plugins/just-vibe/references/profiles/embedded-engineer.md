@@ -26,7 +26,7 @@ For a bounded comparison, see [the same feature through different roles](../prof
 
 ## Boundary
 
-Host tests do not establish hardware timing or electrical safety.
+Host tests do not establish hardware timing or electrical safety. Do not flash, reset or power-cycle target hardware without the named device and authority.
 
 ## Candidate workflows
 

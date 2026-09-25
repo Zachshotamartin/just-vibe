@@ -34,4 +34,9 @@ A better offline score does not authorize deployment or establish business impac
 - [ml-baseline](../../skills/ml-baseline/SKILL.md)
 - [ml-parity](../../skills/ml-parity/SKILL.md)
 
+Also relevant when the task calls for them:
+
+- [ml-imbalance](../../skills/ml-imbalance/SKILL.md)
+- [ml-debug-training](../../skills/ml-debug-training/SKILL.md)
+
 Example: Build a churn model with point-in-time features.

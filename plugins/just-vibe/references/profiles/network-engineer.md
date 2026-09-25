@@ -34,4 +34,8 @@ Do not infer end-to-end connectivity from a single open port.
 - [security-config](../../skills/security-config/SKILL.md)
 - [ops-incident](../../skills/ops-incident/SKILL.md)
 
+## Specialist methods
+
+- [Cisco, BGP, VLAN and WireGuard operations](../methods/network-operations.md)
+
 Example: Diagnose intermittent connectivity between two services.

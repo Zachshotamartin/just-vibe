@@ -18,7 +18,7 @@ The v0.4 release adds 21 passing supplied-instruction Codex fixture trials and a
 
 ## v0.5 profile support
 
-The profile/profile-discovery skills and all 112 role guides ship in both host payloads. Profile selection is task context: user pins are protected by the run-state utilities, and no host-global preference is installed. Native installation checks cover the 215-skill payload; they do not establish profession-specific agent behavior. See the [v0.5 validation record](../evals/releases/0.5.0.md).
+The profile/profile-discovery skills and all 113 role guides ship in both host payloads. Profile selection is task context: user pins are protected by the run-state utilities, and no host-global preference is installed. Native installation checks cover the 215-skill payload; they do not establish profession-specific agent behavior. See the [v0.5 validation record](../evals/releases/0.5.0.md).
 
 ## v0.7 daily workflow support
 

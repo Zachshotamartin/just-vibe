@@ -2,6 +2,7 @@ import { releaseManifest } from '../../../plugins/just-vibe/scripts/lib/release-
 import source from '../../../plugins/just-vibe/catalog/commands.json' with { type: 'json' };
 import packSource from '../../../plugins/just-vibe/catalog/packs.json' with { type: 'json' };
 import roles from '../../../plugins/just-vibe/catalog/profiles.json' with { type: 'json' };
+import methodSource from '../../../plugins/just-vibe/catalog/methods.json' with { type: 'json' };
 import pkg from '../../../package.json' with { type: 'json' };
 import {
   materializeAliases,
@@ -24,7 +25,7 @@ const catalog = materializeAliases({
 });
 validateCatalog(catalog, packSource);
 // Profiles use the same rules as the CLI: known canonical workflows, closed fields, unique names.
-validateProfiles(roles, catalog);
+validateProfiles(roles, catalog, methodSource.methods);
 export const commands = catalog.commands;
 export const packs = packSource.packs;
 export const profiles = roles.profiles;

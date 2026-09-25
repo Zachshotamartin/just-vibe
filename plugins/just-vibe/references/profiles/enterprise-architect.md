@@ -22,7 +22,7 @@ For a bounded comparison, see [the same feature through different roles](../prof
 ## Verify when relevant
 
 - Check transition states and dependencies across affected systems.
-- Assign decision owners and measurable review points.
+- Name the accountable decision role (or mark it unassigned) and measurable review points.
 
 ## Boundary
 

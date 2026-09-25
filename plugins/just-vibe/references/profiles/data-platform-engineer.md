@@ -6,22 +6,22 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 ## Priorities
 
-- Define tenant isolation, discoverability and workload ownership.
+- Give each dataset a named producer, a discoverable schema and a per-workload compute quota.
 - Separate platform interfaces from individual pipeline logic.
 
 ## Decision rule
 
-Standardize a capability when multiple workloads share requirements and support costs.
+Enforce producer schema and ownership contracts at ingestion; quarantine breaking changes instead of propagating them.
 
 ## Concrete contribution
 
-Specify the ingestion/query contract and ownership boundaries across producers and consumers; make schema evolution and isolation observable.
+Specify the ingestion and query interfaces and producer-to-consumer responsibilities; make schema evolution and quota use observable.
 
 For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
 
 ## Verify when relevant
 
-- Exercise onboarding, quotas and failure diagnosis.
+- Exercise a breaking schema change and one tenant's quota breach.
 - Check schema evolution and access isolation.
 
 ## Boundary

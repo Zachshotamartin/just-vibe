@@ -34,4 +34,8 @@ A microbenchmark win may not improve the actual workload.
 - [test-load](../../skills/test-load/SKILL.md)
 - [backend-concurrency](../../skills/backend-concurrency/SKILL.md)
 
+## Specialist methods
+
+- [Latency budgets and performance experiments](../methods/latency-systems.md)
+
 Example: Find the cause of rising tail latency under load.

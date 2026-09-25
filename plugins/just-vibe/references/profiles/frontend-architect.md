@@ -34,4 +34,8 @@ Do not introduce microfrontends or a framework migration without a concrete need
 - [react-state](../../skills/react-state/SKILL.md)
 - [ui-system](../../skills/ui-system/SKILL.md)
 
+Also relevant when the task calls for them:
+
+- [react-hydration](../../skills/react-hydration/SKILL.md)
+
 Example: Plan frontend boundaries for several product teams.

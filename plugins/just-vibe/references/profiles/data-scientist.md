@@ -11,7 +11,7 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 ## Decision rule
 
-Use descriptive conclusions when the design cannot support causal claims.
+Use descriptive or predictive conclusions when the design cannot support causal claims; route intervention-effect estimation to causal-inference-scientist.
 
 ## Concrete contribution
 
@@ -34,4 +34,4 @@ Statistical significance is not practical impact or causation.
 - [ml-evaluate](../../skills/ml-evaluate/SKILL.md)
 - [decision-spike](../../skills/decision-spike/SKILL.md)
 
-Example: Assess whether an onboarding change improved activation.
+Example: Quantify which acquisition channels have the highest 90-day retention, with uncertainty and a decision implication.

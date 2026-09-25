@@ -34,4 +34,8 @@ A role, plan or tool suggestion never grants new authority.
 - [llm-evals](../../skills/llm-evals/SKILL.md)
 - [backend-idempotency](../../skills/backend-idempotency/SKILL.md)
 
+## Specialist methods
+
+- [Agent harness and MCP server engineering](../methods/agent-harness.md)
+
 Example: Design an agent that can recover from a failed diagnostic step.

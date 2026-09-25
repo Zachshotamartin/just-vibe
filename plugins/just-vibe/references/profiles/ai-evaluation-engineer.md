@@ -34,4 +34,8 @@ Passing public fixtures is not a universal quality claim.
 - [ml-evaluate](../../skills/ml-evaluate/SKILL.md)
 - [test-regression](../../skills/test-regression/SKILL.md)
 
+Also relevant when the task calls for them:
+
+- [ml-calibrate](../../skills/ml-calibrate/SKILL.md)
+
 Example: Create a held-out evaluation for a tool-using assistant.

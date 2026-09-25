@@ -34,4 +34,8 @@ Do not broadcast transactions, spend funds or handle production keys without exp
 - [security-authz](../../skills/security-authz/SKILL.md)
 - [test-property](../../skills/test-property/SKILL.md)
 
+## Specialist methods
+
+- [AMMs, EVM arithmetic and oracle boundaries](../methods/blockchain-protocols.md)
+
 Example: Design a ledger event indexer that tolerates reorganizations.

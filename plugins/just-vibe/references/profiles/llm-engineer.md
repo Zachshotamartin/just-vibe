@@ -30,7 +30,7 @@ Do not treat fluent output or valid JSON as factual correctness.
 
 ## Candidate workflows
 
-- [llm-prompt](../../skills/llm-prompt/SKILL.md)
+- [llm-rag](../../skills/llm-rag/SKILL.md)
 - [llm-structured](../../skills/llm-structured/SKILL.md)
 - [llm-injection](../../skills/llm-injection/SKILL.md)
 

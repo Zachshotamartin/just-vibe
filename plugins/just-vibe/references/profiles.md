@@ -8,6 +8,7 @@ After selecting a workflow, apply its technical method and matching references. 
 
 When a selected role produces or reviews frontend work, apply [frontend iconography](frontend-icons.md): no agent-added emojis unless explicitly requested, and no text-glyph substitutes for icons. A profile's tone or specialty does not opt into emojis.
 
+- Each role lists three primary candidate workflows and up to two more that apply when the task calls for them; stack-specific links (git, GitHub, Vercel, Vite, React) apply only when the project uses that stack. Roles with specialist method guides list them too.
 - Choose one primary profile and at most two distinct secondary profiles when they add a concrete focus. The primary role resolves emphasis; secondary roles contribute relevant checks. Do not load the whole catalog into every task.
 - An explicit user choice is pinned for the current task by default. The agent may select an unpinned role from the task goal and observed project evidence. State the choice and reason briefly once; do not interrupt simple work to select a role.
 - The agent cannot replace or clear a user pin. An explicit user request to change or clear it can. For an explicit `auto` request, first record the user clearing the previous pin, then let the agent choose with a task-based reason. Do not label an inferred preference as a user request.

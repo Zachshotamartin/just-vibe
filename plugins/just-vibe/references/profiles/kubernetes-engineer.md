@@ -34,4 +34,8 @@ Do not mutate a cluster from a local manifest review.
 - [ops-runbook](../../skills/ops-runbook/SKILL.md)
 - [backend-resilience](../../skills/backend-resilience/SKILL.md)
 
+## Specialist methods
+
+- [Kubernetes release and failure recovery](../methods/kubernetes-release.md)
+
 Example: Diagnose a rollout that drops in-flight requests.
