@@ -20,7 +20,7 @@ Use the complete request appended to this invocation, preserving all constraints
 the decision question, constraints, alternatives or permission to identify them, and relevant project evidence. Current vendor claims and prices require current authoritative sources during execution. Scores are decision aids, not facts.
 
 - **Infer from evidence:** Recover hard constraints, the current option, adoption status and stated priorities from the brief and prior decisions.
-- **Reasonable default:** Compare feasible options qualitatively when weights were not supplied; make a reversible conditional recommendation when useful.
+- **Reasonable default:** Keep status proposed without adoption evidence; follow the existing ADR numbering and location.
 - **Ask only when needed:** Ask only about a missing constraint or preference that could reverse the recommendation; do not demand a complete scoring questionnaire.
 
 Resolve any task-specific tools, target identity and evidence before dependent actions. No external connection is assumed.
@@ -45,11 +45,12 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 ## Read when relevant
 
 - When a concrete decision or deliverable example would clarify this workflow: [Decisions worked example](../../references/examples/decisions.md).
-
+- The user wants reconsideration triggers recorded with the decision: [Decision history](../../references/decision-history.md).
 
 ## Decision branches
 
 - **When adoption is not confirmed:** Keep status proposed and distinguish the recommendation from actual agreement.
+- **When the user wants reconsideration triggers:** Also record the decision with decision save, tying its assumptions to watched files or numeric triggers.
 
 ## Deliver and verify
 

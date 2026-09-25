@@ -1444,7 +1444,7 @@
         {
           "kind": "edge",
           "mode": "inspect",
-          "brief": "Review a PR with unrelated pre-existing warnings and a recently rebased head."
+          "brief": "Review my rebased branch against main where main already has unrelated warnings."
         },
         {
           "kind": "blocked",
@@ -3073,7 +3073,7 @@
       ],
       "inputPolicy": {
         "infer": "Recover hard constraints, the current option, adoption status and stated priorities from the brief and prior decisions.",
-        "assume": "Compare feasible options qualitatively when weights were not supplied; make a reversible conditional recommendation when useful.",
+        "assume": "When only a priority order is given, derive provisional weights from it, show them, and report whether plausible reweighting changes the winner.",
         "ask": "Ask only about a missing constraint or preference that could reverse the recommendation; do not demand a complete scoring questionnaire."
       },
       "rubric": [
@@ -3121,7 +3121,7 @@
       ],
       "inputPolicy": {
         "infer": "Recover hard constraints, the current option, adoption status and stated priorities from the brief and prior decisions.",
-        "assume": "Compare feasible options qualitatively when weights were not supplied; make a reversible conditional recommendation when useful.",
+        "assume": "Keep status proposed without adoption evidence; follow the existing ADR numbering and location.",
         "ask": "Ask only about a missing constraint or preference that could reverse the recommendation; do not demand a complete scoring questionnaire."
       },
       "rubric": [
@@ -3169,7 +3169,7 @@
       ],
       "inputPolicy": {
         "infer": "Recover hard constraints, the current option, adoption status and stated priorities from the brief and prior decisions.",
-        "assume": "Compare feasible options qualitatively when weights were not supplied; make a reversible conditional recommendation when useful.",
+        "assume": "State the failure definition and time horizon as assumptions before listing causes.",
         "ask": "Ask only about a missing constraint or preference that could reverse the recommendation; do not demand a complete scoring questionnaire."
       },
       "rubric": [
@@ -3313,7 +3313,7 @@
       ],
       "inputPolicy": {
         "infer": "Recover hard constraints, the current option, adoption status and stated priorities from the brief and prior decisions.",
-        "assume": "Compare feasible options qualitatively when weights were not supplied; make a reversible conditional recommendation when useful.",
+        "assume": "Without a stated budget, propose a time box and stop rule before any run.",
         "ask": "Ask only about a missing constraint or preference that could reverse the recommendation; do not demand a complete scoring questionnaire."
       },
       "rubric": [
@@ -3696,7 +3696,7 @@
       "id": "git-worktree",
       "pack": "git",
       "brief": "Create an isolated worktree from the specified branch at the requested path.",
-      "mode": "plan",
+      "mode": "apply",
       "requiredEvidence": [
         "path, branch/ref, and intended operation."
       ],
@@ -5049,7 +5049,7 @@
     {
       "id": "react-effects",
       "pack": "react",
-      "brief": "Fix stale account data caused by effect request races.",
+      "brief": "Fix the chat subscription that never unsubscribes, so messages from the previous room keep arriving after switching rooms.",
       "mode": "apply",
       "requiredEvidence": [
         "component, symptom, and expected synchronization."
@@ -5060,7 +5060,7 @@
         "ask": "Ask when product semantics such as persistence, optimistic failure or reset behavior have conflicting evidence; missing profiler access only blocks measured performance claims."
       },
       "rubric": [
-        "Account changes do not show stale responses; repeated setup/cleanup does not leak subscriptions or duplicate effects.",
+        "Repeated setup and cleanup does not leak subscriptions, timers or listeners; effects rerun only when their real dependencies change and read current values.",
         "Exercise changed inputs, remount and unmount with controlled timers/promises and verify listeners, requests and subscriptions are released."
       ],
       "technicalMethod": {
@@ -5074,18 +5074,18 @@
       ],
       "cases": [
         {
-          "brief": "Fix stale account data caused by effect request races.",
+          "brief": "Fix the chat subscription that never unsubscribes, so messages from the previous room keep arriving after switching rooms.",
           "mode": "apply"
         },
         {
           "kind": "edge",
           "mode": "apply",
-          "brief": "Fix an account panel where a late response from the prior account overwrites the current one."
+          "brief": "Fix an effect loop caused by an options object recreated on every render."
         },
         {
           "kind": "blocked",
           "mode": "inspect",
-          "brief": "Audit effect source without reproducing browser timing; identify the required controlled race test."
+          "brief": "Audit effect cleanup without reproducing it in a browser; identify the controlled test needed to confirm a leak."
         }
       ],
       "invariants": [
@@ -8747,7 +8747,7 @@
     {
       "id": "ml-rollout",
       "pack": "ml-deployment",
-      "brief": "Prepare a canary rollout and rollback plan; do not change production traffic.",
+      "brief": "Prepare a canary rollout and rollback plan for the new ranking model; do not change production traffic.",
       "mode": "plan",
       "requiredEvidence": [
         "candidate/stable models, target service, evaluation evidence, traffic constraints, and rollback thresholds."
@@ -8772,7 +8772,7 @@
       ],
       "cases": [
         {
-          "brief": "Prepare a canary rollout and rollback plan; do not change production traffic.",
+          "brief": "Prepare a canary rollout and rollback plan for the new ranking model; do not change production traffic.",
           "mode": "plan"
         },
         {
@@ -9186,7 +9186,7 @@
       ],
       "inputPolicy": {
         "infer": "Read behavior contracts, existing runners and test conventions; distinguish fixture setup failure from a behavioral failure.",
-        "assume": "Use the smallest existing local runner and isolated synthetic fixtures that distinguish the requested behavior.",
+        "assume": "Use the smallest existing local runner and isolated synthetic fixtures that distinguish the requested behavior. When the method needs a library, runner, container runtime or load tool the project lacks, name the exact package or tool, the files it changes and any download, and add it only when the request authorizes new dev dependencies or tools; label a hand-written generator without shrinking, or a fake in place of a real dependency, as such.",
         "ask": "Ask about an unresolved contract that changes the expected result, or the target/load limits before external testing; do not ask the user to choose a runner already configured."
       },
       "rubric": [
@@ -9234,7 +9234,7 @@
       ],
       "inputPolicy": {
         "infer": "Read behavior contracts, existing runners and test conventions; distinguish fixture setup failure from a behavioral failure.",
-        "assume": "Use the smallest existing local runner and isolated synthetic fixtures that distinguish the requested behavior.",
+        "assume": "Use the smallest existing local runner and isolated synthetic fixtures that distinguish the requested behavior. When the method needs a library, runner, container runtime or load tool the project lacks, name the exact package or tool, the files it changes and any download, and add it only when the request authorizes new dev dependencies or tools; label a hand-written generator without shrinking, or a fake in place of a real dependency, as such.",
         "ask": "Ask about an unresolved contract that changes the expected result, or the target/load limits before external testing; do not ask the user to choose a runner already configured."
       },
       "rubric": [
@@ -9282,7 +9282,7 @@
       ],
       "inputPolicy": {
         "infer": "Read behavior contracts, existing runners and test conventions; distinguish fixture setup failure from a behavioral failure.",
-        "assume": "Use the smallest existing local runner and isolated synthetic fixtures that distinguish the requested behavior.",
+        "assume": "Use the smallest existing local runner and isolated synthetic fixtures that distinguish the requested behavior. When the method needs a library, runner, container runtime or load tool the project lacks, name the exact package or tool, the files it changes and any download, and add it only when the request authorizes new dev dependencies or tools; label a hand-written generator without shrinking, or a fake in place of a real dependency, as such.",
         "ask": "Ask about an unresolved contract that changes the expected result, or the target/load limits before external testing; do not ask the user to choose a runner already configured."
       },
       "rubric": [
@@ -9330,7 +9330,7 @@
       ],
       "inputPolicy": {
         "infer": "Read behavior contracts, existing runners and test conventions; distinguish fixture setup failure from a behavioral failure.",
-        "assume": "Use the smallest existing local runner and isolated synthetic fixtures that distinguish the requested behavior.",
+        "assume": "Use the smallest existing local runner and isolated synthetic fixtures that distinguish the requested behavior. When the method needs a library, runner, container runtime or load tool the project lacks, name the exact package or tool, the files it changes and any download, and add it only when the request authorizes new dev dependencies or tools; label a hand-written generator without shrinking, or a fake in place of a real dependency, as such.",
         "ask": "Ask about an unresolved contract that changes the expected result, or the target/load limits before external testing; do not ask the user to choose a runner already configured."
       },
       "rubric": [
@@ -9378,7 +9378,7 @@
       ],
       "inputPolicy": {
         "infer": "Read behavior contracts, existing runners and test conventions; distinguish fixture setup failure from a behavioral failure.",
-        "assume": "Use the smallest existing local runner and isolated synthetic fixtures that distinguish the requested behavior.",
+        "assume": "Use the smallest existing local runner and isolated synthetic fixtures that distinguish the requested behavior. When the method needs a library, runner, container runtime or load tool the project lacks, name the exact package or tool, the files it changes and any download, and add it only when the request authorizes new dev dependencies or tools; label a hand-written generator without shrinking, or a fake in place of a real dependency, as such.",
         "ask": "Ask about an unresolved contract that changes the expected result, or the target/load limits before external testing; do not ask the user to choose a runner already configured."
       },
       "rubric": [
@@ -9426,7 +9426,7 @@
       ],
       "inputPolicy": {
         "infer": "Read behavior contracts, existing runners and test conventions; distinguish fixture setup failure from a behavioral failure.",
-        "assume": "Use the smallest existing local runner and isolated synthetic fixtures that distinguish the requested behavior.",
+        "assume": "Use the smallest existing local runner and isolated synthetic fixtures that distinguish the requested behavior. When the method needs a library, runner, container runtime or load tool the project lacks, name the exact package or tool, the files it changes and any download, and add it only when the request authorizes new dev dependencies or tools; label a hand-written generator without shrinking, or a fake in place of a real dependency, as such.",
         "ask": "Ask about an unresolved contract that changes the expected result, or the target/load limits before external testing; do not ask the user to choose a runner already configured."
       },
       "rubric": [
@@ -9474,7 +9474,7 @@
       ],
       "inputPolicy": {
         "infer": "Read behavior contracts, existing runners and test conventions; distinguish fixture setup failure from a behavioral failure.",
-        "assume": "Use the smallest existing local runner and isolated synthetic fixtures that distinguish the requested behavior.",
+        "assume": "Use the smallest existing local runner and isolated synthetic fixtures that distinguish the requested behavior. When the method needs a library, runner, container runtime or load tool the project lacks, name the exact package or tool, the files it changes and any download, and add it only when the request authorizes new dev dependencies or tools; label a hand-written generator without shrinking, or a fake in place of a real dependency, as such.",
         "ask": "Ask about an unresolved contract that changes the expected result, or the target/load limits before external testing; do not ask the user to choose a runner already configured."
       },
       "rubric": [
@@ -9526,7 +9526,7 @@
       ],
       "inputPolicy": {
         "infer": "Read behavior contracts, existing runners and test conventions; distinguish fixture setup failure from a behavioral failure.",
-        "assume": "Use the smallest existing local runner and isolated synthetic fixtures that distinguish the requested behavior.",
+        "assume": "Use the smallest existing local runner and isolated synthetic fixtures that distinguish the requested behavior. When the method needs a library, runner, container runtime or load tool the project lacks, name the exact package or tool, the files it changes and any download, and add it only when the request authorizes new dev dependencies or tools; label a hand-written generator without shrinking, or a fake in place of a real dependency, as such.",
         "ask": "Ask about an unresolved contract that changes the expected result, or the target/load limits before external testing; do not ask the user to choose a runner already configured."
       },
       "rubric": [
@@ -10343,7 +10343,7 @@
     {
       "id": "setup",
       "pack": "installation",
-      "brief": "Check my just-vibe installation without changing it.",
+      "brief": "Install just-vibe for Claude Code at user scope.",
       "mode": "apply",
       "requiredEvidence": [
         "Requested operation and target host; Claude scope when applicable."
@@ -10368,8 +10368,8 @@
       ],
       "cases": [
         {
-          "brief": "Check my just-vibe installation without changing it.",
-          "mode": "inspect"
+          "brief": "Install just-vibe for Claude Code at user scope.",
+          "mode": "apply"
         },
         {
           "kind": "edge",
@@ -10654,7 +10654,7 @@
       ],
       "inputPolicy": {
         "infer": "Read behavior contracts, existing runners and test conventions; distinguish fixture setup failure from a behavioral failure.",
-        "assume": "Use the smallest existing local runner and isolated synthetic fixtures that distinguish the requested behavior.",
+        "assume": "Use the smallest existing local runner and isolated synthetic fixtures that distinguish the requested behavior. When the method needs a library, runner, container runtime or load tool the project lacks, name the exact package or tool, the files it changes and any download, and add it only when the request authorizes new dev dependencies or tools; label a hand-written generator without shrinking, or a fake in place of a real dependency, as such.",
         "ask": "Ask about an unresolved contract that changes the expected result, or the target/load limits before external testing; do not ask the user to choose a runner already configured."
       },
       "rubric": [

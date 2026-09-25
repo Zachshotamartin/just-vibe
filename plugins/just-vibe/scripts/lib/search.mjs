@@ -26,6 +26,7 @@ const PHRASES = [
   [/\broll(?:ing|ed|s)?\s+back\b/g, ' rollback '],
   [/\bset(?:ting|s)?\s+up\b/g, ' setup '],
   [/\blog(?:ging|s)?\s+in\b/g, ' login '],
+  [/\bhook(?:s|ed|ing)?\s+(?:(?:it|this|them|that)\s+)?up\b/g, ' integrate '],
   [/\bsign(?:ing|ed|s)?\s+(?:up|in)\b/g, ' signin '],
   [/\bre-?render(?:s|ing|ed)?\b/g, ' rerender '],
   [/\bfront[-\s]end\b/g, ' frontend '],

@@ -1,6 +1,6 @@
 ---
 name: react-async
-description: "Fix loading races, cancellation, stale responses, and async behavior Use for request races, optimistic updates and async states; react-effects handles general lifecycle synchronization."
+description: "Fix loading races, cancellation, stale responses, and async behavior Use for request races, optimistic updates and async states; react-effects handles effect lifetime, subscriptions and cleanup."
 ---
 
 # react-async
@@ -9,7 +9,7 @@ Fix loading races, cancellation, stale responses, and async behavior
 
 ## Choose this workflow
 
-Use for request races, optimistic updates and async states; react-effects handles general lifecycle synchronization.
+Use for request races, optimistic updates and async states; react-effects handles effect lifetime, subscriptions and cleanup.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [React methods](../../references/packs/react.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 

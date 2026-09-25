@@ -1,6 +1,6 @@
 ---
 name: deploy
-description: "Prepare or perform deployment within the requested authorization Use for an explicitly targeted deployment or its plan; vercel-preview is the Vercel preview specialization."
+description: "Prepare or perform deployment within the requested authorization Use for an explicitly targeted deployment or its plan; vercel-preview is the Vercel preview specialization, and ml-rollout promotes model versions on prediction metrics."
 ---
 
 # deploy
@@ -9,7 +9,7 @@ Prepare or perform deployment within the requested authorization
 
 ## Choose this workflow
 
-Use for an explicitly targeted deployment or its plan; vercel-preview is the Vercel preview specialization.
+Use for an explicitly targeted deployment or its plan; vercel-preview is the Vercel preview specialization, and ml-rollout promotes model versions on prediction metrics.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [General methods](../../references/packs/general.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 

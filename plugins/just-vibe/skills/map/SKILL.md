@@ -1,11 +1,11 @@
 ---
 name: map
-description: "Produce an architecture or dependency map Use for module dependencies inside a repository; arch-map covers deployed services and stores."
+description: "Map module and package imports inside a repository, including cycles and dynamic edges Use for module dependencies inside a repository; arch-map covers deployed services and stores."
 ---
 
 # map
 
-Produce an architecture or dependency map
+Map module and package imports inside a repository, including cycles and dynamic edges
 
 ## Choose this workflow
 

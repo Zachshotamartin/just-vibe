@@ -1,6 +1,6 @@
 ---
 name: llm-prompt
-description: "Improve prompts against measured failures and explicit requirements Use to improve a specified prompt under evidence; teach explains prompting concepts without running optimization."
+description: "Improve prompts against measured failures and explicit requirements Use to improve a prompt that ships in an application, measured against failing and control cases; reprompt rewrites a one-off prompt for an AI session and teach explains prompting concepts."
 ---
 
 # llm-prompt
@@ -9,7 +9,7 @@ Improve prompts against measured failures and explicit requirements
 
 ## Choose this workflow
 
-Use to improve a specified prompt under evidence; teach explains prompting concepts without running optimization.
+Use to improve a prompt that ships in an application, measured against failing and control cases; reprompt rewrites a one-off prompt for an AI session and teach explains prompting concepts.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [LLMs and retrieval methods](../../references/packs/llm.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 

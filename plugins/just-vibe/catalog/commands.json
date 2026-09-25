@@ -213,7 +213,7 @@
         "assume": "Return one concise, paste-ready prompt in the original language. Use host-neutral wording unless a target host is known. Skill use is optional and should improve the task.",
         "ask": "Ask one focused question when the source prompt cannot be identified or conflicting requirements change its meaning. Otherwise preserve unknowns as explicit questions for the future agent, without inventing facts."
       },
-      "selection": "Use when the user wants to improve, rewrite, clarify or strengthen a one-off prompt, optionally with existing skills. Use skill for reusable skill authoring; use auto to execute the underlying task.",
+      "selection": "Use when the user wants to improve, rewrite, clarify or strengthen a one-off prompt, optionally with existing skills. Use skill for reusable skill authoring, auto to execute the underlying task, and llm-prompt to change an application's prompt asset against measured failures.",
       "readScope": "Read the supplied prompt, relevant referenced context and the minimum skill descriptions/contracts needed to verify recommendations. Do not scan unrelated files or private conversation history.",
       "writeScope": "Return rewritten text only by default. An explicit request to save authorizes only the named prompt artifact. Do not edit source, install or activate skills, call external services on the embedded task, or change persistent instructions.",
       "procedure": [
@@ -619,7 +619,7 @@
     {
       "id": "map",
       "pack": "general",
-      "summary": "Produce an architecture or dependency map",
+      "summary": "Map module and package imports inside a repository, including cycles and dynamic edges",
       "aliases": [],
       "aliasOf": null,
       "defaultMode": "inspect",
@@ -691,7 +691,12 @@
         "import graph",
         "system map",
         "component map",
-        "diagram"
+        "diagram",
+        "circular dependency",
+        "circular imports",
+        "import cycle",
+        "imports between",
+        "internal dependencies"
       ],
       "selection": "Use for module dependencies inside a repository; arch-map covers deployed services and stores.",
       "branches": [
@@ -2354,11 +2359,15 @@
         "external service",
         "api key setup"
       ],
-      "selection": "Use to connect an external capability through a narrow boundary; api-client focuses on the transport client.",
+      "selection": "Use to connect an external capability through a narrow boundary; api-client focuses on the transport client and api-webhooks owns verified inbound events.",
       "branches": [
         {
           "when": "a timeout may follow a completed external mutation",
           "then": "Reconcile by stable operation identity before retrying, and expose uncertainty to the caller."
+        },
+        {
+          "when": "the provider reports results by callback or webhook",
+          "then": "Implement or reuse a verified receiver with api-webhooks (raw-body signature check, idempotent receipt, replay window) and reconcile state from it, not from client redirects."
         }
       ],
       "technical": {
@@ -2978,9 +2987,14 @@
         "pixel perfect",
         "design screenshot",
         "reference screenshot",
-        "looks different from the design"
+        "looks different from the design",
+        "figma",
+        "mockup",
+        "design comp",
+        "reference design",
+        "design handoff"
       ],
-      "selection": "Use when a supplied visual reference is the acceptance target; design creates a direction when no exact target exists.",
+      "selection": "Use when a supplied visual reference is the acceptance target and gaps must be closed; ui-visual-diff only reports differences between captured states, and design creates a direction when no exact target exists.",
       "branches": [
         {
           "when": "the reference omits a required state",
@@ -3151,7 +3165,7 @@
         {
           "kind": "edge",
           "mode": "inspect",
-          "brief": "Review a PR with unrelated pre-existing warnings and a recently rebased head."
+          "brief": "Review my rebased branch against main where main already has unrelated warnings."
         },
         {
           "kind": "blocked",
@@ -3191,7 +3205,7 @@
         "before i merge",
         "before i commit"
       ],
-      "selection": "Use for evidence-backed code review of a diff or current source. Choose a security/domain audit when the requested scope is that specific risk surface.",
+      "selection": "Use for evidence-backed code review of a diff or current source; github-review handles a remote PR by number or URL with its discussion and checks. Choose a security/domain audit when the requested scope is that specific risk surface.",
       "branches": [
         {
           "when": "the user requests a general repository review",
@@ -3203,7 +3217,7 @@
         },
         {
           "when": "the head changed while reviewing a diff",
-          "then": "Recheck findings against the new diff before reporting or any authorized submission."
+          "then": "Recheck findings against the new diff before reporting."
         }
       ],
       "technical": {
@@ -4644,9 +4658,14 @@
         "deployment",
         "canary release",
         "canary deploy",
-        "blue green"
+        "blue green",
+        "staged rollout",
+        "gradual rollout",
+        "rollback plan",
+        "rollback path",
+        "canary"
       ],
-      "selection": "Use for an explicitly targeted deployment or its plan; vercel-preview is the Vercel preview specialization.",
+      "selection": "Use for an explicitly targeted deployment or its plan; vercel-preview is the Vercel preview specialization, and ml-rollout promotes model versions on prediction metrics.",
       "branches": [
         {
           "when": "submission times out with uncertain provider state",
@@ -5301,9 +5320,10 @@
         "takeaway",
         "retro note",
         "rule for the future",
-        "remember this correction"
+        "remember this correction",
+        "lesson from this session"
       ],
-      "selection": "Use to extract a candidate reusable lesson from observed work; remember persists an authorized convention.",
+      "selection": "Use to extract a candidate reusable lesson from observed work; remember persists an authorized convention, teach instructs the user on a topic and explain describes existing code.",
       "branches": [
         {
           "when": "evidence comes from one transient incident",
@@ -5898,7 +5918,7 @@
     {
       "id": "arch-map",
       "pack": "architecture",
-      "summary": "Map services, packages, data stores, external dependencies, and relationships",
+      "summary": "Map deployed services, data stores, external providers and their runtime relationships",
       "aliases": [],
       "aliasOf": null,
       "defaultMode": "inspect",
@@ -6667,8 +6687,8 @@
         "Identify the assumption capable of changing the recommendation. Vary plausible scores/weights or bounds and report whether the preferred option changes; use a bounded discriminating spike when its information is worth the delay.",
         "Recommend an option or conditional reversible choice, explain consequences and rejected alternatives, and set an observable revisit trigger. Record adoption only when it occurred; a recommendation does not commit stakeholders or authorize a purchase.",
         "When the user asks to save an adopted decision, use decision save with actual rationale, rejected alternatives and assumptions tied to watched files or numeric reconsideration triggers. A recommendation alone is not adoption; do not fabricate agreement.",
-        "For revisit requests, load the original record and history, gather actual fresh observations with sources and units, and run decision revisit. Missing/expired metrics remain unknown; changed watched files and hit thresholds identify reasons to review, not permission to change architecture.",
-        "Explain the decisive changed assumption and whether the current choice remains appropriate. Preserve earlier reasoning when recording an authorized replacement. Do not schedule monitoring, buy services or implement the new architecture without that task scope."
+        "For a request to revisit a saved decision, decision-revisit loads the record and history, gathers fresh attributed observations and runs decision revisit; hit thresholds are reasons to review, not permission to change architecture.",
+        "Do not schedule monitoring, buy services or implement the new architecture without that task scope."
       ],
       "outputs": [
         "Decision and recommendation, feasibility/evidence table, decisive uncertainty or sensitivity, consequences, adoption status and revisit trigger.",
@@ -6715,7 +6735,10 @@
         "which option",
         "recommend an option",
         "recommendation",
-        "decision"
+        "decision",
+        "save decision",
+        "remind me if",
+        "reconsider when"
       ],
       "selection": "Use to recommend one bounded choice; brainstorm expands options and compare describes differences.",
       "branches": [
@@ -6839,6 +6862,11 @@
         "method": "Separate feasibility from preference; vary uncertain weights and scores and report ties or rank reversals.",
         "pitfall": "Double-counting correlated criteria can manufacture a winner; unknown evidence is not a neutral numeric score.",
         "check": "Recalculate plausible extremes and explain the smallest assumption change that alters the winner."
+      },
+      "inputPolicy": {
+        "infer": "Recover hard constraints, the current option, adoption status and stated priorities from the brief and prior decisions.",
+        "assume": "When only a priority order is given, derive provisional weights from it, show them, and report whether plausible reweighting changes the winner.",
+        "ask": "Ask only about a missing constraint or preference that could reverse the recommendation; do not demand a complete scoring questionnaire."
       }
     },
     {
@@ -6919,6 +6947,10 @@
         {
           "when": "adoption is not confirmed",
           "then": "Keep status proposed and distinguish the recommendation from actual agreement."
+        },
+        {
+          "when": "the user wants reconsideration triggers",
+          "then": "Also record the decision with decision save, tying its assumptions to watched files or numeric triggers."
         }
       ],
       "technical": {
@@ -6926,6 +6958,18 @@
         "method": "Record status, alternatives, consequences, rejected reasons and a concrete revisit trigger without rewriting prior rationale.",
         "pitfall": "An agent recommendation is not an adopted organizational decision.",
         "check": "Link each claimed constraint to evidence and distinguish proposed, accepted and superseded records."
+      },
+      "guides": [
+        {
+          "path": "references/decision-history.md",
+          "title": "Decision history",
+          "when": "The user wants reconsideration triggers recorded with the decision"
+        }
+      ],
+      "inputPolicy": {
+        "infer": "Recover hard constraints, the current option, adoption status and stated priorities from the brief and prior decisions.",
+        "assume": "Keep status proposed without adoption evidence; follow the existing ADR numbering and location.",
+        "ask": "Ask only about a missing constraint or preference that could reverse the recommendation; do not demand a complete scoring questionnaire."
       }
     },
     {
@@ -7013,6 +7057,11 @@
         "method": "Build a plausible trigger-to-impact chain for each material failure, then identify an early signal and an intervention that breaks that chain.",
         "pitfall": "Generic risks with no mechanism or observable warning cannot guide implementation.",
         "check": "Test whether each mitigation addresses its stated mechanism and whether a responder could detect the signal in time."
+      },
+      "inputPolicy": {
+        "infer": "Recover hard constraints, the current option, adoption status and stated priorities from the brief and prior decisions.",
+        "assume": "State the failure definition and time horizon as assumptions before listing causes.",
+        "ask": "Ask only about a missing constraint or preference that could reverse the recommendation; do not demand a complete scoring questionnaire."
       }
     },
     {
@@ -7281,6 +7330,11 @@
         "method": "Run the smallest experiment that separates alternatives; retain failure evidence and mark prototype shortcuts.",
         "pitfall": "Building a polished prototype can consume the budget without testing the disputed assumption.",
         "check": "Apply the predeclared criterion to raw observations, including an inconclusive outcome when the sample cannot distinguish options."
+      },
+      "inputPolicy": {
+        "infer": "Recover hard constraints, the current option, adoption status and stated priorities from the brief and prior decisions.",
+        "assume": "Without a stated budget, propose a time box and stop rule before any run.",
+        "ask": "Ask only about a missing constraint or preference that could reverse the recommendation; do not demand a complete scoring questionnaire."
       }
     },
     {
@@ -7308,7 +7362,8 @@
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
       "procedure": [
         "Identify original assumptions, compare them to current facts, estimate transition consequences, and recommend retaining, modifying, or superseding the decision.",
-        "Compare original assumptions with current facts and include migration costs, disruption and option value in retaining versus replacing."
+        "Compare original assumptions with current facts and include migration costs, disruption and option value in retaining versus replacing.",
+        "If the decision was saved, run decision show NAME and then decision revisit NAME with attributed observations; otherwise reconstruct the rationale and label it as reconstructed."
       ],
       "outputs": [
         "Reassessment with changed premises, alternatives, migration implications, and proposed status update.",
@@ -7368,7 +7423,14 @@
         "method": "Change only conclusions affected by the new premise; compare continuing, adapting and replacing, preserving the original record.",
         "pitfall": "A hindsight rewrite loses the information needed to understand why the earlier choice was reasonable.",
         "check": "Show the changed premise, resulting recommendation and migration cost; unchanged conditions should not trigger automatic reversal."
-      }
+      },
+      "guides": [
+        {
+          "path": "references/decision-history.md",
+          "title": "Decision history",
+          "when": "The decision was saved with decision save, or the user wants the review recorded"
+        }
+      ]
     },
     {
       "id": "git-status",
@@ -10730,7 +10792,7 @@
     {
       "id": "react-effects",
       "pack": "react",
-      "summary": "Investigate effect loops, stale closures, races, and missing cleanup",
+      "summary": "Investigate effect loops, stale closures, and missing cleanup",
       "aliases": [],
       "aliasOf": null,
       "defaultMode": "apply",
@@ -10763,25 +10825,25 @@
         "Effect purpose, dependency/lifecycle trace and remount/race regression checks."
       ],
       "verification": [
-        "Account changes do not show stale responses; repeated setup/cleanup does not leak subscriptions or duplicate effects."
+        "Repeated setup and cleanup does not leak subscriptions, timers or listeners; effects rerun only when their real dependencies change and read current values."
       ],
       "stopConditions": [
         "Do not silence dependency warnings to hide the issue. Preserve intended behavior across the framework's development checks."
       ],
       "examples": [
         {
-          "brief": "Fix stale account data caused by effect request races.",
+          "brief": "Fix the chat subscription that never unsubscribes, so messages from the previous room keep arriving after switching rooms.",
           "mode": "apply"
         },
         {
           "kind": "edge",
           "mode": "apply",
-          "brief": "Fix an account panel where a late response from the prior account overwrites the current one."
+          "brief": "Fix an effect loop caused by an options object recreated on every render."
         },
         {
           "kind": "blocked",
           "mode": "inspect",
-          "brief": "Audit effect source without reproducing browser timing; identify the required controlled race test."
+          "brief": "Audit effect cleanup without reproducing it in a browser; identify the controlled test needed to confirm a leak."
         }
       ],
       "hostSupport": [
@@ -10804,9 +10866,13 @@
         "stale closure",
         "missing cleanup",
         "dependency array",
-        "effect runs twice"
+        "effect runs twice",
+        "unsubscribe",
+        "never cleaned up",
+        "not cleaned up",
+        "listener leak"
       ],
-      "selection": "Use for synchronization, cleanup or dependency defects; react-state handles authoritative data placement.",
+      "selection": "Use for effect lifetime: subscriptions, cleanup, dependency loops and stale closures; react-async handles request races and stale responses, and react-state handles authoritative data placement.",
       "branches": [
         {
           "when": "old async work can complete after a new selection",
@@ -11280,7 +11346,7 @@
         "suspense",
         "out of order responses"
       ],
-      "selection": "Use for request races, optimistic updates and async states; react-effects handles general lifecycle synchronization.",
+      "selection": "Use for request races, optimistic updates and async states; react-effects handles effect lifetime, subscriptions and cleanup.",
       "branches": [
         {
           "when": "cancellation arrives after the server applied a write",
@@ -12190,7 +12256,7 @@
         "pixel diff",
         "snapshot comparison"
       ],
-      "selection": "Use to compare matched visual states; ui-audit judges usability of the resulting interface.",
+      "selection": "Use to compare matched visual states; match closes gaps against an accepted reference, and ui-audit judges usability of the resulting interface.",
       "branches": [
         {
           "when": "captures differ in environment or content",
@@ -14117,7 +14183,7 @@
         "outbound webhooks",
         "send webhooks"
       ],
-      "selection": "Use for authenticated durable event receipt or signed outbound delivery; backend-jobs handles deferred processing.",
+      "selection": "Use for authenticated durable event receipt or signed outbound delivery; integrate wires the provider itself and backend-jobs handles deferred processing.",
       "branches": [
         {
           "when": "valid events arrive out of order or concurrently",
@@ -14461,7 +14527,7 @@
         "prisma migrate",
         "flyway"
       ],
-      "selection": "Use for schema/data transition mechanics; db-schema designs the target model.",
+      "selection": "Use for schema/data transition mechanics; db-schema designs the target model, and db-locks diagnoses a migration currently blocked on locks.",
       "branches": [
         {
           "when": "a PostgreSQL concurrent index is required",
@@ -15016,7 +15082,7 @@
         "long running transaction",
         "migration blocked on lock"
       ],
-      "selection": "Use for transaction blocking/deadlock diagnosis; backend-concurrency designs application consistency.",
+      "selection": "Use for transaction blocking/deadlock diagnosis; backend-concurrency designs application consistency, and db-migrate designs a lock-safe rollout.",
       "branches": [
         {
           "when": "the reported deadlock already resolved",
@@ -19200,7 +19266,7 @@
     {
       "id": "ml-rollout",
       "pack": "ml-deployment",
-      "summary": "Prepare shadow, canary, or staged deployment and rollback criteria",
+      "summary": "Prepare shadow, canary or staged rollout of a model version with rollback criteria",
       "aliases": [],
       "aliasOf": null,
       "defaultMode": "plan",
@@ -19236,7 +19302,7 @@
       ],
       "examples": [
         {
-          "brief": "Prepare a canary rollout and rollback plan; do not change production traffic.",
+          "brief": "Prepare a canary rollout and rollback plan for the new ranking model; do not change production traffic.",
           "mode": "plan"
         },
         {
@@ -19470,9 +19536,12 @@
         "prompt template",
         "few-shot",
         "production prompt",
-        "prompt versioning"
+        "prompt versioning",
+        "prompt regression",
+        "prompt keeps",
+        "prompt eval"
       ],
-      "selection": "Use to improve a specified prompt under evidence; teach explains prompting concepts without running optimization.",
+      "selection": "Use to improve a prompt that ships in an application, measured against failing and control cases; reprompt rewrites a one-off prompt for an AI session and teach explains prompting concepts.",
       "branches": [
         {
           "when": "improvement appears only on examples inserted into the prompt",
@@ -22808,7 +22877,7 @@
     {
       "id": "setup",
       "pack": "installation",
-      "summary": "Install, diagnose, update, or remove just-vibe through native host plugin management.",
+      "summary": "Install, update, or remove just-vibe through native host plugin management.",
       "aliases": [],
       "aliasOf": null,
       "defaultMode": "apply",
@@ -22842,8 +22911,8 @@
       ],
       "examples": [
         {
-          "brief": "Check my just-vibe installation without changing it.",
-          "mode": "inspect"
+          "brief": "Install just-vibe for Claude Code at user scope.",
+          "mode": "apply"
         },
         {
           "kind": "edge",

@@ -14,6 +14,8 @@ test('every invocation preserves scenario context and mode through both host map
   const root = mkdtempSync(join(tmpdir(), 'just-vibe-scenarios-'));
   t.after(() => rmSync(root, { recursive: true, force: true }));
   assert.deepEqual(scenarios.map(s => s.id).sort(), catalog.commands.map(c => c.id).sort());
+  // The scenario brief and mode come from the same example, so a read-only brief is never graded as apply (A3-03).
+  for (const scenario of scenarios) assert.deepEqual([scenario.brief, scenario.mode], [scenario.cases[0].brief, scenario.cases[0].mode], scenario.id);
   for (const scenario of scenarios) {
     const brief = `${scenario.brief}\nAdditional context: preserve existing changes.\nDo not publish or spend money.`;
     const run = createRun(catalog, scenario.id, { root, brief, mode: scenario.mode,

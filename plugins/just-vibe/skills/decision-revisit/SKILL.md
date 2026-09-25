@@ -35,6 +35,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 1. Identify original assumptions, compare them to current facts, estimate transition consequences, and recommend retaining, modifying, or superseding the decision.
 2. Compare original assumptions with current facts and include migration costs, disruption and option value in retaining versus replacing.
+3. If the decision was saved, run decision show NAME and then decision revisit NAME with attributed observations; otherwise reconstruct the rationale and label it as reconstructed.
 ## Technical method
 
 - **Inspect:** Read the original premise, accepted status, trigger and new evidence with dates.
@@ -45,7 +46,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 ## Read when relevant
 
 - When a concrete decision or deliverable example would clarify this workflow: [Decisions worked example](../../references/examples/decisions.md).
-
+- The decision was saved with decision save, or the user wants the review recorded: [Decision history](../../references/decision-history.md).
 
 ## Decision branches
 

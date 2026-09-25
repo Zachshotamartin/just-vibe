@@ -82,12 +82,12 @@ Generated from the canonical catalog. This is an inventory of authored guidance 
 |---|---|---|
 | [decide](../plugins/just-vibe/skills/decide/SKILL.md) | More criteria do not compensate for an unresolved mandatory requirement. | [Decision history](../plugins/just-vibe/references/decision-history.md) |
 | [decision-matrix](../plugins/just-vibe/skills/decision-matrix/SKILL.md) | Double-counting correlated criteria can manufacture a winner; unknown evidence is not a neutral numeric score. | Technical method and pack guide in entry point |
-| [decision-adr](../plugins/just-vibe/skills/decision-adr/SKILL.md) | An agent recommendation is not an adopted organizational decision. | Technical method and pack guide in entry point |
+| [decision-adr](../plugins/just-vibe/skills/decision-adr/SKILL.md) | An agent recommendation is not an adopted organizational decision. | [Decision history](../plugins/just-vibe/references/decision-history.md) |
 | [decision-premortem](../plugins/just-vibe/skills/decision-premortem/SKILL.md) | Generic risks with no mechanism or observable warning cannot guide implementation. | Technical method and pack guide in entry point |
 | [decision-reversible](../plugins/just-vibe/skills/decision-reversible/SKILL.md) | A reversible code change may already have sent messages or transformed data irreversibly. | Technical method and pack guide in entry point |
 | [decision-buy-build](../plugins/just-vibe/skills/decision-buy-build/SKILL.md) | Vendor feature lists do not prove compatibility with the actual identity, offline or data-residency requirements. | Technical method and pack guide in entry point |
 | [decision-spike](../plugins/just-vibe/skills/decision-spike/SKILL.md) | Building a polished prototype can consume the budget without testing the disputed assumption. | Technical method and pack guide in entry point |
-| [decision-revisit](../plugins/just-vibe/skills/decision-revisit/SKILL.md) | A hindsight rewrite loses the information needed to understand why the earlier choice was reasonable. | Technical method and pack guide in entry point |
+| [decision-revisit](../plugins/just-vibe/skills/decision-revisit/SKILL.md) | A hindsight rewrite loses the information needed to understand why the earlier choice was reasonable. | [Decision history](../plugins/just-vibe/references/decision-history.md) |
 
 ## Git
 

@@ -1,15 +1,15 @@
 ---
 name: react-effects
-description: "Investigate effect loops, stale closures, races, and missing cleanup Use for synchronization, cleanup or dependency defects; react-state handles authoritative data placement."
+description: "Investigate effect loops, stale closures, and missing cleanup Use for effect lifetime: subscriptions, cleanup, dependency loops and stale closures; react-async handles request races and stale responses, and react-state handles authoritative data placement."
 ---
 
 # react-effects
 
-Investigate effect loops, stale closures, races, and missing cleanup
+Investigate effect loops, stale closures, and missing cleanup
 
 ## Choose this workflow
 
-Use for synchronization, cleanup or dependency defects; react-state handles authoritative data placement.
+Use for effect lifetime: subscriptions, cleanup, dependency loops and stale closures; react-async handles request races and stale responses, and react-state handles authoritative data placement.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [React methods](../../references/packs/react.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -62,7 +62,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
-- Account changes do not show stale responses; repeated setup/cleanup does not leak subscriptions or duplicate effects.
+- Repeated setup and cleanup does not leak subscriptions, timers or listeners; effects rerun only when their real dependencies change and read current values.
 
 ## Stop and recover
 
@@ -70,6 +70,6 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 ## Example requests
 
-- **Normal (apply):** Fix stale account data caused by effect request races.
-- **edge (apply):** Fix an account panel where a late response from the prior account overwrites the current one.
-- **blocked (inspect):** Audit effect source without reproducing browser timing; identify the required controlled race test.
+- **Normal (apply):** Fix the chat subscription that never unsubscribes, so messages from the previous room keep arriving after switching rooms.
+- **edge (apply):** Fix an effect loop caused by an options object recreated on every render.
+- **blocked (inspect):** Audit effect cleanup without reproducing it in a browser; identify the controlled test needed to confirm a leak.

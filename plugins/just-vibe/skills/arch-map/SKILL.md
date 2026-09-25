@@ -1,11 +1,11 @@
 ---
 name: arch-map
-description: "Map services, packages, data stores, external dependencies, and relationships Use for deployed service/store topology; map covers repository modules."
+description: "Map deployed services, data stores, external providers and their runtime relationships Use for deployed service/store topology; map covers repository modules."
 ---
 
 # arch-map
 
-Map services, packages, data stores, external dependencies, and relationships
+Map deployed services, data stores, external providers and their runtime relationships
 
 ## Choose this workflow
 

@@ -1,11 +1,11 @@
 ---
 name: ml-rollout
-description: "Prepare shadow, canary, or staged deployment and rollback criteria Use for a scoped model promotion plan or transition; ml-report documents offline evidence."
+description: "Prepare shadow, canary or staged rollout of a model version with rollback criteria Use for a scoped model promotion plan or transition; ml-report documents offline evidence."
 ---
 
 # ml-rollout
 
-Prepare shadow, canary, or staged deployment and rollback criteria
+Prepare shadow, canary or staged rollout of a model version with rollback criteria
 
 ## Choose this workflow
 
@@ -68,6 +68,6 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 ## Example requests
 
-- **Normal (plan):** Prepare a canary rollout and rollback plan; do not change production traffic.
+- **Normal (plan):** Prepare a canary rollout and rollback plan for the new ranking model; do not change production traffic.
 - **edge (plan):** Plan a canary when the previous model expects an older feature schema.
 - **blocked (inspect):** Assess rollout readiness without live routing access or shadow-inference budget.

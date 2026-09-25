@@ -1,6 +1,6 @@
 ---
 name: match
-description: "Compare an implementation against a visual reference and close gaps Use when a supplied visual reference is the acceptance target; design creates a direction when no exact target exists."
+description: "Compare an implementation against a visual reference and close gaps Use when a supplied visual reference is the acceptance target and gaps must be closed; ui-visual-diff only reports differences between captured states, and design creates a direction when no exact target exists."
 ---
 
 # match
@@ -9,7 +9,7 @@ Compare an implementation against a visual reference and close gaps
 
 ## Choose this workflow
 
-Use when a supplied visual reference is the acceptance target; design creates a direction when no exact target exists.
+Use when a supplied visual reference is the acceptance target and gaps must be closed; ui-visual-diff only reports differences between captured states, and design creates a direction when no exact target exists.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [General methods](../../references/packs/general.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 

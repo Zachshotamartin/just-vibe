@@ -1,6 +1,6 @@
 ---
 name: integrate
-description: "Connect an API, library, or external service Use to connect an external capability through a narrow boundary; api-client focuses on the transport client."
+description: "Connect an API, library, or external service Use to connect an external capability through a narrow boundary; api-client focuses on the transport client and api-webhooks owns verified inbound events."
 ---
 
 # integrate
@@ -9,7 +9,7 @@ Connect an API, library, or external service
 
 ## Choose this workflow
 
-Use to connect an external capability through a narrow boundary; api-client focuses on the transport client.
+Use to connect an external capability through a narrow boundary; api-client focuses on the transport client and api-webhooks owns verified inbound events.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [General methods](../../references/packs/general.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -50,6 +50,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 ## Decision branches
 
 - **When a timeout may follow a completed external mutation:** Reconcile by stable operation identity before retrying, and expose uncertainty to the caller.
+- **When the provider reports results by callback or webhook:** Implement or reuse a verified receiver with api-webhooks (raw-body signature check, idempotent receipt, replay window) and reconcile state from it, not from client redirects.
 
 ## Deliver and verify
 

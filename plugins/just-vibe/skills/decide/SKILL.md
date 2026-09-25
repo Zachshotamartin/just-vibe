@@ -38,8 +38,8 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 3. Identify the assumption capable of changing the recommendation. Vary plausible scores/weights or bounds and report whether the preferred option changes; use a bounded discriminating spike when its information is worth the delay.
 4. Recommend an option or conditional reversible choice, explain consequences and rejected alternatives, and set an observable revisit trigger. Record adoption only when it occurred; a recommendation does not commit stakeholders or authorize a purchase.
 5. When the user asks to save an adopted decision, use decision save with actual rationale, rejected alternatives and assumptions tied to watched files or numeric reconsideration triggers. A recommendation alone is not adoption; do not fabricate agreement.
-6. For revisit requests, load the original record and history, gather actual fresh observations with sources and units, and run decision revisit. Missing/expired metrics remain unknown; changed watched files and hit thresholds identify reasons to review, not permission to change architecture.
-7. Explain the decisive changed assumption and whether the current choice remains appropriate. Preserve earlier reasoning when recording an authorized replacement. Do not schedule monitoring, buy services or implement the new architecture without that task scope.
+6. For a request to revisit a saved decision, decision-revisit loads the record and history, gathers fresh attributed observations and runs decision revisit; hit thresholds are reasons to review, not permission to change architecture.
+7. Do not schedule monitoring, buy services or implement the new architecture without that task scope.
 ## Technical method
 
 - **Inspect:** Gather hard constraints, current approach, realistic alternatives and evidence for the decisive unknown.

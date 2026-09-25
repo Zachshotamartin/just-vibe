@@ -205,7 +205,7 @@
       "prerequisites": "defined behavior, existing test conventions/runners, isolated fixtures, and relevant dependencies. Requested bounded verification may use owned isolated fixtures without authorizing product edits or live-system tests. Never test destructive behavior against production by default; distinguish mocked behavior from real integration evidence.",
       "inputPolicy": {
         "infer": "Read behavior contracts, existing runners and test conventions; distinguish fixture setup failure from a behavioral failure.",
-        "assume": "Use the smallest existing local runner and isolated synthetic fixtures that distinguish the requested behavior.",
+        "assume": "Use the smallest existing local runner and isolated synthetic fixtures that distinguish the requested behavior. When the method needs a library, runner, container runtime or load tool the project lacks, name the exact package or tool, the files it changes and any download, and add it only when the request authorizes new dev dependencies or tools; label a hand-written generator without shrinking, or a fake in place of a real dependency, as such.",
         "ask": "Ask about an unresolved contract that changes the expected result, or the target/load limits before external testing; do not ask the user to choose a runner already configured."
       },
       "workedExample": "references/examples/testing.md"

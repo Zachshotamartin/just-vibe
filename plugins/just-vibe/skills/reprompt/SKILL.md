@@ -1,6 +1,6 @@
 ---
 name: reprompt
-description: "Improve a prompt while preserving intent and incorporating relevant available skills Use when the user wants to improve, rewrite, clarify or strengthen a one-off prompt, optionally with existing skills. Use skill for reusable skill authoring; use auto to execute the underlying task."
+description: "Improve a prompt while preserving intent and incorporating relevant available skills Use when the user wants to improve, rewrite, clarify or strengthen a one-off prompt, optionally with existing skills. Use skill for reusable skill authoring, auto to execute the underlying task, and llm-prompt to change an application's prompt asset against measured failures."
 ---
 
 # reprompt
@@ -9,7 +9,7 @@ Improve a prompt while preserving intent and incorporating relevant available sk
 
 ## Choose this workflow
 
-Use when the user wants to improve, rewrite, clarify or strengthen a one-off prompt, optionally with existing skills. Use skill for reusable skill authoring; use auto to execute the underlying task.
+Use when the user wants to improve, rewrite, clarify or strengthen a one-off prompt, optionally with existing skills. Use skill for reusable skill authoring, auto to execute the underlying task, and llm-prompt to change an application's prompt asset against measured failures.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [General methods](../../references/packs/general.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 

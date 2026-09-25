@@ -1,11 +1,11 @@
 ---
 name: setup
-description: "Install, diagnose, update, or remove just-vibe through native host plugin management. Use for an intentional installation, update or removal; doctor inspects without changes."
+description: "Install, update, or remove just-vibe through native host plugin management. Use for an intentional installation, update or removal; doctor inspects without changes."
 ---
 
 # setup
 
-Install, diagnose, update, or remove just-vibe through native host plugin management.
+Install, update, or remove just-vibe through native host plugin management.
 
 ## Choose this workflow
 
@@ -70,6 +70,6 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 ## Example requests
 
-- **Normal (inspect):** Check my just-vibe installation without changing it.
+- **Normal (apply):** Install just-vibe for Claude Code at user scope.
 - **edge (apply):** Update a bundled installation after its original package cache was removed.
 - **blocked (inspect):** Inspect installation prerequisites on a machine without a supported host executable.

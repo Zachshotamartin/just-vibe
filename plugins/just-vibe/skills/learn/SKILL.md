@@ -1,6 +1,6 @@
 ---
 name: learn
-description: "Extract a reusable lesson from completed work for review Use to extract a candidate reusable lesson from observed work; remember persists an authorized convention."
+description: "Extract a reusable lesson from completed work for review Use to extract a candidate reusable lesson from observed work; remember persists an authorized convention, teach instructs the user on a topic and explain describes existing code."
 ---
 
 # learn
@@ -9,7 +9,7 @@ Extract a reusable lesson from completed work for review
 
 ## Choose this workflow
 
-Use to extract a candidate reusable lesson from observed work; remember persists an authorized convention.
+Use to extract a candidate reusable lesson from observed work; remember persists an authorized convention, teach instructs the user on a topic and explain describes existing code.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [General methods](../../references/packs/general.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 

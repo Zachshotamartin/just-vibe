@@ -1,6 +1,6 @@
 ---
 name: ui-visual-diff
-description: "Compare screenshots against an accepted reference Use to compare matched visual states; ui-audit judges usability of the resulting interface."
+description: "Compare screenshots against an accepted reference Use to compare matched visual states; match closes gaps against an accepted reference, and ui-audit judges usability of the resulting interface."
 ---
 
 # ui-visual-diff
@@ -9,7 +9,7 @@ Compare screenshots against an accepted reference
 
 ## Choose this workflow
 
-Use to compare matched visual states; ui-audit judges usability of the resulting interface.
+Use to compare matched visual states; match closes gaps against an accepted reference, and ui-audit judges usability of the resulting interface.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [UI and frontend methods](../../references/packs/ui.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 

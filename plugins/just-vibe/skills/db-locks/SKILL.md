@@ -1,6 +1,6 @@
 ---
 name: db-locks
-description: "Investigate blocking, deadlocks, long transactions, and contention Use for transaction blocking/deadlock diagnosis; backend-concurrency designs application consistency."
+description: "Investigate blocking, deadlocks, long transactions, and contention Use for transaction blocking/deadlock diagnosis; backend-concurrency designs application consistency, and db-migrate designs a lock-safe rollout."
 ---
 
 # db-locks
@@ -9,7 +9,7 @@ Investigate blocking, deadlocks, long transactions, and contention
 
 ## Choose this workflow
 
-Use for transaction blocking/deadlock diagnosis; backend-concurrency designs application consistency.
+Use for transaction blocking/deadlock diagnosis; backend-concurrency designs application consistency, and db-migrate designs a lock-safe rollout.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Databases methods](../../references/packs/database.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 

@@ -26,7 +26,7 @@ Review a change, selected files, or an entire repository for actionable defects
 
 ## Choose this workflow
 
-Use for evidence-backed code review of a diff or current source. Choose a security/domain audit when the requested scope is that specific risk surface.
+Use for evidence-backed code review of a diff or current source; github-review handles a remote PR by number or URL with its discussion and checks. Choose a security/domain audit when the requested scope is that specific risk surface.
 
 Read [shared execution](../references/execution.md) for context/mode/authority handling and [General methods](../references/packs/general.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -91,7 +91,7 @@ No product edits or external review submission. A code review permits bounded lo
 
 - **When the user requests a general repository review:** Inspect existing source and cross-module boundaries; no base is required. Existing defects remain reportable without claiming they were introduced by a recent patch.
 - **When the user names files:** Limit findings to those files and their necessary callers/contracts; report unexamined areas rather than expanding into an unsolicited audit.
-- **When the head changed while reviewing a diff:** Recheck findings against the new diff before reporting or any authorized submission.
+- **When the head changed while reviewing a diff:** Recheck findings against the new diff before reporting.
 
 ## Deliver and verify
 
@@ -109,7 +109,7 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Review this branch against main for behavioral regressions.
-- **edge (inspect):** Review a PR with unrelated pre-existing warnings and a recently rebased head.
+- **edge (inspect):** Review my rebased branch against main where main already has unrelated warnings.
 - **blocked (inspect):** Review supplied diff only; mark missing surrounding source and tests as coverage limits.
 - **repository (inspect):** Do a general code review of this repository; identify existing bugs and useful improvements without editing the product.
 - **files (inspect):** Review the evidence recorder and its callers for output-handling defects.

@@ -1,6 +1,6 @@
 ---
 name: db-migrate
-description: "Create migrations with compatibility and rollback considerations Use for schema/data transition mechanics; db-schema designs the target model."
+description: "Create migrations with compatibility and rollback considerations Use for schema/data transition mechanics; db-schema designs the target model, and db-locks diagnoses a migration currently blocked on locks."
 ---
 
 # db-migrate
@@ -9,7 +9,7 @@ Create migrations with compatibility and rollback considerations
 
 ## Choose this workflow
 
-Use for schema/data transition mechanics; db-schema designs the target model.
+Use for schema/data transition mechanics; db-schema designs the target model, and db-locks diagnoses a migration currently blocked on locks.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Databases methods](../../references/packs/database.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
