@@ -4,6 +4,7 @@ import { join } from 'node:path';
 import { readPreferences } from './continuity.mjs';
 import { parseInvocation } from './invocation.mjs';
 import { promptRewrite, ruleText, matchIntents } from './intents.mjs';
+import { effectSignals, remoteSelection } from './effects.mjs';
 
 const starter = ['auto', 'fix', 'explain', 'reprompt', 'plan', 'review', 'test', 'teach', 'tools', 'profile', 'checkpoint', 'resume', 'help'];
 const ML_PACKS = ['ml-data', 'ml-experiments', 'ml-evaluation', 'ml-deployment'];
@@ -94,11 +95,18 @@ export function executionStrategy(brief, candidates = []) {
   const explicit = parseInvocation(brief);
   if (explicit && explicit.id !== 'reprompt') brief = explicit.brief;
   const { positive } = intentSignals(brief);
+  const effects = effectSignals(positive);
   const reasons = [];
-  if (/\b(?:deploy|publish|push|merge|provision|production migration|paid|purchase)\b/i.test(positive)) reasons.push('External or consequential effects need explicit tracking');
-  if (/\b(?:resume|interrupted|handoff|checkpoint|record every|track every)\b/i.test(positive)) reasons.push('Continuation or recorded history requested');
-  if ((positive.match(/\b(?:then|after that|next|finally)\b|\n\s*\d+[.)]/gi) || []).length >= 2) reasons.push('Several dependent stages');
-  if (candidates.slice(0, 3).filter(c => c.status !== 'available').length === 3) reasons.push('Selected route needs unresolved capabilities');
+  if (effects.external) reasons.push('External or consequential effects need explicit tracking');
+  else if (remoteSelection(positive, candidates[0]?.id, Boolean(explicit))) reasons.push('The selected workflow acts on a remote service when applied');
+  if (effects.destructive) reasons.push('Destructive change to shared or live resources');
+  if (effects.exposed) reasons.push('Exposed credentials need revocation on the issuing service');
+  if (effects.load) reasons.push('Load against a shared or live environment');
+  if (effects.continuation) reasons.push('Continuation or recorded history requested');
+  if (effects.stages >= 2) reasons.push('Several dependent stages');
+  // Unknown capabilities are the normal state before a host report; only a missing or disabled one needs resolving.
+  const top = candidates.slice(0, 3);
+  if (top.length && top.every(c => c.status === 'blocked')) reasons.push('Selected route has missing or disabled capabilities');
   return { suggested: reasons.length ? 'tracked' : 'quick', reasons: reasons.length ? reasons : ['Start with a bounded local workflow; escalate if dependencies, retries or effects make tracking useful'], instruction: 'A suggestion, not a permission decision. The host resolves actual scope and effects. Quick work still preserves constraints, verifies results and reports limitations; switching to tracked work retains prior evidence and consumed budgets.' };
 }
 
