@@ -3415,7 +3415,6 @@
       },
       "rubric": [
         "A detached HEAD is explained; stale remote tracking refs are not described as live server status.",
-        "Review newly prepared commit/PR/message text, including template or hook additions, for agent self-attribution before submission; verify the resulting artifact when available. Do not silently rewrite existing history or remove human credits.",
         "Reconcile every reported change category with the correct tree comparison without fetching or modifying the index."
       ],
       "technicalMethod": {
@@ -3464,7 +3463,6 @@
       },
       "rubric": [
         "Staged and unstaged changes are not conflated; a binary change is acknowledged without invented contents.",
-        "Review newly prepared commit/PR/message text, including template or hook additions, for agent self-attribution before submission; verify the resulting artifact when available. Do not silently rewrite existing history or remove human credits.",
         "Cite a representative hunk for each behavior claim and account for changed files outside ordinary source extensions."
       ],
       "technicalMethod": {
@@ -3659,7 +3657,6 @@
       },
       "rubric": [
         "A deterministic regression yields a confirmed boundary; flaky or skipped revisions produce qualified results.",
-        "Review newly prepared commit/PR/message text, including template or hook additions, for agent self-attribution before submission; verify the resulting artifact when available. Do not silently rewrite existing history or remove human credits.",
         "Recheck the candidate and parent with the same oracle; report a range if skipped revisions prevent a unique cause."
       ],
       "technicalMethod": {
@@ -3708,7 +3705,6 @@
       },
       "rubric": [
         "An existing occupied branch is handled explicitly; removing a dirty worktree stops before losing changes.",
-        "Review newly prepared commit/PR/message text, including template or hook additions, for agent self-attribution before submission; verify the resulting artifact when available. Do not silently rewrite existing history or remove human credits.",
         "Confirm the new checkout's HEAD and root; before cleanup, verify ownership and preserve any changes produced after creation."
       ],
       "technicalMethod": {
@@ -3757,7 +3753,6 @@
       },
       "rubric": [
         "A lost commit can be preserved without moving the active branch; absent recovery evidence is not claimed as recoverable.",
-        "Review newly prepared commit/PR/message text, including template or hook additions, for agent self-attribution before submission; verify the resulting artifact when available. Do not silently rewrite existing history or remove human credits.",
         "Verify the recovered tree contains the requested content and leaves the original branch, index and worktree recoverable."
       ],
       "technicalMethod": {

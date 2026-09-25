@@ -33,8 +33,8 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Compare fit, integration, maintenance, migration, service dependence, and total-cost assumptions; verify current vendor capabilities when relevant.
-2. Compare integration, operations, staffing, exit/export and failure ownership over a stated usage horizon; include the current workaround.
+1. State the usage horizon and include the current workaround as an option; verify current vendor capabilities when relevant.
+2. Compare fit, integration, operations, staffing, maintenance, migration, exit/export, failure ownership and total-cost assumptions.
 
 ## Technical method
 
@@ -54,8 +54,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Option comparison, recommendation, cost model inputs, and a validation/exit plan.
-- Fit/gap matrix, cost assumptions, ownership burden and exit plan.
+- Fit/gap matrix, cost model inputs and assumptions, ownership burden, recommendation, and a validation and exit plan.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

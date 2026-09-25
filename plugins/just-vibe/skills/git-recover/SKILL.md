@@ -33,9 +33,9 @@ Inspect/plan: locate candidates and describe restoration steps without writing. 
 
 ## Execute
 
-1. Inspect reflog, refs, stashes, and reachable candidates, then unreachable objects with read-only git fsck --unreachable --no-reflogs (stash commits are merge commits titled WIP on or On); avoid commands that may trigger automatic garbage collection until the candidate is preserved; compare candidate contents; explain confidence; in apply mode, create a recovery ref or copy only when restoration is requested.
-2. Inspect reflog/stash/reachable candidates, compare file contents and preserve the chosen commit with a new ref before any active-branch movement.
-3. All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
+1. Inspect reflog, refs, stashes and reachable candidates, then unreachable objects with read-only git fsck --unreachable --no-reflogs (stash commits are merge commits titled WIP on or On); avoid commands that may trigger automatic garbage collection until the candidate is preserved.
+2. Compare candidate file contents and explain confidence.
+3. In apply mode, when restoration is requested, preserve the chosen commit with a new ref or copy before any active-branch movement.
 
 ## Technical method
 
@@ -55,13 +55,11 @@ Inspect/plan: locate candidates and describe restoration steps without writing. 
 
 ## Deliver and verify
 
-- Candidate recovery points and exact preservation/restoration steps or recovered artifact.
-- Candidate identities, confidence, recovered location and preserved current state.
+- Candidate identities with confidence, exact preservation/restoration steps or the recovered location, and the preserved current state.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
 - A lost commit can be preserved without moving the active branch; absent recovery evidence is not claimed as recoverable.
-- Review newly prepared commit/PR/message text, including template or hook additions, for agent self-attribution before submission; verify the resulting artifact when available. Do not silently rewrite existing history or remove human credits.
 
 ## Stop and recover
 

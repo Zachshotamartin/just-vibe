@@ -33,9 +33,10 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Execute
 
-1. Inspect base/ours/theirs and change intent, resolve behavior rather than choose a side wholesale, handle generated files via their source, and verify merged behavior.
-2. Read merge base and both sides plus callers; resolve semantic intent, then regenerate derived files from their sources and check the combined behavior.
-3. All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
+1. Read the merge base, both sides and their callers to establish each change's intent.
+2. Resolve the combined behavior rather than choosing a side wholesale, and regenerate derived files from their sources.
+3. Check the combined behavior.
+4. All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
 
 ## Technical method
 
@@ -55,8 +56,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Deliver and verify
 
-- Resolved files, rationale for nontrivial choices, tests, and operation state.
-- Resolution rationale per conflict, preserved behaviors and remaining operation state.
+- Resolved files with the rationale for each nontrivial conflict, preserved behaviors, test results and the remaining operation state.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

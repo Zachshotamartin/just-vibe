@@ -33,9 +33,9 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Execute
 
-1. Validate endpoints, create/use an isolated worktree, run the bounded pass/fail oracle, distinguish unbuildable revisions as skips, and confirm the candidate.
-2. Confirm good/bad endpoints and oracle exit semantics, run in an isolated worktree, treat untestable revisions as skips and retest the candidate and parent.
-3. All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
+1. Confirm the good and bad endpoints and the oracle's exit semantics.
+2. Run the bounded pass/fail oracle in an isolated worktree, treating unbuildable or untestable revisions as skips.
+3. Retest the candidate and its parent to confirm the boundary.
 
 ## Technical method
 
@@ -55,13 +55,11 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Deliver and verify
 
-- Culprit or narrowed range, tested revisions, oracle, and cleanup state.
-- Endpoint refs, oracle, tested/skipped revisions and independently confirmed boundary.
+- Culprit or narrowed range with endpoint refs, the oracle, tested and skipped revisions, the independently confirmed boundary and cleanup state.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
 - A deterministic regression yields a confirmed boundary; flaky or skipped revisions produce qualified results.
-- Review newly prepared commit/PR/message text, including template or hook additions, for agent self-attribution before submission; verify the resulting artifact when available. Do not silently rewrite existing history or remove human credits.
 
 ## Stop and recover
 

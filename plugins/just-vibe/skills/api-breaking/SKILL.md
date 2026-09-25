@@ -1,6 +1,6 @@
 ---
 name: api-breaking
-description: "Identify backward-incompatible API changes. Use to assess consumer impact of a change; api-design creates the intended contract."
+description: "Identify backward-incompatible API changes. Use to assess consumer impact of a change; api-design creates the intended contract; for events and messages see arch-contracts."
 ---
 
 # api-breaking
@@ -9,7 +9,7 @@ Identify backward-incompatible API changes.
 
 ## Choose this workflow
 
-Use to assess consumer impact of a change; api-design creates the intended contract.
+Use to assess consumer impact of a change; api-design creates the intended contract; for events and messages see arch-contracts.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [APIs methods](../../references/packs/api.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 

@@ -33,9 +33,8 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Resolve refs, inspect rename/binary/submodule metadata, read surrounding context, group by purpose, and identify unrelated edits.
-2. Separate index versus HEAD, worktree versus index and branch versus merge-base; resolve the requested comparison before summarizing hunks.
-3. All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
+1. Resolve the requested comparison and its refs, separating index versus HEAD, worktree versus index and branch versus merge-base.
+2. Inspect rename, binary and submodule metadata and read surrounding context, then group hunks by purpose and identify unrelated edits.
 
 ## Technical method
 
@@ -55,13 +54,11 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Diff summary, impacted contracts, notable risks, and files requiring deeper review.
-- Comparison refs, files/hunks grouped by purpose and unrelated changes.
+- Comparison refs, files and hunks grouped by purpose, impacted contracts, notable risks, unrelated changes and files requiring deeper review.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
 - Staged and unstaged changes are not conflated; a binary change is acknowledged without invented contents.
-- Review newly prepared commit/PR/message text, including template or hook additions, for agent self-attribution before submission; verify the resulting artifact when available. Do not silently rewrite existing history or remove human credits.
 
 ## Stop and recover
 

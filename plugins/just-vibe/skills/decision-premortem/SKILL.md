@@ -1,6 +1,6 @@
 ---
 name: decision-premortem
-description: "Assume a proposal failed and identify plausible causes. Use to analyze plausible future failure of a proposal; ops-postmortem reconstructs an actual incident."
+description: "Assume a proposal failed and identify plausible causes. Use to analyze plausible future failure of a proposal; challenge tests its current assumptions and ops-postmortem reconstructs an actual incident."
 ---
 
 # decision-premortem
@@ -9,7 +9,7 @@ Assume a proposal failed and identify plausible causes.
 
 ## Choose this workflow
 
-Use to analyze plausible future failure of a proposal; ops-postmortem reconstructs an actual incident.
+Use to analyze plausible future failure of a proposal; challenge tests its current assumptions and ops-postmortem reconstructs an actual incident.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Decisions methods](../../references/packs/decisions.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -33,8 +33,8 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Assume the outcome failed, trace realistic causal chains, rank impact/likelihood, identify early signals, and propose proportionate mitigations.
-2. Work backward from a concrete failed outcome through design choices, contributing conditions and observable warning signs.
+1. Assume a concrete failed outcome and work backward through design choices and contributing conditions to realistic causal chains.
+2. Rank the chains by impact and likelihood, identify an observable early warning signal for each, and propose proportionate mitigations.
 
 ## Technical method
 
@@ -54,8 +54,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Failure scenarios, warning indicators, mitigations, and untested assumptions.
-- Failure chain, early signal, mitigation, response and residual uncertainty.
+- Failure chains with early signal, mitigation, response and residual uncertainty, plus untested assumptions.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

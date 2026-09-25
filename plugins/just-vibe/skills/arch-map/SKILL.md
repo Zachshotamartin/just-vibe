@@ -33,8 +33,8 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Reconcile source, deployment configuration, and documentation; identify ownership and protocols; trace a representative request and background process; label inferred edges.
-2. Trace one request and one background operation, marking process, network, ownership and trust boundaries independently.
+1. Reconcile source, deployment configuration and documentation to identify services, stores, owners and protocols.
+2. Trace one request and one background operation, marking process, network, ownership and trust boundaries independently; label inferred edges.
 
 ## Technical method
 
@@ -54,8 +54,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- System diagram, component inventory, data/control flows, and evidence gaps.
-- Nodes/edges with protocol, owner, data classification and evidence confidence.
+- System diagram and component inventory whose edges carry protocol, owner, data classification and evidence confidence, with data/control flows and evidence gaps.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

@@ -33,9 +33,8 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Inspect porcelain status and refs, distinguish staged from unstaged changes, detect merge/rebase/bisect state, and explain relevant next actions.
-2. Read status --porcelain=v2 --branch and resolved refs with GIT_OPTIONAL_LOCKS=0 where supported; inspect worktrees and operation markers without changing them.
-3. All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
+1. Read status --porcelain=v2 --branch and resolved refs with GIT_OPTIONAL_LOCKS=0 where supported; inspect worktrees and merge/rebase/bisect operation markers without changing them.
+2. Distinguish staged, unstaged and untracked changes and explain the relevant next action.
 
 ## Technical method
 
@@ -55,13 +54,11 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Human-readable state with explicit local-versus-last-fetched remote evidence.
-- Branch/HEAD, staged/unstaged/untracked state, operation in progress and safe next action.
+- Branch/HEAD, staged/unstaged/untracked state and any operation in progress, with explicit local-versus-last-fetched remote evidence and the safe next action.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
 - A detached HEAD is explained; stale remote tracking refs are not described as live server status.
-- Review newly prepared commit/PR/message text, including template or hook additions, for agent self-attribution before submission; verify the resulting artifact when available. Do not silently rewrite existing history or remove human credits.
 
 ## Stop and recover
 

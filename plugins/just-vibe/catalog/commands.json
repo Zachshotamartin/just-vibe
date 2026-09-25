@@ -6001,12 +6001,11 @@
       "readScope": "Existing services, stores, deployment units, trust boundaries, and external dependencies.",
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
       "procedure": [
-        "Reconcile source, deployment configuration, and documentation; identify ownership and protocols; trace a representative request and background process; label inferred edges.",
-        "Trace one request and one background operation, marking process, network, ownership and trust boundaries independently."
+        "Reconcile source, deployment configuration and documentation to identify services, stores, owners and protocols.",
+        "Trace one request and one background operation, marking process, network, ownership and trust boundaries independently; label inferred edges."
       ],
       "outputs": [
-        "System diagram, component inventory, data/control flows, and evidence gaps.",
-        "Nodes/edges with protocol, owner, data classification and evidence confidence."
+        "System diagram and component inventory whose edges carry protocol, owner, data classification and evidence confidence, with data/control flows and evidence gaps."
       ],
       "verification": [
         "A shared database dependency appears even without source imports; a documented but undeployed service is marked uncertain."
@@ -6275,12 +6274,12 @@
       "readScope": "Interface schemas, invariants, errors, ownership, and evolution; no endpoint implementation by default.",
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
       "procedure": [
-        "Inventory actual consumers, compare current payloads and assumptions, define required/optional fields and errors, and design compatibility tests and deprecation steps.",
-        "Inventory writers/readers, nullable and optional semantics, version negotiation and error behavior; include independently deployed consumers."
+        "Inventory actual writers and readers, including independently deployed consumers, and compare their current payloads and assumptions.",
+        "Define required, optional and nullable fields, version negotiation and error behavior.",
+        "Design compatibility tests and deprecation steps for each consumer."
       ],
       "outputs": [
-        "Versioned contract proposal with examples and consumer obligations.",
-        "Contract examples, consumer compatibility matrix and deprecation gates."
+        "Versioned contract proposal with examples, a consumer compatibility matrix, consumer obligations and deprecation gates."
       ],
       "verification": [
         "Old consumers handle an additive field; a removed required field is identified as breaking."
@@ -6325,7 +6324,7 @@
         "shared types",
         "contract between services"
       ],
-      "selection": "Use for contracts across services or modules; api-openapi maintains a concrete HTTP schema.",
+      "selection": "Use for contracts across services or modules; api-openapi maintains a concrete HTTP schema, api-breaking assesses a concrete change's consumer impact, and data-contract owns dataset/field semantics and freshness.",
       "branches": [
         {
           "when": "old consumers reject unknown fields",
@@ -6363,12 +6362,12 @@
       "readScope": "Event ownership, ordering, deduplication, retries, dead letters, and replay.",
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
       "procedure": [
-        "Trace transaction boundaries, identify loss/duplicate windows, specify identifiers and schemas, and define recovery and observability for each failure point.",
-        "Draw the write/commit/publish/ack sequence and place a crash between each pair; define replay identity and effect ownership."
+        "Draw the write/commit/publish/ack sequence across transaction boundaries.",
+        "Place a crash between each pair to find loss and duplicate windows; specify identifiers, schemas, replay identity and effect ownership.",
+        "Define recovery and observability for each failure point."
       ],
       "outputs": [
-        "Event sequence diagram, delivery contract, failure matrix, and validation scenarios.",
-        "Failure-point table covering loss, duplicate, reordering, poison messages and recovery."
+        "Event sequence diagram, delivery contract, and a failure-point table covering loss, duplicate, reordering, poison messages and recovery, with validation scenarios."
       ],
       "verification": [
         "Duplicate and out-of-order deliveries have defined outcomes; a producer crash between database and broker operations is addressed."
@@ -6427,7 +6426,7 @@
         "outbox",
         "dead letter"
       ],
-      "selection": "Use for asynchronous consistency and delivery design; backend-jobs implements worker mechanics.",
+      "selection": "Use for asynchronous consistency and delivery design across producers and consumers; backend-jobs implements worker mechanics and backend-idempotency implements single-effect handling for one operation or handler.",
       "branches": [
         {
           "when": "database commit and broker publish are separate",
@@ -6467,12 +6466,11 @@
       "readScope": "Tenant identity propagation across APIs, storage, caches, jobs, exports, and support operations.",
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
       "procedure": [
-        "Map tenant ownership, follow identity through every boundary, inspect membership changes and shared resources, and identify missing isolation checks.",
-        "Follow tenant identity through API, database role, cache key, queue payload, file storage and support/admin paths."
+        "Map tenant ownership of each resource type, including shared resources and membership changes.",
+        "Follow tenant identity through API, database role, cache key, queue payload, file storage and support/admin paths, and identify missing isolation checks."
       ],
       "outputs": [
-        "Isolation map, risk findings, and proposed negative tests or migration design.",
-        "Resource ownership and propagation matrix with concrete bypass candidates."
+        "Resource ownership and propagation matrix with concrete bypass candidates, and proposed negative tests or migration design."
       ],
       "verification": [
         "Background jobs preserve tenant identity; multi-organization users cannot access an unselected unauthorized organization."
@@ -6517,7 +6515,7 @@
         "tenant boundaries",
         "saas isolation"
       ],
-      "selection": "Use for system-wide tenant isolation; backend-permissions handles individual application checks.",
+      "selection": "Use for system-wide tenant isolation; backend-permissions handles individual application checks and security-authz probes a concrete bypass.",
       "branches": [
         {
           "when": "an identity belongs to several organizations",
@@ -6615,7 +6613,7 @@
         "horizontal scaling",
         "growth"
       ],
-      "selection": "Use for workload-driven capacity design; perf measures and repairs a specific bottleneck.",
+      "selection": "Use for workload-driven capacity design; perf measures and repairs a specific bottleneck, and test-load executes an authorized workload.",
       "branches": [
         {
           "when": "a shared database or serialized step dominates",
@@ -6653,12 +6651,11 @@
       "readScope": "Incremental modernization and transitional operation, not immediate replacement.",
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
       "procedure": [
-        "Inventory dependencies, find separable seams, sequence compatibility layers and data movement, define parity checks, and set retirement criteria.",
-        "Identify a seam with separable traffic and data ownership, define coexistence checks and retirement evidence before replacing it."
+        "Inventory dependencies and identify a seam with separable traffic and data ownership.",
+        "Sequence compatibility layers and data movement, and define coexistence parity checks and retirement evidence before replacing the seam."
       ],
       "outputs": [
-        "Phased migration architecture, coexistence plan, risks, and recovery checkpoints.",
-        "Phase-by-phase working state, cutover conditions and irreversible boundaries."
+        "Phased migration architecture with each phase's working state, the coexistence plan, cutover conditions, irreversible boundaries and recovery checkpoints."
       ],
       "verification": [
         "Each phase leaves a working system; old components are retired only after dependent traffic and data ownership move."
@@ -6704,7 +6701,7 @@
         "modernize",
         "decompose the monolith"
       ],
-      "selection": "Use for staged architectural transition; refactor handles an internal structural change.",
+      "selection": "Use for staged architectural transition; refactor handles an internal structural change and migrate handles a version or platform transition.",
       "branches": [
         {
           "when": "old and new systems write the same records",
@@ -6849,12 +6846,12 @@
       "readScope": "Transparent weighted comparison, including hard exclusions and sensitivity analysis.",
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
       "procedure": [
-        "Define score scales, cite evidence for scores, separate must-haves, normalize weights, and vary uncertain values to test ranking stability.",
-        "Define score anchors before rating, keep feasibility separate, and vary uncertain weights/scores over plausible ranges."
+        "Separate must-haves and feasibility from scored criteria, and define score anchors before rating.",
+        "Score each option with cited evidence and normalized weights.",
+        "Vary uncertain weights and scores over plausible ranges to test ranking stability."
       ],
       "outputs": [
-        "Matrix with score rationale, assumptions, sensitivity, and recommendation.",
-        "Criterion definitions, sources, exclusions, weighted calculation and sensitivity result."
+        "Matrix with criterion definitions, sources, exclusions, score rationale, weighted calculation, sensitivity result and recommendation."
       ],
       "verification": [
         "An infeasible option cannot win by averaging; small weight changes that flip the result are disclosed."
@@ -6953,12 +6950,11 @@
       "readScope": "Record one architectural decision with status and consequences; no new approval or implementation.",
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
       "procedure": [
-        "Inspect existing ADR conventions, separate actual agreement from recommendation, capture rationale and tradeoffs, and link superseded decisions.",
-        "Follow existing numbering/status conventions; include context, alternatives, consequences and links to superseded records without rewriting history."
+        "Inspect existing ADR numbering and status conventions, and separate actual agreement from recommendation.",
+        "Write the context, decision, alternatives, rationale, tradeoffs and consequences, and link superseded records without rewriting history."
       ],
       "outputs": [
-        "ADR with context, decision, alternatives, consequences, status, and revisit triggers.",
-        "ADR text with status, rationale, consequences and supersession links where applicable."
+        "ADR with context, decision, alternatives, rationale, consequences, status, revisit triggers and supersession links where applicable."
       ],
       "verification": [
         "A proposed choice remains proposed; a superseding ADR preserves the older record and links it."
@@ -7056,12 +7052,11 @@
       "readScope": "Plausible reasons the proposal could fail and preventive actions.",
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
       "procedure": [
-        "Assume the outcome failed, trace realistic causal chains, rank impact/likelihood, identify early signals, and propose proportionate mitigations.",
-        "Work backward from a concrete failed outcome through design choices, contributing conditions and observable warning signs."
+        "Assume a concrete failed outcome and work backward through design choices and contributing conditions to realistic causal chains.",
+        "Rank the chains by impact and likelihood, identify an observable early warning signal for each, and propose proportionate mitigations."
       ],
       "outputs": [
-        "Failure scenarios, warning indicators, mitigations, and untested assumptions.",
-        "Failure chain, early signal, mitigation, response and residual uncertainty."
+        "Failure chains with early signal, mitigation, response and residual uncertainty, plus untested assumptions."
       ],
       "verification": [
         "Risks connect to specific proposal choices; a mitigation includes a detectable signal or concrete action."
@@ -7105,7 +7100,7 @@
         "imagine it failed",
         "risks of this plan"
       ],
-      "selection": "Use to analyze plausible future failure of a proposal; ops-postmortem reconstructs an actual incident.",
+      "selection": "Use to analyze plausible future failure of a proposal; challenge tests its current assumptions and ops-postmortem reconstructs an actual incident.",
       "branches": [
         {
           "when": "a risk cannot be connected to this proposal",
@@ -7148,12 +7143,11 @@
       "readScope": "Reversibility, lock-in, exit cost, and staged commitment.",
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
       "procedure": [
-        "Identify persisted data, external promises, switching mechanisms, and operational costs; classify reversibility with evidence and design cheaper experiments.",
-        "Inventory persisted data, external promises and dependency adoption; distinguish rollback of code from reversal of consequences."
+        "Inventory persisted data, external promises, dependency adoption, switching mechanisms and operational costs.",
+        "Classify reversibility with evidence, distinguishing rollback of code from reversal of consequences, and design a cheaper experiment with a usable exit."
       ],
       "outputs": [
-        "Decision map with reversal steps, dependencies, cost drivers, and commitment checkpoints.",
-        "Reversibility dimensions, exit cost assumptions and experiment boundary."
+        "Decision map with reversibility dimensions, reversal steps, exit cost assumptions, dependencies, commitment checkpoints and the experiment boundary."
       ],
       "verification": [
         "A simple config toggle with irreversible downstream data effects is not marked freely reversible; a trial has a usable exit path."
@@ -7241,12 +7235,11 @@
       "readScope": "Build, buy, and hybrid options across initial and ongoing ownership.",
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
       "procedure": [
-        "Compare fit, integration, maintenance, migration, service dependence, and total-cost assumptions; verify current vendor capabilities when relevant.",
-        "Compare integration, operations, staffing, exit/export and failure ownership over a stated usage horizon; include the current workaround."
+        "State the usage horizon and include the current workaround as an option; verify current vendor capabilities when relevant.",
+        "Compare fit, integration, operations, staffing, maintenance, migration, exit/export, failure ownership and total-cost assumptions."
       ],
       "outputs": [
-        "Option comparison, recommendation, cost model inputs, and a validation/exit plan.",
-        "Fit/gap matrix, cost assumptions, ownership burden and exit plan."
+        "Fit/gap matrix, cost model inputs and assumptions, ownership burden, recommendation, and a validation and exit plan."
       ],
       "verification": [
         "Maintenance and migration effort appear alongside subscription cost; a vendor missing a hard feature is excluded."
@@ -7424,13 +7417,12 @@
       "readScope": "Reassess a specific choice while preserving its historical rationale.",
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
       "procedure": [
-        "Identify original assumptions, compare them to current facts, estimate transition consequences, and recommend retaining, modifying, or superseding the decision.",
-        "Compare original assumptions with current facts and include migration costs, disruption and option value in retaining versus replacing.",
-        "If the decision was saved, run decision show NAME and then decision revisit NAME with attributed observations; otherwise reconstruct the rationale and label it as reconstructed."
+        "If the decision was saved, run decision show NAME and then decision revisit NAME with attributed observations; otherwise reconstruct the rationale and label it as reconstructed.",
+        "Compare the original assumptions with current facts.",
+        "Weigh migration costs, disruption and option value, and recommend retaining, modifying or superseding the decision."
       ],
       "outputs": [
-        "Reassessment with changed premises, alternatives, migration implications, and proposed status update.",
-        "Changed assumption table, retain/change recommendation and adoption/revisit conditions."
+        "Changed-assumption table, alternatives and migration implications, and a retain/change recommendation with the proposed status update and adoption or revisit conditions."
       ],
       "verification": [
         "New fashion alone does not invalidate a sound decision; a broken core assumption triggers a concrete alternative analysis."
@@ -7521,17 +7513,14 @@
       "readScope": "HEAD, branches, worktrees, index, working tree, and known remote tracking state.",
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
       "procedure": [
-        "Inspect porcelain status and refs, distinguish staged from unstaged changes, detect merge/rebase/bisect state, and explain relevant next actions.",
-        "Read status --porcelain=v2 --branch and resolved refs with GIT_OPTIONAL_LOCKS=0 where supported; inspect worktrees and operation markers without changing them.",
-        "All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices."
+        "Read status --porcelain=v2 --branch and resolved refs with GIT_OPTIONAL_LOCKS=0 where supported; inspect worktrees and merge/rebase/bisect operation markers without changing them.",
+        "Distinguish staged, unstaged and untracked changes and explain the relevant next action."
       ],
       "outputs": [
-        "Human-readable state with explicit local-versus-last-fetched remote evidence.",
-        "Branch/HEAD, staged/unstaged/untracked state, operation in progress and safe next action."
+        "Branch/HEAD, staged/unstaged/untracked state and any operation in progress, with explicit local-versus-last-fetched remote evidence and the safe next action."
       ],
       "verification": [
-        "A detached HEAD is explained; stale remote tracking refs are not described as live server status.",
-        "Review newly prepared commit/PR/message text, including template or hook additions, for agent self-attribution before submission; verify the resulting artifact when available. Do not silently rewrite existing history or remove human credits."
+        "A detached HEAD is explained; stale remote tracking refs are not described as live server status."
       ],
       "stopConditions": [
         "No fetch or cleanup implicitly. An unresolved repository path prevents mutation advice tied to a guessed repository."
@@ -7615,17 +7604,14 @@
       "readScope": "Selected changes and their behavioral meaning; no staging or editing.",
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
       "procedure": [
-        "Resolve refs, inspect rename/binary/submodule metadata, read surrounding context, group by purpose, and identify unrelated edits.",
-        "Separate index versus HEAD, worktree versus index and branch versus merge-base; resolve the requested comparison before summarizing hunks.",
-        "All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices."
+        "Resolve the requested comparison and its refs, separating index versus HEAD, worktree versus index and branch versus merge-base.",
+        "Inspect rename, binary and submodule metadata and read surrounding context, then group hunks by purpose and identify unrelated edits."
       ],
       "outputs": [
-        "Diff summary, impacted contracts, notable risks, and files requiring deeper review.",
-        "Comparison refs, files/hunks grouped by purpose and unrelated changes."
+        "Comparison refs, files and hunks grouped by purpose, impacted contracts, notable risks, unrelated changes and files requiring deeper review."
       ],
       "verification": [
-        "Staged and unstaged changes are not conflated; a binary change is acknowledged without invented contents.",
-        "Review newly prepared commit/PR/message text, including template or hook additions, for agent self-attribution before submission; verify the resulting artifact when available. Do not silently rewrite existing history or remove human credits."
+        "Staged and unstaged changes are not conflated; a binary change is acknowledged without invented contents."
       ],
       "stopConditions": [
         "Missing comparison refs require resolution. Do not assume every change belongs to the current task."
@@ -7816,13 +7802,13 @@
       "readScope": "Separate coherent changes while preserving content; rewriting published history is a distinct action.",
       "writeScope": "Inspect/plan: propose the grouping; save requested artifacts only. Apply: create the new commits only on the current, unpublished branch after preserving the original patch and index. Rewriting pushed or shared history, force-pushing and other remote actions require their exact action and target in session authorization.",
       "procedure": [
-        "Snapshot current state, map hunks to behaviors, identify dependencies, propose commit ordering, and in apply mode create the grouped commits with verification.",
-        "Map hunks to behavior and dependencies, preserve the original patch/index, and validate each proposed intermediate tree in isolation when feasible.",
+        "Snapshot the current state, preserving the original patch and index.",
+        "Map hunks to behaviors and dependencies and propose a commit ordering; validate each proposed intermediate tree in isolation when feasible.",
+        "In apply mode, create the grouped commits and verify the final content matches the original.",
         "All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices."
       ],
       "outputs": [
-        "Split plan or resulting commits plus evidence the final content is preserved.",
-        "Ordered commit groups, dependency rationale and preservation evidence."
+        "Ordered commit groups with dependency rationale, or the resulting commits, plus evidence the final content is preserved."
       ],
       "verification": [
         "Formatting and functional edits separate cleanly; overlapping hunks retain both intended behaviors.",
@@ -7908,13 +7894,13 @@
       "readScope": "Resolve conflicted paths; continuing/finalizing the Git operation follows the requested scope.",
       "writeScope": "Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.",
       "procedure": [
-        "Inspect base/ours/theirs and change intent, resolve behavior rather than choose a side wholesale, handle generated files via their source, and verify merged behavior.",
-        "Read merge base and both sides plus callers; resolve semantic intent, then regenerate derived files from their sources and check the combined behavior.",
+        "Read the merge base, both sides and their callers to establish each change's intent.",
+        "Resolve the combined behavior rather than choosing a side wholesale, and regenerate derived files from their sources.",
+        "Check the combined behavior.",
         "All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices."
       ],
       "outputs": [
-        "Resolved files, rationale for nontrivial choices, tests, and operation state.",
-        "Resolution rationale per conflict, preserved behaviors and remaining operation state."
+        "Resolved files with the rationale for each nontrivial conflict, preserved behaviors, test results and the remaining operation state."
       ],
       "verification": [
         "Both legitimate feature changes survive; unresolved policy conflicts remain explicit rather than arbitrarily chosen.",
@@ -7999,17 +7985,15 @@
       "readScope": "Locate a regression in isolated history; no changes to the user's active worktree.",
       "writeScope": "Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.",
       "procedure": [
-        "Validate endpoints, create/use an isolated worktree, run the bounded pass/fail oracle, distinguish unbuildable revisions as skips, and confirm the candidate.",
-        "Confirm good/bad endpoints and oracle exit semantics, run in an isolated worktree, treat untestable revisions as skips and retest the candidate and parent.",
-        "All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices."
+        "Confirm the good and bad endpoints and the oracle's exit semantics.",
+        "Run the bounded pass/fail oracle in an isolated worktree, treating unbuildable or untestable revisions as skips.",
+        "Retest the candidate and its parent to confirm the boundary."
       ],
       "outputs": [
-        "Culprit or narrowed range, tested revisions, oracle, and cleanup state.",
-        "Endpoint refs, oracle, tested/skipped revisions and independently confirmed boundary."
+        "Culprit or narrowed range with endpoint refs, the oracle, tested and skipped revisions, the independently confirmed boundary and cleanup state."
       ],
       "verification": [
-        "A deterministic regression yields a confirmed boundary; flaky or skipped revisions produce qualified results.",
-        "Review newly prepared commit/PR/message text, including template or hook additions, for agent self-attribution before submission; verify the resulting artifact when available. Do not silently rewrite existing history or remove human credits."
+        "A deterministic regression yields a confirmed boundary; flaky or skipped revisions produce qualified results."
       ],
       "stopConditions": [
         "Stop when the oracle is unreliable or budget expires. Never label a skipped build as the regression without evidence."
@@ -8090,17 +8074,15 @@
       "readScope": "Manage the selected isolated checkout and its Git metadata.",
       "writeScope": "Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the requested changes or execute the requested operation within its resolved target and limits. Local preparation does not authorize live, remote, destructive or paid actions; existing explicit session authorization still applies.",
       "procedure": [
-        "Inspect existing worktrees/branch ownership, validate target paths, create the requested checkout or inspect removal safety, and verify the resulting state.",
-        "List existing worktrees and branch ownership, resolve the requested ref or current-state transfer, and verify destination emptiness before creation.",
-        "All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices."
+        "List existing worktrees and branch ownership, and resolve the requested ref or current-state transfer.",
+        "Validate the target path and verify the destination is empty before creation, or inspect removal safety.",
+        "When applying, create or remove the requested worktree and verify the resulting state."
       ],
       "outputs": [
-        "Worktree path, branch/HEAD, operation result, and usage guidance.",
-        "Worktree path, starting ref, branch ownership and transferred-state verification."
+        "Worktree path, starting ref, branch/HEAD ownership, operation result, transferred-state verification and usage guidance."
       ],
       "verification": [
-        "An existing occupied branch is handled explicitly; removing a dirty worktree stops before losing changes.",
-        "Review newly prepared commit/PR/message text, including template or hook additions, for agent self-attribution before submission; verify the resulting artifact when available. Do not silently rewrite existing history or remove human credits."
+        "An existing occupied branch is handled explicitly; removing a dirty worktree stops before losing changes."
       ],
       "stopConditions": [
         "Do not invent a starting branch, force removal, or delete unrelated directories. Respect the requested current-state versus clean-ref starting point."
@@ -8187,17 +8169,15 @@
       "readScope": "Find recoverable history and prepare non-destructive restoration; no reset by default.",
       "writeScope": "Inspect/plan: locate candidates and describe restoration steps without writing. Apply: create only a new preservation ref (branch or tag) for the chosen content, or a copy of a recovered file outside tracked paths; never move the active branch, reset, rewrite history or run garbage collection.",
       "procedure": [
-        "Inspect reflog, refs, stashes, and reachable candidates, then unreachable objects with read-only git fsck --unreachable --no-reflogs (stash commits are merge commits titled WIP on or On); avoid commands that may trigger automatic garbage collection until the candidate is preserved; compare candidate contents; explain confidence; in apply mode, create a recovery ref or copy only when restoration is requested.",
-        "Inspect reflog/stash/reachable candidates, compare file contents and preserve the chosen commit with a new ref before any active-branch movement.",
-        "All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices."
+        "Inspect reflog, refs, stashes and reachable candidates, then unreachable objects with read-only git fsck --unreachable --no-reflogs (stash commits are merge commits titled WIP on or On); avoid commands that may trigger automatic garbage collection until the candidate is preserved.",
+        "Compare candidate file contents and explain confidence.",
+        "In apply mode, when restoration is requested, preserve the chosen commit with a new ref or copy before any active-branch movement."
       ],
       "outputs": [
-        "Candidate recovery points and exact preservation/restoration steps or recovered artifact.",
-        "Candidate identities, confidence, recovered location and preserved current state."
+        "Candidate identities with confidence, exact preservation/restoration steps or the recovered location, and the preserved current state."
       ],
       "verification": [
-        "A lost commit can be preserved without moving the active branch; absent recovery evidence is not claimed as recoverable.",
-        "Review newly prepared commit/PR/message text, including template or hook additions, for agent self-attribution before submission; verify the resulting artifact when available. Do not silently rewrite existing history or remove human credits."
+        "A lost commit can be preserved without moving the active branch; absent recovery evidence is not claimed as recoverable."
       ],
       "stopConditions": [
         "Do not run garbage collection or destructive cleanup during recovery. Preserve current work before any authorized restore."
@@ -13101,7 +13081,7 @@
         "retry safe",
         "duplicate payment"
       ],
-      "selection": "Use to make repeated operations produce the intended single effect; backend-concurrency covers broader interleavings.",
+      "selection": "Use to make repeated operations produce the intended single effect; backend-concurrency covers broader interleavings; arch-event-flow designs delivery, ordering and dead-letter policy across producers and consumers.",
       "branches": [
         {
           "when": "the same key arrives with a different payload or while pending",
@@ -13826,7 +13806,7 @@
         "versioning",
         "deprecate field"
       ],
-      "selection": "Use to assess consumer impact of a change; api-design creates the intended contract.",
+      "selection": "Use to assess consumer impact of a change; api-design creates the intended contract; for events and messages see arch-contracts.",
       "branches": [
         {
           "when": "a syntactically additive change affects strict decoders or behavior",
@@ -15463,7 +15443,7 @@
         "producer consumer",
         "column semantics"
       ],
-      "selection": "Use to define producer/consumer data expectations; data-quality checks an accepted contract.",
+      "selection": "Use to define producer/consumer data expectations; data-quality checks an accepted contract; arch-contracts owns service interface design.",
       "branches": [
         {
           "when": "thresholds or ownership have not been agreed",

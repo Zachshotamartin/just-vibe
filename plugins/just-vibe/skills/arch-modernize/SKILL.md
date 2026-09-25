@@ -1,6 +1,6 @@
 ---
 name: arch-modernize
-description: "Plan an incremental transition to a target architecture. Use for staged architectural transition; refactor handles an internal structural change."
+description: "Plan an incremental transition to a target architecture. Use for staged architectural transition; refactor handles an internal structural change and migrate handles a version or platform transition."
 ---
 
 # arch-modernize
@@ -9,7 +9,7 @@ Plan an incremental transition to a target architecture.
 
 ## Choose this workflow
 
-Use for staged architectural transition; refactor handles an internal structural change.
+Use for staged architectural transition; refactor handles an internal structural change and migrate handles a version or platform transition.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Architecture methods](../../references/packs/architecture.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -33,8 +33,8 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Inventory dependencies, find separable seams, sequence compatibility layers and data movement, define parity checks, and set retirement criteria.
-2. Identify a seam with separable traffic and data ownership, define coexistence checks and retirement evidence before replacing it.
+1. Inventory dependencies and identify a seam with separable traffic and data ownership.
+2. Sequence compatibility layers and data movement, and define coexistence parity checks and retirement evidence before replacing the seam.
 
 ## Technical method
 
@@ -54,8 +54,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Phased migration architecture, coexistence plan, risks, and recovery checkpoints.
-- Phase-by-phase working state, cutover conditions and irreversible boundaries.
+- Phased migration architecture with each phase's working state, the coexistence plan, cutover conditions, irreversible boundaries and recovery checkpoints.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

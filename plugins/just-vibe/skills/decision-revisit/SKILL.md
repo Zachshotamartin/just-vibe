@@ -33,9 +33,9 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Identify original assumptions, compare them to current facts, estimate transition consequences, and recommend retaining, modifying, or superseding the decision.
-2. Compare original assumptions with current facts and include migration costs, disruption and option value in retaining versus replacing.
-3. If the decision was saved, run decision show NAME and then decision revisit NAME with attributed observations; otherwise reconstruct the rationale and label it as reconstructed.
+1. If the decision was saved, run decision show NAME and then decision revisit NAME with attributed observations; otherwise reconstruct the rationale and label it as reconstructed.
+2. Compare the original assumptions with current facts.
+3. Weigh migration costs, disruption and option value, and recommend retaining, modifying or superseding the decision.
 
 ## Technical method
 
@@ -55,8 +55,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Reassessment with changed premises, alternatives, migration implications, and proposed status update.
-- Changed assumption table, retain/change recommendation and adoption/revisit conditions.
+- Changed-assumption table, alternatives and migration implications, and a retain/change recommendation with the proposed status update and adoption or revisit conditions.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

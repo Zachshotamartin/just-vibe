@@ -1,6 +1,6 @@
 ---
 name: data-contract
-description: "Define schema, semantics, freshness, and quality constraints. Use to define producer/consumer data expectations; data-quality checks an accepted contract."
+description: "Define schema, semantics, freshness, and quality constraints. Use to define producer/consumer data expectations; data-quality checks an accepted contract; arch-contracts owns service interface design."
 ---
 
 # data-contract
@@ -9,7 +9,7 @@ Define schema, semantics, freshness, and quality constraints.
 
 ## Choose this workflow
 
-Use to define producer/consumer data expectations; data-quality checks an accepted contract.
+Use to define producer/consumer data expectations; data-quality checks an accepted contract; arch-contracts owns service interface design.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Data engineering methods](../../references/packs/data.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 

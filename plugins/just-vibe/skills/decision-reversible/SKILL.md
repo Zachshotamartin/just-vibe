@@ -33,8 +33,8 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Identify persisted data, external promises, switching mechanisms, and operational costs; classify reversibility with evidence and design cheaper experiments.
-2. Inventory persisted data, external promises and dependency adoption; distinguish rollback of code from reversal of consequences.
+1. Inventory persisted data, external promises, dependency adoption, switching mechanisms and operational costs.
+2. Classify reversibility with evidence, distinguishing rollback of code from reversal of consequences, and design a cheaper experiment with a usable exit.
 
 ## Technical method
 
@@ -54,8 +54,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Decision map with reversal steps, dependencies, cost drivers, and commitment checkpoints.
-- Reversibility dimensions, exit cost assumptions and experiment boundary.
+- Decision map with reversibility dimensions, reversal steps, exit cost assumptions, dependencies, commitment checkpoints and the experiment boundary.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

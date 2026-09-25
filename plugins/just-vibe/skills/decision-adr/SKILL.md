@@ -33,8 +33,8 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Inspect existing ADR conventions, separate actual agreement from recommendation, capture rationale and tradeoffs, and link superseded decisions.
-2. Follow existing numbering/status conventions; include context, alternatives, consequences and links to superseded records without rewriting history.
+1. Inspect existing ADR numbering and status conventions, and separate actual agreement from recommendation.
+2. Write the context, decision, alternatives, rationale, tradeoffs and consequences, and link superseded records without rewriting history.
 
 ## Technical method
 
@@ -55,8 +55,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- ADR with context, decision, alternatives, consequences, status, and revisit triggers.
-- ADR text with status, rationale, consequences and supersession links where applicable.
+- ADR with context, decision, alternatives, rationale, consequences, status, revisit triggers and supersession links where applicable.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

@@ -1,6 +1,6 @@
 ---
 name: arch-tenancy
-description: "Evaluate tenant isolation across authentication, storage, queries, and jobs. Use for system-wide tenant isolation; backend-permissions handles individual application checks."
+description: "Evaluate tenant isolation across authentication, storage, queries, and jobs. Use for system-wide tenant isolation; backend-permissions handles individual application checks and security-authz probes a concrete bypass."
 ---
 
 # arch-tenancy
@@ -9,7 +9,7 @@ Evaluate tenant isolation across authentication, storage, queries, and jobs.
 
 ## Choose this workflow
 
-Use for system-wide tenant isolation; backend-permissions handles individual application checks.
+Use for system-wide tenant isolation; backend-permissions handles individual application checks and security-authz probes a concrete bypass.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Architecture methods](../../references/packs/architecture.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -33,8 +33,8 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Map tenant ownership, follow identity through every boundary, inspect membership changes and shared resources, and identify missing isolation checks.
-2. Follow tenant identity through API, database role, cache key, queue payload, file storage and support/admin paths.
+1. Map tenant ownership of each resource type, including shared resources and membership changes.
+2. Follow tenant identity through API, database role, cache key, queue payload, file storage and support/admin paths, and identify missing isolation checks.
 
 ## Technical method
 
@@ -54,8 +54,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Isolation map, risk findings, and proposed negative tests or migration design.
-- Resource ownership and propagation matrix with concrete bypass candidates.
+- Resource ownership and propagation matrix with concrete bypass candidates, and proposed negative tests or migration design.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

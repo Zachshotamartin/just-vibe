@@ -33,8 +33,9 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Define score scales, cite evidence for scores, separate must-haves, normalize weights, and vary uncertain values to test ranking stability.
-2. Define score anchors before rating, keep feasibility separate, and vary uncertain weights/scores over plausible ranges.
+1. Separate must-haves and feasibility from scored criteria, and define score anchors before rating.
+2. Score each option with cited evidence and normalized weights.
+3. Vary uncertain weights and scores over plausible ranges to test ranking stability.
 
 ## Technical method
 
@@ -54,8 +55,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Matrix with score rationale, assumptions, sensitivity, and recommendation.
-- Criterion definitions, sources, exclusions, weighted calculation and sensitivity result.
+- Matrix with criterion definitions, sources, exclusions, score rationale, weighted calculation, sensitivity result and recommendation.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

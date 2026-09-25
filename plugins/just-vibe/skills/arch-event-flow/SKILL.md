@@ -1,6 +1,6 @@
 ---
 name: arch-event-flow
-description: "Design event delivery, retries, ordering, and failure handling. Use for asynchronous consistency and delivery design; backend-jobs implements worker mechanics."
+description: "Design event delivery, retries, ordering, and failure handling. Use for asynchronous consistency and delivery design across producers and consumers; backend-jobs implements worker mechanics and backend-idempotency implements single-effect handling for one operation or handler."
 ---
 
 # arch-event-flow
@@ -9,7 +9,7 @@ Design event delivery, retries, ordering, and failure handling.
 
 ## Choose this workflow
 
-Use for asynchronous consistency and delivery design; backend-jobs implements worker mechanics.
+Use for asynchronous consistency and delivery design across producers and consumers; backend-jobs implements worker mechanics and backend-idempotency implements single-effect handling for one operation or handler.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Architecture methods](../../references/packs/architecture.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -33,8 +33,9 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Trace transaction boundaries, identify loss/duplicate windows, specify identifiers and schemas, and define recovery and observability for each failure point.
-2. Draw the write/commit/publish/ack sequence and place a crash between each pair; define replay identity and effect ownership.
+1. Draw the write/commit/publish/ack sequence across transaction boundaries.
+2. Place a crash between each pair to find loss and duplicate windows; specify identifiers, schemas, replay identity and effect ownership.
+3. Define recovery and observability for each failure point.
 
 ## Technical method
 
@@ -54,8 +55,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Event sequence diagram, delivery contract, failure matrix, and validation scenarios.
-- Failure-point table covering loss, duplicate, reordering, poison messages and recovery.
+- Event sequence diagram, delivery contract, and a failure-point table covering loss, duplicate, reordering, poison messages and recovery, with validation scenarios.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

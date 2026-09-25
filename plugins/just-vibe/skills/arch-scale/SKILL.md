@@ -1,6 +1,6 @@
 ---
 name: arch-scale
-description: "Identify bottlenecks for a specified workload and growth scenario. Use for workload-driven capacity design; perf measures and repairs a specific bottleneck."
+description: "Identify bottlenecks for a specified workload and growth scenario. Use for workload-driven capacity design; perf measures and repairs a specific bottleneck, and test-load executes an authorized workload."
 ---
 
 # arch-scale
@@ -9,7 +9,7 @@ Identify bottlenecks for a specified workload and growth scenario.
 
 ## Choose this workflow
 
-Use for workload-driven capacity design; perf measures and repairs a specific bottleneck.
+Use for workload-driven capacity design; perf measures and repairs a specific bottleneck, and test-load executes an authorized workload.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Architecture methods](../../references/packs/architecture.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 

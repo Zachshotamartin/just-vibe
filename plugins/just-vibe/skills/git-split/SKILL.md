@@ -33,9 +33,10 @@ Inspect/plan: propose the grouping; save requested artifacts only. Apply: create
 
 ## Execute
 
-1. Snapshot current state, map hunks to behaviors, identify dependencies, propose commit ordering, and in apply mode create the grouped commits with verification.
-2. Map hunks to behavior and dependencies, preserve the original patch/index, and validate each proposed intermediate tree in isolation when feasible.
-3. All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
+1. Snapshot the current state, preserving the original patch and index.
+2. Map hunks to behaviors and dependencies and propose a commit ordering; validate each proposed intermediate tree in isolation when feasible.
+3. In apply mode, create the grouped commits and verify the final content matches the original.
+4. All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
 
 ## Technical method
 
@@ -55,8 +56,7 @@ Inspect/plan: propose the grouping; save requested artifacts only. Apply: create
 
 ## Deliver and verify
 
-- Split plan or resulting commits plus evidence the final content is preserved.
-- Ordered commit groups, dependency rationale and preservation evidence.
+- Ordered commit groups with dependency rationale, or the resulting commits, plus evidence the final content is preserved.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

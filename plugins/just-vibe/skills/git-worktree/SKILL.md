@@ -33,9 +33,9 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 
 ## Execute
 
-1. Inspect existing worktrees/branch ownership, validate target paths, create the requested checkout or inspect removal safety, and verify the resulting state.
-2. List existing worktrees and branch ownership, resolve the requested ref or current-state transfer, and verify destination emptiness before creation.
-3. All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
+1. List existing worktrees and branch ownership, and resolve the requested ref or current-state transfer.
+2. Validate the target path and verify the destination is empty before creation, or inspect removal safety.
+3. When applying, create or remove the requested worktree and verify the resulting state.
 
 ## Technical method
 
@@ -56,13 +56,11 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 
 ## Deliver and verify
 
-- Worktree path, branch/HEAD, operation result, and usage guidance.
-- Worktree path, starting ref, branch ownership and transferred-state verification.
+- Worktree path, starting ref, branch/HEAD ownership, operation result, transferred-state verification and usage guidance.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
 - An existing occupied branch is handled explicitly; removing a dirty worktree stops before losing changes.
-- Review newly prepared commit/PR/message text, including template or hook additions, for agent self-attribution before submission; verify the resulting artifact when available. Do not silently rewrite existing history or remove human credits.
 
 ## Stop and recover
 
