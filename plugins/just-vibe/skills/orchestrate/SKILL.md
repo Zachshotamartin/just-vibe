@@ -1,6 +1,6 @@
 ---
 name: orchestrate
-description: "Coordinate a feature, fix, refactor or MVP through scoped phases and reviewed dependent assignments. Use for a multi-phase implementation or explicitly requested worker coordination. For a small localized edit use build, fix or refactor directly. This workflow does not itself authorize subagents."
+description: "Coordinate a feature, fix, refactor or MVP through scoped phases and reviewed dependent assignments. Use for a multi-phase implementation or explicitly requested worker coordination. For a small localized edit use build, fix or refactor directly; auto applies the same phase contract to multi-phase work it tracks. This workflow does not itself authorize subagents."
 ---
 
 # orchestrate
@@ -9,7 +9,7 @@ Coordinate a feature, fix, refactor or MVP through scoped phases and reviewed de
 
 ## Choose this workflow
 
-Use for a multi-phase implementation or explicitly requested worker coordination. For a small localized edit use build, fix or refactor directly. This workflow does not itself authorize subagents.
+Use for a multi-phase implementation or explicitly requested worker coordination. For a small localized edit use build, fix or refactor directly; auto applies the same phase contract to multi-phase work it tracks. This workflow does not itself authorize subagents.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [General methods](../../references/packs/general.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 

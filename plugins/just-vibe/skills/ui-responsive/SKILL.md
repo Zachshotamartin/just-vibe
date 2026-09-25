@@ -27,7 +27,7 @@ Declared evidence requirements: `project.read`, `browser.inspect`. Use actual ho
 
 ## Scope
 
-Layout adaptation including touch, pointer, zoom, and keyboard effects; shares primitives with `responsive`.
+Layout adaptation including touch, pointer, zoom, and keyboard effects.
 
 Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.
 

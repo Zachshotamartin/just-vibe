@@ -54,3 +54,27 @@ test('adapter hosts get their own skill names; run operations still need a nativ
   const workflow = await cli(['workflow', 'fix', '--target', 'cursor', '--root', root, '--', 'Fix it']);
   assert.equal(workflow.code, 1); assert.match(workflow.error, /codex or claude/);
 });
+
+test('missing saved records name the command that lists or creates them instead of a raw file error (A3-16)', async t => {
+  const root = mkdtempSync(join(tmpdir(), 'jv-missing-'));
+  t.after(() => rmSync(root, { recursive: true, force: true }));
+  for (const [args, expected] of [
+    [['project', 'resume', 'checkout', '--root', root], /No checkpoint named checkout\. Run project list/],
+    [['task', 'show', 'checkout-retry', '--root', root], /No task record named checkout-retry\. Run workbench list/],
+    [['guard', 'check', 'g1', '--root', root], /No guard named g1\. Create it with guard create g1/],
+  ]) {
+    const result = await cli(args);
+    assert.notEqual(result.code, 0, args.join(' '));
+    assert.match(result.error, expected, args.join(' '));
+    assert.doesNotMatch(result.error, /ENOENT|lstat/, args.join(' '));
+  }
+});
+
+test('role lookup accepts the --root every toolkit call passes (A3-19)', async t => {
+  const root = mkdtempSync(join(tmpdir(), 'jv-roles-'));
+  t.after(() => rmSync(root, { recursive: true, force: true }));
+  for (const args of [['profiles', 'ml', '--root', root, '--json'], ['profile', 'frontend-engineer', '--root', root, '--json']]) {
+    const result = await cli(args);
+    assert.equal(result.code, 0, `${args[0]}: ${result.error}`);
+  }
+});

@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtempSync, writeFileSync, rmSync } from 'node:fs';
+import { mkdtempSync, writeFileSync, rmSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { loadCatalog, searchCommands } from '../plugins/just-vibe/scripts/lib/catalog.mjs';
@@ -117,6 +117,9 @@ const FIRST = [
   ['B7-03', 'trace this field back to the source', ['data-lineage']],
   ['V-A2-06', 'remove the old /v1/users endpoint nobody calls anymore', ['api-breaking', 'cleanup']],
   ['A8-04', 'compare these mlflow runs from last week', ['ml-experiments']],
+  ['A3-15', 'is just-vibe installed correctly?', ['doctor']],
+  ['A3-15', 'update just-vibe to the latest version', ['doctor']],
+  ['A3-15', 'install just-vibe for claude code', ['doctor']],
   ['B9-09', 'which features matter most for this model', ['ml-explain']],
   ['B9-09', 'how much does the price feature contribute to accuracy if we drop it', ['ml-ablation']],
 ];
@@ -228,4 +231,25 @@ test('negated clauses keep the positive task and ignore typographic apostrophes 
   assert.equal(splitNegations('the page reloads without saving').excluded.length, 0);
   assert.deepEqual(splitNegations('Fix the bug without new dependencies.').excluded, ['without new dependencies']);
   assert.deepEqual(splitNegations('use pnpm instead of npm to install').excluded, ['instead of npm to install']);
+});
+
+// The first-run examples the docs promise, asserted where they are written (B11-02).
+const DOCUMENTED = [
+  ['README.md', 'Fix the mobile menu', ['react-component', 'ui-responsive']],
+  ['README.md', 'Investigate unstable training', ['ml-debug-training']],
+  ['README.md', "Address this PR's feedback", ['github-address-review']],
+  ['website/src/pages/docs/usage.md', 'Fix the mobile menu', ['react-component', 'ui-responsive']],
+  ['website/src/pages/docs/usage.md', 'Why is training unstable?', ['ml-debug-training']],
+  ['website/src/pages/docs/automatic.md', 'Fix the mobile menu', ['react-component', 'ui-responsive']],
+  ['website/src/pages/docs/automatic.md', 'Why is training unstable?', ['ml-debug-training']],
+  ['website/src/pages/docs/automatic.md', 'Address this PR’s feedback', ['github-address-review']],
+  ['plugins/just-vibe/references/adaptive.md', 'Fix the mobile menu', ['react-component', 'ui-responsive']],
+];
+test('documented first-run examples route where the docs say they do (B11-02)', t => {
+  const env = project(t);
+  for (const [file, brief, accept] of DOCUMENTED) {
+    const text = readFileSync(new URL(`../${file}`, import.meta.url), 'utf8');
+    assert.ok(text.includes(brief), `${file} still shows "${brief}"`);
+    assert.ok(accept.includes(ids(env, brief)[0]), `${file}: "${brief}" -> ${ids(env, brief).slice(0, 3).join(', ')}`);
+  }
 });

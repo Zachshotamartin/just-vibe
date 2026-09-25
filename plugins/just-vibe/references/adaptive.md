@@ -35,7 +35,7 @@ The hook starts the task automatically. A host without hooks can create one expl
 **route** is read-only retrieval: `{"brief":"Why is training unstable?","host":"codex"}`. **select**:
 
 ```json
-{"taskId":"TASK-ID","workflows":["ui-states"],"mode":"apply","reason":"Repair the existing mobile menu and verify its interactions."}
+{"taskId":"TASK-ID","workflows":["react-component"],"mode":"apply","reason":"Repair the existing mobile menu and verify its interactions."}
 ```
 
 **load** returns complete effective instructions. With a task ID it records delivery; without one it serves a direct skill invocation without task bookkeeping:

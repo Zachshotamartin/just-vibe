@@ -160,7 +160,8 @@ export function parseToolkitArgs(args) {
     assist: ['json', 'root', 'stdin'],
     tools: ['json', 'available', 'all', 'root', 'target', 'pack', 'capabilities', 'limit'],
     show: ['json', 'target', 'root'], inspect: ['json', 'root'], discover: ['json', 'root', 'capabilities'],
-    profiles: ['json', 'limit'], profile: ['json'],
+    // The shared execution guide passes --root to every call; role lookup ignores it.
+    profiles: ['json', 'limit', 'root'], profile: ['json', 'root'],
     route: ['json', 'root', 'target', 'capabilities', 'stdin', 'brief-file', 'limit'],
     workflow: ['json', 'root', 'target', 'mode', 'scope', 'profile', 'stdin', 'brief-file'], session: ['json', 'target', 'stdin'], quiz: ['json', 'stdin'],
     project: ['json', 'root', 'stdin'], hooks: ['json', 'root', 'stdin'],

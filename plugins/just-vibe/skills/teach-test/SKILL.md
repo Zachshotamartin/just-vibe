@@ -29,7 +29,7 @@ Declared evidence requirements: `user.questions`. Use actual host discovery or a
 
 Assess understanding through one native dialog question at a time. Do not render quiz questions inline, implement the named tool, alter project files, or change host mode/settings automatically.
 
-No project or external-service writes. Keep quiz state in session context; save results only on request.
+No project or external-service writes. Keep quiz state in session context; on an explicit save request, write the quiz report to the path the user names or save it with project checkpoint NAME.
 
 ## Execute
 

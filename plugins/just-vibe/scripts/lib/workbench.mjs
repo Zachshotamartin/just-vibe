@@ -196,12 +196,22 @@ export function writeState(root, path, state, options = {}) {
     if (existsSync(temp)) unlinkSync(temp);
   }
 }
+// A missing record names the command that lists or creates it instead of a raw file error.
+const MISSING = {
+  tasks: id => `No task record named ${id}. Run workbench list to see saved task records.`,
+  memory: id => `No saved rule named ${id}. Rules are saved with memory save ${id}.`,
+  guards: id => `No guard named ${id}. Create it with guard create ${id}.`,
+};
 export function readRecord(root, collection, id, optional = false) {
   name(collection);
   name(id);
   root = projectRoot(root);
   const path = within(root, `.just-vibe/${collection}/${id}.json`);
   if (optional && !existsSync(path)) return null;
+  // lstat keeps a dangling symlink on the symlink-rejection path in readJson.
+  if (!lstatSync(path, { throwIfNoEntry: false })) {
+    throw Error((MISSING[collection] || (missing => `No ${collection} record named ${missing}. Run workbench list to see saved records.`))(id));
+  }
   const record = readJson(path, MAX_STATE);
   if (
     record.schemaVersion !== 1 ||

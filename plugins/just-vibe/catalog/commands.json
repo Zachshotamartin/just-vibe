@@ -450,7 +450,7 @@
         "user.questions"
       ],
       "readScope": "Assess understanding through one native dialog question at a time. Do not render quiz questions inline, implement the named tool, alter project files, or change host mode/settings automatically.",
-      "writeScope": "No project or external-service writes. Keep quiz state in session context; save results only on request.",
+      "writeScope": "No project or external-service writes. Keep quiz state in session context; on an explicit save request, write the quiz report to the path the user names or save it with project checkpoint NAME.",
       "procedure": [
         "Read ../../references/teaching.md and ../../references/teach-test.md. Resolve the topic from the complete brief or immediately preceding lesson; ask for it only if unresolved.",
         "Inspect actual callable tools. Prefer request_user_input_async in a Codex environment that exposes and permits it, otherwise request_user_input only in its supported mode; use AskUserQuestion in Claude when available. Follow the actual host schema and restrictions. If no suitable dialog is available, explain that native interactive testing is unavailable here and stop without inline questions.",
@@ -4762,7 +4762,7 @@
       "readScope": "Save task state in a local approved artifact; no permanent behavioral memory or external posting.",
       "writeScope": "Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.",
       "procedure": [
-        "Save the objective, constraints, decisions, completed evidence, remaining work and next step using project checkpoint NAME with the current revision when structured storage is appropriate. Read an existing checkpoint and its revision with project resume NAME (project list shows names), and read it back the same way after saving. The helper captures repository/worktree identity per file; keep external operation IDs in the task context without credentials.",
+        "Save the objective, constraints, decisions, completed evidence, remaining work and next step using project checkpoint NAME with the current revision when structured storage is appropriate. Read an existing checkpoint and its revision with project resume NAME (project list shows names), and read it back the same way after saving. The helper captures repository/worktree identity per file; record each external operation ID with its confirmed or uncertain state in completed or remaining, without credentials, so resume can reconcile it before any retry.",
         "If a tracked run is active, save its latest run record in the checkpoint run field so session resume keeps its stages, attempts and budget.",
         "A checkpoint does not contain reversible file content. If undo support is requested before editing, create a separate task begin/capture record; never manufacture past ownership from a later snapshot."
       ],
@@ -5198,7 +5198,7 @@
         "Report the exact saved rules, paths, scope and any omitted or unresolved context. Distinguish a successful file write from verified host loading and from guaranteed future adherence. Structured project notes are optional data storage, not a substitute for host-loaded instructions.",
         "For inspect/loading/conflict requests, read the memory-checks guide and run memory inspect for the selected host and scope without writing. Distinguish an applicable candidate file, its persisted rule and a host-reported loading observation; no observation means loading unknown.",
         "For a new managed explicit rule, read the current file bytes and rule revision, then use memory save with its source excerpt, exact scope and expected file hash. Preserve unrelated prose. Store narrower scope in the instruction itself and retain history. Use the instruction-memory workflow for established shared imports/context sections; never duplicate the same rule in competing mechanisms.",
-        "When enforcement is requested, choose an assertion the runtime can actually test. Literal/import guards need representative positive and negative controls and a matching rule scope. For semantic behavior, implement a focused project test with a meaningful failure control instead of claiming a string scanner proves it.",
+        "When enforcement is requested, a guard needs a rule saved with memory save: convert a prose rule into a managed rule and retire the prose version, or write a focused project test instead. Choose an assertion the runtime can actually test. Literal/import guards need representative positive and negative controls and a matching rule scope. For semantic behavior, implement a focused project test with a meaningful failure control instead of claiming a string scanner proves it.",
         "Inspect saved state and read the written block back. Run the guard and report its covered files, failures or incomplete coverage. A changed/retired/missing rule makes its guard stale. Integrate automatic enforcement into existing CI or explicitly trusted hooks only when requested."
       ],
       "outputs": [
@@ -5556,7 +5556,7 @@
       "procedure": [
         "Resolve the bundled installer, then run its doctor operation for the requested host, source and Claude scope. Infer the active host only when unambiguous; --local means a complete persistent source checkout.",
         "Report actual prerequisite, marketplace, installation and enablement results. Do not run setup/update or edit configuration to make a status question pass. Unknown inventory formats and conflicts remain actionable blockers.",
-        "Separate package presence, native registration, enabled state and actual version; recommend a repair for the observed failing layer only.",
+        "Separate package presence, native registration, enabled state and actual version. The installer reports every failing layer at once; recommend repairs that cover exactly the observed failing layers.",
         "Claude shortcut health (commands/jv.md, commands/just-vibe.md and the jv skills plugin) is a separate layer from native registration; report it separately."
       ],
       "outputs": [
@@ -5933,7 +5933,7 @@
       "skillPath": "skills/auto/SKILL.md",
       "runtimeSteps": [],
       "searchTerms": [],
-      "selection": "Use for ordinary coding, debugging, review, UI, delivery, architecture or ML requests that benefit from project workflows, including multi-step tasks without a command name. Skip unrelated conversation; use a directly relevant skill when it is already selected.",
+      "selection": "Use for ordinary coding, debugging, review, UI, delivery, architecture or ML requests that benefit from project workflows, including multi-step tasks without a command name. For a multi-phase feature, fix, refactor or MVP, apply the composed-workflows phase contract (as orchestrate does) inside the tracked run. Skip unrelated conversation; use a directly relevant skill when it is already selected.",
       "branches": [
         {
           "when": "one bounded local workflow is sufficient",
@@ -11900,7 +11900,7 @@
         "project.read",
         "browser.inspect"
       ],
-      "readScope": "Layout adaptation including touch, pointer, zoom, and keyboard effects; shares primitives with `responsive`.",
+      "readScope": "Layout adaptation including touch, pointer, zoom, and keyboard effects.",
       "writeScope": "Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.",
       "procedure": [
         "Reproduce the failure and inspect intrinsic sizes and flow to find the width constraint or overflow source.",
@@ -23228,7 +23228,7 @@
         "coordinate the work",
         "mvp end to end"
       ],
-      "selection": "Use for a multi-phase implementation or explicitly requested worker coordination. For a small localized edit use build, fix or refactor directly. This workflow does not itself authorize subagents.",
+      "selection": "Use for a multi-phase implementation or explicitly requested worker coordination. For a small localized edit use build, fix or refactor directly; auto applies the same phase contract to multi-phase work it tracks. This workflow does not itself authorize subagents.",
       "branches": [
         {
           "when": "the change is small",

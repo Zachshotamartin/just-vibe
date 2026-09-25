@@ -4,13 +4,13 @@ Use the host's real multiple-choice question UI, one question at a time. Do not 
 
 ## Dialog availability
 
-Discover the actually callable question tool, including its current schema and allowed uses. Codex environments may expose `request_user_input_async` or `request_user_input`; the latter may be restricted to a particular mode. Claude uses `AskUserQuestion` where exposed. Do not switch host modes, enable tools, or bypass a restriction automatically. If native questions are unavailable or the tool's restrictions do not permit this interaction, report the limitation and stop; do not invent an inline fallback.
+Discover the actually callable question tool, including its current schema and allowed uses. Codex environments may expose `request_user_input_async` or `request_user_input`; the latter may be restricted to a particular mode. Claude uses `AskUserQuestion` where exposed. Do not switch host modes, enable tools, or bypass a restriction automatically. If native questions are unavailable or the tool's restrictions do not permit this interaction, report the limitation and stop; do not invent an inline fallback. A conversational review the user explicitly asks for is ordinary teaching, not a teach-test assessment.
 
 An async call returning only confirms the question was issued. Wait for the user's actual submission. A preselected choice, timeout, dismissed dialog, or empty result is not an answer. Keep pending state and avoid repeated question popups. If the user changes the topic or cancels, acknowledge it and end/restart deliberately rather than grading against a stale question.
 
 ## Quiz state and payloads
 
-Use `node toolkit.mjs quiz OPERATION` with JSON stdin (`--stdin` is optional). The utility returns state/payloads only; the host agent must call the named native tool. Keep state in context, saving only on request. Pass input through a literal stdin/heredoc rather than writing temporary state or question files. Choose the `dialog` value from the tool actually observed:
+Use `node toolkit.mjs quiz OPERATION` with JSON stdin (`--stdin` is optional). The utility returns state/payloads only; the host agent must call the named native tool. Keep state in context. Save only on an explicit request: write the `quiz report` output to the path the user names, or save it with `project checkpoint NAME` when they want to continue later; never choose a location yourself. Pass input through a literal stdin/heredoc rather than writing temporary state or question files. Choose the `dialog` value from the tool actually observed:
 
 | Value | Native tool | Payload shape |
 |---|---|---|

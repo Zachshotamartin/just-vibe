@@ -1,6 +1,6 @@
 ---
 name: auto
-description: "Select and apply the relevant engineering workflows from an ordinary request. Use for ordinary coding, debugging, review, UI, delivery, architecture or ML requests that benefit from project workflows, including multi-step tasks without a command name. Skip unrelated conversation; use a directly relevant skill when it is already selected."
+description: "Select and apply the relevant engineering workflows from an ordinary request. Use for ordinary coding, debugging, review, UI, delivery, architecture or ML requests that benefit from project workflows, including multi-step tasks without a command name. For a multi-phase feature, fix, refactor or MVP, apply the composed-workflows phase contract (as orchestrate does) inside the tracked run. Skip unrelated conversation; use a directly relevant skill when it is already selected."
 ---
 
 # auto
@@ -9,7 +9,7 @@ Select and apply the relevant engineering workflows from an ordinary request.
 
 ## Choose this workflow
 
-Use for ordinary coding, debugging, review, UI, delivery, architecture or ML requests that benefit from project workflows, including multi-step tasks without a command name. Skip unrelated conversation; use a directly relevant skill when it is already selected.
+Use for ordinary coding, debugging, review, UI, delivery, architecture or ML requests that benefit from project workflows, including multi-step tasks without a command name. For a multi-phase feature, fix, refactor or MVP, apply the composed-workflows phase contract (as orchestrate does) inside the tracked run. Skip unrelated conversation; use a directly relevant skill when it is already selected.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [General methods](../../references/packs/general.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 

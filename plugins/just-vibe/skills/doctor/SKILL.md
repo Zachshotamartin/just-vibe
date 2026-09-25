@@ -35,7 +35,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 1. Resolve the bundled installer, then run its doctor operation for the requested host, source and Claude scope. Infer the active host only when unambiguous; --local means a complete persistent source checkout.
 2. Report actual prerequisite, marketplace, installation and enablement results. Do not run setup/update or edit configuration to make a status question pass. Unknown inventory formats and conflicts remain actionable blockers.
-3. Separate package presence, native registration, enabled state and actual version; recommend a repair for the observed failing layer only.
+3. Separate package presence, native registration, enabled state and actual version. The installer reports every failing layer at once; recommend repairs that cover exactly the observed failing layers.
 4. Claude shortcut health (commands/jv.md, commands/just-vibe.md and the jv skills plugin) is a separate layer from native registration; report it separately.
 
 ## Technical method

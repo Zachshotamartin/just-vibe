@@ -34,7 +34,7 @@ function lesson(task, extra = {}) {
 test('ordinary requests route across frontend, ML, GitHub and backend without command names', t => {
   const f = fixture(t);
   for (const [brief, expected] of [
-    ['Fix the mobile menu', 'ui-states'], ['Why is training unstable?', 'ml-debug-training'],
+    ['Fix the mobile menu', 'react-component'], ['Why is training unstable?', 'ml-debug-training'],
     ['Address this PR’s feedback', 'github-address-review'], ['Fix the login bug without deploying', 'backend-auth'],
     ['Review the database migration', 'db-migrate'],
     ['Add pagination to this endpoint', 'api-pagination'],
@@ -80,8 +80,8 @@ test('a repair follow-up after an inspection offers workflows that can apply it 
   // A selected apply-mode task continues unchanged; a selected inspect-mode task is repaired.
   const applied = f.start('Fix the mobile menu', 'applied'); select(f, applied);
   const continued = f.start('fix the first two', 'applied');
-  assert.equal(continued.repair, false); assert.equal(continued.brief, 'Fix the mobile menu'); assert.equal(continued.candidates[0].id, 'ui-states');
-  const inspected = f.start('Fix the mobile menu', 'inspected'); select(f, inspected, 'ui-states', 'inspect');
+  assert.equal(continued.repair, false); assert.equal(continued.brief, 'Fix the mobile menu'); assert.equal(continued.candidates[0].id, 'react-component');
+  const inspected = f.start('Fix the mobile menu', 'inspected'); select(f, inspected, 'react-component', 'inspect');
   assert.equal(f.start('fix it', 'inspected').repair, true);
   assert.equal(f.start('continue', 'inspected').repair, false, 'A plain continuation keeps the previous shortlist');
 });
@@ -90,7 +90,7 @@ test('a task role carries across prompts and compaction, and a saved preference 
   const f = fixture(t);
   const first = f.start('Fix the mobile menu');
   const pin = { primary: 'frontend-engineer', selectedBy: 'user', reason: 'User asked to work as the frontend engineer.' };
-  assert.equal(f.run('select', { taskId: first.id, workflows: ['ui-states'], mode: 'apply', reason: 'Menu state bug.', profile: pin }).profile.primary, 'frontend-engineer');
+  assert.equal(f.run('select', { taskId: first.id, workflows: ['react-component'], mode: 'apply', reason: 'Menu interaction bug.', profile: pin }).profile.primary, 'frontend-engineer');
   const second = f.start('now fix the modal focus bug');
   assert.equal(second.profile.primary, 'frontend-engineer'); assert.equal(second.profile.pinned, true);
   assert.match(activationContext(f.store, catalog, second), /Active task profile: frontend-engineer \(pinned by the user\)/);
@@ -148,7 +148,7 @@ test('both adapters inject a bounded shortlist and preserve the complete request
   const f = fixture(t);
   for (const host of ['claude', 'codex']) {
     const context = f.hook({ hook_event_name: 'UserPromptSubmit', prompt: 'Fix the mobile menu. No new packages; do not deploy.', turn_id: 't1' }, host).hookSpecificOutput.additionalContext;
-    assert.match(context, /ui-states/); assert.match(context, /assist select/); assert.ok(context.length < 8000);
+    assert.match(context, /react-component/); assert.match(context, /assist select/); assert.ok(context.length < 8000);
     const session = f.store.read(f.store.sessionPath(host, 'session-one'));
     assert.equal(f.store.task(session.taskId).brief, 'Fix the mobile menu. No new packages; do not deploy.');
     assert.equal(f.hook({ hook_event_name: 'UserPromptSubmit', prompt: 'Fix the mobile menu. No new packages; do not deploy.', turn_id: 't1' }, host).hookSpecificOutput.additionalContext, context);

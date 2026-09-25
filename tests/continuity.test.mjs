@@ -101,3 +101,12 @@ test('large data does not prevent a checkpoint but cannot certify a complete sna
   assert.equal(saved.snapshot.partial, true);
   assert.ok(continuity(root, 'resume', {}, 'training').differences.includes('incomplete-snapshot-coverage'));
 });
+
+test('external operation identities survive a checkpoint round trip for reconciliation (A3-18)', t => {
+  const root = fixture(t);
+  const pending = 'Vercel deploy dpl_3fQ2 submitted; outcome uncertain after a timeout. Look it up before redeploying.';
+  continuity(root, 'checkpoint', { ...checkpoint, completed: ['Built the preview locally.'], remaining: [pending] }, 'deploy');
+  const resumed = continuity(root, 'resume', {}, 'deploy');
+  assert.deepEqual(resumed.checkpoint.context.remaining, [pending]);
+  assert.match(loadCatalog().commands.find(c => c.id === 'checkpoint').procedure[0], /external operation ID with its confirmed or uncertain state/);
+});
