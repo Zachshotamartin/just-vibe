@@ -3,7 +3,7 @@ import Icon from '../components/Icon.astro';
 import { ClientRouter } from 'astro:transitions';
 import '@fontsource-variable/geist';
 import '../styles/global.css';
-import { version } from '../lib/catalog.mjs';
+import { publishedVersion, sourceUnreleased, version } from '../lib/catalog.mjs';
 import { getImage } from 'astro:assets';
 import mark from '../assets/just-vibe-mark.png';
 import transparentMark from '../assets/just-vibe-mark-transparent.png';
@@ -149,7 +149,7 @@ const pageEntrance = {
             <a href="https://www.npmjs.com/package/just-vibe">
               npm <Icon name="arrow-up-right" />
             </a>
-            <a href="/docs/releases/">v{version}</a>
+            <a href="/docs/releases/">v{publishedVersion}{sourceUnreleased && ` (source v${version} unreleased)`}</a>
           </nav>
         </div>
       </div>

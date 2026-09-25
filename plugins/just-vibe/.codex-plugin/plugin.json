@@ -1,7 +1,7 @@
 {
   "name": "just-vibe",
   "version": "0.12.0",
-  "description": "Engineering role profiles and coding workflows for development, architecture, delivery, data and ML.",
+  "description": "Engineering workflows and role profiles for coding agents.",
   "author": {
     "name": "Zachary Martin",
     "url": "https://github.com/Zachshotamartin"
@@ -10,7 +10,7 @@
   "skills": "./skills/",
   "interface": {
     "displayName": "just-vibe",
-    "shortDescription": "Engineering profiles and coding workflows.",
+    "shortDescription": "Engineering workflows and role profiles for coding agents.",
     "longDescription": "Select task-scoped engineering profiles and execute focused workflows with shared context, verification and bounded routing. Includes architecture and seniority profiles, Git, GitHub, frontend, backend, databases, data, ML, security and operations.",
     "developerName": "Zachary Martin",
     "category": "Productivity",

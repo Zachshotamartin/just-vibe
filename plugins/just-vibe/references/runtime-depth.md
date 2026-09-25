@@ -1,6 +1,6 @@
 # Context health, quality checks, editor events and shared work
 
-These additions are Unreleased. They extend existing skills and runtime operations. Run `just-vibe <family> <operation> --root /project --stdin` with the documented JSON. In a source checkout, use `node bin/just-vibe.mjs` instead of `just-vibe`. Read-only operations do not need `--stdin` when their input is empty.
+Available since 0.10.0. These additions extend existing skills and runtime operations. Run `just-vibe <family> <operation> --root /project --stdin` with the documented JSON. In a source checkout, use `node bin/just-vibe.mjs` instead of `just-vibe`. Read-only operations do not need `--stdin` when their input is empty.
 
 ## Context health
 

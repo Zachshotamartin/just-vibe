@@ -1,7 +1,7 @@
 ---
 import Icon from '../../components/Icon.astro';
 import Doc from '../../layouts/Doc.astro';
-import { version, counts } from '../../lib/catalog.mjs';
+import { counts, publishedVersion, sourceUnreleased, version } from '../../lib/catalog.mjs';
 ---
 
 <Doc
@@ -10,18 +10,32 @@ import { version, counts } from '../../lib/catalog.mjs';
     description: 'The website follows the version and catalogs in the just-vibe package.',
   }}
 >
-  <h2>Current package: {version}</h2>
+  <h2>Current package: {publishedVersion}</h2>
   <p>
-    <a href={`https://www.npmjs.com/package/just-vibe/v/${version}`}>
-      View v{version} on npm <Icon name="arrow-up-right" />
+    <a href={`https://www.npmjs.com/package/just-vibe/v/${publishedVersion}`}>
+      View v{publishedVersion} on npm <Icon name="arrow-up-right" />
     </a>
   </p>
+  {sourceUnreleased && (
+    <p>
+      The source is at {version}, which is not published yet. Install commands and the release manifest
+      use {publishedVersion}.
+    </p>
+  )}
   <p>
     The current catalog includes <strong>{counts.commands} skill names</strong> ({counts.workflows}{' '}
     workflows and {counts.commands - counts.workflows} aliases),{' '}
     <strong>{counts.profiles} role profiles</strong>, and{' '}
     <strong>{counts.packs} specialist packs</strong>.
   </p>
+  <h2>New in 0.12.0</h2>
+  <ul>
+    <li>Agent QA derives acceptance criteria from the request and checks them in a real browser, with screenshots, stale-evidence detection and retained failure and retest history.</li>
+    <li>A local preference dashboard edits, previews, disables and restores preferences with provenance and revision checks, plus task exclusions and project-context backup and import.</li>
+    <li>Delivery diagnosis reports which hook, workflow and tool stages were observed, with opt-in live host journeys.</li>
+    <li>Release metadata for the website and portfolio consumers is generated from the canonical catalog.</li>
+    <li>Windows path and shim handling, and dashboard, QA and recovery fixes from review.</li>
+  </ul>
   <h2>New in 0.11.0</h2>
   <ul>
     <li>Reprompt improves a supplied prompt and can incorporate relevant available skills.</li>

@@ -1,12 +1,12 @@
 # just-vibe
 
-Engineering workflows, remembered preferences, and verifiable outcomes for coding agents.
+Engineering workflows and role profiles for coding agents, with remembered preferences and verifiable outcomes.
 
 [Website](https://just-vibe-tools.vercel.app/) · [Docs](https://just-vibe-tools.vercel.app/docs/) · [Commands](https://just-vibe-tools.vercel.app/commands/) · [Profiles](https://just-vibe-tools.vercel.app/profiles/)
 
 Describe what you want normally. With supported, trusted host hooks, just-vibe suggests relevant workflows and directs the agent to load their methods and discover the tools it needs. Explicit corrections can refine later instructions. Current requests always take precedence, and saved preferences grant no permissions.
 
-**Source version: 0.12.0**, including Agent QA, preference controls and live delivery diagnosis. The catalog has 221 skill names, 218 canonical workflows, 113 engineering profiles and 22 packs. Check [npm](https://www.npmjs.com/package/just-vibe) for published versions and the [implementation and verification plan](docs/agent-qa-and-learning-plan.md) for acceptance evidence. A source build is not evidence of publication.
+**Source version: 0.12.0**, including Agent QA, preference controls and live delivery diagnosis. The catalog has 221 skill names, 218 canonical workflows, 113 engineering profiles and 22 packs. Check [npm](https://www.npmjs.com/package/just-vibe) for published versions and the [implementation and verification plan](https://github.com/Zachshotamartin/just-vibe/blob/main/docs/agent-qa-and-learning-plan.md) for acceptance evidence. A source build is not evidence of publication.
 
 ## Install
 
@@ -91,15 +91,15 @@ The website generates `/release.json` from the package and canonical catalogs. I
 Runtime and catalog checks, real host observations, subjective review and publication evidence are separate. There is no claim that every command works with every live service, or that a fixture score measures overall quality or convenience.
 
 - [Runtime operations and schemas](plugins/just-vibe/references/runtime-platform.md), [expanded workbench](plugins/just-vibe/references/runtime-expansion.md).
-- [Command quality contract](docs/command-quality.md), [technical coverage](docs/technical-coverage.md), [compatibility](docs/compatibility.md).
-- [Behavioral evaluation](evals/README.md), [conversation evaluation](evals/conversation/README.md), [security controls](evals/security/README.md).
-- [Pinned ECC comparison](docs/ecc-complete-audit.md), [implementation versus acceptance ledger](docs/ecc-implementation-plan.md).
-- [0.11.0 publication evidence](evals/releases/0.11.0-publication.json), [changelog](CHANGELOG.md), [release procedure](docs/releases.md).
+- [Command quality contract](https://github.com/Zachshotamartin/just-vibe/blob/main/docs/command-quality.md), [technical coverage](https://github.com/Zachshotamartin/just-vibe/blob/main/docs/technical-coverage.md), [compatibility](docs/compatibility.md).
+- [Behavioral evaluation](https://github.com/Zachshotamartin/just-vibe/blob/main/evals/README.md), [conversation evaluation](https://github.com/Zachshotamartin/just-vibe/blob/main/evals/conversation/README.md), [security controls](https://github.com/Zachshotamartin/just-vibe/blob/main/evals/security/README.md).
+- [Pinned ECC comparison](https://github.com/Zachshotamartin/just-vibe/blob/main/docs/ecc-complete-audit.md), [implementation versus acceptance ledger](https://github.com/Zachshotamartin/just-vibe/blob/main/docs/ecc-implementation-plan.md).
+- [0.11.0 publication evidence](https://github.com/Zachshotamartin/just-vibe/blob/main/evals/releases/0.11.0-publication.json), [changelog](CHANGELOG.md), [release procedure](docs/releases.md).
 
 ## License
 
 [MIT](LICENSE), copyright 2026 Zachary Martin. Commercial use, modification and redistribution are permitted under its terms. The license ships with the npm archive and installed plugin.
 
-### Local preference dashboard (upcoming 0.12)
+### Local preference dashboard
 
 Run `just-vibe dashboard --root .` to manage local preferences, inspect which versions reached tasks, set task-only exclusions, and review project-context backups. `--no-open` prints the private URL; `--demo` runs an isolated disposable example. There is no website login or cloud sync. See the [dashboard guide](https://just-vibe-tools.vercel.app/docs/preferences/) and [QA coverage, test sessions and regression export](plugins/just-vibe/references/agent-qa.md). Publication remains a reviewed manual CLI step.

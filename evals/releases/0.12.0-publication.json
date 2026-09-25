@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "name": "just-vibe",
+  "version": "0.12.0",
+  "registry": "https://registry.npmjs.org/",
+  "sourceCommit": "fe50df407289e6f680e55316a3ed64e917d6fb49",
+  "integrity": "sha512-PiUUDKDBLdqH5pSaK+YlahJ5YkiI74QUCgF2OyL9UC4iOOcFf9iD2pAa/XIRGGMEBqA3CU8B0UfWUUKVN2jSnQ==",
+  "shasum": "e278c754a465d50f7a2e2eb7fb980daa1baa29d0",
+  "publishedAt": "2026-09-23T07:36:30.259Z",
+  "distTag": "latest",
+  "verifiedAt": "2026-09-25T12:27:02.478Z",
+  "reconstructed": {
+    "on": "2026-09-25",
+    "sources": [
+      "npm registry metadata for just-vibe@0.12.0 (integrity, shasum, publish time, latest dist-tag)",
+      "annotated tag v0.12.0 (Release just-vibe 0.12.0) on the source commit"
+    ],
+    "limitations": "Recorded after publication from registry metadata. The release-time local test counts, CI status, archive sha256, native-host and live-invocation results, and website deployment result were not recorded and are not claimed here."
+  }
+}

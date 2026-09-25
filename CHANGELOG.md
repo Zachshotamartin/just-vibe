@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Remove the default sixty-minute limit from tracked `auto` and workflow runs. `budget.maxMinutes` is `null` (no wall-clock limit) unless the user sets 1–1440 minutes; stage and attempt budgets are unchanged, and capped runs still expire and cannot be reset by resume.
+
 ## 0.12.0
 
 - Fix QA redirect enforcement, clipped-ancestor detection, human-only checks and assertion failure classification; isolate task-specific diagnosis and surface host startup errors.
@@ -13,7 +17,6 @@
 - Close local dashboard and review servers even with unfinished uploads, keep downloaded backups within the import byte limit, and preserve new canvas feedback entered while an earlier submission is pending.
 - Preserve coding-task context for repeat requests, detach skipped prompts from earlier task evidence, and retain interrupted approval journals until recovery finishes. Enforce lesson capacity across concurrent creation, feedback and approval processes.
 - Keep preference mutations exclusive across dashboard refreshes, ignore obsolete canvas polls, and reject QA text matches supplied only by invisible or zero-size descendants, including slotted text.
-- Remove the default sixty-minute limit from tracked `auto` and workflow runs. `budget.maxMinutes` is `null` (no wall-clock limit) unless the user sets 1–1440 minutes; stage and attempt budgets are unchanged, and capped runs still expire and cannot be reset by resume.
 
 - Add request-derived Agent QA with bounded browser assertions, screenshots, stale-evidence checks and retained failure/retest history.
 - Add local preference editing, preview, disable and restoration controls with provenance and revision checks.
@@ -32,10 +35,10 @@
 - Correct strict file-read tracking, Cursor/Kiro event handling, quiz answer identity, session alias collisions, and supported configuration discovery/auditing.
 - Preserve installed Git hooks across package-cache cleanup and make installed hook identity usable for removal after upgrades.
 - Preserve Unicode across HTTP, native-hook, and subprocess boundaries; reject stale browser installation previews and support operator-page reloads.
-- Bind release preparation to unchanged checked source and verify published execution outside the checkout. See the [full review and verification record](docs/full-code-review-2026-09-21.md).
+- Bind release preparation to unchanged checked source and verify published execution outside the checkout. See the [full review and verification record](https://github.com/Zachshotamartin/just-vibe/blob/main/docs/full-code-review-2026-09-21.md).
 - Complete owned-process cleanup before terminal results, preserve literal runner arguments, bind Node preload files to trust, and redact preview output independently of chunk boundaries.
 - Protect adaptive cleanup/recovery and unfinished learning activations; preserve repeated session messages; expose implemented recovery/window operations; correct benchmark Unicode and exception evidence.
-- Inspect Git's actual commit index, recover interrupted hook ownership updates, detect managed installation drift, isolate evaluation Git operations, and bind release verification to unchanged archive bytes. See the [second review](docs/second-code-review-2026-09-21.md).
+- Inspect Git's actual commit index, recover interrupted hook ownership updates, detect managed installation drift, isolate evaluation Git operations, and bind release verification to unchanged archive bytes. See the [second review](https://github.com/Zachshotamartin/just-vibe/blob/main/docs/second-code-review-2026-09-21.md).
 - Refine website navigation, full-width header/footer surfaces, selected sections, catalog padding, transparent branding, and page transitions without vertical text movement.
 
 ## 0.10.0

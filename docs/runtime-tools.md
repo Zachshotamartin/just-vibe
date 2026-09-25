@@ -2,7 +2,7 @@
 
 Available starting in v0.10.0. See the [implementation plan and acceptance matrix](runtime-expansion-plan.md).
 
-The source now contains 219 skill names (216 canonical workflows), 112 engineering profiles, 24 independent specialists, 16 language/framework rule packs, and 48 MCP tools. Counts describe available surfaces, not quality or superiority over another toolkit.
+At v0.10.0 the source contained 219 skill names (216 canonical workflows), 112 engineering profiles, 24 independent specialists, 16 language/framework rule packs, and 48 MCP tools. Counts describe available surfaces, not quality or superiority over another toolkit.
 
 ## What changed
 

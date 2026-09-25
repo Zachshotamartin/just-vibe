@@ -160,7 +160,7 @@ Cursor, OpenCode, Copilot, Gemini, Kimi, Qwen, Windsurf, Antigravity IDE and Zed
 
 MCP stdio can be configured separately in any supporting host using an absolute, persistent path to `scripts/mcp.mjs` and explicit `--root`. Use the installed payload, not a temporary npm execution directory. Do not duplicate an enabled native plugin server. Enabling writes is a separate host server configuration choice, not permission to write arbitrary scope.
 
-The MCP catalog has 45 tools. For context monitoring, quality presets and staged checks, GitHub epic operations, and JSON/Markdown/SARIF security reports, use [the runtime depth reference](runtime-depth.md). Its six native tools extend existing command workflows; external scanner trust and GitHub publication remain explicit CLI operations.
+The MCP server lists its current tools through `tools/list`. For context monitoring, quality presets and staged checks, GitHub epic operations, and JSON/Markdown/SARIF security reports, use [the runtime depth reference](runtime-depth.md). Its six native tools extend existing command workflows; external scanner trust and GitHub publication remain explicit CLI operations.
 
 ## Guided setup and native task bookkeeping
 

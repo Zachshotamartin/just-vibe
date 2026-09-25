@@ -1,10 +1,10 @@
 # Validation scope
 
-## Current v0.8 source
+## Historical v0.8 validation
 
-The payload contains 216 skill names and 213 canonical workflows. Local release validation passed 154 tests with one Windows-only skip on macOS. The new intent helpers also received actual Git/filesystem, preview process, browser report, native installation and package-manager checks. The [v0.8 validation record](https://github.com/Zachshotamartin/just-vibe/blob/main/evals/releases/0.8.0.md) describes exact coverage and limits; the [workflow index](intent-workflows.md) describes use.
+The v0.8 payload contained 216 skill names and 213 canonical workflows. Local release validation passed 154 tests with one Windows-only skip on macOS. The new intent helpers also received actual Git/filesystem, preview process, browser report, native installation and package-manager checks. The [v0.8 validation record](https://github.com/Zachshotamartin/just-vibe/blob/main/evals/releases/0.8.0.md) describes exact coverage and limits; the [workflow index](intent-workflows.md) describes use.
 
-The initial CI matrix passed on Linux/macOS and found a Windows path-identity issue. A fix is committed and passes affected local tests. GitHub account billing blocked the follow-up matrix before any jobs started, so Windows confirmation remains pending. The source version is 0.8.0; the published npm version remains 0.7.0.
+The initial CI matrix passed on Linux/macOS and found a Windows path-identity issue. A fix is committed and passes affected local tests. GitHub account billing blocked the follow-up matrix before any jobs started, so Windows confirmation remains pending. At that time the source version was 0.8.0 and the published npm version 0.7.0. Later releases record their evidence in the [release records](https://github.com/Zachshotamartin/just-vibe/tree/main/evals/releases).
 
 Runtime tests do not prove host-agent compliance, actual instruction loading or subjective output quality. The new instruction branches have no independent model trials. Historical behavioral labels refer only to the named fixtures and evidence below; they do not certify every new mode.
 

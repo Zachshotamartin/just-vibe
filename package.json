@@ -1,7 +1,7 @@
 {
   "name": "just-vibe",
   "version": "0.12.0",
-  "description": "Tools, skills, and commands for coding agents.",
+  "description": "Engineering workflows and role profiles for coding agents.",
   "homepage": "https://just-vibe-tools.vercel.app/",
   "type": "module",
   "bin": {
@@ -49,8 +49,9 @@
     "README.md",
     "LICENSE",
     "CHANGELOG.md",
-    "docs/",
-    "evals/"
+    "docs/releases.md",
+    "docs/compatibility.md",
+    "docs/locales/"
   ],
   "repository": {
     "type": "git",

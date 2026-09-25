@@ -1,12 +1,12 @@
 {
   "name": "just-vibe",
-  "metadata": { "description": "Tools, skills, and commands for coding agents." },
+  "metadata": { "description": "Engineering workflows and role profiles for coding agents." },
   "owner": { "name": "Zachary Martin" },
   "plugins": [
     {
       "name": "just-vibe",
       "source": "./plugins/just-vibe",
-      "description": "Tools, skills, and commands for coding agents."
+      "description": "Engineering workflows and role profiles for coding agents."
     }
   ]
 }

@@ -77,3 +77,12 @@ test('search-friendly metadata and sitemap cover the public library', () => {
   assert.match(read('404.html'), /name="robots" content="noindex"/);
   assert.ok(!files(dist).some((f) => f.endsWith('PLAN.md') || f.includes('/.just-vibe/')));
 });
+
+test('the releases page and footer describe the latest published version (R2-02)', async () => {
+  const { publishedVersion } = await import('../src/lib/catalog.mjs');
+  const releases = read('docs/releases/index.html');
+  assert.ok(releases.includes(`New in ${publishedVersion}`), `releases page has a section for ${publishedVersion}`);
+  assert.ok(releases.includes(`Current package: ${publishedVersion}`));
+  assert.ok(read('index.html').includes(`v${publishedVersion}`));
+  assert.equal(JSON.parse(read('release.json')).version, publishedVersion);
+});

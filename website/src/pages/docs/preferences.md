@@ -14,7 +14,7 @@ From your project:
 npx just-vibe dashboard --root .
 ```
 
-The CLI starts an authenticated loopback server and opens its private URL in your browser. Keep the terminal running while using it. `--no-open` prints the URL without opening a browser. `--demo` creates an isolated sample project; sample changes disappear when that process stops. Demo mode never loads your real preferences. These commands require the upcoming 0.12 release or this repository checkout; the registry's 0.11 release does not include the dashboard launcher.
+The CLI starts an authenticated loopback server and opens its private URL in your browser. Keep the terminal running while using it. `--no-open` prints the URL without opening a browser. `--demo` creates an isolated sample project; sample changes disappear when that process stops. Demo mode never loads your real preferences. These commands require 0.12.0 or later; earlier releases do not include the dashboard launcher.
 
 The top of the dashboard identifies the project and storage directory. Real preferences live under `~/.just-vibe` by default, or `JUST_VIBE_HOME` when configured. Project preferences are keyed to the local project path; user preferences apply across projects on this computer. Saved records persist after closing the browser or stopping the server. Unsaved drafts remain in the current tab across filtering, refresh-button clicks and view changes; closing or reloading the tab discards them.
 
