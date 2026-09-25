@@ -1,6 +1,6 @@
 ---
 name: security-config
-description: "Review application, container, and deployment configuration Use for effective security-relevant settings; vercel-audit is a deployment-specific configuration comparison."
+description: "Review application, container, and deployment configuration Use for effective security-relevant settings; vercel-audit is a deployment-specific configuration comparison, and security-fix repairs a confirmed misconfiguration."
 ---
 
 # security-config
@@ -9,7 +9,7 @@ Review application, container, and deployment configuration
 
 ## Choose this workflow
 
-Use for effective security-relevant settings; vercel-audit is a deployment-specific configuration comparison.
+Use for effective security-relevant settings; vercel-audit is a deployment-specific configuration comparison, and security-fix repairs a confirmed misconfiguration.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Security methods](../../references/packs/security.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 

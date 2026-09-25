@@ -13,7 +13,7 @@ For an optional project skill adapter:
 npx just-vibe@latest setup --target cursor --root . --profile core
 ```
 
-Describe the result you want and include constraints. Appended context is preserved. Installation does not authenticate external services, grant permissions or start workers. Review the host's available tools when a task needs a service.
+Describe the result you want and include constraints. Appended context is preserved. Automatic workflow suggestions recognize English task wording; when you write in another language, choose the `auto` workflow or a specific workflow directly. Installation does not authenticate external services, grant permissions or start workers. Review the host's available tools when a task needs a service.
 
 Use `npx just-vibe@latest doctor --target codex` to inspect installation and `npx just-vibe@latest update --target codex` to update. A source-checkout feature marked Unreleased is unavailable in the registry until a separate publication.
 

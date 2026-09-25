@@ -1,6 +1,6 @@
 ---
 name: security-uploads
-description: "Review file validation, storage, processing, and download access Use for file receipt, processing and download safety; backend-permissions handles general resource access."
+description: "Review file validation, storage, processing, and download access Use for file receipt, processing and download safety; backend-permissions handles general resource access, and security-fix repairs a confirmed upload flaw."
 ---
 
 # security-uploads
@@ -9,7 +9,7 @@ Review file validation, storage, processing, and download access
 
 ## Choose this workflow
 
-Use for file receipt, processing and download safety; backend-permissions handles general resource access.
+Use for file receipt, processing and download safety; backend-permissions handles general resource access, and security-fix repairs a confirmed upload flaw.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Security methods](../../references/packs/security.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 

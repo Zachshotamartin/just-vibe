@@ -50,7 +50,7 @@ export function discoverCapabilities(root = process.cwd(), { report, git = gitRe
 // The router never suggests these entry points; they are selected explicitly.
 export const UNROUTED = ['auto', 'do', 'help', 'tools', 'setup'];
 
-function toolEntry(catalog, discovery, command, host) {
+export function toolEntry(catalog, discovery, command, host) {
   return { id: command.id, pack: command.pack, summary: command.summary, aliasOf: command.aliasOf,
     defaultMode: command.defaultMode, invocation: invocation(command, host), example: command.examples[0],
     implementationStatus: command.implementationStatus, executionModel: command.executionModel,

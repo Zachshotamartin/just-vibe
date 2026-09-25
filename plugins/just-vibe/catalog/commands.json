@@ -3727,7 +3727,7 @@
         "hardening",
         "secure"
       ],
-      "selection": "Use for a scoped security review; security-* commands investigate one specific attack surface.",
+      "selection": "Use for a scoped security review; security-* commands investigate one specific attack surface, and security-fix repairs confirmed findings.",
       "branches": [
         {
           "when": "suspicious code is protected by an earlier verified boundary",
@@ -21092,7 +21092,7 @@
         "stride",
         "security risks"
       ],
-      "selection": "Use for systematic threats to a scoped system; security-authz or security-inputs investigates a concrete path.",
+      "selection": "Use for systematic threats to a scoped system; security-authz or security-inputs investigates a concrete path, and security-fix repairs a confirmed vulnerability.",
       "branches": [
         {
           "when": "a threat depends on an unverified deployment assumption",
@@ -21218,7 +21218,7 @@
         "other users data",
         "privilege escalation"
       ],
-      "selection": "Use for permission bypass inspection; backend-permissions implements an accepted access matrix.",
+      "selection": "Use for permission bypass inspection; backend-permissions implements an accepted access matrix, and security-fix repairs a confirmed bypass.",
       "branches": [
         {
           "when": "policy itself is unspecified",
@@ -21337,7 +21337,7 @@
         "trufflehog",
         "exposed token"
       ],
-      "selection": "Use to locate possible exposed credentials; security-config inspects deployment settings.",
+      "selection": "Use to locate possible exposed credentials; security-config inspects deployment settings, and security-fix repairs a confirmed exposure in code.",
       "branches": [
         {
           "when": "a plausible credential is found",
@@ -21460,7 +21460,7 @@
         "path traversal",
         "ssrf"
       ],
-      "selection": "Use for injection and unsafe interpreter boundaries; llm-injection handles model instruction confusion.",
+      "selection": "Use for injection and unsafe interpreter boundaries; llm-injection handles model instruction confusion, and security-fix repairs a confirmed injection.",
       "branches": [
         {
           "when": "the input reaches a safe parameterized sink",
@@ -21582,7 +21582,7 @@
         "content type",
         "image upload"
       ],
-      "selection": "Use for file receipt, processing and download safety; backend-permissions handles general resource access.",
+      "selection": "Use for file receipt, processing and download safety; backend-permissions handles general resource access, and security-fix repairs a confirmed upload flaw.",
       "branches": [
         {
           "when": "scanning occurs asynchronously after upload",
@@ -21699,7 +21699,7 @@
         "vulnerable dependency",
         "security advisory"
       ],
-      "selection": "Use for advisory-driven dependency risk; deps covers general maintenance and compatibility.",
+      "selection": "Use for advisory-driven dependency risk; deps covers general maintenance and compatibility, and security-fix applies a confirmed advisory remediation.",
       "branches": [
         {
           "when": "a fix requires a breaking upgrade",
@@ -21823,7 +21823,7 @@
         "tls",
         "misconfiguration"
       ],
-      "selection": "Use for effective security-relevant settings; vercel-audit is a deployment-specific configuration comparison.",
+      "selection": "Use for effective security-relevant settings; vercel-audit is a deployment-specific configuration comparison, and security-fix repairs a confirmed misconfiguration.",
       "branches": [
         {
           "when": "effective deployment configuration is unavailable",

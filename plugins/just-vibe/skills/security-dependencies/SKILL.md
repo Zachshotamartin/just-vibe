@@ -1,6 +1,6 @@
 ---
 name: security-dependencies
-description: "Assess findings against actual application exposure Use for advisory-driven dependency risk; deps covers general maintenance and compatibility."
+description: "Assess findings against actual application exposure Use for advisory-driven dependency risk; deps covers general maintenance and compatibility, and security-fix applies a confirmed advisory remediation."
 ---
 
 # security-dependencies
@@ -9,7 +9,7 @@ Assess findings against actual application exposure
 
 ## Choose this workflow
 
-Use for advisory-driven dependency risk; deps covers general maintenance and compatibility.
+Use for advisory-driven dependency risk; deps covers general maintenance and compatibility, and security-fix applies a confirmed advisory remediation.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Security methods](../../references/packs/security.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 

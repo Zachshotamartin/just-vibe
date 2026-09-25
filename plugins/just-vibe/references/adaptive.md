@@ -1,6 +1,6 @@
 # Automatic assistance and learning
 
-Describe the task normally. Trusted native hooks supply a compact workflow shortlist before the agent starts and restore selected work on resume/compaction. The active agent interprets intent, loads only relevant methods, discovers its real tools, does the authorized work and records evidence. Slash commands remain optional. The same effective instructions are used by automatic loading, `show`, and direct skills through the shared execution guide.
+Describe the task normally. Automatic suggestions recognize English task wording; a request in another language may get no shortlist or an unrelated one, so choose the `auto` workflow or a specific workflow directly. Trusted native hooks supply a compact workflow shortlist before the agent starts and restore selected work on resume/compaction. The active agent interprets intent, loads only relevant methods, discovers its real tools, does the authorized work and records evidence. Slash commands remain optional. The same effective instructions are used by automatic loading, `show`, and direct skills through the shared execution guide.
 
 ## Host integration
 
@@ -9,6 +9,8 @@ The plugin ships `hooks/hooks.json`, using `UserPromptSubmit`, `SessionStart` (r
 Automatic assistance does not authenticate services, install third-party tools, execute project checks or read transcript files in a hook. Configured project checks/formatters still use their separate existing trust mechanism. Hook execution selects context and keeps local records. It cannot prove the model followed the context or control unsupported host events.
 
 Short repeat requests such as “again,” “do that again” and “another pass” retain the preceding coding task's complete brief and constraints for routing while recording the new user message separately. Repeats do not accumulate in the brief or truncate its leading constraints, including at the request-length limit. They do not invent work in a new session or resume older coding work through an unrelated request. Oversized, empty or malformed prompts are skipped and detach the session from its previous task so subsequent tool events cannot be misattributed to it.
+
+A repair follow-up after an inspection, such as “fix it,” “fix the first two” or “please fix the issues you found,” keeps the inspected brief but offers workflows that can apply the repair: the pack’s repair owner (security-fix after a security audit), inspected workflows whose mode allows apply, then fix. After an apply-mode task the same words simply continue it. A question about which workflow, tool or profile fits (“which just-vibe command should I use…”, “is there a workflow for…”) is answered rather than executed: it suggests help, tools or profile, lists the embedded task’s candidates for the answer only, and requires no selection at Stop.
 
 ## Agent procedure
 

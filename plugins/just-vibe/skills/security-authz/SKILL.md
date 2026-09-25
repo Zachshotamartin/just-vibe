@@ -1,6 +1,6 @@
 ---
 name: security-authz
-description: "Test access decisions and cross-user or cross-tenant exposure Use for permission bypass inspection; backend-permissions implements an accepted access matrix."
+description: "Test access decisions and cross-user or cross-tenant exposure Use for permission bypass inspection; backend-permissions implements an accepted access matrix, and security-fix repairs a confirmed bypass."
 ---
 
 # security-authz
@@ -9,7 +9,7 @@ Test access decisions and cross-user or cross-tenant exposure
 
 ## Choose this workflow
 
-Use for permission bypass inspection; backend-permissions implements an accepted access matrix.
+Use for permission bypass inspection; backend-permissions implements an accepted access matrix, and security-fix repairs a confirmed bypass.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Security methods](../../references/packs/security.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 

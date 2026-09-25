@@ -6,7 +6,7 @@ import { tmpdir } from 'node:os';
 import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
 import { adaptiveStore } from '../plugins/just-vibe/scripts/lib/adaptive-store.mjs';
-import { assistantRuntime, stopTask } from '../plugins/just-vibe/scripts/lib/assistant-runtime.mjs';
+import { assistantRuntime, stopTask, activationContext } from '../plugins/just-vibe/scripts/lib/assistant-runtime.mjs';
 import { assistantHook } from '../plugins/just-vibe/scripts/lib/assistant-hooks.mjs';
 import { manageHooks } from '../plugins/just-vibe/scripts/lib/automation.mjs';
 import { loadCatalog } from '../plugins/just-vibe/scripts/lib/catalog.mjs';
@@ -46,6 +46,70 @@ test('ordinary requests route across frontend, ML, GitHub and backend without co
     assert.equal(f.run('route', { brief }).kind, 'none', brief);
   }
   assert.equal(existsSync(f.home), false, 'Read-only retrieval must not create state.');
+});
+
+test('everyday engineering phrasing activates while ordinary conversation does not (R1-02, PB-02)', t => {
+  const f = fixture(t);
+  for (const brief of ['my tests are failing', 'CI is red', 'the dropdown overlaps the footer', 'the migrations are out of order',
+    'Is our auth vulnerable to CSRF?', 'the endpoints return 500 after the upgrade', 'npm install fails with ERESOLVE',
+    'the server crashes on startup', 'webhook signatures fail verification', 'our dependencies are out of date', 'the specs are flaky']) {
+    const route = f.run('route', { brief });
+    assert.equal(route.kind, 'task', brief); assert.ok(route.recommendations.length > 0, brief);
+  }
+  // Generic action rules and single method-id words ("next", "sales") are not engineering evidence.
+  for (const brief of ['book a table for the team next friday', 'draft a thank-you note to the sales team', 'plan a weekend trip to Lisbon',
+    'how do I fold a fitted sheet', 'write a birthday poem for my sister', 'recommend a good sci-fi novel', 'thanks, that was helpful']) {
+    assert.equal(f.run('route', { brief }).kind, 'none', brief);
+  }
+  const context = brief => { const task = f.start(brief, brief); return task.kind === 'task' ? activationContext(f.store, catalog, task) : ''; };
+  assert.doesNotMatch(context('design multi-region disaster recovery for the API'), /motion-design/);
+  assert.match(context('BGP session flaps on the edge router'), /network-operations/);
+});
+
+test('a repair follow-up after an inspection offers workflows that can apply it (B6-02)', t => {
+  const f = fixture(t), audit = 'audit the billing service for security issues, source only';
+  for (const followUp of ['fix it', 'fix the first two', 'please fix the issues you found', 'now fix them']) {
+    f.start(audit, followUp); const repair = f.start(followUp, followUp);
+    assert.equal(repair.routeKind, 'task', followUp); assert.equal(repair.repair, true, followUp);
+    assert.equal(repair.brief, audit, 'The original brief and its constraints are kept');
+    assert.equal(repair.feedbackCandidate, false, 'A repair request is not feedback');
+    assert.deepEqual(repair.candidates.map(c => c.id), ['security-fix', 'fix'], followUp);
+    assert.match(activationContext(f.store, catalog, repair), /repair what the previous inspection found/);
+  }
+  // A selected apply-mode task continues unchanged; a selected inspect-mode task is repaired.
+  const applied = f.start('Fix the mobile menu', 'applied'); select(f, applied);
+  const continued = f.start('fix the first two', 'applied');
+  assert.equal(continued.repair, false); assert.equal(continued.brief, 'Fix the mobile menu'); assert.equal(continued.candidates[0].id, 'ui-states');
+  const inspected = f.start('Fix the mobile menu', 'inspected'); select(f, inspected, 'ui-states', 'inspect');
+  assert.equal(f.start('fix it', 'inspected').repair, true);
+  assert.equal(f.start('continue', 'inspected').repair, false, 'A plain continuation keeps the previous shortlist');
+});
+
+test('questions about which workflow to use are answered, not executed (B11-01)', t => {
+  const f = fixture(t);
+  for (const [brief, first] of [
+    ['Which just-vibe command should I use to find out why a test only fails in CI?', 'help'],
+    ['What commands do you have for React performance problems?', 'tools'],
+    ['which skill handles Vercel build failures?', 'help'],
+    ['is there a workflow for database migrations?', 'help'],
+    ['how do I use just-vibe to review a pull request?', 'help'],
+    ["Don't run anything yet. Just tell me which workflow fits a slow SQL query.", 'help'],
+    ["Show which GitHub workflows are available here, but don't log in to anything.", 'tools'],
+    ['Which integrations and prerequisites are missing for the Vercel workflows?', 'tools'],
+    ['Which persona fits an SRE doing an on-call review?', 'profile'],
+  ]) {
+    const route = f.run('route', { brief });
+    assert.equal(route.kind, 'discovery', brief); assert.equal(route.recommendations[0].id, first, brief);
+  }
+  for (const brief of ['Fix the mobile menu', 'Which GitHub workflow runs the tests?', 'what tool should I use for load testing']) {
+    assert.notEqual(f.run('route', { brief }).kind, 'discovery', brief);
+  }
+  f.start('Fix the mobile menu');
+  const question = f.start('Which just-vibe command should I use for flaky tests?');
+  assert.equal(question.routeKind, 'discovery'); assert.equal(question.status, 'idle'); assert.equal(question.feedbackCandidate, false);
+  const context = activationContext(f.store, catalog, question);
+  assert.match(context, /do not start the embedded task/); assert.doesNotMatch(context, /Before implementation/);
+  assert.deepEqual(stopTask(f.store, catalog, question.id), {}, 'Answering needs no workflow selection at Stop');
 });
 
 test('both adapters inject a bounded shortlist and preserve the complete request', t => {

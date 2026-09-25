@@ -2266,15 +2266,15 @@
         },
         {
           "path": "docs/locales/manifest.json",
-          "sha256": "778871bb9d29c34ee546d53338f59803be5ec31b5c3c49b3f913d3f36cbce497"
+          "sha256": "2b12f17b2762ddbb3f56e2f529e5a60115f14465f7fbe8f54799c632ad01738d"
         },
         {
           "path": "docs/locales/es.md",
-          "sha256": "691842c06aa743b54ec9104014635a6dc255726d25780c82f566e366dd7675b2"
+          "sha256": "a5af121abb2a48ad4c235d9ddc256fd3861873a6b963eecb0118487063a87be9"
         },
         {
           "path": "docs/locales/ja.md",
-          "sha256": "f2d4d714af3937ecb5029dacbd376fc41fd62b3e81a95af479dab0aeb5b93c05"
+          "sha256": "1dcfd668ba7f1a72f6cb1b8b921ed70f0e785791ec5ff82a681657ee6d01dcb6"
         },
         {
           "path": "plugins/just-vibe/references/methods/localization-maintenance.md",

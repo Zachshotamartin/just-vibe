@@ -1,6 +1,6 @@
 ---
 name: security-threat-model
-description: "Identify assets, trust boundaries, attack paths, and mitigations Use for systematic threats to a scoped system; security-authz or security-inputs investigates a concrete path."
+description: "Identify assets, trust boundaries, attack paths, and mitigations Use for systematic threats to a scoped system; security-authz or security-inputs investigates a concrete path, and security-fix repairs a confirmed vulnerability."
 ---
 
 # security-threat-model
@@ -9,7 +9,7 @@ Identify assets, trust boundaries, attack paths, and mitigations
 
 ## Choose this workflow
 
-Use for systematic threats to a scoped system; security-authz or security-inputs investigates a concrete path.
+Use for systematic threats to a scoped system; security-authz or security-inputs investigates a concrete path, and security-fix repairs a confirmed vulnerability.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Security methods](../../references/packs/security.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 

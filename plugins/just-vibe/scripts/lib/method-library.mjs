@@ -40,22 +40,21 @@ export function loadMethods() {
   if (cached?.version !== version) cached = { version, methods: validateMethods(JSON.parse(readFileSync(source, 'utf8'))).methods };
   return structuredClone(cached.methods);
 }
-export function findMethods(query, limit = 5) {
+// A query word equal to one id token ("next", "sales", "design") adds 1 for explicit search.
+// Automatic assistance passes { triggered: true } so only trigger phrases select a method:
+// "book a table for the team next friday" must not surface next-nest-bun.
+export function findMethods(query, limit = 5, { triggered = false } = {}) {
   const terms = query.toLowerCase().match(/[a-z0-9+#.-]+/g) || [];
   const matches = (trigger) => {
     const escaped = trigger.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     return new RegExp(`(?<![a-z0-9_])${escaped}(?![a-z0-9_])`, 'i').test(query);
   };
   return loadMethods()
-    .map((method) => ({
-      method,
-      score:
-        method.triggers.reduce(
-          (sum, t) => sum + (matches(t) ? Math.max(2, t.split(' ').length * 2) : 0),
-          0,
-        ) + terms.filter((t) => method.id.split('-').includes(t)).length,
-    }))
-    .filter((m) => m.score > 0)
+    .map((method) => {
+      const trigger = method.triggers.reduce((sum, t) => sum + (matches(t) ? Math.max(2, t.split(' ').length * 2) : 0), 0);
+      return { method, trigger, score: trigger + terms.filter((t) => method.id.split('-').includes(t)).length };
+    })
+    .filter((m) => (triggered ? m.trigger > 0 : m.score > 0))
     .sort((a, b) => b.score - a.score || a.method.id.localeCompare(b.method.id))
     .slice(0, limit)
     .map(({ method, score }) => ({ ...method, score }));

@@ -1,6 +1,6 @@
 ---
 name: security-inputs
-description: "Audit validation and injection risks at input boundaries Use for injection and unsafe interpreter boundaries; llm-injection handles model instruction confusion."
+description: "Audit validation and injection risks at input boundaries Use for injection and unsafe interpreter boundaries; llm-injection handles model instruction confusion, and security-fix repairs a confirmed injection."
 ---
 
 # security-inputs
@@ -9,7 +9,7 @@ Audit validation and injection risks at input boundaries
 
 ## Choose this workflow
 
-Use for injection and unsafe interpreter boundaries; llm-injection handles model instruction confusion.
+Use for injection and unsafe interpreter boundaries; llm-injection handles model instruction confusion, and security-fix repairs a confirmed injection.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Security methods](../../references/packs/security.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 

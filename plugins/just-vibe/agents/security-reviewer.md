@@ -26,7 +26,7 @@ Examine concrete security risks in a defined scope
 
 ## Choose this workflow
 
-Use for a scoped security review; security-* commands investigate one specific attack surface.
+Use for a scoped security review; security-* commands investigate one specific attack surface, and security-fix repairs confirmed findings.
 
 Read [shared execution](../references/execution.md) for context/mode/authority handling and [General methods](../references/packs/general.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
