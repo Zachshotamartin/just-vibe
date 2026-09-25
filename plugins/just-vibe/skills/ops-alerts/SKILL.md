@@ -15,7 +15,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 ## Input and mode
 
-Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan; service objectives, telemetry, response ownership, notification destination, and noise tolerance.
+Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan by default; apply to write requested alert-rule files and rule tests without enabling notification routes. Requires service objectives, telemetry, response ownership, notification destination, and noise tolerance.
 
 exact service/environment, time window, revision/configuration identity, authorized logs/metrics, and operational constraints. Prefer observation before intervention; live restarts, traffic changes, restores, and notifications require the requested target/action. Redact sensitive telemetry.
 
@@ -29,7 +29,7 @@ Declared evidence requirements: `project.read`. Use actual host discovery or ade
 
 Actionable alert rules and response guidance; enabling/sending notifications requires an explicit request.
 
-No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
+Inspect/plan: design alerts; save requested artifacts only. Apply: write only the requested alert-rule files and rule tests. Notification destinations, enablement and test pages stay out of scope unless explicitly requested.
 
 ## Execute
 
@@ -69,3 +69,4 @@ Verify these observable conditions when applicable to the actual task; do not cl
 - **Normal (plan):** Design actionable error-rate alerts with recovery behavior; do not enable notifications.
 - **edge (plan):** Design alerts that ignore brief spikes but detect sustained customer failures.
 - **blocked (inspect):** Draft alerts without sending pages or inventing response ownership.
+- **Additional (apply):** Add a Prometheus alert rule for queue age to monitoring/alerts.yml with rule tests, leaving notifications disabled.

@@ -67,5 +67,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Diagnose the failed matrix job from these logs without rerunning it.
-- **edge (apply):** Fix the failing Node 24 matrix job without disabling the other jobs.
+- **edge (apply):** Fix the Jenkins pipeline's failing Node 24 matrix stage without disabling the other stages.
 - **blocked (inspect):** Inspect supplied CI logs without runner access or triggering a rerun.

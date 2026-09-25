@@ -29,7 +29,7 @@ Resolve any task-specific tools, target identity and evidence before dependent a
 
 Tables, relationships, types, constraints, and lifecycle; no live DDL by default.
 
-No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
+No source changes in inspect/plan. Save only requested planning artifacts. db-migrate applies an accepted schema change.
 
 ## Execute
 

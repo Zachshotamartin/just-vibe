@@ -29,7 +29,7 @@ Declared evidence requirements: `data.read`. Use actual host discovery or adequa
 
 Distributions, missingness, uniqueness, duplicates, ranges, and suspicious values.
 
-No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
+No source changes in inspect/plan. Save only requested planning artifacts. data-pipeline or fix applies an accepted change.
 
 ## Execute
 

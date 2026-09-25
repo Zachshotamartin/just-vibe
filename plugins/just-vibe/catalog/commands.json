@@ -4179,7 +4179,7 @@
       "aliases": [],
       "aliasOf": null,
       "defaultMode": "plan",
-      "modePolicy": "Plan; release range/version, audience, compatibility expectations, and release process.",
+      "modePolicy": "Plan; release range/version, audience, compatibility expectations, and release process. Apply for requested local preparation of changelog and version files; tagging, publishing and deployment need their explicit action.",
       "requiredInputs": [
         "release range/version, audience, compatibility expectations, and release process."
       ],
@@ -4196,7 +4196,7 @@
         "project.read"
       ],
       "readScope": "Release notes and readiness; tagging, publication, and deployment require explicit requested actions.",
-      "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
+      "writeScope": "Inspect/plan: prepare notes and readiness checks; save requested artifacts only. Apply: edit only the requested changelog and version files and run relevant checks. Tagging, publishing and deployment need their own exact request; github-release handles GitHub publication.",
       "procedure": [
         "Inspect changes since the verified previous release, group user-facing outcomes, surface breaking changes, and review required checks and migration guidance.",
         "Resolve the previous release boundary, identify breaking contracts and migrations, and map artifacts to the exact candidate revision.",
@@ -4227,6 +4227,10 @@
           "kind": "blocked",
           "mode": "inspect",
           "brief": "Review release readiness with missing artifact checksums; do not publish."
+        },
+        {
+          "mode": "apply",
+          "brief": "Write the 2.1.0 CHANGELOG entry and bump package versions; do not tag or publish."
         }
       ],
       "hostSupport": [
@@ -4251,11 +4255,15 @@
         "semver",
         "tag a release"
       ],
-      "selection": "Use for release notes and readiness planning; github-release performs explicitly requested GitHub publication.",
+      "selection": "Use for release notes, changelog and version preparation; github-release performs explicitly requested GitHub publication.",
       "branches": [
         {
           "when": "release history or artifact provenance is ambiguous",
           "then": "Block a ready claim for that evidence while drafting confirmed changes."
+        },
+        {
+          "when": "a tag or publication is requested on a host other than GitHub",
+          "then": "Resolve the exact registry or host, version and artifacts, confirm the changelog and version files match, and treat the tag and publish as separate external actions with their own target."
         }
       ],
       "technical": {
@@ -4312,7 +4320,7 @@
         {
           "kind": "edge",
           "mode": "apply",
-          "brief": "Fix the failing Node 24 matrix job without disabling the other jobs."
+          "brief": "Fix the Jenkins pipeline's failing Node 24 matrix stage without disabling the other stages."
         },
         {
           "kind": "blocked",
@@ -4835,7 +4843,7 @@
         "take back",
         "restore previous state"
       ],
-      "selection": "Use for a recorded local working-tree task; Git history reversal and remote rollback require their own exact targets and authorization.",
+      "selection": "Use for a recorded local working-tree task; git-commit undoes or reverts a commit, and remote rollback requires its own exact target and authorization.",
       "branches": [
         {
           "when": "later edits overlap the inverse patch",
@@ -7555,7 +7563,7 @@
       "aliases": [],
       "aliasOf": null,
       "defaultMode": "apply",
-      "modePolicy": "Apply; intended changes, commit scope, and message preferences. A direct commit request authorizes the bounded commit.",
+      "modePolicy": "Apply; intended changes, commit scope, and message preferences. A direct commit request authorizes the bounded commit; a request to undo a commit authorizes only a non-destructive reset or revert.",
       "requiredInputs": [
         "intended changes, commit scope, and message preferences. A direct commit request authorizes the bounded commit."
       ],
@@ -7624,9 +7632,11 @@
         "stage only",
         "partial commit",
         "conventional commit",
-        "commit these files"
+        "commit these files",
+        "undo last commit",
+        "uncommit"
       ],
-      "selection": "Use for an explicit bounded commit; git-split designs several coherent commits.",
+      "selection": "Use for an explicit bounded commit or undoing one; git-split designs several coherent commits.",
       "branches": [
         {
           "when": "unrelated changes are staged in a file that also contains the requested fix",
@@ -7635,6 +7645,10 @@
         {
           "when": "the candidate passes in the mixed worktree but fails in isolation",
           "then": "Identify the undeclared dependency. Do not claim the commit is verified or silently include unrelated user work to make it pass."
+        },
+        {
+          "when": "the request is to undo a commit",
+          "then": "For an unpublished local commit, move the branch to its parent with git reset --soft or --mixed, preserving the worktree and index; for a published commit, create a revert with git revert. Never use --hard unless the user explicitly asks to discard the changes."
         }
       ],
       "technical": {
@@ -12259,7 +12273,7 @@
         {
           "kind": "edge",
           "mode": "plan",
-          "brief": "Plan recovery for onboarding interrupted by session expiry midway through a form."
+          "brief": "Plan how the onboarding flow recovers when session expiry interrupts it midway through a form."
         },
         {
           "kind": "blocked",
@@ -14103,11 +14117,15 @@
         "outbound webhooks",
         "send webhooks"
       ],
-      "selection": "Use for authenticated durable event receipt; backend-jobs handles deferred processing.",
+      "selection": "Use for authenticated durable event receipt or signed outbound delivery; backend-jobs handles deferred processing.",
       "branches": [
         {
           "when": "valid events arrive out of order or concurrently",
           "then": "Apply version/ordering policy and durable effect deduplication rather than assuming arrival order."
+        },
+        {
+          "when": "sending webhooks to customer-supplied URLs",
+          "then": "Validate destinations after DNS resolution (block private, loopback and link-local ranges; limit redirects), sign id.timestamp.body with a per-endpoint rotatable secret, give each event a stable ID, retry with bounded exponential backoff and jitter, record every attempt, and disable persistently failing endpoints. Test against a private-IP target and a redirecting endpoint."
         }
       ],
       "technical": {
@@ -14268,7 +14286,7 @@
       ],
       "capabilities": [],
       "readScope": "Tables, relationships, types, constraints, and lifecycle; no live DDL by default.",
-      "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
+      "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. db-migrate applies an accepted schema change.",
       "procedure": [
         "Model ownership/cardinality, encode enforceable invariants, compare access paths, assess nullability/deletion behavior, and plan compatibility with existing data.",
         "Derive keys/cardinality and deletion rules from explicit invariants, then check null semantics, uniqueness and access paths for the selected engine."
@@ -14624,7 +14642,7 @@
         "database.context"
       ],
       "readScope": "Plan interpretation, estimates, scans, joins, sorting, and evidence-supported bottlenecks.",
-      "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
+      "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. db-query or db-index applies an accepted query or index change.",
       "procedure": [
         "Read operators and row estimates, compare actuals when supplied, identify cardinality errors and costly stages, and propose discriminating measurements.",
         "Read estimated versus actual rows, loop counts, filters, joins, sorting/spilling and buffers using engine-specific meaning; locate the first large estimation divergence."
@@ -14731,13 +14749,13 @@
         "database.context"
       ],
       "readScope": "Evidence-based index design, redundancy, and rollout; no automatic production DDL.",
-      "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
+      "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. db-migrate applies an accepted index change.",
       "procedure": [
         "Analyze predicates/order/selectivity, compare existing indexes, estimate write/storage costs from evidence, and design before/after measurement and online-creation strategy where supported.",
         "Match equality/range/order predicates and selectivity to existing indexes, account for write/storage cost and compare the exact workload before/after."
       ],
       "outputs": [
-        "Index recommendations or authorized migration with measured validation.",
+        "Index recommendations with measured validation and a migration proposal for db-migrate.",
         "Candidate definition, supported workload, redundant overlap and rollout/measurement plan."
       ],
       "verification": [
@@ -14837,7 +14855,7 @@
         "database.context"
       ],
       "readScope": "Orphans, duplicates, invalid relationships, and constraint gaps; no automatic deletion or repair.",
-      "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
+      "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. db-migrate applies an accepted constraint and data-backfill runs a bounded repair.",
       "procedure": [
         "Translate each explicit business invariant into its row, relationship and transaction boundary. Distinguish nullability and historical exceptions from actual corruption; ambiguous policy remains a question, not a deletion rule.",
         "Choose bounded counts and redacted examples against an identified snapshot. Assess scan/lock impact before live queries; use supplied artifacts when they are sufficient and do not infer current production state from stale samples.",
@@ -14945,7 +14963,7 @@
         "database.context"
       ],
       "readScope": "Blocking chains, deadlocks, transaction duration, and contention causes.",
-      "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
+      "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. fix applies an accepted code repair; operational changes need their own exact request.",
       "procedure": [
         "Correlate blocked/blocking sessions and queries, inspect transaction boundaries, distinguish transient waits from persistent contention, and propose targeted remedies.",
         "Correlate wait and blocker snapshots with transaction age, query identity and application transaction boundaries; follow the root blocker rather than the noisiest victim."
@@ -15053,7 +15071,7 @@
         "database.context"
       ],
       "readScope": "Database privileges, tenant predicates, row-level policies, and bypass paths.",
-      "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
+      "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. db-migrate applies an accepted grant or policy change.",
       "procedure": [
         "Inspect grants and execution identities, trace connection-role behavior, evaluate policies including writes, and design isolated access checks; run read-only probes against an isolated target in scope, and leave write-policy probes to a separately scoped apply run.",
         "Trace the actual runtime role and ownership/bypass privileges; inspect read and write predicates with positive and cross-tenant negative cases."
@@ -15170,7 +15188,7 @@
         "data.read"
       ],
       "readScope": "Distributions, missingness, uniqueness, duplicates, ranges, and suspicious values.",
-      "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
+      "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. data-pipeline or fix applies an accepted change.",
       "procedure": [
         "Validate schema, select a representative bounded sample or authorized aggregate scan, compute summaries, and flag anomalies relative to declared semantics.",
         "Inspect schema and volume before scanning, distinguish nulls from sentinels and sample across relevant time/group strata with stated selection limits."
@@ -15259,7 +15277,7 @@
       ],
       "capabilities": [],
       "readScope": "Machine-checkable and semantic obligations across a data boundary.",
-      "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
+      "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. data-pipeline or fix applies an accepted change.",
       "procedure": [
         "Identify required fields and keys, define ranges/nullability/time semantics, set freshness expectations, and specify versioning and violation handling.",
         "Specify grain, keys, types, units, nullability, event/arrival time, freshness and allowed schema evolution from actual consumption paths."
@@ -15623,7 +15641,7 @@
         "data.read"
       ],
       "readScope": "Missing, duplicated, changed, or aggregated discrepancies; no automatic repair.",
-      "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
+      "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. data-pipeline or fix applies an accepted change.",
       "procedure": [
         "Align snapshots/time windows, compare counts and keyed values, normalize only documented transformations, sample discrepancies safely, and explain likely causes.",
         "Align snapshot/window and key grain, compare membership before values and normalize only explicitly documented transformations."
@@ -15722,7 +15740,7 @@
         "data.read"
       ],
       "readScope": "Origins, transformations, joins, filters, and downstream dependencies for the target data.",
-      "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
+      "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. data-pipeline or fix applies an accepted change.",
       "procedure": [
         "Trace field expressions through jobs/views, identify version and ownership boundaries, record lossy transformations, and mark opaque external steps.",
         "Follow expressions through joins, filters, aggregations and versioned jobs; record grain changes and lossy transformations at each boundary."
@@ -15811,7 +15829,7 @@
         "data.read"
       ],
       "readScope": "Freshness, completeness, validity, uniqueness, and cross-field consistency.",
-      "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
+      "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. data-pipeline embeds accepted checks, ops-observability or ops-alerts implement monitoring and data-backfill repairs records.",
       "procedure": [
         "Resolve applicable rules, evaluate against the identified snapshot, separate warnings from failures, compare history where available, and identify likely upstream causes.",
         "Freeze applicable thresholds before observing results, evaluate completeness/freshness/validity separately and count excluded or unreadable records."
@@ -15824,7 +15842,7 @@
         "Stale but complete data fails freshness; missing rule evidence is unknown rather than passing."
       ],
       "stopConditions": [
-        "Installing monitors or repairing records is separate. Do not redefine thresholds after seeing results to force a pass."
+        "Installing monitors (data-pipeline, ops-observability, ops-alerts) or repairing records (data-backfill) is separate. Do not redefine thresholds after seeing results to force a pass."
       ],
       "examples": [
         {
@@ -15864,7 +15882,7 @@
         "data checks",
         "anomaly"
       ],
-      "selection": "Use to evaluate an identified snapshot against declared rules; data-profile discovers descriptive anomalies.",
+      "selection": "Use to evaluate an identified snapshot against declared rules; data-profile discovers descriptive anomalies, data-pipeline embeds checks and ops-observability or ops-alerts implement monitoring.",
       "branches": [
         {
           "when": "required rule evidence is missing",
@@ -21351,6 +21369,10 @@
         {
           "when": "a plausible credential is found",
           "then": "Record location/type and rotation owner/provider steps; do not test it against a live service by default."
+        },
+        {
+          "when": "the user asks to contain a confirmed exposure",
+          "then": "Plan the order: revoke or rotate first, because a pushed secret is already exposed; then remove it from the tree and move it to a secret store through security-fix; only then, if requested, purge history, coordinate the force-push and ask the Git host to drop cached views, and verify with a re-scan and the provider key-usage log. Revocation, rotation, force-push and host purge are separate external or destructive actions that each need an exact target."
         }
       ],
       "technical": {
@@ -21973,6 +21995,14 @@
         {
           "when": "a code fix leaves historical credential exposure or persisted bad data",
           "then": "Report the remaining rotation/recovery work separately from the repaired path."
+        },
+        {
+          "when": "the fix is a dependency upgrade",
+          "then": "Resolve the fixed version from the advisory, prefer a direct bump over an override, check peer and engine ranges, inspect the lockfile diff for unrelated churn, run behavior checks, and confirm the resolved version by re-running the audit. Never force-upgrade or delete the lockfile to clear a report."
+        },
+        {
+          "when": "the vulnerability is an exposed credential",
+          "then": "Follow the security-secrets containment order: confirm revocation or rotation comes first, replace the value with a secret-store reference in code and configuration, and leave history rewriting and force-push to their separate exact requests."
         }
       ],
       "technical": {
@@ -22016,6 +22046,11 @@
           "title": "Authorized vulnerability research",
           "path": "references/methods/authorized-security-research.md",
           "when": "The task specifically involves bug bounty, authorized pentest, security proof; load only the matching method"
+        },
+        {
+          "path": "references/security/supply-chain.md",
+          "title": "Supply-chain remediation",
+          "when": "The fix is a dependency upgrade, override or lockfile change"
         }
       ]
     },
@@ -22026,7 +22061,7 @@
       "aliases": [],
       "aliasOf": null,
       "defaultMode": "inspect",
-      "modePolicy": "Inspect; symptoms, affected service/environment, incident window, and known impact.",
+      "modePolicy": "Inspect; symptoms, affected service/environment, incident window, and known impact. Apply for a specific mitigation the user authorizes.",
       "requiredInputs": [
         "symptoms, affected service/environment, incident window, and known impact."
       ],
@@ -22042,8 +22077,8 @@
       "capabilities": [
         "telemetry.read"
       ],
-      "readScope": "Organize triage and recommend immediate actions; remediation follows explicit incident authority.",
-      "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
+      "readScope": "Organize triage and recommend immediate actions; an authorized mitigation runs in apply mode.",
+      "writeScope": "Inspect/plan: triage and recommend; save requested artifacts only. Apply: carry out only the specific mitigation the user authorized, such as a rollback, restart, flag change or queue drain, against its resolved target after capturing the state it may erase; one step at a time, each verified and recorded. Customer messages, failovers and unrelated changes need their own exact request.",
       "procedure": [
         "Establish impact and timeline, separate facts from hypotheses, inspect recent changes and dependencies, prioritize reversible mitigations, and track action/evidence state.",
         "Establish impact, time window, affected revision and current changes; keep a timestamped fact/hypothesis/action ledger and prefer reversible mitigations within scope."
@@ -22072,6 +22107,10 @@
           "kind": "blocked",
           "mode": "inspect",
           "brief": "Inspect supplied incident evidence without restarting services or sending customer messages."
+        },
+        {
+          "mode": "apply",
+          "brief": "Roll back checkout-api to the previous release and restart the payment worker; I authorize both."
         }
       ],
       "hostSupport": [
@@ -22102,6 +22141,10 @@
         {
           "when": "an intervention may erase evidence or duplicate effects",
           "then": "Capture relevant state and define its observation/abort condition before acting."
+        },
+        {
+          "when": "the user authorizes a specific mitigation",
+          "then": "Resolve the exact target and action, capture the state it may erase, state the expected observation and abort condition, run it once, verify the symptom changed, and record the step in the incident ledger."
         }
       ],
       "technical": {
@@ -22310,7 +22353,7 @@
       "aliases": [],
       "aliasOf": null,
       "defaultMode": "plan",
-      "modePolicy": "Plan; service objectives, telemetry, response ownership, notification destination, and noise tolerance.",
+      "modePolicy": "Plan by default; apply to write requested alert-rule files and rule tests without enabling notification routes. Requires service objectives, telemetry, response ownership, notification destination, and noise tolerance.",
       "requiredInputs": [
         "service objectives, telemetry, response ownership, notification destination, and noise tolerance."
       ],
@@ -22327,7 +22370,7 @@
         "project.read"
       ],
       "readScope": "Actionable alert rules and response guidance; enabling/sending notifications requires an explicit request.",
-      "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
+      "writeScope": "Inspect/plan: design alerts; save requested artifacts only. Apply: write only the requested alert-rule files and rule tests. Notification destinations, enablement and test pages stay out of scope unless explicitly requested.",
       "procedure": [
         "Tie signals to impact, define windows/thresholds and missing-data behavior, test historical/fixture events, include recovery and suppression rules, and identify the responder action.",
         "Tie each alert to impact and responder action, define evaluation/recovery windows, missing-data behavior and noise suppression, then test historical or synthetic cases."
@@ -22356,6 +22399,10 @@
           "kind": "blocked",
           "mode": "inspect",
           "brief": "Draft alerts without sending pages or inventing response ownership."
+        },
+        {
+          "mode": "apply",
+          "brief": "Add a Prometheus alert rule for queue age to monitoring/alerts.yml with rule tests, leaving notifications disabled."
         }
       ],
       "hostSupport": [

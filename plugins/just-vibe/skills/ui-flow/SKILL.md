@@ -70,5 +70,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Plan improving account recovery, including expired links and back navigation.
-- **edge (plan):** Plan recovery for onboarding interrupted by session expiry midway through a form.
+- **edge (plan):** Plan how the onboarding flow recovers when session expiry interrupts it midway through a form.
 - **blocked (inspect):** Assess a flow from mockups without claiming observed conversion improvements.

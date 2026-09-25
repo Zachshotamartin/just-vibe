@@ -1,6 +1,6 @@
 ---
 name: api-webhooks
-description: "Implement signatures, retries, replay handling, and delivery tracking Use for authenticated durable event receipt; backend-jobs handles deferred processing."
+description: "Implement signatures, retries, replay handling, and delivery tracking Use for authenticated durable event receipt or signed outbound delivery; backend-jobs handles deferred processing."
 ---
 
 # api-webhooks
@@ -9,7 +9,7 @@ Implement signatures, retries, replay handling, and delivery tracking
 
 ## Choose this workflow
 
-Use for authenticated durable event receipt; backend-jobs handles deferred processing.
+Use for authenticated durable event receipt or signed outbound delivery; backend-jobs handles deferred processing.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [APIs methods](../../references/packs/api.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -53,6 +53,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 ## Decision branches
 
 - **When valid events arrive out of order or concurrently:** Apply version/ordering policy and durable effect deduplication rather than assuming arrival order.
+- **When sending webhooks to customer-supplied URLs:** Validate destinations after DNS resolution (block private, loopback and link-local ranges; limit redirects), sign id.timestamp.body with a per-endpoint rotatable secret, give each event a stable ID, retry with bounded exponential backoff and jitter, record every attempt, and disable persistently failing endpoints. Test against a private-IP target and a redirecting endpoint.
 
 ## Deliver and verify
 

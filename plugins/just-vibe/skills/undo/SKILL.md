@@ -1,6 +1,6 @@
 ---
 name: undo
-description: "Reverse a recorded local task while preserving unrelated changes Use for a recorded local working-tree task; Git history reversal and remote rollback require their own exact targets and authorization."
+description: "Reverse a recorded local task while preserving unrelated changes Use for a recorded local working-tree task; git-commit undoes or reverts a commit, and remote rollback requires its own exact target and authorization."
 ---
 
 # undo
@@ -9,7 +9,7 @@ Reverse a recorded local task while preserving unrelated changes
 
 ## Choose this workflow
 
-Use for a recorded local working-tree task; Git history reversal and remote rollback require their own exact targets and authorization.
+Use for a recorded local working-tree task; git-commit undoes or reverts a commit, and remote rollback requires its own exact target and authorization.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [General methods](../../references/packs/general.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 

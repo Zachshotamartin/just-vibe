@@ -29,7 +29,7 @@ Declared evidence requirements: `database.context`. Use actual host discovery or
 
 Evidence-based index design, redundancy, and rollout; no automatic production DDL.
 
-No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
+No source changes in inspect/plan. Save only requested planning artifacts. db-migrate applies an accepted index change.
 
 ## Execute
 
@@ -55,7 +55,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Index recommendations or authorized migration with measured validation.
+- Index recommendations with measured validation and a migration proposal for db-migrate.
 - Candidate definition, supported workload, redundant overlap and rollout/measurement plan.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:

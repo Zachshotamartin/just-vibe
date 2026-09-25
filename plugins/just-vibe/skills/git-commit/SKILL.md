@@ -1,6 +1,6 @@
 ---
 name: git-commit
-description: "Prepare coherent commits with accurate messages and deliberate staging Use for an explicit bounded commit; git-split designs several coherent commits."
+description: "Prepare coherent commits with accurate messages and deliberate staging Use for an explicit bounded commit or undoing one; git-split designs several coherent commits."
 ---
 
 # git-commit
@@ -9,13 +9,13 @@ Prepare coherent commits with accurate messages and deliberate staging
 
 ## Choose this workflow
 
-Use for an explicit bounded commit; git-split designs several coherent commits.
+Use for an explicit bounded commit or undoing one; git-split designs several coherent commits.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Git methods](../../references/packs/git.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
 ## Input and mode
 
-Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply; intended changes, commit scope, and message preferences. A direct commit request authorizes the bounded commit.
+Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply; intended changes, commit scope, and message preferences. A direct commit request authorizes the bounded commit; a request to undo a commit authorizes only a non-destructive reset or revert.
 
 Git, exact repository/worktree, and readable refs/index. Record branch, HEAD, staged/unstaged/untracked state before mutation. Preserve unrelated edits and never default to broad staging, hard reset, clean, force push, or history rewriting.
 
@@ -54,6 +54,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 - **When unrelated changes are staged in a file that also contains the requested fix:** Build a candidate that excludes those hunks and verify all three trees afterward. If hunks depend on each other and membership is genuinely ambiguous, preserve the recoverable state and ask only about that dependency.
 - **When the candidate passes in the mixed worktree but fails in isolation:** Identify the undeclared dependency. Do not claim the commit is verified or silently include unrelated user work to make it pass.
+- **When the request is to undo a commit:** For an unpublished local commit, move the branch to its parent with git reset --soft or --mixed, preserving the worktree and index; for a published commit, create a revert with git revert. Never use --hard unless the user explicitly asks to discard the changes.
 
 ## Deliver and verify
 

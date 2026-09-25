@@ -46,7 +46,7 @@ Declared evidence requirements: `database.context`. Use actual host discovery or
 
 Orphans, duplicates, invalid relationships, and constraint gaps; no automatic deletion or repair.
 
-No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
+No source changes in inspect/plan. Save only requested planning artifacts. db-migrate applies an accepted constraint and data-backfill runs a bounded repair.
 
 ## Execute
 

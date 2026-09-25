@@ -29,7 +29,7 @@ Declared evidence requirements: `database.context`. Use actual host discovery or
 
 Plan interpretation, estimates, scans, joins, sorting, and evidence-supported bottlenecks.
 
-No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
+No source changes in inspect/plan. Save only requested planning artifacts. db-query or db-index applies an accepted query or index change.
 
 ## Execute
 

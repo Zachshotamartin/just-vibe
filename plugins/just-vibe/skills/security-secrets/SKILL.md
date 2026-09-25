@@ -55,6 +55,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 ## Decision branches
 
 - **When a plausible credential is found:** Record location/type and rotation owner/provider steps; do not test it against a live service by default.
+- **When the user asks to contain a confirmed exposure:** Plan the order: revoke or rotate first, because a pushed secret is already exposed; then remove it from the tree and move it to a secret store through security-fix; only then, if requested, purge history, coordinate the force-push and ask the Git host to drop cached views, and verify with a re-scan and the provider key-usage log. Revocation, rotation, force-push and host purge are separate external or destructive actions that each need an exact target.
 
 ## Deliver and verify
 

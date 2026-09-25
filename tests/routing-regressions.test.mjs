@@ -76,6 +76,17 @@ const FIRST = [
   ['B8-05', 'design a new landing page', ['design']],
   ['B8-05', 'improve the copy on the pricing page', ['copy']],
   ['B8-05', 'trace this request through the system', ['trace']],
+  // Tasks that previously had no owning workflow.
+  ['B6-03', 'I accidentally pushed our AWS access key to GitHub, help me clean it up', ['security-secrets']],
+  ['B6-03', 'rotate the leaked Stripe key and scrub it from the git history', ['security-secrets']],
+  ['A10-04', 'upgrade lodash to fix the security advisory', ['security-fix']],
+  ['A2-06', 'bump the version to 2.1.0 and update CHANGELOG.md', ['release']],
+  ['A2-06', 'write the release notes into CHANGELOG.md for 2.1.0', ['release']],
+  ['A3-12', 'Undo my last commit but keep my changes.', ['git-commit']],
+  ['A10-02', 'Errors are from the 14:05 deploy. You have my go-ahead to roll back checkout-api and restart the payment worker.', ['ops-incident']],
+  ['A6-06', 'We need to send webhooks to our customers when an order ships', ['api-webhooks']],
+  ['V-A7-03', 'add checks so we notice when the daily feed arrives empty', ['data-quality', 'data-pipeline']],
+  ['B8-06', 'add a Prometheus alert rule for queue age to monitoring/alerts.yml, but leave notifications disabled', ['ops-alerts']],
 ];
 const TOP3 = [
   ['A1-01', 'which file handles password reset?', ['explain', 'trace', 'orient', 'map']],

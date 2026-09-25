@@ -52,10 +52,13 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 - The affected project uses FastAPI: [FastAPI](../../references/frameworks/fastapi.md).
 - The affected project uses Spring Boot: [Spring Boot](../../references/frameworks/spring-boot.md).
 - The task specifically involves bug bounty, authorized pentest, security proof; load only the matching method: [Authorized vulnerability research](../../references/methods/authorized-security-research.md).
+- The fix is a dependency upgrade, override or lockfile change: [Supply-chain remediation](../../references/security/supply-chain.md).
 
 ## Decision branches
 
 - **When a code fix leaves historical credential exposure or persisted bad data:** Report the remaining rotation/recovery work separately from the repaired path.
+- **When the fix is a dependency upgrade:** Resolve the fixed version from the advisory, prefer a direct bump over an override, check peer and engine ranges, inspect the lockfile diff for unrelated churn, run behavior checks, and confirm the resolved version by re-running the audit. Never force-upgrade or delete the lockfile to clear a report.
+- **When the vulnerability is an exposed credential:** Follow the security-secrets containment order: confirm revocation or rotation comes first, replace the value with a secret-store reference in code and configuration, and leave history rewriting and force-push to their separate exact requests.
 
 ## Deliver and verify
 

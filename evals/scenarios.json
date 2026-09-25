@@ -1846,6 +1846,10 @@
           "kind": "blocked",
           "mode": "inspect",
           "brief": "Review release readiness with missing artifact checksums; do not publish."
+        },
+        {
+          "mode": "apply",
+          "brief": "Write the 2.1.0 CHANGELOG entry and bump package versions; do not tag or publish."
         }
       ],
       "invariants": [
@@ -1888,7 +1892,7 @@
         {
           "kind": "edge",
           "mode": "apply",
-          "brief": "Fix the failing Node 24 matrix job without disabling the other jobs."
+          "brief": "Fix the Jenkins pipeline's failing Node 24 matrix stage without disabling the other stages."
         },
         {
           "kind": "blocked",
@@ -5700,7 +5704,7 @@
         {
           "kind": "edge",
           "mode": "plan",
-          "brief": "Plan recovery for onboarding interrupted by session expiry midway through a form."
+          "brief": "Plan how the onboarding flow recovers when session expiry interrupts it midway through a form."
         },
         {
           "kind": "blocked",
@@ -7226,7 +7230,7 @@
         "check": "Inject missing, stale and inconsistent synthetic batches and a healthy control; verify the right failure reason and recovery condition."
       },
       "stopBehavior": [
-        "Installing monitors or repairing records is separate. Do not redefine thresholds after seeing results to force a pass."
+        "Installing monitors (data-pipeline, ops-observability, ops-alerts) or repairing records (data-backfill) is separate. Do not redefine thresholds after seeing results to force a pass."
       ],
       "cases": [
         {
@@ -9984,6 +9988,10 @@
           "kind": "blocked",
           "mode": "inspect",
           "brief": "Inspect supplied incident evidence without restarting services or sending customer messages."
+        },
+        {
+          "mode": "apply",
+          "brief": "Roll back checkout-api to the previous release and restart the payment worker; I authorize both."
         }
       ],
       "invariants": [
@@ -10128,6 +10136,10 @@
           "kind": "blocked",
           "mode": "inspect",
           "brief": "Draft alerts without sending pages or inventing response ownership."
+        },
+        {
+          "mode": "apply",
+          "brief": "Add a Prometheus alert rule for queue age to monitoring/alerts.yml with rule tests, leaving notifications disabled."
         }
       ],
       "invariants": [

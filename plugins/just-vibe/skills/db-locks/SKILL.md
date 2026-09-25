@@ -29,7 +29,7 @@ Declared evidence requirements: `database.context`. Use actual host discovery or
 
 Blocking chains, deadlocks, transaction duration, and contention causes.
 
-No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
+No source changes in inspect/plan. Save only requested planning artifacts. fix applies an accepted code repair; operational changes need their own exact request.
 
 ## Execute
 

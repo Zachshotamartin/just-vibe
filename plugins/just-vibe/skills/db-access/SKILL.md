@@ -29,7 +29,7 @@ Declared evidence requirements: `database.context`. Use actual host discovery or
 
 Database privileges, tenant predicates, row-level policies, and bypass paths.
 
-No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
+No source changes in inspect/plan. Save only requested planning artifacts. db-migrate applies an accepted grant or policy change.
 
 ## Execute
 

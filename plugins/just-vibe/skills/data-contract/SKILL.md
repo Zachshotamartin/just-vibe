@@ -29,7 +29,7 @@ Resolve any task-specific tools, target identity and evidence before dependent a
 
 Machine-checkable and semantic obligations across a data boundary.
 
-No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
+No source changes in inspect/plan. Save only requested planning artifacts. data-pipeline or fix applies an accepted change.
 
 ## Execute
 

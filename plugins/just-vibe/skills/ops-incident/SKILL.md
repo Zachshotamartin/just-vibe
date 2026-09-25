@@ -15,7 +15,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 ## Input and mode
 
-Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; symptoms, affected service/environment, incident window, and known impact.
+Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; symptoms, affected service/environment, incident window, and known impact. Apply for a specific mitigation the user authorizes.
 
 exact service/environment, time window, revision/configuration identity, authorized logs/metrics, and operational constraints. Prefer observation before intervention; live restarts, traffic changes, restores, and notifications require the requested target/action. Redact sensitive telemetry.
 
@@ -27,9 +27,9 @@ Declared evidence requirements: `telemetry.read`. Use actual host discovery or a
 
 ## Scope
 
-Organize triage and recommend immediate actions; remediation follows explicit incident authority.
+Organize triage and recommend immediate actions; an authorized mitigation runs in apply mode.
 
-No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
+Inspect/plan: triage and recommend; save requested artifacts only. Apply: carry out only the specific mitigation the user authorized, such as a rollback, restart, flag change or queue drain, against its resolved target after capturing the state it may erase; one step at a time, each verified and recorded. Customer messages, failovers and unrelated changes need their own exact request.
 
 ## Execute
 
@@ -50,6 +50,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 ## Decision branches
 
 - **When an intervention may erase evidence or duplicate effects:** Capture relevant state and define its observation/abort condition before acting.
+- **When the user authorizes a specific mitigation:** Resolve the exact target and action, capture the state it may erase, state the expected observation and abort condition, run it once, verify the symptom changed, and record the step in the incident ledger.
 
 ## Deliver and verify
 
@@ -69,3 +70,4 @@ Verify these observable conditions when applicable to the actual task; do not cl
 - **Normal (inspect):** Organize this incident's impact, timeline, and next diagnostic actions without restarting services.
 - **edge (inspect):** Triage rising errors after a deployment with an unrelated provider incident.
 - **blocked (inspect):** Inspect supplied incident evidence without restarting services or sending customer messages.
+- **Additional (apply):** Roll back checkout-api to the previous release and restart the payment worker; I authorize both.

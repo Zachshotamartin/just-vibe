@@ -1,6 +1,6 @@
 ---
 name: data-quality
-description: "Check freshness, completeness, validity, and consistency Use to evaluate an identified snapshot against declared rules; data-profile discovers descriptive anomalies."
+description: "Check freshness, completeness, validity, and consistency Use to evaluate an identified snapshot against declared rules; data-profile discovers descriptive anomalies, data-pipeline embeds checks and ops-observability or ops-alerts implement monitoring."
 ---
 
 # data-quality
@@ -9,7 +9,7 @@ Check freshness, completeness, validity, and consistency
 
 ## Choose this workflow
 
-Use to evaluate an identified snapshot against declared rules; data-profile discovers descriptive anomalies.
+Use to evaluate an identified snapshot against declared rules; data-profile discovers descriptive anomalies, data-pipeline embeds checks and ops-observability or ops-alerts implement monitoring.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Data engineering methods](../../references/packs/data.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -29,7 +29,7 @@ Declared evidence requirements: `data.read`. Use actual host discovery or adequa
 
 Freshness, completeness, validity, uniqueness, and cross-field consistency.
 
-No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
+No source changes in inspect/plan. Save only requested planning artifacts. data-pipeline embeds accepted checks, ops-observability or ops-alerts implement monitoring and data-backfill repairs records.
 
 ## Execute
 
@@ -62,7 +62,7 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 ## Stop and recover
 
-- Installing monitors or repairing records is separate. Do not redefine thresholds after seeing results to force a pass.
+- Installing monitors (data-pipeline, ops-observability, ops-alerts) or repairing records (data-backfill) is separate. Do not redefine thresholds after seeing results to force a pass.
 
 ## Example requests
 
