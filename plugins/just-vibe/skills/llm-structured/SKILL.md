@@ -23,7 +23,7 @@ Use the complete request appended to this invocation, preserving all constraints
 - **Reasonable default:** Use mocked calls for local contract tests when remote access is absent; do not infer model quality from mocks.
 - **Ask only when needed:** Ask for budget and permitted data/provider before a paid or external run if not already set; local prompt/tool implementation can proceed in apply mode.
 
-Declared evidence requirements: `ml.artifacts`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
+Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
@@ -33,8 +33,9 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Execute
 
-1. Define schema-compatible requests, validate outputs beyond parsing, separate refusal/truncation from malformed data, implement constrained retries, and test downstream consumption.
-2. Resolve supported schema features, validate semantics after parsing and separate refusal, truncation, invalid structure and downstream business rejection.
+1. Resolve the schema features the provider supports, and define schema-compatible requests.
+2. Validate semantics after parsing, separating refusal, truncation, invalid structure and downstream business rejection, and implement constrained retries.
+3. Test downstream consumption with malformed, missing, refusal and truncation fixtures.
 
 ## Technical method
 
@@ -54,8 +55,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Deliver and verify
 
-- Structured-output integration, schemas, recovery behavior, and fixtures.
-- Schema/validation contract and malformed, missing, refusal and truncation fixtures.
+- Structured-output integration with its schema/validation contract, recovery behavior and malformed, missing, refusal and truncation fixtures.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

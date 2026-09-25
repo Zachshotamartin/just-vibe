@@ -23,7 +23,7 @@ Use the complete request appended to this invocation, preserving all constraints
 - **Reasonable default:** Use mocked calls for local contract tests when remote access is absent; do not infer model quality from mocks.
 - **Ask only when needed:** Ask for budget and permitted data/provider before a paid or external run if not already set; local prompt/tool implementation can proceed in apply mode.
 
-Declared evidence requirements: `ml.artifacts`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
+Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
@@ -33,8 +33,9 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Execute
 
-1. Analyze error categories, modify the smallest relevant instructions/examples, preserve instruction hierarchy, compare against baseline on development cases, and reserve held-out confirmation.
-2. Categorize failures, change the smallest relevant instruction/example and compare under fixed model/settings on development cases with held-out confirmation.
+1. Categorize the measured failures.
+2. Change the smallest relevant instruction or example, preserving instruction hierarchy.
+3. Compare against the baseline under fixed model and settings on development cases, and reserve held-out confirmation.
 
 ## Technical method
 
@@ -54,8 +55,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Deliver and verify
 
-- Versioned prompt, rationale, evaluation differences, and unresolved regressions.
-- Prompt diff, failure-category results, regressions and token/cost change.
+- Versioned prompt diff with rationale, failure-category results against the baseline, regressions and token/cost change.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

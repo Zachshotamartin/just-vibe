@@ -33,8 +33,9 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Execute
 
-1. Reproduce under controlled repeats/order/seeds, inspect first divergent evidence, fix isolation or synchronization, and rerun bounded stress checks.
-2. Record order, seed, clock and shared-resource conditions, vary one factor under a repeat cap and replace timing guesses with explicit synchronization.
+1. Record order, seed, clock and shared-resource conditions and the repeat budget. Without a stated budget, derive one from single-run duration and the observed failure rate, cap total wall time (state the cap once) and report the detection power of the chosen sample.
+2. Reproduce under controlled repeats, varying one factor at a time within the budget, and inspect the first divergent evidence.
+3. Fix isolation or synchronization, replacing timing guesses with explicit synchronization, and rerun bounded stress checks.
 
 ## Technical method
 
@@ -59,8 +60,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Deliver and verify
 
-- Cause, repair, repeat counts, failure rates, and residual uncertainty.
-- Trigger conditions, isolation/synchronization fix and bounded repeat results.
+- Cause and trigger conditions, the isolation or synchronization fix, repeat counts, failure rates and residual uncertainty.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

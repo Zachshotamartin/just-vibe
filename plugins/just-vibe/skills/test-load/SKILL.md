@@ -33,8 +33,9 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 
 ## Execute
 
-1. Validate isolation and side effects, establish baseline, ramp within limits, observe latency/errors/resources, stop on thresholds, and correlate saturation.
-2. Define exact target, traffic shape, concurrency/rate/duration and stop thresholds; validate side effects and ramp in a controlled environment with telemetry.
+1. Define the exact target, traffic shape, concurrency/rate/duration and stop thresholds, and validate isolation and side effects.
+2. Establish a baseline and ramp within limits in a controlled environment with telemetry, observing latency, errors and resources.
+3. Stop on thresholds and correlate saturation.
 
 ## Technical method
 
@@ -59,8 +60,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 
 ## Deliver and verify
 
-- Load script/protocol or run report with conditions, bottlenecks, and cleanup.
-- Workload/caps, time series, stop event and measured saturation boundary.
+- Load script/protocol or run report with workload caps, time series, stop event, measured saturation boundary, bottlenecks and cleanup.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

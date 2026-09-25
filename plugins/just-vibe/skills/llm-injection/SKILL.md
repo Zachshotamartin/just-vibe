@@ -23,7 +23,7 @@ Use the complete request appended to this invocation, preserving all constraints
 - **Reasonable default:** Use mocked calls for local contract tests when remote access is absent; do not infer model quality from mocks.
 - **Ask only when needed:** Ask for budget and permitted data/provider before a paid or external run if not already set; local prompt/tool implementation can proceed in apply mode.
 
-Resolve any task-specific tools, target identity and evidence before dependent actions. No external connection is assumed.
+Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
@@ -33,8 +33,9 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 
 ## Execute
 
-1. Map data-to-authority boundaries, create benign canary scenarios, run isolated tests in apply mode, inspect tool actions as well as text, and propose enforceable mitigations.
-2. Map untrusted documents and tool results into model context, plant benign canaries and inspect tool actions as well as generated text.
+1. Map untrusted documents and tool results into model context, and the data-to-authority boundaries they cross.
+2. Plant benign canaries and run isolated tests in apply mode, inspecting tool actions as well as generated text.
+3. Propose enforceable mitigations.
 
 ## Technical method
 
@@ -54,8 +55,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 
 ## Deliver and verify
 
-- Test cases, observed failures, mitigations, and residual limitations.
-- Attack surface, canary cases, observed actions and enforceable mitigations.
+- Attack surface, canary test cases, observed actions and failures, enforceable mitigations and residual limitations.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

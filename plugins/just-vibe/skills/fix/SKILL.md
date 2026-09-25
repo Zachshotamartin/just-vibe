@@ -1,6 +1,6 @@
 ---
 name: fix
-description: "Reproduce a bug, identify its cause, and verify the fix. Use when the requested outcome is correcting a demonstrated defect; debug diagnoses without default edits."
+description: "Reproduce a bug, identify its cause, and verify the fix. Use when the requested outcome is correcting a demonstrated defect; debug diagnoses without default edits; security-fix repairs a confirmed vulnerability and checks alternate bypass routes."
 ---
 
 # fix
@@ -9,7 +9,7 @@ Reproduce a bug, identify its cause, and verify the fix.
 
 ## Choose this workflow
 
-Use when the requested outcome is correcting a demonstrated defect; debug diagnoses without default edits.
+Use when the requested outcome is correcting a demonstrated defect; debug diagnoses without default edits; security-fix repairs a confirmed vulnerability and checks alternate bypass routes.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [General methods](../../references/packs/general.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 

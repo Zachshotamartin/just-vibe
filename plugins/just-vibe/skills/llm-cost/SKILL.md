@@ -23,7 +23,7 @@ Use the complete request appended to this invocation, preserving all constraints
 - **Reasonable default:** Use mocked calls for local contract tests when remote access is absent; do not infer model quality from mocks.
 - **Ask only when needed:** Ask for budget and permitted data/provider before a paid or external run if not already set; local prompt/tool implementation can proceed in apply mode.
 
-Declared evidence requirements: `ml.artifacts`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
+Declared evidence requirements: `telemetry.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
@@ -33,8 +33,9 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Reconcile billed versus estimated usage, separate input, output, cached and reasoning or thinking tokens (read reasoning from the provider usage report, billed as output, never estimated from visible text), identify expensive failure loops, and propose bounded comparisons preserving task quality.
-2. Reconcile provider usage with input, output and cached tokens and retries. Normalize each provider to disjoint categories first (uncached input, output, cache reads, cache writes), since some APIs count cached tokens inside input and others report them separately; verify dated pricing and include failed runs in per-completed-task cost.
+1. Reconcile billed provider usage with estimates and retries, normalizing each provider to disjoint categories first (uncached input, output, cache reads, cache writes), since some APIs count cached tokens inside input and others report them separately.
+2. Read reasoning or thinking tokens from the provider usage report (billed as output, never estimated from visible text), verify dated pricing, and include failed runs in per-completed-task cost.
+3. Identify expensive failure loops and propose bounded comparisons that preserve task quality.
 
 ## Technical method
 
@@ -54,8 +55,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Cost/latency breakdown, rate/date assumptions, and optimization priorities.
-- Usage/rate assumptions, total and per-success cost, quality comparison and uncertainty.
+- Cost/latency breakdown with usage and dated rate assumptions, total and per-success cost, quality comparison, uncertainty and optimization priorities.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

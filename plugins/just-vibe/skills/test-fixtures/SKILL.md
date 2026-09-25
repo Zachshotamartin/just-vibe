@@ -33,8 +33,9 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Execute
 
-1. Derive minimal realistic entities, encode valid defaults and deliberate invalid cases, isolate identities/timestamps, and verify cleanup and repeatability.
-2. Define valid defaults and deliberate invalid variants, isolate identifiers and clocks and make teardown safe after partial setup failure.
+1. Derive minimal realistic entities with valid defaults and deliberate invalid variants.
+2. Isolate identifiers, timestamps and clocks, and make teardown safe after a partial setup failure.
+3. Verify cleanup, repeatability and concurrent use.
 
 ## Technical method
 
@@ -59,8 +60,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Deliver and verify
 
-- Fixtures/factories with semantics, usage, and consistency checks.
-- Fixture contract, edge variants, cleanup behavior and concurrent-use checks.
+- Fixtures or factories with their contract, edge variants, usage, cleanup behavior and concurrency checks.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -73,5 +73,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** Build deterministic organization fixtures safe for concurrent test runs.
-- **Edge (apply):** Create fixtures that remain isolated when tests run in parallel.
+- **Edge (apply):** Build fixtures whose teardown still runs when setup fails halfway through creating an organization.
 - **Blocked (inspect):** Design fixtures without copying production personal records.

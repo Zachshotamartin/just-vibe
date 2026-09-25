@@ -1,6 +1,6 @@
 ---
 name: test-e2e
-description: "Exercise complete user journeys and recovery. Use for a critical user journey across the actual interface; test-unit is preferable for pure logic branches."
+description: "Exercise complete user journeys and recovery. Use for a critical user journey across the actual interface; test-unit is preferable for pure logic branches, and agent-qa records request-linked acceptance evidence."
 ---
 
 # test-e2e
@@ -9,7 +9,7 @@ Exercise complete user journeys and recovery.
 
 ## Choose this workflow
 
-Use for a critical user journey across the actual interface; test-unit is preferable for pure logic branches.
+Use for a critical user journey across the actual interface; test-unit is preferable for pure logic branches, and agent-qa records request-linked acceptance evidence.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Testing methods](../../references/packs/testing.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -33,8 +33,9 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Execute
 
-1. Seed controlled data, use robust user-facing selectors, exercise the journey and failure recovery, assert observable outcomes, and clean up owned data.
-2. Define stable setup and cleanup, drive user-visible controls with semantic locators and assert the final meaningful outcome plus a recovery path.
+1. Seed controlled data, and define stable setup and cleanup of owned data.
+2. Drive user-visible controls with semantic locators through the journey and a failure-recovery path.
+3. Assert the final meaningful outcome.
 
 ## Technical method
 
@@ -59,8 +60,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Deliver and verify
 
-- End-to-end tests, traces on failure, and environment/coverage notes.
-- Journey steps, environment, assertions, artifacts and untested external boundaries.
+- End-to-end tests with journey steps, environment, assertions, failure traces and artifacts, and untested external boundaries.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

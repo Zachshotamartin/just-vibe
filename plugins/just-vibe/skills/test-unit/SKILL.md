@@ -33,8 +33,9 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Execute
 
-1. Identify observable inputs/outputs, choose meaningful boundaries, create focused tests, check error cases, and run the relevant suite.
-2. Select a public behavior and independent expected result, use minimal valid fixtures and cover a meaningful invalid or boundary input without asserting private implementation steps.
+1. Select a public behavior and its observable inputs and outputs, with an independent expected result.
+2. Choose minimal valid fixtures and write focused tests that cover a meaningful invalid or boundary input without asserting private implementation steps.
+3. Run the relevant suite.
 
 ## Technical method
 
@@ -59,8 +60,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Deliver and verify
 
-- Unit tests, fixture rationale, and execution results.
-- Behavior-to-case mapping, independent assertions and observed test outcomes.
+- Unit tests mapped to behaviors with fixture rationale, independent assertions and observed results.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

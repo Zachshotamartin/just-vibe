@@ -9457,7 +9457,7 @@
         {
           "kind": "edge",
           "mode": "apply",
-          "brief": "Create fixtures that remain isolated when tests run in parallel."
+          "brief": "Build fixtures whose teardown still runs when setup fails halfway through creating an organization."
         },
         {
           "kind": "blocked",

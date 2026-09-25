@@ -1,6 +1,6 @@
 ---
 name: agent-qa
-description: "Verify requested web-app outcomes through browser assertions, screenshots and bounded retests. Use after implementation when a user wants evidence that a visitor can complete the requested journey, including upload, playback, invalid input and mobile behavior."
+description: "Verify requested web-app outcomes through browser assertions, screenshots and bounded retests. Use after implementation when a user wants evidence that a visitor can complete the requested journey, including upload, playback, invalid input and mobile behavior; test-e2e writes durable browser tests and verify runs existing checks."
 ---
 
 # agent-qa
@@ -9,7 +9,7 @@ Verify requested web-app outcomes through browser assertions, screenshots and bo
 
 ## Choose this workflow
 
-Use after implementation when a user wants evidence that a visitor can complete the requested journey, including upload, playback, invalid input and mobile behavior.
+Use after implementation when a user wants evidence that a visitor can complete the requested journey, including upload, playback, invalid input and mobile behavior; test-e2e writes durable browser tests and verify runs existing checks.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Testing methods](../../references/packs/testing.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 

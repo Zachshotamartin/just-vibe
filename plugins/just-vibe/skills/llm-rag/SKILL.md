@@ -23,7 +23,7 @@ Use the complete request appended to this invocation, preserving all constraints
 - **Reasonable default:** Use mocked calls for local contract tests when remote access is absent; do not infer model quality from mocks.
 - **Ask only when needed:** Ask for budget and permitted data/provider before a paid or external run if not already set; local prompt/tool implementation can proceed in apply mode.
 
-Resolve any task-specific tools, target identity and evidence before dependent actions. No external connection is assumed.
+Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
@@ -33,8 +33,9 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 
 ## Execute
 
-1. Define source identity and access filtering, choose document/chunk lifecycle, evaluate retrieval separately, enforce citation/abstention behavior, and test unsupported queries.
-2. Define document identity/version/access control, chunk lifecycle and evidence requirements; test retrieval independently from answer generation and citation correctness.
+1. Define document identity, version and access control, and choose the chunk lifecycle.
+2. Define evidence, citation and abstention requirements for answers.
+3. Evaluate retrieval independently from answer generation and citation correctness, including unsupported and access-denied queries.
 
 ## Technical method
 
@@ -55,8 +56,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 
 ## Deliver and verify
 
-- RAG architecture or implementation with corpus provenance and component-level evals.
-- Ingestion/retrieval/answer contracts and grounded, unsupported and access-denied cases.
+- RAG architecture or implementation with corpus provenance, ingestion/retrieval/answer contracts and component-level evals for grounded, unsupported and access-denied cases.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

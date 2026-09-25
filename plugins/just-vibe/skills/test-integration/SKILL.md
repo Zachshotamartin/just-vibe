@@ -33,8 +33,9 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Execute
 
-1. Provision/use authorized isolated fixtures, exercise actual interfaces, control setup/cleanup, test failures, and record what remains mocked.
-2. Choose an isolated dependency instance or existing fixture environment, control data identity and verify persistence, serialization and failure cleanup across the actual boundary.
+1. Choose an authorized isolated dependency instance or existing fixture environment, and control data identity with setup and cleanup.
+2. Exercise the actual interfaces, verifying persistence, serialization and failure cleanup across the boundary.
+3. Record what remains mocked.
 
 ## Technical method
 
@@ -59,8 +60,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Deliver and verify
 
-- Integration tests and reproducible environment instructions with results.
-- Dependency/version, fixture lifecycle and normal/error/rollback observations.
+- Integration tests with reproducible environment instructions, dependency/version, fixture lifecycle and normal/error/rollback observations.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

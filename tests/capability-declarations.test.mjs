@@ -58,3 +58,11 @@ test('rendered-interaction workflows declare browser evidence; comparing supplie
   }
   assert.ok(!getCommand(catalog, 'ui-visual-diff').capabilities.includes('browser.inspect'), 'ui-visual-diff compares supplied captures by default');
 });
+
+test('ML deployment and LLM workflows declare the evidence their methods read (A9-06)', () => {
+  const caps = id => getCommand(catalog, id).capabilities;
+  for (const id of ['ml-serving', 'ml-batch', 'ml-inference-perf', 'ml-rollout']) assert.ok(caps(id).includes('ml.artifacts'), id);
+  for (const id of ['ml-monitor', 'llm-cost']) assert.ok(caps(id).includes('telemetry.read'), id);
+  for (const id of ['llm-prompt', 'llm-structured', 'llm-retrieval', 'llm-cost']) assert.ok(!caps(id).includes('ml.artifacts'), `${id} reads no training artifacts`);
+  for (const id of ['llm-evals', 'llm-rag', 'llm-tools', 'llm-injection']) assert.ok(caps(id).length > 0, `${id} declares its evidence`);
+});

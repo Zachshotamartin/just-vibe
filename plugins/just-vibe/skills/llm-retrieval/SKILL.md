@@ -23,7 +23,7 @@ Use the complete request appended to this invocation, preserving all constraints
 - **Reasonable default:** Use mocked calls for local contract tests when remote access is absent; do not infer model quality from mocks.
 - **Ask only when needed:** Ask for budget and permitted data/provider before a paid or external run if not already set; local prompt/tool implementation can proceed in apply mode.
 
-Declared evidence requirements: `ml.artifacts`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
+Declared evidence requirements: `data.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
@@ -33,8 +33,8 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Trace query-to-candidate stages, inspect missed relevant passages, compare bounded configurations under the same judgments, and validate access filters independently.
-2. Trace a query through normalization, filters, candidates, ranking and final context using known relevance judgments and stable document IDs.
+1. Trace a query through normalization, filters, candidates, ranking and final context using known relevance judgments and stable document IDs.
+2. Inspect missed relevant passages, validate access filters independently, and compare bounded configurations under the same judgments.
 
 ## Technical method
 
@@ -54,8 +54,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Retrieval metrics, failure taxonomy, examples, and improvement experiments.
-- Stage-level recall/error evidence, access-filter checks and matched configuration comparison.
+- Stage-level retrieval metrics and recall/error evidence, a failure taxonomy with examples, access-filter checks and matched configuration comparisons.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

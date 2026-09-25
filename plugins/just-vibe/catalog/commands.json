@@ -1770,7 +1770,7 @@
         "repair",
         "bug fix"
       ],
-      "selection": "Use when the requested outcome is correcting a demonstrated defect; debug diagnoses without default edits.",
+      "selection": "Use when the requested outcome is correcting a demonstrated defect; debug diagnoses without default edits; security-fix repairs a confirmed vulnerability and checks alternate bypass routes.",
       "branches": [
         {
           "when": "the written contract disagrees with the current fallback or coercion",
@@ -19162,7 +19162,9 @@
         "mode",
         "budget"
       ],
-      "capabilities": [],
+      "capabilities": [
+        "data.read"
+      ],
       "readScope": "Evaluation cases, harness, and reliable scoring; run only under authorized provider/data scope.",
       "writeScope": "Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the requested changes or execute the requested operation within its resolved target and limits. Local preparation does not authorize live, remote, destructive or paid actions; existing explicit session authorization still applies.",
       "procedure": [
@@ -19258,17 +19260,17 @@
         "budget"
       ],
       "capabilities": [
-        "ml.artifacts"
+        "project.read"
       ],
       "readScope": "Prompt/instruction changes tested against stated behavior; no unrelated model/provider migration.",
       "writeScope": "Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.",
       "procedure": [
-        "Analyze error categories, modify the smallest relevant instructions/examples, preserve instruction hierarchy, compare against baseline on development cases, and reserve held-out confirmation.",
-        "Categorize failures, change the smallest relevant instruction/example and compare under fixed model/settings on development cases with held-out confirmation."
+        "Categorize the measured failures.",
+        "Change the smallest relevant instruction or example, preserving instruction hierarchy.",
+        "Compare against the baseline under fixed model and settings on development cases, and reserve held-out confirmation."
       ],
       "outputs": [
-        "Versioned prompt, rationale, evaluation differences, and unresolved regressions.",
-        "Prompt diff, failure-category results, regressions and token/cost change."
+        "Versioned prompt diff with rationale, failure-category results against the baseline, regressions and token/cost change."
       ],
       "verification": [
         "Targeted failures improve without breaking important existing cases; prompt length/cost changes are recorded."
@@ -19351,17 +19353,17 @@
         "budget"
       ],
       "capabilities": [
-        "ml.artifacts"
+        "project.read"
       ],
       "readScope": "Structured generation, semantic validation, refusal/incomplete handling, and bounded recovery.",
       "writeScope": "Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.",
       "procedure": [
-        "Define schema-compatible requests, validate outputs beyond parsing, separate refusal/truncation from malformed data, implement constrained retries, and test downstream consumption.",
-        "Resolve supported schema features, validate semantics after parsing and separate refusal, truncation, invalid structure and downstream business rejection."
+        "Resolve the schema features the provider supports, and define schema-compatible requests.",
+        "Validate semantics after parsing, separating refusal, truncation, invalid structure and downstream business rejection, and implement constrained retries.",
+        "Test downstream consumption with malformed, missing, refusal and truncation fixtures."
       ],
       "outputs": [
-        "Structured-output integration, schemas, recovery behavior, and fixtures.",
-        "Schema/validation contract and malformed, missing, refusal and truncation fixtures."
+        "Structured-output integration with its schema/validation contract, recovery behavior and malformed, missing, refusal and truncation fixtures."
       ],
       "verification": [
         "Syntactically valid but semantically invalid output is rejected; repeated failure terminates with a typed error."
@@ -19440,16 +19442,18 @@
         "mode",
         "budget"
       ],
-      "capabilities": [],
+      "capabilities": [
+        "project.read"
+      ],
       "readScope": "Ingestion, indexing, retrieval, grounding, and generation design; implementation on request.",
       "writeScope": "Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the requested changes or execute the requested operation within its resolved target and limits. Local preparation does not authorize live, remote, destructive or paid actions; existing explicit session authorization still applies.",
       "procedure": [
-        "Define source identity and access filtering, choose document/chunk lifecycle, evaluate retrieval separately, enforce citation/abstention behavior, and test unsupported queries.",
-        "Define document identity/version/access control, chunk lifecycle and evidence requirements; test retrieval independently from answer generation and citation correctness."
+        "Define document identity, version and access control, and choose the chunk lifecycle.",
+        "Define evidence, citation and abstention requirements for answers.",
+        "Evaluate retrieval independently from answer generation and citation correctness, including unsupported and access-denied queries."
       ],
       "outputs": [
-        "RAG architecture or implementation with corpus provenance and component-level evals.",
-        "Ingestion/retrieval/answer contracts and grounded, unsupported and access-denied cases."
+        "RAG architecture or implementation with corpus provenance, ingestion/retrieval/answer contracts and component-level evals for grounded, unsupported and access-denied cases."
       ],
       "verification": [
         "An unauthorized document cannot leak through retrieval; absent evidence produces qualified/abstaining answers rather than invented citations."
@@ -19544,17 +19548,16 @@
         "budget"
       ],
       "capabilities": [
-        "ml.artifacts"
+        "data.read"
       ],
       "readScope": "Chunking, candidate recall, ranking, filters, and retrieval latency; generation quality is separate.",
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
       "procedure": [
-        "Trace query-to-candidate stages, inspect missed relevant passages, compare bounded configurations under the same judgments, and validate access filters independently.",
-        "Trace a query through normalization, filters, candidates, ranking and final context using known relevance judgments and stable document IDs."
+        "Trace a query through normalization, filters, candidates, ranking and final context using known relevance judgments and stable document IDs.",
+        "Inspect missed relevant passages, validate access filters independently, and compare bounded configurations under the same judgments."
       ],
       "outputs": [
-        "Retrieval metrics, failure taxonomy, examples, and improvement experiments.",
-        "Stage-level recall/error evidence, access-filter checks and matched configuration comparison."
+        "Stage-level retrieval metrics and recall/error evidence, a failure taxonomy with examples, access-filter checks and matched configuration comparisons."
       ],
       "verification": [
         "A missing exception passage is localized to candidate generation or ranking; unauthorized passages are excluded regardless of relevance."
@@ -19635,7 +19638,9 @@
         "mode",
         "budget"
       ],
-      "capabilities": [],
+      "capabilities": [
+        "project.read"
+      ],
       "readScope": "Model-facing tool contracts and validated execution boundaries; implementation on request.",
       "writeScope": "Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the requested changes or execute the requested operation within its resolved target and limits. Local preparation does not authorize live, remote, destructive or paid actions; existing explicit session authorization still applies.",
       "procedure": [
@@ -19729,16 +19734,18 @@
         "mode",
         "budget"
       ],
-      "capabilities": [],
+      "capabilities": [
+        "project.read"
+      ],
       "readScope": "Defensive tests for hostile instructions in retrieved documents, logs, messages, and tool output.",
       "writeScope": "Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the requested changes or execute the requested operation within its resolved target and limits. Local preparation does not authorize live, remote, destructive or paid actions; existing explicit session authorization still applies.",
       "procedure": [
-        "Map data-to-authority boundaries, create benign canary scenarios, run isolated tests in apply mode, inspect tool actions as well as text, and propose enforceable mitigations.",
-        "Map untrusted documents and tool results into model context, plant benign canaries and inspect tool actions as well as generated text."
+        "Map untrusted documents and tool results into model context, and the data-to-authority boundaries they cross.",
+        "Plant benign canaries and run isolated tests in apply mode, inspecting tool actions as well as generated text.",
+        "Propose enforceable mitigations."
       ],
       "outputs": [
-        "Test cases, observed failures, mitigations, and residual limitations.",
-        "Attack surface, canary cases, observed actions and enforceable mitigations."
+        "Attack surface, canary test cases, observed actions and failures, enforceable mitigations and residual limitations."
       ],
       "verification": [
         "A retrieved instruction cannot redirect secrets to a canary destination; legitimate quoted instructions remain usable as data."
@@ -19827,17 +19834,17 @@
         "budget"
       ],
       "capabilities": [
-        "ml.artifacts"
+        "telemetry.read"
       ],
       "readScope": "Tokens, retries, caching, model routing, concurrency, and cost/quality tradeoffs.",
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
       "procedure": [
-        "Reconcile billed versus estimated usage, separate input, output, cached and reasoning or thinking tokens (read reasoning from the provider usage report, billed as output, never estimated from visible text), identify expensive failure loops, and propose bounded comparisons preserving task quality.",
-        "Reconcile provider usage with input, output and cached tokens and retries. Normalize each provider to disjoint categories first (uncached input, output, cache reads, cache writes), since some APIs count cached tokens inside input and others report them separately; verify dated pricing and include failed runs in per-completed-task cost."
+        "Reconcile billed provider usage with estimates and retries, normalizing each provider to disjoint categories first (uncached input, output, cache reads, cache writes), since some APIs count cached tokens inside input and others report them separately.",
+        "Read reasoning or thinking tokens from the provider usage report (billed as output, never estimated from visible text), verify dated pricing, and include failed runs in per-completed-task cost.",
+        "Identify expensive failure loops and propose bounded comparisons that preserve task quality."
       ],
       "outputs": [
-        "Cost/latency breakdown, rate/date assumptions, and optimization priorities.",
-        "Usage/rate assumptions, total and per-success cost, quality comparison and uncertainty."
+        "Cost/latency breakdown with usage and dated rate assumptions, total and per-success cost, quality comparison, uncertainty and optimization priorities."
       ],
       "verification": [
         "Retry tokens count toward total cost; cheaper routing is assessed against the same quality criteria."
@@ -19930,12 +19937,12 @@
       "readScope": "Isolated contracts and invariants with minimal justified mocks.",
       "writeScope": "Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.",
       "procedure": [
-        "Identify observable inputs/outputs, choose meaningful boundaries, create focused tests, check error cases, and run the relevant suite.",
-        "Select a public behavior and independent expected result, use minimal valid fixtures and cover a meaningful invalid or boundary input without asserting private implementation steps."
+        "Select a public behavior and its observable inputs and outputs, with an independent expected result.",
+        "Choose minimal valid fixtures and write focused tests that cover a meaningful invalid or boundary input without asserting private implementation steps.",
+        "Run the relevant suite."
       ],
       "outputs": [
-        "Unit tests, fixture rationale, and execution results.",
-        "Behavior-to-case mapping, independent assertions and observed test outcomes."
+        "Unit tests mapped to behaviors with fixture rationale, independent assertions and observed results."
       ],
       "verification": [
         "A behavioral defect makes a test fail; internal reorganization preserving the contract does not require rewriting every assertion."
@@ -20052,12 +20059,12 @@
       "readScope": "Real boundaries such as database transactions, serialization, queues, or service adapters.",
       "writeScope": "Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.",
       "procedure": [
-        "Provision/use authorized isolated fixtures, exercise actual interfaces, control setup/cleanup, test failures, and record what remains mocked.",
-        "Choose an isolated dependency instance or existing fixture environment, control data identity and verify persistence, serialization and failure cleanup across the actual boundary."
+        "Choose an authorized isolated dependency instance or existing fixture environment, and control data identity with setup and cleanup.",
+        "Exercise the actual interfaces, verifying persistence, serialization and failure cleanup across the boundary.",
+        "Record what remains mocked."
       ],
       "outputs": [
-        "Integration tests and reproducible environment instructions with results.",
-        "Dependency/version, fixture lifecycle and normal/error/rollback observations."
+        "Integration tests with reproducible environment instructions, dependency/version, fixture lifecycle and normal/error/rollback observations."
       ],
       "verification": [
         "A schema/serialization mismatch is caught; a failed transaction leaves no partial committed effect."
@@ -20172,12 +20179,12 @@
       "readScope": "Full user-visible flows including recovery, through real application boundaries available in the test environment.",
       "writeScope": "Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.",
       "procedure": [
-        "Seed controlled data, use robust user-facing selectors, exercise the journey and failure recovery, assert observable outcomes, and clean up owned data.",
-        "Define stable setup and cleanup, drive user-visible controls with semantic locators and assert the final meaningful outcome plus a recovery path."
+        "Seed controlled data, and define stable setup and cleanup of owned data.",
+        "Drive user-visible controls with semantic locators through the journey and a failure-recovery path.",
+        "Assert the final meaningful outcome."
       ],
       "outputs": [
-        "End-to-end tests, traces on failure, and environment/coverage notes.",
-        "Journey steps, environment, assertions, artifacts and untested external boundaries."
+        "End-to-end tests with journey steps, environment, assertions, failure traces and artifacts, and untested external boundaries."
       ],
       "verification": [
         "A completed UI action has the intended persisted outcome; failed submission preserves recoverable user state."
@@ -20222,7 +20229,7 @@
         "browser test",
         "selenium"
       ],
-      "selection": "Use for a critical user journey across the actual interface; test-unit is preferable for pure logic branches.",
+      "selection": "Use for a critical user journey across the actual interface; test-unit is preferable for pure logic branches, and agent-qa records request-linked acceptance evidence.",
       "branches": [
         {
           "when": "a third-party payment or email effect is real",
@@ -20425,12 +20432,12 @@
       "readScope": "Nondeterminism from shared state, order, time, async behavior, randomness, or environment.",
       "writeScope": "Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.",
       "procedure": [
-        "Reproduce under controlled repeats/order/seeds, inspect first divergent evidence, fix isolation or synchronization, and rerun bounded stress checks.",
-        "Record order, seed, clock and shared-resource conditions, vary one factor under a repeat cap and replace timing guesses with explicit synchronization."
+        "Record order, seed, clock and shared-resource conditions and the repeat budget. Without a stated budget, derive one from single-run duration and the observed failure rate, cap total wall time (state the cap once) and report the detection power of the chosen sample.",
+        "Reproduce under controlled repeats, varying one factor at a time within the budget, and inspect the first divergent evidence.",
+        "Fix isolation or synchronization, replacing timing guesses with explicit synchronization, and rerun bounded stress checks."
       ],
       "outputs": [
-        "Cause, repair, repeat counts, failure rates, and residual uncertainty.",
-        "Trigger conditions, isolation/synchronization fix and bounded repeat results."
+        "Cause and trigger conditions, the isolation or synchronization fix, repeat counts, failure rates and residual uncertainty."
       ],
       "verification": [
         "The triggering interleaving/order is exercised; no failures across a stated sample is not described as mathematical proof."
@@ -20547,12 +20554,12 @@
       "readScope": "Representative deterministic test data and lifecycle helpers.",
       "writeScope": "Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.",
       "procedure": [
-        "Derive minimal realistic entities, encode valid defaults and deliberate invalid cases, isolate identities/timestamps, and verify cleanup and repeatability.",
-        "Define valid defaults and deliberate invalid variants, isolate identifiers and clocks and make teardown safe after partial setup failure."
+        "Derive minimal realistic entities with valid defaults and deliberate invalid variants.",
+        "Isolate identifiers, timestamps and clocks, and make teardown safe after a partial setup failure.",
+        "Verify cleanup, repeatability and concurrent use."
       ],
       "outputs": [
-        "Fixtures/factories with semantics, usage, and consistency checks.",
-        "Fixture contract, edge variants, cleanup behavior and concurrent-use checks."
+        "Fixtures or factories with their contract, edge variants, usage, cleanup behavior and concurrency checks."
       ],
       "verification": [
         "Two concurrent tests do not collide on shared identifiers; boundary cases remain explicit rather than accidental random data."
@@ -20568,7 +20575,7 @@
         {
           "kind": "edge",
           "mode": "apply",
-          "brief": "Create fixtures that remain isolated when tests run in parallel."
+          "brief": "Build fixtures whose teardown still runs when setup fails halfway through creating an organization."
         },
         {
           "kind": "blocked",
@@ -20670,12 +20677,12 @@
       "readScope": "Controlled load/capacity experiment; execution needs explicit target and resource authorization.",
       "writeScope": "Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the requested changes or execute the requested operation within its resolved target and limits. Local preparation does not authorize live, remote, destructive or paid actions; existing explicit session authorization still applies.",
       "procedure": [
-        "Validate isolation and side effects, establish baseline, ramp within limits, observe latency/errors/resources, stop on thresholds, and correlate saturation.",
-        "Define exact target, traffic shape, concurrency/rate/duration and stop thresholds; validate side effects and ramp in a controlled environment with telemetry."
+        "Define the exact target, traffic shape, concurrency/rate/duration and stop thresholds, and validate isolation and side effects.",
+        "Establish a baseline and ramp within limits in a controlled environment with telemetry, observing latency, errors and resources.",
+        "Stop on thresholds and correlate saturation."
       ],
       "outputs": [
-        "Load script/protocol or run report with conditions, bottlenecks, and cleanup.",
-        "Workload/caps, time series, stop event and measured saturation boundary."
+        "Load script/protocol or run report with workload caps, time series, stop event, measured saturation boundary, bottlenecks and cleanup."
       ],
       "verification": [
         "The configured request cap is enforced; rising errors or resource pressure triggers a bounded stop."
@@ -20797,12 +20804,12 @@
       "readScope": "Generated tests for meaningful algebraic/business properties, not arbitrary random inputs.",
       "writeScope": "Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.",
       "procedure": [
-        "Define preconditions and generators, implement invariants, bound execution, shrink failures, and preserve a reproducible seed/minimal counterexample.",
-        "Define preconditions and generators independently of the implementation, include important boundaries and preserve shrunk failures and seeds."
+        "Define preconditions and generators independently of the implementation, including important boundaries.",
+        "Implement the invariants with bounded execution.",
+        "Shrink failures and preserve the reproducible seed and minimal counterexample."
       ],
       "outputs": [
-        "Property tests, domain rationale, and results/counterexamples.",
-        "Property/domain rationale, generator behavior and minimal counterexample on failure."
+        "Property tests with domain rationale, generator behavior, results and a minimal counterexample on failure."
       ],
       "verification": [
         "A seeded defect yields a useful reduced case; generators cover important boundaries rather than filtering nearly everything out."
@@ -23471,7 +23478,7 @@
         "upload playback",
         "browser acceptance"
       ],
-      "selection": "Use after implementation when a user wants evidence that a visitor can complete the requested journey, including upload, playback, invalid input and mobile behavior.",
+      "selection": "Use after implementation when a user wants evidence that a visitor can complete the requested journey, including upload, playback, invalid input and mobile behavior; test-e2e writes durable browser tests and verify runs existing checks.",
       "branches": [
         {
           "when": "a required check is unavailable or fails before exercising behavior",
