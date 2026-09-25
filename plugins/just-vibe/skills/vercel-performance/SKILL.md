@@ -1,11 +1,11 @@
 ---
 name: vercel-performance
-description: "Investigate slow routes using available measurements and logs Use for measured deployment latency/cache problems; react-rerenders handles client render cost."
+description: "Investigate slow routes using available measurements and logs. Use for measured deployment latency/cache problems; react-rerenders handles client render cost."
 ---
 
 # vercel-performance
 
-Investigate slow routes using available measurements and logs
+Investigate slow routes using available measurements and logs.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; slow routes, deployment, workload, and existing measurements.
 
-exact team/project/environment and deployment/revision when applicable; read access to relevant configuration/logs. Verify installed CLI/API support and framework behavior during implementation. Never print environment values or infer promotion authorization from a preview request.
+**Pack prerequisites:** Exact team/project/environment and deployment/revision when applicable; read access to relevant configuration/logs. Verify installed CLI/API support and framework behavior during implementation. Never print environment values or infer promotion authorization from a preview request.
 
 - **Infer from evidence:** Read the linked project, team, framework, environment and deployment SHA from local config and supplied deployment evidence.
 - **Reasonable default:** Diagnose locally with existing build scripts when deployment access is missing; do not infer a production target from a preview URL.
@@ -33,8 +33,9 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Correlate timing with runtime/cache state, separate server from network/client delays, compare like-for-like requests, and rank optimizations by evidence.
-2. Separate cold start, warm handler, dependency, network and browser timing; compare matching regions, payloads and cache states.
+1. Correlate timing with runtime and cache state, and compare like-for-like requests with matching regions, payloads and cache states.
+2. Separate cold start, warm handler, dependency, network and browser timing, and rank optimizations by evidence.
+
 ## Technical method
 
 - **Inspect:** Obtain equivalent revision/region/payload samples, cache status and cold/warm conditions.
@@ -53,8 +54,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Bottleneck analysis, measurement conditions, and bounded optimization plan.
-- Measurement conditions, distributions, limiting boundary and bounded optimization experiment.
+- Measurement conditions and distributions, the limiting boundary, and a bounded optimization plan or experiment.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -62,10 +62,10 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 ## Stop and recover
 
-- New load/profiling requires authorized execution and budget. No automatic paid plan upgrade or unrelated application rewrite.
+- Load generation belongs to test-load, and new remote profiling needs a resolved target and budget. No automatic paid plan upgrade or unrelated application rewrite.
 
 ## Example requests
 
 - **Normal (inspect):** Analyze these route timings; distinguish cached responses from cold execution.
-- **edge (inspect):** Compare slow preview requests with cached production responses fairly.
-- **blocked (inspect):** Assess supplied timing samples without load testing or changing the paid plan.
+- **Edge (inspect):** Compare slow preview requests with cached production responses fairly.
+- **Blocked (inspect):** Assess supplied timing samples without load testing or changing the paid plan.

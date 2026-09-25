@@ -1,11 +1,11 @@
 ---
 name: vercel-routing
-description: "Diagnose redirects, rewrites, headers, domains, and route behavior Use for platform/framework route interaction; vite-assets diagnoses emitted asset paths."
+description: "Diagnose redirects, rewrites, headers, domains, and route behavior. Use for platform/framework route interaction; vite-assets diagnoses emitted asset paths."
 ---
 
 # vercel-routing
 
-Diagnose redirects, rewrites, headers, domains, and route behavior
+Diagnose redirects, rewrites, headers, domains, and route behavior.
 
 ## Choose this workflow
 
@@ -15,9 +15,9 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 ## Input and mode
 
-Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; URL/path, expected response, project, and deployment configuration.
+Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; URL/path, expected response, project, and deployment configuration. Apply for a requested routing configuration fix.
 
-exact team/project/environment and deployment/revision when applicable; read access to relevant configuration/logs. Verify installed CLI/API support and framework behavior during implementation. Never print environment values or infer promotion authorization from a preview request.
+**Pack prerequisites:** Exact team/project/environment and deployment/revision when applicable; read access to relevant configuration/logs. Verify installed CLI/API support and framework behavior during implementation. Never print environment values or infer promotion authorization from a preview request.
 
 - **Infer from evidence:** Read the linked project, team, framework, environment and deployment SHA from local config and supplied deployment evidence.
 - **Reasonable default:** Diagnose locally with existing build scripts when deployment access is missing; do not infer a production target from a preview URL.
@@ -29,12 +29,14 @@ Declared evidence requirements: `vercel.context`. Use actual host discovery or a
 
 Redirects, rewrites, headers, domains, and framework routing interactions.
 
-No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
+Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the requested local implementation and perform relevant bounded checks while preserving unrelated work. Live data changes, remote actions and paid jobs require their resolved target and existing session authorization.
 
 ## Execute
 
-1. Inspect precedence and base paths, trace bounded read-only requests, compare preview/production assumptions, and identify loops or unmatched paths.
-2. Build a request table with host, path, method and expected handler; trace redirects, rewrites, filesystem and framework routing in effective order.
+1. Build a request table with host, path, method and expected handler, and inspect base paths.
+2. Trace redirects, rewrites, filesystem and framework routing in effective precedence order with bounded read-only requests, comparing preview and production assumptions.
+3. Identify loops, unmatched paths and the responsible rule.
+
 ## Technical method
 
 - **Inspect:** Inspect framework routes, platform rewrites/redirects, domain target, base path and effective response headers.
@@ -53,8 +55,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Route trace, cause, and proposed configuration patch; apply on an explicit fix request.
-- Route matrix, observed status/location/content type and responsible rule.
+- Route matrix with observed status, location and content type, the responsible rule and cause, and a proposed configuration patch; apply mode makes a requested fix.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -67,5 +68,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Explain why nested API routes receive the SPA page instead of JSON.
-- **edge (inspect):** Fix preview deep links without swallowing API requests.
-- **blocked (inspect):** Inspect routing configuration without DNS access or live request evidence.
+- **Edge (apply):** Fix preview deep links without swallowing API requests.
+- **Blocked (inspect):** Inspect routing configuration without DNS access or live request evidence.

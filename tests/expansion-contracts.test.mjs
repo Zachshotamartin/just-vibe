@@ -8,6 +8,7 @@ import {
   rmSync,
   realpathSync,
   existsSync,
+  readdirSync,
 } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
@@ -92,6 +93,19 @@ test('seven additional host adapters preserve foreign files and reject changed o
     assert.equal(existsSync(path), false);
     assert.equal(readFileSync(join(f.root, 'foreign.txt'), 'utf8'), 'preserved');
   }
+});
+test('adapters sharing .agents/skills serve both hosts from one installation, and uninstall removes emptied folders (R2-06)', (t) => {
+  const f = fixture(t), zed = { target: 'zed', profile: 'core' }, openclaw = { target: 'openclaw', profile: 'core' };
+  adapters(f.root, 'install', zed);
+  const shared = adapters(f.root, 'install', openclaw);
+  assert.equal(shared.providedBy, 'zed');
+  assert.match(shared.note, /already provided by the zed adapter; one installation serves both hosts/);
+  assert.equal(adapters(f.root, 'doctor', openclaw).providedBy, 'zed');
+  adapters(f.root, 'uninstall', zed);
+  const skills = join(f.root, '.agents', 'skills');
+  assert.deepEqual(existsSync(skills) ? readdirSync(skills).filter((name) => name.startsWith('just-vibe-')) : [], [], 'No empty just-vibe folders remain');
+  adapters(f.root, 'install', openclaw);
+  assert.equal(adapters(f.root, 'doctor', openclaw).installed, true, 'The sibling can install once the destination is free');
 });
 test('connector ownership merges, detects edits and removes custom endpoints without redisclosure', (t) => {
   const f = fixture(t);

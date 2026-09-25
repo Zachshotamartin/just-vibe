@@ -1,11 +1,11 @@
 ---
 name: github-review
-description: "Review a PR using its discussion, changes, and checks Use to review a specific remote PR revision; review handles supplied/local diffs."
+description: "Review a PR using its discussion, changes, and checks. Use to review a specific remote PR revision; review handles supplied/local diffs."
 ---
 
 # github-review
 
-Review a PR using its discussion, changes, and checks
+Review a PR using its discussion, changes, and checks.
 
 ## Choose this workflow
 
@@ -15,9 +15,9 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 ## Input and mode
 
-Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; PR URL/number, revision, and review focus.
+Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; PR URL/number, revision, and review focus. Posting a requested review uses apply mode.
 
-exact owner/repository and relevant issue/PR/ref; authenticated read access through an available connector or CLI for remote evidence. External writes require the requested operation, appropriate account permissions, and rechecking target state. Local preparation remains useful without write access.
+**Pack prerequisites:** Exact owner/repository and relevant issue/PR/ref; authenticated read access through an available connector or CLI for remote evidence. External writes require the requested operation, appropriate account permissions, and rechecking target state. Local preparation remains useful without write access.
 
 - **Infer from evidence:** Resolve owner/repository and PR/issue/ref from links, remotes and supplied artifacts; inspect available account and head identity.
 - **Reasonable default:** Prepare local text or analyze supplied evidence if remote access is absent; label its freshness.
@@ -29,13 +29,15 @@ Declared evidence requirements: `github.context`. Use actual host discovery or a
 
 Code review informed by discussion and checks; no automatic review submission.
 
-No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
+Inspect/plan: review without posting; save requested artifacts only. Apply: post only the requested review or comments to the resolved PR after revalidating its head revision. Approving, merging, resolving threads and pushing need their own exact request.
 
 ## Execute
 
-1. Fetch the correct diff, read surrounding code and relevant discussion, verify findings against the current head, and distinguish blockers from optional observations.
-2. Record head/base SHA, inspect changed and surrounding source, map each finding to a current diff location and revalidate head before requested posting.
-3. All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
+1. Record the head and base SHA and fetch that diff; read changed and surrounding source and relevant discussion.
+2. Map each finding to a current diff location and verify it against the current head, distinguishing blockers from optional observations.
+3. Revalidate the head before any requested posting.
+4. All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
+
 ## Technical method
 
 - **Inspect:** Obtain the exact PR head diff, full changed files, callers, checks and relevant prior discussion.
@@ -55,8 +57,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Prioritized findings with valid diff locations, evidence, and review limitations.
-- Findings with trigger and current diff locations, reviewed SHA and check limitations.
+- Prioritized findings with trigger, evidence and current diff locations, the reviewed SHA and review limitations.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -70,5 +71,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Review the current head of the specified PR without posting a review.
-- **edge (inspect):** Review a PR that was force-pushed after an earlier comment.
-- **blocked (inspect):** Review exported PR artifacts without posting or live metadata access.
+- **Edge (inspect):** Review a PR that was force-pushed after an earlier comment.
+- **Blocked (inspect):** Review exported PR artifacts without posting or live metadata access.

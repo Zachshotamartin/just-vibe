@@ -1,11 +1,11 @@
 ---
 name: vercel-preview
-description: "Prepare and validate a branch or PR preview deployment Use for a specifically requested preview deployment; vercel-release-check assesses production readiness."
+description: "Prepare and validate a branch or PR preview deployment. Use for a specifically requested preview deployment; vercel-release-check assesses production readiness."
 ---
 
 # vercel-preview
 
-Prepare and validate a branch or PR preview deployment
+Prepare and validate a branch or PR preview deployment.
 
 ## Choose this workflow
 
@@ -17,13 +17,13 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Inspect an existing preview or plan a proposed one; apply for requested preview configuration or creation.
 
-exact team/project/environment and deployment/revision when applicable; read access to relevant configuration/logs. Verify installed CLI/API support and framework behavior during implementation. Never print environment values or infer promotion authorization from a preview request.
+**Pack prerequisites:** Exact team/project/environment and deployment/revision when applicable; read access to relevant configuration/logs. Verify installed CLI/API support and framework behavior during implementation. Never print environment values or infer promotion authorization from a preview request.
 
 - **Infer from evidence:** Read the linked project, team, framework, environment and deployment SHA from local config and supplied deployment evidence.
 - **Reasonable default:** Diagnose locally with existing build scripts when deployment access is missing; do not infer a production target from a preview URL.
 - **Ask only when needed:** Resolve a missing deployment/team/environment before the dependent remote operation; names and scope suffice without exposing environment values.
 
-Resolve any task-specific tools, target identity and evidence before dependent actions. No external connection is assumed.
+Declared evidence requirements: `vercel.context`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
@@ -33,8 +33,10 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 
 ## Execute
 
-1. Resolve project/revision, inspect prerequisites, reuse a matching deployment where suitable, create only when requested, and verify URL, revision, routing, and key behavior.
-2. Resolve intended commit and project, reuse a matching deployment if appropriate and verify identity, access protection, routes and representative behavior.
+1. Resolve the intended project and commit, and inspect prerequisites.
+2. Reuse a matching deployment where suitable; create one only when requested.
+3. Verify identity, URL, access protection, routes and representative behavior.
+
 ## Technical method
 
 - **Inspect:** Resolve branch/head SHA, existing matching deployments and access-protection expectations.
@@ -54,8 +56,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 
 ## Deliver and verify
 
-- Preview plan or actual URL/deployment ID with smoke-check results.
-- Preview identity/URL, exact revision, access requirements and observed checks.
+- Preview plan or actual URL and deployment ID with the exact revision, access requirements and observed smoke-check results.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -68,5 +69,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Prepare a preview for this branch and project; identify prerequisites first.
-- **edge (apply):** Create a preview after an earlier request returned no deployment ID.
-- **blocked (inspect):** Plan a preview without provider access; do not invent a URL.
+- **Edge (apply):** Create a preview after an earlier request returned no deployment ID.
+- **Blocked (inspect):** Plan a preview without provider access; do not invent a URL.

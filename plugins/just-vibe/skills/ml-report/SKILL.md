@@ -1,11 +1,11 @@
 ---
 name: ml-report
-description: "Document data, results, limitations, and intended use Use to communicate established ML evidence; ml-evaluate creates evaluation results."
+description: "Document data, results, limitations, and intended use. Use to communicate established ML evidence; ml-evaluate creates evaluation results."
 ---
 
 # ml-report
 
-Document data, results, limitations, and intended use
+Document data, results, limitations, and intended use.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan; task, dataset/model manifests, evaluation results, intended use, and audience.
 
-frozen model/artifact, evaluation dataset identity, labels where needed, metric definitions, and task/operating context. Report sample counts and uncertainty appropriate to dependencies; avoid repeated test-set tuning. Exploratory findings need fresh confirmation before strong generalization claims.
+**Pack prerequisites:** Frozen model/artifact, evaluation dataset identity, labels where needed, metric definitions, and task/operating context. Report sample counts and uncertainty appropriate to dependencies; avoid repeated test-set tuning. Exploratory findings need fresh confirmation before strong generalization claims.
 
 - **Infer from evidence:** Read frozen model/data identities, metric definitions, denominators and supplied predictions; separate validation from test use.
 - **Reasonable default:** Compute only supported metrics on permitted samples and label missing labels or subgroup coverage as unknown.
@@ -33,8 +33,10 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Reconcile evidence, describe training/evaluation conditions, summarize baseline and slice results, document limitations and excluded uses, and identify missing release evidence.
-2. Reconcile every number with a run and denominator, separate validation selection from independent test evidence and document deployment population/excluded uses.
+1. Reconcile every number with a run and denominator.
+2. Describe training and evaluation conditions, separating validation selection from independent test evidence, and summarize baseline and slice results.
+3. Document the deployment population, limitations, excluded uses and missing release evidence.
+
 ## Technical method
 
 - **Inspect:** Collect intended use, dataset provenance, protocol, selected model, metrics, slices and deployment constraints.
@@ -45,8 +47,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 ## Read when relevant
 
 - When a concrete decision or deliverable example would clarify this workflow: [ML evaluation worked example](../../references/examples/ml-evaluation.md).
-- The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method: [PyTorch autograd, device and distributed debugging](../../references/methods/pytorch-debug.md).
-- The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method: [Retrieval, ranking and recommendation evaluation](../../references/methods/recommender-systems.md).
+
 
 ## Decision branches
 
@@ -54,8 +55,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Model report/card with provenance, metrics, operating assumptions, and open risks.
-- Model/data/version summary, baseline/slice evidence, limitations and release gaps.
+- Model report or card with model/data/version provenance, metrics, baseline/slice evidence, operating assumptions, limitations, open risks and release gaps.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -68,5 +68,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Write a model report using these actual runs and identify unsupported uses.
-- **edge (plan):** Write a model report with strong average performance but poor sparse-cohort evidence.
-- **blocked (inspect):** Draft a report with missing test results; do not invent metrics or deployment approval.
+- **Edge (plan):** Write a model report with strong average performance but poor sparse-cohort evidence.
+- **Blocked (inspect):** Draft a report with missing test results; do not invent metrics or deployment approval.

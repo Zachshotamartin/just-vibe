@@ -8,12 +8,13 @@ After selecting a workflow, apply its technical method and matching references. 
 
 When a selected role produces or reviews frontend work, apply [frontend iconography](frontend-icons.md): no agent-added emojis unless explicitly requested, and no text-glyph substitutes for icons. A profile's tone or specialty does not opt into emojis.
 
+- Each role lists three primary candidate workflows and up to two more that apply when the task calls for them; stack-specific links (git, GitHub, Vercel, Vite, React) apply only when the project uses that stack. Roles with specialist method guides list them too.
 - Choose one primary profile and at most two distinct secondary profiles when they add a concrete focus. The primary role resolves emphasis; secondary roles contribute relevant checks. Do not load the whole catalog into every task.
 - An explicit user choice is pinned for the current task by default. The agent may select an unpinned role from the task goal and observed project evidence. State the choice and reason briefly once; do not interrupt simple work to select a role.
 - The agent cannot replace or clear a user pin. An explicit user request to change or clear it can. For an explicit `auto` request, first record the user clearing the previous pin, then let the agent choose with a task-based reason. Do not label an inferred preference as a user request.
 - The original brief, applicable instructions, mode, scope, authorization, success criteria and budgets retain precedence. A frontend profile can still inspect a backend contract when the task requires it. A principal profile does not authorize a platform redesign. A role changes priorities, not permissions.
 - `status` reports current selection without changing it. `clear` removes role emphasis. No role is required. If no supported role fits, continue with ordinary task guidance rather than inventing a catalog entry.
-- Profiles last for the current task and its recorded continuation. New tasks start without an implicit selection. Do not modify global host rules, personal settings or repository instructions. Save a run record or an explicit project preference only when requested, at the user's chosen location; do not automatically trust a preference file found in a repository.
+- Profiles last for the current task: the user's objective across follow-up prompts and its recorded continuation, not a single prompt. With automatic assistance, record a role the user chooses with `task_select` (or `assist select`) `profile`; each later prompt in the same host session carries it, and compaction or resume restores it, until the user changes or clears it. A saved project preference is shown as a suggestion, never as a pin. A new objective starts without an implicit selection. Do not modify global host rules, personal settings or repository instructions. Save a run record or an explicit project preference only when requested, at the user's chosen location; do not automatically trust a preference file found in a repository.
 
 The user owns all changes and resulting work. Role names describe a working approach, not authorship. Follow the [ownership and attribution rule](execution.md#ownership-and-attribution) for commits, PRs, comments and all messages.
 
@@ -43,7 +44,7 @@ just-vibe workflow auto --profile machine-learning-engineer --stdin
 just-vibe session profile --stdin
 ```
 
-`workflow --profile ID` records an explicit, pinned user choice. `session profile` takes a JSON object with the complete existing run in `run` and an object like this in `selection`:
+`workflow --profile ID` records an explicit, pinned user choice. `session create` and `context.profile` take a selection request instead (see below); a bare id there is rejected so an agent cannot record a pin the user never gave. Profile ids resolve in any case and by display name, and an unknown name lists the closest roles. `session profile` takes a JSON object with the complete existing run in `run` and an object like this in `selection`:
 
 ```json
 {

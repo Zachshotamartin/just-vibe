@@ -1,15 +1,15 @@
 ---
 name: decision-premortem
-description: "Assume a proposal failed and identify plausible causes Use to analyze plausible future failure of a proposal; ops-postmortem reconstructs an actual incident."
+description: "Assume a proposal failed and identify plausible causes. Use to analyze plausible future failure of a proposal; challenge tests its current assumptions and ops-postmortem reconstructs an actual incident."
 ---
 
 # decision-premortem
 
-Assume a proposal failed and identify plausible causes
+Assume a proposal failed and identify plausible causes.
 
 ## Choose this workflow
 
-Use to analyze plausible future failure of a proposal; ops-postmortem reconstructs an actual incident.
+Use to analyze plausible future failure of a proposal; challenge tests its current assumptions and ops-postmortem reconstructs an actual incident.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Decisions methods](../../references/packs/decisions.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -17,10 +17,10 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan; proposal, success definition, operating context, and time horizon.
 
-the decision question, constraints, alternatives or permission to identify them, and relevant project evidence. Current vendor claims and prices require current authoritative sources during execution. Scores are decision aids, not facts.
+**Pack prerequisites:** The decision question, constraints, alternatives or permission to identify them, and relevant project evidence. Current vendor claims and prices require current authoritative sources during execution. Scores are decision aids, not facts.
 
 - **Infer from evidence:** Recover hard constraints, the current option, adoption status and stated priorities from the brief and prior decisions.
-- **Reasonable default:** Compare feasible options qualitatively when weights were not supplied; make a reversible conditional recommendation when useful.
+- **Reasonable default:** State the failure definition and time horizon as assumptions before listing causes.
 - **Ask only when needed:** Ask only about a missing constraint or preference that could reverse the recommendation; do not demand a complete scoring questionnaire.
 
 Resolve any task-specific tools, target identity and evidence before dependent actions. No external connection is assumed.
@@ -33,8 +33,9 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Assume the outcome failed, trace realistic causal chains, rank impact/likelihood, identify early signals, and propose proportionate mitigations.
-2. Work backward from a concrete failed outcome through design choices, contributing conditions and observable warning signs.
+1. Assume a concrete failed outcome and work backward through design choices and contributing conditions to realistic causal chains.
+2. Rank the chains by impact and likelihood, identify an observable early warning signal for each, and propose proportionate mitigations.
+
 ## Technical method
 
 - **Inspect:** Inspect dependency assumptions, operational ownership, adoption constraints and failure recovery.
@@ -53,8 +54,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Failure scenarios, warning indicators, mitigations, and untested assumptions.
-- Failure chain, early signal, mitigation, response and residual uncertainty.
+- Failure chains with early signal, mitigation, response and residual uncertainty, plus untested assumptions.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -67,5 +67,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Identify plausible ways the migration plan could fail and early warning signs.
-- **edge (plan):** Premortem a rollout whose rollback cannot undo generated data.
-- **blocked (inspect):** Analyze hypothetical failure without treating it as an observed incident.
+- **Edge (plan):** Premortem a rollout whose rollback cannot undo generated data.
+- **Blocked (inspect):** Analyze hypothetical failure without treating it as an observed incident.

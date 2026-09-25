@@ -1,11 +1,11 @@
 ---
 name: react-state
-description: "Simplify state ownership, derived state, and synchronization Use for duplicated/inconsistent state ownership; react-effects handles external synchronization."
+description: "Simplify state ownership, derived state, and synchronization. Use for duplicated/inconsistent state ownership; react-effects handles external synchronization."
 ---
 
 # react-state
 
-Simplify state ownership, derived state, and synchronization
+Simplify state ownership, derived state, and synchronization.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan for redesign; apply for explicit state refactoring. Requires component flow and ownership constraints.
 
-component source, React/framework versions, state/data conventions, and relevant test tooling. Browser/profiler evidence is needed for measured rendering claims. Preserve existing framework and state libraries unless changing them is part of the request.
+**Pack prerequisites:** Component source, React/framework versions, state/data conventions, and relevant test tooling. Browser/profiler evidence is needed for measured rendering claims. Preserve existing framework and state libraries unless changing them is part of the request.
 
 - **Infer from evidence:** Read component callers, ownership of state, installed React/framework versions and existing interaction tests.
 - **Reasonable default:** Retain the framework and state library; preserve intended loading/error/empty behavior while resolving the named bug.
@@ -33,8 +33,10 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the
 
 ## Execute
 
-1. Identify authoritative values, remove redundant representations when safe, define transitions, choose the narrowest owner, and verify user-visible behavior.
-2. Name each authoritative value and derived representation; model update/reset transitions and distinguish per-instance, shared and persisted state.
+1. Name each authoritative value and derived representation, and distinguish per-instance, shared and persisted state.
+2. Model update and reset transitions, choose the narrowest owner, and remove redundant representations only when their synchronization is understood.
+3. Verify the user-visible behavior.
+
 ## Technical method
 
 - **Inspect:** Map each value to its owner, lifetime, derivation, persisted form and reset trigger.
@@ -55,8 +57,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the
 
 ## Deliver and verify
 
-- State model and proposed or implemented simplification with tests.
-- Ownership/transition table and checks for reset, independent instances and persistence.
+- Ownership/transition table and the proposed or implemented simplification, with checks for reset, independent instances and persistence.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -69,5 +70,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Plan simplifying duplicated filter state without adding a state library.
-- **edge (plan):** Refactor a multi-tab editor without sharing unsaved drafts across documents.
-- **blocked (inspect):** Review state design when persistence requirements are unspecified.
+- **Edge (apply):** Refactor a multi-tab editor without sharing unsaved drafts across documents.
+- **Blocked (inspect):** Review state design when persistence requirements are unspecified.

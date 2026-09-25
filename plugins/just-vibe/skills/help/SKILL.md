@@ -1,11 +1,11 @@
 ---
 name: help
-description: "Find the right command and show examples Use to choose a workflow and explain invocation; tools lists/searches the inventory."
+description: "Find the right command and show examples. Use to choose a workflow and explain invocation; tools lists/searches the inventory."
 ---
 
 # help
 
-Find the right command and show examples
+Find the right command and show examples.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; optional command name, scenario, or question. Requires the shipped catalog and actual implementation status.
 
-Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
+**Pack prerequisites:** Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
 - **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
 - **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
@@ -33,9 +33,10 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Use toolkit tools with the supplied scenario and the actual target host. Read only the matching command contracts with toolkit show; do not load all skills.
+1. Use toolkit tools with the supplied scenario and the actual target host: codex, claude, or the editor adapter id, which lists just-vibe-<id> skill names. Read only the matching command contracts with toolkit show; do not load all skills.
 2. Answer the immediate usage question with the smallest useful invocation for the best matching available workflow, preserving all user constraints. If a candidate is unknown or blocked, name the precise missing task evidence or integration.
 3. If the user asks installation questions, use the installed setup skill or the bundled installer help. A help question is not permission to execute the recommended workflow.
+
 ## Technical method
 
 - **Inspect:** Resolve the user's task and whether they need discovery, invocation syntax or workflow details.
@@ -70,5 +71,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Which command investigates good offline ML scores but poor production results?
-- **edge (inspect):** Explain whether I need explain, teach or trace for this function.
-- **blocked (inspect):** Find a suitable deployment command without provider access; show prerequisites.
+- **Edge (inspect):** Explain whether I need explain, teach or trace for this function.
+- **Blocked (inspect):** Find a suitable deployment command without provider access; show prerequisites.

@@ -1,11 +1,11 @@
 ---
 name: react-forms
-description: "Implement validation, submission, errors, and pending states Use for form validation/submission and recovery; backend-permissions supplies authoritative access checks."
+description: "Implement validation, submission, errors, and pending states. Use for form validation/submission and recovery; backend-permissions supplies authoritative access checks."
 ---
 
 # react-forms
 
-Implement validation, submission, errors, and pending states
+Implement validation, submission, errors, and pending states.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply; fields, validation rules, submission contract, and accessibility requirements.
 
-component source, React/framework versions, state/data conventions, and relevant test tooling. Browser/profiler evidence is needed for measured rendering claims. Preserve existing framework and state libraries unless changing them is part of the request.
+**Pack prerequisites:** Component source, React/framework versions, state/data conventions, and relevant test tooling. Browser/profiler evidence is needed for measured rendering claims. Preserve existing framework and state libraries unless changing them is part of the request.
 
 - **Infer from evidence:** Read component callers, ownership of state, installed React/framework versions and existing interaction tests.
 - **Reasonable default:** Retain the framework and state library; preserve intended loading/error/empty behavior while resolving the named bug.
@@ -33,8 +33,10 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Execute
 
-1. Reuse form conventions, separate client convenience from server authority, preserve input after failures, prevent unintended duplicates, and verify focus/error announcements.
-2. Model editing, validating, submitting, rejected and successful states; preserve entered values and map server field/global errors to usable focus and announcements.
+1. Reuse the project's form conventions and separate client-side convenience validation from server authority.
+2. Model editing, validating, submitting, rejected and successful states; preserve entered values after failures and prevent unintended duplicate submissions.
+3. Map server field and global errors to usable focus and announcements, and verify them.
+
 ## Technical method
 
 - **Inspect:** Inspect validation ownership, input types, submission identity, pending state and server error shape.
@@ -52,15 +54,16 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 ## Decision branches
 
 - **When duplicate clicks or retries can create duplicate effects:** Coordinate UI pending state with server idempotency; disabling a button alone is insufficient.
+- **When the form uses React 19 Actions (form action or useActionState):** A completed Action resets uncontrolled fields even when it returns validation errors as state. When input must survive a rejection, return the submitted values and bind defaultValue to them, use controlled inputs, or submit through onSubmit with startTransition. Use useFormStatus for pending UI, and useOptimistic only with reconciliation against the server result.
 
 ## Deliver and verify
 
-- Form implementation and behavior checks.
-- Field/error contract, submission state machine and keyboard/server-failure checks.
+- Form implementation with its field/error contract and submission state machine, and keyboard and server-failure checks.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
 - Invalid input is actionable without losing data; server rejection and double submission have deliberate outcomes.
+- A server rejection under a form Action retains the entered field values.
 
 ## Stop and recover
 
@@ -69,5 +72,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** Build invitation submission with validation, pending, server-error, and retry states.
-- **edge (apply):** Fix a form that loses input after server rejection and allows repeated submission.
-- **blocked (inspect):** Review a form without sending real account or payment requests.
+- **Edge (apply):** Fix a form that loses input after server rejection and allows repeated submission.
+- **Blocked (inspect):** Review a form without sending real account or payment requests.

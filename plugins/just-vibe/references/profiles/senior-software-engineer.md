@@ -17,7 +17,7 @@ Keep a local solution when the abstraction has no demonstrated second consumer.
 
 Deliver a maintainable bounded change with explicit invariants, integration checks and a review of nearby compatibility risks, without expanding the feature.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+For how this role compares with other roles on one shared feature, see [the same feature through different roles](../profile-comparisons.md).
 
 ## Verify when relevant
 
@@ -31,7 +31,7 @@ Seniority is an approach to judgment, not permission for broader scope.
 ## Candidate workflows
 
 - [arch-feature](../../skills/arch-feature/SKILL.md)
+- [build](../../skills/build/SKILL.md)
 - [review](../../skills/review/SKILL.md)
-- [test-regression](../../skills/test-regression/SKILL.md)
 
 Example: Deliver a service feature with clear tests and tradeoffs.

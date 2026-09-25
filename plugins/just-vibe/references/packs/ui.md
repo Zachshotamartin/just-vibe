@@ -4,7 +4,7 @@ Read existing tokens/components and inspect the actual requested flow before edi
 
 Prioritize hierarchy, readability, primary action, recovery and content flow. Responsive work examines intrinsic widths, long text, intermediate breakpoints, zoom and input method; do not hide required content to fit a screenshot. Reuse semantic tokens rather than scatter near-duplicate hard-coded values.
 
-Accessibility checks combine source/automated evidence with keyboard and focus behavior. Verify dialog entry/escape/return focus, error associations and dynamic announcements; label screen-reader checks unverified if not exercised. Motion needs interruption, cancellation and reduced-motion behavior that preserves all functionality.
+Accessibility checks combine source/automated evidence with keyboard and focus behavior. Audit against a stated target (WCAG 2.2 AA unless the user names another). Thresholds: text contrast 4.5:1 (3:1 for large text), 3:1 for non-text UI components and visible focus indicators, pointer targets at least 24 by 24 CSS pixels or adequately spaced, content usable at 320 CSS pixels wide without two-dimensional scrolling, and text-spacing overrides without loss. Focused controls must not be hidden by sticky content, dragging needs a single-pointer alternative, and authentication must not depend on a cognitive test without an alternative. Menus, tabs, disclosures, tooltips and popovers follow their own patterns ([menu guide](../scenarios/menu.md)), not the dialog focus trap. Verify dialog entry/escape/return focus, error associations and dynamic announcements; label screen-reader checks unverified if not exercised. Motion needs interruption, cancellation and reduced-motion behavior that preserves all functionality.
 
 For flows, enumerate entry, normal completion, cancellation, failure/retry and back navigation. Product policy determines transitions; do not invent billing or account rules. Report exactly which views/states were inspected and which remain unverified.
 
@@ -12,7 +12,7 @@ For flows, enumerate entry, normal completion, cancellation, failure/retry and b
 
 ### State and viewport matrix
 
-Choose representative normal, empty, loading, error and long-content states for the actual journey. Inspect a narrow, intermediate and wide layout plus relevant zoom/input conditions. These are samples, not a claim of every device. Capture the viewport, DPR, theme, fonts and content when comparing visuals.
+Choose representative normal, empty, loading, error and long-content states for the actual journey. Inspect a narrow, intermediate and wide layout plus relevant zoom/input conditions. When the product defines no matrix, the minimum set is: 320 CSS px width without two-dimensional scrolling (256 px height for vertical scrollers, WCAG 2.2 1.4.10 Reflow), 200% text resize (1.4.4), increased text spacing (1.4.12), both orientations unless one is essential (1.3.4) and 24 by 24 CSS px targets or equivalent spacing (2.5.8). These are samples, not a claim of every device. Capture the viewport, DPR, theme, fonts and content when comparing visuals.
 
 For a narrow settings screen, identify the intrinsic constraint causing overflow: fixed width, unbreakable content, grid minimum or an oversized child. Reflow it and verify focus and actions remain reachable. Hiding required controls is not responsive repair.
 

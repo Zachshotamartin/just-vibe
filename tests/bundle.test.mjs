@@ -27,7 +27,7 @@ function host(target, source) {
           : { name: 'just-vibe', source: 'directory', path: state.source || source }] : [];
         return JSON.stringify(target === 'codex' ? { marketplaces: entries } : entries);
       }
-      const entries = state.installed ? [{ id: PLUGIN, pluginId: PLUGIN, scope: 'user', enabled: true, version: state.version }] : [];
+      const entries = state.installed ? [{ id: PLUGIN, pluginId: PLUGIN, scope: 'user', enabled: state.enabled ?? true, version: state.version }] : [];
       return JSON.stringify(target === 'codex' ? { installed: entries } : entries);
     }
     mutations.push(args);
@@ -122,6 +122,13 @@ test('dry run performs no copying, and conflicting source flags are rejected', t
   install(parseArgs(['setup', '--dry-run']), { source, run: () => assert.fail(), prepare: () => assert.fail(), log: () => {} });
   assert.equal(existsSync(source), false);
   assert.throws(() => parseArgs(['setup', '--local', '--github']), /cannot be combined/);
+});
+
+test('doctor reports a disabled plugin and a stale version together (A3-23)', t => {
+  const fixture = host('codex', join(temporary(t), 'managed'));
+  install(parseArgs(['setup']), fixture);
+  Object.assign(fixture.state, { enabled: false, version: '0.0.1' });
+  assert.throws(() => install(parseArgs(['doctor']), fixture), error => /needs 2 repairs/.test(error.message) && /installed but disabled/.test(error.message) && /version differs/.test(error.message));
 });
 
 test('a stale host cache is not reported as a successful update or healthy installation', t => {

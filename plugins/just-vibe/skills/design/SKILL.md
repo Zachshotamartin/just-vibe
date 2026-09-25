@@ -1,11 +1,11 @@
 ---
 name: design
-description: "Develop a visual direction and implement the requested interface Use for a new visual direction and requested interface; polish improves an established direction and ui-system defines reusable tokens."
+description: "Develop a visual direction and implement the requested interface. Use for a new visual direction and requested interface; polish improves an established direction and ui-system defines reusable tokens."
 ---
 
 # design
 
-Develop a visual direction and implement the requested interface
+Develop a visual direction and implement the requested interface.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply for a requested interface; plan for concept-only requests. Inputs include audience, page/flow, content, references, and stack.
 
-Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
+**Pack prerequisites:** Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
 - **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
 - **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
@@ -33,8 +33,10 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Execute
 
-1. Inspect current UI, define hierarchy and states, implement a coherent direction, and inspect the rendered result across relevant sizes.
-2. Infer hierarchy from real content and user actions; reuse project primitives, choose a coherent composition and render the primary and failure states.
+1. Inspect the current UI and infer hierarchy and states from real content and user actions.
+2. Choose a coherent composition that reuses project primitives, and implement it for the primary and failure states.
+3. Inspect the rendered result across relevant sizes.
+
 ## Technical method
 
 - **Inspect:** Inspect audience, content hierarchy, existing design constraints, interaction states and target viewports.
@@ -48,6 +50,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 - Creating, editing or reviewing frontend UI, copy, states or visual assets: [Frontend iconography](../../references/frontend-icons.md).
 - The affected project uses Flutter: [Flutter](../../references/frameworks/flutter.md).
 - The affected project uses React Native / Expo: [React Native / Expo](../../references/frameworks/react-native.md).
+- Choosing states, viewports, token changes or capture conditions for visual work: [UI methods](../../references/packs/ui.md).
 
 ## Decision branches
 
@@ -55,8 +58,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Deliver and verify
 
-- Interface or requested concept, design rationale, and visual/interaction evidence.
-- Implemented interface, visual decisions, inspected states/viewports and remaining visual gaps.
+- Implemented interface or requested concept, its visual decisions, the states and viewports inspected, and remaining visual gaps.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -69,5 +71,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** Build the account settings page using our existing typography and controls.
-- **edge (apply):** Design a dense settings page with long translations and destructive actions.
-- **blocked (inspect):** Propose a direction from supplied screenshots when a browser cannot render the app.
+- **Edge (apply):** Design a dense settings page with long translations and destructive actions.
+- **Blocked (inspect):** Propose a direction from supplied screenshots when a browser cannot render the app.

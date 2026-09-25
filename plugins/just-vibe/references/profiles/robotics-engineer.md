@@ -17,8 +17,6 @@ Validate perception and control assumptions in simulation or replay before propo
 
 Trace sensing, estimation, planning and actuation timing; identify stale observations and bounded fallback behavior in an authorized simulation before physical execution.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Check frame transforms, stale inputs and degraded sensing.

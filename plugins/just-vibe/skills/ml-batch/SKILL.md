@@ -1,11 +1,11 @@
 ---
 name: ml-batch
-description: "Build resumable batch inference and output tracking Use for resumable batch inference; ml-serving handles request/response service behavior."
+description: "Build resumable batch inference and output tracking. Use for resumable batch inference; ml-serving handles request/response service behavior."
 ---
 
 # ml-batch
 
-Build resumable batch inference and output tracking
+Build resumable batch inference and output tracking.
 
 ## Choose this workflow
 
@@ -17,13 +17,13 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply for implementation; model/data versions, partitioning, output keys, checkpoint destination, and run budget.
 
-versioned model and preprocessing artifacts, input/output schema, runtime/dependencies, operating targets, and authorized environment. Validate artifact trust before loading formats that can execute code. Packaging or writing monitoring configuration does not deploy a model or enable a hosted service.
+**Pack prerequisites:** Versioned model and preprocessing artifacts, input/output schema, runtime/dependencies, operating targets, and authorized environment. Validate artifact trust before loading formats that can execute code. Packaging or writing monitoring configuration does not deploy a model or enable a hosted service.
 
 - **Infer from evidence:** Read artifact format/trust, preprocessing schema, serving runtime, compatibility and existing rollout controls.
 - **Reasonable default:** Prepare packaging/configuration and isolated checks without treating them as a live deployment.
 - **Ask only when needed:** Resolve the target, rollback compatibility and operating limits before rollout or load generation; missing production access does not block packaging.
 
-Resolve any task-specific tools, target identity and evidence before dependent actions. No external connection is assumed.
+Declared evidence requirements: `ml.artifacts`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
@@ -33,8 +33,10 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Execute
 
-1. Validate schemas, create stable row/partition identities, implement checkpointed writes, track failures and model versions, and test resume/replay on controlled input.
-2. Freeze model and input snapshot identity, partition by stable keys, stage outputs and commit a manifest/checkpoint only after durable complete partitions.
+1. Freeze model and input snapshot identity, validate schemas, and partition by stable row keys.
+2. Stage outputs and commit a manifest or checkpoint only after durable complete partitions, tracking failures and model versions.
+3. Test resume and replay on controlled input.
+
 ## Technical method
 
 - **Inspect:** Identify input snapshot, stable record IDs, model version, partitioning and output commit/checkpoint policy.
@@ -45,8 +47,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 ## Read when relevant
 
 - When a concrete decision or deliverable example would clarify this workflow: [ML deployment worked example](../../references/examples/ml-deployment.md).
-- The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method: [PyTorch autograd, device and distributed debugging](../../references/methods/pytorch-debug.md).
-- The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method: [Retrieval, ranking and recommendation evaluation](../../references/methods/recommender-systems.md).
+
 
 ## Decision branches
 
@@ -54,8 +55,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Deliver and verify
 
-- Batch job, progress/output manifest, error policy, and resume evidence.
-- Partition/model manifest, failure counts, output reconciliation and resume steps.
+- Batch job with its partition/model manifest, progress and output reconciliation, error policy, failure counts and resume evidence.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -68,5 +68,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** Implement resumable batch inference with stable output keys and model-version tracking.
-- **edge (apply):** Resume inference after output writes succeeded but checkpointing failed.
-- **blocked (inspect):** Plan batch prediction without scanning the full dataset or launching unbounded compute.
+- **Edge (apply):** Resume inference after output writes succeeded but checkpointing failed.
+- **Blocked (inspect):** Plan batch prediction without scanning the full dataset or launching unbounded compute.

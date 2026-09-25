@@ -1,6 +1,6 @@
 # Engineering profiles
 
-112 task profiles. [Selection, scope and precedence](profiles.md). Read only the roles relevant to the request. Suggested workflows do not imply available tools or authorization.
+113 task profiles. [Selection, scope and precedence](profiles.md). Read only the roles relevant to the request. Suggested workflows do not imply available tools or authorization.
 
 ## Application engineering
 
@@ -16,6 +16,8 @@
 | [Desktop application engineer](profiles/desktop-engineer.md) | Build reliable installed applications and native integrations. |
 | [API engineer](profiles/api-engineer.md) | Design interfaces with clear semantics and compatible evolution. |
 | [Integration engineer](profiles/integration-engineer.md) | Connect systems with explicit identity, delivery and reconciliation rules. |
+| [Frontend architect](profiles/frontend-architect.md) | Design frontend boundaries and evolution across substantial applications. |
+| [Integration architect](profiles/integration-architect.md) | Design cross-system contracts and consistency boundaries. |
 
 ## Interface and experience
 
@@ -35,7 +37,7 @@
 | [Platform engineer](profiles/platform-engineer.md) | Create internal capabilities that make product teams more effective. |
 | [DevOps engineer](profiles/devops-engineer.md) | Improve build and delivery flow with reproducible operations. |
 | [Site reliability engineer](profiles/site-reliability-engineer.md) | Manage service reliability through measurable user impact and controlled recovery. |
-| [Cloud engineer](profiles/cloud-engineer.md) | Design and operate cloud resources around workload and identity requirements. |
+| [Cloud engineer](profiles/cloud-engineer.md) | Provision and operate cloud resources around workload and identity requirements. |
 | [Infrastructure engineer](profiles/infrastructure-engineer.md) | Maintain reproducible compute, network and storage foundations. |
 | [Developer experience engineer](profiles/developer-experience-engineer.md) | Remove measurable friction from development and debugging. |
 | [Build and release engineer](profiles/build-release-engineer.md) | Produce reproducible, traceable artifacts and controlled releases. |
@@ -46,6 +48,8 @@
 | [Capacity planning engineer](profiles/capacity-engineer.md) | Plan service capacity from workload shape and constrained resources. |
 | [Edge computing engineer](profiles/edge-engineer.md) | Place execution and data near users or devices with explicit constraints. |
 | [Kubernetes engineer](profiles/kubernetes-engineer.md) | Operate container workloads with explicit scheduling and recovery behavior. |
+| [Cloud architect](profiles/cloud-architect.md) | Design cloud topology and service choices from workload requirements. |
+| [Platform architect](profiles/platform-architect.md) | Design shared platform capabilities and their long-term operating model. |
 
 ## Data and databases
 
@@ -63,6 +67,7 @@
 | [Data quality engineer](profiles/data-quality-engineer.md) | Detect and localize data failures that matter to downstream use. |
 | [Data governance engineer](profiles/data-governance-engineer.md) | Make data ownership, retention and permitted use technically enforceable. |
 | [Search engineer](profiles/search-engineer.md) | Improve retrieval relevance, latency and index correctness. |
+| [Data architect](profiles/data-architect.md) | Design data ownership, models and movement across systems. |
 
 ## Machine learning and AI
 
@@ -88,6 +93,7 @@
 | [AI security engineer](profiles/ai-security-engineer.md) | Assess model-system trust boundaries and abuse paths. |
 | [Causal inference scientist](profiles/causal-inference-scientist.md) | Estimate intervention effects under explicit identification assumptions. |
 | [Experimentation engineer](profiles/experimentation-engineer.md) | Build trustworthy online experiments and measurement infrastructure. |
+| [ML systems architect](profiles/ml-architect.md) | Design the complete data-to-decision lifecycle across ML systems. |
 
 ## Security and privacy
 
@@ -103,31 +109,31 @@
 | [Software supply chain security engineer](profiles/supply-chain-security-engineer.md) | Protect dependency, build and artifact trust chains. |
 | [Security automation engineer](profiles/security-automation-engineer.md) | Automate repeatable security work with reviewable actions and recovery. |
 | [Cryptography engineer](profiles/cryptography-engineer.md) | Integrate established cryptographic mechanisms with sound key and protocol handling. |
+| [Security architect](profiles/security-architect.md) | Design enforceable trust boundaries across a system. |
 
-## Quality and technical leadership
+## Architecture and technical leadership
 
 | Profile | Purpose |
 |---|---|
-| [QA automation engineer](profiles/qa-automation-engineer.md) | Turn important user behavior into reliable automated coverage. |
-| [Test infrastructure engineer](profiles/test-infrastructure-engineer.md) | Build fast, trustworthy test execution and fixture systems. |
-| [Performance engineer](profiles/performance-engineer.md) | Improve system performance from controlled measurements. |
 | [Senior software engineer](profiles/senior-software-engineer.md) | Own a bounded implementation with sound tradeoffs and maintainability. |
 | [Staff engineer](profiles/staff-engineer.md) | Resolve cross-team technical problems and make adoption practical. |
 | [Principal engineer](profiles/principal-engineer.md) | Guide long-term technical direction across systems and teams. |
 | [Software architect](profiles/software-architect.md) | Design system boundaries and contracts around actual quality requirements. |
 | [Solutions architect](profiles/solutions-architect.md) | Map a concrete business use case onto a workable technical system. |
 | [Enterprise architect](profiles/enterprise-architect.md) | Align shared systems, capabilities and migration dependencies across an organization. |
-| [Data architect](profiles/data-architect.md) | Design data ownership, models and movement across systems. |
-| [Cloud architect](profiles/cloud-architect.md) | Design cloud topology and service choices from workload requirements. |
-| [Security architect](profiles/security-architect.md) | Design enforceable trust boundaries across a system. |
 | [Technical lead](profiles/tech-lead.md) | Coordinate a technical change through clear decisions and integration boundaries. |
 | [Engineering manager](profiles/engineering-manager.md) | Structure engineering planning around capacity, risk and delivery evidence. |
+
+## Quality and developer relations
+
+| Profile | Purpose |
+|---|---|
+| [QA automation engineer](profiles/qa-automation-engineer.md) | Turn important user behavior into reliable automated coverage. |
+| [Test infrastructure engineer](profiles/test-infrastructure-engineer.md) | Build fast, trustworthy test execution and fixture systems. |
+| [Performance engineer](profiles/performance-engineer.md) | Improve system performance from controlled measurements. |
 | [Technical writer](profiles/technical-writer.md) | Create documentation that lets the intended reader complete a task. |
 | [Developer advocate](profiles/developer-advocate.md) | Create accurate developer examples and feedback grounded in real use. |
-| [Frontend architect](profiles/frontend-architect.md) | Design frontend boundaries and evolution across substantial applications. |
-| [ML systems architect](profiles/ml-architect.md) | Design the complete data-to-decision lifecycle across ML systems. |
-| [Platform architect](profiles/platform-architect.md) | Design shared platform capabilities and their long-term operating model. |
-| [Integration architect](profiles/integration-architect.md) | Design cross-system contracts and consistency boundaries. |
+| [Open-source maintainer](profiles/open-source-maintainer.md) | Steward a public repository through triage, contribution review and releases. |
 
 ## Systems and specialized computing
 

@@ -1,15 +1,15 @@
 ---
 name: learn
-description: "Extract a reusable lesson from completed work for review Use to extract a candidate reusable lesson from observed work; remember persists an authorized convention."
+description: "Extract a reusable lesson from completed work for review. Use to extract a candidate reusable lesson from observed work; remember persists an authorized convention, teach instructs the user on a topic and explain describes existing code."
 ---
 
 # learn
 
-Extract a reusable lesson from completed work for review
+Extract a reusable lesson from completed work for review.
 
 ## Choose this workflow
 
-Use to extract a candidate reusable lesson from observed work; remember persists an authorized convention.
+Use to extract a candidate reusable lesson from observed work; remember persists an authorized convention, teach instructs the user on a topic and explain describes existing code.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [General methods](../../references/packs/general.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan; completed task or incident and supporting evidence.
 
-Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
+**Pack prerequisites:** Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
 - **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
 - **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
@@ -33,8 +33,9 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Identify the actual cause and successful intervention, separate generalizable conditions from accidents, and test the lesson against a counterexample.
-2. Link the failure trigger to the successful intervention and test a plausible exception; state when the lesson should not apply.
+1. Link the actual failure trigger to the successful intervention, separating generalizable conditions from accidents.
+2. Test the lesson against a plausible counterexample and state when it should not apply.
+
 ## Technical method
 
 - **Inspect:** Inspect a completed task's actual failure, correction and verified result.
@@ -46,15 +47,16 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 - When a concrete decision or deliverable example would clarify this workflow: [General worked example](../../references/examples/general.md).
 - The task needs scoped memory search, a persistent goal, independent review, configuration scanning, worker control, learned-pattern review or editor installation: [Native memory, goals, specialists and runtime controls](../../references/runtime-platform.md).
+- Adopting a lesson as feedback or reviewing learned candidates: [Automatic assistance and learning](../../references/adaptive.md).
 
 ## Decision branches
 
 - **When evidence comes from one transient incident:** Keep the lesson conditional and propose a validation case instead of a universal rule.
+- **When the user adopts the lesson:** Project conventions go through remember; a workflow-specific behavior change goes through assist feedback, or learn propose for a conditional change, quoting the user adoption message. Review learned candidates with learn status, then learn approve or learn reject.
 
 ## Deliver and verify
 
-- Proposed lesson with trigger, action, evidence, exceptions, and suggested scope.
-- Trigger/action/evidence/exception record and suggested adoption scope.
+- Proposed lesson recorded as trigger, action, evidence and exceptions, with a suggested adoption scope.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -67,5 +69,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Extract a scoped lesson from this retry incident for review, not adoption.
-- **edge (plan):** Extract a lesson from a flaky test caused by shared state.
-- **blocked (inspect):** Analyze a failed session with no verified fix; keep causes and lessons provisional.
+- **Edge (plan):** Extract a lesson from a flaky test caused by shared state.
+- **Blocked (inspect):** Analyze a failed session with no verified fix; keep causes and lessons provisional.

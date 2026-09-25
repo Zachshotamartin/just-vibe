@@ -1,11 +1,11 @@
 ---
 name: vite-assets
-description: "Fix asset paths, public files, base paths, and deployment paths Use for missing assets or wrong emitted URLs; vercel-routing handles platform rewrites."
+description: "Fix asset paths, public files, base paths, and deployment paths. Use for missing assets or wrong emitted URLs; vercel-routing handles platform rewrites."
 ---
 
 # vite-assets
 
-Fix asset paths, public files, base paths, and deployment paths
+Fix asset paths, public files, base paths, and deployment paths.
 
 ## Choose this workflow
 
@@ -17,10 +17,10 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply; broken asset URLs, deployment base path, source assets, and target routes.
 
-project manifests, lockfile, Vite/framework/plugin versions, and existing build scripts. Verify current version-specific documentation when changing configuration. Requested isolated verification may generate disposable build/cache artifacts; inspect their scripts first and preserve product files.
+**Pack prerequisites:** Project manifests, lockfile, Vite/framework/plugin versions, and existing build scripts. Verify current version-specific documentation when changing configuration. Requested isolated verification may generate disposable build/cache artifacts; inspect their scripts first and preserve product files.
 
 - **Infer from evidence:** Read manifests, lockfile, installed Vite/plugins, entry points, aliases, modes and current build scripts.
-- **Reasonable default:** Preserve existing tooling and base-path conventions; make a local focused change when the brief identifies the behavior.
+- **Reasonable default:** Preserve existing tooling and base-path conventions; in apply mode, make a local focused change when the brief identifies the behavior, and otherwise propose it.
 - **Ask only when needed:** Ask if the intended serving subpath or deployment target cannot be inferred and would change generated URLs; do not ask for versions present in the lockfile.
 
 Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
@@ -36,6 +36,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 1. Resolve the actual mode, root, base path and deployment routing. Trace each failing URL from an imported asset, public file, CSS reference or runtime string to emitted output; compare dev and production behavior.
 2. Repair the owning URL construction using supported installed-version semantics. Keep case-sensitive paths, hashed output and assets consumed by lazy routes distinct; do not fix every route with an unconditional root-relative path.
 3. Verify root navigation, direct nested navigation, configured subpath base and refresh in a production preview. Check response status and content type: a fallback HTML page with status 200 is still a broken image or module.
+
 ## Technical method
 
 - **Inspect:** Trace imported assets, public files, CSS URLs and runtime-generated paths through base and nested routes.
@@ -68,5 +69,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** Fix images that work locally but fail when hosted under a subpath.
-- **edge (apply):** Fix images that work in dev but fail under a deployed subdirectory.
-- **blocked (inspect):** Inspect source paths without deployment access; separate build evidence from live serving.
+- **Edge (apply):** Fix a font referenced from CSS that returns 404 once the app is served under /app/.
+- **Blocked (inspect):** Inspect source paths without deployment access; separate build evidence from live serving.

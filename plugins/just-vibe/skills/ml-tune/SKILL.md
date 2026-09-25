@@ -1,11 +1,11 @@
 ---
 name: ml-tune
-description: "Design a bounded hyperparameter search with a fixed evaluation protocol Use for a bounded search under a valid protocol; ml-ablation isolates component contribution."
+description: "Design a bounded hyperparameter search with a fixed evaluation protocol. Use for a bounded search under a valid protocol; ml-ablation isolates component contribution."
 ---
 
 # ml-tune
 
-Design a bounded hyperparameter search with a fixed evaluation protocol
+Design a bounded hyperparameter search with a fixed evaluation protocol.
 
 ## Choose this workflow
 
@@ -17,10 +17,10 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan a search; apply for requested search code or a run with explicit resource limits.
 
-dataset/split manifests, fixed objective/metric, environment/dependencies, baseline where applicable, and explicit compute limits. Record code revision, configuration, seeds, artifact paths, and resource use. Local smoke checks do not imply authorization for paid training. Never optimize on the held-out test set.
+**Pack prerequisites:** Dataset/split manifests, fixed objective/metric, environment/dependencies, baseline where applicable, and explicit compute limits. Record code revision, configuration, seeds, artifact paths, and resource use. Local smoke checks do not imply authorization for paid training. Never optimize on the held-out test set.
 
 - **Infer from evidence:** Read framework, training entry point, loss/metric, split manifests and checkpoint conventions from supplied source.
-- **Reasonable default:** Implement requested code and tiny isolated smoke checks with existing tools; leave unmeasured model quality explicit.
+- **Reasonable default:** In apply mode, implement requested code and tiny isolated smoke checks with existing tools, and otherwise propose them; leave unmeasured model quality explicit.
 - **Ask only when needed:** Ask for unresolved objective/data semantics before encoding them, and environment/resource limits before launching training or a search; implementation alone does not need a hardware purchase decision.
 
 Resolve any task-specific tools, target identity and evidence before dependent actions. No external connection is assumed.
@@ -33,8 +33,10 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 
 ## Execute
 
-1. Validate comparable trials, select search strategy, define pruning/failure behavior, log every trial, and choose by the predeclared validation criterion.
-2. Freeze search space, split, objective, trial/resource caps and selection rule; keep failure/pruning records and compare candidates under equal evaluation conditions.
+1. Freeze the search space, split, objective, trial and resource caps and the selection rule before searching.
+2. Select a search strategy with pruning and failure behavior, and log every trial, including failed and pruned ones.
+3. Compare candidates under equal evaluation conditions and choose by the predeclared validation criterion; keep the confirmation set untouched.
+
 ## Technical method
 
 - **Inspect:** Fix search space, metric direction, split, resource budget, pruning and selection rule.
@@ -45,8 +47,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 ## Read when relevant
 
 - When a concrete decision or deliverable example would clarify this workflow: [ML experimentation worked example](../../references/examples/ml-experiments.md).
-- The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method: [PyTorch autograd, device and distributed debugging](../../references/methods/pytorch-debug.md).
-- The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method: [Retrieval, ranking and recommendation evaluation](../../references/methods/recommender-systems.md).
+
 
 ## Decision branches
 
@@ -55,8 +56,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 
 ## Deliver and verify
 
-- Search configuration, trial ledger, selected candidate, and cost/selection caveats.
-- Trial ledger, budgets consumed, selection rationale and untouched confirmation set.
+- Search configuration and trial ledger with budgets consumed, the selected candidate, selection rationale, cost caveats and the untouched confirmation set.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -69,5 +69,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Plan at most 20 trials on validation PR-AUC; never tune on the test set.
-- **edge (plan):** Tune with failed trials and a strict GPU-hour cap.
-- **blocked (inspect):** Design tuning when compute is unavailable; do not fabricate winning hyperparameters.
+- **Edge (plan):** Plan a search that tolerates failed trials under a strict GPU-hour cap.
+- **Blocked (inspect):** Design tuning when compute is unavailable; do not fabricate winning hyperparameters.

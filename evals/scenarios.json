@@ -356,7 +356,7 @@
       "brief": "Research an incremental migration strategy for our current database version.",
       "mode": "inspect",
       "requiredEvidence": [
-        "technical question, constraints, and decision deadline. Requires local evidence and current primary sources when claims depend on versions or external facts."
+        "technical question, constraints, and the time available, which bounds how deep the research goes. Requires local evidence and current primary sources when claims depend on versions or external facts."
       ],
       "inputPolicy": {
         "infer": "Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.",
@@ -438,6 +438,10 @@
           "kind": "blocked",
           "mode": "inspect",
           "brief": "Compare these proposals without usage or pricing data; leave costs bounded or unknown."
+        },
+        {
+          "mode": "apply",
+          "brief": "Build two alternative account switchers, preview both and apply the one I choose."
         }
       ],
       "invariants": [
@@ -836,7 +840,7 @@
       "brief": "Investigate intermittent checkout failures from these logs; do not change files.",
       "mode": "inspect",
       "requiredEvidence": [
-        "failure evidence, environment, and expected behavior. Running a reproduction that writes requires apply mode or explicit execution authorization."
+        "failure evidence, environment, and expected behavior."
       ],
       "inputPolicy": {
         "infer": "Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.",
@@ -980,7 +984,7 @@
       "brief": "Plan upgrading the job library while old workers remain active.",
       "mode": "plan",
       "requiredEvidence": [
-        "source/target version or implementation, compatibility needs, and rollout environment. Apply only when migration execution is requested."
+        "source/target version or implementation, compatibility needs, and rollout environment."
       ],
       "inputPolicy": {
         "infer": "Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.",
@@ -1007,8 +1011,8 @@
         },
         {
           "kind": "edge",
-          "mode": "plan",
-          "brief": "Migrate a library while older workers continue reading stored jobs."
+          "mode": "apply",
+          "brief": "Apply the job-format migration while v1 workers still read stored jobs; define a restart point."
         },
         {
           "kind": "blocked",
@@ -1124,7 +1128,7 @@
       "brief": "Build the account settings page using our existing typography and controls.",
       "mode": "apply",
       "requiredEvidence": [
-        "plan for concept-only requests. Inputs include audience, page/flow, content, references, and stack."
+        "audience, page/flow, content, references, and stack."
       ],
       "inputPolicy": {
         "infer": "Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.",
@@ -1229,13 +1233,13 @@
       },
       "rubric": [
         "Content remains reachable at narrow widths and zoom; hover-only controls have a usable alternate interaction.",
-        "Test narrow and wide layouts, long text, zoom and both pointer/keyboard access without clipped essential content."
+        "When no product matrix exists, test at least 320 CSS px width without two-dimensional scrolling (256 px height for vertical scrollers, WCAG 1.4.10), 200% text resize (1.4.4), increased text spacing (1.4.12), both orientations (1.3.4) and 24 by 24 CSS px targets or equivalent spacing (2.5.8); essential content and pointer/keyboard access must remain unclipped."
       ],
       "technicalMethod": {
         "evidence": "Inspect layout constraints, intrinsic content size, breakpoints, zoom, touch targets and input methods.",
         "method": "Repair the constraint causing overflow; choose reflow/order based on task meaning rather than arbitrary device names.",
         "pitfall": "Hiding overflow can conceal controls; hover-only affordances fail on touch or keyboard.",
-        "check": "Test narrow and wide layouts, long text, zoom and both pointer/keyboard access without clipped essential content."
+        "check": "When no product matrix exists, test at least 320 CSS px width without two-dimensional scrolling (256 px height for vertical scrollers, WCAG 1.4.10), 200% text resize (1.4.4), increased text spacing (1.4.12), both orientations (1.3.4) and 24 by 24 CSS px targets or equivalent spacing (2.5.8); essential content and pointer/keyboard access must remain unclipped."
       },
       "stopBehavior": [
         "Do not hide required functionality or claim device coverage from a single desktop screenshot."
@@ -1268,7 +1272,8 @@
       "brief": "Audit modal focus, keyboard dismissal, and error announcement behavior.",
       "mode": "inspect",
       "requiredEvidence": [
-        "component/flow and target accessibility concerns. Apply for requested remediation."
+        "component/flow and target accessibility concerns.",
+        "conformance target (default WCAG 2.2 AA when unspecified; state it)."
       ],
       "inputPolicy": {
         "infer": "Inspect the target flow, existing components/tokens, actual renders or supplied references and current responsive behavior.",
@@ -1295,7 +1300,7 @@
         },
         {
           "kind": "edge",
-          "mode": "inspect",
+          "mode": "apply",
           "brief": "Fix modal focus return and server validation announcements without relying on color."
         },
         {
@@ -1361,10 +1366,10 @@
     {
       "id": "copy",
       "pack": "general",
-      "brief": "Make payment failure messages actionable and preserve the user's entered data.",
+      "brief": "Make payment failure messages actionable without changing refund-policy wording.",
       "mode": "apply",
       "requiredEvidence": [
-        "plan for alternatives only. Requires audience, intent, voice, and relevant product facts."
+        "audience, intent, voice, and relevant product facts."
       ],
       "inputPolicy": {
         "infer": "Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.",
@@ -1386,13 +1391,13 @@
       ],
       "cases": [
         {
-          "brief": "Make payment failure messages actionable and preserve the user's entered data.",
+          "brief": "Make payment failure messages actionable without changing refund-policy wording.",
           "mode": "apply"
         },
         {
           "kind": "edge",
           "mode": "apply",
-          "brief": "Improve payment errors while preserving a user's entered form values."
+          "brief": "Shorten the checkout button labels so the German and French translations fit without truncation."
         },
         {
           "kind": "blocked",
@@ -1440,7 +1445,7 @@
         {
           "kind": "edge",
           "mode": "inspect",
-          "brief": "Review a PR with unrelated pre-existing warnings and a recently rebased head."
+          "brief": "Review my rebased branch against main where main already has unrelated warnings."
         },
         {
           "kind": "blocked",
@@ -1518,7 +1523,7 @@
       "brief": "Verify this checkout change using the project checks; report blocked checks.",
       "mode": "apply",
       "requiredEvidence": [
-        "target change and claimed success criteria. Inspect mode reads existing evidence only."
+        "target change and claimed success criteria."
       ],
       "inputPolicy": {
         "infer": "Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.",
@@ -1719,16 +1724,16 @@
       },
       "rubric": [
         "Untested recovery behavior is identified despite high line coverage; a low-risk uncovered getter is not prioritized over access control.",
-        "Demonstrate an important plausible defect that escapes current checks and specify the smallest test that would catch it."
+        "Show by source trace, or by a temporary mutation in an owned copy, an important plausible defect that escapes current checks, and specify the smallest test that would catch it."
       ],
       "technicalMethod": {
         "evidence": "Map requirements and failure modes to existing tests and observed execution.",
         "method": "Prioritize unprotected invariants and boundary cases over raw line percentage.",
         "pitfall": "Executed lines do not establish meaningful assertions; mocks can leave the real boundary untested.",
-        "check": "Demonstrate an important plausible defect that escapes current checks and specify the smallest test that would catch it."
+        "check": "Show by source trace, or by a temporary mutation in an owned copy, an important plausible defect that escapes current checks, and specify the smallest test that would catch it."
       },
       "stopBehavior": [
-        "Distinguish measured coverage from inferred coverage. Running new coverage jobs requires execution authorization."
+        "Distinguish measured coverage from inferred coverage. Running the existing suite with coverage is bounded local execution; installing coverage tools or adding CI jobs is a separate implementation request."
       ],
       "cases": [
         {
@@ -1842,6 +1847,10 @@
           "kind": "blocked",
           "mode": "inspect",
           "brief": "Review release readiness with missing artifact checksums; do not publish."
+        },
+        {
+          "mode": "apply",
+          "brief": "Write the 2.1.0 CHANGELOG entry and bump package versions; do not tag or publish."
         }
       ],
       "invariants": [
@@ -1856,7 +1865,7 @@
       "brief": "Diagnose the failed matrix job from these logs without rerunning it.",
       "mode": "inspect",
       "requiredEvidence": [
-        "apply for requested fixes. Requires workflow files and relevant runner logs."
+        "workflow files and relevant runner logs."
       ],
       "inputPolicy": {
         "infer": "Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.",
@@ -1865,13 +1874,13 @@
       },
       "rubric": [
         "A cache-related failure is not hidden by ignoring errors; unrelated matrix jobs remain intact.",
-        "Run the relevant local check and verify a matching remote run when available, distinguishing infrastructure blockers from code defects."
+        "Run the relevant local check as bounded local execution and verify a matching remote run when available, distinguishing infrastructure blockers from code defects; use existing logs when no local run is possible."
       ],
       "technicalMethod": {
         "evidence": "Inspect run identity, first causal failure, matrix, caches, tool versions and event permissions.",
         "method": "Reproduce the failing boundary and preserve unrelated coverage; route GitHub-specific trust issues to its Actions guide.",
         "pitfall": "Disabling tests or broadening secrets access can make CI green while weakening correctness or security.",
-        "check": "Run the relevant local check and verify a matching remote run when available, distinguishing infrastructure blockers from code defects."
+        "check": "Run the relevant local check as bounded local execution and verify a matching remote run when available, distinguishing infrastructure blockers from code defects; use existing logs when no local run is possible."
       },
       "stopBehavior": [
         "Do not rerun costly jobs or change organization secrets without the relevant request. Report inaccessible logs explicitly."
@@ -1883,8 +1892,8 @@
         },
         {
           "kind": "edge",
-          "mode": "inspect",
-          "brief": "Diagnose one failing matrix job without disabling the other jobs."
+          "mode": "apply",
+          "brief": "Fix the Jenkins pipeline's failing Node 24 matrix stage without disabling the other stages."
         },
         {
           "kind": "blocked",
@@ -1979,7 +1988,7 @@
         },
         {
           "kind": "edge",
-          "mode": "inspect",
+          "mode": "apply",
           "brief": "Update one dependency with a conflicting peer and an unrelated dirty lockfile."
         },
         {
@@ -2027,7 +2036,7 @@
         },
         {
           "kind": "edge",
-          "mode": "plan",
+          "mode": "apply",
           "brief": "Deploy a preview whose build succeeds but startup health fails."
         },
         {
@@ -2385,16 +2394,16 @@
     },
     {
       "id": "doctor",
-      "pack": "general",
+      "pack": "installation",
       "brief": "Check the Claude project-scope just-vibe installation without changing it.",
       "mode": "inspect",
       "requiredEvidence": [
         "just-vibe host, installation source, and scope. Requires host CLI discovery."
       ],
       "inputPolicy": {
-        "infer": "Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.",
-        "assume": "Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.",
-        "ask": "Ask when competing targets or incompatible success conditions would change the result; continue independent inspection first."
+        "infer": "Inspect selected host, native CLI support, existing source/scope and package version without changing global configuration.",
+        "assume": "Use the documented bundled source and existing host conventions unless the user selects another source.",
+        "ask": "Ask only when multiple host/scope/source choices cannot be resolved from context and would change installation; report an actual missing executable instead of requesting unrelated credentials."
       },
       "rubric": [
         "Disabled and absent plugins are distinguished; an unexpected marketplace source blocks a healthy result.",
@@ -2551,7 +2560,7 @@
         "check": "Check each selected stage against the original outcome and carry constraints through retries, continuation and workflow changes."
       },
       "stopBehavior": [
-        "Tracked defaults remain eight stages, three attempts per stage and sixty minutes. Quick work honors user limits and switches to tracked handling when needed; neither path permits recursive auto/do or unrequested external effects."
+        "Tracked defaults are eight stages and three attempts per stage, with no wall-clock limit unless the user sets budget.maxMinutes. Quick work honors user limits and switches to tracked handling when needed; neither path permits recursive auto/do or unrequested external effects."
       ],
       "cases": [
         {
@@ -2599,7 +2608,7 @@
         "check": "Check each selected stage against the original outcome and carry constraints through retries, continuation and workflow changes."
       },
       "stopBehavior": [
-        "Tracked defaults remain eight stages, three attempts per stage and sixty minutes. Quick work honors user limits and switches to tracked handling when needed; neither path permits recursive auto/do or unrequested external effects."
+        "Tracked defaults are eight stages and three attempts per stage, with no wall-clock limit unless the user sets budget.maxMinutes. Quick work honors user limits and switches to tracked handling when needed; neither path permits recursive auto/do or unrequested external effects."
       ],
       "cases": [
         {
@@ -3065,7 +3074,7 @@
       ],
       "inputPolicy": {
         "infer": "Recover hard constraints, the current option, adoption status and stated priorities from the brief and prior decisions.",
-        "assume": "Compare feasible options qualitatively when weights were not supplied; make a reversible conditional recommendation when useful.",
+        "assume": "When only a priority order is given, derive provisional weights from it, show them, and report whether plausible reweighting changes the winner.",
         "ask": "Ask only about a missing constraint or preference that could reverse the recommendation; do not demand a complete scoring questionnaire."
       },
       "rubric": [
@@ -3113,7 +3122,7 @@
       ],
       "inputPolicy": {
         "infer": "Recover hard constraints, the current option, adoption status and stated priorities from the brief and prior decisions.",
-        "assume": "Compare feasible options qualitatively when weights were not supplied; make a reversible conditional recommendation when useful.",
+        "assume": "Keep status proposed without adoption evidence; follow the existing ADR numbering and location.",
         "ask": "Ask only about a missing constraint or preference that could reverse the recommendation; do not demand a complete scoring questionnaire."
       },
       "rubric": [
@@ -3161,7 +3170,7 @@
       ],
       "inputPolicy": {
         "infer": "Recover hard constraints, the current option, adoption status and stated priorities from the brief and prior decisions.",
-        "assume": "Compare feasible options qualitatively when weights were not supplied; make a reversible conditional recommendation when useful.",
+        "assume": "State the failure definition and time horizon as assumptions before listing causes.",
         "ask": "Ask only about a missing constraint or preference that could reverse the recommendation; do not demand a complete scoring questionnaire."
       },
       "rubric": [
@@ -3305,7 +3314,7 @@
       ],
       "inputPolicy": {
         "infer": "Recover hard constraints, the current option, adoption status and stated priorities from the brief and prior decisions.",
-        "assume": "Compare feasible options qualitatively when weights were not supplied; make a reversible conditional recommendation when useful.",
+        "assume": "Without a stated budget, propose a time box and stop rule before any run.",
         "ask": "Ask only about a missing constraint or preference that could reverse the recommendation; do not demand a complete scoring questionnaire."
       },
       "rubric": [
@@ -3328,7 +3337,7 @@
         },
         {
           "kind": "edge",
-          "mode": "plan",
+          "mode": "apply",
           "brief": "Test whether streaming reduces perceived latency without building the full product."
         },
         {
@@ -3406,7 +3415,6 @@
       },
       "rubric": [
         "A detached HEAD is explained; stale remote tracking refs are not described as live server status.",
-        "Review newly prepared commit/PR/message text, including template or hook additions, for agent self-attribution before submission; verify the resulting artifact when available. Do not silently rewrite existing history or remove human credits.",
         "Reconcile every reported change category with the correct tree comparison without fetching or modifying the index."
       ],
       "technicalMethod": {
@@ -3455,7 +3463,6 @@
       },
       "rubric": [
         "Staged and unstaged changes are not conflated; a binary change is acknowledged without invented contents.",
-        "Review newly prepared commit/PR/message text, including template or hook additions, for agent self-attribution before submission; verify the resulting artifact when available. Do not silently rewrite existing history or remove human credits.",
         "Cite a representative hunk for each behavior claim and account for changed files outside ordinary source extensions."
       ],
       "technicalMethod": {
@@ -3543,7 +3550,7 @@
       "brief": "Plan separate formatting and checkout-fix commits without changing shared history.",
       "mode": "plan",
       "requiredEvidence": [
-        "mixed changes or commits and desired grouping. Applying a split requires explicit execution scope."
+        "mixed changes or commits and desired grouping."
       ],
       "inputPolicy": {
         "infer": "Read repository root, HEAD, branch, refs and staged/unstaged/untracked distinctions; use the configured human identity.",
@@ -3571,7 +3578,7 @@
         },
         {
           "kind": "edge",
-          "mode": "plan",
+          "mode": "apply",
           "brief": "Split a refactor and fix that overlap in one function."
         },
         {
@@ -3650,7 +3657,6 @@
       },
       "rubric": [
         "A deterministic regression yields a confirmed boundary; flaky or skipped revisions produce qualified results.",
-        "Review newly prepared commit/PR/message text, including template or hook additions, for agent self-attribution before submission; verify the resulting artifact when available. Do not silently rewrite existing history or remove human credits.",
         "Recheck the candidate and parent with the same oracle; report a range if skipped revisions prevent a unique cause."
       ],
       "technicalMethod": {
@@ -3688,9 +3694,9 @@
       "id": "git-worktree",
       "pack": "git",
       "brief": "Create an isolated worktree from the specified branch at the requested path.",
-      "mode": "plan",
+      "mode": "apply",
       "requiredEvidence": [
-        "apply for explicit create/remove. Requires path, branch/ref, and intended operation."
+        "path, branch/ref, and intended operation."
       ],
       "inputPolicy": {
         "infer": "Read repository root, HEAD, branch, refs and staged/unstaged/untracked distinctions; use the configured human identity.",
@@ -3699,7 +3705,6 @@
       },
       "rubric": [
         "An existing occupied branch is handled explicitly; removing a dirty worktree stops before losing changes.",
-        "Review newly prepared commit/PR/message text, including template or hook additions, for agent self-attribution before submission; verify the resulting artifact when available. Do not silently rewrite existing history or remove human credits.",
         "Confirm the new checkout's HEAD and root; before cleanup, verify ownership and preserve any changes produced after creation."
       ],
       "technicalMethod": {
@@ -3748,11 +3753,10 @@
       },
       "rubric": [
         "A lost commit can be preserved without moving the active branch; absent recovery evidence is not claimed as recoverable.",
-        "Review newly prepared commit/PR/message text, including template or hook additions, for agent self-attribution before submission; verify the resulting artifact when available. Do not silently rewrite existing history or remove human credits.",
         "Verify the recovered tree contains the requested content and leaves the original branch, index and worktree recoverable."
       ],
       "technicalMethod": {
-        "evidence": "Inspect reflogs, stashes, reachable refs and candidate object contents before changing active refs.",
+        "evidence": "Inspect reflogs, stashes, reachable refs, unreachable objects from git fsck and candidate object contents before changing active refs.",
         "method": "Preserve a verified candidate with a new branch or copy, then explain how it differs from current work.",
         "pitfall": "Reflogs expire and may not exist for another clone; garbage collection can remove the very objects being recovered.",
         "check": "Verify the recovered tree contains the requested content and leaves the original branch, index and worktree recoverable."
@@ -3767,13 +3771,18 @@
         },
         {
           "kind": "edge",
-          "mode": "inspect",
+          "mode": "apply",
           "brief": "Recover a dropped commit without moving the current branch."
         },
         {
           "kind": "blocked",
           "mode": "inspect",
           "brief": "Inspect recovery options after missing reflog history; do not promise restoration."
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Find stash entries lost after git stash clear without running garbage collection."
         }
       ],
       "invariants": [
@@ -3797,7 +3806,6 @@
       },
       "rubric": [
         "Similar titles with different causes remain separate; a duplicate recommendation links the supporting issue.",
-        "Review newly prepared commit/PR/message text, including template or hook additions, for agent self-attribution before submission; verify the resulting artifact when available. Do not silently rewrite existing history or remove human credits.",
         "Cite why two reports share a cause or remain separate, and keep proposed labels or closures distinct from submitted changes."
       ],
       "technicalMethod": {
@@ -3921,6 +3929,11 @@
           "kind": "blocked",
           "mode": "inspect",
           "brief": "Draft a PR without push permission; separate local changes from the remote head."
+        },
+        {
+          "kind": "edge",
+          "mode": "apply",
+          "brief": "Create the PR for this pushed head; reuse an existing PR if one appeared after a timeout."
         }
       ],
       "invariants": [
@@ -4159,8 +4172,8 @@
         },
         {
           "kind": "edge",
-          "mode": "plan",
-          "brief": "Resume a release after one of three assets uploaded successfully."
+          "mode": "apply",
+          "brief": "Upload the missing third asset after verifying the first two hashes; do not replace existing assets."
         },
         {
           "kind": "blocked",
@@ -4288,8 +4301,8 @@
         "Verify the expected consumer sees the correct environment using a non-secret sentinel or presence check without downloading or printing credentials."
       ],
       "technicalMethod": {
-        "evidence": "Inventory required names and whether consumers read them during build, server runtime or browser execution.",
-        "method": "Compare development, preview, branch and production presence using names only; identify which changes require a rebuild/redeployment.",
+        "evidence": "Inventory required names across the default and any custom environments, and whether consumers read them during build, server runtime or browser execution.",
+        "method": "Compare development, preview, branch, production and any custom environment presence using names only; identify which changes require a rebuild/redeployment.",
         "pitfall": "Public prefixes expose compiled values; changing a setting does not update already-built assets.",
         "check": "Verify the expected consumer sees the correct environment using a non-secret sentinel or presence check without downloading or printing credentials."
       },
@@ -4390,7 +4403,7 @@
         "check": "Exercise the original failing route with a controlled request and observe success/error/timeout behavior on the same deployment."
       },
       "stopBehavior": [
-        "Do not trigger billable/high-volume traffic or expose request data. Apply changes only when remediation is requested."
+        "Do not trigger billable/high-volume traffic or expose request data. Change code or configuration only in apply mode for requested remediation."
       ],
       "cases": [
         {
@@ -4447,7 +4460,7 @@
         },
         {
           "kind": "edge",
-          "mode": "inspect",
+          "mode": "apply",
           "brief": "Fix preview deep links without swallowing API requests."
         },
         {
@@ -4486,7 +4499,7 @@
         "check": "Repeat matched conditions, retain error rates and tail latency, and verify cache changes do not mix users or stale personalized content."
       },
       "stopBehavior": [
-        "New load/profiling requires authorized execution and budget. No automatic paid plan upgrade or unrelated application rewrite."
+        "Load generation belongs to test-load, and new remote profiling needs a resolved target and budget. No automatic paid plan upgrade or unrelated application rewrite."
       ],
       "cases": [
         {
@@ -4568,7 +4581,7 @@
       ],
       "inputPolicy": {
         "infer": "Read manifests, lockfile, installed Vite/plugins, entry points, aliases, modes and current build scripts.",
-        "assume": "Preserve existing tooling and base-path conventions; make a local focused change when the brief identifies the behavior.",
+        "assume": "Preserve existing tooling and base-path conventions; in apply mode, make a local focused change when the brief identifies the behavior, and otherwise propose it.",
         "ask": "Ask if the intended serving subpath or deployment target cannot be inferred and would change generated URLs; do not ask for versions present in the lockfile."
       },
       "rubric": [
@@ -4616,7 +4629,7 @@
       ],
       "inputPolicy": {
         "infer": "Read manifests, lockfile, installed Vite/plugins, entry points, aliases, modes and current build scripts.",
-        "assume": "Preserve existing tooling and base-path conventions; make a local focused change when the brief identifies the behavior.",
+        "assume": "Preserve existing tooling and base-path conventions; in apply mode, make a local focused change when the brief identifies the behavior, and otherwise propose it.",
         "ask": "Ask if the intended serving subpath or deployment target cannot be inferred and would change generated URLs; do not ask for versions present in the lockfile."
       },
       "rubric": [
@@ -4664,21 +4677,21 @@
       ],
       "inputPolicy": {
         "infer": "Read manifests, lockfile, installed Vite/plugins, entry points, aliases, modes and current build scripts.",
-        "assume": "Preserve existing tooling and base-path conventions; make a local focused change when the brief identifies the behavior.",
+        "assume": "Preserve existing tooling and base-path conventions; in apply mode, make a local focused change when the brief identifies the behavior, and otherwise propose it.",
         "ask": "Ask if the intended serving subpath or deployment target cannot be inferred and would change generated URLs; do not ask for versions present in the lockfile."
       },
       "rubric": [
         "A changed module updates correctly after remediation; unrelated state is preserved when the framework supports it.",
-        "Edit a leaf and a shared dependency, verify the expected refresh behavior, and check reconnection after an ordinary dev restart."
+        "In apply mode or an owned copy, edit a leaf and a shared dependency, verify the expected refresh behavior, and check reconnection after an ordinary dev restart."
       ],
       "technicalMethod": {
         "evidence": "Observe filesystem watcher, module invalidation, websocket transport and framework refresh boundary.",
         "method": "Identify the first missing event and repair that layer; inspect proxy and container paths before changing host restrictions.",
         "pitfall": "Full page reload and preserved hot state are different outcomes; disabling host checks is not a generic websocket repair.",
-        "check": "Edit a leaf and a shared dependency, verify the expected refresh behavior, and check reconnection after an ordinary dev restart."
+        "check": "In apply mode or an owned copy, edit a leaf and a shared dependency, verify the expected refresh behavior, and check reconnection after an ordinary dev restart."
       },
       "stopBehavior": [
-        "Running a dev server requires execution authorization. Do not disable host protections or broadly relax filesystem access as a default fix."
+        "Running the project's dev server is bounded local execution. Do not disable host protections or broadly relax filesystem access as a default fix."
       ],
       "cases": [
         {
@@ -4712,7 +4725,7 @@
       ],
       "inputPolicy": {
         "infer": "Read manifests, lockfile, installed Vite/plugins, entry points, aliases, modes and current build scripts.",
-        "assume": "Preserve existing tooling and base-path conventions; make a local focused change when the brief identifies the behavior.",
+        "assume": "Preserve existing tooling and base-path conventions; in apply mode, make a local focused change when the brief identifies the behavior, and otherwise propose it.",
         "ask": "Ask if the intended serving subpath or deployment target cannot be inferred and would change generated URLs; do not ask for versions present in the lockfile."
       },
       "rubric": [
@@ -4726,7 +4739,7 @@
         "check": "Build with a synthetic sentinel and inspect intended exposure and parsing without placing real secret values in reports."
       },
       "stopBehavior": [
-        "Never print secret values. Secret rotation is a separate authorized action; configuration edits follow an explicit repair request."
+        "Never print secret values. Secret rotation is a separate authorized action; configuration edits use apply mode."
       ],
       "cases": [
         {
@@ -4756,11 +4769,11 @@
       "brief": "Analyze the supplied production bundle statistics and prioritize size reductions.",
       "mode": "inspect",
       "requiredEvidence": [
-        "saved build stats/artifacts and size/performance goal; generating a build selects authorized execution."
+        "saved build stats/artifacts and size/performance goal."
       ],
       "inputPolicy": {
         "infer": "Read manifests, lockfile, installed Vite/plugins, entry points, aliases, modes and current build scripts.",
-        "assume": "Preserve existing tooling and base-path conventions; make a local focused change when the brief identifies the behavior.",
+        "assume": "Preserve existing tooling and base-path conventions; in apply mode, make a local focused change when the brief identifies the behavior, and otherwise propose it.",
         "ask": "Ask if the intended serving subpath or deployment target cannot be inferred and would change generated URLs; do not ask for versions present in the lockfile."
       },
       "rubric": [
@@ -4783,7 +4796,7 @@
         },
         {
           "kind": "edge",
-          "mode": "inspect",
+          "mode": "apply",
           "brief": "Reduce initial bytes without breaking a lazily loaded editor."
         },
         {
@@ -4808,7 +4821,7 @@
       ],
       "inputPolicy": {
         "infer": "Read manifests, lockfile, installed Vite/plugins, entry points, aliases, modes and current build scripts.",
-        "assume": "Preserve existing tooling and base-path conventions; make a local focused change when the brief identifies the behavior.",
+        "assume": "Preserve existing tooling and base-path conventions; in apply mode, make a local focused change when the brief identifies the behavior, and otherwise propose it.",
         "ask": "Ask if the intended serving subpath or deployment target cannot be inferred and would change generated URLs; do not ask for versions present in the lockfile."
       },
       "rubric": [
@@ -4831,7 +4844,7 @@
         },
         {
           "kind": "edge",
-          "mode": "inspect",
+          "mode": "apply",
           "brief": "Split a heavy dashboard while preserving direct deep links and shared vendor initialization."
         },
         {
@@ -4856,7 +4869,7 @@
       ],
       "inputPolicy": {
         "infer": "Read manifests, lockfile, installed Vite/plugins, entry points, aliases, modes and current build scripts.",
-        "assume": "Preserve existing tooling and base-path conventions; make a local focused change when the brief identifies the behavior.",
+        "assume": "Preserve existing tooling and base-path conventions; in apply mode, make a local focused change when the brief identifies the behavior, and otherwise propose it.",
         "ask": "Ask if the intended serving subpath or deployment target cannot be inferred and would change generated URLs; do not ask for versions present in the lockfile."
       },
       "rubric": [
@@ -4880,7 +4893,7 @@
         {
           "kind": "edge",
           "mode": "apply",
-          "brief": "Fix images that work in dev but fail under a deployed subdirectory."
+          "brief": "Fix a font referenced from CSS that returns 404 once the app is served under /app/."
         },
         {
           "kind": "blocked",
@@ -4904,7 +4917,7 @@
       ],
       "inputPolicy": {
         "infer": "Read manifests, lockfile, installed Vite/plugins, entry points, aliases, modes and current build scripts.",
-        "assume": "Preserve existing tooling and base-path conventions; make a local focused change when the brief identifies the behavior.",
+        "assume": "Preserve existing tooling and base-path conventions; in apply mode, make a local focused change when the brief identifies the behavior, and otherwise propose it.",
         "ask": "Ask if the intended serving subpath or deployment target cannot be inferred and would change generated URLs; do not ask for versions present in the lockfile."
       },
       "rubric": [
@@ -4996,7 +5009,7 @@
       "brief": "Analyze why changing a filter rerenders the full product grid using this profile.",
       "mode": "inspect",
       "requiredEvidence": [
-        "slow interaction, component scope, and profiler traces. Explicit profiling/fix requests authorize bounded execution/apply."
+        "slow interaction, component scope, and profiler traces."
       ],
       "inputPolicy": {
         "infer": "Read component callers, ownership of state, installed React/framework versions and existing interaction tests.",
@@ -5023,7 +5036,7 @@
         },
         {
           "kind": "edge",
-          "mode": "inspect",
+          "mode": "apply",
           "brief": "Improve filter typing in a large product grid without stale selections."
         },
         {
@@ -5041,7 +5054,7 @@
     {
       "id": "react-effects",
       "pack": "react",
-      "brief": "Fix stale account data caused by effect request races.",
+      "brief": "Fix the chat subscription that never unsubscribes, so messages from the previous room keep arriving after switching rooms.",
       "mode": "apply",
       "requiredEvidence": [
         "component, symptom, and expected synchronization."
@@ -5052,12 +5065,12 @@
         "ask": "Ask when product semantics such as persistence, optimistic failure or reset behavior have conflicting evidence; missing profiler access only blocks measured performance claims."
       },
       "rubric": [
-        "Account changes do not show stale responses; repeated setup/cleanup does not leak subscriptions or duplicate effects.",
+        "Repeated setup and cleanup does not leak subscriptions, timers or listeners; effects rerun only when their real dependencies change and read current values.",
         "Exercise changed inputs, remount and unmount with controlled timers/promises and verify listeners, requests and subscriptions are released."
       ],
       "technicalMethod": {
         "evidence": "Identify the external system, dependency identities, setup, cleanup and reset semantics of each affected effect.",
-        "method": "Move derived values to render where appropriate; make synchronization cleanup mirror setup and use supported patterns for current values.",
+        "method": "Move derived values to render where appropriate; make synchronization cleanup mirror setup and read non-reactive current values with useEffectEvent (React 19.2+) or a ref kept current on earlier versions.",
         "pitfall": "Suppressing dependency warnings conceals stale closures; aborting a request cannot undo a completed server mutation.",
         "check": "Exercise changed inputs, remount and unmount with controlled timers/promises and verify listeners, requests and subscriptions are released."
       },
@@ -5066,18 +5079,18 @@
       ],
       "cases": [
         {
-          "brief": "Fix stale account data caused by effect request races.",
+          "brief": "Fix the chat subscription that never unsubscribes, so messages from the previous room keep arriving after switching rooms.",
           "mode": "apply"
         },
         {
           "kind": "edge",
           "mode": "apply",
-          "brief": "Fix an account panel where a late response from the prior account overwrites the current one."
+          "brief": "Fix an effect loop caused by an options object recreated on every render."
         },
         {
           "kind": "blocked",
           "mode": "inspect",
-          "brief": "Audit effect source without reproducing browser timing; identify the required controlled race test."
+          "brief": "Audit effect cleanup without reproducing it in a browser; identify the controlled test needed to confirm a leak."
         }
       ],
       "invariants": [
@@ -5092,7 +5105,7 @@
       "brief": "Plan simplifying duplicated filter state without adding a state library.",
       "mode": "plan",
       "requiredEvidence": [
-        "apply for explicit state refactoring. Requires component flow and ownership constraints."
+        "component flow and ownership constraints."
       ],
       "inputPolicy": {
         "infer": "Read component callers, ownership of state, installed React/framework versions and existing interaction tests.",
@@ -5119,7 +5132,7 @@
         },
         {
           "kind": "edge",
-          "mode": "plan",
+          "mode": "apply",
           "brief": "Refactor a multi-tab editor without sharing unsaved drafts across documents."
         },
         {
@@ -5197,6 +5210,7 @@
       },
       "rubric": [
         "Invalid input is actionable without losing data; server rejection and double submission have deliberate outcomes.",
+        "A server rejection under a form Action retains the entered field values.",
         "Test invalid, empty, zero, double-submit, delayed response and retry cases; verify labels, error associations and focus."
       ],
       "technicalMethod": {
@@ -5408,7 +5422,7 @@
         {
           "kind": "edge",
           "mode": "plan",
-          "brief": "Consolidate spacing and color tokens across light and dark settings screens."
+          "brief": "Plan consolidating spacing and color tokens across light and dark settings screens."
         },
         {
           "kind": "blocked",
@@ -5485,13 +5499,13 @@
       },
       "rubric": [
         "Content remains reachable at narrow widths and zoom; hover-only controls have a usable alternate interaction.",
-        "Test narrow and wide layouts, long text, zoom and both pointer/keyboard access without clipped essential content."
+        "When no product matrix exists, test at least 320 CSS px width without two-dimensional scrolling (256 px height for vertical scrollers, WCAG 1.4.10), 200% text resize (1.4.4), increased text spacing (1.4.12), both orientations (1.3.4) and 24 by 24 CSS px targets or equivalent spacing (2.5.8); essential content and pointer/keyboard access must remain unclipped."
       ],
       "technicalMethod": {
         "evidence": "Inspect layout constraints, intrinsic content size, breakpoints, zoom, touch targets and input methods.",
         "method": "Repair the constraint causing overflow; choose reflow/order based on task meaning rather than arbitrary device names.",
         "pitfall": "Hiding overflow can conceal controls; hover-only affordances fail on touch or keyboard.",
-        "check": "Test narrow and wide layouts, long text, zoom and both pointer/keyboard access without clipped essential content."
+        "check": "When no product matrix exists, test at least 320 CSS px width without two-dimensional scrolling (256 px height for vertical scrollers, WCAG 1.4.10), 200% text resize (1.4.4), increased text spacing (1.4.12), both orientations (1.3.4) and 24 by 24 CSS px targets or equivalent spacing (2.5.8); essential content and pointer/keyboard access must remain unclipped."
       },
       "stopBehavior": [
         "Do not hide required functionality or claim device coverage from a single desktop screenshot."
@@ -5524,7 +5538,8 @@
       "brief": "Audit modal focus, keyboard dismissal, and error announcement behavior.",
       "mode": "inspect",
       "requiredEvidence": [
-        "component/flow and target accessibility concerns. Apply for requested remediation."
+        "component/flow and target accessibility concerns.",
+        "conformance target (default WCAG 2.2 AA when unspecified; state it)."
       ],
       "inputPolicy": {
         "infer": "Inspect the target flow, existing components/tokens, actual renders or supplied references and current responsive behavior.",
@@ -5551,7 +5566,7 @@
         },
         {
           "kind": "edge",
-          "mode": "inspect",
+          "mode": "apply",
           "brief": "Fix modal focus return and server validation announcements without relying on color."
         },
         {
@@ -5638,7 +5653,7 @@
         "check": "Reproduce significant differences with stable fonts/data and retain both images plus a reason for accepted changes."
       },
       "stopBehavior": [
-        "New captures require authorized browser execution. Unmatched conditions invalidate precise pixel-difference claims."
+        "Capturing a local build is bounded local execution; capturing a shared or remote target needs that target in scope. Unmatched conditions invalidate precise pixel-difference claims."
       ],
       "cases": [
         {
@@ -5696,7 +5711,7 @@
         {
           "kind": "edge",
           "mode": "plan",
-          "brief": "Improve onboarding interrupted by session expiry midway through a form."
+          "brief": "Plan how the onboarding flow recovers when session expiry interrupts it midway through a form."
         },
         {
           "kind": "blocked",
@@ -5764,7 +5779,7 @@
       "brief": "Audit session refresh, logout, and expired-token behavior.",
       "mode": "inspect",
       "requiredEvidence": [
-        "apply for a specified implementation. Requires identity provider, session model, and recovery/logout requirements."
+        "identity provider, session model, and recovery/logout requirements."
       ],
       "inputPolicy": {
         "infer": "Trace service callers, request contracts, authorization, transactions, retries and existing test infrastructure.",
@@ -5791,7 +5806,7 @@
         },
         {
           "kind": "edge",
-          "mode": "inspect",
+          "mode": "apply",
           "brief": "Repair refresh behavior across concurrent browser tabs and expired sessions."
         },
         {
@@ -5812,7 +5827,7 @@
       "brief": "Define read/update/export access rules for organization-owned invoices.",
       "mode": "plan",
       "requiredEvidence": [
-        "apply for explicit implementation. Requires roles, actions, ownership, tenant rules, and exceptions."
+        "roles, actions, ownership, tenant rules, and exceptions."
       ],
       "inputPolicy": {
         "infer": "Trace service callers, request contracts, authorization, transactions, retries and existing test infrastructure.",
@@ -5983,7 +5998,7 @@
         },
         {
           "kind": "edge",
-          "mode": "inspect",
+          "mode": "apply",
           "brief": "Prevent two concurrent reservations from selling the final available seat twice."
         },
         {
@@ -6397,13 +6412,13 @@
       },
       "rubric": [
         "Invalid signatures cause no business effect; retried events do not duplicate the intended effect.",
-        "Test altered body, invalid/stale signature, concurrent duplicate, reversed event order and a crash before acknowledgment with synthetic fixtures."
+        "Test altered body, invalid/stale signature, a delivery signed with the previous secret during rotation, concurrent duplicate, reversed event order and a crash before acknowledgment with synthetic fixtures."
       ],
       "technicalMethod": {
         "evidence": "Read the provider's signature contract, raw-body handling, timestamp tolerance, event IDs and retry/order semantics.",
-        "method": "Verify authentic bytes before side effects, durably deduplicate delivery and business effects, and handle out-of-order versions deliberately.",
+        "method": "Verify authentic bytes before side effects with a constant-time comparison (for example crypto.timingSafeEqual or hmac.compare_digest), accepting current and previous secrets during a bounded rotation period; durably deduplicate delivery and business effects, and handle out-of-order versions deliberately.",
         "pitfall": "Re-serialized JSON changes signed bytes; a valid signature does not prevent replay or duplicate processing.",
-        "check": "Test altered body, invalid/stale signature, concurrent duplicate, reversed event order and a crash before acknowledgment with synthetic fixtures."
+        "check": "Test altered body, invalid/stale signature, a delivery signed with the previous secret during rotation, concurrent duplicate, reversed event order and a crash before acknowledgment with synthetic fixtures."
       },
       "stopBehavior": [
         "Never log signing secrets or send real business events without authorization. Provider uncertainty must be resolved before relying on delivery guarantees."
@@ -6468,7 +6483,7 @@
         },
         {
           "kind": "blocked",
-          "mode": "inspect",
+          "mode": "apply",
           "brief": "Implement against supplied contracts without paid or mutating live requests."
         }
       ],
@@ -6732,7 +6747,7 @@
         "ask": "Ask for environment, downtime or recovery constraints before live/destructive execution when missing; unavailable production access does not block migration files."
       },
       "rubric": [
-        "Checks detect an actual violating example and accept legitimate null/historical cases. Preventive writes cannot leave partial multi-row state on interruption; repair claims name the snapshot and rows actually verified.",
+        "Checks detect an actual violating example and accept legitimate null/historical cases. Proposed preventive changes cannot leave partial multi-row state on interruption; repair claims name the snapshot and rows actually verified.",
         "Verify each invariant with both valid and invalid fixtures and show unresolved real-data policy decisions before any live repair."
       ],
       "technicalMethod": {
@@ -7088,7 +7103,7 @@
         {
           "kind": "edge",
           "mode": "plan",
-          "brief": "Resume a backfill while the live pipeline updates the same historical records."
+          "brief": "Plan resuming a backfill while the live pipeline updates the same historical records."
         },
         {
           "kind": "blocked",
@@ -7222,7 +7237,7 @@
         "check": "Inject missing, stale and inconsistent synthetic batches and a healthy control; verify the right failure reason and recovery condition."
       },
       "stopBehavior": [
-        "Installing monitors or repairing records is separate. Do not redefine thresholds after seeing results to force a pass."
+        "Installing monitors (data-pipeline, ops-observability, ops-alerts) or repairing records (data-backfill) is separate. Do not redefine thresholds after seeing results to force a pass."
       ],
       "cases": [
         {
@@ -7642,7 +7657,7 @@
       ],
       "inputPolicy": {
         "infer": "Read framework, training entry point, loss/metric, split manifests and checkpoint conventions from supplied source.",
-        "assume": "Implement requested code and tiny isolated smoke checks with existing tools; leave unmeasured model quality explicit.",
+        "assume": "In apply mode, implement requested code and tiny isolated smoke checks with existing tools, and otherwise propose them; leave unmeasured model quality explicit.",
         "ask": "Ask for unresolved objective/data semantics before encoding them, and environment/resource limits before launching training or a search; implementation alone does not need a hardware purchase decision."
       },
       "rubric": [
@@ -7690,7 +7705,7 @@
       ],
       "inputPolicy": {
         "infer": "Read framework, training entry point, loss/metric, split manifests and checkpoint conventions from supplied source.",
-        "assume": "Implement requested code and tiny isolated smoke checks with existing tools; leave unmeasured model quality explicit.",
+        "assume": "In apply mode, implement requested code and tiny isolated smoke checks with existing tools, and otherwise propose them; leave unmeasured model quality explicit.",
         "ask": "Ask for unresolved objective/data semantics before encoding them, and environment/resource limits before launching training or a search; implementation alone does not need a hardware purchase decision."
       },
       "rubric": [
@@ -7738,7 +7753,7 @@
       ],
       "inputPolicy": {
         "infer": "Read framework, training entry point, loss/metric, split manifests and checkpoint conventions from supplied source.",
-        "assume": "Implement requested code and tiny isolated smoke checks with existing tools; leave unmeasured model quality explicit.",
+        "assume": "In apply mode, implement requested code and tiny isolated smoke checks with existing tools, and otherwise propose them; leave unmeasured model quality explicit.",
         "ask": "Ask for unresolved objective/data semantics before encoding them, and environment/resource limits before launching training or a search; implementation alone does not need a hardware purchase decision."
       },
       "rubric": [
@@ -7786,7 +7801,7 @@
       ],
       "inputPolicy": {
         "infer": "Read framework, training entry point, loss/metric, split manifests and checkpoint conventions from supplied source.",
-        "assume": "Implement requested code and tiny isolated smoke checks with existing tools; leave unmeasured model quality explicit.",
+        "assume": "In apply mode, implement requested code and tiny isolated smoke checks with existing tools, and otherwise propose them; leave unmeasured model quality explicit.",
         "ask": "Ask for unresolved objective/data semantics before encoding them, and environment/resource limits before launching training or a search; implementation alone does not need a hardware purchase decision."
       },
       "rubric": [
@@ -7810,7 +7825,7 @@
         {
           "kind": "edge",
           "mode": "plan",
-          "brief": "Tune with failed trials and a strict GPU-hour cap."
+          "brief": "Plan a search that tolerates failed trials under a strict GPU-hour cap."
         },
         {
           "kind": "blocked",
@@ -7834,7 +7849,7 @@
       ],
       "inputPolicy": {
         "infer": "Read framework, training entry point, loss/metric, split manifests and checkpoint conventions from supplied source.",
-        "assume": "Implement requested code and tiny isolated smoke checks with existing tools; leave unmeasured model quality explicit.",
+        "assume": "In apply mode, implement requested code and tiny isolated smoke checks with existing tools, and otherwise propose them; leave unmeasured model quality explicit.",
         "ask": "Ask for unresolved objective/data semantics before encoding them, and environment/resource limits before launching training or a search; implementation alone does not need a hardware purchase decision."
       },
       "rubric": [
@@ -7882,7 +7897,7 @@
       ],
       "inputPolicy": {
         "infer": "Read framework, training entry point, loss/metric, split manifests and checkpoint conventions from supplied source.",
-        "assume": "Implement requested code and tiny isolated smoke checks with existing tools; leave unmeasured model quality explicit.",
+        "assume": "In apply mode, implement requested code and tiny isolated smoke checks with existing tools, and otherwise propose them; leave unmeasured model quality explicit.",
         "ask": "Ask for unresolved objective/data semantics before encoding them, and environment/resource limits before launching training or a search; implementation alone does not need a hardware purchase decision."
       },
       "rubric": [
@@ -7930,7 +7945,7 @@
       ],
       "inputPolicy": {
         "infer": "Read framework, training entry point, loss/metric, split manifests and checkpoint conventions from supplied source.",
-        "assume": "Implement requested code and tiny isolated smoke checks with existing tools; leave unmeasured model quality explicit.",
+        "assume": "In apply mode, implement requested code and tiny isolated smoke checks with existing tools, and otherwise propose them; leave unmeasured model quality explicit.",
         "ask": "Ask for unresolved objective/data semantics before encoding them, and environment/resource limits before launching training or a search; implementation alone does not need a hardware purchase decision."
       },
       "rubric": [
@@ -7978,7 +7993,7 @@
       ],
       "inputPolicy": {
         "infer": "Read framework, training entry point, loss/metric, split manifests and checkpoint conventions from supplied source.",
-        "assume": "Implement requested code and tiny isolated smoke checks with existing tools; leave unmeasured model quality explicit.",
+        "assume": "In apply mode, implement requested code and tiny isolated smoke checks with existing tools, and otherwise propose them; leave unmeasured model quality explicit.",
         "ask": "Ask for unresolved objective/data semantics before encoding them, and environment/resource limits before launching training or a search; implementation alone does not need a hardware purchase decision."
       },
       "rubric": [
@@ -7992,7 +8007,7 @@
         "check": "Compare end-to-end runtime, peak memory and model-quality protocol under matched conditions, including warmup and failures."
       },
       "stopBehavior": [
-        "New profiling/training requires execution authorization. Do not claim speedup without equivalent model quality and workload comparison."
+        "A short local profile is bounded local execution; new training runs and paid or shared compute need a resolved target and budget. Do not claim speedup without equivalent model quality and workload comparison."
       ],
       "cases": [
         {
@@ -8193,7 +8208,7 @@
         },
         {
           "kind": "edge",
-          "mode": "inspect",
+          "mode": "apply",
           "brief": "Calibrate a model trained on oversampled positives."
         },
         {
@@ -8289,7 +8304,7 @@
         },
         {
           "kind": "edge",
-          "mode": "plan",
+          "mode": "apply",
           "brief": "Test missing optional fields while rejecting transformations that change the outcome."
         },
         {
@@ -8739,7 +8754,7 @@
     {
       "id": "ml-rollout",
       "pack": "ml-deployment",
-      "brief": "Prepare a canary rollout and rollback plan; do not change production traffic.",
+      "brief": "Prepare a canary rollout and rollback plan for the new ranking model; do not change production traffic.",
       "mode": "plan",
       "requiredEvidence": [
         "candidate/stable models, target service, evaluation evidence, traffic constraints, and rollback thresholds."
@@ -8764,7 +8779,7 @@
       ],
       "cases": [
         {
-          "brief": "Prepare a canary rollout and rollback plan; do not change production traffic.",
+          "brief": "Prepare a canary rollout and rollback plan for the new ranking model; do not change production traffic.",
           "mode": "plan"
         },
         {
@@ -8795,7 +8810,7 @@
       "inputPolicy": {
         "infer": "Read current prompt/tool schemas, retrieval boundaries, installed SDK/provider config and permitted examples without reading secret values.",
         "assume": "Use mocked calls for local contract tests when remote access is absent; do not infer model quality from mocks.",
-        "ask": "Ask for budget and permitted data/provider before a paid or external run if not already set; local prompt/tool implementation can proceed."
+        "ask": "Ask for budget and permitted data/provider before a paid or external run if not already set; local prompt/tool implementation can proceed in apply mode."
       },
       "rubric": [
         "The scorer rejects known bad outputs and accepts known good controls. All attempted trials, failures and unavailable metrics remain visible; comparisons share documented conditions and held-out claims use genuinely unused cases.",
@@ -8843,7 +8858,7 @@
       "inputPolicy": {
         "infer": "Read current prompt/tool schemas, retrieval boundaries, installed SDK/provider config and permitted examples without reading secret values.",
         "assume": "Use mocked calls for local contract tests when remote access is absent; do not infer model quality from mocks.",
-        "ask": "Ask for budget and permitted data/provider before a paid or external run if not already set; local prompt/tool implementation can proceed."
+        "ask": "Ask for budget and permitted data/provider before a paid or external run if not already set; local prompt/tool implementation can proceed in apply mode."
       },
       "rubric": [
         "Targeted failures improve without breaking important existing cases; prompt length/cost changes are recorded.",
@@ -8891,7 +8906,7 @@
       "inputPolicy": {
         "infer": "Read current prompt/tool schemas, retrieval boundaries, installed SDK/provider config and permitted examples without reading secret values.",
         "assume": "Use mocked calls for local contract tests when remote access is absent; do not infer model quality from mocks.",
-        "ask": "Ask for budget and permitted data/provider before a paid or external run if not already set; local prompt/tool implementation can proceed."
+        "ask": "Ask for budget and permitted data/provider before a paid or external run if not already set; local prompt/tool implementation can proceed in apply mode."
       },
       "rubric": [
         "Syntactically valid but semantically invalid output is rejected; repeated failure terminates with a typed error.",
@@ -8939,7 +8954,7 @@
       "inputPolicy": {
         "infer": "Read current prompt/tool schemas, retrieval boundaries, installed SDK/provider config and permitted examples without reading secret values.",
         "assume": "Use mocked calls for local contract tests when remote access is absent; do not infer model quality from mocks.",
-        "ask": "Ask for budget and permitted data/provider before a paid or external run if not already set; local prompt/tool implementation can proceed."
+        "ask": "Ask for budget and permitted data/provider before a paid or external run if not already set; local prompt/tool implementation can proceed in apply mode."
       },
       "rubric": [
         "An unauthorized document cannot leak through retrieval; absent evidence produces qualified/abstaining answers rather than invented citations.",
@@ -8987,7 +9002,7 @@
       "inputPolicy": {
         "infer": "Read current prompt/tool schemas, retrieval boundaries, installed SDK/provider config and permitted examples without reading secret values.",
         "assume": "Use mocked calls for local contract tests when remote access is absent; do not infer model quality from mocks.",
-        "ask": "Ask for budget and permitted data/provider before a paid or external run if not already set; local prompt/tool implementation can proceed."
+        "ask": "Ask for budget and permitted data/provider before a paid or external run if not already set; local prompt/tool implementation can proceed in apply mode."
       },
       "rubric": [
         "A missing exception passage is localized to candidate generation or ranking; unauthorized passages are excluded regardless of relevance.",
@@ -9035,7 +9050,7 @@
       "inputPolicy": {
         "infer": "Read current prompt/tool schemas, retrieval boundaries, installed SDK/provider config and permitted examples without reading secret values.",
         "assume": "Use mocked calls for local contract tests when remote access is absent; do not infer model quality from mocks.",
-        "ask": "Ask for budget and permitted data/provider before a paid or external run if not already set; local prompt/tool implementation can proceed."
+        "ask": "Ask for budget and permitted data/provider before a paid or external run if not already set; local prompt/tool implementation can proceed in apply mode."
       },
       "rubric": [
         "Invalid or unauthorized arguments cannot execute; an uncertain external mutation is reconciled before retrying.",
@@ -9083,7 +9098,7 @@
       "inputPolicy": {
         "infer": "Read current prompt/tool schemas, retrieval boundaries, installed SDK/provider config and permitted examples without reading secret values.",
         "assume": "Use mocked calls for local contract tests when remote access is absent; do not infer model quality from mocks.",
-        "ask": "Ask for budget and permitted data/provider before a paid or external run if not already set; local prompt/tool implementation can proceed."
+        "ask": "Ask for budget and permitted data/provider before a paid or external run if not already set; local prompt/tool implementation can proceed in apply mode."
       },
       "rubric": [
         "A retrieved instruction cannot redirect secrets to a canary destination; legitimate quoted instructions remain usable as data.",
@@ -9105,7 +9120,7 @@
         },
         {
           "kind": "edge",
-          "mode": "plan",
+          "mode": "apply",
           "brief": "Test a retrieved document asking the agent to send a synthetic secret elsewhere."
         },
         {
@@ -9131,14 +9146,14 @@
       "inputPolicy": {
         "infer": "Read current prompt/tool schemas, retrieval boundaries, installed SDK/provider config and permitted examples without reading secret values.",
         "assume": "Use mocked calls for local contract tests when remote access is absent; do not infer model quality from mocks.",
-        "ask": "Ask for budget and permitted data/provider before a paid or external run if not already set; local prompt/tool implementation can proceed."
+        "ask": "Ask for budget and permitted data/provider before a paid or external run if not already set; local prompt/tool implementation can proceed in apply mode."
       },
       "rubric": [
         "Retry tokens count toward total cost; cheaper routing is assessed against the same quality criteria.",
         "Reconcile usage totals with actual calls and compare successful outcomes, latency and failure rates under the same cases."
       ],
       "technicalMethod": {
-        "evidence": "Measure all requests, retries, failures, cached/uncached inputs, outputs and latency by task outcome.",
+        "evidence": "Measure all requests, retries, failures, cached/uncached inputs, outputs, reasoning or thinking tokens from provider usage fields, and latency by task outcome.",
         "method": "Compare routes at matched quality requirements using dated verified prices and explicit privacy/transfer constraints.",
         "pitfall": "Lower price per call can raise cost per completed task through retries or quality failures.",
         "check": "Reconcile usage totals with actual calls and compare successful outcomes, latency and failure rates under the same cases."
@@ -9178,7 +9193,7 @@
       ],
       "inputPolicy": {
         "infer": "Read behavior contracts, existing runners and test conventions; distinguish fixture setup failure from a behavioral failure.",
-        "assume": "Use the smallest existing local runner and isolated synthetic fixtures that distinguish the requested behavior.",
+        "assume": "Use the smallest existing local runner and isolated synthetic fixtures that distinguish the requested behavior. When the method needs a library, runner, container runtime or load tool the project lacks, name the exact package or tool, the files it changes and any download, and add it only when the request authorizes new dev dependencies or tools; label a hand-written generator without shrinking, or a fake in place of a real dependency, as such.",
         "ask": "Ask about an unresolved contract that changes the expected result, or the target/load limits before external testing; do not ask the user to choose a runner already configured."
       },
       "rubric": [
@@ -9226,7 +9241,7 @@
       ],
       "inputPolicy": {
         "infer": "Read behavior contracts, existing runners and test conventions; distinguish fixture setup failure from a behavioral failure.",
-        "assume": "Use the smallest existing local runner and isolated synthetic fixtures that distinguish the requested behavior.",
+        "assume": "Use the smallest existing local runner and isolated synthetic fixtures that distinguish the requested behavior. When the method needs a library, runner, container runtime or load tool the project lacks, name the exact package or tool, the files it changes and any download, and add it only when the request authorizes new dev dependencies or tools; label a hand-written generator without shrinking, or a fake in place of a real dependency, as such.",
         "ask": "Ask about an unresolved contract that changes the expected result, or the target/load limits before external testing; do not ask the user to choose a runner already configured."
       },
       "rubric": [
@@ -9274,7 +9289,7 @@
       ],
       "inputPolicy": {
         "infer": "Read behavior contracts, existing runners and test conventions; distinguish fixture setup failure from a behavioral failure.",
-        "assume": "Use the smallest existing local runner and isolated synthetic fixtures that distinguish the requested behavior.",
+        "assume": "Use the smallest existing local runner and isolated synthetic fixtures that distinguish the requested behavior. When the method needs a library, runner, container runtime or load tool the project lacks, name the exact package or tool, the files it changes and any download, and add it only when the request authorizes new dev dependencies or tools; label a hand-written generator without shrinking, or a fake in place of a real dependency, as such.",
         "ask": "Ask about an unresolved contract that changes the expected result, or the target/load limits before external testing; do not ask the user to choose a runner already configured."
       },
       "rubric": [
@@ -9322,7 +9337,7 @@
       ],
       "inputPolicy": {
         "infer": "Read behavior contracts, existing runners and test conventions; distinguish fixture setup failure from a behavioral failure.",
-        "assume": "Use the smallest existing local runner and isolated synthetic fixtures that distinguish the requested behavior.",
+        "assume": "Use the smallest existing local runner and isolated synthetic fixtures that distinguish the requested behavior. When the method needs a library, runner, container runtime or load tool the project lacks, name the exact package or tool, the files it changes and any download, and add it only when the request authorizes new dev dependencies or tools; label a hand-written generator without shrinking, or a fake in place of a real dependency, as such.",
         "ask": "Ask about an unresolved contract that changes the expected result, or the target/load limits before external testing; do not ask the user to choose a runner already configured."
       },
       "rubric": [
@@ -9370,7 +9385,7 @@
       ],
       "inputPolicy": {
         "infer": "Read behavior contracts, existing runners and test conventions; distinguish fixture setup failure from a behavioral failure.",
-        "assume": "Use the smallest existing local runner and isolated synthetic fixtures that distinguish the requested behavior.",
+        "assume": "Use the smallest existing local runner and isolated synthetic fixtures that distinguish the requested behavior. When the method needs a library, runner, container runtime or load tool the project lacks, name the exact package or tool, the files it changes and any download, and add it only when the request authorizes new dev dependencies or tools; label a hand-written generator without shrinking, or a fake in place of a real dependency, as such.",
         "ask": "Ask about an unresolved contract that changes the expected result, or the target/load limits before external testing; do not ask the user to choose a runner already configured."
       },
       "rubric": [
@@ -9418,7 +9433,7 @@
       ],
       "inputPolicy": {
         "infer": "Read behavior contracts, existing runners and test conventions; distinguish fixture setup failure from a behavioral failure.",
-        "assume": "Use the smallest existing local runner and isolated synthetic fixtures that distinguish the requested behavior.",
+        "assume": "Use the smallest existing local runner and isolated synthetic fixtures that distinguish the requested behavior. When the method needs a library, runner, container runtime or load tool the project lacks, name the exact package or tool, the files it changes and any download, and add it only when the request authorizes new dev dependencies or tools; label a hand-written generator without shrinking, or a fake in place of a real dependency, as such.",
         "ask": "Ask about an unresolved contract that changes the expected result, or the target/load limits before external testing; do not ask the user to choose a runner already configured."
       },
       "rubric": [
@@ -9442,7 +9457,7 @@
         {
           "kind": "edge",
           "mode": "apply",
-          "brief": "Create fixtures that remain isolated when tests run in parallel."
+          "brief": "Build fixtures whose teardown still runs when setup fails halfway through creating an organization."
         },
         {
           "kind": "blocked",
@@ -9466,7 +9481,7 @@
       ],
       "inputPolicy": {
         "infer": "Read behavior contracts, existing runners and test conventions; distinguish fixture setup failure from a behavioral failure.",
-        "assume": "Use the smallest existing local runner and isolated synthetic fixtures that distinguish the requested behavior.",
+        "assume": "Use the smallest existing local runner and isolated synthetic fixtures that distinguish the requested behavior. When the method needs a library, runner, container runtime or load tool the project lacks, name the exact package or tool, the files it changes and any download, and add it only when the request authorizes new dev dependencies or tools; label a hand-written generator without shrinking, or a fake in place of a real dependency, as such.",
         "ask": "Ask about an unresolved contract that changes the expected result, or the target/load limits before external testing; do not ask the user to choose a runner already configured."
       },
       "rubric": [
@@ -9496,6 +9511,10 @@
           "kind": "blocked",
           "mode": "inspect",
           "brief": "Prepare a load-test plan with no authorized endpoint; do not generate traffic."
+        },
+        {
+          "mode": "apply",
+          "brief": "Run the approved staging load test on the search endpoint at up to 100 requests per second for five minutes, stopping above 1 percent errors."
         }
       ],
       "invariants": [
@@ -9514,7 +9533,7 @@
       ],
       "inputPolicy": {
         "infer": "Read behavior contracts, existing runners and test conventions; distinguish fixture setup failure from a behavioral failure.",
-        "assume": "Use the smallest existing local runner and isolated synthetic fixtures that distinguish the requested behavior.",
+        "assume": "Use the smallest existing local runner and isolated synthetic fixtures that distinguish the requested behavior. When the method needs a library, runner, container runtime or load tool the project lacks, name the exact package or tool, the files it changes and any download, and add it only when the request authorizes new dev dependencies or tools; label a hand-written generator without shrinking, or a fake in place of a real dependency, as such.",
         "ask": "Ask about an unresolved contract that changes the expected result, or the target/load limits before external testing; do not ask the user to choose a runner already configured."
       },
       "rubric": [
@@ -9976,6 +9995,10 @@
           "kind": "blocked",
           "mode": "inspect",
           "brief": "Inspect supplied incident evidence without restarting services or sending customer messages."
+        },
+        {
+          "mode": "apply",
+          "brief": "Roll back checkout-api to the previous release and restart the payment worker; I authorize both."
         }
       ],
       "invariants": [
@@ -10120,6 +10143,10 @@
           "kind": "blocked",
           "mode": "inspect",
           "brief": "Draft alerts without sending pages or inventing response ownership."
+        },
+        {
+          "mode": "apply",
+          "brief": "Add a Prometheus alert rule for queue age to monitoring/alerts.yml with rule tests, leaving notifications disabled."
         }
       ],
       "invariants": [
@@ -10257,7 +10284,7 @@
         },
         {
           "kind": "edge",
-          "mode": "plan",
+          "mode": "apply",
           "brief": "Rehearse restore into an isolated database with missing recent transactions."
         },
         {
@@ -10323,7 +10350,7 @@
     {
       "id": "setup",
       "pack": "installation",
-      "brief": "Check my just-vibe installation without changing it.",
+      "brief": "Install just-vibe for Claude Code at user scope.",
       "mode": "apply",
       "requiredEvidence": [
         "Requested operation and target host; Claude scope when applicable."
@@ -10335,21 +10362,21 @@
       },
       "rubric": [
         "Repeated setup does not create duplicate registrations; an existing marketplace with another source stops without replacement.",
-        "Exercise install/repeat/doctor/update/uninstall in isolated host roots and verify native enabled state, source identity and payload version."
+        "Read back the native inventory: source, scope, enabled state and payload version match the request, and for Claude the owned shortcut files report healthy."
       ],
       "technicalMethod": {
         "evidence": "Resolve host, scope, source channel, native plugin inventory and candidate bundled version.",
         "method": "Use the supported installer lifecycle and persistent payload, reconciling existing source identity before update or removal.",
         "pitfall": "A package-manager install alone does not register a native plugin; deleting package cache must not break the managed payload.",
-        "check": "Exercise install/repeat/doctor/update/uninstall in isolated host roots and verify native enabled state, source identity and payload version."
+        "check": "Read back the native inventory: source, scope, enabled state and payload version match the request, and for Claude the owned shortcut files report healthy."
       },
       "stopBehavior": [
         "Dry run does not inspect host state and must not imply it did. No manual global-config edits or credentials embedded in commands."
       ],
       "cases": [
         {
-          "brief": "Check my just-vibe installation without changing it.",
-          "mode": "inspect"
+          "brief": "Install just-vibe for Claude Code at user scope.",
+          "mode": "apply"
         },
         {
           "kind": "edge",
@@ -10433,13 +10460,13 @@
       "rubric": [
         "Pinned user choices survive automatic routing. Profile changes preserve brief, mode, scope, authorization, budgets, attempts and original success criteria.",
         "A profile never creates a subagent, installs tools, changes credentials or claims professional expertise.",
-        "Verify status/change/clear behavior preserves task constraints and that role selection alone starts no unrelated work."
+        "Confirm the recorded selection and pin state match the request and that the brief, constraints and scope are unchanged."
       ],
       "technicalMethod": {
         "evidence": "Read current selection, explicit user pins, task scope and proposed primary/secondary roles.",
         "method": "Preserve pins and apply role priorities through the relevant workflow methods; record selection provenance and conflicts.",
         "pitfall": "Agent inference cannot clear a user pin, and a principal role does not authorize broader architecture changes.",
-        "check": "Verify status/change/clear behavior preserves task constraints and that role selection alone starts no unrelated work."
+        "check": "Confirm the recorded selection and pin state match the request and that the brief, constraints and scope are unchanged."
       },
       "stopBehavior": [
         "Keep an existing pin when an inferred role conflicts; ask only if an explicit conflicting request needs resolution.",
@@ -10485,13 +10512,13 @@
         "Goal state survives a new session and preserves constraints and outstanding work.",
         "Completion is rejected when criteria lack evidence, artifacts changed or blockers remain.",
         "Native host state and local state are reported separately if either could not be updated.",
-        "Try completion before evidence and after an artifact changes; both must remain incomplete until resolved."
+        "Complete a goal only with current evidence for every criterion; an artifact changed since its evidence reopens the affected criteria."
       ],
       "technicalMethod": {
         "evidence": "Current goal revision, completion criteria, constraints, blockers and artifact hashes.",
         "method": "Revision-checked goal records; each criterion has attributed or hashed evidence. Native goal controls are optional and distinct from local persistence.",
         "pitfall": "Treating a saved objective or a process exit as completed work, or treating a goal as blanket permission for external actions.",
-        "check": "Try completion before evidence and after an artifact changes; both must remain incomplete until resolved."
+        "check": "Complete a goal only with current evidence for every criterion; an artifact changed since its evidence reopens the affected criteria."
       },
       "stopBehavior": [
         "Stop dependent work when a required answer, external access or authorization is missing; continue independent authorized work.",
@@ -10537,13 +10564,13 @@
         "Each phase produces the input required by its successor; dependency cycles and stale prerequisites are rejected.",
         "Worker application uses the reviewed result, fresh passing checks and unchanged source scope, preserving staged user work.",
         "The integrated result satisfies the original request; recorded completion or a plan alone is insufficient.",
-        "Try a cyclic graph, a failed prerequisite and a changed accepted file; dispatch must refuse unsafe progression while preserving recoverable results."
+        "Before each downstream dispatch, confirm every accepted result it depends on is still current and its prerequisites passed."
       ],
       "technicalMethod": {
         "evidence": "Current source, acceptance criteria, dependency graph, worker baseline and result hashes, verification records and index state.",
         "method": "Phase contracts followed by a dependency DAG when delegation is authorized. Completed work enters review; only accepted current results unlock dependent work.",
         "pitfall": "Treating successful process exit as correctness, allowing concurrent writers to overlap, or allowing an old accepted result to unlock work after source changes.",
-        "check": "Try a cyclic graph, a failed prerequisite and a changed accepted file; dispatch must refuse unsafe progression while preserving recoverable results."
+        "check": "Before each downstream dispatch, confirm every accepted result it depends on is still current and its prerequisites passed."
       },
       "stopBehavior": [
         "Stop dependent phases on missing required evidence, unresolved overlap, authorization or required user decisions; continue independent useful work.",
@@ -10589,13 +10616,13 @@
         "Review endpoints require the private token and reject cross-origin requests.",
         "Changed artifacts invalidate effective approval; stale or concurrent feedback is rejected until refreshed.",
         "HTML previews remain sandboxed; keyboard and narrow-screen review controls stay usable.",
-        "Edit the artifact after browser approval; effectiveVerdict must become null and a new submission must fail until refresh."
+        "Before relying on effectiveVerdict, confirm the review reports stale false and the approved hash matches the current artifact."
       ],
       "technicalMethod": {
         "evidence": "Artifact content hash, current file, review revision, attributed annotations and effective verdict.",
         "method": "Serve only the saved snapshot through a token-authenticated loopback API. Bind each feedback mutation to both record revision and content hash.",
         "pitfall": "Reusing approval after the underlying plan changed, executing embedded HTML, or granting publication permission from a review decision.",
-        "check": "Edit the artifact after browser approval; effectiveVerdict must become null and a new submission must fail until refresh."
+        "check": "Before relying on effectiveVerdict, confirm the review reports stale false and the approved hash matches the current artifact."
       },
       "stopBehavior": [
         "Do not expose secrets or serve arbitrary project files. If the artifact is too large or unsupported, prepare a bounded review copy within the requested scope.",
@@ -10634,7 +10661,7 @@
       ],
       "inputPolicy": {
         "infer": "Read behavior contracts, existing runners and test conventions; distinguish fixture setup failure from a behavioral failure.",
-        "assume": "Use the smallest existing local runner and isolated synthetic fixtures that distinguish the requested behavior.",
+        "assume": "Use the smallest existing local runner and isolated synthetic fixtures that distinguish the requested behavior. When the method needs a library, runner, container runtime or load tool the project lacks, name the exact package or tool, the files it changes and any download, and add it only when the request authorizes new dev dependencies or tools; label a hand-written generator without shrinking, or a fake in place of a real dependency, as such.",
         "ask": "Ask about an unresolved contract that changes the expected result, or the target/load limits before external testing; do not ask the user to choose a runner already configured."
       },
       "rubric": [
@@ -10643,13 +10670,13 @@
         "Unavailable browser dependencies remain blocked; subjective criteria remain needs-human.",
         "Redirects never contact an unapproved origin; allowed API origins require explicit authorization.",
         "A clipped ancestor must fail layout verification, and an unrelated blocked request must not mask a failed assertion.",
-        "Exercise a deliberately broken flow and a repaired retest; preserve failures, flag changed evidence, and leave subjective or unavailable checks unresolved."
+        "Exercise the failing flow and, after an authorized repair, retest it against the same criteria; preserve failures, flag changed evidence, and leave subjective or unavailable checks unresolved."
       ],
       "technicalMethod": {
         "evidence": "Original request quotes, observed controls, synthetic fixtures, target URL, source snapshot, failed step and hashed screenshots.",
         "method": "Use bounded executable browser actions and assertions in fresh contexts; retain every attempt and compare evidence identities after repairs.",
         "pitfall": "Component presence, HTTP success or a screenshot alone does not establish a successful visitor journey. Remote servers may serve a different revision.",
-        "check": "Exercise a deliberately broken flow and a repaired retest; preserve failures, flag changed evidence, and leave subjective or unavailable checks unresolved."
+        "check": "Exercise the failing flow and, after an authorized repair, retest it against the same criteria; preserve failures, flag changed evidence, and leave subjective or unavailable checks unresolved."
       },
       "stopBehavior": [
         "Stop at the attempt budget; do not weaken expectations or erase failures.",

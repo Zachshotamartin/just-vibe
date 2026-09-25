@@ -17,8 +17,6 @@ Optimize a runtime path only when the semantic and observability contracts remai
 
 Trace allocation, scheduling and resource lifetime through the failing path; distinguish API semantics from implementation behavior before changing runtime mechanisms.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Exercise stress, interruption and resource limits.
@@ -30,8 +28,12 @@ Do not trade defined language behavior for a benchmark improvement.
 
 ## Candidate workflows
 
-- [backend-concurrency](../../skills/backend-concurrency/SKILL.md)
+- [repro](../../skills/repro/SKILL.md)
 - [perf](../../skills/perf/SKILL.md)
 - [test-property](../../skills/test-property/SKILL.md)
+
+## Specialist methods
+
+- [Go, Rust and C++ ownership and concurrency](../methods/systems-languages.md)
 
 Example: Investigate long pauses in a managed runtime.

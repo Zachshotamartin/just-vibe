@@ -11,13 +11,11 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 ## Decision rule
 
-Transform into an appropriate coordinate system before applying distance or area operations.
+Use geodesic (ellipsoidal) distance and area functions, or a projected coordinate system suited to the data extent, before measuring; never measure in raw degrees or a web display projection.
 
 ## Concrete contribution
 
 Make coordinate system, units, topology and time explicit, then test projection and boundary cases that could silently change spatial meaning.
-
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
 
 ## Verify when relevant
 

@@ -17,7 +17,7 @@ Retry only operations whose duplication and partial-success behavior are underst
 
 Produce a transaction and retry table naming the durable owner of each effect, especially the state after a timeout with an uncertain downstream result.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+For how this role compares with other roles on one shared feature, see [the same feature through different roles](../profile-comparisons.md).
 
 ## Verify when relevant
 

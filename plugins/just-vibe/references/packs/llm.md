@@ -8,7 +8,7 @@ Structured output needs schema plus semantic validation, distinct refusal/trunca
 
 RAG separates ingestion, retrieval and generation. Track source identity/freshness and permission filters before ranking. Evaluate candidate recall/ranking using relevance evidence, then grounding/citation and abstention behavior. Injection tests use benign canaries in authorized isolated systems and inspect actions as well as text; no real-secret exfiltration.
 
-Cost accounting includes retries, input/output/cached tokens, verified rate/date assumptions and quality tradeoffs. Missing billing evidence means an estimate, not an observed bill.
+Cost accounting includes retries, input/output/cached tokens, verified rate/date assumptions and quality tradeoffs. Normalize usage per provider before summing or pricing: some APIs include cached tokens in the input total and report them as a detail, others report cache reads and writes separately from input. Record disjoint categories in the usage ledger. Reasoning or thinking tokens are billed as output and often dominate cost and latency: read them from provider usage fields (for example reasoning token details), never estimate them from visible text, and record them inside output. Output caps can include reasoning tokens, so a truncated or empty answer may be a budget outcome rather than a refusal. Missing billing evidence means an estimate, not an observed bill.
 
 ## Applied methods
 

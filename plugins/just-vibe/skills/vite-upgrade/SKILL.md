@@ -1,11 +1,11 @@
 ---
 name: vite-upgrade
-description: "Upgrade Vite and plugins with compatibility and build checks Use for a requested Vite version transition; deps handles general dependency selection."
+description: "Upgrade Vite and plugins with compatibility and build checks. Use for a requested Vite version transition; deps handles general dependency selection."
 ---
 
 # vite-upgrade
 
-Upgrade Vite and plugins with compatibility and build checks
+Upgrade Vite and plugins with compatibility and build checks.
 
 ## Choose this workflow
 
@@ -17,10 +17,10 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply for a requested upgrade; source/target version, framework/plugins, and runtime constraints.
 
-project manifests, lockfile, Vite/framework/plugin versions, and existing build scripts. Verify current version-specific documentation when changing configuration. Requested isolated verification may generate disposable build/cache artifacts; inspect their scripts first and preserve product files.
+**Pack prerequisites:** Project manifests, lockfile, Vite/framework/plugin versions, and existing build scripts. Verify current version-specific documentation when changing configuration. Requested isolated verification may generate disposable build/cache artifacts; inspect their scripts first and preserve product files.
 
 - **Infer from evidence:** Read manifests, lockfile, installed Vite/plugins, entry points, aliases, modes and current build scripts.
-- **Reasonable default:** Preserve existing tooling and base-path conventions; make a local focused change when the brief identifies the behavior.
+- **Reasonable default:** Preserve existing tooling and base-path conventions; in apply mode, make a local focused change when the brief identifies the behavior, and otherwise propose it.
 - **Ask only when needed:** Ask if the intended serving subpath or deployment target cannot be inferred and would change generated URLs; do not ask for versions present in the lockfile.
 
 Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
@@ -33,8 +33,10 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Execute
 
-1. Read relevant migration notes, inspect plugin and Node compatibility, update controlled dependencies/lockfile, adjust deprecated behavior, and test development plus production build.
-2. Check target migration notes and framework-plugin/Node compatibility, update only the required graph and compare dev refresh, production output and preview behavior.
+1. Read the target version's migration notes and check framework-plugin and Node compatibility.
+2. Update only the required dependency graph and lockfile, and adjust deprecated behavior.
+3. Compare dev refresh, production output and preview behavior with the previous version.
+
 ## Technical method
 
 - **Inspect:** Read current/target migration notes, Node support, framework plugin peer ranges and config differences.
@@ -45,7 +47,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 ## Read when relevant
 
 - When a concrete decision or deliverable example would clarify this workflow: [Vite worked example](../../references/examples/vite.md).
-- Creating, editing or reviewing frontend UI, copy, states or visual assets: [Frontend iconography](../../references/frontend-icons.md).
+
 
 ## Decision branches
 
@@ -53,8 +55,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Deliver and verify
 
-- Upgrade patch, compatibility rationale, checks, and rollback steps.
-- Version/peer matrix, configuration changes and dev/build/runtime checks.
+- Upgrade patch with a version/peer matrix, configuration changes, dev/build/runtime checks and rollback steps.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -67,5 +68,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** Upgrade to the specified Vite version and verify framework-plugin compatibility.
-- **edge (apply):** Upgrade Vite while retaining an older framework plugin until a supported replacement exists.
-- **blocked (inspect):** Plan an upgrade with unavailable release-note access; do not guess removed options.
+- **Edge (apply):** Upgrade Vite while retaining an older framework plugin until a supported replacement exists.
+- **Blocked (inspect):** Plan an upgrade with unavailable release-note access; do not guess removed options.

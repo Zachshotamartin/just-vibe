@@ -17,8 +17,6 @@ Resolve a blocking contract before parallel implementation creates incompatible 
 
 Turn the accepted scope into reviewable increments with clear interface ownership, integration checks and the smallest unresolved decision requiring coordination.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Check integrated behavior against the original acceptance criteria.

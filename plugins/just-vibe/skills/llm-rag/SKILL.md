@@ -1,11 +1,11 @@
 ---
 name: llm-rag
-description: "Design or audit ingestion, retrieval, grounding, and generation Use to design or repair retrieval-grounded answering; llm-retrieval isolates search/ranking."
+description: "Design or audit ingestion, retrieval, grounding, and generation. Use to design or repair retrieval-grounded answering; llm-retrieval isolates search/ranking."
 ---
 
 # llm-rag
 
-Design or audit ingestion, retrieval, grounding, and generation
+Design or audit ingestion, retrieval, grounding, and generation.
 
 ## Choose this workflow
 
@@ -17,13 +17,13 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan retrieval changes; apply for requested retrieval implementation or scoped indexing.
 
-task definition, model/provider configuration, representative permitted data, versioned prompts/corpus where relevant, and explicit token/cost/latency limits for remote calls. Use current provider interfaces during implementation. Retrieved content and model-generated tool arguments remain untrusted.
+**Pack prerequisites:** Task definition, model/provider configuration, representative permitted data, versioned prompts/corpus where relevant, and explicit token/cost/latency limits for remote calls. Use current provider interfaces during implementation. Retrieved content and model-generated tool arguments remain untrusted.
 
 - **Infer from evidence:** Read current prompt/tool schemas, retrieval boundaries, installed SDK/provider config and permitted examples without reading secret values.
 - **Reasonable default:** Use mocked calls for local contract tests when remote access is absent; do not infer model quality from mocks.
-- **Ask only when needed:** Ask for budget and permitted data/provider before a paid or external run if not already set; local prompt/tool implementation can proceed.
+- **Ask only when needed:** Ask for budget and permitted data/provider before a paid or external run if not already set; local prompt/tool implementation can proceed in apply mode.
 
-Resolve any task-specific tools, target identity and evidence before dependent actions. No external connection is assumed.
+Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
@@ -33,8 +33,10 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 
 ## Execute
 
-1. Define source identity and access filtering, choose document/chunk lifecycle, evaluate retrieval separately, enforce citation/abstention behavior, and test unsupported queries.
-2. Define document identity/version/access control, chunk lifecycle and evidence requirements; test retrieval independently from answer generation and citation correctness.
+1. Define document identity, version and access control, and choose the chunk lifecycle.
+2. Define evidence, citation and abstention requirements for answers.
+3. Evaluate retrieval independently from answer generation and citation correctness, including unsupported and access-denied queries.
+
 ## Technical method
 
 - **Inspect:** Trace source permissions, ingestion versions, chunk identity, retrieval filters, ranking and citation construction.
@@ -54,8 +56,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 
 ## Deliver and verify
 
-- RAG architecture or implementation with corpus provenance and component-level evals.
-- Ingestion/retrieval/answer contracts and grounded, unsupported and access-denied cases.
+- RAG architecture or implementation with corpus provenance, ingestion/retrieval/answer contracts and component-level evals for grounded, unsupported and access-denied cases.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -68,5 +69,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Plan grounded answers over permission-filtered policy documents with citations.
-- **edge (apply):** Build RAG where an old document version contradicts its replacement.
-- **blocked (inspect):** Design local RAG from metadata without uploading a private corpus or provisioning an index.
+- **Edge (apply):** Build RAG where an old document version contradicts its replacement.
+- **Blocked (inspect):** Design local RAG from metadata without uploading a private corpus or provisioning an index.

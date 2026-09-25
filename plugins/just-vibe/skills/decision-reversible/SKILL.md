@@ -1,11 +1,11 @@
 ---
 name: decision-reversible
-description: "Separate reversible choices from expensive commitments Use to classify and reduce switching cost; decision-spike tests a specific uncertainty."
+description: "Separate reversible choices from expensive commitments. Use to classify and reduce switching cost; decision-spike tests a specific uncertainty."
 ---
 
 # decision-reversible
 
-Separate reversible choices from expensive commitments
+Separate reversible choices from expensive commitments.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan; candidate decisions, migration constraints, contracts, and timeline.
 
-the decision question, constraints, alternatives or permission to identify them, and relevant project evidence. Current vendor claims and prices require current authoritative sources during execution. Scores are decision aids, not facts.
+**Pack prerequisites:** The decision question, constraints, alternatives or permission to identify them, and relevant project evidence. Current vendor claims and prices require current authoritative sources during execution. Scores are decision aids, not facts.
 
 - **Infer from evidence:** Recover hard constraints, the current option, adoption status and stated priorities from the brief and prior decisions.
 - **Reasonable default:** Compare feasible options qualitatively when weights were not supplied; make a reversible conditional recommendation when useful.
@@ -33,8 +33,9 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Identify persisted data, external promises, switching mechanisms, and operational costs; classify reversibility with evidence and design cheaper experiments.
-2. Inventory persisted data, external promises and dependency adoption; distinguish rollback of code from reversal of consequences.
+1. Inventory persisted data, external promises, dependency adoption, switching mechanisms and operational costs.
+2. Classify reversibility with evidence, distinguishing rollback of code from reversal of consequences, and design a cheaper experiment with a usable exit.
+
 ## Technical method
 
 - **Inspect:** Identify persisted data, external promises, migrations, lock-in and rollback dependencies.
@@ -53,8 +54,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Decision map with reversal steps, dependencies, cost drivers, and commitment checkpoints.
-- Reversibility dimensions, exit cost assumptions and experiment boundary.
+- Decision map with reversibility dimensions, reversal steps, exit cost assumptions, dependencies, commitment checkpoints and the experiment boundary.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -67,5 +67,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Identify irreversible commitments in this storage-provider decision.
-- **edge (plan):** Assess a feature flag that sends customer emails.
-- **blocked (inspect):** Assess reversibility with unknown contract terms; identify the missing constraint.
+- **Edge (plan):** Assess a feature flag that sends customer emails.
+- **Blocked (inspect):** Assess reversibility with unknown contract terms; identify the missing constraint.

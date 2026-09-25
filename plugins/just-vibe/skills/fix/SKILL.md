@@ -1,15 +1,15 @@
 ---
 name: fix
-description: "Reproduce a bug, identify its cause, and verify the fix Use when the requested outcome is correcting a demonstrated defect; debug diagnoses without default edits."
+description: "Reproduce a bug, identify its cause, and verify the fix. Use when the requested outcome is correcting a demonstrated defect; debug diagnoses without default edits; security-fix repairs a confirmed vulnerability and checks alternate bypass routes."
 ---
 
 # fix
 
-Reproduce a bug, identify its cause, and verify the fix
+Reproduce a bug, identify its cause, and verify the fix.
 
 ## Choose this workflow
 
-Use when the requested outcome is correcting a demonstrated defect; debug diagnoses without default edits.
+Use when the requested outcome is correcting a demonstrated defect; debug diagnoses without default edits; security-fix repairs a confirmed vulnerability and checks alternate bypass routes.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [General methods](../../references/packs/general.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply; symptom, expected behavior, and reproduction context. Requires source and a reproducible case or reliable failure evidence.
 
-Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
+**Pack prerequisites:** Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
 - **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
 - **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
@@ -37,6 +37,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 2. Trace the failing input through validation, state transitions and the observable result. Choose a focused change that corrects the cause and preserves neighboring valid behavior; distinguish missing, null, zero, false and empty values where the contract does.
 3. Reproduce the original failure, apply the fix and run relevant checks with actual exit statuses. Where a regression test is warranted, derive its expected result independently from the contract and establish that it detects the defect rather than incidental setup failure.
 4. For a multi-phase feature, fix, refactor or MVP, use the relevant phase contract in the composed-workflows guide. Keep simple work direct. Delegate only when authorized, and use the reviewed worker result and acceptance flow before dependent work. Offer the plan-review canvas only when browser feedback is useful or requested.
+
 ## Technical method
 
 - **Inspect:** Establish actual versus expected behavior, reproducible trigger and first causal divergence.
@@ -89,5 +90,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** An expired discount crashes checkout. Reproduce and preserve the error format.
-- **edge (apply):** Fix a null-input crash without changing the behavior of a zero-value input.
-- **blocked (inspect):** Diagnose an intermittent crash with no reproduction; do not claim a verified repair.
+- **Edge (apply):** Fix a null-input crash without changing the behavior of a zero-value input.
+- **Blocked (inspect):** Diagnose an intermittent crash with no reproduction; do not claim a verified repair.

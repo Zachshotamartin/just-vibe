@@ -17,7 +17,7 @@ Keep state local until multiple owners or navigation require a wider lifetime.
 
 For a feature request, produce an interaction/state map tied to components, including stale responses, URL restoration and keyboard recovery; use it to choose the smallest UI change.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+For how this role compares with other roles on one shared feature, see [the same feature through different roles](../profile-comparisons.md).
 
 ## Verify when relevant
 
@@ -33,5 +33,14 @@ Do not replace the design system or state library merely to implement a feature.
 - [react-component](../../skills/react-component/SKILL.md)
 - [react-state](../../skills/react-state/SKILL.md)
 - [ui-states](../../skills/ui-states/SKILL.md)
+
+Also relevant when the task calls for them:
+
+- [react-async](../../skills/react-async/SKILL.md)
+- [react-forms](../../skills/react-forms/SKILL.md)
+
+## Specialist methods
+
+- [React state, async and render evidence](../methods/react-behavior.md)
 
 Example: Add a filterable catalog while preserving deep links.

@@ -17,8 +17,6 @@ Precompute repeated expensive aggregates when freshness and drill-down needs per
 
 Map each dashboard number to its governed metric and refresh state; test filtering and aggregation behavior that could change the interpretation.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Reconcile dashboard values against independent queries.
@@ -32,6 +30,10 @@ A dashboard should not hide freshness or metric-definition differences.
 
 - [data-contract](../../skills/data-contract/SKILL.md)
 - [db-query](../../skills/db-query/SKILL.md)
-- [ui-audit](../../skills/ui-audit/SKILL.md)
+- [data-reconcile](../../skills/data-reconcile/SKILL.md)
+
+Also relevant when the task calls for them:
+
+- [db-access](../../skills/db-access/SKILL.md)
 
 Example: Build an operations dashboard with consistent metrics.

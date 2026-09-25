@@ -1,11 +1,11 @@
 ---
 name: backend-resilience
-description: "Add appropriate timeouts, bounded retries, and failure handling Use for bounded dependency failure behavior; ops-incident handles an active incident."
+description: "Add appropriate timeouts, bounded retries, and failure handling. Use for bounded dependency failure behavior; ops-incident handles an active incident."
 ---
 
 # backend-resilience
 
-Add appropriate timeouts, bounded retries, and failure handling
+Add appropriate timeouts, bounded retries, and failure handling.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply; dependency failure modes, latency budget, retry constraints, and fallback policy.
 
-service source, data/interface contracts, framework/runtime versions, and test environment. Default apply operations target local code and isolated tests; live infrastructure/data mutations require their own requested scope.
+**Pack prerequisites:** Service source, data/interface contracts, framework/runtime versions, and test environment. Default apply operations target local code and isolated tests; live infrastructure/data mutations require their own requested scope.
 
 - **Infer from evidence:** Trace service callers, request contracts, authorization, transactions, retries and existing test infrastructure.
 - **Reasonable default:** Use the existing persistence and framework; isolate local tests from live services.
@@ -33,8 +33,10 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Execute
 
-1. Classify retry-safe operations, allocate end-to-end time budget, implement backoff/jitter where appropriate, propagate cancellation, and simulate partial dependency failures.
-2. Allocate an end-to-end deadline across attempts and dependencies, classify retry-safe effects and control exponential backoff/jitter within the total cap.
+1. Classify which operations and effects are safe to retry.
+2. Allocate an end-to-end deadline across attempts and dependencies, control exponential backoff and jitter within the total cap, and propagate cancellation.
+3. Simulate partial dependency failures.
+
 ## Technical method
 
 - **Inspect:** Inventory end-to-end deadline, nested retries, cancellation owners, concurrency limits and partial effects.
@@ -58,8 +60,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Deliver and verify
 
-- Resilience changes and bounded failure/recovery tests.
-- Timeout/retry/fallback matrix and controlled outage/partial-effect checks.
+- Timeout/retry/fallback matrix with the resilience changes and controlled outage and partial-effect checks.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -72,5 +73,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** Add bounded retry and timeout behavior without duplicating unsafe requests.
-- **edge (apply):** Add retries without multiplying nested dependency attempts beyond the deadline.
-- **blocked (inspect):** Design resilience from contracts without injecting faults into production.
+- **Edge (apply):** Add retries without multiplying nested dependency attempts beyond the deadline.
+- **Blocked (inspect):** Design resilience from contracts without injecting faults into production.

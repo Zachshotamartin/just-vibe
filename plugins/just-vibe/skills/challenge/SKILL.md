@@ -1,11 +1,11 @@
 ---
 name: challenge
-description: "Identify weak assumptions, complexity, and failure cases Use to test a proposal's assumptions, not to manufacture objections; decision-premortem explores a future failure story."
+description: "Identify weak assumptions, complexity, and failure cases. Use to test a proposal's assumptions, not to manufacture objections; decision-premortem explores a future failure story."
 ---
 
 # challenge
 
-Identify weak assumptions, complexity, and failure cases
+Identify weak assumptions, complexity, and failure cases.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; proposal, plan, architecture, or hypothesis and its success criteria.
 
-Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
+**Pack prerequisites:** Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
 - **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
 - **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
@@ -33,8 +33,10 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Identify critical assumptions, search for disconfirming evidence, construct plausible edge cases, and rank issues by impact and likelihood.
-2. Extract falsifiable assumptions and seek counterexamples in current code, workload and constraints; distinguish observed defects from speculative risks.
+1. Extract the critical assumptions as falsifiable claims.
+2. Seek disconfirming evidence and plausible edge cases in current code, workload and constraints.
+3. Rank issues by impact and likelihood, distinguishing observed defects from speculative risks.
+
 ## Technical method
 
 - **Inspect:** Inspect the proposal's claimed benefits, assumptions, constraints and failure/recovery model.
@@ -53,8 +55,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Evidence-backed challenges, questions that matter, and smaller or more robust alternatives.
-- Ranked challenges with trigger, consequence, evidence and discriminating experiment.
+- Ranked challenges, each with its trigger, consequence, evidence and a discriminating experiment, plus smaller or more robust alternatives where they exist.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -67,5 +68,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Challenge the assumption that every notification needs a separate service.
-- **edge (inspect):** Challenge a cache proposal whose stale data could affect authorization.
-- **blocked (inspect):** Challenge this proposal without traffic data; do not invent capacity limits.
+- **Edge (inspect):** Challenge a cache proposal whose stale data could affect authorization.
+- **Blocked (inspect):** Challenge this proposal without traffic data; do not invent capacity limits.

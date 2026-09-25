@@ -1,15 +1,15 @@
 ---
 name: ml-explain
-description: "Investigate behavior with appropriate explanation methods and limits Use to interpret model behavior; explain describes code and teach explains concepts."
+description: "Investigate behavior with appropriate explanation methods and limits. Use to interpret model behavior; explain describes code, teach explains concepts, and ml-ablation measures a feature group's contribution to held-out performance by retraining without it."
 ---
 
 # ml-explain
 
-Investigate behavior with appropriate explanation methods and limits
+Investigate behavior with appropriate explanation methods and limits.
 
 ## Choose this workflow
 
-Use to interpret model behavior; explain describes code and teach explains concepts.
+Use to interpret model behavior; explain describes code, teach explains concepts, and ml-ablation measures a feature group's contribution to held-out performance by retraining without it.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [ML evaluation methods](../../references/packs/ml-evaluation.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; model, prediction/global behavior question, data access, and audience.
 
-frozen model/artifact, evaluation dataset identity, labels where needed, metric definitions, and task/operating context. Report sample counts and uncertainty appropriate to dependencies; avoid repeated test-set tuning. Exploratory findings need fresh confirmation before strong generalization claims.
+**Pack prerequisites:** Frozen model/artifact, evaluation dataset identity, labels where needed, metric definitions, and task/operating context. Report sample counts and uncertainty appropriate to dependencies; avoid repeated test-set tuning. Exploratory findings need fresh confirmation before strong generalization claims.
 
 - **Infer from evidence:** Read frozen model/data identities, metric definitions, denominators and supplied predictions; separate validation from test use.
 - **Reasonable default:** Compute only supported metrics on permitted samples and label missing labels or subgroup coverage as unknown.
@@ -33,8 +33,9 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Choose a method compatible with the model/question, inspect baseline/background dependence, check stability/correlated features, and connect explanations to actual examples.
-2. State whether the question concerns one prediction or global behavior, select a compatible method and examine background data and correlated-feature sensitivity.
+1. State whether the question concerns one prediction or global behavior, and choose a compatible method.
+2. Examine background or baseline data dependence, stability and correlated-feature sensitivity, and connect explanations to actual examples.
+
 ## Technical method
 
 - **Inspect:** Resolve whether the question is global behavior, a local prediction, debugging or causal effect.
@@ -45,8 +46,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 ## Read when relevant
 
 - When a concrete decision or deliverable example would clarify this workflow: [ML evaluation worked example](../../references/examples/ml-evaluation.md).
-- The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method: [PyTorch autograd, device and distributed debugging](../../references/methods/pytorch-debug.md).
-- The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method: [Retrieval, ranking and recommendation evaluation](../../references/methods/recommender-systems.md).
+
 
 ## Decision branches
 
@@ -54,8 +54,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Explanation, method/settings, supporting evidence, and limits.
-- Method/question fit, example explanations, stability checks and limitations.
+- Explanation with method/question fit, settings, example explanations, stability checks and limitations.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -68,5 +67,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Explain these predictions and separate feature association from causation.
-- **edge (inspect):** Explain correlated feature importance without implying causation.
-- **blocked (inspect):** Plan explanations without model artifacts or expensive inference authorization.
+- **Edge (inspect):** Explain correlated feature importance without implying causation.
+- **Blocked (inspect):** Plan explanations without model artifacts or expensive inference authorization.

@@ -1,11 +1,11 @@
 ---
 name: coverage
-description: "Identify important untested behaviors and prioritize them Use to prioritize missing behavioral checks; test implements the selected cases."
+description: "Identify important untested behaviors and prioritize them. Use to prioritize missing behavioral checks; test implements the selected cases."
 ---
 
 # coverage
 
-Identify important untested behaviors and prioritize them
+Identify important untested behaviors and prioritize them.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; subsystem/change and existing test or coverage evidence.
 
-Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
+**Pack prerequisites:** Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
 - **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
 - **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
@@ -29,23 +29,24 @@ Declared evidence requirements: `project.read`. Use actual host discovery or ade
 
 Important missing behavioral coverage; no automatic test generation or percentage chasing.
 
-No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
+No source changes in inspect/plan. Save only requested planning artifacts. A requested audit may demonstrate an escaping defect only in an owned temporary copy or fixture; never edit or reset the reviewed tree. The test workflow implements the selected cases.
 
 ## Execute
 
-1. Map requirements and failure paths to tests, inspect assertions rather than names, and rank gaps by consequence and likelihood.
-2. Trace important failure and recovery paths to actual assertions; look for tests that pass when the requirement is deliberately violated.
+1. Map requirements and important failure and recovery paths to the actual assertions, not test names.
+2. Look for tests that would still pass if the requirement were deliberately violated, and rank gaps by consequence and likelihood.
+
 ## Technical method
 
 - **Inspect:** Map requirements and failure modes to existing tests and observed execution.
 - **Method:** Prioritize unprotected invariants and boundary cases over raw line percentage.
 - **Avoid misdiagnosis:** Executed lines do not establish meaningful assertions; mocks can leave the real boundary untested.
-- **Check the result:** Demonstrate an important plausible defect that escapes current checks and specify the smallest test that would catch it.
+- **Check the result:** Show by source trace, or by a temporary mutation in an owned copy, an important plausible defect that escapes current checks, and specify the smallest test that would catch it.
 
 ## Read when relevant
 
 - When a concrete decision or deliverable example would clarify this workflow: [General worked example](../../references/examples/general.md).
-
+- Choosing a test layer, independent assertions, or regression, flaky and property checks: [Testing methods](../../references/packs/testing.md).
 
 ## Decision branches
 
@@ -53,8 +54,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Prioritized test opportunities with suggested layer, setup, and expected assertion.
-- Ranked gap table with consequence, setup, layer and expected assertion.
+- Ranked gap table with consequence, suggested layer, setup and expected assertion.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -62,10 +62,10 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 ## Stop and recover
 
-- Distinguish measured coverage from inferred coverage. Running new coverage jobs requires execution authorization.
+- Distinguish measured coverage from inferred coverage. Running the existing suite with coverage is bounded local execution; installing coverage tools or adding CI jobs is a separate implementation request.
 
 ## Example requests
 
 - **Normal (inspect):** Identify the highest-risk untested billing behaviors from existing tests.
-- **edge (inspect):** Audit coverage of failed checkout retries despite 95 percent line coverage.
-- **blocked (inspect):** Inspect test sources without a coverage report; avoid claiming measured percentages.
+- **Edge (inspect):** Audit coverage of failed checkout retries despite 95 percent line coverage.
+- **Blocked (inspect):** Inspect test sources without a coverage report; avoid claiming measured percentages.

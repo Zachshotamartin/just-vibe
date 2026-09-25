@@ -1,15 +1,15 @@
 ---
 name: arch-contracts
-description: "Define interfaces and contracts between components or services Use for contracts across services or modules; api-openapi maintains a concrete HTTP schema."
+description: "Define interfaces and contracts between components or services. Use for contracts across services or modules; api-openapi maintains a concrete HTTP schema, api-breaking assesses a concrete change's consumer impact, and data-contract owns dataset/field semantics and freshness."
 ---
 
 # arch-contracts
 
-Define interfaces and contracts between components or services
+Define interfaces and contracts between components or services.
 
 ## Choose this workflow
 
-Use for contracts across services or modules; api-openapi maintains a concrete HTTP schema.
+Use for contracts across services or modules; api-openapi maintains a concrete HTTP schema, api-breaking assesses a concrete change's consumer impact, and data-contract owns dataset/field semantics and freshness.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Architecture methods](../../references/packs/architecture.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan; producer/consumer boundaries, versions, and compatibility requirements.
 
-readable source, infrastructure/configuration definitions, and any supplied system documentation. Runtime telemetry is optional evidence, never assumed available. Architecture proposals remain plans until implementation is requested.
+**Pack prerequisites:** Readable source, infrastructure/configuration definitions, and any supplied system documentation. Runtime telemetry is optional evidence, never assumed available. Architecture proposals remain plans until implementation is requested.
 
 - **Infer from evidence:** Trace current entry points, data owners, deployment units and documented constraints before proposing boundaries.
 - **Reasonable default:** Prefer extending an existing owner while scale or organizational evidence is absent; mark capacity estimates as assumptions.
@@ -33,8 +33,10 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Inventory actual consumers, compare current payloads and assumptions, define required/optional fields and errors, and design compatibility tests and deprecation steps.
-2. Inventory writers/readers, nullable and optional semantics, version negotiation and error behavior; include independently deployed consumers.
+1. Inventory actual writers and readers, including independently deployed consumers, and compare their current payloads and assumptions.
+2. Define required, optional and nullable fields, version negotiation and error behavior.
+3. Design compatibility tests and deprecation steps for each consumer.
+
 ## Technical method
 
 - **Inspect:** Read producer serializers, consumer decoders, timeout settings and ownership of fields and errors.
@@ -53,8 +55,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Versioned contract proposal with examples and consumer obligations.
-- Contract examples, consumer compatibility matrix and deprecation gates.
+- Versioned contract proposal with examples, a consumer compatibility matrix, consumer obligations and deprecation gates.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -67,5 +68,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Define a versioned order-created contract that existing consumers can still read.
-- **edge (plan):** Evolve an event field while an offline consumer remains on an old version.
-- **blocked (inspect):** Review a contract without a complete consumer inventory; avoid universal compatibility claims.
+- **Edge (plan):** Evolve an event field while an offline consumer remains on an old version.
+- **Blocked (inspect):** Review a contract without a complete consumer inventory; avoid universal compatibility claims.

@@ -1,15 +1,15 @@
 ---
 name: security-inputs
-description: "Audit validation and injection risks at input boundaries Use for injection and unsafe interpreter boundaries; llm-injection handles model instruction confusion."
+description: "Audit validation and injection risks at input boundaries. Use for injection and unsafe interpreter boundaries; llm-injection handles model instruction confusion, and security-fix repairs a confirmed injection."
 ---
 
 # security-inputs
 
-Audit validation and injection risks at input boundaries
+Audit validation and injection risks at input boundaries.
 
 ## Choose this workflow
 
-Use for injection and unsafe interpreter boundaries; llm-injection handles model instruction confusion.
+Use for injection and unsafe interpreter boundaries; llm-injection handles model instruction confusion, and security-fix repairs a confirmed injection.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Security methods](../../references/packs/security.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; entry points, input formats, interpreters/sinks, and relevant source.
 
-defined application boundary, authorized code/environment, relevant trust/access rules, and evidence sources. Default to defensive inspection; active tests use owned or explicitly authorized isolated targets. Minimize sensitive evidence and never print usable credentials.
+**Pack prerequisites:** Defined application boundary, authorized code/environment, relevant trust/access rules, and evidence sources. Default to defensive inspection; active tests use owned or explicitly authorized isolated targets. Minimize sensitive evidence and never print usable credentials.
 
 - **Infer from evidence:** Resolve the requested surface, source/runtime version, reachable callers and actual trust/access boundaries.
 - **Reasonable default:** Start with source analysis and bounded owned fixtures; treat scanner output as leads and preserve legitimate controls.
@@ -33,8 +33,10 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Trace untrusted values through transformations to sensitive sinks, assess contextual escaping/parameterization, distinguish validation from authorization, and propose safe regression cases.
-2. Trace source, transformations, validation and final sink; assess parameterization or contextual encoding at the actual interpreter boundary.
+1. Trace each untrusted value from its source through transformations and validation to the final sink.
+2. Assess parameterization or contextual encoding at the actual interpreter boundary, distinguishing validation from authorization.
+3. Propose safe regression cases.
+
 ## Technical method
 
 - **Inspect:** Identify attacker-controlled sources, transformations and actual SQL/shell/template/URL/parser/path sinks.
@@ -58,8 +60,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Evidence-backed findings or justified protections with focused remediation.
-- Source-to-sink path, required conditions and safe regression fixture.
+- Evidence-backed findings or justified protections with the source-to-sink path, required conditions, focused remediation and a safe regression fixture.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -72,5 +73,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Trace untrusted filters to SQL and template sinks without active remote probing.
-- **edge (inspect):** Review SQL and template paths where only one uses unsafe concatenation.
-- **blocked (inspect):** Inspect source without sending destructive payloads or probing third parties.
+- **Edge (inspect):** Review SQL and template paths where only one uses unsafe concatenation.
+- **Blocked (inspect):** Inspect source without sending destructive payloads or probing third parties.

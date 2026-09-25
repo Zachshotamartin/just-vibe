@@ -1,11 +1,11 @@
 ---
 name: llm-cost
-description: "Measure token use, latency, caching opportunities, and routing tradeoffs Use to measure LLM spend and cost-preserving alternatives; llm-evals measures task quality."
+description: "Measure token use, latency, caching opportunities, and routing tradeoffs. Use to measure LLM spend and cost-preserving alternatives; llm-evals measures task quality."
 ---
 
 # llm-cost
 
-Measure token use, latency, caching opportunities, and routing tradeoffs
+Measure token use, latency, caching opportunities, and routing tradeoffs.
 
 ## Choose this workflow
 
@@ -17,13 +17,13 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; usage/latency records, task mix, quality requirements, and current verified pricing when calculating cost.
 
-task definition, model/provider configuration, representative permitted data, versioned prompts/corpus where relevant, and explicit token/cost/latency limits for remote calls. Use current provider interfaces during implementation. Retrieved content and model-generated tool arguments remain untrusted.
+**Pack prerequisites:** Task definition, model/provider configuration, representative permitted data, versioned prompts/corpus where relevant, and explicit token/cost/latency limits for remote calls. Use current provider interfaces during implementation. Retrieved content and model-generated tool arguments remain untrusted.
 
 - **Infer from evidence:** Read current prompt/tool schemas, retrieval boundaries, installed SDK/provider config and permitted examples without reading secret values.
 - **Reasonable default:** Use mocked calls for local contract tests when remote access is absent; do not infer model quality from mocks.
-- **Ask only when needed:** Ask for budget and permitted data/provider before a paid or external run if not already set; local prompt/tool implementation can proceed.
+- **Ask only when needed:** Ask for budget and permitted data/provider before a paid or external run if not already set; local prompt/tool implementation can proceed in apply mode.
 
-Declared evidence requirements: `ml.artifacts`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
+Declared evidence requirements: `telemetry.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
@@ -33,11 +33,13 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Reconcile billed versus estimated usage, separate input/output/cached tokens, identify expensive failure loops, and propose bounded comparisons preserving task quality.
-2. Reconcile provider usage with input/output/cached tokens and retries; verify dated pricing and include failed runs in per-completed-task cost.
+1. Reconcile billed provider usage with estimates and retries, normalizing each provider to disjoint categories first (uncached input, output, cache reads, cache writes), since some APIs count cached tokens inside input and others report them separately.
+2. Read reasoning or thinking tokens from the provider usage report (billed as output, never estimated from visible text), verify dated pricing, and include failed runs in per-completed-task cost.
+3. Identify expensive failure loops and propose bounded comparisons that preserve task quality.
+
 ## Technical method
 
-- **Inspect:** Measure all requests, retries, failures, cached/uncached inputs, outputs and latency by task outcome.
+- **Inspect:** Measure all requests, retries, failures, cached/uncached inputs, outputs, reasoning or thinking tokens from provider usage fields, and latency by task outcome.
 - **Method:** Compare routes at matched quality requirements using dated verified prices and explicit privacy/transfer constraints.
 - **Avoid misdiagnosis:** Lower price per call can raise cost per completed task through retries or quality failures.
 - **Check the result:** Reconcile usage totals with actual calls and compare successful outcomes, latency and failure rates under the same cases.
@@ -45,7 +47,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 ## Read when relevant
 
 - When a concrete decision or deliverable example would clarify this workflow: [LLMs and retrieval worked example](../../references/examples/llm.md).
-
+- Recording or pricing observed usage with usage observe, pricing and report: [Usage ledger](../../references/runtime-expansion.md).
 
 ## Decision branches
 
@@ -53,8 +55,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Cost/latency breakdown, rate/date assumptions, and optimization priorities.
-- Usage/rate assumptions, total and per-success cost, quality comparison and uncertainty.
+- Cost/latency breakdown with usage and dated rate assumptions, total and per-success cost, quality comparison, uncertainty and optimization priorities.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -67,5 +68,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Analyze these token and retry records with explicit pricing assumptions.
-- **edge (inspect):** Analyze a retry loop whose successful responses hide expensive failed attempts.
-- **blocked (inspect):** Estimate from incomplete usage records without inventing current prices.
+- **Edge (inspect):** Analyze a retry loop whose successful responses hide expensive failed attempts.
+- **Blocked (inspect):** Estimate from incomplete usage records without inventing current prices.

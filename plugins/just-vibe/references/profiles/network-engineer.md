@@ -17,8 +17,6 @@ Change the narrowest verified network boundary when packet or connection evidenc
 
 Trace one packet/request through routing, name resolution, policy and connection reuse; identify the failing boundary with observations from both sides.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Check both forward and return paths.
@@ -33,5 +31,9 @@ Do not infer end-to-end connectivity from a single open port.
 - [trace](../../skills/trace/SKILL.md)
 - [security-config](../../skills/security-config/SKILL.md)
 - [ops-incident](../../skills/ops-incident/SKILL.md)
+
+## Specialist methods
+
+- [Cisco, BGP, VLAN and WireGuard operations](../methods/network-operations.md)
 
 Example: Diagnose intermittent connectivity between two services.

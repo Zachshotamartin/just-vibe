@@ -1,6 +1,6 @@
 import { realpathSync, statSync, readFileSync, accessSync, constants } from 'node:fs';
 import { resolve } from 'node:path';
-import { CAPABILITIES, availability, searchCommands, invocation, getCommand } from './catalog.mjs';
+import { CAPABILITIES, HOSTS, availability, searchCommands, invocation, getCommand } from './catalog.mjs';
 import { findExecutable, gitRead } from './project.mjs';
 import { routeContext, rankCandidates, intentSignals, executionStrategy } from './routing.mjs';
 
@@ -47,19 +47,31 @@ export function discoverCapabilities(root = process.cwd(), { report, git = gitRe
     note: 'Executable presence is not authentication. Host reports are session evidence, not permission grants. No external services were contacted.' };
 }
 
-export function listTools(catalog, discovery, { query = '', pack, available = false, all = false, host = 'claude', limit = 1000 } = {}) {
-  return searchCommands(catalog, query, { pack, limit: 1000 }).map(({ command, score }) => ({
-    id: command.id, pack: command.pack, summary: command.summary, aliasOf: command.aliasOf,
+// The router never suggests these entry points; they are selected explicitly.
+export const UNROUTED = ['auto', 'do', 'help', 'tools', 'setup'];
+
+export function toolEntry(catalog, discovery, command, host) {
+  return { id: command.id, pack: command.pack, summary: command.summary, aliasOf: command.aliasOf,
     defaultMode: command.defaultMode, invocation: invocation(command, host), example: command.examples[0],
     implementationStatus: command.implementationStatus, executionModel: command.executionModel,
-    validation: command.validation, score, ...availability(catalog, command, discovery.capabilities, host),
+    // Adapter hosts load the same skill files, so prerequisite checks use the Claude mapping.
+    validation: command.validation, ...availability(catalog, command, discovery.capabilities, HOSTS.includes(host) ? host : 'claude') };
+}
+
+export function listTools(catalog, discovery, { query = '', pack, available = false, all = false, host = 'claude', limit = 1000 } = {}) {
+  return searchCommands(catalog, query, { pack, limit: 1000 }).map(({ command, score }) => ({
+    ...toolEntry(catalog, discovery, command, host), score,
   })).filter(c => (all || !['planned', 'uninstalled', 'unsupported'].includes(c.status)) && (!available || c.status === 'available')).slice(0, limit);
 }
 
+// Routing reads the first 16,000 characters, the same bound as the hook path: intent rules scan
+// with unbounded gaps, so a pasted megabyte log would take minutes. The full brief is still returned.
+export const ROUTE_TEXT = 16000;
 export function recommend(catalog, discovery, brief, { host = 'claude', limit = 3, context = routeContext(discovery.root) } = {}) {
   if (typeof brief !== 'string' || !brief.trim()) throw new Error('A routing goal is required.');
   if (!Number.isInteger(limit) || limit < 1 || limit > 1000) throw Error('limit must be between 1 and 1000.');
-  const signals = intentSignals(brief);
+  const routed = brief.length > ROUTE_TEXT ? brief.slice(0, ROUTE_TEXT) : brief;
+  const signals = intentSignals(routed);
   // An explicit prefix selects exactly one workflow, including auto/tools/help.
   // Unknown names fail instead of falling through to incidental task keywords.
   if (signals.explicit) {
@@ -67,27 +79,32 @@ export function recommend(catalog, discovery, brief, { host = 'claude', limit = 
     const candidate = { ...listTools(catalog, discovery, { query: command.id, host, all: true })[0],
       matchedNames: [signals.explicit.id], selectionReasons: ['Workflow selected explicitly'] };
     return { brief, commandBrief: signals.explicit.brief, invokedAs: signals.explicit.invocation,
-      executableHere: false, context, strategy: executionStrategy(brief, [candidate]), recommendations: [candidate],
+      executableHere: false, context, strategy: executionStrategy(routed, [candidate]), recommendations: [candidate],
       confidence: 'explicit', instruction: 'Load the selected installed workflow; preserve its mode, constraints and host permissions. An invocation is not an authorization bypass.',
       available: candidate.status === 'available' ? [candidate] : [], unavailable: candidate.status === 'available' ? [] : [candidate] };
   }
   const query = signals.positive.trim();
   const matches = (/[a-z0-9]/i.test(query) ? listTools(catalog, discovery, { query, host, all: true, limit: catalog.commands.length }) : [])
-    .filter(c => !['auto', 'do', 'help', 'tools', 'setup'].includes(c.id));
+    .filter(c => !UNROUTED.includes(c.id));
+  // A rule names workflows the words may not; it adds them with no lexical credit, so the
+  // rule boost and the request text decide the order rather than a synthetic exact-id score.
   for (const rule of signals.matches) for (const id of rule.ids) {
-    if (catalog.commands.some(c => c.id === id) && !matches.some(c => c.id === id)) matches.push(...listTools(catalog, discovery, { query: id, host, all: true }));
+    const command = catalog.commands.find(c => c.id === id);
+    if (command && !matches.some(c => c.id === id)) matches.push({ ...toolEntry(catalog, discovery, command, host), score: 0 });
   }
+  // Collapse aliases into their canonical workflow: canonical contract fields, best score.
   const unique = new Map();
   for (const match of matches) {
     const id = match.aliasOf || match.id;
-    if (unique.has(id)) { unique.get(id).matchedNames.push(match.id); continue; }
     const canonical = getCommand(catalog, id);
-    unique.set(id, { ...match, id, aliasOf: undefined, summary: canonical.summary,
-      invocation: invocation(canonical, host), matchedNames: [match.id] });
+    const existing = unique.get(id);
+    if (existing) { existing.matchedNames.push(match.id); existing.score = Math.max(existing.score, match.score); continue; }
+    unique.set(id, { ...toolEntry(catalog, discovery, canonical, host), score: match.score, matchedNames: [match.id] });
   }
-  const candidates = rankCandidates([...unique.values()], brief, context);
+  const candidates = rankCandidates([...unique.values()], routed, context, signals);
   return { brief, executableHere: false,
-    context, strategy: executionStrategy(brief, candidates), recommendations: candidates.slice(0, limit),
+    ...(routed !== brief ? { routedCharacters: ROUTE_TEXT } : {}),
+    context, strategy: executionStrategy(routed, candidates), recommendations: candidates.slice(0, limit),
     confidence: candidates.length === 0 ? 'no-match' : candidates.length > 1 && candidates[0].score - candidates[1].score < 12 ? 'ambiguous' : 'candidate',
     instruction: 'Candidates only. The active host agent must resolve intent, context, scope, and authority before selecting and executing a route. Do not execute keyword matches blindly.',
     available: candidates.filter(c => c.status === 'available').slice(0, limit),

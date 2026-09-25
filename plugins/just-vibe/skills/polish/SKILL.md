@@ -1,11 +1,11 @@
 ---
 name: polish
-description: "Refine hierarchy, spacing, typography, and interaction details Use for focused refinement of existing UI; design handles a larger visual direction change."
+description: "Refine hierarchy, spacing, typography, and interaction details. Use for focused refinement of existing UI; design handles a larger visual direction change."
 ---
 
 # polish
 
-Refine hierarchy, spacing, typography, and interaction details
+Refine hierarchy, spacing, typography, and interaction details.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply; existing UI, target screens, and desired refinements. Requires runnable UI or supplied render evidence.
 
-Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
+**Pack prerequisites:** Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
 - **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
 - **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
@@ -33,8 +33,10 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Execute
 
-1. Inspect baseline renders, prioritize visible issues, adjust shared tokens/components where appropriate, and compare the same states after changes.
-2. Capture the same viewport/state before editing; fix the dominant hierarchy, spacing or alignment issue at the shared primitive when appropriate.
+1. Capture baseline renders of the target viewport and state before editing, and prioritize the visible issues.
+2. Fix the dominant hierarchy, spacing or alignment issue first, at the shared token or primitive when appropriate.
+3. Compare the same viewport and state after the change.
+
 ## Technical method
 
 - **Inspect:** Inspect rendered hierarchy, spacing, typography, alignment and interaction feedback in the existing design.
@@ -48,6 +50,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 - Creating, editing or reviewing frontend UI, copy, states or visual assets: [Frontend iconography](../../references/frontend-icons.md).
 - The affected project uses Flutter: [Flutter](../../references/frameworks/flutter.md).
 - The affected project uses React Native / Expo: [React Native / Expo](../../references/frameworks/react-native.md).
+- Choosing states, viewports, token changes or capture conditions for visual work: [UI methods](../../references/packs/ui.md).
 
 ## Decision branches
 
@@ -55,8 +58,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Deliver and verify
 
-- Focused UI improvements and before/after evidence.
-- Comparable before/after views and the behavior preserved by the refinement.
+- Focused UI refinements with comparable before/after views and the behavior they preserve.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -69,5 +71,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** Improve spacing and hierarchy on billing without changing the flow.
-- **edge (apply):** Polish a form without shrinking touch targets or losing error messages.
-- **blocked (inspect):** Review screenshots only; identify refinements without claiming rendered verification.
+- **Edge (apply):** Polish a form without shrinking touch targets or losing error messages.
+- **Blocked (inspect):** Review screenshots only; identify refinements without claiming rendered verification.

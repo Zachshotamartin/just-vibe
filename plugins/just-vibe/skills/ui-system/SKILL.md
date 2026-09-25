@@ -1,15 +1,15 @@
 ---
 name: ui-system
-description: "Establish typography, spacing, colors, tokens, and component conventions Use to establish or refine shared design tokens/components; polish makes local refinements."
+description: "Establish typography, spacing, colors, tokens, and component conventions. Use to establish or refine shared design tokens/components; polish makes local refinements and build implements an accepted adoption."
 ---
 
 # ui-system
 
-Establish typography, spacing, colors, tokens, and component conventions
+Establish typography, spacing, colors, tokens, and component conventions.
 
 ## Choose this workflow
 
-Use to establish or refine shared design tokens/components; polish makes local refinements.
+Use to establish or refine shared design tokens/components; polish makes local refinements and build implements an accepted adoption.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [UI and frontend methods](../../references/packs/ui.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan; existing screens, brand constraints, reusable components, and desired consistency.
 
-target screens/flows, existing design conventions, and runnable UI or supplied references. Visual claims require actual renders; accessibility claims distinguish automated, keyboard, and assistive-technology evidence.
+**Pack prerequisites:** Target screens/flows, existing design conventions, and runnable UI or supplied references. Visual claims require actual renders; accessibility claims distinguish automated, keyboard, and assistive-technology evidence.
 
 - **Infer from evidence:** Inspect the target flow, existing components/tokens, actual renders or supplied references and current responsive behavior.
 - **Reasonable default:** Reuse established visual conventions and preserve keyboard behavior; label unrendered changes as visually unverified.
@@ -27,14 +27,16 @@ Declared evidence requirements: `project.read`. Use actual host discovery or ade
 
 ## Scope
 
-Tokens and component conventions; implementation requires an explicit build/adoption request.
+Tokens and component conventions; implementing an adoption is a separate build or polish request.
 
 No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-1. Inventory existing values, identify a coherent scale, define semantic tokens and component states, and plan incremental adoption without visual regressions.
-2. Inventory actual repeated values and component states; separate semantic roles from raw scales and define incremental adoption with representative specimens.
+1. Inventory actual repeated values and component states.
+2. Define semantic token roles over a small coherent raw scale, and the component states they cover.
+3. Plan incremental adoption with representative specimens that show no visual regressions.
+
 ## Technical method
 
 - **Inspect:** Inventory repeated tokens, typography, spacing, component states and existing theme contracts.
@@ -56,8 +58,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Typography/spacing/color/state system and migration mapping or authorized implementation.
-- Token roles/scales, component state matrix and migration examples.
+- Token roles and scales for typography, spacing, color and state, a component state matrix, and a migration mapping with examples.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -70,5 +71,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Plan semantic design tokens from the existing screens and brand constraints.
-- **edge (plan):** Consolidate spacing and color tokens across light and dark settings screens.
-- **blocked (inspect):** Plan a system from existing UI without replacing unavailable brand assets.
+- **Edge (plan):** Plan consolidating spacing and color tokens across light and dark settings screens.
+- **Blocked (inspect):** Plan a system from existing UI without replacing unavailable brand assets.

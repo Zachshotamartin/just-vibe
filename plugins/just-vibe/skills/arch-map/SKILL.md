@@ -1,11 +1,11 @@
 ---
 name: arch-map
-description: "Map services, packages, data stores, external dependencies, and relationships Use for deployed service/store topology; map covers repository modules."
+description: "Map deployed services, data stores, external providers and their runtime relationships. Use for deployed service/store topology; map covers repository modules."
 ---
 
 # arch-map
 
-Map services, packages, data stores, external dependencies, and relationships
+Map deployed services, data stores, external providers and their runtime relationships.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; system boundary, services/environments, and desired detail.
 
-readable source, infrastructure/configuration definitions, and any supplied system documentation. Runtime telemetry is optional evidence, never assumed available. Architecture proposals remain plans until implementation is requested.
+**Pack prerequisites:** Readable source, infrastructure/configuration definitions, and any supplied system documentation. Runtime telemetry is optional evidence, never assumed available. Architecture proposals remain plans until implementation is requested.
 
 - **Infer from evidence:** Trace current entry points, data owners, deployment units and documented constraints before proposing boundaries.
 - **Reasonable default:** Prefer extending an existing owner while scale or organizational evidence is absent; mark capacity estimates as assumptions.
@@ -33,8 +33,9 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Reconcile source, deployment configuration, and documentation; identify ownership and protocols; trace a representative request and background process; label inferred edges.
-2. Trace one request and one background operation, marking process, network, ownership and trust boundaries independently.
+1. Reconcile source, deployment configuration and documentation to identify services, stores, owners and protocols.
+2. Trace one request and one background operation, marking process, network, ownership and trust boundaries independently; label inferred edges.
+
 ## Technical method
 
 - **Inspect:** Inspect composition roots, manifests, outbound clients, infrastructure definitions and queue registrations; associate each edge with its source.
@@ -53,8 +54,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- System diagram, component inventory, data/control flows, and evidence gaps.
-- Nodes/edges with protocol, owner, data classification and evidence confidence.
+- System diagram and component inventory whose edges carry protocol, owner, data classification and evidence confidence, with data/control flows and evidence gaps.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -67,5 +67,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Map our web app, workers, shared database, and external payment service.
-- **edge (inspect):** Map two services sharing a database but no source imports.
-- **blocked (inspect):** Map supplied manifests without infrastructure access; distinguish intended from observed deployment.
+- **Edge (inspect):** Map two services sharing a database but no source imports.
+- **Blocked (inspect):** Map supplied manifests without infrastructure access; distinguish intended from observed deployment.

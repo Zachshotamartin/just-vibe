@@ -6,6 +6,7 @@ import { practices } from "./practice.mjs";
 import { experiments } from "./experiments.mjs";
 import { decisions } from "./decisions.mjs";
 import { listRecords, recoverLock, projectRoot } from "./workbench.mjs";
+import { noteIds } from "./continuity.mjs";
 
 // [name required, input: required/optional/none]. Keep CLI errors ahead of side effects.
 export const INTENT_OPERATIONS = {
@@ -71,7 +72,7 @@ export function validateIntentArgs(options) {
   const spec = INTENT_OPERATIONS[options.operation]?.[options.positionals[0]];
   if (!spec || options.positionals.length !== (spec[0] ? 2 : 1))
     throw Error(
-      "Unknown operation or wrong number of names; see the intent workflow guide.",
+      `Unknown ${options.operation} operation or wrong number of names. Operations: ${Object.keys(INTENT_OPERATIONS[options.operation] || {}).join(", ")}; see references/intent-workflows.md.`,
     );
   if (spec[1] === "required" && !options.stdin)
     throw Error("This operation requires --stdin JSON.");
@@ -93,7 +94,8 @@ export async function intentRuntime(operation, root, op, id, input = {}) {
             "practice",
             "experiments",
             "decisions",
-          ].map((c) => [c, listRecords(root, c)]),
+            "checkpoints",
+          ].map((c) => [c, listRecords(root, c)]).concat([["notes", noteIds(root)]]),
         );
   const handlers = {
     memory,

@@ -11,22 +11,20 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 ## Decision rule
 
-Build shared capability when its reuse value exceeds the coordination and support cost.
+Define tenant, extension and ownership contracts before shared implementation; a capability without an owner and an exit path is not a platform.
 
 ## Concrete contribution
 
 Specify the platform contract, tenancy and extension boundaries; connect each proposed shared capability to a demonstrated consumer need and migration path.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
-- Validate with representative workloads and upgrade paths.
-- Check isolation, escape hatches and recovery ownership.
+- Validate the tenant model against the two most different consumer workloads.
+- Check that a tenant can extend or leave the platform without forking it.
 
 ## Boundary
 
-A platform strategy should not force unnecessary migration on a local task.
+Leave application-specific problems with their owning team; propose a platform change only for a need shared across tenants.
 
 ## Candidate workflows
 

@@ -1,11 +1,11 @@
 ---
 name: ml-reproduce
-description: "Reproduce a result from code, data, and configuration Use to repeat a specified run; ml-baseline defines a new benchmark."
+description: "Reproduce a result from code, data, and configuration. Use to repeat a specified run; ml-baseline defines a new benchmark."
 ---
 
 # ml-reproduce
 
-Reproduce a result from code, data, and configuration
+Reproduce a result from code, data, and configuration.
 
 ## Choose this workflow
 
@@ -17,10 +17,10 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Inspect reproduction evidence or plan the attempt; apply for requested reproduction code or bounded execution.
 
-dataset/split manifests, fixed objective/metric, environment/dependencies, baseline where applicable, and explicit compute limits. Record code revision, configuration, seeds, artifact paths, and resource use. Local smoke checks do not imply authorization for paid training. Never optimize on the held-out test set.
+**Pack prerequisites:** Dataset/split manifests, fixed objective/metric, environment/dependencies, baseline where applicable, and explicit compute limits. Record code revision, configuration, seeds, artifact paths, and resource use. Local smoke checks do not imply authorization for paid training. Never optimize on the held-out test set.
 
 - **Infer from evidence:** Read framework, training entry point, loss/metric, split manifests and checkpoint conventions from supplied source.
-- **Reasonable default:** Implement requested code and tiny isolated smoke checks with existing tools; leave unmeasured model quality explicit.
+- **Reasonable default:** In apply mode, implement requested code and tiny isolated smoke checks with existing tools, and otherwise propose them; leave unmeasured model quality explicit.
 - **Ask only when needed:** Ask for unresolved objective/data semantics before encoding them, and environment/resource limits before launching training or a search; implementation alone does not need a hardware purchase decision.
 
 Resolve any task-specific tools, target identity and evidence before dependent actions. No external connection is assumed.
@@ -33,8 +33,10 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 
 ## Execute
 
-1. Verify immutable inputs and dependency versions, reconstruct the procedure, run authorized bounded work, compare outputs/metrics within justified tolerance, and isolate deviations.
-2. Resolve exact data/artifact/code/dependency identities, reconstruct preprocessing and evaluation, and declare nondeterminism tolerances before execution.
+1. Resolve exact data, artifact, code and dependency identities.
+2. Reconstruct preprocessing and evaluation, and declare nondeterminism tolerances before execution.
+3. Run authorized bounded work, compare outputs and metrics within the declared tolerance, and isolate deviations.
+
 ## Technical method
 
 - **Inspect:** Resolve code revision, dependencies, artifacts, dataset access, hardware and claimed tolerance.
@@ -46,7 +48,6 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 
 - When a concrete decision or deliverable example would clarify this workflow: [ML experimentation worked example](../../references/examples/ml-experiments.md).
 - The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method: [PyTorch autograd, device and distributed debugging](../../references/methods/pytorch-debug.md).
-- The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method: [Retrieval, ranking and recommendation evaluation](../../references/methods/recommender-systems.md).
 
 ## Decision branches
 
@@ -55,8 +56,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 
 ## Deliver and verify
 
-- Reproduction record, matched/different conditions, measured result, and discrepancy analysis.
-- Reproduction manifest, deviations, observed differences and tolerance justification.
+- Reproduction record and manifest with matched and different conditions, the measured result, deviations and discrepancy analysis against the justified tolerance.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -69,5 +69,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Plan reproducing this result with exact artifact identities and a two-hour budget.
-- **edge (plan):** Reproduce a GPU run on another supported device with explicit tolerances.
-- **blocked (inspect):** Assess reproducibility when the original dataset snapshot is missing.
+- **Edge (plan):** Reproduce a GPU run on another supported device with explicit tolerances.
+- **Blocked (inspect):** Assess reproducibility when the original dataset snapshot is missing.

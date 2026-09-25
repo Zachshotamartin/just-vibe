@@ -1,11 +1,11 @@
 ---
 name: ml-dataset
-description: "Audit whether data can support the modeling task Use to assess whether data supports a task; data-profile summarizes its columns."
+description: "Audit whether data can support the modeling task. Use to assess whether data supports a task; data-profile summarizes its columns."
 ---
 
 # ml-dataset
 
-Audit whether data can support the modeling task
+Audit whether data can support the modeling task.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; framed task, dataset version, collection process, and sampling budget.
 
-task definition, dataset identity, field semantics, entity/time keys, and permission to inspect bounded data. Record prediction moment, label horizon, sampling, and provenance. Preserve held-out evaluation boundaries; no data upload, label alteration, or feature fitting across splits implicitly.
+**Pack prerequisites:** Task definition, dataset identity, field semantics, entity/time keys, and permission to inspect bounded data. Record prediction moment, label horizon, sampling, and provenance. Preserve held-out evaluation boundaries; no data upload, label alteration, or feature fitting across splits implicitly.
 
 - **Infer from evidence:** Read prediction moment, label horizon, entity/time keys, split policy and dataset provenance from the task and manifests.
 - **Reasonable default:** Use explicit synthetic examples for design when raw data is unavailable; do not infer missing labels or fit preprocessing across held-out boundaries.
@@ -33,8 +33,9 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Compare available fields/outcomes with task needs, inspect cohort/time coverage, assess missing-label patterns and selection processes, and identify unsupported deployment populations.
-2. Compare collection/selection and follow-up windows with deployment population, inspect coverage by cohort/time and identify censored or missing outcomes.
+1. Compare the collection and selection process and follow-up windows with the task's needs and the deployment population.
+2. Inspect coverage by cohort and time, identify censored or missing outcomes and missing-label patterns, and name deployment populations the data does not cover.
+
 ## Technical method
 
 - **Inspect:** Inspect collection mechanism, row grain, entity coverage, duplicates, labels and permission to use the data.
@@ -45,8 +46,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 ## Read when relevant
 
 - When a concrete decision or deliverable example would clarify this workflow: [ML data worked example](../../references/examples/ml-data.md).
-- The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method: [PyTorch autograd, device and distributed debugging](../../references/methods/pytorch-debug.md).
-- The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method: [Retrieval, ranking and recommendation evaluation](../../references/methods/recommender-systems.md).
+
 
 ## Decision branches
 
@@ -54,8 +54,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Dataset readiness report with exclusions, risks, and needed collection/validation work.
-- Population/coverage table, missingness/selection risks and supported deployment claims.
+- Dataset readiness report with a population/coverage table, missingness and selection risks, exclusions, supported deployment claims and needed collection or validation work.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -68,5 +67,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Assess whether this dataset covers the intended deployment population.
-- **edge (inspect):** Assess a dataset with many rows but no labels for recently enrolled users.
-- **blocked (inspect):** Review dataset metadata without row access; avoid inferring representative coverage.
+- **Edge (inspect):** Assess a dataset with many rows but no labels for recently enrolled users.
+- **Blocked (inspect):** Review dataset metadata without row access; avoid inferring representative coverage.

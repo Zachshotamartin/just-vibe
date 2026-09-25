@@ -17,8 +17,6 @@ Use a model where ambiguity warrants it and deterministic code where exact rules
 
 Define the user task, baseline and failure costs, then deliver a thin integration with explicit fallback and evidence beyond attractive demo outputs.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Evaluate representative and adversarial cases.
@@ -31,7 +29,7 @@ Do not introduce autonomous actions merely because a model can select tools.
 ## Candidate workflows
 
 - [llm-evals](../../skills/llm-evals/SKILL.md)
-- [llm-tools](../../skills/llm-tools/SKILL.md)
+- [ml-threshold](../../skills/ml-threshold/SKILL.md)
 - [ml-evaluate](../../skills/ml-evaluate/SKILL.md)
 
 Example: Add assisted document classification with review for uncertain cases.

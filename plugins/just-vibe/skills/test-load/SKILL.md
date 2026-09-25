@@ -1,11 +1,11 @@
 ---
 name: test-load
-description: "Execute bounded workloads against authorized environments Use for a bounded authorized workload experiment; perf diagnoses an existing measured bottleneck."
+description: "Execute bounded workloads against authorized environments. Use for a bounded authorized workload experiment; perf diagnoses an existing measured bottleneck."
 ---
 
 # test-load
 
-Execute bounded workloads against authorized environments
+Execute bounded workloads against authorized environments.
 
 ## Choose this workflow
 
@@ -15,12 +15,12 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 ## Input and mode
 
-Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan; exact authorized endpoint/environment, workload, concurrency/rate/duration caps, and stop thresholds.
+Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan by default; apply to write the load script and run a bounded workload against the exact authorized target within the stated caps and stop thresholds. Requires exact authorized endpoint/environment, workload, concurrency/rate/duration caps, and stop thresholds.
 
-defined behavior, existing test conventions/runners, isolated fixtures, and relevant dependencies. Requested bounded verification may use owned isolated fixtures without authorizing product edits or live-system tests. Never test destructive behavior against production by default; distinguish mocked behavior from real integration evidence.
+**Pack prerequisites:** Defined behavior, existing test conventions/runners, isolated fixtures, and relevant dependencies. Requested bounded verification may use owned isolated fixtures without authorizing product edits or live-system tests. Never test destructive behavior against production by default; distinguish mocked behavior from real integration evidence.
 
 - **Infer from evidence:** Read behavior contracts, existing runners and test conventions; distinguish fixture setup failure from a behavioral failure.
-- **Reasonable default:** Use the smallest existing local runner and isolated synthetic fixtures that distinguish the requested behavior.
+- **Reasonable default:** Use the smallest existing local runner and isolated synthetic fixtures that distinguish the requested behavior. When the method needs a library, runner, container runtime or load tool the project lacks, name the exact package or tool, the files it changes and any download, and add it only when the request authorizes new dev dependencies or tools; label a hand-written generator without shrinking, or a fake in place of a real dependency, as such.
 - **Ask only when needed:** Ask about an unresolved contract that changes the expected result, or the target/load limits before external testing; do not ask the user to choose a runner already configured.
 
 Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
@@ -29,12 +29,14 @@ Declared evidence requirements: `project.read`. Use actual host discovery or ade
 
 Controlled load/capacity experiment; execution needs explicit target and resource authorization.
 
-No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
+Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the requested changes or execute the requested operation within its resolved target and limits. Local preparation does not authorize live, remote, destructive or paid actions; existing explicit session authorization still applies.
 
 ## Execute
 
-1. Validate isolation and side effects, establish baseline, ramp within limits, observe latency/errors/resources, stop on thresholds, and correlate saturation.
-2. Define exact target, traffic shape, concurrency/rate/duration and stop thresholds; validate side effects and ramp in a controlled environment with telemetry.
+1. Define the exact target, traffic shape, concurrency/rate/duration and stop thresholds, and validate isolation and side effects.
+2. Establish a baseline and ramp within limits in a controlled environment with telemetry, observing latency, errors and resources.
+3. Stop on thresholds and correlate saturation.
+
 ## Technical method
 
 - **Inspect:** Resolve exact authorized target, realistic workload, rate/concurrency/duration caps and resource stop thresholds.
@@ -58,8 +60,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Load script/protocol or run report with conditions, bottlenecks, and cleanup.
-- Workload/caps, time series, stop event and measured saturation boundary.
+- Load script/protocol or run report with workload caps, time series, stop event, measured saturation boundary, bottlenecks and cleanup.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -72,5 +73,6 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Plan load tests for the specified staging endpoint with duration and error stop limits.
-- **edge (plan):** Plan a ramp test that must stop before shared database pressure exceeds a threshold.
-- **blocked (inspect):** Prepare a load-test plan with no authorized endpoint; do not generate traffic.
+- **Edge (plan):** Plan a ramp test that must stop before shared database pressure exceeds a threshold.
+- **Blocked (inspect):** Prepare a load-test plan with no authorized endpoint; do not generate traffic.
+- **Additional (apply):** Run the approved staging load test on the search endpoint at up to 100 requests per second for five minutes, stopping above 1 percent errors.

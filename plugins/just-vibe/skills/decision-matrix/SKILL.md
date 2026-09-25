@@ -1,11 +1,11 @@
 ---
 name: decision-matrix
-description: "Compare options using weighted criteria and explain the weights Use when several explicit criteria need weighted comparison; decide suffices for a decisive hard constraint."
+description: "Compare options using weighted criteria and explain the weights. Use when several explicit criteria need weighted comparison; decide suffices for a decisive hard constraint."
 ---
 
 # decision-matrix
 
-Compare options using weighted criteria and explain the weights
+Compare options using weighted criteria and explain the weights.
 
 ## Choose this workflow
 
@@ -17,10 +17,10 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan; options, measurable criteria, weights or priority guidance.
 
-the decision question, constraints, alternatives or permission to identify them, and relevant project evidence. Current vendor claims and prices require current authoritative sources during execution. Scores are decision aids, not facts.
+**Pack prerequisites:** The decision question, constraints, alternatives or permission to identify them, and relevant project evidence. Current vendor claims and prices require current authoritative sources during execution. Scores are decision aids, not facts.
 
 - **Infer from evidence:** Recover hard constraints, the current option, adoption status and stated priorities from the brief and prior decisions.
-- **Reasonable default:** Compare feasible options qualitatively when weights were not supplied; make a reversible conditional recommendation when useful.
+- **Reasonable default:** When only a priority order is given, derive provisional weights from it, show them, and report whether plausible reweighting changes the winner.
 - **Ask only when needed:** Ask only about a missing constraint or preference that could reverse the recommendation; do not demand a complete scoring questionnaire.
 
 Resolve any task-specific tools, target identity and evidence before dependent actions. No external connection is assumed.
@@ -33,8 +33,10 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Define score scales, cite evidence for scores, separate must-haves, normalize weights, and vary uncertain values to test ranking stability.
-2. Define score anchors before rating, keep feasibility separate, and vary uncertain weights/scores over plausible ranges.
+1. Separate must-haves and feasibility from scored criteria, and define score anchors before rating.
+2. Score each option with cited evidence and normalized weights.
+3. Vary uncertain weights and scores over plausible ranges to test ranking stability.
+
 ## Technical method
 
 - **Inspect:** Collect criterion definitions, score anchors, weights, evidence ranges and excluded options.
@@ -53,8 +55,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Matrix with score rationale, assumptions, sensitivity, and recommendation.
-- Criterion definitions, sources, exclusions, weighted calculation and sensitivity result.
+- Matrix with criterion definitions, sources, exclusions, score rationale, weighted calculation, sensitivity result and recommendation.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -67,5 +68,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Compare three authentication options; maintenance is the highest priority.
-- **edge (plan):** Compare three databases when one fails a hard regional requirement.
-- **blocked (inspect):** Build a comparison with unknown costs; use bounds or missing values instead of invented scores.
+- **Edge (plan):** Compare three databases when one fails a hard regional requirement.
+- **Blocked (inspect):** Build a comparison with unknown costs; use bounds or missing values instead of invented scores.

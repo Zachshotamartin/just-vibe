@@ -1,15 +1,15 @@
 ---
 name: api-client
-description: "Build a typed client with authentication and error handling Use for a typed transport boundary to a known API; integrate handles wider product wiring."
+description: "Build a typed client with authentication and error handling. Use for a typed transport boundary to a known API, including clients or SDKs generated from an OpenAPI spec; integrate handles wider product wiring."
 ---
 
 # api-client
 
-Build a typed client with authentication and error handling
+Build a typed client with authentication and error handling.
 
 ## Choose this workflow
 
-Use for a typed transport boundary to a known API; integrate handles wider product wiring.
+Use for a typed transport boundary to a known API, including clients or SDKs generated from an OpenAPI spec; integrate handles wider product wiring.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [APIs methods](../../references/packs/api.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply; API specification, language/runtime, authentication source, and consumer needs.
 
-interface definitions, producer/consumer source, authentication model, versioning constraints, and isolated test endpoints. External API calls must respect environment, credentials, rate limits, and side-effect scope.
+**Pack prerequisites:** Interface definitions, producer/consumer source, authentication model, versioning constraints, and isolated test endpoints. External API calls must respect environment, credentials, rate limits, and side-effect scope.
 
 - **Infer from evidence:** Read producer/consumer schemas, error contracts, auth conventions and known supported client versions.
 - **Reasonable default:** Keep compatible response and pagination semantics where the brief does not request a breaking change.
@@ -33,8 +33,10 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Execute
 
-1. Verify contract/version, generate or write a narrow client, isolate credentials, preserve useful errors, and exercise controlled successful and failed responses.
-2. Resolve version/auth/schema, validate runtime response shape and preserve actionable status, retry-after and request IDs without leaking credentials.
+1. Resolve the API version, authentication and schema.
+2. Generate or write a narrow client that isolates credentials, validates runtime response shape and preserves actionable status, retry-after and request IDs without leaking credentials.
+3. Exercise controlled successful, refused, timed-out and malformed responses.
+
 ## Technical method
 
 - **Inspect:** Inspect API version, runtime response shape, token destination, retryable operations and timeout ownership.
@@ -55,8 +57,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Deliver and verify
 
-- Client, usage/configuration documentation, and contract checks.
-- Client interface, configuration names and timeout/refusal/malformed-response checks.
+- Client interface with usage and configuration names, and timeout, refusal and malformed-response contract checks.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -69,5 +70,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** Build a typed API client with bounded retries and useful errors.
-- **edge (apply):** Build a client for paginated responses and retry-after throttling.
-- **blocked (inspect):** Implement against supplied contracts without paid or mutating live requests.
+- **Edge (apply):** Build a client for paginated responses and retry-after throttling.
+- **Blocked (apply):** Implement against supplied contracts without paid or mutating live requests.

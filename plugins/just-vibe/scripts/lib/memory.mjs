@@ -480,7 +480,8 @@ export async function guards(root, op, id, input = {}) {
       ]);
       const old = readRecord(root, "guards", id, true);
       expectRevision(old, input.revision);
-      const rule = readRecord(root, "memory", name(input.ruleId));
+      const rule = readRecord(root, "memory", name(input.ruleId), true);
+      if (!rule) throw Error(`Guard needs a rule saved with memory save ${input.ruleId}; a rule kept only in instruction prose must become a managed rule before it can be guarded.`);
       if (rule.status !== "active" || rule.pending)
         throw Error("Guard requires an active saved rule.");
       if (!["literal", "imports"].includes(input.adapter))

@@ -1,15 +1,15 @@
 ---
 name: repro
-description: "Create a minimal, reliable reproduction of a problem Use to isolate an observable failure; fix changes production behavior after the trigger is understood."
+description: "Create a minimal, reliable reproduction of a problem. Use to isolate an observable failure; debug diagnoses the cause, test-flaky owns order and timing nondeterminism, test-regression locks the reproduced case, and fix changes production behavior after the trigger is understood."
 ---
 
 # repro
 
-Create a minimal, reliable reproduction of a problem
+Create a minimal, reliable reproduction of a problem.
 
 ## Choose this workflow
 
-Use to isolate an observable failure; fix changes production behavior after the trigger is understood.
+Use to isolate an observable failure; debug diagnoses the cause, test-flaky owns order and timing nondeterminism, test-regression locks the reproduced case, and fix changes production behavior after the trigger is understood.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [General methods](../../references/packs/general.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply; failure report, expected behavior, and environment constraints.
 
-Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
+**Pack prerequisites:** Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
 - **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
 - **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
@@ -33,8 +33,10 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Execute
 
-1. Confirm the symptom, reduce unrelated dependencies and data, preserve the failure trigger, and document exact run/reset steps.
-2. Freeze input and environment identity, reduce one dimension at a time, and include a negative control that removes the suspected trigger.
+1. Confirm the symptom and freeze input and environment identity.
+2. Reduce unrelated dependencies and data one dimension at a time while preserving the failure trigger.
+3. Include a negative control that removes the suspected trigger, and document exact run and reset steps.
+
 ## Technical method
 
 - **Inspect:** Capture exact input, environment, revision and the observable failure oracle.
@@ -45,7 +47,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 ## Read when relevant
 
 - When a concrete decision or deliverable example would clarify this workflow: [General worked example](../../references/examples/general.md).
-
+- Choosing a test layer, independent assertions, or regression, flaky and property checks: [Testing methods](../../references/packs/testing.md).
 
 ## Decision branches
 
@@ -53,8 +55,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Deliver and verify
 
-- Reproduction fixture or script with expected versus actual behavior and environment identity.
-- Isolated reproduction, exact run/reset steps, expected/actual output and required conditions.
+- Isolated reproduction fixture or script with exact run/reset steps, expected versus actual output, environment identity and required conditions.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -67,5 +68,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** Create an isolated minimal reproduction of the double-submission bug.
-- **edge (apply):** Reproduce an order-dependent test failure without copying production secrets.
-- **blocked (inspect):** Describe a reproduction plan when the affected binary is unavailable.
+- **Edge (apply):** Reproduce an order-dependent test failure without copying production secrets.
+- **Blocked (inspect):** Describe a reproduction plan when the affected binary is unavailable.

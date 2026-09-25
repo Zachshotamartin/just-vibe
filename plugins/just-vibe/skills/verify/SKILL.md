@@ -1,11 +1,11 @@
 ---
 name: verify
-description: "Run relevant checks and report supporting evidence Use to establish evidence for explicit completion criteria; test authors missing checks."
+description: "Run relevant checks and report supporting evidence. Use to establish evidence for explicit completion criteria; test authors missing checks."
 ---
 
 # verify
 
-Run relevant checks and report supporting evidence
+Run relevant checks and report supporting evidence.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply because checks may create artifacts; target change and claimed success criteria. Inspect mode reads existing evidence only.
 
-Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
+**Pack prerequisites:** Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
 - **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
 - **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
@@ -38,6 +38,7 @@ Run checks when verification is requested, using existing tooling and owned isol
 3. Keep failed, blocked and unrun checks separate from passes; identify pre-existing failures only with evidence. Stop repeating a passing check unless a new change or unresolved concern justifies it.
 4. Only when an evidence report or durable acceptance tracking is requested, read the proofs guide and use its criterion, collection and report procedure. Preserve full relevant source/test/configuration identity, actual observations and evidence freshness. A deployed URL needs independent revision identity; local hashes alone cannot establish it. Separate human review from automated assertions and never invent user acceptance.
 5. Report the checks actually completed and remaining limitations. If a proof report was created, recompute its freshness before opening it and include failed, stale, missing and human-pending criteria; ordinary verification requires no saved proof.
+
 ## Technical method
 
 - **Inspect:** Map requested outcomes to artifact identities and available checks, including any human acceptance.
@@ -63,8 +64,7 @@ Run checks when verification is requested, using existing tooling and owned isol
 
 ## Deliver and verify
 
-- Check results, exit statuses, covered criteria, and blocked/unverified areas.
-- Criterion/check/result matrix with commands, exit statuses, revision and gaps.
+- Criterion/check/result matrix with commands, exit statuses, revision, covered criteria and blocked or unverified gaps.
 - Requirement-linked proof report with check output, optional screenshots, freshness, attributed human review and remaining gaps.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
@@ -78,5 +78,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** Verify this checkout change using the project checks; report blocked checks.
-- **edge (apply):** Verify a fix where unit tests pass but the browser build fails.
-- **blocked (inspect):** Review existing CI artifacts without running commands or treating stale results as current.
+- **Edge (apply):** Verify a fix where unit tests pass but the browser build fails.
+- **Blocked (inspect):** Review existing CI artifacts without running commands or treating stale results as current.

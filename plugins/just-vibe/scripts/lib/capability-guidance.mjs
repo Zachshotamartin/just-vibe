@@ -13,13 +13,17 @@ export const CAPABILITY_GUIDANCE = {
   'user.questions': 'Use the host native question dialog when an answer materially changes the task; continue independent work while awaiting it.',
 };
 
+// General-pack workflows whose result is visual need rendered evidence when they change the UI.
+const VISUAL = ['design', 'polish', 'match'];
+
 export function workflowCapabilities(command, mode, brief = '') {
   const capabilities = new Set(command.capabilities);
-  if (['ui', 'react', 'vite'].includes(command.pack) && mode === 'apply') capabilities.add('browser.inspect');
+  if ((['ui', 'react', 'vite'].includes(command.pack) || VISUAL.includes(command.id)) && mode === 'apply') capabilities.add('browser.inspect');
   if (command.id.startsWith('github-')) capabilities.add('github.context');
   if (command.id.startsWith('vercel-')) capabilities.add('vercel.context');
   if (command.id.startsWith('ml-') && /train|evaluat|parity|reproduce|debug/.test(command.id)) capabilities.add('ml.artifacts');
-  if (/\b(?:no browser|without (?:a |the )?browser|do not (?:use|open) (?:a |the )?browser)\b/i.test(brief)) capabilities.delete('browser.inspect');
+  const text = brief.replace(/[\u2018\u2019\u02bc]/g, "'");
+  if (/\b(?:no browser|without (?:using |opening )?(?:a |the )?browser|(?:do not|don't|dont|never|avoid|skip)\s+(?:using |use |opening |open )?(?:a |the )?browser)\b/i.test(text)) capabilities.delete('browser.inspect');
   return [...capabilities];
 }
 

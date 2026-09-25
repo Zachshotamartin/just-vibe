@@ -17,8 +17,6 @@ Prefer aggregation or local processing when detailed personal data is unnecessar
 
 Trace collection, purpose, derived copies and deletion through the requested feature; verify minimization and retention at the actual storage/logging boundaries.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Test access, deletion and retention propagation.

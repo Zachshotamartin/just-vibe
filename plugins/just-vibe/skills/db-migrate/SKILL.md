@@ -1,15 +1,15 @@
 ---
 name: db-migrate
-description: "Create migrations with compatibility and rollback considerations Use for schema/data transition mechanics; db-schema designs the target model."
+description: "Create migrations with compatibility and rollback considerations. Use for schema/data transition mechanics; db-schema designs the target model, db-locks diagnoses a migration currently blocked on locks, and data-backfill runs large historical recomputation outside a schema transition."
 ---
 
 # db-migrate
 
-Create migrations with compatibility and rollback considerations
+Create migrations with compatibility and rollback considerations.
 
 ## Choose this workflow
 
-Use for schema/data transition mechanics; db-schema designs the target model.
+Use for schema/data transition mechanics; db-schema designs the target model, db-locks diagnoses a migration currently blocked on locks, and data-backfill runs large historical recomputation outside a schema transition.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Databases methods](../../references/packs/database.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan a migration when planning is requested; apply for requested migration files and isolated compatibility checks. Applying to a live database requires its exact environment, rollout and recovery constraints.
 
-actual engine/version, schema/migrations, query workload, and explicitly identified environment. Prefer supplied plans, metadata, and isolated fixtures. Even a SELECT can lock, call mutating functions, or overload a database; inspect semantics before execution. Executing an analyzed query is distinct from reading its plan.
+**Pack prerequisites:** Actual engine/version, schema/migrations, query workload, and explicitly identified environment. Prefer supplied plans, metadata, and isolated fixtures. Even a SELECT can lock, call mutating functions, or overload a database; inspect semantics before execution. Executing an analyzed query is distinct from reading its plan.
 
 - **Infer from evidence:** Read engine/version, ORM/runner, schema and migration history from project artifacts before choosing SQL.
 - **Reasonable default:** Prepare local SQL and isolated fixtures without assuming production size, locks or recovery guarantees.
@@ -38,6 +38,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 3. Exercise migration and restart on isolated representative data, including duplicates, nulls and old writers. Verify indexes/constraints are actually valid and semantically match the intended definition; name existence alone is insufficient.
 4. Define recovery per phase: code rollback, forward repair, and restoration of lost information are different operations. Delay destructive contraction until old readers/writers are retired and the agreed evidence establishes compatibility.
 5. Use the matching bundled evidence collector when available; read its result and limitations rather than treating exit zero as readiness. Revalidate identity before a dependent action.
+
 ## Technical method
 
 - **Inspect:** Read generated SQL, migration ledger, engine/version, data volume, locks and active application versions.
@@ -60,8 +61,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 
 ## Deliver and verify
 
-- Migration plan or files, compatibility evidence, execution conditions, and rollback/forward-recovery limits.
-- Phase/SQL-or-runner-step/lock-risk/check/recovery table and compatibility evidence.
+- Migration plan or files as a phase table (SQL or runner step, lock risk, check, recovery), with compatibility evidence, execution conditions and rollback/forward-recovery limits.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -74,5 +74,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Plan splitting full_name while preserving old-version compatibility and source values.
-- **edge (plan):** Plan a restartable migration after a concurrent index build left an invalid index.
-- **blocked (inspect):** Review a destructive migration with no verified recovery evidence; do not execute it.
+- **Edge (plan):** Plan a restartable migration after a concurrent index build left an invalid index.
+- **Blocked (inspect):** Review a destructive migration with no verified recovery evidence; do not execute it.

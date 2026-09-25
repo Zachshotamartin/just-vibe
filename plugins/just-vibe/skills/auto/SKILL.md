@@ -1,15 +1,15 @@
 ---
 name: auto
-description: "Select and apply the relevant engineering workflows from an ordinary request Use for ordinary coding, debugging, review, UI, delivery, architecture or ML requests that benefit from project workflows, including multi-step tasks without a command name. Skip unrelated conversation; use a directly relevant skill when it is already selected."
+description: "Select and apply the relevant engineering workflows from an ordinary request. Use for ordinary coding, debugging, review, UI, delivery, architecture or ML requests that benefit from project workflows, including multi-step tasks without a command name. For a multi-phase feature, fix, refactor or MVP, apply the composed-workflows phase contract (as orchestrate does) inside the tracked run. Skip unrelated conversation; use a directly relevant skill when it is already selected."
 ---
 
 # auto
 
-Select and apply the relevant engineering workflows from an ordinary request
+Select and apply the relevant engineering workflows from an ordinary request.
 
 ## Choose this workflow
 
-Use for ordinary coding, debugging, review, UI, delivery, architecture or ML requests that benefit from project workflows, including multi-step tasks without a command name. Skip unrelated conversation; use a directly relevant skill when it is already selected.
+Use for ordinary coding, debugging, review, UI, delivery, architecture or ML requests that benefit from project workflows, including multi-step tasks without a command name. For a multi-phase feature, fix, refactor or MVP, apply the composed-workflows phase contract (as orchestrate does) inside the tracked run. Skip unrelated conversation; use a directly relevant skill when it is already selected.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [General methods](../../references/packs/general.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply within the requested goal; objective plus arbitrary constraints, references, environment, and optional mode/budget. Requires available workflow discovery.
 
-Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
+**Pack prerequisites:** Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
 - **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
 - **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
@@ -33,15 +33,16 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Execute
 
-1. When automatic hook context includes a task ID, use the adaptive-assistance guide to select and load only relevant workflows, discover the actual host tools and record meaningful evidence. If hooks are unavailable, use assist start with the current request and host session identity when known, or load the appropriate workflow directly. Do not require the user to name a command.
+1. When automatic hook context includes a task ID, use the adaptive-assistance guide to select and load only relevant workflows, discover the actual host tools and record meaningful evidence. If hooks are unavailable, use assist start with the current request and the host session ID (required; when none is known, create one ID for this conversation and reuse it), or load the appropriate workflow directly. Do not require the user to name a command.
 2. Preserve the complete brief, project, scope, constraints, success criteria and current task profile. Inspect only the context needed to choose the next useful workflow. Honor an explicit profile pin.
 3. Choose quick or tracked execution using the daily-workflows guide. A small local fix, explanation or review can stay in conversation context without JSON session calls. The route utility suggests candidates, reasons and a strategy; the host resolves actual intent and effects.
 4. For quick work, read the selected skill and relevant scenario guide, perform the bounded task, verify its actual output and summarize the result. Preserve user constraints and report unavailable evidence. Do not add a planning-only stop to a clear implementation request.
 5. When reversibility is requested, use the task-undo guide to begin a bounded ownership record before the first edit and capture only reviewed task changes afterward. A checkpoint is not an undo snapshot. Use proof reports or the other intent helpers when the brief calls for them; do not make every small task require stored JSON.
-6. Use tracked execution for dependent stages, repeated recovery, saved continuation, external mutations or requested detailed records. Create a run through session create and use session start/record/finish around meaningful stages; use session amend for additional effects and session supersede for evidence-backed alternatives.
-7. If quick work grows, carry the original brief, completed work, observations, selected profile and consumed budget into tracked context. Record remaining stages; never fabricate earlier validated transitions or restart a user limit.
-8. Reconcile uncertain external effects before retrying. Keep failures and stop within the applicable stage/attempt/time budget. Finish only when original success conditions are supported; report partial or blocked results plainly.
+6. Use tracked execution for dependent stages, repeated recovery, saved continuation, external mutations or requested detailed records. Create a run through session create and use session start/record/finish around meaningful stages; use session amend for additional effects and session supersede for evidence-backed alternatives. A stage whose workflow needs GitHub, Vercel, database or other external evidence also needs a fresh host capabilityReport in session start (runtime guide, Capability observations). Under automatic assistance the assist task stays the completion ledger: record the run id and finish summary as host-report evidence.
+7. If quick work grows, carry the original brief, completed work, observations, selected profile and consumed budget into tracked context; pass the profile as a selection request with selectedBy agent unless the user pinned it. Record remaining stages; never fabricate earlier validated transitions or restart a user limit.
+8. Reconcile uncertain external effects before retrying. Keep failures and stop within the applicable stage/attempt/time budget; an explicit new budget from the user starts a continuation run with context.continuationOf. Finish only when original success conditions are supported; report partial or blocked results plainly.
 9. Check the original outcome and exclusions before each workflow transition; a new routing suggestion does not expand scope.
+
 ## Technical method
 
 - **Inspect:** Read the complete goal, exclusions, pinned profile, project evidence and stage dependencies.
@@ -75,10 +76,10 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 ## Stop and recover
 
-- Tracked defaults remain eight stages, three attempts per stage and sixty minutes. Quick work honors user limits and switches to tracked handling when needed; neither path permits recursive auto/do or unrequested external effects.
+- Tracked defaults are eight stages and three attempts per stage, with no wall-clock limit unless the user sets budget.maxMinutes. Quick work honors user limits and switches to tracked handling when needed; neither path permits recursive auto/do or unrequested external effects.
 
 ## Example requests
 
 - **Normal (apply):** Fix the checkout bug, add meaningful regression coverage, and verify; no new dependencies.
-- **edge (apply):** Finish a task using local artifacts after a remote diagnostic stage is blocked.
-- **blocked (inspect):** Inspect a route with missing access; do not invent credentials or claim blocked actions ran.
+- **Edge (apply):** Finish a task using local artifacts after a remote diagnostic stage is blocked.
+- **Blocked (inspect):** Inspect a route with missing access; do not invent credentials or claim blocked actions ran.

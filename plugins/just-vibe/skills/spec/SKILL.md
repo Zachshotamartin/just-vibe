@@ -1,15 +1,15 @@
 ---
 name: spec
-description: "Produce requirements, acceptance criteria, and edge cases Use to define observable product behavior before implementation; plan maps an accepted specification onto code."
+description: "Produce requirements, acceptance criteria, and edge cases. Use to define observable product behavior before implementation; a PRD is a specification, and plan derives the implementation plan from it."
 ---
 
 # spec
 
-Produce requirements, acceptance criteria, and edge cases
+Produce requirements, acceptance criteria, and edge cases.
 
 ## Choose this workflow
 
-Use to define observable product behavior before implementation; plan maps an accepted specification onto code.
+Use to define observable product behavior before implementation; a PRD is a specification, and plan derives the implementation plan from it.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [General methods](../../references/packs/general.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan; feature brief, users, constraints, and relevant existing contracts.
 
-Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
+**Pack prerequisites:** Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
 - **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
 - **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
@@ -33,8 +33,9 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Inspect current behavior, identify actors and states, define normal/error paths, record exclusions, and turn ambiguity into explicit assumptions or decisions.
-2. Write actors, preconditions, state transitions and observable acceptance examples; separate business decisions from implementation preferences.
+1. Inspect current behavior, then write actors, preconditions and state transitions with normal and error paths.
+2. Give observable acceptance examples, record exclusions, and turn ambiguity into explicit assumptions or decisions, separating business decisions from implementation preferences.
+
 ## Technical method
 
 - **Inspect:** Resolve actors, desired outcomes, existing contracts and meaningful exclusions.
@@ -45,7 +46,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 ## Read when relevant
 
 - When a concrete decision or deliverable example would clarify this workflow: [General worked example](../../references/examples/general.md).
-
+- The user asks for a PRD: [PRD, implementation plans and team handoffs](../../references/methods/planning-teams.md).
 
 ## Decision branches
 
@@ -53,8 +54,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Requirements, acceptance criteria, edge cases, compatibility needs, and unresolved questions; save only when requested.
-- Requirement IDs, acceptance examples, exclusions and unresolved decision owners.
+- Requirements with IDs, acceptance examples, edge cases, compatibility needs, exclusions and unresolved questions with their decision owners; save only when requested.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -67,5 +67,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Specify organization invitations, including expiry and already-registered users.
-- **edge (plan):** Specify account deletion with a pending subscription and recoverable failure.
-- **blocked (inspect):** Draft a specification with unknown retention policy; leave that decision explicit.
+- **Edge (plan):** Specify account deletion with a pending subscription and recoverable failure.
+- **Blocked (inspect):** Draft a specification with unknown retention policy; leave that decision explicit.

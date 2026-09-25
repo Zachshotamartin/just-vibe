@@ -1,15 +1,15 @@
 ---
 name: agent-qa
-description: "Verify requested web-app outcomes through browser assertions, screenshots and bounded retests Use after implementation when a user wants evidence that a visitor can complete the requested journey, including upload, playback, invalid input and mobile behavior."
+description: "Verify requested web-app outcomes through browser assertions, screenshots and bounded retests. Use after implementation when a user wants evidence that a visitor can complete the requested journey, including upload, playback, invalid input and mobile behavior; test-e2e writes durable browser tests and verify runs existing checks."
 ---
 
 # agent-qa
 
-Verify requested web-app outcomes through browser assertions, screenshots and bounded retests
+Verify requested web-app outcomes through browser assertions, screenshots and bounded retests.
 
 ## Choose this workflow
 
-Use after implementation when a user wants evidence that a visitor can complete the requested journey, including upload, playback, invalid input and mobile behavior.
+Use after implementation when a user wants evidence that a visitor can complete the requested journey, including upload, playback, invalid input and mobile behavior; test-e2e writes durable browser tests and verify runs existing checks.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Testing methods](../../references/packs/testing.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -17,10 +17,10 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply runs the requested browser verification and records local evidence. Inspect derives criteria and examines existing evidence without interacting with the target.
 
-defined behavior, existing test conventions/runners, isolated fixtures, and relevant dependencies. Requested bounded verification may use owned isolated fixtures without authorizing product edits or live-system tests. Never test destructive behavior against production by default; distinguish mocked behavior from real integration evidence.
+**Pack prerequisites:** Defined behavior, existing test conventions/runners, isolated fixtures, and relevant dependencies. Requested bounded verification may use owned isolated fixtures without authorizing product edits or live-system tests. Never test destructive behavior against production by default; distinguish mocked behavior from real integration evidence.
 
 - **Infer from evidence:** Read behavior contracts, existing runners and test conventions; distinguish fixture setup failure from a behavioral failure.
-- **Reasonable default:** Use the smallest existing local runner and isolated synthetic fixtures that distinguish the requested behavior.
+- **Reasonable default:** Use the smallest existing local runner and isolated synthetic fixtures that distinguish the requested behavior. When the method needs a library, runner, container runtime or load tool the project lacks, name the exact package or tool, the files it changes and any download, and add it only when the request authorizes new dev dependencies or tools; label a hand-written generator without shrinking, or a fake in place of a real dependency, as such.
 - **Ask only when needed:** Ask about an unresolved contract that changes the expected result, or the target/load limits before external testing; do not ask the user to choose a runner already configured.
 
 Declared evidence requirements: `project.read`, `browser.inspect`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
@@ -39,12 +39,13 @@ Create local QA plans, isolated browser sessions and evidence artifacts. Interac
 4. Run verification in a fresh browser context against the authorized target. Prefer a separate verifier only when delegation is permitted; otherwise label this self-review with independent executable assertions. Do not describe running tests in the implementation session as an independent agent review. Keep code inspection and browser results separate.
 5. When a check fails, preserve the actual/expected result, viewport, target URL, failed step, screenshot and reproduction sequence. Verify that it is a product defect rather than a missing prerequisite. If repairs are authorized, fix the smallest relevant cause and rerun the same criteria within the configured attempt budget. Never delete the first failure or weaken a criterion to turn the report green. Keep network restrictions separate from assertion failures: an unrelated blocked request must not erase a failure.
 6. Recompute evidence freshness and produce the report including all attempts. Disclose unchecked request clauses, subjective judgments, blocked environments and source/build identity uncertainty. Stop on the attempt limit and report remaining work. A successful fixture run or isolated browser assertion cannot prove the entire app is correct. Offer an export of fresh, passing, reviewed journeys as runnable project regression tests, without credentials; do not export stale or incomplete acceptance as passing.
+
 ## Technical method
 
 - **Inspect:** Original request quotes, observed controls, synthetic fixtures, target URL, source snapshot, failed step and hashed screenshots.
 - **Method:** Use bounded executable browser actions and assertions in fresh contexts; retain every attempt and compare evidence identities after repairs.
 - **Avoid misdiagnosis:** Component presence, HTTP success or a screenshot alone does not establish a successful visitor journey. Remote servers may serve a different revision.
-- **Check the result:** Exercise a deliberately broken flow and a repaired retest; preserve failures, flag changed evidence, and leave subjective or unavailable checks unresolved.
+- **Check the result:** Exercise the failing flow and, after an authorized repair, retest it against the same criteria; preserve failures, flag changed evidence, and leave subjective or unavailable checks unresolved.
 
 ## Read when relevant
 
@@ -78,5 +79,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** Verify that visitors can upload a sample audio file, hear the processed result, and use the mobile controls at http://127.0.0.1:3000.
-- **edge (apply):** The upload component exists but processing never completes. Reproduce the failure, preserve evidence, fix it and rerun the same checks.
-- **blocked (inspect):** Plan QA for a login-gated app with no test account or recording fixture; identify blocked checks without fabricating results.
+- **Edge (apply):** The upload component exists but processing never completes. Reproduce the failure, preserve evidence, fix it and rerun the same checks.
+- **Blocked (inspect):** Plan QA for a login-gated app with no test account or recording fixture; identify blocked checks without fabricating results.

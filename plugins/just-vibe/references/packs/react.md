@@ -20,7 +20,7 @@ Effects synchronize with external systems. Derived display values often belong i
 
 Name the source of truth for each value. A draft may intentionally differ from a prop; define when it resets instead of copying props into state on every update. Test two independent component instances to catch accidental shared state.
 
-For forms, exercise editing, invalid input, pending submission, server rejection and retry. Preserve values after a recoverable rejection, associate field errors programmatically and return focus deliberately. UI pending state alone does not prevent duplicate server effects.
+For forms, exercise editing, invalid input, pending submission, server rejection and retry. Preserve values after a recoverable rejection, associate field errors programmatically and return focus deliberately. With React 19 form Actions (`<form action>`, `useActionState`), a completed Action resets uncontrolled fields even when it returns errors as state; return the submitted values and bind `defaultValue` to them, use controlled inputs, or submit through `onSubmit` with `startTransition` when input must survive. UI pending state alone does not prevent duplicate server effects.
 
 ### Performance and hydration
 

@@ -1,11 +1,11 @@
 ---
 name: vercel-build-fix
-description: "Reproduce and repair failed deployment builds Use for a failed Vercel build; vite-bundle handles size and splitting of a successful build."
+description: "Reproduce and repair failed deployment builds. Use for a failed Vercel build; vite-bundle handles size and splitting of a successful build."
 ---
 
 # vercel-build-fix
 
-Reproduce and repair failed deployment builds
+Reproduce and repair failed deployment builds.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply; failed deployment, branch/revision, and build logs.
 
-exact team/project/environment and deployment/revision when applicable; read access to relevant configuration/logs. Verify installed CLI/API support and framework behavior during implementation. Never print environment values or infer promotion authorization from a preview request.
+**Pack prerequisites:** Exact team/project/environment and deployment/revision when applicable; read access to relevant configuration/logs. Verify installed CLI/API support and framework behavior during implementation. Never print environment values or infer promotion authorization from a preview request.
 
 - **Infer from evidence:** Read the linked project, team, framework, environment and deployment SHA from local config and supplied deployment evidence.
 - **Reasonable default:** Diagnose locally with existing build scripts when deployment access is missing; do not infer a production target from a preview URL.
@@ -38,6 +38,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 3. Apply a focused fix and verify the corresponding build path. Keep local success separate from remote deployment verification; reuse the existing deployment/project identity and create a new deployment only when requested.
 4. Report the causal evidence, changed configuration/code, local result and the deployment/revision actually observed remotely. Redact values and do not download secrets as incidental diagnosis.
 5. Use the matching bundled evidence collector when available; read its result and limitations rather than treating exit zero as readiness. Revalidate identity before a dependent action.
+
 ## Technical method
 
 - **Inspect:** Capture the first causal build error, deployed SHA, working directory, lockfile, Node version and variable names/scopes.
@@ -70,5 +71,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** Repair the preview build failure using the supplied deployment logs.
-- **edge (apply):** Fix a deployment where an omitted runtime dependency exists only through workspace hoisting.
-- **blocked (inspect):** Diagnose from a build log without a valid Vercel token; do not deploy to test.
+- **Edge (apply):** Fix a deployment where an omitted runtime dependency exists only through workspace hoisting.
+- **Blocked (inspect):** Diagnose from a build log without a valid Vercel token; do not deploy to test.

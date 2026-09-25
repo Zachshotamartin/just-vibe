@@ -1,15 +1,15 @@
 ---
 name: undo
-description: "Reverse a recorded local task while preserving unrelated changes Use for a recorded local working-tree task; Git history reversal and remote rollback require their own exact targets and authorization."
+description: "Reverse a recorded local task while preserving unrelated changes. Use for a recorded local working-tree task; git-commit undoes or reverts a commit, and remote rollback requires its own exact target and authorization."
 ---
 
 # undo
 
-Reverse a recorded local task while preserving unrelated changes
+Reverse a recorded local task while preserving unrelated changes.
 
 ## Choose this workflow
 
-Use for a recorded local working-tree task; Git history reversal and remote rollback require their own exact targets and authorization.
+Use for a recorded local working-tree task; git-commit undoes or reverts a commit, and remote rollback requires its own exact target and authorization.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [General methods](../../references/packs/general.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply for an explicit undo request against a known local ownership record; preview/inspect requests never write.
 
-Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
+**Pack prerequisites:** Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
 - **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
 - **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
@@ -38,6 +38,7 @@ Only the conflict-free inverse of the recorded task; preserve index and other wo
 3. For an authorized, unambiguous undo with no conflicts, run task undo using the exact current revision. Preview-only requests stop with the dry-run result. Do not ask again merely because a reversible requested action writes files.
 4. Refuse overlapping creation/deletion/binary edits, changed scoped staging, unknown concurrent file versions or a different branch/HEAD. Recover an interrupted known transaction using task recover after inspecting the journal; do not reset or clean broadly.
 5. Run proportionate existing checks on the resulting tree and explain what was reversed, which later changes were preserved, and any external effects that remain. Never add agent attribution to the user-owned changes.
+
 ## Technical method
 
 - **Inspect:** Read recorded before/after hashes, owned paths and the current worktree/index, including later edits.
@@ -71,5 +72,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** Undo checkout-retry and keep my later copy changes.
-- **edge (inspect):** Preview undo after I edited a different paragraph in the same file.
-- **blocked (inspect):** Undo a change with no ownership snapshot; inspect what is attributable first.
+- **Edge (inspect):** Preview undo after I edited a different paragraph in the same file.
+- **Blocked (inspect):** Undo a change with no ownership snapshot; inspect what is attributable first.

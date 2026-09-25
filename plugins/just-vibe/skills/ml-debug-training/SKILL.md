@@ -1,11 +1,11 @@
 ---
 name: ml-debug-training
-description: "Investigate exploding loss, unstable gradients, NaNs, or failure to learn Use for NaNs, shape/device errors or non-learning; ml-error-analysis studies generalization failures."
+description: "Investigate exploding loss, unstable gradients, NaNs, or failure to learn. Use for NaNs, shape/device errors or non-learning; ml-error-analysis studies generalization failures."
 ---
 
 # ml-debug-training
 
-Investigate exploding loss, unstable gradients, NaNs, or failure to learn
+Investigate exploding loss, unstable gradients, NaNs, or failure to learn.
 
 ## Choose this workflow
 
@@ -15,12 +15,12 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 ## Input and mode
 
-Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; failing run logs/configuration, batches, model, and training symptom.
+Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; failing run logs/configuration, batches, model, and training symptom. Apply for requested bounded probes or a minimal corrective change.
 
-dataset/split manifests, fixed objective/metric, environment/dependencies, baseline where applicable, and explicit compute limits. Record code revision, configuration, seeds, artifact paths, and resource use. Local smoke checks do not imply authorization for paid training. Never optimize on the held-out test set.
+**Pack prerequisites:** Dataset/split manifests, fixed objective/metric, environment/dependencies, baseline where applicable, and explicit compute limits. Record code revision, configuration, seeds, artifact paths, and resource use. Local smoke checks do not imply authorization for paid training. Never optimize on the held-out test set.
 
 - **Infer from evidence:** Read framework, training entry point, loss/metric, split manifests and checkpoint conventions from supplied source.
-- **Reasonable default:** Implement requested code and tiny isolated smoke checks with existing tools; leave unmeasured model quality explicit.
+- **Reasonable default:** In apply mode, implement requested code and tiny isolated smoke checks with existing tools, and otherwise propose them; leave unmeasured model quality explicit.
 - **Ask only when needed:** Ask for unresolved objective/data semantics before encoding them, and environment/resource limits before launching training or a search; implementation alone does not need a hardware purchase decision.
 
 Declared evidence requirements: `ml.artifacts`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
@@ -29,12 +29,14 @@ Declared evidence requirements: `ml.artifacts`. Use actual host discovery or ade
 
 Numerical instability, shape/device issues, data/target mismatch, gradients, and failure to learn.
 
-No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
+Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the requested changes or execute the requested operation within its resolved target and limits. Local preparation does not authorize live, remote, destructive or paid actions; existing explicit session authorization still applies.
 
 ## Execute
 
-1. Check inputs/loss/optimizer state, compare expected scales, isolate a small batch, propose or run authorized overfit/gradient probes, and test the leading cause.
-2. Inspect one batch's shapes, labels, scale, loss and gradients, locate the first non-finite value and compare optimizer updates with the intended objective.
+1. Isolate a small batch and inspect its shapes, labels, scale, loss and gradients against expected scales, and check optimizer state.
+2. Locate the first non-finite value and compare optimizer updates with the intended objective.
+3. Propose overfit and gradient probes that test the leading cause, running them in apply mode.
+
 ## Technical method
 
 - **Inspect:** Capture the first divergent batch, activations/loss, gradient finiteness and parameter update.
@@ -47,7 +49,6 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 - When a concrete decision or deliverable example would clarify this workflow: [ML experimentation worked example](../../references/examples/ml-experiments.md).
 - Language/runtime semantics, concurrency or resource ownership can change the result: [Language and runtime review methods](../../references/scenarios/language-review.md).
 - The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method: [PyTorch autograd, device and distributed debugging](../../references/methods/pytorch-debug.md).
-- The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method: [Retrieval, ranking and recommendation evaluation](../../references/methods/recommender-systems.md).
 
 ## Decision branches
 
@@ -55,8 +56,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Diagnosis, minimal corrective change when requested, and controlled evidence.
-- First divergent tensor/step, hypothesis evidence and bounded corrective probe.
+- Diagnosis with the first divergent tensor or step, hypothesis evidence, and a bounded corrective probe or, in apply mode, a minimal corrective change.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -69,5 +69,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Diagnose NaNs from this run's first failing batch and gradient logs.
-- **edge (inspect):** Debug a loss that becomes NaN only after mixed-precision updates.
-- **blocked (inspect):** Inspect saved training logs without retraining or guessing a learning-rate cure.
+- **Edge (inspect):** Debug a loss that becomes NaN only after mixed-precision updates.
+- **Blocked (inspect):** Inspect saved training logs without retraining or guessing a learning-rate cure.

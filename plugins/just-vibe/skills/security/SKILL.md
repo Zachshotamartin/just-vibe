@@ -1,15 +1,15 @@
 ---
 name: security
-description: "Examine concrete security risks in a defined scope Use for a scoped security review; security-* commands investigate one specific attack surface."
+description: "Examine concrete security risks in a defined scope. Use for a scoped security review; security-* commands investigate one specific attack surface, and security-fix repairs confirmed findings."
 ---
 
 # security
 
-Examine concrete security risks in a defined scope
+Examine concrete security risks in a defined scope.
 
 ## Choose this workflow
 
-Use for a scoped security review; security-* commands investigate one specific attack surface.
+Use for a scoped security review; security-* commands investigate one specific attack surface, and security-fix repairs confirmed findings.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [General methods](../../references/packs/general.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; application boundary, threat concerns, and authorized environment.
 
-Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
+**Pack prerequisites:** Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
 - **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
 - **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
@@ -35,6 +35,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 1. Identify the requested scope, assets, entry points, trust boundaries and available source/runtime evidence. Read the security methods and review selector, then the matching vulnerability and framework sections.
 2. Trace each relevant attacker-controlled source through transformations and existing controls to the sensitive effect. Challenge suspected findings with legitimate controls; use available scanners according to their evidence procedure and keep unknown or skipped coverage explicit.
+
 ## Technical method
 
 - **Inspect:** Identify scoped assets, attacker-controlled entry points, deployed assumptions and existing trust controls.
@@ -60,8 +61,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Findings with prerequisites, impact, evidence, and remediation options.
-- Findings with attacker prerequisites, reachable path, evidence, impact and remediation.
+- Findings with attacker prerequisites, reachable path, evidence, impact and remediation options.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -74,5 +74,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Audit authorization around invoice exports using source evidence only.
-- **edge (inspect):** Audit an export endpoint with tenant filtering and an alternate download route.
-- **blocked (inspect):** Review source only without probing real accounts or using suspected credentials.
+- **Edge (inspect):** Audit an export endpoint with tenant filtering and an alternate download route.
+- **Blocked (inspect):** Review source only without probing real accounts or using suspected credentials.

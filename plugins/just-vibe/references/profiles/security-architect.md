@@ -17,8 +17,6 @@ Use independent enforcement when a component handles untrusted input and privile
 
 Model the trust boundary and enforcing control for each sensitive flow, then verify that component composition does not bypass those controls.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Walk abuse cases across boundaries.
@@ -31,7 +29,7 @@ A diagram cannot substitute for checking implementation enforcement.
 ## Candidate workflows
 
 - [security-threat-model](../../skills/security-threat-model/SKILL.md)
-- [arch-boundaries](../../skills/arch-boundaries/SKILL.md)
+- [arch-tenancy](../../skills/arch-tenancy/SKILL.md)
 - [backend-permissions](../../skills/backend-permissions/SKILL.md)
 
 Example: Design isolation between tenants and administrative services.

@@ -1,11 +1,11 @@
 ---
 name: skill
-description: "Create or improve a workflow skill Use to author or revise a reusable workflow; ordinary one-off work should not create a new skill."
+description: "Create or improve a workflow skill. Use to author or revise a reusable workflow; ordinary one-off work should not create a new skill."
 ---
 
 # skill
 
-Create or improve a workflow skill
+Create or improve a workflow skill.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply; workflow purpose, activation conditions, target host, and examples.
 
-Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
+**Pack prerequisites:** Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
 - **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
 - **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
@@ -33,8 +33,10 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Execute
 
-1. Inspect existing skills, define boundaries and inputs, write actionable instructions, separate repeatable execution into utilities, and validate triggering plus behavior fixtures.
-2. Define a matching and a near-miss request, reuse established packaging conventions, and move conditional detail into references only when needed.
+1. Inspect existing skills and the target host's packaging conventions; define the boundary, inputs, and one matching and one near-miss request.
+2. Write actionable instructions, separate repeatable execution into utilities, and move conditional detail into references only when needed. When the project generates its skills, edit the source catalog or generator, not the generated SKILL.md.
+3. Validate triggering with the matching and near-miss requests, and behavior with fixtures.
+
 ## Technical method
 
 - **Inspect:** Read the intended invocation, neighboring workflows, input/output contract and required supporting assets.
@@ -49,6 +51,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 - The task needs scoped memory search, a persistent goal, independent review, configuration scanning, worker control, learned-pattern review or editor installation: [Native memory, goals, specialists and runtime controls](../../references/runtime-platform.md).
 - The task specifically involves agent harness, mcp server, prompt optimization, tool routing; load only the matching method: [Agent harness and MCP server engineering](../../references/methods/agent-harness.md).
 - Discovering session, inventory, rule, council, scheduler, monitor, graph, evaluation, operator or domain-specific capabilities: [Extended capabilities and optional method library](../../references/runtime-expansion.md).
+- The skill targets a specific host's skill format or install location; read the Host mapping section: [Host skill formats](../../references/runtime.md).
 
 ## Decision branches
 
@@ -56,8 +59,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Deliver and verify
 
-- Skill files, capability requirements, usage examples, and validation evidence.
-- Skill entry point, supporting assets, matching boundaries and independent fixture evidence.
+- Skill entry point and supporting assets with capability requirements, usage examples, matching boundaries and independent fixture evidence.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -70,5 +72,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** Create a focused workflow for reviewing database migrations in this project.
-- **edge (apply):** Create a skill whose name overlaps an existing deployment workflow.
-- **blocked (inspect):** Review a proposed skill without host installation access or claiming it is enabled.
+- **Edge (apply):** Create a skill whose name overlaps an existing deployment workflow.
+- **Blocked (inspect):** Review a proposed skill without host installation access or claiming it is enabled.

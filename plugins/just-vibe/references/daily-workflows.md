@@ -10,7 +10,7 @@ Use tracked execution when dependent stages, repeated recovery, a saved continua
 
 When quick work grows, keep completed work and evidence, the original brief and consumed time/attempts. Start tracking remaining stages with that history in context; do not invent past validated transitions or reset a user's budget. A missing credential may require a local alternative or a blocker; it does not require ceremony around every read.
 
-`route` suggests a path with explanations and an ambiguity indicator. It uses intent rules and detected project context, not a semantic model or permission engine. The active agent must resolve intent, negative constraints and the actual target. A requested workflow beats framework inference. Availability is separate from relevance.
+`route` suggests a path with explanations and an ambiguity indicator. It uses intent rules and detected project context, not a semantic model or permission engine. Its quick/tracked suggestion reads verbs with their objects: opening a pull request, deploying, pushing, deleting a live table, rotating keys and load-testing staging suggest tracked work; "release notes", "merge conflicts", "push notifications" and "the delete button" do not. Negated clauses and questions do not count, and a capability counts only when it is missing or disabled, not merely unobserved. The active agent must resolve intent, negative constraints and the actual target. A requested workflow beats framework inference. Availability is separate from relevance.
 
 ```sh
 just-vibe tools

@@ -1,11 +1,11 @@
 ---
 name: copy
-description: "Improve interface wording and product messaging Use for interface language preserving product semantics; docs explains implementation and usage."
+description: "Improve interface wording and product messaging. Use for interface language preserving product semantics; docs explains implementation and usage."
 ---
 
 # copy
 
-Improve interface wording and product messaging
+Improve interface wording and product messaging.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply to specified UI/docs; plan for alternatives only. Requires audience, intent, voice, and relevant product facts.
 
-Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
+**Pack prerequisites:** Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
 - **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
 - **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
@@ -33,8 +33,9 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Execute
 
-1. Identify user decisions, preserve meaning, make actions/errors specific, check space/localization constraints, and update authorized surfaces.
-2. Identify the decision each label or message supports; preserve legal/business meaning and test truncation, pluralization and missing-value variants.
+1. Identify the decision each label or message supports and the legal or business meaning it must keep.
+2. Make actions and errors specific, then check truncation, pluralization, missing-value variants and localization space before updating the authorized surfaces.
+
 ## Technical method
 
 - **Inspect:** Read user intent, action consequences, product terminology and message location/state.
@@ -46,6 +47,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 - When a concrete decision or deliverable example would clarify this workflow: [General worked example](../../references/examples/general.md).
 - Creating, editing or reviewing frontend UI, copy, states or visual assets: [Frontend iconography](../../references/frontend-icons.md).
+- Checking truncation, empty and error states for interface copy: [UI methods](../../references/packs/ui.md).
 
 ## Decision branches
 
@@ -53,8 +55,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Deliver and verify
 
-- Revised copy with necessary context and affected states.
-- Copy changes by state, rationale, character constraints and unresolved policy wording.
+- Revised copy by affected state, with rationale, character constraints and unresolved policy wording.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -66,6 +67,6 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 ## Example requests
 
-- **Normal (apply):** Make payment failure messages actionable and preserve the user's entered data.
-- **edge (apply):** Improve payment errors while preserving a user's entered form values.
-- **blocked (inspect):** Suggest copy with unknown refund policy; do not invent eligibility promises.
+- **Normal (apply):** Make payment failure messages actionable without changing refund-policy wording.
+- **Edge (apply):** Shorten the checkout button labels so the German and French translations fit without truncation.
+- **Blocked (inspect):** Suggest copy with unknown refund policy; do not invent eligibility promises.

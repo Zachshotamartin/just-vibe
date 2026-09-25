@@ -1,15 +1,15 @@
 ---
 name: perf
-description: "Measure a performance problem and improve its cause Use for measured performance repair; architecture scaling work needs workload-level evidence."
+description: "Measure a performance problem and improve its cause. Use for measured performance repair; architecture scaling work needs workload-level evidence. Once the bottleneck is located in one layer, prefer react-rerenders, vite-bundle, vercel-performance, db-explain or ml-inference-perf."
 ---
 
 # perf
 
-Measure a performance problem and improve its cause
+Measure a performance problem and improve its cause.
 
 ## Choose this workflow
 
-Use for measured performance repair; architecture scaling work needs workload-level evidence.
+Use for measured performance repair; architecture scaling work needs workload-level evidence. Once the bottleneck is located in one layer, prefer react-rerenders, vite-bundle, vercel-performance, db-explain or ml-inference-perf.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [General methods](../../references/packs/general.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply; slow operation, workload, performance objective, and measurement budget.
 
-Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
+**Pack prerequisites:** Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
 - **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
 - **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
@@ -33,8 +33,10 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Execute
 
-1. Establish repeatable baseline conditions, profile the path, target the dominant cause, and compare latency/resource use and correctness after the change.
-2. Define a repeatable workload and metric, preserve baseline conditions, and isolate the dominant resource or wait before changing code.
+1. Define a repeatable workload and metric and record the baseline conditions.
+2. Profile the path to isolate the dominant resource or wait before changing code.
+3. After the change, compare latency, resource use and correctness under the same conditions.
+
 ## Technical method
 
 - **Inspect:** Obtain a reproducible workload, baseline, resource measurements and an explicit user-impact metric.
@@ -54,8 +56,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Deliver and verify
 
-- Patch, measurement method, before/after results, and tradeoffs.
-- Workload, sample size, before/after measurements, correctness checks and tradeoffs.
+- Patch with the workload, sample size, before/after measurements, correctness checks and tradeoffs.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -68,5 +69,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** Measure and fix slow product filtering; preserve search results.
-- **edge (apply):** Optimize a slow search without changing ranking or using a warmer cache baseline.
-- **blocked (inspect):** Inspect source without profiler data; provide hypotheses and a bounded measurement plan.
+- **Edge (apply):** Optimize a slow search without changing ranking or using a warmer cache baseline.
+- **Blocked (inspect):** Inspect source without profiler data; provide hypotheses and a bounded measurement plan.

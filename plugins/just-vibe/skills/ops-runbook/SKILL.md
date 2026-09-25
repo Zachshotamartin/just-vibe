@@ -1,11 +1,11 @@
 ---
 name: ops-runbook
-description: "Write operational procedures from verified commands and behavior Use to write an operational procedure; ops-incident executes a scoped response."
+description: "Write operational procedures from verified commands and behavior. Use to write an operational procedure; ops-incident executes a scoped response."
 ---
 
 # ops-runbook
 
-Write operational procedures from verified commands and behavior
+Write operational procedures from verified commands and behavior.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan; operational scenario, environment, existing procedures, and verified commands.
 
-exact service/environment, time window, revision/configuration identity, authorized logs/metrics, and operational constraints. Prefer observation before intervention; live restarts, traffic changes, restores, and notifications require the requested target/action. Redact sensitive telemetry.
+**Pack prerequisites:** Exact service/environment, time window, revision/configuration identity, authorized logs/metrics, and operational constraints. Prefer observation before intervention; live restarts, traffic changes, restores, and notifications require the requested target/action. Redact sensitive telemetry.
 
 - **Infer from evidence:** Read service/environment, time window, revision, available telemetry and existing incident or recovery procedure.
 - **Reasonable default:** Start from supplied logs and read-only observation; rank hypotheses without presenting an unexecuted intervention as recovery.
@@ -33,8 +33,9 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Inspect actual tooling/configuration, document prerequisites and target checks, order low-risk diagnostics first, mark destructive steps, and specify observable success/abort criteria.
-2. Resolve actual environment/tool conventions, order diagnostics before mutation and give each action a target check, expected observation and abort/recovery path.
+1. Resolve the actual environment, tooling and conventions, and document prerequisites and target checks.
+2. Order low-risk diagnostics before mutation, mark destructive steps, and give each action a target check, expected observation and abort/recovery path.
+
 ## Technical method
 
 - **Inspect:** Verify target identity, command support, preconditions, expected observations and recovery dependencies.
@@ -45,7 +46,9 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 ## Read when relevant
 
 - When a concrete decision or deliverable example would clarify this workflow: [Operations worked example](../../references/examples/operations.md).
-
+- The procedure covers a Kubernetes rollout, rollback or readiness check: [Kubernetes release and readiness](../../references/methods/kubernetes-release.md).
+- The procedure rebuilds or pins an environment: [Reproducible environments](../../references/methods/reproducible-environments.md).
+- The procedure changes network device configuration: [Network operations](../../references/methods/network-operations.md).
 
 ## Decision branches
 
@@ -53,8 +56,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Runbook with exact contextualized commands, expected outcomes, escalation conditions, and recovery steps.
-- Runnable steps with target checks, expected outputs and escalation/recovery conditions.
+- Runbook of runnable, contextualized steps with target checks, expected outputs, escalation conditions and recovery steps.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -67,5 +69,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Write a restore runbook with exact target checks and verification steps.
-- **edge (plan):** Write a runbook for restoring queue processing without replaying completed charges.
-- **blocked (inspect):** Draft a runbook without executing incident operations or fabricating terminal output.
+- **Edge (plan):** Write a runbook for restoring queue processing without replaying completed charges.
+- **Blocked (inspect):** Draft a runbook without executing incident operations or fabricating terminal output.

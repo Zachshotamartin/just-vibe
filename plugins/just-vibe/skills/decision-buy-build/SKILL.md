@@ -1,11 +1,11 @@
 ---
 name: decision-buy-build
-description: "Compare building, buying, and integrating a solution Use for vendor versus internal capability decisions; research verifies current vendor claims."
+description: "Compare building, buying, and integrating a solution. Use for vendor versus internal capability decisions; research verifies current vendor claims."
 ---
 
 # decision-buy-build
 
-Compare building, buying, and integrating a solution
+Compare building, buying, and integrating a solution.
 
 ## Choose this workflow
 
@@ -17,13 +17,13 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan; capability, team capacity, compliance/integration constraints, volume, and budget.
 
-the decision question, constraints, alternatives or permission to identify them, and relevant project evidence. Current vendor claims and prices require current authoritative sources during execution. Scores are decision aids, not facts.
+**Pack prerequisites:** The decision question, constraints, alternatives or permission to identify them, and relevant project evidence. Current vendor claims and prices require current authoritative sources during execution. Scores are decision aids, not facts.
 
 - **Infer from evidence:** Recover hard constraints, the current option, adoption status and stated priorities from the brief and prior decisions.
 - **Reasonable default:** Compare feasible options qualitatively when weights were not supplied; make a reversible conditional recommendation when useful.
 - **Ask only when needed:** Ask only about a missing constraint or preference that could reverse the recommendation; do not demand a complete scoring questionnaire.
 
-Resolve any task-specific tools, target identity and evidence before dependent actions. No external connection is assumed.
+Declared evidence requirements: `project.read`, `web.research`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
@@ -33,8 +33,9 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Compare fit, integration, maintenance, migration, service dependence, and total-cost assumptions; verify current vendor capabilities when relevant.
-2. Compare integration, operations, staffing, exit/export and failure ownership over a stated usage horizon; include the current workaround.
+1. State the usage horizon and include the current workaround as an option; verify current vendor capabilities when relevant.
+2. Compare fit, integration, operations, staffing, maintenance, migration, exit/export, failure ownership and total-cost assumptions.
+
 ## Technical method
 
 - **Inspect:** Establish functional requirements, integration surfaces, support burden, data export and verified pricing terms.
@@ -53,8 +54,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Option comparison, recommendation, cost model inputs, and a validation/exit plan.
-- Fit/gap matrix, cost assumptions, ownership burden and exit plan.
+- Fit/gap matrix, cost model inputs and assumptions, ownership burden, recommendation, and a validation and exit plan.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -67,5 +67,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Compare building and buying organization authentication with future SSO.
-- **edge (plan):** Compare buying search with building it when private indexing is required.
-- **blocked (inspect):** Assess buy versus build with no price quote; keep uncertain costs as ranges.
+- **Edge (plan):** Compare buying search with building it when private indexing is required.
+- **Blocked (inspect):** Assess buy versus build with no price quote; keep uncertain costs as ranges.

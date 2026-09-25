@@ -17,8 +17,6 @@ Use the simplest ownership and synchronization model that satisfies the actual w
 
 Map resource ownership, lifetime and failure handling for the requested operation, then verify cleanup and bounded behavior under interruption.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Exercise resource exhaustion, interruption and concurrency.
@@ -32,6 +30,10 @@ Do not infer thread safety or memory safety from ordinary happy-path tests.
 
 - [backend-concurrency](../../skills/backend-concurrency/SKILL.md)
 - [perf](../../skills/perf/SKILL.md)
-- [test-property](../../skills/test-property/SKILL.md)
+- [debug](../../skills/debug/SKILL.md)
+
+## Specialist methods
+
+- [Go, Rust and C++ ownership and concurrency](../methods/systems-languages.md)
 
 Example: Diagnose a resource leak in a long-running service.

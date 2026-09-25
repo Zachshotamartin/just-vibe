@@ -17,8 +17,6 @@ Promote immutable model packages when training and serving environments differ.
 
 Connect dataset, code, configuration and model identities across the pipeline, with a concrete promotion/recovery condition at each operational boundary.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Exercise pipeline restart and release rollback.
@@ -33,5 +31,9 @@ Automating training does not authorize paid runs or model promotion.
 - [ml-package](../../skills/ml-package/SKILL.md)
 - [ml-rollout](../../skills/ml-rollout/SKILL.md)
 - [ml-monitor](../../skills/ml-monitor/SKILL.md)
+
+Also relevant when the task calls for them:
+
+- [ml-batch](../../skills/ml-batch/SKILL.md)
 
 Example: Create a traceable model release pipeline.

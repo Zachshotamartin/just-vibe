@@ -1,15 +1,15 @@
 ---
 name: automate
-description: "Turn a repetitive process into a script or workflow Use for a repeatable local workflow; a scheduled service requires an actual separately scoped runtime."
+description: "Turn a repetitive process into a script or workflow. Use for a repeatable local workflow; github-actions owns scheduled CI workflow files, and any other scheduled service requires an actual separately scoped runtime."
 ---
 
 # automate
 
-Turn a repetitive process into a script or workflow
+Turn a repetitive process into a script or workflow.
 
 ## Choose this workflow
 
-Use for a repeatable local workflow; a scheduled service requires an actual separately scoped runtime.
+Use for a repeatable local workflow; github-actions owns scheduled CI workflow files, and any other scheduled service requires an actual separately scoped runtime.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [General methods](../../references/packs/general.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply; repeated process, trigger, inputs, destinations, and error expectations.
 
-Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
+**Pack prerequisites:** Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
 - **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
 - **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
@@ -33,8 +33,10 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Execute
 
-1. Observe current steps, isolate deterministic operations, validate inputs, implement failure reporting and repeat behavior, and test with controlled fixtures.
-2. Define inputs, output ownership, locking and idempotency; produce meaningful exit statuses and rehearse interruption between durable steps.
+1. Observe the current steps, isolate the deterministic operations, and define inputs, output ownership, locking and idempotency.
+2. Implement input validation, failure reporting with meaningful exit statuses, and the defined repeat behavior.
+3. Test with controlled fixtures and rehearse interruption between durable steps.
+
 ## Technical method
 
 - **Inspect:** Identify repeated inputs/actions, idempotency, scheduling need, target and partial-failure behavior.
@@ -53,8 +55,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Deliver and verify
 
-- Runnable automation, usage, required permissions, and execution evidence.
-- Runnable entry point, input contract, repeat-run policy and failure/exit behavior.
+- Runnable entry point with usage, input contract, required permissions, repeat-run policy, failure/exit behavior and execution evidence.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -67,5 +68,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** Create a repeatable local script to validate our release artifacts.
-- **edge (apply):** Automate report generation when an earlier run left half the output.
-- **blocked (inspect):** Inspect automation requirements without installing a scheduler or contacting services.
+- **Edge (apply):** Automate report generation when an earlier run left half the output.
+- **Blocked (inspect):** Inspect automation requirements without installing a scheduler or contacting services.

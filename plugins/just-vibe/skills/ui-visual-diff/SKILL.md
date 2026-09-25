@@ -1,15 +1,15 @@
 ---
 name: ui-visual-diff
-description: "Compare screenshots against an accepted reference Use to compare matched visual states; ui-audit judges usability of the resulting interface."
+description: "Compare screenshots against an accepted reference. Use to compare matched visual states; match closes gaps against an accepted reference, and ui-audit judges usability of the resulting interface."
 ---
 
 # ui-visual-diff
 
-Compare screenshots against an accepted reference
+Compare screenshots against an accepted reference.
 
 ## Choose this workflow
 
-Use to compare matched visual states; ui-audit judges usability of the resulting interface.
+Use to compare matched visual states; match closes gaps against an accepted reference, and ui-audit judges usability of the resulting interface.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [UI and frontend methods](../../references/packs/ui.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -17,24 +17,26 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect existing captures; reference/current renders with matching viewport, state, data, fonts, and theme.
 
-target screens/flows, existing design conventions, and runnable UI or supplied references. Visual claims require actual renders; accessibility claims distinguish automated, keyboard, and assistive-technology evidence.
+**Pack prerequisites:** Target screens/flows, existing design conventions, and runnable UI or supplied references. Visual claims require actual renders; accessibility claims distinguish automated, keyboard, and assistive-technology evidence.
 
 - **Infer from evidence:** Inspect the target flow, existing components/tokens, actual renders or supplied references and current responsive behavior.
 - **Reasonable default:** Reuse established visual conventions and preserve keyboard behavior; label unrendered changes as visually unverified.
 - **Ask only when needed:** Ask about an unresolved interaction or visual direction only when plausible choices materially differ; do not make a missing screenshot block source inspection.
 
-Declared evidence requirements: `browser.inspect`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
+Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
-Visual differences and regression classification; automatic fixes belong to `match` or an explicit apply request.
+Visual differences and regression classification; match applies visual fixes.
 
 No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
 ## Execute
 
-1. Normalize capture conditions, identify meaningful regions, separate dynamic content noise, and describe differences by user impact.
-2. Match viewport, DPR, fonts, content, theme and animation state; mask only justified nondeterminism and inspect changed regions before accepting baselines.
+1. Match viewport, DPR, fonts, content, theme and animation state across the captures.
+2. Mask only justified nondeterminism, identify the meaningful changed regions and describe differences by user impact.
+3. Inspect changed regions before accepting any baseline.
+
 ## Technical method
 
 - **Inspect:** Record baseline approval, viewport, fonts, data, time and screenshot environment.
@@ -56,8 +58,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Compared images or annotated difference report with conditions and confidence.
-- Capture conditions, changed regions, accepted differences and remaining mismatches.
+- Annotated difference report with capture conditions, changed regions, accepted differences with reasons, remaining mismatches and confidence.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -65,10 +66,10 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 ## Stop and recover
 
-- New captures require authorized browser execution. Unmatched conditions invalidate precise pixel-difference claims.
+- Capturing a local build is bounded local execution; capturing a shared or remote target needs that target in scope. Unmatched conditions invalidate precise pixel-difference claims.
 
 ## Example requests
 
 - **Normal (inspect):** Compare these matched-viewport screenshots and separate dynamic noise from regressions.
-- **edge (inspect):** Compare screenshots with dynamic timestamps and a real layout shift.
-- **blocked (inspect):** Compare supplied captures with unknown font loading; do not assert exact pixel fidelity.
+- **Edge (inspect):** Compare screenshots with dynamic timestamps and a real layout shift.
+- **Blocked (inspect):** Compare supplied captures with unknown font loading; do not assert exact pixel fidelity.

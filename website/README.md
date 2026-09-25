@@ -38,7 +38,7 @@ The browser check exercises six package-manager/host installation combinations, 
 
 Set `WEBSITE_URL` to run browser checks against a deployment instead. Tests do not submit any external forms or run commands from the website.
 
-The layout check measures overflow and overlapping layout regions across every page template at 15 viewport widths, including breakpoint boundaries. It also visits all 347 command, profile, and guide pages at 320px and 768px, and checks expanded text spacing. These geometry checks complement visual browser review; they cannot certify every possible text collision.
+The layout check measures overflow and overlapping layout regions across every page template at 15 viewport widths, including breakpoint boundaries. It also visits every command, profile, and guide page at 320px and 768px, and checks expanded text spacing. These geometry checks complement visual browser review; they cannot certify every possible text collision.
 
 The motion check exercises internal navigation, document changes from the bottom of the page, history and filter restoration, control initialization after navigation, keyboard dropdown selection, interrupted menu transitions, Escape, outside clicks, viewport changes, clipboard failure/reset, and reduced-motion behavior. The header check covers full-width header/footer surfaces, selected navigation links, catalog padding, scroll direction and jitter, keyboard focus, mobile-menu visibility, and reduced motion.
 
@@ -76,7 +76,7 @@ npm exec --yes --package=vercel@59.23.2 -- vercel --prod --yes --scope zach-2267
 
 Use your own project/scope if deploying a fork. `SITE_URL` overrides the default canonical origin in `astro.config.mjs`; set it to the actual production URL when assigning a different domain. Keep `.vercel`, generated environment files, local plans, and caches ignored. Do not commit credentials.
 
-The Vercel project is connected to the GitHub repository. Production deployments from the CLI do not depend on GitHub Actions minutes. A website-only deployment does not require republishing the CLI to npm.
+The Vercel project is connected to the GitHub repository, so a merge to `main` deploys production. Version surfaces (footer, release notes and `/release.json`) follow the latest record in `evals/releases/*-publication.json`, so an unpublished source version is labeled unreleased rather than advertised. Production deployments from the CLI do not depend on GitHub Actions minutes. A website-only deployment does not require republishing the CLI to npm.
 
 Vercel checks the commit author's connected account for deployment permission, including CLI deployments after the repository is linked. This repository uses Zachary Martin's `zachsm@alumni.stanford.edu` commit email, verified on the authenticated owner account `Zachshotamartin`. GitHub, npm, and Vercel all use the Stanford account. Automatic Vercel deployment succeeded after correcting the earlier work-account author mapping. Existing history is preserved; no seats or collaborators were added. Follow the project identity rules in the root `AGENTS.md`. If `TEAM_ACCESS_REQUIRED` returns, verify the repository-local Git identity and the account's Vercel team access instead of assuming that CLI deployment bypasses the check.
 

@@ -15,9 +15,9 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 ## Input and mode
 
-Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; a topic, command name, implementation question, or current project context, plus optional experience level, language, depth and time available. Teaching never executes the target workflow.
+Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; a topic, command name, implementation question, or current project context, plus optional experience level, language, depth and time available. Teaching never executes the target workflow. Preparing a requested hands-on exercise is a separately scoped apply run when tracked.
 
-Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
+**Pack prerequisites:** Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
 - **Infer from evidence:** Resolve topic versus named workflow from the appended request and recent lesson; read source only when teaching its implementation.
 - **Reasonable default:** Start with an accessible explanation and one concrete example when experience level is unknown; adjust to the next correction.
@@ -38,6 +38,7 @@ None by default. Save lesson notes or example files only when explicitly request
 3. For a workflow lesson, read its catalog contract and relevant utility source; map concepts to actual algorithms, data shapes, invariants and verification boundaries. Distinguish implemented behavior, conceptual pseudocode and proposed design.
 4. For an explicitly requested hands-on exercise, follow the practice guide: use owned solution/learner worktrees, protect assessment files, and establish passing solution/failing starter controls for the taught behavior before presenting the learner workspace. Keep exercise mechanics out of ordinary lessons.
 5. Give only requested hints and let the learner make the implementation. Save progress only on request and preserve requested work before cleanup. Ordinary lessons may offer practice; native assessment belongs to teach-test under actual host restrictions.
+
 ## Technical method
 
 - **Inspect:** Resolve the learner's topic or target workflow, existing knowledge and whether a project exercise is wanted.
@@ -48,6 +49,7 @@ None by default. Save lesson notes or example files only when explicitly request
 ## Read when relevant
 
 - When a concrete decision or deliverable example would clarify this workflow: [General worked example](../../references/examples/general.md).
+- Every topic or workflow-implementation lesson: [Teaching method](../../references/teaching.md).
 - The learner requests hands-on practice using repository code: [Project exercises](../../references/practice.md).
 
 ## Decision branches
@@ -57,8 +59,7 @@ None by default. Save lesson notes or example files only when explicitly request
 
 ## Deliver and verify
 
-- A readable lesson with a clear learning outcome, prerequisite sequence, worked example, relevant tradeoffs and mistakes, and an optional practice/check step. For tool lessons, include a concept-to-implementation map and links to actual source where available.
-- Learning objective, worked example, common misconception, and a concrete next exercise.
+- A readable lesson with a clear learning outcome, prerequisite sequence, worked example, relevant tradeoffs and a common misconception, and a concrete next exercise or check. For tool lessons, include a concept-to-implementation map and links to actual source where available.
 - Optional actual project exercise, validated controls, learner workspace, progressive hints and behavioral assessment.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
@@ -74,5 +75,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Teach linked lists from the basics, with a worked insertion example and practical tradeoffs.
-- **edge (inspect):** Teach linked-list deletion when only the head pointer is available.
-- **blocked (inspect):** Teach db-migrate concepts without database access; do not run a migration.
+- **Edge (inspect):** Teach linked-list deletion when only the head pointer is available.
+- **Blocked (inspect):** Teach db-migrate concepts without database access; do not run a migration.

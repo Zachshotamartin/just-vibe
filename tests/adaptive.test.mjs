@@ -6,10 +6,11 @@ import { tmpdir } from 'node:os';
 import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
 import { adaptiveStore } from '../plugins/just-vibe/scripts/lib/adaptive-store.mjs';
-import { assistantRuntime, stopTask } from '../plugins/just-vibe/scripts/lib/assistant-runtime.mjs';
+import { assistantRuntime, stopTask, activationContext } from '../plugins/just-vibe/scripts/lib/assistant-runtime.mjs';
 import { assistantHook } from '../plugins/just-vibe/scripts/lib/assistant-hooks.mjs';
 import { manageHooks } from '../plugins/just-vibe/scripts/lib/automation.mjs';
 import { loadCatalog } from '../plugins/just-vibe/scripts/lib/catalog.mjs';
+import { continuity } from '../plugins/just-vibe/scripts/lib/continuity.mjs';
 
 const catalog = loadCatalog();
 const cli = fileURLToPath(new URL('../bin/just-vibe.mjs', import.meta.url));
@@ -33,12 +34,13 @@ function lesson(task, extra = {}) {
 test('ordinary requests route across frontend, ML, GitHub and backend without command names', t => {
   const f = fixture(t);
   for (const [brief, expected] of [
-    ['Fix the mobile menu', 'ui-states'], ['Why is training unstable?', 'ml-debug-training'],
+    ['Fix the mobile menu', 'react-component'], ['Why is training unstable?', 'ml-debug-training'],
     ['Address this PR’s feedback', 'github-address-review'], ['Fix the login bug without deploying', 'backend-auth'],
     ['Review the database migration', 'db-migrate'],
     ['Add pagination to this endpoint', 'api-pagination'],
     ['Reduce the JavaScript bundle size', 'vite-bundle'],
-    ['Review the API for SQL injection', 'security'],
+    // Injection classes route to the input-boundary specialist first (review finding V-A10-01).
+    ['Review the API for SQL injection', 'security-inputs'],
     ['Investigate a broken Docker build', 'ops-container'],
   ]) assert.equal(f.run('route', { brief }).recommendations[0].id, expected, brief);
   for (const brief of ['Hello', 'What is the weather?', 'Help choose a restaurant menu', 'Review my marathon training', 'Do not deploy anything']) {
@@ -47,11 +49,106 @@ test('ordinary requests route across frontend, ML, GitHub and backend without co
   assert.equal(existsSync(f.home), false, 'Read-only retrieval must not create state.');
 });
 
+test('everyday engineering phrasing activates while ordinary conversation does not (R1-02, PB-02)', t => {
+  const f = fixture(t);
+  for (const brief of ['my tests are failing', 'CI is red', 'the dropdown overlaps the footer', 'the migrations are out of order',
+    'Is our auth vulnerable to CSRF?', 'the endpoints return 500 after the upgrade', 'npm install fails with ERESOLVE',
+    'the server crashes on startup', 'webhook signatures fail verification', 'our dependencies are out of date', 'the specs are flaky']) {
+    const route = f.run('route', { brief });
+    assert.equal(route.kind, 'task', brief); assert.ok(route.recommendations.length > 0, brief);
+  }
+  // Generic action rules and single method-id words ("next", "sales") are not engineering evidence.
+  for (const brief of ['book a table for the team next friday', 'draft a thank-you note to the sales team', 'plan a weekend trip to Lisbon',
+    'how do I fold a fitted sheet', 'write a birthday poem for my sister', 'recommend a good sci-fi novel', 'thanks, that was helpful']) {
+    assert.equal(f.run('route', { brief }).kind, 'none', brief);
+  }
+  const context = brief => { const task = f.start(brief, brief); return task.kind === 'task' ? activationContext(f.store, catalog, task) : ''; };
+  assert.doesNotMatch(context('design multi-region disaster recovery for the API'), /motion-design/);
+  assert.match(context('BGP session flaps on the edge router'), /network-operations/);
+});
+
+test('a repair follow-up after an inspection offers workflows that can apply it (B6-02)', t => {
+  const f = fixture(t), audit = 'audit the billing service for security issues, source only';
+  for (const followUp of ['fix it', 'fix the first two', 'please fix the issues you found', 'now fix them']) {
+    f.start(audit, followUp); const repair = f.start(followUp, followUp);
+    assert.equal(repair.routeKind, 'task', followUp); assert.equal(repair.repair, true, followUp);
+    assert.equal(repair.brief, audit, 'The original brief and its constraints are kept');
+    assert.equal(repair.feedbackCandidate, false, 'A repair request is not feedback');
+    assert.deepEqual(repair.candidates.map(c => c.id), ['security-fix', 'fix'], followUp);
+    assert.match(activationContext(f.store, catalog, repair), /repair what the previous inspection found/);
+  }
+  // A selected apply-mode task continues unchanged; a selected inspect-mode task is repaired.
+  const applied = f.start('Fix the mobile menu', 'applied'); select(f, applied);
+  const continued = f.start('fix the first two', 'applied');
+  assert.equal(continued.repair, false); assert.equal(continued.brief, 'Fix the mobile menu'); assert.equal(continued.candidates[0].id, 'react-component');
+  const inspected = f.start('Fix the mobile menu', 'inspected'); select(f, inspected, 'react-component', 'inspect');
+  assert.equal(f.start('fix it', 'inspected').repair, true);
+  assert.equal(f.start('continue', 'inspected').repair, false, 'A plain continuation keeps the previous shortlist');
+});
+
+test('a task role carries across prompts and compaction, and a saved preference is only a suggestion (PB-01)', t => {
+  const f = fixture(t);
+  const first = f.start('Fix the mobile menu');
+  const pin = { primary: 'frontend-engineer', selectedBy: 'user', reason: 'User asked to work as the frontend engineer.' };
+  assert.equal(f.run('select', { taskId: first.id, workflows: ['react-component'], mode: 'apply', reason: 'Menu interaction bug.', profile: pin }).profile.primary, 'frontend-engineer');
+  const second = f.start('now fix the modal focus bug');
+  assert.equal(second.profile.primary, 'frontend-engineer'); assert.equal(second.profile.pinned, true);
+  assert.match(activationContext(f.store, catalog, second), /Active task profile: frontend-engineer \(pinned by the user\)/);
+  assert.match(activationContext(f.store, catalog, second), /Role methods for frontend-engineer: react-behavior/, 'The pinned role brings its specialist method (PB-07)');
+  assert.match(f.hook({ hook_event_name: 'SessionStart', source: 'compact' }).hookSpecificOutput.additionalContext, /Active task profile: frontend-engineer/);
+  assert.throws(() => f.run('select', { taskId: second.id, workflows: ['ui-states'], mode: 'apply', reason: 'x', profile: { primary: 'backend-engineer', selectedBy: 'agent', reason: 'Agent prefers backend.' } }), /pinned user profile/);
+  f.run('select', { taskId: second.id, workflows: ['ui-states'], mode: 'apply', reason: 'x', profile: { primary: null, selectedBy: 'user', reason: 'User cleared the role.' } });
+  assert.equal(f.start('and the footer overlaps the content').profile, null, 'A cleared role stays cleared');
+  // No framework is detected in this fixture; the pin reminder still appears.
+  assert.match(activationContext(f.store, catalog, f.start('Fix the login bug')), /Honor any current user-pinned role/);
+});
+
+test('a saved project profile preference reaches hook context as a suggestion (PB-01)', t => {
+  const f = fixture(t);
+  continuity(f.root, 'init', { preferences: { profile: 'accessibility-engineer' } });
+  const task = f.start('Fix the modal focus bug');
+  assert.equal(task.profile, null);
+  assert.match(activationContext(f.store, catalog, task), /Saved project profile preference: accessibility-engineer[^.]*\. A suggestion, not a pin/);
+});
+
+test('role-framed requests shortlist the profile workflow (PB-01)', t => {
+  const f = fixture(t);
+  assert.equal(f.run('route', { brief: 'switch the role to site reliability engineer' }).recommendations[0].id, 'profile');
+  assert.ok(f.run('route', { brief: 'As a principal engineer, review this migration plan' }).recommendations.some(r => r.id === 'profile'));
+});
+
+test('questions about which workflow to use are answered, not executed (B11-01)', t => {
+  const f = fixture(t);
+  for (const [brief, first] of [
+    ['Which just-vibe command should I use to find out why a test only fails in CI?', 'help'],
+    ['What commands do you have for React performance problems?', 'tools'],
+    ['which skill handles Vercel build failures?', 'help'],
+    ['is there a workflow for database migrations?', 'help'],
+    ['how do I use just-vibe to review a pull request?', 'help'],
+    ["Don't run anything yet. Just tell me which workflow fits a slow SQL query.", 'help'],
+    ["Show which GitHub workflows are available here, but don't log in to anything.", 'tools'],
+    ['Which integrations and prerequisites are missing for the Vercel workflows?', 'tools'],
+    ['Which persona fits an SRE doing an on-call review?', 'profile'],
+  ]) {
+    const route = f.run('route', { brief });
+    assert.equal(route.kind, 'discovery', brief); assert.equal(route.recommendations[0].id, first, brief);
+  }
+  for (const brief of ['Fix the mobile menu', 'Which GitHub workflow runs the tests?', 'what tool should I use for load testing']) {
+    assert.notEqual(f.run('route', { brief }).kind, 'discovery', brief);
+  }
+  f.start('Fix the mobile menu');
+  const question = f.start('Which just-vibe command should I use for flaky tests?');
+  assert.equal(question.routeKind, 'discovery'); assert.equal(question.status, 'idle'); assert.equal(question.feedbackCandidate, false);
+  const context = activationContext(f.store, catalog, question);
+  assert.match(context, /do not start the embedded task/); assert.doesNotMatch(context, /Before implementation/);
+  assert.deepEqual(stopTask(f.store, catalog, question.id), {}, 'Answering needs no workflow selection at Stop');
+});
+
 test('both adapters inject a bounded shortlist and preserve the complete request', t => {
   const f = fixture(t);
   for (const host of ['claude', 'codex']) {
     const context = f.hook({ hook_event_name: 'UserPromptSubmit', prompt: 'Fix the mobile menu. No new packages; do not deploy.', turn_id: 't1' }, host).hookSpecificOutput.additionalContext;
-    assert.match(context, /ui-states/); assert.match(context, /assist select/); assert.ok(context.length < 8000);
+    assert.match(context, /react-component/); assert.match(context, /assist select/); assert.ok(context.length < 8000);
     const session = f.store.read(f.store.sessionPath(host, 'session-one'));
     assert.equal(f.store.task(session.taskId).brief, 'Fix the mobile menu. No new packages; do not deploy.');
     assert.equal(f.hook({ hook_event_name: 'UserPromptSubmit', prompt: 'Fix the mobile menu. No new packages; do not deploy.', turn_id: 't1' }, host).hookSpecificOutput.additionalContext, context);

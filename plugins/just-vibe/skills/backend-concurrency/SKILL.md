@@ -1,11 +1,11 @@
 ---
 name: backend-concurrency
-description: "Investigate races, locking, and competing updates Use for violated invariants under competing operations; backend-idempotency handles repeat identity."
+description: "Investigate races, locking, and competing updates. Use for violated invariants under competing operations; backend-idempotency handles repeat identity."
 ---
 
 # backend-concurrency
 
-Investigate races, locking, and competing updates
+Investigate races, locking, and competing updates.
 
 ## Choose this workflow
 
@@ -15,9 +15,9 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 ## Input and mode
 
-Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; race symptom, shared resources, transaction semantics, and concurrency evidence.
+Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect for diagnosis; apply for an explicit fix to the violated invariant. Requires race symptom, shared resources, transaction semantics, and concurrency evidence.
 
-service source, data/interface contracts, framework/runtime versions, and test environment. Default apply operations target local code and isolated tests; live infrastructure/data mutations require their own requested scope.
+**Pack prerequisites:** Service source, data/interface contracts, framework/runtime versions, and test environment. Default apply operations target local code and isolated tests; live infrastructure/data mutations require their own requested scope.
 
 - **Infer from evidence:** Trace service callers, request contracts, authorization, transactions, retries and existing test infrastructure.
 - **Reasonable default:** Use the existing persistence and framework; isolate local tests from live services.
@@ -27,9 +27,9 @@ Declared evidence requirements: `project.read`. Use actual host discovery or ade
 
 ## Scope
 
-Competing updates, locks, isolation, and atomicity; apply for an explicit fix.
+Competing updates, locks, isolation, and atomicity.
 
-No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
+Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the requested local implementation and perform relevant bounded checks while preserving unrelated work. Live data changes, remote actions and paid jobs require their resolved target and existing session authorization.
 
 ## Execute
 
@@ -37,6 +37,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 2. Choose the narrowest supported atomicity mechanism for that boundary: a conditional write, transaction, version check or shared lock. Define who starts and ends the transaction or lease; never accidentally commit or roll back a caller-owned transaction.
 3. Validate before irreversible work and keep related invariant checks inside the serialization boundary when their inputs can race. Handle lock acquisition failure, deadlock/serialization conflict and cancellation with bounded retries only when replay is safe.
 4. Force contention using separate real connections or workers and deterministic coordination. Exercise success, rejection, interruption after partial work and cleanup; assert final state and number of effects, not just the number of returned responses.
+
 ## Technical method
 
 - **Inspect:** Write the invariant and a concrete violating interleaving; inspect isolation, lock order and actual worker topology.
@@ -75,5 +76,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Investigate two concurrent reservations exceeding inventory capacity.
-- **edge (inspect):** Prevent two concurrent reservations from selling the final available seat twice.
-- **blocked (inspect):** Review concurrency logic without performing live contention experiments.
+- **Edge (apply):** Prevent two concurrent reservations from selling the final available seat twice.
+- **Blocked (inspect):** Review concurrency logic without performing live contention experiments.

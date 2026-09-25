@@ -1,15 +1,15 @@
 ---
 name: deploy
-description: "Prepare or perform deployment within the requested authorization Use for an explicitly targeted deployment or its plan; vercel-preview is the Vercel preview specialization."
+description: "Prepare or perform deployment within the requested authorization. Use for an explicitly targeted deployment or its plan; vercel-preview is the Vercel preview specialization, and ml-rollout promotes model versions on prediction metrics."
 ---
 
 # deploy
 
-Prepare or perform deployment within the requested authorization
+Prepare or perform deployment within the requested authorization.
 
 ## Choose this workflow
 
-Use for an explicitly targeted deployment or its plan; vercel-preview is the Vercel preview specialization.
+Use for an explicitly targeted deployment or its plan; vercel-preview is the Vercel preview specialization, and ml-rollout promotes model versions on prediction metrics.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [General methods](../../references/packs/general.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan deployment when asked for a plan; apply for requested deployment preparation or submission to a resolved environment.
 
-Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
+**Pack prerequisites:** Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
 - **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
 - **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
@@ -33,8 +33,10 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 
 ## Execute
 
-1. Resolve target, inspect prerequisites and checks, identify recovery, execute authorized steps, and verify the deployed revision and health.
-2. Confirm immutable artifact/revision, environment and health criteria; resolve schema compatibility and the previous usable target before execution.
+1. Resolve the target environment and confirm the immutable artifact or revision, its prerequisites, checks and health criteria.
+2. Before execution, resolve schema compatibility and identify recovery to the previous usable target.
+3. Execute the authorized steps and verify the deployed revision and health.
+
 ## Technical method
 
 - **Inspect:** Resolve provider, project/environment, immutable candidate revision, authorization and current live identity.
@@ -54,8 +56,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 
 ## Deliver and verify
 
-- Deployment plan or actual deployment ID/URL, health evidence, and recovery information.
-- Target, revision, deployment identity, health results and recoverability limits.
+- Target and revision with the deployment plan or the actual deployment ID/URL, health results, and the recovery path with its limits.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -68,5 +69,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Prepare a staging deployment plan; identify the exact revision and rollback.
-- **edge (plan):** Deploy a preview whose build succeeds but startup health fails.
-- **blocked (inspect):** Plan deployment without provider access; do not claim a URL or deployed revision.
+- **Edge (apply):** Deploy a preview whose build succeeds but startup health fails.
+- **Blocked (inspect):** Plan deployment without provider access; do not claim a URL or deployed revision.

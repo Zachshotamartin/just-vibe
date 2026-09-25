@@ -17,8 +17,6 @@ Move work to the edge only when its data and execution requirements fit the runt
 
 Identify which computation and state can safely move to the edge, including propagation delay, regional failure and origin consistency requirements.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Test stale data, origin failure and regional routing.

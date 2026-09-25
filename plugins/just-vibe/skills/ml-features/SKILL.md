@@ -1,11 +1,11 @@
 ---
 name: ml-features
-description: "Design features available at prediction time and test usefulness Use to implement prediction-time feature transformations; ml-labels defines outcomes and ml-leakage audits leakage."
+description: "Design features available at prediction time and test usefulness. Use to implement prediction-time feature transformations; ml-labels defines outcomes and ml-leakage audits leakage."
 ---
 
 # ml-features
 
-Design features available at prediction time and test usefulness
+Design features available at prediction time and test usefulness.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan feature definitions when requested; apply for requested feature-pipeline code and bounded fixture checks. Actual experiments additionally require data access and resource limits.
 
-task definition, dataset identity, field semantics, entity/time keys, and permission to inspect bounded data. Record prediction moment, label horizon, sampling, and provenance. Preserve held-out evaluation boundaries; no data upload, label alteration, or feature fitting across splits implicitly.
+**Pack prerequisites:** Task definition, dataset identity, field semantics, entity/time keys, and permission to inspect bounded data. Record prediction moment, label horizon, sampling, and provenance. Preserve held-out evaluation boundaries; no data upload, label alteration, or feature fitting across splits implicitly.
 
 - **Infer from evidence:** Read prediction moment, label horizon, entity/time keys, split policy and dataset provenance from the task and manifests.
 - **Reasonable default:** Use explicit synthetic examples for design when raw data is unavailable; do not infer missing labels or fit preprocessing across held-out boundaries.
@@ -38,6 +38,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the
 3. Fit learned transforms only on eligible training rows within each simulated fit or cross-validation fold. Preserve input ordering/identity and define empty, constant, missing and unseen-category behavior; use the same transformation semantics at serving time.
 4. Verify exact time boundaries, mixed explicit offsets, late arrivals, corrections, duplicates, negative/zero values and no input mutation. Compare engineered features to an independent tiny example before proposing a usefulness experiment.
 5. Only claim usefulness after a controlled baseline comparison on the chosen evaluation protocol and compute budget. A correct feature builder alone establishes neither predictive gain nor production readiness.
+
 ## Technical method
 
 - **Inspect:** Define feature semantics, prediction-time availability, units, ordering and missing/unseen-value behavior.
@@ -48,8 +49,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the
 ## Read when relevant
 
 - When a concrete decision or deliverable example would clarify this workflow: [ML data worked example](../../references/examples/ml-data.md).
-- The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method: [PyTorch autograd, device and distributed debugging](../../references/methods/pytorch-debug.md).
-- The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method: [Retrieval, ranking and recommendation evaluation](../../references/methods/recommender-systems.md).
+
 
 ## Decision branches
 
@@ -71,5 +71,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Plan point-in-time customer features fitted only on training data.
-- **edge (apply):** Build categorical features with unseen values and delayed source updates.
-- **blocked (inspect):** Design features without trustworthy availability timestamps; do not claim deployability.
+- **Edge (apply):** Build categorical features with unseen values and delayed source updates.
+- **Blocked (inspect):** Design features without trustworthy availability timestamps; do not claim deployability.

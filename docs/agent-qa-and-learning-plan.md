@@ -27,7 +27,7 @@ Requested September 21, 2026. Work is complete only when the acceptance evidence
 - The eight original defects and nine follow-up improvements below are implemented. A further review found and fixed ten additional defects; their reproductions and regression coverage are recorded in the final September 22 validation entry.
 - Local browser, unit and live-host development evidence: [validation record](audits/agent-qa/validation.md); failed host trials are retained.
 - Cross-platform CI and browser checks passed at `149b318`, but those checks missed the defects subsequently fixed below. Earlier archive preparation is development evidence, not approval to publish the current changes.
-- Publication and production deployment: not performed. The implementation review and local checks are complete; prepare an exact archive from the final clean commit and review fresh CI before a separately requested manual release.
+- Publication: 0.12.0 was published to npm on 2026-09-23 as `latest` ([publication record](../evals/releases/0.12.0-publication.json), reconstructed from registry metadata). No release blockers are open. Later changes follow the manual release process in [releases](releases.md): prepare an exact archive from a clean commit and review fresh CI before a separately requested release.
 
 ## Confirmed defects resolved — September 22, 2026
 

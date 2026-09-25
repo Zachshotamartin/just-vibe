@@ -1,11 +1,11 @@
 ---
 name: ui-motion
-description: "Add purposeful transitions with reduced-motion behavior Use for purposeful transitions and animation behavior; polish addresses static hierarchy and spacing."
+description: "Add purposeful transitions with reduced-motion behavior. Use for purposeful transitions and animation behavior; polish addresses static hierarchy and spacing."
 ---
 
 # ui-motion
 
-Add purposeful transitions with reduced-motion behavior
+Add purposeful transitions with reduced-motion behavior.
 
 ## Choose this workflow
 
@@ -17,13 +17,13 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply; interaction purpose, existing motion language, performance constraints, and reduced-motion requirements.
 
-target screens/flows, existing design conventions, and runnable UI or supplied references. Visual claims require actual renders; accessibility claims distinguish automated, keyboard, and assistive-technology evidence.
+**Pack prerequisites:** Target screens/flows, existing design conventions, and runnable UI or supplied references. Visual claims require actual renders; accessibility claims distinguish automated, keyboard, and assistive-technology evidence.
 
 - **Infer from evidence:** Inspect the target flow, existing components/tokens, actual renders or supplied references and current responsive behavior.
 - **Reasonable default:** Reuse established visual conventions and preserve keyboard behavior; label unrendered changes as visually unverified.
 - **Ask only when needed:** Ask about an unresolved interaction or visual direction only when plausible choices materially differ; do not make a missing screenshot block source inspection.
 
-Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
+Declared evidence requirements: `project.read`, `browser.inspect`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
@@ -33,8 +33,10 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Execute
 
-1. Identify what motion communicates, select minimal properties/timing, implement cancellation and reduced-motion behavior, and inspect rapid/repeated interactions.
-2. Define what state change motion communicates, implement interruption/cancellation and inspect repeated input plus reduced-motion preferences.
+1. Define the state change the motion communicates and select minimal properties and timing.
+2. Implement interruption, cancellation and reduced-motion behavior.
+3. Inspect rapid and repeated input under normal and reduced-motion preferences.
+
 ## Technical method
 
 - **Inspect:** Identify the change motion should explain, animation properties, interruption behavior and reduced-motion preference.
@@ -56,8 +58,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Deliver and verify
 
-- Motion implementation and interaction/performance checks.
-- Motion/state purpose, interruption rules and normal/reduced-motion verification.
+- Motion implementation with its state purpose and interruption rules, and normal, reduced-motion and performance checks.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -70,5 +71,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** Add restrained disclosure transitions with reduced-motion support.
-- **edge (apply):** Animate a drawer that users can rapidly open and close.
-- **blocked (inspect):** Review motion design without rendered timing evidence or installing an animation library.
+- **Edge (apply):** Animate a drawer that users can rapidly open and close.
+- **Blocked (inspect):** Review motion design without rendered timing evidence or installing an animation library.

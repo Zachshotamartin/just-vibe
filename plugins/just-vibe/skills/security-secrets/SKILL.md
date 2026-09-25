@@ -1,15 +1,15 @@
 ---
 name: security-secrets
-description: "Locate exposed credentials without printing secret values Use to locate possible exposed credentials; security-config inspects deployment settings."
+description: "Locate exposed credentials without printing secret values. Use to locate possible exposed credentials; security-config inspects deployment settings, and security-fix repairs a confirmed exposure in code; vite-env checks client-bundle exposure through Vite env handling."
 ---
 
 # security-secrets
 
-Locate exposed credentials without printing secret values
+Locate exposed credentials without printing secret values.
 
 ## Choose this workflow
 
-Use to locate possible exposed credentials; security-config inspects deployment settings.
+Use to locate possible exposed credentials; security-config inspects deployment settings, and security-fix repairs a confirmed exposure in code; vite-env checks client-bundle exposure through Vite env handling.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Security methods](../../references/packs/security.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; repository/history/log scope and approved scanner capability.
 
-defined application boundary, authorized code/environment, relevant trust/access rules, and evidence sources. Default to defensive inspection; active tests use owned or explicitly authorized isolated targets. Minimize sensitive evidence and never print usable credentials.
+**Pack prerequisites:** Defined application boundary, authorized code/environment, relevant trust/access rules, and evidence sources. Default to defensive inspection; active tests use owned or explicitly authorized isolated targets. Minimize sensitive evidence and never print usable credentials.
 
 - **Infer from evidence:** Resolve the requested surface, source/runtime version, reachable callers and actual trust/access boundaries.
 - **Reasonable default:** Start with source analysis and bounded owned fixtures; treat scanner output as leads and preserve legitimate controls.
@@ -33,8 +33,10 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Scan the specified sources with redacted output, distinguish placeholders from plausible secrets, map exposure surfaces, and propose owner/provider-specific remediation.
-2. Run approved scanners with redacted output over the requested scope, classify placeholders and locate exposure surfaces without copying values into reports.
+1. Run approved scanners with redacted output over the requested sources, copying no values into reports.
+2. Distinguish placeholders from plausible secrets, and map exposure surfaces.
+3. Propose owner- and provider-specific remediation.
+
 ## Technical method
 
 - **Inspect:** Inspect scoped source, tracked history when requested, build outputs and redacted scanner locations.
@@ -55,11 +57,11 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 ## Decision branches
 
 - **When a plausible credential is found:** Record location/type and rotation owner/provider steps; do not test it against a live service by default.
+- **When the user asks to contain a confirmed exposure:** Plan the order: revoke or rotate first, because a pushed secret is already exposed; then remove it from the tree and move it to a secret store through security-fix; only then, if requested, purge history, coordinate the force-push and ask the Git host to drop cached views, and verify with a re-scan and the provider key-usage log. Revocation, rotation, force-push and host purge are separate external or destructive actions that each need an exact target.
 
 ## Deliver and verify
 
-- Redacted locations/types, confidence, exposure context, and containment plan.
-- Redacted findings, exposure scope, uncertainty and remediation sequence.
+- Redacted locations and types with confidence, exposure context and scope, uncertainty, and a containment and remediation sequence.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -72,5 +74,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Scan the requested repository scope with redacted findings only.
-- **edge (inspect):** Scan history containing both test placeholders and a plausible credential.
-- **blocked (inspect):** Assess secret handling without an approved scanner; do not upload the repository.
+- **Edge (inspect):** Scan history containing both test placeholders and a plausible credential.
+- **Blocked (inspect):** Assess secret handling without an approved scanner; do not upload the repository.

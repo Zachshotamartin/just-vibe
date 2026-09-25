@@ -1,11 +1,11 @@
 ---
 name: git-status
-description: "Explain branches, staged changes, unstaged changes, and repository state Use to explain repository state; git-diff explains actual content changes."
+description: "Explain branches, staged changes, unstaged changes, and repository state. Use to explain repository state; git-diff explains actual content changes."
 ---
 
 # git-status
 
-Explain branches, staged changes, unstaged changes, and repository state
+Explain branches, staged changes, unstaged changes, and repository state.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; repository and optional concern such as divergence or interrupted operation.
 
-Git, exact repository/worktree, and readable refs/index. Record branch, HEAD, staged/unstaged/untracked state before mutation. Preserve unrelated edits and never default to broad staging, hard reset, clean, force push, or history rewriting.
+**Pack prerequisites:** Git, exact repository/worktree, and readable refs/index. Record branch, HEAD, staged/unstaged/untracked state before mutation. Preserve unrelated edits and never default to broad staging, hard reset, clean, force push, or history rewriting.
 
 - **Infer from evidence:** Read repository root, HEAD, branch, refs and staged/unstaged/untracked distinctions; use the configured human identity.
 - **Reasonable default:** Limit an ambiguous inspection to the current repository and report that scope; preserve all existing changes.
@@ -33,9 +33,9 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Inspect porcelain status and refs, distinguish staged from unstaged changes, detect merge/rebase/bisect state, and explain relevant next actions.
-2. Read status --porcelain=v2 --branch and resolved refs with GIT_OPTIONAL_LOCKS=0 where supported; inspect worktrees and operation markers without changing them.
-3. All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
+1. Read status --porcelain=v2 --branch and resolved refs with GIT_OPTIONAL_LOCKS=0 where supported; inspect worktrees and merge/rebase/bisect operation markers without changing them.
+2. Distinguish staged, unstaged and untracked changes and explain the relevant next action.
+
 ## Technical method
 
 - **Inspect:** Inspect HEAD, branch, porcelain status, index, worktree, untracked paths and merge/rebase state with optional locks disabled.
@@ -54,13 +54,11 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Human-readable state with explicit local-versus-last-fetched remote evidence.
-- Branch/HEAD, staged/unstaged/untracked state, operation in progress and safe next action.
+- Branch/HEAD, staged/unstaged/untracked state and any operation in progress, with explicit local-versus-last-fetched remote evidence and the safe next action.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
 - A detached HEAD is explained; stale remote tracking refs are not described as live server status.
-- Review newly prepared commit/PR/message text, including template or hook additions, for agent self-attribution before submission; verify the resulting artifact when available. Do not silently rewrite existing history or remove human credits.
 
 ## Stop and recover
 
@@ -69,5 +67,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Explain staged, unstaged, untracked, and interrupted-operation state here.
-- **edge (inspect):** Explain a detached HEAD with an interrupted rebase and dirty files.
-- **blocked (inspect):** Inspect a directory that is not a Git repository; do not initialize it.
+- **Edge (inspect):** Explain a detached HEAD with an interrupted rebase and dirty files.
+- **Blocked (inspect):** Inspect a directory that is not a Git repository; do not initialize it.

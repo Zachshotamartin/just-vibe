@@ -38,7 +38,7 @@ Keep a recoverable index/patch record until all three comparisons succeed, then 
 
 For a merge conflict, inspect base, ours, theirs and the relevant callers; a syntactically clean merge can still discard a legitimate behavior. Regenerate lockfiles from resolved manifests with the repository's package manager instead of arbitrarily choosing a side.
 
-For lost commits, inspect reflog candidates and compare content, then preserve the candidate on a new ref before changing the active branch. Do not garbage-collect during recovery. A missing reflog is not evidence a specific commit is recoverable.
+For lost commits, inspect reflog candidates and compare content, then preserve the candidate on a new ref before changing the active branch. Do not garbage-collect during recovery. A missing reflog is not evidence a specific commit is recoverable. Work lost by `git stash drop`, `git stash clear` or a deleted ref without a reflog survives only as unreachable objects: list them with read-only `git fsck --unreachable --no-reflogs`, inspect commit candidates (stash commits are merge commits titled "WIP on" or "On"), and preserve a match with `git branch` or `git stash store` before running anything that may trigger automatic garbage collection. State a recovery limit only after this search.
 
 ### Bisect and worktrees
 

@@ -38,6 +38,7 @@ export function diagnosis(root, operation, input = {}, options = {}) {
   }) : hosts.map(host => ({ host, receipt: runtime.get(`hook-delivery-${host}`) })).filter(r => r.receipt);
   return {
     automaticEnabled: store.config().enabled,
+    lastHookError: runtime.get('hook-last-error') || null,
     stages: [
       { stage: 'hook received', observed: receipts.length > 0, evidence: receipts.map(({ host, receipt }) => ({ host, at: receipt.at, event: receipt.event, taskId: receipt.taskId })) },
       { stage: 'workflow selected', observed: tasks.some(t => t.selected?.length), evidence: tasks.filter(t => t.selected?.length).map(t => ({ taskId: t.id, workflows: t.selected, at: t.updatedAt })) },

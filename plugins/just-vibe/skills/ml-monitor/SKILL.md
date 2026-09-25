@@ -1,11 +1,11 @@
 ---
 name: ml-monitor
-description: "Define operational and model-quality monitoring, including delayed labels Use to design or implement requested ML telemetry; ops-alerts designs response-worthy alert behavior."
+description: "Define operational and model-quality monitoring, including delayed labels. Use to design or implement requested ML telemetry; ops-alerts designs response-worthy alert behavior."
 ---
 
 # ml-monitor
 
-Define operational and model-quality monitoring, including delayed labels
+Define operational and model-quality monitoring, including delayed labels.
 
 ## Choose this workflow
 
@@ -17,13 +17,13 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan monitoring; apply for requested instrumentation or configuration in the identified environment.
 
-versioned model and preprocessing artifacts, input/output schema, runtime/dependencies, operating targets, and authorized environment. Validate artifact trust before loading formats that can execute code. Packaging or writing monitoring configuration does not deploy a model or enable a hosted service.
+**Pack prerequisites:** Versioned model and preprocessing artifacts, input/output schema, runtime/dependencies, operating targets, and authorized environment. Validate artifact trust before loading formats that can execute code. Packaging or writing monitoring configuration does not deploy a model or enable a hosted service.
 
 - **Infer from evidence:** Read artifact format/trust, preprocessing schema, serving runtime, compatibility and existing rollout controls.
 - **Reasonable default:** Prepare packaging/configuration and isolated checks without treating them as a live deployment.
 - **Ask only when needed:** Resolve the target, rollback compatibility and operating limits before rollout or load generation; missing production access does not block packaging.
 
-Resolve any task-specific tools, target identity and evidence before dependent actions. No external connection is assumed.
+Declared evidence requirements: `telemetry.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
@@ -33,8 +33,10 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 
 ## Execute
 
-1. Separate leading signals from outcome metrics, define joins and delay windows, choose thresholds and runbook actions, and implement only requested instrumentation/configuration.
-2. Separate service, feature, prediction and delayed-outcome signals; define stable joins, label-lag windows and model-version attribution.
+1. Separate service, feature, prediction and delayed-outcome signals, distinguishing leading signals from outcome metrics.
+2. Define stable joins, label-lag windows and model-version attribution, and choose thresholds and runbook actions.
+3. Implement only requested instrumentation or configuration.
+
 ## Technical method
 
 - **Inspect:** Trace prediction IDs to model/data versions, outcomes, label delay, errors and operational measurements.
@@ -45,8 +47,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 ## Read when relevant
 
 - When a concrete decision or deliverable example would clarify this workflow: [ML deployment worked example](../../references/examples/ml-deployment.md).
-- The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method: [PyTorch autograd, device and distributed debugging](../../references/methods/pytorch-debug.md).
-- The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method: [Retrieval, ranking and recommendation evaluation](../../references/methods/recommender-systems.md).
+
 
 ## Decision branches
 
@@ -55,8 +56,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 
 ## Deliver and verify
 
-- Monitoring design or code with metric definitions, privacy controls, and alert tests.
-- Signal/window/join/threshold/action contract and delayed-label test cases.
+- Monitoring design or code with the signal/window/join/threshold/action contract, metric definitions, privacy controls and delayed-label and alert tests.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -69,5 +69,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Design quality monitoring with delayed labels and model-version separation.
-- **edge (plan):** Monitor a model whose outcomes arrive thirty days after prediction.
-- **blocked (inspect):** Plan monitoring without activating alerts or claiming an ongoing watcher exists.
+- **Edge (plan):** Monitor a model whose outcomes arrive thirty days after prediction.
+- **Blocked (inspect):** Plan monitoring without activating alerts or claiming an ongoing watcher exists.

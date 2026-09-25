@@ -1,15 +1,15 @@
 ---
 name: migrate
-description: "Plan and apply a version, schema, or implementation migration Use for coordinated version or platform transitions; db-migrate handles database-specific mechanics."
+description: "Plan and apply a version, schema, or implementation migration. Use for coordinated version or platform transitions; db-migrate handles database-specific mechanics; a bundler switch to Vite uses vite-setup."
 ---
 
 # migrate
 
-Plan and apply a version, schema, or implementation migration
+Plan and apply a version, schema, or implementation migration.
 
 ## Choose this workflow
 
-Use for coordinated version or platform transitions; db-migrate handles database-specific mechanics.
+Use for coordinated version or platform transitions; db-migrate handles database-specific mechanics; a bundler switch to Vite uses vite-setup.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [General methods](../../references/packs/general.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan the migration when asked; apply for requested source/configuration changes and bounded compatibility checks. Executing a live migration needs its target and rollout/recovery constraints.
 
-Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
+**Pack prerequisites:** Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
 - **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
 - **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
@@ -33,8 +33,10 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the
 
 ## Execute
 
-1. Inventory dependents, read version-specific changes, design transitional compatibility, prepare edits/checks, and define recovery before execution.
-2. Inventory old/new consumers and persisted formats; identify the last reversible point and validate coexistence before removing compatibility code.
+1. Inventory old and new consumers, dependents and persisted formats, and read the version-specific changes.
+2. Design transitional compatibility, prepare the edits and checks, and define recovery and the last reversible point before execution.
+3. Validate coexistence before removing compatibility code.
+
 ## Technical method
 
 - **Inspect:** Inventory old/new versions, consumers, persisted state, generated artifacts and compatibility requirements.
@@ -53,8 +55,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the
 
 ## Deliver and verify
 
-- Migration sequence or authorized patch, compatibility matrix, verification, and recovery limitations.
-- Compatibility matrix, ordered transitions, recovery point and verified/unverified stages.
+- Ordered transitions or the authorized patch, a compatibility matrix, the recovery point and its limits, and verified versus unverified stages.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -67,5 +68,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Plan upgrading the job library while old workers remain active.
-- **edge (plan):** Migrate a library while older workers continue reading stored jobs.
-- **blocked (inspect):** Plan a migration with missing legacy fixtures; identify the compatibility evidence still needed.
+- **Edge (apply):** Apply the job-format migration while v1 workers still read stored jobs; define a restart point.
+- **Blocked (inspect):** Plan a migration with missing legacy fixtures; identify the compatibility evidence still needed.

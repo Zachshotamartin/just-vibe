@@ -1,11 +1,11 @@
 ---
 name: test-fixtures
-description: "Create representative, maintainable test data Use for controlled test data and factories; data-profile inspects real datasets."
+description: "Create representative, maintainable test data. Use for controlled test data and factories; data-profile inspects real datasets."
 ---
 
 # test-fixtures
 
-Create representative, maintainable test data
+Create representative, maintainable test data.
 
 ## Choose this workflow
 
@@ -17,10 +17,10 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply; behaviors, schema, edge cases, existing factories, and privacy constraints.
 
-defined behavior, existing test conventions/runners, isolated fixtures, and relevant dependencies. Requested bounded verification may use owned isolated fixtures without authorizing product edits or live-system tests. Never test destructive behavior against production by default; distinguish mocked behavior from real integration evidence.
+**Pack prerequisites:** Defined behavior, existing test conventions/runners, isolated fixtures, and relevant dependencies. Requested bounded verification may use owned isolated fixtures without authorizing product edits or live-system tests. Never test destructive behavior against production by default; distinguish mocked behavior from real integration evidence.
 
 - **Infer from evidence:** Read behavior contracts, existing runners and test conventions; distinguish fixture setup failure from a behavioral failure.
-- **Reasonable default:** Use the smallest existing local runner and isolated synthetic fixtures that distinguish the requested behavior.
+- **Reasonable default:** Use the smallest existing local runner and isolated synthetic fixtures that distinguish the requested behavior. When the method needs a library, runner, container runtime or load tool the project lacks, name the exact package or tool, the files it changes and any download, and add it only when the request authorizes new dev dependencies or tools; label a hand-written generator without shrinking, or a fake in place of a real dependency, as such.
 - **Ask only when needed:** Ask about an unresolved contract that changes the expected result, or the target/load limits before external testing; do not ask the user to choose a runner already configured.
 
 Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
@@ -33,8 +33,10 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Execute
 
-1. Derive minimal realistic entities, encode valid defaults and deliberate invalid cases, isolate identities/timestamps, and verify cleanup and repeatability.
-2. Define valid defaults and deliberate invalid variants, isolate identifiers and clocks and make teardown safe after partial setup failure.
+1. Derive minimal realistic entities with valid defaults and deliberate invalid variants.
+2. Isolate identifiers, timestamps and clocks, and make teardown safe after a partial setup failure.
+3. Verify cleanup, repeatability and concurrent use.
+
 ## Technical method
 
 - **Inspect:** Identify representative valid defaults, intentional invalid variants, ownership and cleanup requirements.
@@ -58,8 +60,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Deliver and verify
 
-- Fixtures/factories with semantics, usage, and consistency checks.
-- Fixture contract, edge variants, cleanup behavior and concurrent-use checks.
+- Fixtures or factories with their contract, edge variants, usage, cleanup behavior and concurrency checks.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -72,5 +73,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** Build deterministic organization fixtures safe for concurrent test runs.
-- **edge (apply):** Create fixtures that remain isolated when tests run in parallel.
-- **blocked (inspect):** Design fixtures without copying production personal records.
+- **Edge (apply):** Build fixtures whose teardown still runs when setup fails halfway through creating an organization.
+- **Blocked (inspect):** Design fixtures without copying production personal records.

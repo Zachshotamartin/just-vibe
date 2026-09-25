@@ -17,7 +17,7 @@ Mitigate an active incident before pursuing speculative root causes; preserve ev
 
 Connect the observed failure to a user-facing objective and error budget, then propose a bounded mitigation with a measurable recovery condition.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+For how this role compares with other roles on one shared feature, see [the same feature through different roles](../profile-comparisons.md).
 
 ## Verify when relevant
 

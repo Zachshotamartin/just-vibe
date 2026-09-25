@@ -17,7 +17,7 @@ Fix the boundary and add a negative regression test when a concrete exploit path
 
 Trace a reachable input through trust transitions to the sensitive operation, with a legitimate control and an actionable correction at the enforcing boundary.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+For how this role compares with other roles on one shared feature, see [the same feature through different roles](../profile-comparisons.md).
 
 ## Verify when relevant
 
@@ -33,5 +33,10 @@ Do not turn a routine feature request into an unsolicited broad security audit.
 - [security-inputs](../../skills/security-inputs/SKILL.md)
 - [security-authz](../../skills/security-authz/SKILL.md)
 - [security-fix](../../skills/security-fix/SKILL.md)
+
+Also relevant when the task calls for them:
+
+- [security](../../skills/security/SKILL.md)
+- [security-uploads](../../skills/security-uploads/SKILL.md)
 
 Example: Repair a cross-tenant document access flaw.

@@ -1,15 +1,15 @@
 ---
 name: arch-event-flow
-description: "Design event delivery, retries, ordering, and failure handling Use for asynchronous consistency and delivery design; backend-jobs implements worker mechanics."
+description: "Design event delivery, retries, ordering, and failure handling. Use for asynchronous consistency and delivery design across producers and consumers; backend-jobs implements worker mechanics and backend-idempotency implements single-effect handling for one operation or handler."
 ---
 
 # arch-event-flow
 
-Design event delivery, retries, ordering, and failure handling
+Design event delivery, retries, ordering, and failure handling.
 
 ## Choose this workflow
 
-Use for asynchronous consistency and delivery design; backend-jobs implements worker mechanics.
+Use for asynchronous consistency and delivery design across producers and consumers; backend-jobs implements worker mechanics and backend-idempotency implements single-effect handling for one operation or handler.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Architecture methods](../../references/packs/architecture.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan; event source, consumers, delivery guarantees, and failure requirements.
 
-readable source, infrastructure/configuration definitions, and any supplied system documentation. Runtime telemetry is optional evidence, never assumed available. Architecture proposals remain plans until implementation is requested.
+**Pack prerequisites:** Readable source, infrastructure/configuration definitions, and any supplied system documentation. Runtime telemetry is optional evidence, never assumed available. Architecture proposals remain plans until implementation is requested.
 
 - **Infer from evidence:** Trace current entry points, data owners, deployment units and documented constraints before proposing boundaries.
 - **Reasonable default:** Prefer extending an existing owner while scale or organizational evidence is absent; mark capacity estimates as assumptions.
@@ -33,8 +33,10 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Trace transaction boundaries, identify loss/duplicate windows, specify identifiers and schemas, and define recovery and observability for each failure point.
-2. Draw the write/commit/publish/ack sequence and place a crash between each pair; define replay identity and effect ownership.
+1. Draw the write/commit/publish/ack sequence across transaction boundaries.
+2. Place a crash between each pair to find loss and duplicate windows; specify identifiers, schemas, replay identity and effect ownership.
+3. Define recovery and observability for each failure point.
+
 ## Technical method
 
 - **Inspect:** Locate transaction commit, publish, consumer claim, business effect and acknowledgment boundaries.
@@ -53,8 +55,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Event sequence diagram, delivery contract, failure matrix, and validation scenarios.
-- Failure-point table covering loss, duplicate, reordering, poison messages and recovery.
+- Event sequence diagram, delivery contract, and a failure-point table covering loss, duplicate, reordering, poison messages and recovery, with validation scenarios.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -67,5 +68,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Plan webhook-to-ledger processing with duplicate and reordered events.
-- **edge (plan):** Design order events with duplicate delivery and a producer crash after commit.
-- **blocked (inspect):** Assess event flow when broker guarantees are unknown; keep guarantees conditional.
+- **Edge (plan):** Design order events with duplicate delivery and a producer crash after commit.
+- **Blocked (inspect):** Assess event flow when broker guarantees are unknown; keep guarantees conditional.

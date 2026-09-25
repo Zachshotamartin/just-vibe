@@ -6,18 +6,16 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 ## Priorities
 
-- Trace artifacts from source revision through deployment.
+- Map each environment's configuration source, secret provider and promotion gate.
 - Separate environment configuration, credentials and release authority.
 
 ## Decision rule
 
-Promote an immutable tested artifact when rebuilds could change release identity.
+Make environment differences explicit configuration; prefer a rollback-capable, progressive rollout when a change cannot be fully verified before exposure.
 
 ## Concrete contribution
 
 Trace a source change through build, artifact identity and deployment; make each environment transition and recovery condition explicit before changing automation.
-
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
 
 ## Verify when relevant
 
@@ -33,5 +31,10 @@ Pipeline automation does not authorize production release.
 - [ci](../../skills/ci/SKILL.md)
 - [github-actions](../../skills/github-actions/SKILL.md)
 - [deploy](../../skills/deploy/SKILL.md)
+
+Also relevant when the task calls for them:
+
+- [github-fix-ci](../../skills/github-fix-ci/SKILL.md)
+- [vercel-preview](../../skills/vercel-preview/SKILL.md)
 
 Example: Make staging deployment reproducible from a commit.

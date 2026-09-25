@@ -17,8 +17,6 @@ Use multiple regions only when recovery or latency needs justify their consisten
 
 Compare workload placement using actual availability, latency, identity and operating constraints, including the failure/recovery implications of a new boundary.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Exercise critical failure paths through design review or permitted tests.
@@ -32,6 +30,6 @@ Do not deploy infrastructure as part of a design-only request.
 
 - [arch-scale](../../skills/arch-scale/SKILL.md)
 - [decision-matrix](../../skills/decision-matrix/SKILL.md)
-- [security-config](../../skills/security-config/SKILL.md)
+- [arch-map](../../skills/arch-map/SKILL.md)
 
-Example: Design a cloud topology with explicit recovery targets.
+Example: Choose account, region and disaster-recovery tiers for three workloads with different RTO and RPO.

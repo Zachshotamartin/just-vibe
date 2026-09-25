@@ -1,11 +1,11 @@
 ---
 name: ml-split
-description: "Design splits respecting time, groups, entities, and dependencies Use to design evaluation partitions matching deployment; ml-leakage audits actual contamination evidence."
+description: "Design splits respecting time, groups, entities, and dependencies. Use to design evaluation partitions matching deployment; ml-leakage audits actual contamination evidence."
 ---
 
 # ml-split
 
-Design splits respecting time, groups, entities, and dependencies
+Design splits respecting time, groups, entities, and dependencies.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan; task, entity/group/time dependencies, deployment regime, and dataset version.
 
-task definition, dataset identity, field semantics, entity/time keys, and permission to inspect bounded data. Record prediction moment, label horizon, sampling, and provenance. Preserve held-out evaluation boundaries; no data upload, label alteration, or feature fitting across splits implicitly.
+**Pack prerequisites:** Task definition, dataset identity, field semantics, entity/time keys, and permission to inspect bounded data. Record prediction moment, label horizon, sampling, and provenance. Preserve held-out evaluation boundaries; no data upload, label alteration, or feature fitting across splits implicitly.
 
 - **Infer from evidence:** Read prediction moment, label horizon, entity/time keys, split policy and dataset provenance from the task and manifests.
 - **Reasonable default:** Use explicit synthetic examples for design when raw data is unavailable; do not infer missing labels or fit preprocessing across held-out boundaries.
@@ -38,6 +38,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 3. Determine training eligibility before fitting preprocessing: an otherwise training-period row with an immature outcome must not teach the historical model. Retain unknown held-out labels as unknown where the evaluation contract requires it; zero is a valid observed label.
 4. Derive group separation, purging or gaps from the stated deployment question and actual dependence/availability evidence. Record deterministic membership and exclusions with reasons; do not invent a universal embargo duration.
 5. Verify exact boundaries, label maturity, duplicates, relevant group overlap, empty partitions and transform fit membership. Report the number of rows and number with evaluable labels separately.
+
 ## Technical method
 
 - **Inspect:** Inspect deployment question, time/order, repeated entities, overlap and label maturity.
@@ -48,8 +49,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 ## Read when relevant
 
 - When a concrete decision or deliverable example would clarify this workflow: [ML data worked example](../../references/examples/ml-data.md).
-- The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method: [PyTorch autograd, device and distributed debugging](../../references/methods/pytorch-debug.md).
-- The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method: [Retrieval, ranking and recommendation evaluation](../../references/methods/recommender-systems.md).
+
 
 ## Decision branches
 
@@ -70,5 +70,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Design time/group splits for overlapping machine sensor windows.
-- **edge (plan):** Split overlapping windows for forecasting on known machines and evaluate unseen machines separately.
-- **blocked (inspect):** Plan a split with unknown label horizon; do not invent a universal gap duration.
+- **Edge (plan):** Split overlapping windows for forecasting on known machines and evaluate unseen machines separately.
+- **Blocked (inspect):** Plan a split with unknown label horizon; do not invent a universal gap duration.

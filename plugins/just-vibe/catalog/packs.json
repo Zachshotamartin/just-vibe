@@ -73,7 +73,7 @@
       "prerequisites": "project manifests, lockfile, Vite/framework/plugin versions, and existing build scripts. Verify current version-specific documentation when changing configuration. Requested isolated verification may generate disposable build/cache artifacts; inspect their scripts first and preserve product files.",
       "inputPolicy": {
         "infer": "Read manifests, lockfile, installed Vite/plugins, entry points, aliases, modes and current build scripts.",
-        "assume": "Preserve existing tooling and base-path conventions; make a local focused change when the brief identifies the behavior.",
+        "assume": "Preserve existing tooling and base-path conventions; in apply mode, make a local focused change when the brief identifies the behavior, and otherwise propose it.",
         "ask": "Ask if the intended serving subpath or deployment target cannot be inferred and would change generated URLs; do not ask for versions present in the lockfile."
       },
       "workedExample": "references/examples/vite.md"
@@ -161,7 +161,7 @@
       "prerequisites": "dataset/split manifests, fixed objective/metric, environment/dependencies, baseline where applicable, and explicit compute limits. Record code revision, configuration, seeds, artifact paths, and resource use. Local smoke checks do not imply authorization for paid training. Never optimize on the held-out test set.",
       "inputPolicy": {
         "infer": "Read framework, training entry point, loss/metric, split manifests and checkpoint conventions from supplied source.",
-        "assume": "Implement requested code and tiny isolated smoke checks with existing tools; leave unmeasured model quality explicit.",
+        "assume": "In apply mode, implement requested code and tiny isolated smoke checks with existing tools, and otherwise propose them; leave unmeasured model quality explicit.",
         "ask": "Ask for unresolved objective/data semantics before encoding them, and environment/resource limits before launching training or a search; implementation alone does not need a hardware purchase decision."
       },
       "workedExample": "references/examples/ml-experiments.md"
@@ -195,7 +195,7 @@
       "inputPolicy": {
         "infer": "Read current prompt/tool schemas, retrieval boundaries, installed SDK/provider config and permitted examples without reading secret values.",
         "assume": "Use mocked calls for local contract tests when remote access is absent; do not infer model quality from mocks.",
-        "ask": "Ask for budget and permitted data/provider before a paid or external run if not already set; local prompt/tool implementation can proceed."
+        "ask": "Ask for budget and permitted data/provider before a paid or external run if not already set; local prompt/tool implementation can proceed in apply mode."
       },
       "workedExample": "references/examples/llm.md"
     },
@@ -205,7 +205,7 @@
       "prerequisites": "defined behavior, existing test conventions/runners, isolated fixtures, and relevant dependencies. Requested bounded verification may use owned isolated fixtures without authorizing product edits or live-system tests. Never test destructive behavior against production by default; distinguish mocked behavior from real integration evidence.",
       "inputPolicy": {
         "infer": "Read behavior contracts, existing runners and test conventions; distinguish fixture setup failure from a behavioral failure.",
-        "assume": "Use the smallest existing local runner and isolated synthetic fixtures that distinguish the requested behavior.",
+        "assume": "Use the smallest existing local runner and isolated synthetic fixtures that distinguish the requested behavior. When the method needs a library, runner, container runtime or load tool the project lacks, name the exact package or tool, the files it changes and any download, and add it only when the request authorizes new dev dependencies or tools; label a hand-written generator without shrinking, or a fake in place of a real dependency, as such.",
         "ask": "Ask about an unresolved contract that changes the expected result, or the target/load limits before external testing; do not ask the user to choose a runner already configured."
       },
       "workedExample": "references/examples/testing.md"
@@ -235,7 +235,7 @@
     {
       "id": "installation",
       "name": "Installation",
-      "prerequisites": "Node.js 22+ and the selected host CLI with native plugin support. Git is required only for --github. Use the bundled installer; preserve marketplace and scope checks.",
+      "prerequisites": "Node.js 22+. Codex and Claude targets also need the host CLI with native plugin support; editor adapters need only the project directory. Git is required only for --github. Use the bundled installer; preserve marketplace and scope checks.",
       "inputPolicy": {
         "infer": "Inspect selected host, native CLI support, existing source/scope and package version without changing global configuration.",
         "assume": "Use the documented bundled source and existing host conventions unless the user selects another source.",

@@ -1,11 +1,11 @@
 ---
 name: ci
-description: "Diagnose or improve continuous integration Use for CI diagnosis across providers; github-fix-ci handles GitHub run identity and requested repairs."
+description: "Diagnose or improve continuous integration. Use for CI diagnosis across providers; github-fix-ci handles GitHub run identity and requested repairs."
 ---
 
 # ci
 
-Diagnose or improve continuous integration
+Diagnose or improve continuous integration.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect for diagnosis; apply for requested fixes. Requires workflow files and relevant runner logs.
 
-Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
+**Pack prerequisites:** Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
 - **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
 - **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
@@ -33,19 +33,21 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the
 
 ## Execute
 
-1. Locate the first meaningful failure, compare runner/local environments, distinguish code failure from infrastructure, and validate authorized workflow changes.
-2. Find the first causal failure in the job graph, compare effective runtime and lockfile inputs, and distinguish required failures from downstream cancellations.
+1. Find the first causal failure in the job graph, distinguishing required failures from downstream cancellations.
+2. Compare effective runner and local runtime and lockfile inputs to separate a code failure from an infrastructure failure.
+3. Validate authorized workflow changes.
+
 ## Technical method
 
 - **Inspect:** Inspect run identity, first causal failure, matrix, caches, tool versions and event permissions.
 - **Method:** Reproduce the failing boundary and preserve unrelated coverage; route GitHub-specific trust issues to its Actions guide.
 - **Avoid misdiagnosis:** Disabling tests or broadening secrets access can make CI green while weakening correctness or security.
-- **Check the result:** Run the relevant local check and verify a matching remote run when available, distinguishing infrastructure blockers from code defects.
+- **Check the result:** Run the relevant local check as bounded local execution and verify a matching remote run when available, distinguishing infrastructure blockers from code defects; use existing logs when no local run is possible.
 
 ## Read when relevant
 
 - When a concrete decision or deliverable example would clarify this workflow: [General worked example](../../references/examples/general.md).
-
+- The provider is GitHub Actions or the failure involves workflow permissions, secrets, pull_request_target or artifacts: [GitHub methods (Actions trust boundary)](../../references/packs/github.md).
 
 ## Decision branches
 
@@ -53,8 +55,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the
 
 ## Deliver and verify
 
-- Root-cause evidence or focused patch, local checks, and remaining remote validation.
-- Run/revision identity, causal log excerpt, environment difference and remaining verification.
+- Run/revision identity, causal log excerpt and environment difference, with a focused patch and local checks when a fix was requested, and remaining remote verification.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -67,5 +68,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Diagnose the failed matrix job from these logs without rerunning it.
-- **edge (inspect):** Diagnose one failing matrix job without disabling the other jobs.
-- **blocked (inspect):** Inspect supplied CI logs without runner access or triggering a rerun.
+- **Edge (apply):** Fix the Jenkins pipeline's failing Node 24 matrix stage without disabling the other stages.
+- **Blocked (inspect):** Inspect supplied CI logs without runner access or triggering a rerun.

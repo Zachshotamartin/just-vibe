@@ -1,11 +1,11 @@
 ---
 name: db-schema
-description: "Design or review tables, relationships, constraints, and types Use for relational modeling and constraints; db-migrate plans transition of existing data."
+description: "Design or review tables, relationships, constraints, and types. Use for relational modeling and constraints; db-migrate plans transition of existing data."
 ---
 
 # db-schema
 
-Design or review tables, relationships, constraints, and types
+Design or review tables, relationships, constraints, and types.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan; entities, invariants, access patterns, engine, and existing schema.
 
-actual engine/version, schema/migrations, query workload, and explicitly identified environment. Prefer supplied plans, metadata, and isolated fixtures. Even a SELECT can lock, call mutating functions, or overload a database; inspect semantics before execution. Executing an analyzed query is distinct from reading its plan.
+**Pack prerequisites:** Actual engine/version, schema/migrations, query workload, and explicitly identified environment. Prefer supplied plans, metadata, and isolated fixtures. Even a SELECT can lock, call mutating functions, or overload a database; inspect semantics before execution. Executing an analyzed query is distinct from reading its plan.
 
 - **Infer from evidence:** Read engine/version, ORM/runner, schema and migration history from project artifacts before choosing SQL.
 - **Reasonable default:** Prepare local SQL and isolated fixtures without assuming production size, locks or recovery guarantees.
@@ -29,12 +29,13 @@ Resolve any task-specific tools, target identity and evidence before dependent a
 
 Tables, relationships, types, constraints, and lifecycle; no live DDL by default.
 
-No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
+No source changes in inspect/plan. Save only requested planning artifacts. db-migrate applies an accepted schema change.
 
 ## Execute
 
-1. Model ownership/cardinality, encode enforceable invariants, compare access paths, assess nullability/deletion behavior, and plan compatibility with existing data.
-2. Derive keys/cardinality and deletion rules from explicit invariants, then check null semantics, uniqueness and access paths for the selected engine.
+1. Derive keys, ownership, cardinality and deletion rules from explicit invariants, and encode the enforceable ones.
+2. Check null semantics, uniqueness and access paths for the selected engine, and plan compatibility with existing data.
+
 ## Technical method
 
 - **Inspect:** Derive cardinalities, ownership, nullability, units, natural/technical keys and deletion rules from requirements.
@@ -55,8 +56,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Schema proposal, rationale, migration considerations, and representative queries.
-- Entity/key/constraint table, deletion semantics and valid/invalid row examples.
+- Entity/key/constraint table with rationale, deletion semantics, valid/invalid row examples, representative queries and migration considerations.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -69,5 +69,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Design invoice relationships and deletion behavior against our actual database engine.
-- **edge (plan):** Model optional memberships that cannot reference another tenant's organization.
-- **blocked (inspect):** Design from requirements without a live database or inventing business cardinality.
+- **Edge (plan):** Model optional memberships that cannot reference another tenant's organization.
+- **Blocked (inspect):** Design from requirements without a live database or inventing business cardinality.

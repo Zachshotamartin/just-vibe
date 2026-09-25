@@ -1,11 +1,11 @@
 ---
 name: pr
-description: "Prepare a focused diff summary, PR description, and validation notes Use to prepare a local PR title/body; github-pr handles remote PR identity and creation."
+description: "Prepare a focused diff summary, PR description, and validation notes. Use to prepare a local PR title/body; github-pr handles remote PR identity and creation."
 ---
 
 # pr
 
-Prepare a focused diff summary, PR description, and validation notes
+Prepare a focused diff summary, PR description, and validation notes.
 
 ## Choose this workflow
 
@@ -17,13 +17,13 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan; branch/base, intended change, and available verification results.
 
-Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
+**Pack prerequisites:** Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
 - **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
 - **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
 - **Ask only when needed:** Ask when competing targets or incompatible success conditions would change the result; continue independent inspection first.
 
-Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
+Declared evidence requirements: `project.read`, `git.repo`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
@@ -33,9 +33,10 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Inspect the actual diff, separate unrelated edits, explain changed behavior, and include only checks supported by evidence.
-2. Base the description on the final diff and verified checks, account for generated artifacts, and state user-visible behavior before implementation details.
+1. Inspect the final diff, separate unrelated edits and account for generated artifacts.
+2. Describe user-visible behavior before implementation details, and include only checks supported by verified evidence.
 3. All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
+
 ## Technical method
 
 - **Inspect:** Inspect the intended diff, acceptance criteria, actual verification and repository template.
@@ -54,8 +55,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Reviewable title, description, risk notes, and readiness gaps.
-- Title, problem/behavior description, validation and readiness gaps.
+- Reviewable title and problem/behavior description with validation, risk notes and readiness gaps.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -69,5 +69,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Draft a PR title and description for this diff; do not submit it.
-- **edge (plan):** Prepare a PR description after the implementation scope changed.
-- **blocked (inspect):** Draft from the local diff without remote access or posting anything.
+- **Edge (plan):** Prepare a PR description after the implementation scope changed.
+- **Blocked (inspect):** Draft from the local diff without remote access or posting anything.

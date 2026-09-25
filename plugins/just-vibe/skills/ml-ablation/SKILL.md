@@ -1,15 +1,15 @@
 ---
 name: ml-ablation
-description: "Measure contributions of features or model components Use to estimate component contribution; ml-tune optimizes parameters."
+description: "Measure contributions of features or model components. Use to estimate component contribution; ml-tune optimizes parameters, and ml-explain attributes existing predictions without retraining."
 ---
 
 # ml-ablation
 
-Measure contributions of features or model components
+Measure contributions of features or model components.
 
 ## Choose this workflow
 
-Use to estimate component contribution; ml-tune optimizes parameters.
+Use to estimate component contribution; ml-tune optimizes parameters, and ml-explain attributes existing predictions without retraining.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [ML experimentation methods](../../references/packs/ml-experiments.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -17,10 +17,10 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan a controlled comparison; apply for requested experiment code or bounded execution.
 
-dataset/split manifests, fixed objective/metric, environment/dependencies, baseline where applicable, and explicit compute limits. Record code revision, configuration, seeds, artifact paths, and resource use. Local smoke checks do not imply authorization for paid training. Never optimize on the held-out test set.
+**Pack prerequisites:** Dataset/split manifests, fixed objective/metric, environment/dependencies, baseline where applicable, and explicit compute limits. Record code revision, configuration, seeds, artifact paths, and resource use. Local smoke checks do not imply authorization for paid training. Never optimize on the held-out test set.
 
 - **Infer from evidence:** Read framework, training entry point, loss/metric, split manifests and checkpoint conventions from supplied source.
-- **Reasonable default:** Implement requested code and tiny isolated smoke checks with existing tools; leave unmeasured model quality explicit.
+- **Reasonable default:** In apply mode, implement requested code and tiny isolated smoke checks with existing tools, and otherwise propose them; leave unmeasured model quality explicit.
 - **Ask only when needed:** Ask for unresolved objective/data semantics before encoding them, and environment/resource limits before launching training or a search; implementation alone does not need a hardware purchase decision.
 
 Resolve any task-specific tools, target identity and evidence before dependent actions. No external connection is assumed.
@@ -33,8 +33,10 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 
 ## Execute
 
-1. Define one meaningful variation at a time or a justified factorial design, hold data/evaluation constant, repeat seeds when needed, and compare uncertainty/cost.
-2. State the causal comparison, hold data/protocol constant and repeat seeds or matched runs where variance could overwhelm the effect.
+1. State the causal comparison: one meaningful variation at a time or a justified factorial design.
+2. Hold data and evaluation protocol constant, and repeat seeds or matched runs where variance could overwhelm the effect.
+3. Compare each variant's effect with its uncertainty and cost.
+
 ## Technical method
 
 - **Inspect:** Identify the component claim, matched data/protocol, randomness and comparison metric.
@@ -45,8 +47,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 ## Read when relevant
 
 - When a concrete decision or deliverable example would clarify this workflow: [ML experimentation worked example](../../references/examples/ml-experiments.md).
-- The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method: [PyTorch autograd, device and distributed debugging](../../references/methods/pytorch-debug.md).
-- The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method: [Retrieval, ranking and recommendation evaluation](../../references/methods/recommender-systems.md).
+
 
 ## Decision branches
 
@@ -55,8 +56,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 
 ## Deliver and verify
 
-- Ablation protocol or run results with attributable differences and caveats.
-- Variant matrix, controlled differences, uncertainty and cost/quality interpretation.
+- Ablation protocol or run results as a variant matrix with attributable differences, uncertainty, cost/quality interpretation and caveats.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -69,5 +69,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Plan a controlled comparison of the new features at fixed data and seed conditions.
-- **edge (plan):** Ablate a feature group while preprocessing depends on those columns.
-- **blocked (inspect):** Plan an ablation with insufficient run budget; state the confidence limitation.
+- **Edge (plan):** Ablate a feature group while preprocessing depends on those columns.
+- **Blocked (inspect):** Plan an ablation with insufficient run budget; state the confidence limitation.

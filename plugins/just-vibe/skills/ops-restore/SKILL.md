@@ -1,11 +1,11 @@
 ---
 name: ops-restore
-description: "Prepare or validate backup restoration in an appropriate environment Use for a scoped backup recovery plan or rehearsal; db-migrate changes schema/data intentionally."
+description: "Prepare or validate backup restoration in an appropriate environment. Use for a scoped backup recovery plan or rehearsal; db-migrate changes schema/data intentionally."
 ---
 
 # ops-restore
 
-Prepare or validate backup restoration in an appropriate environment
+Prepare or validate backup restoration in an appropriate environment.
 
 ## Choose this workflow
 
@@ -15,26 +15,28 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 ## Input and mode
 
-Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan; backup identity, source system, isolated destination, recovery objectives, and encryption/access prerequisites.
+Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan; backup identity, source system, isolated destination, recovery objectives, and encryption/access prerequisites. A requested rehearsal uses apply mode and writes only to the named isolated destination.
 
-exact service/environment, time window, revision/configuration identity, authorized logs/metrics, and operational constraints. Prefer observation before intervention; live restarts, traffic changes, restores, and notifications require the requested target/action. Redact sensitive telemetry.
+**Pack prerequisites:** Exact service/environment, time window, revision/configuration identity, authorized logs/metrics, and operational constraints. Prefer observation before intervention; live restarts, traffic changes, restores, and notifications require the requested target/action. Redact sensitive telemetry.
 
 - **Infer from evidence:** Read service/environment, time window, revision, available telemetry and existing incident or recovery procedure.
 - **Reasonable default:** Start from supplied logs and read-only observation; rank hypotheses without presenting an unexecuted intervention as recovery.
 - **Ask only when needed:** Resolve the precise target and missing authority before restart, restore, notification or traffic changes; continue evidence analysis while waiting.
 
-Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
+Declared evidence requirements: `project.read`, `database.context`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Validate restoration and readiness; production replacement requires exact explicit authorization.
 
-No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
+Inspect/plan: plan the restore; save requested artifacts only. Apply: restore only into the named isolated destination and run integrity and application checks against it; never overwrite the source system or a shared database. Production replacement requires its exact explicit authorization.
 
 ## Execute
 
-1. Verify backup provenance/completeness, plan target isolation, execute authorized restore, check schema/counts/integrity and application behavior, and record recovery duration/data loss window.
-2. Verify backup identity, completeness, keys and destination isolation, then reconcile schema, counts, integrity and application behavior after authorized restoration.
+1. Verify backup identity, provenance, completeness and keys, and plan destination isolation.
+2. Restore into the isolated destination in apply mode.
+3. Reconcile schema, counts, integrity and application behavior, and record recovery duration and the data-loss window.
+
 ## Technical method
 
 - **Inspect:** Resolve backup identity, encryption access, retention, destination isolation and recovery objectives.
@@ -45,7 +47,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 ## Read when relevant
 
 - When a concrete decision or deliverable example would clarify this workflow: [Operations worked example](../../references/examples/operations.md).
-
+- Restoring a database: consistency, point-in-time recovery and integrity checks: [Database methods](../../references/packs/database.md).
 
 ## Decision branches
 
@@ -53,8 +55,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Restore procedure or exercise report with verified recovery evidence and limitations.
-- Source/target identities, recovery timing/data-loss window and integrity/application results.
+- Restore procedure or exercise report with source/target identities, recovery timing and data-loss window, integrity and application results, and limitations.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -67,5 +68,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Plan restoring the specified backup into an isolated target, not production.
-- **edge (plan):** Rehearse restore into an isolated database with missing recent transactions.
-- **blocked (inspect):** Plan restore with missing decryption keys or an ambiguous destination; do not execute.
+- **Edge (apply):** Rehearse restore into an isolated database with missing recent transactions.
+- **Blocked (inspect):** Plan restore with missing decryption keys or an ambiguous destination; do not execute.

@@ -1,11 +1,11 @@
 ---
 name: ops-container
-description: "Diagnose container builds, runtime failures, and configuration differences Use for image/build/runtime diagnosis; ops-restore handles recovery of persisted state."
+description: "Diagnose container builds, runtime failures, and configuration differences. Use for image/build/runtime diagnosis; ops-restore handles recovery of persisted state."
 ---
 
 # ops-container
 
-Diagnose container builds, runtime failures, and configuration differences
+Diagnose container builds, runtime failures, and configuration differences.
 
 ## Choose this workflow
 
@@ -15,9 +15,9 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 ## Input and mode
 
-Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; Dockerfile/image/runtime configuration, logs, and failing build/start behavior.
+Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; Dockerfile/image/runtime configuration, logs, and failing build/start behavior. Apply for a requested focused fix.
 
-exact service/environment, time window, revision/configuration identity, authorized logs/metrics, and operational constraints. Prefer observation before intervention; live restarts, traffic changes, restores, and notifications require the requested target/action. Redact sensitive telemetry.
+**Pack prerequisites:** Exact service/environment, time window, revision/configuration identity, authorized logs/metrics, and operational constraints. Prefer observation before intervention; live restarts, traffic changes, restores, and notifications require the requested target/action. Redact sensitive telemetry.
 
 - **Infer from evidence:** Read service/environment, time window, revision, available telemetry and existing incident or recovery procedure.
 - **Reasonable default:** Start from supplied logs and read-only observation; rank hypotheses without presenting an unexecuted intervention as recovery.
@@ -29,12 +29,14 @@ Declared evidence requirements: `container.context`. Use actual host discovery o
 
 Container build context, dependencies, permissions, entrypoint, networking, resources, and health checks.
 
-No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
+Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the requested local implementation and perform relevant bounded checks while preserving unrelated work. Live data changes, remote actions and paid jobs require their resolved target and existing session authorization.
 
 ## Execute
 
-1. Compare build/runtime stages and host assumptions, inspect image metadata/logs, reproduce in isolation when authorized, and propose or apply a focused fix.
-2. Compare build context, multi-stage copy paths, runtime user, working directory, ports and volume permissions with logs from the intended image digest.
+1. Compare build context, multi-stage copy paths, runtime user, working directory, ports and volume permissions with host assumptions.
+2. Inspect image metadata and logs from the intended image digest, and reproduce in an isolated build after evaluating its execution effects.
+3. Propose a focused fix, applying it in apply mode.
+
 ## Technical method
 
 - **Inspect:** Inspect build stages, image digest, architecture, user, filesystem permissions, entrypoint and signal handling.
@@ -45,7 +47,9 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 ## Read when relevant
 
 - When a concrete decision or deliverable example would clarify this workflow: [Operations worked example](../../references/examples/operations.md).
-
+- The container runs on Kubernetes: probes, readiness or rollout recovery: [Kubernetes release and readiness](../../references/methods/kubernetes-release.md).
+- Pinning base images, toolchains or build environments: [Reproducible environments](../../references/methods/reproducible-environments.md).
+- Secrets or unpinned dependencies may be baked into image layers: [Supply chain and image secrets](../../references/security/supply-chain.md).
 
 ## Decision branches
 
@@ -53,8 +57,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Diagnosis or patch with build/start evidence and remaining environment gaps.
-- Build/runtime boundary, artifact identity and isolated reproduction or verification gaps.
+- Diagnosis or patch with the build/runtime boundary, artifact identity, build/start evidence and remaining isolated-reproduction or environment gaps.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -67,5 +70,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Diagnose why this multi-stage image lacks its runtime files.
-- **edge (inspect):** Diagnose a multi-stage image missing a required runtime file under a non-root user.
-- **blocked (inspect):** Inspect a Dockerfile without building untrusted images or granting privileged mounts.
+- **Edge (inspect):** Diagnose a multi-stage image missing a required runtime file under a non-root user.
+- **Blocked (inspect):** Inspect a Dockerfile without building untrusted images or granting privileged mounts.

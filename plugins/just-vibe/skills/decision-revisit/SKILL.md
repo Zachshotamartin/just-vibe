@@ -1,11 +1,11 @@
 ---
 name: decision-revisit
-description: "Reassess a decision using new constraints or evidence Use when new evidence may invalidate a recorded choice; decision-adr preserves the resulting decision record."
+description: "Reassess a decision using new constraints or evidence. Use when new evidence may invalidate a recorded choice; decision-adr preserves the resulting decision record."
 ---
 
 # decision-revisit
 
-Reassess a decision using new constraints or evidence
+Reassess a decision using new constraints or evidence.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan; prior decision record, new evidence, and changed constraints.
 
-the decision question, constraints, alternatives or permission to identify them, and relevant project evidence. Current vendor claims and prices require current authoritative sources during execution. Scores are decision aids, not facts.
+**Pack prerequisites:** The decision question, constraints, alternatives or permission to identify them, and relevant project evidence. Current vendor claims and prices require current authoritative sources during execution. Scores are decision aids, not facts.
 
 - **Infer from evidence:** Recover hard constraints, the current option, adoption status and stated priorities from the brief and prior decisions.
 - **Reasonable default:** Compare feasible options qualitatively when weights were not supplied; make a reversible conditional recommendation when useful.
@@ -33,8 +33,10 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Identify original assumptions, compare them to current facts, estimate transition consequences, and recommend retaining, modifying, or superseding the decision.
-2. Compare original assumptions with current facts and include migration costs, disruption and option value in retaining versus replacing.
+1. If the decision was saved, run decision show NAME and then decision revisit NAME with attributed observations; otherwise reconstruct the rationale and label it as reconstructed.
+2. Compare the original assumptions with current facts.
+3. Weigh migration costs, disruption and option value, and recommend retaining, modifying or superseding the decision.
+
 ## Technical method
 
 - **Inspect:** Read the original premise, accepted status, trigger and new evidence with dates.
@@ -45,7 +47,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 ## Read when relevant
 
 - When a concrete decision or deliverable example would clarify this workflow: [Decisions worked example](../../references/examples/decisions.md).
-
+- The decision was saved with decision save, or the user wants the review recorded: [Decision history](../../references/decision-history.md).
 
 ## Decision branches
 
@@ -53,8 +55,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Reassessment with changed premises, alternatives, migration implications, and proposed status update.
-- Changed assumption table, retain/change recommendation and adoption/revisit conditions.
+- Changed-assumption table, alternatives and migration implications, and a retain/change recommendation with the proposed status update and adoption or revisit conditions.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -67,5 +68,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Reassess the cache decision now that writes occur in two regions.
-- **edge (plan):** Revisit a queue choice after workload ordering requirements change.
-- **blocked (inspect):** Review an old decision without its rationale; distinguish reconstruction from recorded facts.
+- **Edge (plan):** Revisit a queue choice after workload ordering requirements change.
+- **Blocked (inspect):** Review an old decision without its rationale; distinguish reconstruction from recorded facts.

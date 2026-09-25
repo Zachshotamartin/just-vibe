@@ -1,15 +1,15 @@
 ---
 name: data-lineage
-description: "Trace field origins and transformations Use to trace a field's origin and transformation; trace follows an execution instance."
+description: "Trace field origins and transformations. Use to find where a field or metric comes from across transformations; trace follows one execution instance."
 ---
 
 # data-lineage
 
-Trace field origins and transformations
+Trace field origins and transformations.
 
 ## Choose this workflow
 
-Use to trace a field's origin and transformation; trace follows an execution instance.
+Use to find where a field or metric comes from across transformations; trace follows one execution instance.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Data engineering methods](../../references/packs/data.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; field/table/report and source/transformation definitions.
 
-data source/version, schema/semantics, transformation code, permitted sampling scope, and storage/compute budget. Prefer aggregates and redacted samples; never upload datasets to external services implicitly. Record time zones and snapshot identity for reproducibility.
+**Pack prerequisites:** Data source/version, schema/semantics, transformation code, permitted sampling scope, and storage/compute budget. Prefer aggregates and redacted samples; never upload datasets to external services implicitly. Record time zones and snapshot identity for reproducibility.
 
 - **Infer from evidence:** Inspect schema, source snapshot, transformation code, grain, time zones and permitted sample scope.
 - **Reasonable default:** Use bounded synthetic or supplied samples when full data is unavailable; keep unknown values distinct from zero.
@@ -29,12 +29,13 @@ Declared evidence requirements: `data.read`. Use actual host discovery or adequa
 
 Origins, transformations, joins, filters, and downstream dependencies for the target data.
 
-No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
+No source changes in inspect/plan. Save only requested planning artifacts. data-pipeline or fix applies an accepted change.
 
 ## Execute
 
-1. Trace field expressions through jobs/views, identify version and ownership boundaries, record lossy transformations, and mark opaque external steps.
-2. Follow expressions through joins, filters, aggregations and versioned jobs; record grain changes and lossy transformations at each boundary.
+1. Follow field expressions through jobs, views, joins, filters, aggregations and versioned jobs.
+2. Record grain changes, lossy transformations, versions and ownership at each boundary, and mark opaque external steps.
+
 ## Technical method
 
 - **Inspect:** Read SQL, transformation code, field mappings, job versions and execution/snapshot metadata.
@@ -53,8 +54,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Field-level lineage graph/table with evidence links and gaps.
-- Field-level path with transformations, versions, owners and opaque boundaries.
+- Field-level lineage graph or table with transformations, versions, owners, evidence links, opaque boundaries and gaps.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -67,5 +67,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Trace invoice_total through the transforms and source columns.
-- **edge (inspect):** Trace a revenue metric through currency conversion and filtered joins.
-- **blocked (inspect):** Map lineage from partial job definitions without upstream access.
+- **Edge (inspect):** Trace a revenue metric through currency conversion and filtered joins.
+- **Blocked (inspect):** Map lineage from partial job definitions without upstream access.

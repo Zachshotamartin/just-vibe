@@ -1,11 +1,11 @@
 ---
 name: react-hydration
-description: "Diagnose server/client rendering mismatches where applicable Use for SSR/first-client mismatches; client-only rendering does not need hydration repair."
+description: "Diagnose server/client rendering mismatches where applicable. Use for SSR/first-client mismatches; client-only rendering does not need hydration repair."
 ---
 
 # react-hydration
 
-Diagnose server/client rendering mismatches where applicable
+Diagnose server/client rendering mismatches where applicable.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply for a reported mismatch; SSR framework, route, server/client output, and logs.
 
-component source, React/framework versions, state/data conventions, and relevant test tooling. Browser/profiler evidence is needed for measured rendering claims. Preserve existing framework and state libraries unless changing them is part of the request.
+**Pack prerequisites:** Component source, React/framework versions, state/data conventions, and relevant test tooling. Browser/profiler evidence is needed for measured rendering claims. Preserve existing framework and state libraries unless changing them is part of the request.
 
 - **Infer from evidence:** Read component callers, ownership of state, installed React/framework versions and existing interaction tests.
 - **Reasonable default:** Retain the framework and state library; preserve intended loading/error/empty behavior while resolving the named bug.
@@ -36,6 +36,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 1. Reproduce the exact route and compare server markup with the first client render. Trace request-specific state, timestamps, locale, random values, browser-only APIs and invalid HTML nesting; distinguish parser repair from state mismatch.
 2. Choose a stable initial contract and move browser-only transitions to the appropriate lifecycle. Ensure request-specific state is isolated across server requests; do not silence hydration warnings or disable rendering broadly to conceal the cause.
 3. Verify direct server navigation and client navigation under differing locale/timezone and repeated requests where relevant. Confirm the page becomes interactive and retains its intended initial content, not merely that warnings disappeared.
+
 ## Technical method
 
 - **Inspect:** Compare server HTML and first client render with timezone, locale, random IDs, browser storage and DOM nesting.
@@ -70,5 +71,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** Fix the supplied server/client mismatch without disabling SSR globally.
-- **edge (apply):** Fix a clock and persisted theme that render differently on the server.
-- **blocked (inspect):** Diagnose supplied server/client markup without claiming a browser hydration run.
+- **Edge (apply):** Fix a clock and persisted theme that render differently on the server.
+- **Blocked (inspect):** Diagnose supplied server/client markup without claiming a browser hydration run.

@@ -1,11 +1,11 @@
 ---
 name: api-design
-description: "Define endpoints, resources, validation, and response contracts Use to design consumer-visible operations; backend-service implements business behavior."
+description: "Define endpoints, resources, validation, and response contracts. Use to design consumer-visible operations; backend-service implements business behavior."
 ---
 
 # api-design
 
-Define endpoints, resources, validation, and response contracts
+Define endpoints, resources, validation, and response contracts.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan; resources/actions, consumers, access rules, and compatibility requirements.
 
-interface definitions, producer/consumer source, authentication model, versioning constraints, and isolated test endpoints. External API calls must respect environment, credentials, rate limits, and side-effect scope.
+**Pack prerequisites:** Interface definitions, producer/consumer source, authentication model, versioning constraints, and isolated test endpoints. External API calls must respect environment, credentials, rate limits, and side-effect scope.
 
 - **Infer from evidence:** Read producer/consumer schemas, error contracts, auth conventions and known supported client versions.
 - **Reasonable default:** Keep compatible response and pagination semantics where the brief does not request a breaking change.
@@ -33,8 +33,10 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Inspect domain conventions and existing APIs, define consistent resources and operations, specify normal/error behavior, and check consumer usability and migration needs.
-2. Define resource identity, method semantics, validation, authorization, errors and versioning from actual consumer journeys; include one success and failure exchange.
+1. Inspect domain conventions, existing APIs and actual consumer journeys.
+2. Define resource identity, method semantics, validation, authorization, errors and versioning consistently with them, with one success and one failure exchange per operation.
+3. Check consumer usability and migration needs.
+
 ## Technical method
 
 - **Inspect:** Read consumer needs, resource ownership, identity, transport constraints and current serializer behavior.
@@ -56,8 +58,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- API proposal with request/response examples, invariants, and acceptance scenarios.
-- Request/response examples, status/error meanings and consumer compatibility notes.
+- API proposal with request/response examples, status and error meanings, invariants, acceptance scenarios and consumer compatibility notes.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -70,5 +71,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Design invitation endpoints with explicit expiry and conflict responses.
-- **edge (plan):** Design an asynchronous export API that can fail after acceptance.
-- **blocked (inspect):** Draft an API with unknown consumer constraints; mark compatibility assumptions.
+- **Edge (plan):** Design an asynchronous export API that can fail after acceptance.
+- **Blocked (inspect):** Draft an API with unknown consumer constraints; mark compatibility assumptions.

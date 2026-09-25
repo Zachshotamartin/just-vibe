@@ -75,7 +75,7 @@ When requested in the same invocation, use the named checkpoint recipe in [daily
 
 If no name is supplied, reuse an unambiguous checkpoint for this task or choose a short descriptive unused name. Never overwrite an unrelated checkpoint. A minimal pointer in the instruction file can say, using the actual chosen name:
 
-> When asked to continue checkout, read `.just-vibe/checkpoints/checkout.json` and revalidate the repository and recorded results before proceeding.
+> When asked to continue checkout, run `just-vibe project resume checkout` (or the bundled toolkit) and reconcile its reported differences and recorded results before proceeding.
 
 The pointer is conditional; it must not force an old task into every new session. Avoid an unconditional Claude `@` import of volatile checkpoint data. Write instructions and their pointer before the final checkpoint snapshot so the new pointer does not immediately make the snapshot stale. If checkpoint creation fails, remove only a newly added dangling pointer, retain useful saved rules and report the partial result. An ignored/local checkpoint is not available in another clone: state that limitation when cross-machine continuity is requested, and use a shareable destination only within the user's scope.
 

@@ -1,15 +1,15 @@
 ---
 name: security-threat-model
-description: "Identify assets, trust boundaries, attack paths, and mitigations Use for systematic threats to a scoped system; security-authz or security-inputs investigates a concrete path."
+description: "Identify assets, trust boundaries, attack paths, and mitigations. Use for systematic threats to a scoped system; security-authz or security-inputs investigates a concrete path, and security-fix repairs a confirmed vulnerability."
 ---
 
 # security-threat-model
 
-Identify assets, trust boundaries, attack paths, and mitigations
+Identify assets, trust boundaries, attack paths, and mitigations.
 
 ## Choose this workflow
 
-Use for systematic threats to a scoped system; security-authz or security-inputs investigates a concrete path.
+Use for systematic threats to a scoped system; security-authz or security-inputs investigates a concrete path, and security-fix repairs a confirmed vulnerability.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Security methods](../../references/packs/security.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan; system architecture, assets, actors, trust boundaries, and critical outcomes.
 
-defined application boundary, authorized code/environment, relevant trust/access rules, and evidence sources. Default to defensive inspection; active tests use owned or explicitly authorized isolated targets. Minimize sensitive evidence and never print usable credentials.
+**Pack prerequisites:** Defined application boundary, authorized code/environment, relevant trust/access rules, and evidence sources. Default to defensive inspection; active tests use owned or explicitly authorized isolated targets. Minimize sensitive evidence and never print usable credentials.
 
 - **Infer from evidence:** Resolve the requested surface, source/runtime version, reachable callers and actual trust/access boundaries.
 - **Reasonable default:** Start with source analysis and bounded owned fixtures; treat scanner output as leads and preserve legitimate controls.
@@ -33,8 +33,10 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Trace data and privilege boundaries, identify entry points, model misuse scenarios, assess existing controls, and prioritize gaps by realistic impact/exposure.
-2. Enumerate assets, actors, entry points and trust transitions, then connect realistic misuse chains to existing controls and observable impact.
+1. Enumerate assets, actors, entry points and trust transitions, tracing data and privilege boundaries.
+2. Model realistic misuse chains and connect each to existing controls and observable impact.
+3. Prioritize gaps by realistic impact and exposure, with a validation scenario for each.
+
 ## Technical method
 
 - **Inspect:** Inventory assets, actors, entry points, trust transitions, deployment assumptions and existing controls.
@@ -57,8 +59,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Threat model, assumptions, prioritized mitigations, and verification scenarios.
-- Boundary diagram, threat/control/gap matrix and prioritized validation.
+- Threat model with a boundary diagram, assumptions, threat/control/gap matrix, prioritized mitigations and verification scenarios.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -71,5 +72,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Model threats around invoice exports and background processing.
-- **edge (plan):** Threat-model a tenant export service with signed download links.
-- **blocked (inspect):** Model threats from partial architecture without probing live systems.
+- **Edge (plan):** Threat-model a tenant export service with signed download links.
+- **Blocked (inspect):** Model threats from partial architecture without probing live systems.

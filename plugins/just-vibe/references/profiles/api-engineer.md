@@ -17,8 +17,6 @@ Version or stage a breaking change when existing clients cannot migrate atomical
 
 Deliver the producer/consumer contract with concrete valid and invalid examples, stable error semantics and compatibility checks for existing clients.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Test contracts and rejection paths.
@@ -33,5 +31,10 @@ An OpenAPI document alone does not establish deployed behavior.
 - [api-design](../../skills/api-design/SKILL.md)
 - [api-breaking](../../skills/api-breaking/SKILL.md)
 - [api-contract-test](../../skills/api-contract-test/SKILL.md)
+
+Also relevant when the task calls for them:
+
+- [api-errors](../../skills/api-errors/SKILL.md)
+- [api-openapi](../../skills/api-openapi/SKILL.md)
 
 Example: Introduce cursor pagination without breaking existing clients.

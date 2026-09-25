@@ -6,7 +6,7 @@ description: Give the agent a useful professional perspective without changing t
 
 ## Pick the role the task needs
 
-The [profile library](/profiles/) includes application engineering, interfaces, platform infrastructure, data, machine learning, security, technical leadership, and specialized systems. Every profile includes priorities, a decision principle, verification guidance, boundaries, and a concrete contribution.
+The [profile library](/profiles/) includes application engineering, interfaces, platform infrastructure, data, machine learning, security, architecture and technical leadership, quality and developer relations, and specialized systems. Every profile includes priorities, a decision principle, verification guidance, boundaries, and a concrete contribution.
 
 ```text
 /just-vibe:profile Set machine-learning-engineer for this implementation,

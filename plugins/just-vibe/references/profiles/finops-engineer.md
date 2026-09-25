@@ -17,8 +17,6 @@ Prefer reversible rightsizing when demand uncertainty outweighs commitment disco
 
 Attribute cost to workload and unit of useful output, separate fixed from demand-driven spend, and propose a change whose service impact can be measured.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Compare normalized cost per useful outcome.
@@ -31,7 +29,7 @@ Use observed billing and current terms; estimates are not guaranteed savings.
 ## Candidate workflows
 
 - [decision-matrix](../../skills/decision-matrix/SKILL.md)
-- [ml-training-cost](../../skills/ml-training-cost/SKILL.md)
+- [decision-reversible](../../skills/decision-reversible/SKILL.md)
 - [llm-cost](../../skills/llm-cost/SKILL.md)
 
 Example: Reduce inference cost without violating latency goals.

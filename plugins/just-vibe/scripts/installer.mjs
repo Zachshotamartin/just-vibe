@@ -207,6 +207,34 @@ function display(host, args) {
   return [host, ...args].map(arg => /^[a-zA-Z0-9_./:@+-]+$/.test(arg) ? arg : JSON.stringify(arg)).join(' ');
 }
 
+// Every failing layer is reported at once, so a disabled plugin does not hide a stale version and
+// one repair round covers both.
+function doctorProblems(options, state, source, shortcuts) {
+  if (!state.marketplace || !state.installed) return ['just-vibe is not fully installed. Run setup for this target.'];
+  const problems = [];
+  if (state.installed.enabled === false) problems.push('just-vibe is installed but disabled. Run setup to enable it.');
+  if (!options.github && !options.local) {
+    const managed = inspectManaged(source);
+    if (!managed) problems.push('Managed marketplace files are missing. Run setup to restore them.');
+    else if (!managed.files) problems.push('Managed file integrity is unknown for this legacy installation. Preserve its source and use update to record a verified manifest.');
+    else {
+      const currentFiles = bundleFileHashes(source);
+      const missing = Object.keys(managed.files).filter(path => !Object.hasOwn(currentFiles, path));
+      const changed = Object.keys(managed.files).filter(path => Object.hasOwn(currentFiles, path) && currentFiles[path] !== managed.files[path]);
+      const added = Object.keys(currentFiles).filter(path => !Object.hasOwn(managed.files, path));
+      if (missing.length || changed.length || added.length) problems.push(`Managed bundle needs inspection: ${missing.length} missing, ${changed.length} changed, ${added.length} added files. Preserve edits before repair. ${JSON.stringify({ missing, changed, added })}`);
+      let version = null;
+      try { version = validateBundle(source); } catch (error) { problems.push(`Managed bundle is invalid: ${error.message}`); }
+      if (version && state.installed.version !== version) problems.push(`Installed plugin version differs from the managed source (${version}). Run update to finish applying it.`);
+    }
+  }
+  if (options.target === 'claude') {
+    const health = shortcuts(options, { source, operation: 'doctor' });
+    if (!health.installed || health.conflicts.length || health.missing.length || health.outdated.length || health.interrupted) problems.push('Claude command shortcuts need setup/update or repair. Preserve edited shortcut files first.');
+  }
+  return problems;
+}
+
 export function install(options, { run = execute, log = console.log, source = sourceFor(options), prepare = stageBundle, shortcuts = claudeShortcuts } = {}) {
   if (!['codex', 'claude'].includes(options.target)) {
     const operation = options.command === 'setup' ? 'install' : options.command;
@@ -250,24 +278,8 @@ export function install(options, { run = execute, log = console.log, source = so
     throw new Error('just-vibe is installed without its expected marketplace. Repair its source in the host CLI before continuing.');
   }
   if (options.command === 'doctor') {
-    if (!state.marketplace || !state.installed) throw new Error('just-vibe is not fully installed. Run setup for this target.');
-    if (state.installed.enabled === false) throw new Error('just-vibe is installed but disabled. Run setup to enable it.');
-    if (!options.github && !options.local) {
-      const managed = inspectManaged(source);
-      if (!managed) throw new Error('Managed marketplace files are missing. Run setup to restore them.');
-      if (!managed.files) throw new Error('Managed file integrity is unknown for this legacy installation. Preserve its source and use update to record a verified manifest.');
-      const currentFiles = bundleFileHashes(source);
-      const missing = Object.keys(managed.files).filter(path => !Object.hasOwn(currentFiles, path));
-      const changed = Object.keys(managed.files).filter(path => Object.hasOwn(currentFiles, path) && currentFiles[path] !== managed.files[path]);
-      const added = Object.keys(currentFiles).filter(path => !Object.hasOwn(managed.files, path));
-      if (missing.length || changed.length || added.length) throw new Error(`Managed bundle needs inspection: ${missing.length} missing, ${changed.length} changed, ${added.length} added files. Preserve edits before repair. ${JSON.stringify({ missing, changed, added })}`);
-      const version = validateBundle(source);
-      if (state.installed.version !== version) throw new Error(`Installed plugin version differs from the managed source (${version}). Run update to finish applying it.`);
-    }
-    if (host === 'claude') {
-      const health = shortcuts(options, { source, operation: 'doctor' });
-      if (!health.installed || health.conflicts.length || health.missing.length || health.outdated.length || health.interrupted) throw Error('Claude command shortcuts need setup/update or repair. Preserve edited shortcut files first.');
-    }
+    const problems = doctorProblems(options, state, source, shortcuts);
+    if (problems.length) throw new Error(problems.length === 1 ? problems[0] : `just-vibe needs ${problems.length} repairs:\n${problems.map(p => `- ${p}`).join('\n')}`);
     log(`Healthy: ${PLUGIN}${state.installed.version ? ` v${state.installed.version}` : ''}.`);
     log('Automatic assistance requires a host with UserPromptSubmit/SessionStart/PostToolUse/Stop hooks and native hook trust. Installation health does not prove event delivery. Use assist status for local settings; inspect hooks in your host if ordinary requests do not activate workflows.');
     return;

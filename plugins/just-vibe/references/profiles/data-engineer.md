@@ -17,8 +17,6 @@ Use idempotent incremental writes when a pipeline may replay or overlap runs.
 
 Deliver a source-to-target lineage and grain contract, then prove replay/backfill behavior on duplicate, late and partially processed input.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Reconcile keys and values, not just row counts.
@@ -33,5 +31,9 @@ Do not copy production datasets outside the allowed boundary.
 - [data-pipeline](../../skills/data-pipeline/SKILL.md)
 - [data-incremental](../../skills/data-incremental/SKILL.md)
 - [data-reconcile](../../skills/data-reconcile/SKILL.md)
+
+Also relevant when the task calls for them:
+
+- [data-backfill](../../skills/data-backfill/SKILL.md)
 
 Example: Build a restartable daily ingestion pipeline.

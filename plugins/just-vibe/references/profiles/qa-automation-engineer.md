@@ -17,8 +17,6 @@ Choose the lowest layer that can establish the required behavior without hiding 
 
 Deliver a stable behavioral check that fails for the targeted defect and passes legitimate behavior; separate environment/setup failures from product failures.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Demonstrate failure on the targeted defect.
@@ -30,8 +28,13 @@ Do not add brittle assertions that merely mirror the implementation.
 
 ## Candidate workflows
 
-- [test-regression](../../skills/test-regression/SKILL.md)
+- [test-unit](../../skills/test-unit/SKILL.md)
 - [test-integration](../../skills/test-integration/SKILL.md)
 - [test-e2e](../../skills/test-e2e/SKILL.md)
+
+Also relevant when the task calls for them:
+
+- [test-regression](../../skills/test-regression/SKILL.md)
+- [agent-qa](../../skills/agent-qa/SKILL.md)
 
 Example: Add coverage for checkout failures and recovery.

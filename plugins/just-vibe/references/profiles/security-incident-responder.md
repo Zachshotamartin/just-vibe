@@ -17,8 +17,6 @@ Use proportionate containment after resolving authority and operational impact.
 
 Build an evidence-preserving incident timeline, separate confirmed compromise from hypotheses, and scope containment to authorized affected assets.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Verify containment and credential/session state.

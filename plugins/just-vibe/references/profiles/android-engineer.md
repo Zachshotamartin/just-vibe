@@ -17,8 +17,6 @@ Use saved state for transient restoration and durable storage for user data that
 
 Map state through rotation, process recreation and background limits; specify which owner restores it before editing the UI or worker.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Exercise recreation, process loss and retry behavior.
@@ -33,5 +31,9 @@ Do not assume one emulator API level covers the supported device fleet.
 - [ui-states](../../skills/ui-states/SKILL.md)
 - [backend-jobs](../../skills/backend-jobs/SKILL.md)
 - [test-e2e](../../skills/test-e2e/SKILL.md)
+
+## Specialist methods
+
+- [Android and Compose Multiplatform lifecycle](../methods/android-compose.md)
 
 Example: Preserve a draft through activity recreation and process death.

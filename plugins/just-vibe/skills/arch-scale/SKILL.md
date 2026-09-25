@@ -1,15 +1,15 @@
 ---
 name: arch-scale
-description: "Identify bottlenecks for a specified workload and growth scenario Use for workload-driven capacity design; perf measures and repairs a specific bottleneck."
+description: "Identify bottlenecks for a specified workload and growth scenario. Use for workload-driven capacity design; perf measures and repairs a specific bottleneck, and test-load executes an authorized workload."
 ---
 
 # arch-scale
 
-Identify bottlenecks for a specified workload and growth scenario
+Identify bottlenecks for a specified workload and growth scenario.
 
 ## Choose this workflow
 
-Use for workload-driven capacity design; perf measures and repairs a specific bottleneck.
+Use for workload-driven capacity design; perf measures and repairs a specific bottleneck, and test-load executes an authorized workload.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Architecture methods](../../references/packs/architecture.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan; workload shape, expected growth, SLOs, current metrics, and resource limits.
 
-readable source, infrastructure/configuration definitions, and any supplied system documentation. Runtime telemetry is optional evidence, never assumed available. Architecture proposals remain plans until implementation is requested.
+**Pack prerequisites:** Readable source, infrastructure/configuration definitions, and any supplied system documentation. Runtime telemetry is optional evidence, never assumed available. Architecture proposals remain plans until implementation is requested.
 
 - **Infer from evidence:** Trace current entry points, data owners, deployment units and documented constraints before proposing boundaries.
 - **Reasonable default:** Prefer extending an existing owner while scale or organizational evidence is absent; mark capacity estimates as assumptions.
@@ -37,6 +37,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 2. Locate the limiting serial/shared boundary before recommending replicas, caching, queues or extraction. Model steady-state and burst behavior, failure recovery and downstream limits with explicit units.
 3. Compare options against the bottleneck and consistency requirements. Define admission control/backpressure and degradation before adding unbounded concurrency; scaling callers can overload the shared dependency.
 4. Propose a bounded measurement or authorized load experiment with rejecting observations and recovery. Report the capacity range established by evidence and what remains unknown; do not invent traffic or throughput.
+
 ## Technical method
 
 - **Inspect:** Obtain workload shape, service-time distribution, concurrency limits, queue age and dependency quotas.
@@ -69,5 +70,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Plan capacity experiments for a tenfold increase in checkout traffic.
-- **edge (plan):** Plan growth for a service bottlenecked by a serialized inventory update.
-- **blocked (inspect):** Assess scale without production metrics; avoid invented throughput estimates.
+- **Edge (plan):** Plan growth for a service bottlenecked by a serialized inventory update.
+- **Blocked (inspect):** Assess scale without production metrics; avoid invented throughput estimates.

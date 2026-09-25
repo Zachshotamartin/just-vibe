@@ -1,11 +1,11 @@
 ---
 name: api-contract-test
-description: "Verify provider and consumer expectations Use to implement consumer/provider contract checks; test-integration exercises broader dependency behavior."
+description: "Verify provider and consumer expectations. Use to implement consumer/provider contract checks; test-integration exercises broader dependency behavior."
 ---
 
 # api-contract-test
 
-Verify provider and consumer expectations
+Verify provider and consumer expectations.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply; provider/consumer expectations, versions, fixtures, and test environment.
 
-interface definitions, producer/consumer source, authentication model, versioning constraints, and isolated test endpoints. External API calls must respect environment, credentials, rate limits, and side-effect scope.
+**Pack prerequisites:** Interface definitions, producer/consumer source, authentication model, versioning constraints, and isolated test endpoints. External API calls must respect environment, credentials, rate limits, and side-effect scope.
 
 - **Infer from evidence:** Read producer/consumer schemas, error contracts, auth conventions and known supported client versions.
 - **Reasonable default:** Keep compatible response and pagination semantics where the brief does not request a breaking change.
@@ -33,8 +33,9 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Execute
 
-1. Identify important assumptions, build provider/consumer assertions, control fixtures, verify valid and invalid exchanges, and integrate with relevant checks.
-2. Derive assertions from actual consumer assumptions, control fixture identity and verify the real provider boundary when a safe environment exists.
+1. Derive assertions from actual consumer assumptions, and control fixture identity and provenance.
+2. Verify valid and invalid exchanges, including the real provider boundary when a safe environment exists, and integrate the cases with the relevant checks.
+
 ## Technical method
 
 - **Inspect:** Identify independently owned provider/consumer expectations and representative boundary fixtures.
@@ -55,8 +56,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Deliver and verify
 
-- Contract tests, fixture provenance, and execution results.
-- Contract cases, schema/semantic assertions and provider verification coverage.
+- Contract cases with schema and semantic assertions, fixture provenance, provider verification coverage and execution results.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -69,5 +69,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** Test invoice producer and consumer contracts against isolated fixtures.
-- **edge (apply):** Test an API returning an optional field as null versus omitting it.
-- **blocked (inspect):** Design contract checks with no provider runtime; do not equate a mock pass with compatibility.
+- **Edge (apply):** Test an API returning an optional field as null versus omitting it.
+- **Blocked (inspect):** Design contract checks with no provider runtime; do not equate a mock pass with compatibility.

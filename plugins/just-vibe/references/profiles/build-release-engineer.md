@@ -17,8 +17,6 @@ Reuse the tested artifact when promotion should preserve exact contents.
 
 Produce a source-to-archive identity chain and explicit release gates; verify the distributable that users receive rather than only the checkout.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Verify archive membership and checksums.
@@ -30,8 +28,12 @@ Do not silently replace release artifacts or rewrite version history.
 
 ## Candidate workflows
 
-- [build](../../skills/build/SKILL.md)
+- [verify](../../skills/verify/SKILL.md)
 - [release](../../skills/release/SKILL.md)
 - [github-release](../../skills/github-release/SKILL.md)
+
+## Specialist methods
+
+- [Release provenance and compatibility maintenance](../methods/release-maintenance.md)
 
 Example: Prepare a package release from a verified archive.

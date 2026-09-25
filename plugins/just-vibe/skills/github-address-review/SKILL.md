@@ -1,11 +1,11 @@
 ---
 name: github-address-review
-description: "Implement actionable review changes and explain resolutions Use to implement accepted review feedback; github-review produces findings."
+description: "Implement actionable review changes and explain resolutions. Use to implement accepted review feedback; github-review produces findings."
 ---
 
 # github-address-review
 
-Implement actionable review changes and explain resolutions
+Implement actionable review changes and explain resolutions.
 
 ## Choose this workflow
 
@@ -17,13 +17,13 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply; PR and review threads plus accepted product constraints.
 
-exact owner/repository and relevant issue/PR/ref; authenticated read access through an available connector or CLI for remote evidence. External writes require the requested operation, appropriate account permissions, and rechecking target state. Local preparation remains useful without write access.
+**Pack prerequisites:** Exact owner/repository and relevant issue/PR/ref; authenticated read access through an available connector or CLI for remote evidence. External writes require the requested operation, appropriate account permissions, and rechecking target state. Local preparation remains useful without write access.
 
 - **Infer from evidence:** Resolve owner/repository and PR/issue/ref from links, remotes and supplied artifacts; inspect available account and head identity.
 - **Reasonable default:** Prepare local text or analyze supplied evidence if remote access is absent; label its freshness.
 - **Ask only when needed:** Ask only when repository/account/target ambiguity blocks the requested remote action; missing write access does not block local drafting.
 
-Declared evidence requirements: `project.read`, `github.context`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
+Declared evidence requirements: `project.read`, `git.repo`, `github.context`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
@@ -33,9 +33,11 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Execute
 
-1. Classify each comment, verify its premise, identify conflicts, implement coherent changes, run relevant checks, and map each change to feedback.
-2. Map comments to current code and accepted contracts, resolve conflicting suggestions, and keep a per-comment disposition tied to the final diff.
-3. All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
+1. Map each comment to current code and accepted contracts, verify its premise and identify conflicting suggestions.
+2. Implement coherent changes for the accepted comments and run the relevant checks.
+3. Keep a per-comment disposition tied to the final diff.
+4. All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
+
 ## Technical method
 
 - **Inspect:** Map each comment to its current code and the accepted requirement, including already changed or conflicting requests.
@@ -54,8 +56,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Deliver and verify
 
-- Patch, comment-to-resolution summary, evidence, and disputed or blocked items.
-- Comment-to-change mapping, verification and remote threads still requiring action.
+- Patch with a comment-to-change mapping, verification evidence, and disputed, blocked or remote threads still requiring action.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -69,5 +70,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** Implement the actionable feedback on the specified PR; keep API compatibility.
-- **edge (apply):** Address feedback when one comment is already fixed and another conflicts with the API.
-- **blocked (inspect):** Inspect review feedback without the referenced revision; do not claim threads resolved.
+- **Edge (apply):** Address feedback when one comment is already fixed and another conflicts with the API.
+- **Blocked (inspect):** Inspect review feedback without the referenced revision; do not claim threads resolved.

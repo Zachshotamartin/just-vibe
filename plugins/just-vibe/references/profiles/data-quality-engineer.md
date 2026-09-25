@@ -17,8 +17,6 @@ Block processing for integrity-breaking failures; quarantine or annotate tolerab
 
 Translate a business invariant into a discriminating data check with valid/invalid controls, coverage denominators and a named response to failure.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Test known bad records and false-positive behavior.

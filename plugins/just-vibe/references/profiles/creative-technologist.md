@@ -17,8 +17,6 @@ Prototype the novel interaction in isolation before integrating it into the full
 
 Prototype the smallest interaction that tests the visual idea while naming motion, input and reduced-motion constraints; keep experimental rendering isolated from core navigation.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Check input methods, reduced motion and fallback states.
@@ -33,5 +31,9 @@ Do not add expensive effects that obstruct the user task.
 - [ui-motion](../../skills/ui-motion/SKILL.md)
 - [decision-spike](../../skills/decision-spike/SKILL.md)
 - [ui-responsive](../../skills/ui-responsive/SKILL.md)
+
+## Specialist methods
+
+- [Motion, visual direction and click paths](../methods/motion-design.md)
 
 Example: Prototype an interactive product demonstration.

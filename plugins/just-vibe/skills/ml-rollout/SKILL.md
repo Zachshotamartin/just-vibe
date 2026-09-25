@@ -1,11 +1,11 @@
 ---
 name: ml-rollout
-description: "Prepare shadow, canary, or staged deployment and rollback criteria Use for a scoped model promotion plan or transition; ml-report documents offline evidence."
+description: "Prepare shadow, canary or staged rollout of a model version with rollback criteria. Use for a scoped model promotion plan or transition; ml-report documents offline evidence."
 ---
 
 # ml-rollout
 
-Prepare shadow, canary, or staged deployment and rollback criteria
+Prepare shadow, canary or staged rollout of a model version with rollback criteria.
 
 ## Choose this workflow
 
@@ -17,13 +17,13 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan rollout; apply for requested rollout configuration or an explicitly requested promotion.
 
-versioned model and preprocessing artifacts, input/output schema, runtime/dependencies, operating targets, and authorized environment. Validate artifact trust before loading formats that can execute code. Packaging or writing monitoring configuration does not deploy a model or enable a hosted service.
+**Pack prerequisites:** Versioned model and preprocessing artifacts, input/output schema, runtime/dependencies, operating targets, and authorized environment. Validate artifact trust before loading formats that can execute code. Packaging or writing monitoring configuration does not deploy a model or enable a hosted service.
 
 - **Infer from evidence:** Read artifact format/trust, preprocessing schema, serving runtime, compatibility and existing rollout controls.
 - **Reasonable default:** Prepare packaging/configuration and isolated checks without treating them as a live deployment.
 - **Ask only when needed:** Resolve the target, rollback compatibility and operating limits before rollout or load generation; missing production access does not block packaging.
 
-Resolve any task-specific tools, target identity and evidence before dependent actions. No external connection is assumed.
+Declared evidence requirements: `ml.artifacts`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
@@ -33,8 +33,10 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 
 ## Execute
 
-1. Check package/schema compatibility, define cohort routing and comparison metrics, preserve fallback artifacts, prepare staged gates, and verify authorized transitions against evidence.
-2. Check feature/schema/artifact compatibility, define shadow/canary routing and predeclared stop criteria, and preserve a usable fallback plus traffic-switch mechanism.
+1. Check feature, schema, package and artifact compatibility, and preserve a usable fallback artifact and traffic-switch mechanism.
+2. Define shadow or canary cohort routing, comparison metrics and predeclared stop criteria as staged gates.
+3. Verify authorized transitions against evidence.
+
 ## Technical method
 
 - **Inspect:** Resolve candidate/baseline models, compatibility, routing identity, shadow side effects and rollback conditions.
@@ -45,8 +47,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 ## Read when relevant
 
 - When a concrete decision or deliverable example would clarify this workflow: [ML deployment worked example](../../references/examples/ml-deployment.md).
-- The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method: [PyTorch autograd, device and distributed debugging](../../references/methods/pytorch-debug.md).
-- The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method: [Retrieval, ranking and recommendation evaluation](../../references/methods/recommender-systems.md).
+
 
 ## Decision branches
 
@@ -55,8 +56,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 
 ## Deliver and verify
 
-- Rollout plan or execution record with actual traffic/version state and rollback criteria.
-- Cohort/gate/metric plan, candidate/fallback identities and verified transitions.
+- Rollout plan or execution record with the cohort/gate/metric plan, candidate and fallback identities, actual traffic/version state and rollback criteria.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -68,6 +68,6 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 ## Example requests
 
-- **Normal (plan):** Prepare a canary rollout and rollback plan; do not change production traffic.
-- **edge (plan):** Plan a canary when the previous model expects an older feature schema.
-- **blocked (inspect):** Assess rollout readiness without live routing access or shadow-inference budget.
+- **Normal (plan):** Prepare a canary rollout and rollback plan for the new ranking model; do not change production traffic.
+- **Edge (plan):** Plan a canary when the previous model expects an older feature schema.
+- **Blocked (inspect):** Assess rollout readiness without live routing access or shadow-inference budget.

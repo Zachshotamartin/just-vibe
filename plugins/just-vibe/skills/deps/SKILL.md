@@ -1,23 +1,23 @@
 ---
 name: deps
-description: "Assess dependency updates and compatibility Use for dependency assessment or requested updates; vite-upgrade handles Vite-specific migration behavior."
+description: "Assess dependency updates and compatibility. Use for dependency assessment or requested updates; vite-upgrade handles Vite-specific migration behavior and security-fix remediates a confirmed advisory."
 ---
 
 # deps
 
-Assess dependency updates and compatibility
+Assess dependency updates and compatibility.
 
 ## Choose this workflow
 
-Use for dependency assessment or requested updates; vite-upgrade handles Vite-specific migration behavior.
+Use for dependency assessment or requested updates; vite-upgrade handles Vite-specific migration behavior and security-fix remediates a confirmed advisory.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [General methods](../../references/packs/general.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
 ## Input and mode
 
-Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; package scope, update goal, compatibility constraints, and registry access when needed.
+Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; package scope, update goal, compatibility constraints, and registry access when needed. Apply for a requested update through the project's package manager.
 
-Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
+**Pack prerequisites:** Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
 - **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
 - **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
@@ -27,14 +27,16 @@ Declared evidence requirements: `project.read`. Use actual host discovery or ade
 
 ## Scope
 
-Dependency health and upgrade proposals; requested updates select apply mode and include lockfiles.
+Dependency health and upgrade proposals; a requested update uses apply mode and includes lockfiles.
 
-No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
+Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the requested local implementation and perform relevant bounded checks while preserving unrelated work. Live data changes, remote actions and paid jobs require their resolved target and existing session authorization.
 
 ## Execute
 
-1. Inspect manifests/resolution, check current release notes and advisories, identify peer/runtime constraints, and group changes by risk.
-2. Read resolved versions and peer/runtime ranges; identify why each dependency exists and isolate direct changes from lockfile churn.
+1. Read manifests, resolved versions and peer/runtime ranges, and identify why each dependency exists.
+2. Check current release notes and advisories, and group changes by risk, isolating direct changes from lockfile churn.
+3. In apply mode, change the manifest through the project's package manager, then inspect the lockfile diff for unrelated churn before running checks.
+
 ## Technical method
 
 - **Inspect:** Inspect manifests, lockfiles, direct/transitive ownership, advisory evidence and supported versions.
@@ -54,8 +56,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Prioritized recommendations or authorized update with compatibility checks.
-- Current/target versions, compatibility risks, advisory evidence and update checks.
+- Current/target versions with compatibility risks and advisory evidence, and prioritized recommendations or, in apply mode, the requested update with its checks.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -68,5 +69,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Assess a compatible dependency update without changing files yet.
-- **edge (inspect):** Update one dependency with a conflicting peer and an unrelated dirty lockfile.
-- **blocked (inspect):** Assess dependencies from the lockfile with unavailable advisory access.
+- **Edge (apply):** Update one dependency with a conflicting peer and an unrelated dirty lockfile.
+- **Blocked (inspect):** Assess dependencies from the lockfile with unavailable advisory access.

@@ -17,8 +17,6 @@ Extend a protocol compatibly when mixed-version peers must coexist.
 
 Define message/state transitions and compatibility behavior, then test malformed, duplicated, reordered and interrupted exchanges against the protocol contract.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Test independent implementations and malformed sequences.

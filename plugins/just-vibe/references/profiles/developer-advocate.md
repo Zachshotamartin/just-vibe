@@ -17,8 +17,6 @@ Prefer a runnable example over unsupported promotional claims.
 
 Build a small accurate example that demonstrates the intended developer outcome, including prerequisites and limitations without implying unverified production readiness.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Test the example in a clean environment.

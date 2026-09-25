@@ -1,11 +1,11 @@
 ---
 name: github-fix-ci
-description: "Diagnose failing Actions jobs and verify repairs Use for repairing a specific GitHub Actions failure; ci diagnoses provider-neutral logs."
+description: "Diagnose failing Actions jobs and verify repairs. Use for repairing a specific GitHub Actions failure; ci diagnoses provider-neutral logs."
 ---
 
 # github-fix-ci
 
-Diagnose failing Actions jobs and verify repairs
+Diagnose failing Actions jobs and verify repairs.
 
 ## Choose this workflow
 
@@ -17,13 +17,13 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply; failed PR/check run and exact revision. Requires Actions logs and local checkout.
 
-exact owner/repository and relevant issue/PR/ref; authenticated read access through an available connector or CLI for remote evidence. External writes require the requested operation, appropriate account permissions, and rechecking target state. Local preparation remains useful without write access.
+**Pack prerequisites:** Exact owner/repository and relevant issue/PR/ref; authenticated read access through an available connector or CLI for remote evidence. External writes require the requested operation, appropriate account permissions, and rechecking target state. Local preparation remains useful without write access.
 
 - **Infer from evidence:** Resolve owner/repository and PR/issue/ref from links, remotes and supplied artifacts; inspect available account and head identity.
 - **Reasonable default:** Prepare local text or analyze supplied evidence if remote access is absent; label its freshness.
 - **Ask only when needed:** Ask only when repository/account/target ambiguity blocks the requested remote action; missing write access does not block local drafting.
 
-Declared evidence requirements: `project.read`, `github.context`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
+Declared evidence requirements: `project.read`, `git.repo`, `github.context`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
@@ -33,10 +33,12 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Execute
 
-1. Find the first causal failure, compare runner configuration and lockfiles, reproduce locally where feasible, patch, and validate before an authorized rerun/push.
-2. Resolve run ID, attempt, job and head SHA; find the first causal failure and reproduce using the relevant workspace/runtime before patching.
-3. All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
-4. Use the matching bundled evidence collector when available; read its result and limitations rather than treating exit zero as readiness. Revalidate identity before a dependent action.
+1. Resolve the run ID, attempt, job and head SHA, and find the first causal failure.
+2. Compare runner configuration and lockfiles, and reproduce locally with the relevant workspace and runtime before patching.
+3. Patch the cause and validate it before an authorized rerun or push.
+4. All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
+5. Use the matching bundled evidence collector when available; read its result and limitations rather than treating exit zero as readiness. Revalidate identity before a dependent action.
+
 ## Technical method
 
 - **Inspect:** Read the first failing step and run attempt at the relevant SHA; compare matrix OS, toolchain, event and permissions.
@@ -56,8 +58,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Deliver and verify
 
-- Cause, focused changes, local evidence, and remote run status if actually exercised.
-- Run/job/revision, causal log, focused fix and corrected-revision check status.
+- Run/job/revision identity, causal log, focused fix with local evidence, and corrected-revision check status only if actually exercised.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -71,5 +72,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** Fix the failing Actions check for this PR revision; reproduce the cause locally.
-- **edge (apply):** Fix a matrix failure while another job was merely cancelled.
-- **blocked (inspect):** Diagnose supplied Actions logs with no permission to rerun or push.
+- **Edge (apply):** Fix a matrix failure while another job was merely cancelled.
+- **Blocked (inspect):** Diagnose supplied Actions logs with no permission to rerun or push.

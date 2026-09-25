@@ -1,11 +1,11 @@
 ---
 name: scope
-description: "Separate the essential release from optional work Use to choose a feasible release boundary under constraints; spec defines behavior within that boundary."
+description: "Separate the essential release from optional work. Use to choose a feasible release boundary under constraints; spec defines behavior within that boundary."
 ---
 
 # scope
 
-Separate the essential release from optional work
+Separate the essential release from optional work.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan; proposed work, must-have outcomes, deadline/resources, and constraints.
 
-Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
+**Pack prerequisites:** Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
 - **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
 - **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
@@ -33,8 +33,9 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Identify user outcomes, map dependencies, distinguish essentials from enhancements, and assess what remains viable under the limits.
-2. Trace each proposed cut through a complete user journey and its operational dependencies; preserve the smallest usable outcome.
+1. Identify user outcomes and distinguish essentials from enhancements.
+2. Trace each proposed cut through a complete user journey and its operational dependencies, and keep the smallest usable outcome that remains viable under the limits.
+
 ## Technical method
 
 - **Inspect:** Identify the core user outcome, hard deadline/resources and dependencies between requested capabilities.
@@ -53,8 +54,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Included/excluded work, minimum release criteria, later phases, and consequences of cuts.
-- Included journeys, explicit cuts, dependency consequences and minimum release checks.
+- Included journeys, explicit cuts with their dependency consequences, later phases and minimum release checks.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -67,5 +67,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Scope a first release of team billing that three people can maintain.
-- **edge (plan):** Reduce a launch scope while preserving signup, purchase and refund recovery.
-- **blocked (inspect):** Scope this feature without effort history; identify estimates requiring a spike.
+- **Edge (plan):** Reduce a launch scope while preserving signup, purchase and refund recovery.
+- **Blocked (inspect):** Scope this feature without effort history; identify estimates requiring a spike.

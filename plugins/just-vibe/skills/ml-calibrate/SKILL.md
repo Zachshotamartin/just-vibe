@@ -1,11 +1,11 @@
 ---
 name: ml-calibrate
-description: "Assess predicted probabilities against observed outcomes Use to assess or fit probability calibration; ml-threshold maps scores to decisions."
+description: "Assess predicted probabilities against observed outcomes. Use to assess or fit probability calibration; ml-threshold maps scores to decisions."
 ---
 
 # ml-calibrate
 
-Assess predicted probabilities against observed outcomes
+Assess predicted probabilities against observed outcomes.
 
 ## Choose this workflow
 
@@ -15,9 +15,9 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 ## Input and mode
 
-Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; predicted probabilities, labels, sampling/prevalence context, and intended use.
+Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; predicted probabilities, labels, sampling/prevalence context, and intended use. Apply to fit a calibrator on a permitted split when requested.
 
-frozen model/artifact, evaluation dataset identity, labels where needed, metric definitions, and task/operating context. Report sample counts and uncertainty appropriate to dependencies; avoid repeated test-set tuning. Exploratory findings need fresh confirmation before strong generalization claims.
+**Pack prerequisites:** Frozen model/artifact, evaluation dataset identity, labels where needed, metric definitions, and task/operating context. Report sample counts and uncertainty appropriate to dependencies; avoid repeated test-set tuning. Exploratory findings need fresh confirmation before strong generalization claims.
 
 - **Infer from evidence:** Read frozen model/data identities, metric definitions, denominators and supplied predictions; separate validation from test use.
 - **Reasonable default:** Compute only supported metrics on permitted samples and label missing labels or subgroup coverage as unknown.
@@ -27,14 +27,15 @@ Declared evidence requirements: `ml.artifacts`. Use actual host discovery or ade
 
 ## Scope
 
-Probability reliability assessment; fitting calibration requires a separate held-out calibration protocol and explicit apply request.
+Probability reliability assessment; fitting a calibrator uses a separate held-out calibration protocol in apply mode.
 
-No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
+Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the requested changes or execute the requested operation within its resolved target and limits. Local preparation does not authorize live, remote, destructive or paid actions; existing explicit session authorization still applies.
 
 ## Execute
 
-1. Validate probability semantics, inspect reliability by range/cohort, use appropriate scoring measures, and compare any authorized calibrator on untouched evaluation data.
-2. Check probability semantics, reliability and proper scoring measures; fit any calibrator on permitted data separate from final evaluation and compare by cohort.
+1. Check probability semantics, then inspect reliability by range and cohort with proper scoring measures.
+2. Fit any calibrator on permitted data separate from final evaluation, and compare it by cohort on untouched evaluation data.
+
 ## Technical method
 
 - **Inspect:** Inspect probability outputs, class definition, prevalence, selection split and calibration metric/binning.
@@ -45,8 +46,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 ## Read when relevant
 
 - When a concrete decision or deliverable example would clarify this workflow: [ML evaluation worked example](../../references/examples/ml-evaluation.md).
-- The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method: [PyTorch autograd, device and distributed debugging](../../references/methods/pytorch-debug.md).
-- The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method: [Retrieval, ranking and recommendation evaluation](../../references/methods/recommender-systems.md).
+
 
 ## Decision branches
 
@@ -54,8 +54,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Calibration report or calibrated artifact with split provenance and checks.
-- Calibration protocol, reliability evidence and independent comparison.
+- Calibration report or calibrated artifact with split provenance, the calibration protocol, reliability evidence and an independent comparison.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -68,5 +67,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Assess probability calibration from the supplied held-out scores and outcomes.
-- **edge (inspect):** Calibrate a model trained on oversampled positives.
-- **blocked (inspect):** Review probability outputs with too few outcomes to fit a reliable calibrator.
+- **Edge (apply):** Calibrate a model trained on oversampled positives.
+- **Blocked (inspect):** Review probability outputs with too few outcomes to fit a reliable calibrator.

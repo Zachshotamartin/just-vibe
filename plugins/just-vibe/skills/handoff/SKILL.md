@@ -1,11 +1,11 @@
 ---
 name: handoff
-description: "Write a self-contained brief for another session or collaborator Use when another person or session needs context to continue; checkpoint is a shorter state capture."
+description: "Write a self-contained brief for another session or collaborator. Use when another person or session needs context to continue; checkpoint is a shorter state capture."
 ---
 
 # handoff
 
-Write a self-contained brief for another session or collaborator
+Write a self-contained brief for another session or collaborator.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan; task, intended recipient/session, and optional output path.
 
-Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
+**Pack prerequisites:** Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
 - **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
 - **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
@@ -33,9 +33,11 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Reconstruct the original objective, summarize verified state, include decisions and constraints, document blockers, and provide actionable continuation steps.
-2. Reconstruct the original goal and accepted decisions, separate proposed from completed work, and identify files or artifacts needed for the next step.
-3. All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
+1. Reconstruct the original objective, constraints and accepted decisions.
+2. Summarize verified state, separating proposed from completed work, and document blockers.
+3. Give actionable continuation steps with the files or artifacts the next step needs.
+4. All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
+
 ## Technical method
 
 - **Inspect:** Resolve current objective, accepted constraints, completed artifacts, evidence and open decisions.
@@ -47,17 +49,17 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 - When a concrete decision or deliverable example would clarify this workflow: [General worked example](../../references/examples/general.md).
 - Saving requested preferences, decisions or a named continuation: [Project continuity](../../references/daily-workflows.md).
-- The task needs scoped memory search, a persistent goal, independent review, configuration scanning, worker control, learned-pattern review or editor installation: [Native memory, goals, specialists and runtime controls](../../references/runtime-platform.md).
+- Saving a structured handoff with vault handoff or memory_handoff, or searching scoped memory: [Native memory, goals, specialists and runtime controls](../../references/runtime-platform.md).
 - The request needs proactive context warnings, detected checks, native editor events, GitHub epic coordination or configuration audit reports: [Context health, check presets, editor events and shared work](../../references/runtime-depth.md).
 
 ## Decision branches
 
 - **When external action outcome is uncertain:** Include its operation identity and reconciliation step rather than instructing a blind retry.
+- **When saving the handoff is requested:** Prefer memory_handoff or vault handoff --stdin (project scope by default; team scope for teammates, reviewed through Git); otherwise use the project established handoff file.
 
 ## Deliver and verify
 
-- Handoff brief with file links, commands already run, results, and next action; save when requested.
-- Self-contained goal, constraints, evidence, blockers and continuation sequence.
+- Self-contained handoff brief with the goal, constraints, file links, commands already run with results, blockers and the continuation sequence; save when requested.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -71,5 +73,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Write a self-contained handoff for the partially implemented checkout fix.
-- **edge (plan):** Hand off an interrupted release with an uncertain upload result.
-- **blocked (inspect):** Prepare a handoff from partial history; label decisions whose rationale is missing.
+- **Edge (plan):** Hand off an interrupted release with an uncertain upload result.
+- **Blocked (inspect):** Prepare a handoff from partial history; label decisions whose rationale is missing.

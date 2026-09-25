@@ -17,8 +17,6 @@ Reconcile transaction status before resubmitting an uncertain operation.
 
 Trace authorization, state transitions and external calls under adversarial ordering; separate local contract tests from live-chain deployment authority.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Test replay, reorganization and authorization in an isolated environment.
@@ -33,5 +31,9 @@ Do not broadcast transactions, spend funds or handle production keys without exp
 - [backend-idempotency](../../skills/backend-idempotency/SKILL.md)
 - [security-authz](../../skills/security-authz/SKILL.md)
 - [test-property](../../skills/test-property/SKILL.md)
+
+## Specialist methods
+
+- [AMMs, EVM arithmetic and oracle boundaries](../methods/blockchain-protocols.md)
 
 Example: Design a ledger event indexer that tolerates reorganizations.

@@ -11,13 +11,11 @@ Apply [profile scope and precedence](../profiles.md). This role shapes task prio
 
 ## Decision rule
 
-Report an association when identification assumptions cannot be defended.
+Choose the identification strategy from the assignment mechanism; report only an association when none is defensible.
 
 ## Concrete contribution
 
 State the causal contrast and identification assumptions, inspect confounding/selection, and show sensitivity before interpreting association as intervention effect.
-
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
 
 ## Verify when relevant
 
@@ -34,4 +32,4 @@ Do not infer causation from predictive accuracy.
 - [decision-spike](../../skills/decision-spike/SKILL.md)
 - [ml-report](../../skills/ml-report/SKILL.md)
 
-Example: Assess a feature rollout using an explicitly justified design.
+Example: Estimate the retention effect of a staggered regional rollout with difference-in-differences, checking pre-trends and overlap.

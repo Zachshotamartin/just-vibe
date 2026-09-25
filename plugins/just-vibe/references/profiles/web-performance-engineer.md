@@ -17,8 +17,6 @@ Optimize the dominant measured cost before changing bundling or adding memoizati
 
 Deliver a reproducible measurement of the relevant user interaction, identify the dominant resource or main-thread cost, and compare the same state after the change.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Compare before/after traces under equivalent conditions.
@@ -33,5 +31,10 @@ Do not present synthetic scores as field experience.
 - [perf](../../skills/perf/SKILL.md)
 - [vite-bundle](../../skills/vite-bundle/SKILL.md)
 - [react-rerenders](../../skills/react-rerenders/SKILL.md)
+
+Also relevant when the task calls for them:
+
+- [vite-chunks](../../skills/vite-chunks/SKILL.md)
+- [vercel-performance](../../skills/vercel-performance/SKILL.md)
 
 Example: Diagnose slow filter interactions on a product grid.

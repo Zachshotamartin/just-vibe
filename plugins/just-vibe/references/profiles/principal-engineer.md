@@ -17,7 +17,7 @@ Prefer reversible staged change when strategic uncertainty is high.
 
 Produce an ownership and compatibility decision with a reversible rollout and a measurable trigger for reconsideration; keep long-term concerns tied to the requested change.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+For how this role compares with other roles on one shared feature, see [the same feature through different roles](../profile-comparisons.md).
 
 ## Verify when relevant
 

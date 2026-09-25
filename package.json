@@ -1,7 +1,7 @@
 {
   "name": "just-vibe",
   "version": "0.12.0",
-  "description": "Tools, skills, and commands for coding agents.",
+  "description": "Engineering workflows and role profiles for coding agents.",
   "homepage": "https://just-vibe-tools.vercel.app/",
   "type": "module",
   "bin": {
@@ -38,7 +38,8 @@
     "test:operator-browser": "node scripts/smoke-operator-browser.mjs && node scripts/smoke-operator-races.mjs",
     "check:localizations": "node scripts/check-localizations.mjs",
     "audit:implementation": "node scripts/check-ecc-implementation.mjs",
-    "test:qa-browser": "node scripts/smoke-agent-qa.mjs && node scripts/smoke-qa-boundaries.mjs"
+    "test:qa-browser": "node scripts/smoke-agent-qa.mjs && node scripts/smoke-qa-boundaries.mjs",
+    "eval:routing": "node scripts/routing-report.mjs"
   },
   "files": [
     "bin/",
@@ -48,8 +49,9 @@
     "README.md",
     "LICENSE",
     "CHANGELOG.md",
-    "docs/",
-    "evals/"
+    "docs/releases.md",
+    "docs/compatibility.md",
+    "docs/locales/"
   ],
   "repository": {
     "type": "git",

@@ -17,8 +17,6 @@ Buffer bounded work locally when connectivity cannot be assumed, with explicit o
 
 Map device identity, intermittent connectivity and update state to backend effects; verify reconnect and duplicate delivery without assuming a continuous trusted link.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Test reconnect, duplicate delivery and credential rotation.

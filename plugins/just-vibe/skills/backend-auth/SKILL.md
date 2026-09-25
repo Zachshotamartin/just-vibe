@@ -1,11 +1,11 @@
 ---
 name: backend-auth
-description: "Build or audit authentication and session behavior Use for identity/session lifecycle; backend-permissions handles what an identity may do."
+description: "Build or audit authentication and session behavior. Use for identity/session lifecycle; backend-permissions handles what an identity may do."
 ---
 
 # backend-auth
 
-Build or audit authentication and session behavior
+Build or audit authentication and session behavior.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect for audits; apply for a specified implementation. Requires identity provider, session model, and recovery/logout requirements.
 
-service source, data/interface contracts, framework/runtime versions, and test environment. Default apply operations target local code and isolated tests; live infrastructure/data mutations require their own requested scope.
+**Pack prerequisites:** Service source, data/interface contracts, framework/runtime versions, and test environment. Default apply operations target local code and isolated tests; live infrastructure/data mutations require their own requested scope.
 
 - **Infer from evidence:** Trace service callers, request contracts, authorization, transactions, retries and existing test infrastructure.
 - **Reasonable default:** Use the existing persistence and framework; isolate local tests from live services.
@@ -35,6 +35,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the
 
 1. Identify the provider, session owner, trust boundaries and the actual request: audit or implementation. Trace login, refresh, logout and recovery across browser and server.
 2. Read only the matching cookie-session, OAuth callback, refresh-race or recovery scenario. Use the supported provider mechanism, implement the requested boundary and verify the relevant transitions.
+
 ## Technical method
 
 - **Inspect:** Resolve provider/version, session storage, cookie topology and token refresh/revocation semantics.
@@ -64,8 +65,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the
 
 ## Deliver and verify
 
-- Authentication findings or implementation with lifecycle checks.
-- Auth lifecycle, trust assumptions and expired/revoked/invalid-credential checks.
+- Authentication findings or implementation with the auth lifecycle, trust assumptions and expired/revoked/invalid-credential checks.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -78,5 +78,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Audit session refresh, logout, and expired-token behavior.
-- **edge (inspect):** Repair refresh behavior across concurrent browser tabs and expired sessions.
-- **blocked (inspect):** Review auth configuration without credentials or live login attempts.
+- **Edge (apply):** Repair refresh behavior across concurrent browser tabs and expired sessions.
+- **Blocked (inspect):** Review auth configuration without credentials or live login attempts.

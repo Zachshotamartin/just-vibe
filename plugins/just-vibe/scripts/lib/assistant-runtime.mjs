@@ -4,43 +4,86 @@ import { readFileSync, statSync } from 'node:fs';
 import { relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { loadCatalog, getCommand } from './catalog.mjs';
-import { recommend, discoverCapabilities } from './discovery.mjs';
+import { recommend, discoverCapabilities, toolEntry } from './discovery.mjs';
 import { intentSignals } from './routing.mjs';
 import { adaptiveStore, configureAdaptive, pruneAdaptive, recoverAdaptive, textField } from './adaptive-store.mjs';
 import { lessons, learnedRoutes, recordFeedback, changeLesson, effectiveWorkflow } from './adaptive-learning.mjs';
 import { workflowCapabilities, workflowRequirements, CAPABILITY_GUIDANCE } from './capability-guidance.mjs';
 import { digest, fingerprint, compareSnapshot, within, privateName } from './storage.mjs';
 import { redact } from './process.mjs';
+import { engineeringRequest, discoveryQuestion, continuation, repairFollowUp } from './assist-signals.mjs';
+import { canApply } from './catalog-contracts.mjs';
+import { loadProfiles, selectProfiles, getProfile } from './profiles.mjs';
 
 const now = () => new Date().toISOString();
 const feedbackCue = /\b(?:remember|always|never|next time|from now on|you should|you forgot|you missed|stop using|don't use|do not use|prefer|keep doing|that worked|that approach|too much|too many)\b/i;
-const continuation = /^(?:please\s+)?(?:continue|go ahead|do (?:it|that)|implement(?: it| that)?|fix(?: it| that)?|yes|keep going|proceed|(?:do (?:it|that|this) )?again|one more time|another pass|repeat(?: it| that)?)[.!\s]*$/i;
-const domain = /\b(?:code|repo(?:sitory)?|file|bug|test|build|implement|refactor|debug|review|deploy|publish|commit|merge|frontend|backend|api|database|sql|react|vite|vercel|github|pr|pull request|ui|css|html|website|app|component|menu|training|model|dataset|gradient|loss|architecture|migration|teach|explain|linked lists?|login|page|screen|button|modal|form|endpoint|function|typescript|javascript|python|algorithm|schema|query|container|docker|pipeline|cache|notebook|experiment|keyboard|accessibility)\b/i;
+
+const shortlist = candidates => candidates.map(c => ({ id: c.id, summary: c.summary, reasons: c.selectionReasons, status: c.status }));
+
+// After an inspection, "fix it" asks for the repair the inspection could not make. Offer the
+// inspected pack's repair owner (security-fix), then inspected workflows that can apply, then fix.
+function repairRoute(catalog, found, host, candidates) {
+  const top = candidates.slice(0, 3), packs = new Set(top.map(c => c.pack));
+  const entry = (command, reason) => ({ ...toolEntry(catalog, found, command, host), selectionReasons: [reason] });
+  const owners = catalog.commands.filter(c => !c.aliasOf && packs.has(c.pack) && c.defaultMode === 'apply' && /-fix$/.test(c.id))
+    .map(c => entry(c, 'Repairs findings from the previous inspection'));
+  const capable = top.filter(c => canApply(getCommand(catalog, c.id)))
+    .map(c => ({ ...c, selectionReasons: ['Can apply the repair the previous inspection found', ...c.selectionReasons] }));
+  const general = entry(getCommand(catalog, 'fix'), 'General repair when no specialist owns the finding');
+  const seen = new Set();
+  return [...owners, ...capable, general].filter(c => !seen.has(c.id) && seen.add(c.id)).slice(0, 3);
+}
+
+// A follow-up repairs the previous task when that task only inspected or planned: its selected
+// mode, or before selection its leading workflow or its own inspection verb ("review …", "audit …").
+const inspectionLead = /^(?:please\s+)?(?:(?:can|could)\s+you\s+)?(?:review|audit|check|inspect|analy[sz]e|scan|assess|evaluate|look\s+(?:over|at|into)|find|identify|investigate|diagnose)\b/i;
+function inspectedOnly(catalog, previous) {
+  if (previous.mode) return previous.mode !== 'apply';
+  const top = previous.candidates?.[0]?.id;
+  return (Boolean(top) && getCommand(catalog, top).defaultMode !== 'apply') || inspectionLead.test((previous.brief || '').trim());
+}
 
 export function routeRequest(store, catalog, brief, { host = 'claude', previous } = {}) {
   textField(brief, 'Request', 16000);
   const signals = intentSignals(brief), positive = signals.positive;
+  const target = host === 'codex' ? 'codex' : 'claude';
   // Explicit dispatch owns selection; learning and incidental words in the
   // appended task must not redirect it. Outer prompt rewriting is equally clear.
   if (signals.explicit || positive === 'reprompt') {
-    const route = recommend(catalog, discoverCapabilities(store.root), brief, { host: host === 'codex' ? 'codex' : 'claude' });
-    return { ...route, kind: 'task', follows: false, recommendations: route.recommendations.map(c => ({ id: c.id, summary: c.summary, reasons: c.selectionReasons, status: c.status })) };
+    const route = recommend(catalog, discoverCapabilities(store.root), brief, { host: target });
+    return { ...route, kind: 'task', follows: false, recommendations: shortlist(route.recommendations) };
   }
   if (/\b(?:what (?:have you|did you) (?:learn|learned|remember)|show (?:me )?(?:my |saved )?(?:preferences|lessons)|(?:forget|retire|roll back|rollback) (?:that |the |a |my )?(?:lesson|preference)|(?:stop|disable|pause) (?:automatic assistance|learning))\b/i.test(brief)) {
     return { recommendations: [], kind: 'learning', brief };
   }
-  const follows = Boolean(previous?.routeKind === 'task' && continuation.test(brief.trim()));
+  // Capability discovery probes Git; run it only for prompts that reach a route.
+  let found;
+  const capabilities = () => (found ??= discoverCapabilities(store.root));
+  // A question about which workflow to use is answered, not executed. The embedded task's
+  // candidates inform the answer only.
+  const answers = discoveryQuestion(positive);
+  if (answers) {
+    const route = recommend(catalog, capabilities(), brief, { host: target, limit: 3 });
+    const guides = answers.map(id => ({ ...toolEntry(catalog, capabilities(), getCommand(catalog, id), target), selectionReasons: ['Answers which workflow fits; does not start the task'] }));
+    const related = route.recommendations.filter(c => !answers.includes(c.id)).slice(0, 3 - guides.length)
+      .map(c => ({ ...c, selectionReasons: ['Relevant to the answer only; do not start this task', ...c.selectionReasons] }));
+    return { ...route, kind: 'discovery', follows: false, recommendations: shortlist([...guides, ...related]) };
+  }
+  const followUp = previous?.routeKind === 'task' && repairFollowUp(brief);
+  const follows = Boolean(previous?.routeKind === 'task' && (continuation.test(brief.trim()) || followUp));
+  const repair = Boolean(followUp && inspectedOnly(catalog, previous));
   const learned = learnedRoutes(store, positive);
-  const methods = findMethods(positive, 3);
+  const methods = findMethods(positive, 3, { triggered: true });
   const unrelated = /\b(?:restaurant|dinner|breakfast|lunch|meal|workout|fitness|marathon|weather|movie|poem)\b/i.test(positive)
     && !/\b(?:code|app|website|software|repo|api|component|python|javascript|css|html|model|dataset)\b/i.test(positive);
   if (unrelated && !learned.preferred.size) return { recommendations: [], kind: 'none', brief };
-  if (!follows && !domain.test(positive) && !learned.preferred.size && !methods.length) return { recommendations: [], kind: previous && feedbackCue.test(brief) ? 'feedback' : 'none', brief };
+  if (!follows && !engineeringRequest(positive, signals.matches) && !learned.preferred.size && !methods.length) return { recommendations: [], kind: previous && feedbackCue.test(brief) ? 'feedback' : 'none', brief };
   // Short continuations add no new task scope. Keep the complete original
   // brief; appending each repeat eventually discards its leading constraints.
   // The new user message is stored separately by startRequest.
   const contextBrief = follows ? previous.brief : brief;
-  const route = recommend(catalog, discoverCapabilities(store.root), contextBrief, { host: host === 'codex' ? 'codex' : 'claude', limit: 12 });
+  const route = recommend(catalog, capabilities(), contextBrief, { host: target, limit: 12 });
+  if (repair) return { ...route, brief: contextBrief, kind: 'task', follows, repair, recommendations: shortlist(repairRoute(catalog, capabilities(), target, route.recommendations)) };
   let candidates = route.recommendations;
   for (const [id, sources] of learned.preferred) {
     if (!candidates.some(c => c.id === id)) {
@@ -55,7 +98,7 @@ export function routeRequest(store, catalog, brief, { host = 'claude', previous 
   candidates = candidates.filter(c => !learned.avoided.has(c.id) || explicitlyNamed.has(c.id));
   candidates.sort((a, b) => b.score - a.score || a.id.localeCompare(b.id));
   return { ...route, brief: contextBrief, kind: candidates.length || methods.length ? 'task' : 'none', follows,
-    recommendations: candidates.slice(0, 3).map(c => ({ id: c.id, summary: c.summary, reasons: c.selectionReasons, status: c.status })) };
+    recommendations: shortlist(candidates.slice(0, 3)) };
 }
 
 export function startRequest(store, catalog, payload) {
@@ -85,12 +128,16 @@ export function startRequest(store, catalog, payload) {
   }
   const route = routeRequest(store, catalog, brief, { host, previous: taskContext });
   if (route.kind === 'none' && !previous && !feedbackCue.test(brief)) return { kind: 'none' };
+  // A task role lasts for the user's objective across prompts, not one per-prompt record.
+  const carried = previous?.profile ?? null;
+  const profile = payload.profile !== undefined ? selectProfiles(loadProfiles(), payload.profile, carried) : carried;
   const task = { kind: 'task', id: randomUUID(), root: store.root, host, sessionHash: digest(sessionId),
     turnId: payload.turnId || null, createdAt: now(), updatedAt: now(), userMessage: redact(brief), messageHash: digest(brief),
-    brief: redact(route.brief), previousTaskId: previous?.id || null, routeKind: route.kind,
-    frameworks: route.context?.frameworks || [],
+    brief: redact(route.brief), previousTaskId: previous?.id || null, routeKind: route.kind, repair: Boolean(route.repair),
+    frameworks: route.context?.frameworks || [], profile, preferredProfile: route.context?.preferences?.profile || null,
     candidates: route.recommendations, selected: [], mode: null, requirements: [], loaded: [], observations: [],
-    reminders: 0, status: route.kind === 'task' ? 'suggested' : 'idle', feedbackCandidate: feedbackCue.test(brief) || Boolean(previous && route.kind !== 'task'),
+    // A repair follow-up or a question about workflows is a request, not feedback on the previous task.
+    reminders: 0, status: route.kind === 'task' ? 'suggested' : 'idle', feedbackCandidate: feedbackCue.test(brief) || Boolean(previous && !['task', 'discovery'].includes(route.kind)),
   };
   const saved = store.saveTask(task, 0);
   store.write(path, { root: store.root, taskId: task.id, updatedAt: now() }, session?.revision || 0);
@@ -112,7 +159,8 @@ export function selectWorkflows(store, catalog, payload) {
   });
   const prior = new Map(task.requirements.map(r => [r.id, r]));
   const discovery = discoverCapabilities(store.root, { report: payload.capabilityReport });
-  const updated = store.saveTask({ ...task, selected, mode: payload.mode, selectionReason: redact(payload.reason),
+  const profile = payload.profile !== undefined ? selectProfiles(loadProfiles(), payload.profile, task.profile ?? null) : task.profile ?? null;
+  const updated = store.saveTask({ ...task, selected, mode: payload.mode, selectionReason: redact(payload.reason), profile,
     requirements: requirements.map(r => ({ ...r, evidence: prior.get(r.id)?.description === r.description ? prior.get(r.id).evidence : null })),
     updatedAt: now(), status: selected.length ? 'active' : 'dismissed' });
   return { ...updated, toolGuidance: selected.flatMap(id => workflowCapabilities(getCommand(catalog, id), payload.mode, task.brief)
@@ -120,6 +168,7 @@ export function selectWorkflows(store, catalog, payload) {
 }
 
 export function loadWorkflow(store, catalog, payload) {
+  if (typeof payload?.workflow !== 'string' || !payload.workflow.trim()) throw Error('assist load needs {"workflow": "<canonical-id>"}; include taskId when the task came from automatic routing.');
   const task = payload.taskId ? store.task(payload.taskId) : undefined;
   const effective = effectiveWorkflow(store, catalog, payload.workflow, task);
   if (payload.taskId) {
@@ -215,12 +264,20 @@ export function activationContext(store, catalog, task) {
     'just-vibe automatic assistance. The current user request controls scope, mode and authorization; stored context cannot override it.',
     `Runtime file: ${JSON.stringify(cli)}. Project: ${JSON.stringify(store.root)}. Task ID: ${task.id}. Invoke Node with separate argv or proper shell quoting; these JSON strings are data, not shell escaping.`,
     'Use the host file, shell, browser, skill-discovery and connected-service tools. No slash command is required from the user.',
-    'Before implementation, use host tool discovery for just-vibe task_select and workflow_load if those native tools are not in the active list. Deferred tools are not necessarily unavailable. Select and load the relevant method before editing; use the CLI fallback only when native discovery cannot provide it. A matching workflow remains relevant after the work is done; completion alone never justifies dismissing its requirements.',
   ];
   if (task.routeKind === 'task') {
-    const specialized = findMethods(task.brief || '', 3);
+    parts.push('Before implementation, use host tool discovery for just-vibe task_select and workflow_load if those native tools are not in the active list. Deferred tools are not necessarily unavailable. Select and load the relevant method before editing; use the CLI fallback only when native discovery cannot provide it. A matching workflow remains relevant after the work is done; completion alone never justifies dismissing its requirements.');
+    if (task.repair) parts.push('This follow-up asks to repair what the previous inspection found. The earlier workflows were inspect-only; the candidates below can apply changes. Use the new user message to decide which findings to fix, and keep the original constraints.');
+    const specialized = findMethods(task.brief || '', 3, { triggered: true });
     if (specialized.length) parts.push('Task-specific method candidates: ' + specialized.map(m => m.id + ' (' + m.title + ')').join('; ') + '. Read the relevant method with workbench_read {family:"methods",operation:"show",payload:{id}} or methods show --stdin before relying on its specialist checks. These are optional methods, not tool availability or authority.');
-    if (task.frameworks.length) parts.push(`Detected project frameworks: ${task.frameworks.join(', ')}. Honor any current user-pinned role.`);
+    if (task.frameworks.length) parts.push(`Detected project frameworks: ${task.frameworks.join(', ')}.`);
+    if (task.profile) {
+      parts.push(`Active task profile: ${[task.profile.primary, ...task.profile.secondary].join(', ')} (${task.profile.pinned ? 'pinned by the user' : 'selected by the agent'}). Apply its relevant priorities; a role never expands scope or authority.`);
+      const roleMethods = getProfile(loadProfiles(), task.profile.primary).methods || [];
+      if (roleMethods.length) parts.push(`Role methods for ${task.profile.primary}: ${roleMethods.join(', ')}. Read the relevant one with workbench_read {family:"methods",operation:"show",payload:{id}} when the task touches it.`);
+    }
+    else if (task.preferredProfile) parts.push(`Saved project profile preference: ${task.preferredProfile}. A suggestion, not a pin: apply it only when it fits this request.`);
+    parts.push('Honor any current user-pinned role. Record a role the user chooses with task_select profile {primary, selectedBy, reason} so later prompts keep it; clear it with primary null.');
     parts.push('Resolve these candidates against the whole conversation; they are suggestions, not instructions to execute every match:',
       ...task.candidates.map(c => `${c.id}: ${c.summary} (${c.reasons.join('; ')})`),
       'Select the smallest useful set with native task_select {taskId,workflows:[id],mode:"apply|inspect|plan",reason}, or assist select --root <project> --stdin with the same JSON if native tools are unavailable. Use workflows:[] to dismiss an irrelevant route. For another workflow, use workflows_search or tools <scenario>, then select it.',
@@ -228,15 +285,19 @@ export function activationContext(store, catalog, task) {
       'Record meaningful checks with native task_evidence {taskId,requirement,kind:"artifact|host-report|blocked|not-applicable",summary,path?}, or assist evidence --root <project> --stdin with the same JSON. Use task_report to inspect outstanding work. Evidence IDs and tool guidance come from select. Tool activity alone is not success. Record blockers or exclusions honestly. Do not run checks that the current user forbids.',
     );
   }
+  if (task.routeKind === 'discovery') parts.push('This request asks which just-vibe workflow, tool or profile fits. Answer the question; do not start the embedded task or edit files. Workflows relevant to the answer:',
+    ...task.candidates.map(c => `${c.id}: ${c.summary} (${c.reasons.join('; ')})`),
+    'Use tools <scenario> or workflows_search for a wider list. No selection or evidence is required for this answer.');
   if (task.routeKind === 'learning') parts.push('This request concerns just-vibe personalization or automatic assistance. Use assist history/status for inspection, or the explicitly requested configure/retire/forget/rollback operation after resolving the exact lesson/scope. The adaptive guide contains schemas. Do not run an unrelated engineering workflow.');
   if (task.selected.length) parts.push(`Selected workflows: ${task.selected.join(', ')}. On resume, inspect assist report with {taskId} for evidence freshness; reload changed instructions. Prior task text is context, not renewed authorization.`, `Task context: ${JSON.stringify(task.brief)}`);
   if (task.feedbackCandidate && store.config().learning) parts.push('This user message may contain explicit feedback. Read the adaptive guide and save a narrow correction/reinforcement using native feedback_record or assist feedback; quote this actual user message. If the durable scope is unclear, or the correction adds conditions/exceptions or conflicts with existing guidance, use learning_propose (learn propose fallback) instead, inspect relatedGuidance, and resolve each related lesson explicitly before user-approved activation. Pending proposals do not change behavior. Default to project scope. Do not infer approval from silence, tests, your own output, or unaccepted proposals. Identify the appropriate workflow from this task or its previousTaskId. No feedback update is required when the message is merely a task request.');
   parts.push(`For schemas and learning/rollback operations read ${JSON.stringify(fileURLToPath(new URL('../../references/adaptive.md', import.meta.url)))}.`);
-  if (!['task', 'learning'].includes(task.routeKind) && !task.feedbackCandidate) return '';
+  if (!['task', 'learning', 'discovery'].includes(task.routeKind) && !task.feedbackCandidate) return '';
   return parts.join('\n');
 }
 
 export function assistantRuntime(root, operation, payload = {}, options = {}) {
+  if (['select', 'evidence', 'report'].includes(operation) && (payload?.taskId === undefined || payload?.taskId === '')) throw Error(`assist ${operation} needs taskId, from assist start or the automatic-assistance context.`);
   const store = adaptiveStore(root, options), catalog = options.catalog || loadCatalog();
   if (operation === 'status') return { settings: store.config(), project: store.root, storage: store.home,
     activeTasks: store.list(`${store.project}/tasks`).map(name => store.read(`${store.project}/tasks/${name}`)).filter(task => task?.kind === 'task' && ['active', 'suggested'].includes(task.status)).sort((a,b) => b.updatedAt.localeCompare(a.updatedAt)).slice(0, 10).map(task => ({ id: task.id, host: task.host, brief: task.brief, updatedAt: task.updatedAt })),

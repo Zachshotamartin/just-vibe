@@ -1,25 +1,60 @@
-import { readFileSync } from 'node:fs';
+import { readFileSync, statSync } from 'node:fs';
 import { object, cleanText } from './runtime-store.mjs';
+import { fail, identifier, line, lines, oneOf, record } from './catalog-schema.mjs';
 const source = new URL('../../catalog/methods.json', import.meta.url);
-export function loadMethods() {
-  return JSON.parse(readFileSync(source, 'utf8')).methods;
+const methodFields = ['id', 'pack', 'title', 'triggers', 'scope', 'inspect', 'procedure', 'failureCases', 'verification', 'example', 'references', 'executionModel', 'validation'];
+
+export function validateMethods(data) {
+  if (data?.schemaVersion !== 1 || !Array.isArray(data.methods)) throw Error('Invalid method catalog.');
+  const ids = new Set();
+  for (const m of data.methods) {
+    const label = `Method ${m?.id}`;
+    record(m, label, methodFields);
+    identifier(m.id, label, 'id');
+    if (ids.has(m.id)) fail(label, 'id', 'duplicates another method.');
+    ids.add(m.id);
+    identifier(m.pack, label, 'pack');
+    for (const field of ['title', 'scope', 'example']) line(m[field], label, field, { table: field === 'title' });
+    lines(m.triggers, label, 'triggers', { each: (t, l, f) => {
+      line(t, l, f);
+      if (t !== t.toLowerCase()) fail(l, f, 'must be lowercase.');
+    } });
+    for (const field of ['inspect', 'procedure', 'failureCases', 'verification']) lines(m[field], label, field);
+    lines(m.references, label, 'references', { min: 0, each: (r, l, f) => {
+      record(r, `${l} ${f}`, ['url', 'policy']);
+      line(r.policy, l, `${f}.policy`);
+      if (typeof r.url !== 'string' || !/^https:\/\/[^\s]+$/.test(r.url)) fail(l, `${f}.url`, 'must be an https URL.');
+    } });
+    oneOf(m.executionModel, label, 'executionModel', ['host-agent']);
+    record(m.validation, `${label} validation`, ['structural', 'live']);
+    oneOf(m.validation.structural, label, 'validation.structural', ['automated']);
+    oneOf(m.validation.live, label, 'validation.live', ['not-evaluated', 'evaluated']);
+  }
+  return data;
 }
-export function findMethods(query, limit = 5) {
+
+// Routing consults the library on every prompt; re-parse only when the file changes.
+let cached = null;
+export function loadMethods() {
+  const version = statSync(source).mtimeMs;
+  if (cached?.version !== version) cached = { version, methods: validateMethods(JSON.parse(readFileSync(source, 'utf8'))).methods };
+  return structuredClone(cached.methods);
+}
+// A query word equal to one id token ("next", "sales", "design") adds 1 for explicit search.
+// Automatic assistance passes { triggered: true } so only trigger phrases select a method:
+// "book a table for the team next friday" must not surface next-nest-bun.
+export function findMethods(query, limit = 5, { triggered = false } = {}) {
   const terms = query.toLowerCase().match(/[a-z0-9+#.-]+/g) || [];
   const matches = (trigger) => {
     const escaped = trigger.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     return new RegExp(`(?<![a-z0-9_])${escaped}(?![a-z0-9_])`, 'i').test(query);
   };
   return loadMethods()
-    .map((method) => ({
-      method,
-      score:
-        method.triggers.reduce(
-          (sum, t) => sum + (matches(t) ? Math.max(2, t.split(' ').length * 2) : 0),
-          0,
-        ) + terms.filter((t) => method.id.split('-').includes(t)).length,
-    }))
-    .filter((m) => m.score > 0)
+    .map((method) => {
+      const trigger = method.triggers.reduce((sum, t) => sum + (matches(t) ? Math.max(2, t.split(' ').length * 2) : 0), 0);
+      return { method, trigger, score: trigger + terms.filter((t) => method.id.split('-').includes(t)).length };
+    })
+    .filter((m) => (triggered ? m.trigger > 0 : m.score > 0))
     .sort((a, b) => b.score - a.score || a.method.id.localeCompare(b.method.id))
     .slice(0, limit)
     .map(({ method, score }) => ({ ...method, score }));

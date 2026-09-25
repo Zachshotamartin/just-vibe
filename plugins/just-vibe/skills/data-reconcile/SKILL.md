@@ -1,11 +1,11 @@
 ---
 name: data-reconcile
-description: "Compare source and destination records and explain discrepancies Use to compare corresponding datasets; db-integrity checks database invariants."
+description: "Compare source and destination records and explain discrepancies. Use to compare corresponding datasets; db-integrity checks database invariants."
 ---
 
 # data-reconcile
 
-Compare source and destination records and explain discrepancies
+Compare source and destination records and explain discrepancies.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; source/destination snapshots, keys, transformations, tolerances, and comparison budget.
 
-data source/version, schema/semantics, transformation code, permitted sampling scope, and storage/compute budget. Prefer aggregates and redacted samples; never upload datasets to external services implicitly. Record time zones and snapshot identity for reproducibility.
+**Pack prerequisites:** Data source/version, schema/semantics, transformation code, permitted sampling scope, and storage/compute budget. Prefer aggregates and redacted samples; never upload datasets to external services implicitly. Record time zones and snapshot identity for reproducibility.
 
 - **Infer from evidence:** Inspect schema, source snapshot, transformation code, grain, time zones and permitted sample scope.
 - **Reasonable default:** Use bounded synthetic or supplied samples when full data is unavailable; keep unknown values distinct from zero.
@@ -29,12 +29,14 @@ Declared evidence requirements: `data.read`. Use actual host discovery or adequa
 
 Missing, duplicated, changed, or aggregated discrepancies; no automatic repair.
 
-No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
+No source changes in inspect/plan. Save only requested planning artifacts. data-pipeline or fix applies an accepted change.
 
 ## Execute
 
-1. Align snapshots/time windows, compare counts and keyed values, normalize only documented transformations, sample discrepancies safely, and explain likely causes.
-2. Align snapshot/window and key grain, compare membership before values and normalize only explicitly documented transformations.
+1. Align snapshots or time windows and key grain.
+2. Compare membership before values, normalizing only explicitly documented transformations.
+3. Sample discrepancies safely and explain likely causes.
+
 ## Technical method
 
 - **Inspect:** Align source/destination snapshots, key grain, time window, lag, normalization and delete semantics.
@@ -53,8 +55,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Reconciliation report, discrepancy categories, evidence, and repair candidates.
-- Snapshot pair, keyed mismatch categories, denominators and evidence limits.
+- Reconciliation report for the snapshot pair with keyed mismatch categories, denominators, evidence, repair candidates and evidence limits.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -67,5 +68,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Compare these aligned snapshots by key, not just row counts.
-- **edge (inspect):** Reconcile exports with equal row counts but missing and duplicated IDs.
-- **blocked (inspect):** Compare misaligned snapshots without calling timing differences data loss.
+- **Edge (inspect):** Reconcile exports with equal row counts but missing and duplicated IDs.
+- **Blocked (inspect):** Compare misaligned snapshots without calling timing differences data loss.

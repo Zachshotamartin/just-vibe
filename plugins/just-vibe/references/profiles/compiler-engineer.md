@@ -17,8 +17,6 @@ Add an optimization only after defining the equivalence it must preserve.
 
 State the source-language invariant and affected transformation, then use valid/invalid programs and optimization boundaries to verify preserved semantics.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Use differential, property and reduced regression tests.

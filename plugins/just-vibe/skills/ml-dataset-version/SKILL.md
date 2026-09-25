@@ -1,11 +1,11 @@
 ---
 name: ml-dataset-version
-description: "Record dataset identity, transformations, and provenance Use to identify reproducible data/splits; data-lineage explains transformations."
+description: "Record dataset identity, transformations, and provenance. Use to identify reproducible data/splits; data-lineage explains transformations."
 ---
 
 # ml-dataset-version
 
-Record dataset identity, transformations, and provenance
+Record dataset identity, transformations, and provenance.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply; dataset snapshot, transforms, source identifiers, and approved manifest location.
 
-task definition, dataset identity, field semantics, entity/time keys, and permission to inspect bounded data. Record prediction moment, label horizon, sampling, and provenance. Preserve held-out evaluation boundaries; no data upload, label alteration, or feature fitting across splits implicitly.
+**Pack prerequisites:** Task definition, dataset identity, field semantics, entity/time keys, and permission to inspect bounded data. Record prediction moment, label horizon, sampling, and provenance. Preserve held-out evaluation boundaries; no data upload, label alteration, or feature fitting across splits implicitly.
 
 - **Infer from evidence:** Read prediction moment, label horizon, entity/time keys, split policy and dataset provenance from the task and manifests.
 - **Reasonable default:** Use explicit synthetic examples for design when raw data is unavailable; do not infer missing labels or fit preprocessing across held-out boundaries.
@@ -33,8 +33,9 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Execute
 
-1. Record immutable references or hashes where feasible, schema, transformation/code versions, split identity, and creation parameters; verify referential accessibility.
-2. Record source snapshot or content identity, transformation revision, schema, split membership and immutable access references without storing secrets or raw private data.
+1. Record source snapshot or content identity (immutable access references or hashes where feasible), transformation revision, schema, split membership and creation parameters, without storing secrets or raw private data.
+2. Verify each reference's accessibility and mark mutable boundaries.
+
 ## Technical method
 
 - **Inspect:** Inventory source snapshot IDs, transforms, schema, split membership and label-version policy.
@@ -45,8 +46,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 ## Read when relevant
 
 - When a concrete decision or deliverable example would clarify this workflow: [ML data worked example](../../references/examples/ml-data.md).
-- The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method: [PyTorch autograd, device and distributed debugging](../../references/methods/pytorch-debug.md).
-- The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method: [Retrieval, ranking and recommendation evaluation](../../references/methods/recommender-systems.md).
+
 
 ## Decision branches
 
@@ -54,8 +54,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Deliver and verify
 
-- Dataset manifest with lineage, reconstruction instructions, and known reproducibility limits.
-- Version manifest, provenance chain, accessibility check and mutable boundaries.
+- Version manifest with the provenance chain, reconstruction instructions, accessibility check and known reproducibility limits or mutable boundaries.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -68,5 +67,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** Write a provenance manifest for the identified dataset without copying raw records.
-- **edge (apply):** Version a dataset whose remote contents can change at the same path.
-- **blocked (inspect):** Plan versioning without permission for a full expensive hash scan.
+- **Edge (apply):** Version a dataset whose remote contents can change at the same path.
+- **Blocked (inspect):** Plan versioning without permission for a full expensive hash scan.

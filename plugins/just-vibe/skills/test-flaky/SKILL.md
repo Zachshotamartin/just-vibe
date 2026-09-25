@@ -1,11 +1,11 @@
 ---
 name: test-flaky
-description: "Repair nondeterminism using repeated evidence Use for nondeterministic failures; debug first identifies the relevant failing test/environment."
+description: "Repair nondeterminism using repeated evidence. Use for nondeterministic failures; debug first identifies the relevant failing test/environment."
 ---
 
 # test-flaky
 
-Repair nondeterminism using repeated evidence
+Repair nondeterminism using repeated evidence.
 
 ## Choose this workflow
 
@@ -17,10 +17,10 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply; flaky test, failure history, environment, and repetition budget.
 
-defined behavior, existing test conventions/runners, isolated fixtures, and relevant dependencies. Requested bounded verification may use owned isolated fixtures without authorizing product edits or live-system tests. Never test destructive behavior against production by default; distinguish mocked behavior from real integration evidence.
+**Pack prerequisites:** Defined behavior, existing test conventions/runners, isolated fixtures, and relevant dependencies. Requested bounded verification may use owned isolated fixtures without authorizing product edits or live-system tests. Never test destructive behavior against production by default; distinguish mocked behavior from real integration evidence.
 
 - **Infer from evidence:** Read behavior contracts, existing runners and test conventions; distinguish fixture setup failure from a behavioral failure.
-- **Reasonable default:** Use the smallest existing local runner and isolated synthetic fixtures that distinguish the requested behavior.
+- **Reasonable default:** Use the smallest existing local runner and isolated synthetic fixtures that distinguish the requested behavior. When the method needs a library, runner, container runtime or load tool the project lacks, name the exact package or tool, the files it changes and any download, and add it only when the request authorizes new dev dependencies or tools; label a hand-written generator without shrinking, or a fake in place of a real dependency, as such.
 - **Ask only when needed:** Ask about an unresolved contract that changes the expected result, or the target/load limits before external testing; do not ask the user to choose a runner already configured.
 
 Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
@@ -33,8 +33,10 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Execute
 
-1. Reproduce under controlled repeats/order/seeds, inspect first divergent evidence, fix isolation or synchronization, and rerun bounded stress checks.
-2. Record order, seed, clock and shared-resource conditions, vary one factor under a repeat cap and replace timing guesses with explicit synchronization.
+1. Record order, seed, clock and shared-resource conditions and the repeat budget. Without a stated budget, derive one from single-run duration and the observed failure rate, cap total wall time (state the cap once) and report the detection power of the chosen sample.
+2. Reproduce under controlled repeats, varying one factor at a time within the budget, and inspect the first divergent evidence.
+3. Fix isolation or synchronization, replacing timing guesses with explicit synchronization, and rerun bounded stress checks.
+
 ## Technical method
 
 - **Inspect:** Gather repeated outcomes, order, seed, clock, shared resources and cleanup evidence.
@@ -58,8 +60,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Deliver and verify
 
-- Cause, repair, repeat counts, failure rates, and residual uncertainty.
-- Trigger conditions, isolation/synchronization fix and bounded repeat results.
+- Cause and trigger conditions, the isolation or synchronization fix, repeat counts, failure rates and residual uncertainty.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -72,5 +73,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** Fix the test that fails only in suite order; cap diagnosis at 30 repeats.
-- **edge (apply):** Repair a test that fails only after another test changes global state.
-- **blocked (inspect):** Inspect flake logs without rerunning expensive suites or adding arbitrary sleeps.
+- **Edge (apply):** Repair a test that fails only after another test changes global state.
+- **Blocked (inspect):** Inspect flake logs without rerunning expensive suites or adding arbitrary sleeps.

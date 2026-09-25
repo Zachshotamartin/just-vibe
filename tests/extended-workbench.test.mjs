@@ -166,6 +166,27 @@ test('usage snapshots deduplicate cumulative reports and keep unknown prices unk
     /monotonic/,
   );
 });
+test('usage from providers with different cached-token conventions prices the same once normalized (A9-03)', (t) => {
+  // OpenAI-style usage counts cached tokens inside input; Anthropic-style usage reports input as the
+  // uncached remainder with cache reads and writes separately. The ledger prices disjoint categories.
+  const openai = { input_tokens: 1000, output_tokens: 200, input_tokens_details: { cached_tokens: 800 } };
+  const anthropic = { input_tokens: 200, output_tokens: 200, cache_read_input_tokens: 800, cache_creation_input_tokens: 0 };
+  const fromOpenAI = (u) => ({ input: u.input_tokens - u.input_tokens_details.cached_tokens, output: u.output_tokens, cacheRead: u.input_tokens_details.cached_tokens, cacheWrite: 0 });
+  const fromAnthropic = (u) => ({ input: u.input_tokens, output: u.output_tokens, cacheRead: u.cache_read_input_tokens, cacheWrite: u.cache_creation_input_tokens });
+  const rate = { model: 'fixture', currency: 'USD', input: 3, output: 15, cacheRead: 0.3, cacheWrite: 3.75, effectiveAt: '2020-01-01T00:00:00Z', expiresAt: '2100-01-01T00:00:00Z', source: 'https://example.com/pricing' };
+  const expected = (200 * 3 + 200 * 15 + 800 * 0.3) / 1e6;
+  const priced = (counts) => {
+    const f = fixture(t), at = new Date().toISOString();
+    const rates = usageLedger(f.root, 'pricing', { revision: 0, rates: [rate] }, f.options);
+    usageLedger(f.root, 'observe', { revision: rates.revision, session: 's1', model: 'fixture', at, ...counts }, f.options);
+    return usageLedger(f.root, 'report', {}, f.options).totals.USD;
+  };
+  assert.deepEqual(fromOpenAI(openai), fromAnthropic(anthropic));
+  assert.ok(Math.abs(priced(fromOpenAI(openai)) - expected) < 1e-12);
+  assert.ok(Math.abs(priced(fromAnthropic(anthropic)) - expected) < 1e-12);
+  // Recording OpenAI input unnormalized would bill the 800 cached tokens twice.
+  assert.ok(priced({ input: 1000, output: 200, cacheRead: 800, cacheWrite: 0 }) > expected);
+});
 test('bounded jobs require separate authority, stop after verified success and refuse replay', async (t) => {
   const f = fixture(t),
     hash = await trust(f, 'work'),

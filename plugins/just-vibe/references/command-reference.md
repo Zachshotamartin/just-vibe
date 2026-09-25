@@ -6,13 +6,13 @@
 
 | Command | Default | Purpose |
 |---|---|---|
-| [orient](../skills/orient/SKILL.md) | inspect | Identify stack, structure, conventions, and actual working commands |
+| [orient](../skills/orient/SKILL.md) | inspect | Identify stack, structure, conventions, and the actual commands, marked verified or discovered |
 | [explain](../skills/explain/SKILL.md) | inspect | Explain code or behavior at the requested depth |
 | [reprompt](../skills/reprompt/SKILL.md) | inspect | Improve a prompt while preserving intent and incorporating relevant available skills |
 | [teach](../skills/teach/SKILL.md) | inspect | Teach a programming topic or the concepts needed to understand and implement a just-vibe workflow. |
 | [teach-test](../skills/teach-test/SKILL.md) | inspect | Quiz the user on a topic or workflow through native multiple-choice question dialogs, with feedback and adaptive practice. |
 | [trace](../skills/trace/SKILL.md) | inspect | Follow a request, event, or data value through the system |
-| [map](../skills/map/SKILL.md) | inspect | Produce an architecture or dependency map |
+| [map](../skills/map/SKILL.md) | inspect | Map module and package imports inside a repository, including cycles and dynamic edges |
 | [research](../skills/research/SKILL.md) | inspect | Investigate a technical question with sources and a recommendation |
 | [compare](../skills/compare/SKILL.md) | inspect | Compare specific implementation approaches and their tradeoffs |
 | [brainstorm](../skills/brainstorm/SKILL.md) | plan | Generate distinct approaches and explain their tradeoffs |
@@ -55,7 +55,6 @@
 | [remember](../skills/remember/SKILL.md) | apply | Save project instructions, inspect their loading, and make explicit rules checkable |
 | [learn](../skills/learn/SKILL.md) | plan | Extract a reusable lesson from completed work for review |
 | [skill](../skills/skill/SKILL.md) | apply | Create or improve a workflow skill |
-| [doctor](../skills/doctor/SKILL.md) | inspect | Diagnose installation and configuration problems |
 | [help](../skills/help/SKILL.md) | inspect | Find the right command and show examples |
 | [tools](../skills/tools/SKILL.md) | inspect | List and search commands and integrations, showing availability and prerequisites |
 | [auto](../skills/auto/SKILL.md) | apply | Select and apply the relevant engineering workflows from an ordinary request |
@@ -70,7 +69,7 @@
 
 | Command | Default | Purpose |
 |---|---|---|
-| [arch-map](../skills/arch-map/SKILL.md) | inspect | Map services, packages, data stores, external dependencies, and relationships |
+| [arch-map](../skills/arch-map/SKILL.md) | inspect | Map deployed services, data stores, external providers and their runtime relationships |
 | [arch-boundaries](../skills/arch-boundaries/SKILL.md) | inspect | Find misplaced responsibilities, dependency cycles, and leaking abstractions |
 | [arch-feature](../skills/arch-feature/SKILL.md) | plan | Design where a feature belongs within the existing architecture |
 | [arch-contracts](../skills/arch-contracts/SKILL.md) | plan | Define interfaces and contracts between components or services |
@@ -150,7 +149,7 @@
 |---|---|---|
 | [react-audit](../skills/react-audit/SKILL.md) | inspect | Review components, hooks, state ownership, and behavioral risks |
 | [react-rerenders](../skills/react-rerenders/SKILL.md) | inspect | Measure unnecessary rendering and identify its causes |
-| [react-effects](../skills/react-effects/SKILL.md) | apply | Investigate effect loops, stale closures, races, and missing cleanup |
+| [react-effects](../skills/react-effects/SKILL.md) | apply | Investigate effect loops, stale closures, and missing cleanup |
 | [react-state](../skills/react-state/SKILL.md) | plan | Simplify state ownership, derived state, and synchronization |
 | [react-component](../skills/react-component/SKILL.md) | apply | Build a component with its states, API, and accessibility |
 | [react-forms](../skills/react-forms/SKILL.md) | apply | Implement validation, submission, errors, and pending states |
@@ -272,7 +271,7 @@
 | [ml-inference-perf](../skills/ml-inference-perf/SKILL.md) | plan | Measure latency, throughput, memory, and optimization tradeoffs |
 | [ml-drift](../skills/ml-drift/SKILL.md) | plan | Design checks for input or prediction-distribution changes |
 | [ml-monitor](../skills/ml-monitor/SKILL.md) | plan | Define operational and model-quality monitoring, including delayed labels |
-| [ml-rollout](../skills/ml-rollout/SKILL.md) | plan | Prepare shadow, canary, or staged deployment and rollback criteria |
+| [ml-rollout](../skills/ml-rollout/SKILL.md) | plan | Prepare shadow, canary or staged rollout of a model version with rollback criteria |
 
 ## LLMs and retrieval
 
@@ -331,4 +330,5 @@
 
 | Command | Default | Purpose |
 |---|---|---|
-| [setup](../skills/setup/SKILL.md) | apply | Install, diagnose, update, or remove just-vibe through native host plugin management. |
+| [doctor](../skills/doctor/SKILL.md) | inspect | Diagnose installation and configuration problems |
+| [setup](../skills/setup/SKILL.md) | apply | Install, update, or remove just-vibe through native host plugin management. |

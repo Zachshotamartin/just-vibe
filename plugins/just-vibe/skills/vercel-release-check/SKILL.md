@@ -1,11 +1,11 @@
 ---
 name: vercel-release-check
-description: "Verify a deployment and prepare promotion or rollback steps Use to verify a named deployment's release gates; deploy executes authorized transition."
+description: "Verify a deployment and prepare promotion or rollback steps. Use to verify a named deployment's release gates; deploy executes authorized transition."
 ---
 
 # vercel-release-check
 
-Verify a deployment and prepare promotion or rollback steps
+Verify a deployment and prepare promotion or rollback steps.
 
 ## Choose this workflow
 
@@ -17,13 +17,13 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; candidate deployment, intended production target, health criteria, and previous stable deployment.
 
-exact team/project/environment and deployment/revision when applicable; read access to relevant configuration/logs. Verify installed CLI/API support and framework behavior during implementation. Never print environment values or infer promotion authorization from a preview request.
+**Pack prerequisites:** Exact team/project/environment and deployment/revision when applicable; read access to relevant configuration/logs. Verify installed CLI/API support and framework behavior during implementation. Never print environment values or infer promotion authorization from a preview request.
 
 - **Infer from evidence:** Read the linked project, team, framework, environment and deployment SHA from local config and supplied deployment evidence.
 - **Reasonable default:** Diagnose locally with existing build scripts when deployment access is missing; do not infer a production target from a preview URL.
 - **Ask only when needed:** Resolve a missing deployment/team/environment before the dependent remote operation; names and scope suffice without exposing environment values.
 
-Resolve any task-specific tools, target identity and evidence before dependent actions. No external connection is assumed.
+Declared evidence requirements: `vercel.context`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
@@ -37,6 +37,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 2. Check build completion, representative route/API health, asset content types, access protection and environment-specific behavior. Distinguish a protected preview from an unhealthy deployment; do not use a generic successful homepage as proof of the application journey.
 3. Identify the previous known-good deployment and test the proposed recovery against schema/data and external effects. Reverting code may not restore data compatibility or undo published messages.
 4. Produce a gate table tied to this candidate: criterion, evidence identity/time, pass/fail/unknown and blocking consequence. Re-read candidate identity before readiness is reported. Promotion, alias/DNS changes and rollback require their own authorized action/target.
+
 ## Technical method
 
 - **Inspect:** Verify immutable candidate SHA, health evidence, environment requirements, compatible schema and previous deployment identity.
@@ -68,5 +69,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Check the candidate deployment before promotion; do not promote it.
-- **edge (inspect):** Check readiness for a deployment that removes a database column.
-- **blocked (inspect):** Assess readiness without current health evidence; do not promote aliases.
+- **Edge (inspect):** Check readiness for a deployment that removes a database column.
+- **Blocked (inspect):** Assess readiness without current health evidence; do not promote aliases.

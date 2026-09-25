@@ -17,7 +17,7 @@ Start with a bounded baseline; increase complexity only when evaluation identifi
 
 Produce a reproducible training-to-serving contract, with split/feature timing, checkpoint state and parity checks before attributing improvements to a model change.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+For how this role compares with other roles on one shared feature, see [the same feature through different roles](../profile-comparisons.md).
 
 ## Verify when relevant
 
@@ -33,5 +33,10 @@ A better offline score does not authorize deployment or establish business impac
 - [ml-frame](../../skills/ml-frame/SKILL.md)
 - [ml-baseline](../../skills/ml-baseline/SKILL.md)
 - [ml-parity](../../skills/ml-parity/SKILL.md)
+
+Also relevant when the task calls for them:
+
+- [ml-imbalance](../../skills/ml-imbalance/SKILL.md)
+- [ml-debug-training](../../skills/ml-debug-training/SKILL.md)
 
 Example: Build a churn model with point-in-time features.

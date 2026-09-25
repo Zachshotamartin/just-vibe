@@ -17,8 +17,6 @@ Prefer native controls when they satisfy the behavior; custom widgets need compl
 
 Produce a keyboard/focus/semantic trace for the actual flow, with separate evidence for automated checks and exercised assistive-technology behavior.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Exercise keyboard entry, operation and exit.
@@ -33,5 +31,9 @@ A clean automated scan is not a conformance claim.
 - [ui-accessibility](../../skills/ui-accessibility/SKILL.md)
 - [ui-flow](../../skills/ui-flow/SKILL.md)
 - [test-e2e](../../skills/test-e2e/SKILL.md)
+
+Also relevant when the task calls for them:
+
+- [agent-qa](../../skills/agent-qa/SKILL.md)
 
 Example: Audit and repair a dialog and its focus restoration.

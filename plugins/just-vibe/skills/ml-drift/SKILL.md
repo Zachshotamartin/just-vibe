@@ -1,15 +1,15 @@
 ---
 name: ml-drift
-description: "Design checks for input or prediction-distribution changes Use for observed input/prediction distribution change; ml-evaluate requires outcomes to establish quality."
+description: "Design checks for input or prediction-distribution changes. Use for observed input/prediction distribution change; ml-evaluate requires outcomes to establish quality, and ml-parity or ml-leakage explain an offline-versus-production gap that is not population change; ml-monitor implements production drift and quality monitors and alert wiring."
 ---
 
 # ml-drift
 
-Design checks for input or prediction-distribution changes
+Design checks for input or prediction-distribution changes.
 
 ## Choose this workflow
 
-Use for observed input/prediction distribution change; ml-evaluate requires outcomes to establish quality.
+Use for observed input/prediction distribution change; ml-evaluate requires outcomes to establish quality, and ml-parity or ml-leakage explain an offline-versus-production gap that is not population change; ml-monitor implements production drift and quality monitors and alert wiring.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [ML deployment methods](../../references/packs/ml-deployment.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan; reference/current data or prediction windows, features, seasonality, and sensitivity requirements.
 
-versioned model and preprocessing artifacts, input/output schema, runtime/dependencies, operating targets, and authorized environment. Validate artifact trust before loading formats that can execute code. Packaging or writing monitoring configuration does not deploy a model or enable a hosted service.
+**Pack prerequisites:** Versioned model and preprocessing artifacts, input/output schema, runtime/dependencies, operating targets, and authorized environment. Validate artifact trust before loading formats that can execute code. Packaging or writing monitoring configuration does not deploy a model or enable a hosted service.
 
 - **Infer from evidence:** Read artifact format/trust, preprocessing schema, serving runtime, compatibility and existing rollout controls.
 - **Reasonable default:** Prepare packaging/configuration and isolated checks without treating them as a live deployment.
@@ -33,8 +33,10 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Align schemas/windows, choose meaningful per-feature and aggregate checks, account for sample size/seasonality, inspect effect sizes, and define follow-up on signals.
-2. Align schema, sampling and seasonal windows, compare effect sizes and support changes and separate data-pipeline changes from population changes.
+1. Align schemas, sampling and seasonal windows of the baseline and current data.
+2. Choose meaningful per-feature and aggregate checks, and compare effect sizes and support changes in light of sample size.
+3. Separate data-pipeline changes from population changes, and define follow-up on signals.
+
 ## Technical method
 
 - **Inspect:** Establish a reference population, feature semantics, seasonality, sample sizes and missing-data behavior.
@@ -45,8 +47,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 ## Read when relevant
 
 - When a concrete decision or deliverable example would clarify this workflow: [ML deployment worked example](../../references/examples/ml-deployment.md).
-- The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method: [PyTorch autograd, device and distributed debugging](../../references/methods/pytorch-debug.md).
-- The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method: [Retrieval, ranking and recommendation evaluation](../../references/methods/recommender-systems.md).
+
 
 ## Decision branches
 
@@ -54,8 +55,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Drift protocol or report with baselines, thresholds, uncertainty, and investigation guidance.
-- Baseline/current identities, shift measures, sample sizes and next evidence needed.
+- Drift protocol or report with baseline/current identities, shift measures and thresholds, sample sizes, uncertainty and the next evidence needed.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -68,5 +68,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Plan distribution checks that account for seasonality and sample size.
-- **edge (plan):** Investigate a new categorical value and a seasonal traffic shift.
-- **blocked (inspect):** Assess drift from aggregates without inferring model failure or silently refreshing the baseline.
+- **Edge (plan):** Investigate a new categorical value and a seasonal traffic shift.
+- **Blocked (inspect):** Assess drift from aggregates without inferring model failure or silently refreshing the baseline.

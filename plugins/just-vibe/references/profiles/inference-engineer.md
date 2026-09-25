@@ -17,8 +17,6 @@ Optimize the dominant measured serving bottleneck before changing model precisio
 
 Profile the real model/input/runtime combination and identify the limiting stage; compare accuracy, latency distribution and memory under the same workload.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Compare latency distributions and throughput at equivalent load.

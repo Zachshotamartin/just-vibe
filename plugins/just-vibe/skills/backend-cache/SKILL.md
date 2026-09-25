@@ -1,11 +1,11 @@
 ---
 name: backend-cache
-description: "Design cache keys, invalidation, expiration, and fallback Use for cache correctness and measured caching changes; db-query fixes the underlying query semantics."
+description: "Design cache keys, invalidation, expiration, and fallback. Use for cache correctness and measured caching changes; db-query fixes the underlying query semantics."
 ---
 
 # backend-cache
 
-Design cache keys, invalidation, expiration, and fallback
+Design cache keys, invalidation, expiration, and fallback.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan caching behavior when requested; apply for requested implementation using resolved freshness, identity and failure semantics.
 
-service source, data/interface contracts, framework/runtime versions, and test environment. Default apply operations target local code and isolated tests; live infrastructure/data mutations require their own requested scope.
+**Pack prerequisites:** Service source, data/interface contracts, framework/runtime versions, and test environment. Default apply operations target local code and isolated tests; live infrastructure/data mutations require their own requested scope.
 
 - **Infer from evidence:** Trace service callers, request contracts, authorization, transactions, retries and existing test infrastructure.
 - **Reasonable default:** Use the existing persistence and framework; isolate local tests from live services.
@@ -38,6 +38,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the
 3. If asynchronous work is shared, assign cancellation ownership: a caller may stop waiting without cancelling shared work needed by other callers. Handle already-aborted callers, synchronous fetch errors, asynchronous rejection and listener cleanup on every terminal path.
 4. If invalidation can race with an asynchronous fill, associate each fill with its current entry or generation. Invalidation must detach obsolete work so its late success or failure cannot overwrite or remove a newer entry. Decide explicitly whether existing waiters still receive the detached result.
 5. Verify identity isolation, falsey hits, coalescing, expiry, failure/retry, per-caller cancellation and reversed completion after invalidation using a controlled clock and deferred work. Measure hit rate or latency only with an actual representative workload.
+
 ## Technical method
 
 - **Inspect:** Inspect key dimensions, tenant scope, validity, empty-value handling, source failures and shared-fill ownership.
@@ -75,5 +76,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Plan tenant-safe cache keys and invalidation for invoice summaries.
-- **edge (apply):** Fix cached dashboard data leaking between accounts with identical filters.
-- **blocked (inspect):** Inspect cache logic without flushing production or assuming current hit-rate data.
+- **Edge (apply):** Fix cached dashboard data leaking between accounts with identical filters.
+- **Blocked (inspect):** Inspect cache logic without flushing production or assuming current hit-rate data.

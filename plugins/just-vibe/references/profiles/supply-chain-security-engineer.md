@@ -17,8 +17,6 @@ Quarantine untrusted artifacts when their origin or integrity cannot be establis
 
 Identify which source, dependency, action or artifact becomes executable with which privilege; verify provenance and trust transitions in the real build path.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Verify lockfiles, artifact identities and pipeline permissions.
@@ -33,5 +31,10 @@ Do not treat vulnerability counts alone as exploitability or remediation priorit
 - [security-dependencies](../../skills/security-dependencies/SKILL.md)
 - [github-actions](../../skills/github-actions/SKILL.md)
 - [release](../../skills/release/SKILL.md)
+
+## Specialist methods
+
+- [Release provenance and compatibility maintenance](../methods/release-maintenance.md)
+- [Flox, containers and reproducible development](../methods/reproducible-environments.md)
 
 Example: Review a release pipeline that consumes pull-request artifacts.

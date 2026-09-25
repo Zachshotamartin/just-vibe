@@ -1,11 +1,11 @@
 ---
 name: ml-frame
-description: "Define target, prediction moment, unit of analysis, and objective Use to define the prediction problem; ml-baseline implements the first comparator after the task is defined."
+description: "Define target, prediction moment, unit of analysis, and objective. Use to define the prediction problem; ml-baseline implements the first comparator after the task is defined."
 ---
 
 # ml-frame
 
-Define target, prediction moment, unit of analysis, and objective
+Define target, prediction moment, unit of analysis, and objective.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan; decision to support, population, available data, prediction timing, and operational objective.
 
-task definition, dataset identity, field semantics, entity/time keys, and permission to inspect bounded data. Record prediction moment, label horizon, sampling, and provenance. Preserve held-out evaluation boundaries; no data upload, label alteration, or feature fitting across splits implicitly.
+**Pack prerequisites:** Task definition, dataset identity, field semantics, entity/time keys, and permission to inspect bounded data. Record prediction moment, label horizon, sampling, and provenance. Preserve held-out evaluation boundaries; no data upload, label alteration, or feature fitting across splits implicitly.
 
 - **Infer from evidence:** Read prediction moment, label horizon, entity/time keys, split policy and dataset provenance from the task and manifests.
 - **Reasonable default:** Use explicit synthetic examples for design when raw data is unavailable; do not infer missing labels or fit preprocessing across held-out boundaries.
@@ -33,8 +33,9 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Specify unit of analysis, target/label horizon, information available at prediction time, action taken from predictions, baseline, and costs of errors.
-2. State one prediction row's entity, timestamp, available information, label horizon and downstream action; compare a rule-based decision before choosing ML.
+1. State one prediction row's entity (the unit of analysis), timestamp, information available at prediction time, label horizon and the action taken from predictions.
+2. Compare a rule-based decision or other baseline before choosing a model, and state the cost of each error type.
+
 ## Technical method
 
 - **Inspect:** Establish prediction entity/time, decision being supported, available information, outcome horizon and label maturity.
@@ -45,7 +46,6 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 ## Read when relevant
 
 - When a concrete decision or deliverable example would clarify this workflow: [ML data worked example](../../references/examples/ml-data.md).
-- The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method: [PyTorch autograd, device and distributed debugging](../../references/methods/pytorch-debug.md).
 - The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method: [Retrieval, ranking and recommendation evaluation](../../references/methods/recommender-systems.md).
 
 ## Decision branches
@@ -54,8 +54,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Modeling brief with success metrics, eligibility/exclusions, deployment assumptions, and unresolved policy choices.
-- Task card with row grain, prediction moment, outcome horizon, action and error costs.
+- Modeling brief and task card with row grain, prediction moment, outcome horizon, action, error costs, success metrics, eligibility/exclusions, deployment assumptions and unresolved policy choices.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -68,5 +67,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Frame churn prediction 30 days before cancellation, including unit and label horizon.
-- **edge (plan):** Frame failure prediction for machines with delayed maintenance labels.
-- **blocked (inspect):** Define the task without business error costs; keep threshold selection undecided.
+- **Edge (plan):** Frame failure prediction for machines with delayed maintenance labels.
+- **Blocked (inspect):** Define the task without business error costs; keep threshold selection undecided.

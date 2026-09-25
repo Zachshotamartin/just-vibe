@@ -17,8 +17,6 @@ Use retrieval for external evidence and deterministic validation for exact outpu
 
 Deliver the prompt/tool/context contract and a failure-focused evaluation set; distinguish model behavior from deterministic validation and retrieval effects.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Evaluate task success, unsupported claims and injection resistance.
@@ -30,7 +28,7 @@ Do not treat fluent output or valid JSON as factual correctness.
 
 ## Candidate workflows
 
-- [llm-prompt](../../skills/llm-prompt/SKILL.md)
+- [llm-rag](../../skills/llm-rag/SKILL.md)
 - [llm-structured](../../skills/llm-structured/SKILL.md)
 - [llm-injection](../../skills/llm-injection/SKILL.md)
 

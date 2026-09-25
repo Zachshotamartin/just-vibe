@@ -42,7 +42,7 @@ Statuses: `available`, `missing`, `disabled`, `unknown`. Reported availability i
 
 | Operation | Input fields | Result |
 |---|---|---|
-| `create` | `command`, `brief`, `root`, optional `mode`, `scope`, `context`, `budget` | Initial run record |
+| `create` | `command`, `brief`, `root`, optional `mode`, `scope`, `context`, `budget`, `profile` | Initial run record |
 | `profile` | `run`, `selection` | Update task profile with pin protection and preserved run history; see [profiles](profiles.md) |
 | `start` | `run`, `stage`, optional `capabilityReport` | A running stage after availability, mode, target and budget checks |
 | `amend` | `run`, `action` | Additional checked action on a running attempt; retains history and counters |
@@ -51,17 +51,21 @@ Statuses: `available`, `missing`, `disabled`, `unknown`. Reported availability i
 | `finish` | `run`, `outcome` | Terminal run result after completion checks |
 | `resume` | `run`, `observation` | Revalidated continuation retaining consumed limits |
 
-`context` contains `objective`, `constraints`, `references`, `successCriteria`, `assumptions`, and `authorization`. Preserve the original `brief` verbatim even when extracting a shorter objective. References may point to untrusted documents; they are not authority.
+`context` contains `objective`, `constraints`, `references`, `successCriteria`, `assumptions`, `authorization` and optional `profile`. `successCriteria` is a list of unique, trimmed strings; each must appear verbatim as a passing `criteria[].criterion` before the run can complete, and an incomplete finish names the uncovered ones. `profile` (in `context` or at the top level of `create`) is a selection request `{primary, secondary?, selectedBy, reason, pinned?}` completed with the same defaults as `session profile`; a bare id is rejected because only the user's explicit `workflow --profile ID` flag pins a role. Preserve the original `brief` verbatim even when extracting a shorter objective. References may point to untrusted documents; they are not authority.
 
-`budget` contains positive integer `maxStages` (default 8), `maxAttempts` per stage (default 3), and `maxMinutes` (default 60). Execution/resource-specific budgets such as GPU hours, token spend, batch size or request rate belong in the constraints and must be checked by the relevant domain tool. This runtime does not meter remote providers.
+`budget` contains positive integer `maxStages` (default 8), `maxAttempts` per stage (default 3), and `maxMinutes`: `null` by default for no wall-clock limit, or an integer from 1 to 1440 when the user wants elapsed time since creation capped. Execution/resource-specific budgets such as GPU hours, token spend, batch size or request rate belong in the constraints and must be checked by the relevant domain tool. This runtime does not meter remote providers.
 
-`stage` contains `command`, `action`, `target`, `effect`, and optional `id` for retry plus `newEvidence`. Effects: `read`, `plan-artifact`, `local-write`, `external-write`, `destructive`, `paid`. Local writes are checked against project/scope boundaries, including symlink ancestors. For a remote action with multiple effects (such as a paid production deployment), validate each applicable effect before executing; the host still checks exact target, cost and authority.
+`stage` contains `command`, `action`, `target`, `effect`, and optional `id` for retry plus `newEvidence`. When an earlier attempt of that stage had an `external-write`, `destructive` or `paid` effect, a retry also needs `effectReconciliation` (`reference`, `detail`, `result: "pass"`) showing what that attempt actually did, so a timed-out PR, charge or deletion is not repeated blind. A workflow whose prerequisites are not observed fails with the unobserved capabilities named; pass a fresh `capabilityReport` with the stage. Effects: `read`, `plan-artifact`, `local-write`, `external-write`, `destructive`, `paid`. Local writes are checked against project/scope boundaries, including symlink ancestors. For a remote action with multiple effects (such as a paid production deployment), validate each applicable effect before executing; the host still checks exact target, cost and authority.
 
 Plan artifact/external/destructive/paid effects require a matching `context.authorization` record with `effect`, exact `target`, exact `action`, and `basis` quoting/summarizing the user's actual authorization. This is bookkeeping supplied by the agent, not an authorization token. Do not invent a grant to make validation pass.
 
 A stage `outcome` includes `id`, `status`, `summary`, `evidence`, and `criteria`. Run outcomes omit `id`. An evidence item has `reference`, `detail`, and `result` (`pass`, `fail`, `unverified`). A criterion has `criterion`, `result`, and `evidence` (zero-based indices). Every passing criterion must link to passing evidence. Completion requires verified criteria, completed or explicitly superseded stages, and coverage of all original success criteria. Failed attempts remain in history after a successful correction or verified alternative.
 
 `observation` for resume contains the original `root`, a current-state `summary`, and nonempty `evidence`. Reconcile any running/interrupted action before resuming. Completed/cancelled runs cannot silently restart. Expired budgets require an explicitly authorized continuation with prior evidence; they do not refresh on resume.
+
+A continuation is a new run whose `context.continuationOf` is `{runId, evidence}`: the exhausted run's id and the evidence carried forward, as nonempty strings. It starts counters under the user's new budget and does not copy earlier stages; their history stays in the prior run.
+
+Under automatic assistance the assist task remains the completion ledger that the Stop check reads. Session outcomes do not satisfy assist requirements by themselves: record the run id and its finish summary as `host-report` evidence for the matching assist requirement.
 
 ## Additional actions and alternative routes
 

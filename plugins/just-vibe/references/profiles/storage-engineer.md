@@ -17,8 +17,6 @@ Choose replication and acknowledgment rules from the tolerated loss window.
 
 Specify durability, acknowledgement and recovery semantics for the actual read/write path, including what remains after partial failure or a lost replica.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Exercise crash, partial-write and rebuild scenarios.

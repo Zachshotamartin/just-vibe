@@ -1,11 +1,11 @@
 ---
 name: llm-structured
-description: "Implement structured outputs, validation, and recovery Use for validated structured model output; api-client handles the provider transport boundary."
+description: "Implement structured outputs, validation, and recovery. Use for validated structured model output; api-client handles the provider transport boundary."
 ---
 
 # llm-structured
 
-Implement structured outputs, validation, and recovery
+Implement structured outputs, validation, and recovery.
 
 ## Choose this workflow
 
@@ -17,13 +17,13 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply; output schema, provider capabilities, validation rules, consumers, and retry budget.
 
-task definition, model/provider configuration, representative permitted data, versioned prompts/corpus where relevant, and explicit token/cost/latency limits for remote calls. Use current provider interfaces during implementation. Retrieved content and model-generated tool arguments remain untrusted.
+**Pack prerequisites:** Task definition, model/provider configuration, representative permitted data, versioned prompts/corpus where relevant, and explicit token/cost/latency limits for remote calls. Use current provider interfaces during implementation. Retrieved content and model-generated tool arguments remain untrusted.
 
 - **Infer from evidence:** Read current prompt/tool schemas, retrieval boundaries, installed SDK/provider config and permitted examples without reading secret values.
 - **Reasonable default:** Use mocked calls for local contract tests when remote access is absent; do not infer model quality from mocks.
-- **Ask only when needed:** Ask for budget and permitted data/provider before a paid or external run if not already set; local prompt/tool implementation can proceed.
+- **Ask only when needed:** Ask for budget and permitted data/provider before a paid or external run if not already set; local prompt/tool implementation can proceed in apply mode.
 
-Declared evidence requirements: `ml.artifacts`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
+Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
@@ -33,8 +33,10 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Execute
 
-1. Define schema-compatible requests, validate outputs beyond parsing, separate refusal/truncation from malformed data, implement constrained retries, and test downstream consumption.
-2. Resolve supported schema features, validate semantics after parsing and separate refusal, truncation, invalid structure and downstream business rejection.
+1. Resolve the schema features the provider supports, and define schema-compatible requests.
+2. Validate semantics after parsing, separating refusal, truncation, invalid structure and downstream business rejection, and implement constrained retries.
+3. Test downstream consumption with malformed, missing, refusal and truncation fixtures.
+
 ## Technical method
 
 - **Inspect:** Read the exact schema, provider support, refusal/truncation signals and downstream invariants.
@@ -53,8 +55,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Deliver and verify
 
-- Structured-output integration, schemas, recovery behavior, and fixtures.
-- Schema/validation contract and malformed, missing, refusal and truncation fixtures.
+- Structured-output integration with its schema/validation contract, recovery behavior and malformed, missing, refusal and truncation fixtures.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -67,5 +68,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** Implement schema validation and bounded recovery for invalid or truncated output.
-- **edge (apply):** Extract records when output parses but contains impossible dates.
-- **blocked (inspect):** Design structured output with unknown provider schema support; avoid assumed API flags.
+- **Edge (apply):** Extract records when output parses but contains impossible dates.
+- **Blocked (inspect):** Design structured output with unknown provider schema support; avoid assumed API flags.

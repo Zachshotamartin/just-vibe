@@ -1,11 +1,11 @@
 ---
 name: ui-audit
-description: "Inspect hierarchy, consistency, usability, and visual clarity Use to identify usability/visual issues in an existing journey; design implements a new direction."
+description: "Inspect hierarchy, consistency, usability, and visual clarity. Use to identify usability/visual issues in an existing journey; design implements a new direction."
 ---
 
 # ui-audit
 
-Inspect hierarchy, consistency, usability, and visual clarity
+Inspect hierarchy, consistency, usability, and visual clarity.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; screens/flow, audience, and usability goals.
 
-target screens/flows, existing design conventions, and runnable UI or supplied references. Visual claims require actual renders; accessibility claims distinguish automated, keyboard, and assistive-technology evidence.
+**Pack prerequisites:** Target screens/flows, existing design conventions, and runnable UI or supplied references. Visual claims require actual renders; accessibility claims distinguish automated, keyboard, and assistive-technology evidence.
 
 - **Infer from evidence:** Inspect the target flow, existing components/tokens, actual renders or supplied references and current responsive behavior.
 - **Reasonable default:** Reuse established visual conventions and preserve keyboard behavior; label unrendered changes as visually unverified.
@@ -33,8 +33,9 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Inspect representative states and widths, follow the primary journey, identify concrete friction, and prioritize by user impact rather than personal taste.
-2. Walk the primary and recovery journey at representative widths with realistic long/empty content; tie findings to an action the user cannot understand or complete.
+1. Walk the primary and recovery journey at representative widths and states with realistic long and empty content.
+2. Tie each finding to an action the user cannot understand or complete, and prioritize by user impact rather than personal taste.
+
 ## Technical method
 
 - **Inspect:** Inspect real screens and tasks across normal, empty, error and narrow-screen states.
@@ -56,8 +57,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Annotated findings, affected states, and targeted recommendations.
-- State/viewport, user impact, evidence and prioritized correction per finding.
+- Findings annotated with state/viewport, user impact, evidence and a prioritized correction.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -70,5 +70,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Audit the billing journey for hierarchy, consistency, and recoverability.
-- **edge (inspect):** Audit checkout with an empty cart, payment failure and narrow viewport.
-- **blocked (inspect):** Audit screenshots without interaction access; mark keyboard and dynamic states unreviewed.
+- **Edge (inspect):** Audit checkout with an empty cart, payment failure and narrow viewport.
+- **Blocked (inspect):** Audit screenshots without interaction access; mark keyboard and dynamic states unreviewed.

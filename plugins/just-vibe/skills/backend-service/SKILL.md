@@ -1,11 +1,11 @@
 ---
 name: backend-service
-description: "Implement a service with clear boundaries and validation Use for a domain service implementation; api-design defines transport-facing contracts."
+description: "Implement a service with clear boundaries and validation. Use for a domain service implementation; api-design defines transport-facing contracts."
 ---
 
 # backend-service
 
-Implement a service with clear boundaries and validation
+Implement a service with clear boundaries and validation.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply; service responsibility, request/event contracts, persistence, and error requirements.
 
-service source, data/interface contracts, framework/runtime versions, and test environment. Default apply operations target local code and isolated tests; live infrastructure/data mutations require their own requested scope.
+**Pack prerequisites:** Service source, data/interface contracts, framework/runtime versions, and test environment. Default apply operations target local code and isolated tests; live infrastructure/data mutations require their own requested scope.
 
 - **Infer from evidence:** Trace service callers, request contracts, authorization, transactions, retries and existing test infrastructure.
 - **Reasonable default:** Use the existing persistence and framework; isolate local tests from live services.
@@ -33,8 +33,10 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Execute
 
-1. Reuse domain conventions, validate inputs, separate transport from business rules, implement persistence/error handling, and test observable behavior.
-2. Identify transaction ownership and domain invariants, keep transport parsing outside business decisions and make dependency failures observable to callers.
+1. Identify transaction ownership and domain invariants, reusing the project's domain conventions.
+2. Implement the service with input validation and persistence, keeping transport parsing outside business decisions and making dependency failures observable to callers.
+3. Test observable success and failure behavior.
+
 ## Technical method
 
 - **Inspect:** Trace transport parsing, validation, domain invariants, transaction ownership and downstream effects.
@@ -60,8 +62,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Deliver and verify
 
-- Service implementation, interfaces, configuration guidance, and checks.
-- Service contract, effect/transaction boundaries and success/failure checks.
+- Service implementation with its contract, effect/transaction boundaries, configuration guidance and success/failure checks.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -74,5 +75,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** Implement a narrow invitation service using existing validation and persistence patterns.
-- **edge (apply):** Implement order creation when notification fails after persistence.
-- **blocked (inspect):** Inspect service requirements with an unavailable dependency; use a contract fixture only.
+- **Edge (apply):** Implement order creation when notification fails after persistence.
+- **Blocked (inspect):** Inspect service requirements with an unavailable dependency; use a contract fixture only.

@@ -1,6 +1,6 @@
 ---
 name: a11y
-description: "Inspect semantics, keyboard access, focus, contrast, and announcements Alias for ui-accessibility."
+description: "Inspect semantics, keyboard access, focus, contrast, and announcements. Alias for ui-accessibility."
 ---
 
 # a11y

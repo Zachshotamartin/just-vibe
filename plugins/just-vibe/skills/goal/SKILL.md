@@ -1,11 +1,11 @@
 ---
 name: goal
-description: "Create and pursue a persistent objective with completion criteria, progress, blockers and evidence Use when the user explicitly asks to establish, resume, inspect or manage a persistent goal. Use plan for a proposal alone and checkpoint for a one-time context snapshot."
+description: "Create and pursue a persistent objective with completion criteria, progress, blockers and evidence. Use when the user explicitly asks to establish, resume, inspect or manage a persistent goal. Use plan for a proposal alone and checkpoint for a one-time context snapshot."
 ---
 
 # goal
 
-Create and pursue a persistent objective with completion criteria, progress, blockers and evidence
+Create and pursue a persistent objective with completion criteria, progress, blockers and evidence.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. An explicit goal request authorizes saving and progressing that objective within the requested scope. Inspect/list/resume context do not independently authorize new external actions. Never invent a token or spending budget.
 
-Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
+**Pack prerequisites:** Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
 - **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
 - **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
@@ -38,12 +38,13 @@ Save goal state outside the repository through the bundled runtime. Implement th
 3. Carry out authorized work using the relevant just-vibe workflows and available host tools. Persist concise progress, next steps and real blockers with goal update at meaningful checkpoints. A goal does not imply permission to spawn workers or run paid services.
 4. Record each criterion with goal evidence, distinguishing an attributed host report from a hashed artifact. Read goal resume after interruption, compare evidence freshness and continue the remaining work without resetting constraints.
 5. Mark complete only when criteria are satisfied with current evidence and blockers cleared; synchronize the native host goal if one was created and its completion conditions are met. Reopen a completed goal when new work is requested and collect fresh verification for its pending criteria. If blocked, save the specific dependency and useful next step; do not claim completion.
+
 ## Technical method
 
 - **Inspect:** Current goal revision, completion criteria, constraints, blockers and artifact hashes.
 - **Method:** Revision-checked goal records; each criterion has attributed or hashed evidence. Native goal controls are optional and distinct from local persistence.
 - **Avoid misdiagnosis:** Treating a saved objective or a process exit as completed work, or treating a goal as blanket permission for external actions.
-- **Check the result:** Try completion before evidence and after an artifact changes; both must remain incomplete until resolved.
+- **Check the result:** Complete a goal only with current evidence for every criterion; an artifact changed since its evidence reopens the affected criteria.
 
 ## Read when relevant
 
@@ -74,6 +75,6 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 ## Example requests
 
-- **normal (apply):** Goal: make checkout work with discount codes and verify the failure states. Preserve the API contract.
-- **edge (inspect):** Resume my checkout goal and show what remains; the validation artifact changed since yesterday.
-- **blocked (apply):** Finish the deployment goal, but production credentials are not available.
+- **Normal (apply):** Goal: make checkout work with discount codes and verify the failure states. Preserve the API contract.
+- **Edge (inspect):** Resume my checkout goal and show what remains; the validation artifact changed since yesterday.
+- **Blocked (apply):** Finish the deployment goal, but production credentials are not available.

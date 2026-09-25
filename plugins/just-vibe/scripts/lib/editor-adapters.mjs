@@ -1,6 +1,6 @@
 import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { join, relative } from 'node:path';
-import { pluginRoot, loadCatalog } from './catalog.mjs';
+import { pluginRoot, loadCatalog, commandDescription } from './catalog.mjs';
 import { selectPayload } from './selection.mjs';
 import { RULE_PACKS, renderRule } from './rule-packs.mjs';
 import { SPECIALISTS, specialistInstructions } from './specialists.mjs';
@@ -189,7 +189,7 @@ export function adapterFiles(root, target, selection = {}, { hooks = false } = {
       const link = relative(directory, `${payload}/${command.skillPath}`).replaceAll('\\', '/');
       files.set(
         `${directory}/SKILL.md`,
-        `---\nname: just-vibe-${id}\ndescription: ${JSON.stringify(target === 'zed' ? command.summary.slice(0, 200) : command.summary + ' ' + command.selection)}\n---\n\nRead and follow [the full ${id} workflow](${link}). Resolve its supporting references from that file. Preserve all context appended to this invocation. Host permissions remain unchanged. Automatic events require the separately selected hook adapter and host trust. Use the host's available question and tool interfaces; if unavailable, report that limitation.\n`,
+        `---\nname: just-vibe-${id}\ndescription: ${JSON.stringify(target === 'zed' ? command.summary.slice(0, 200) : commandDescription(command))}\n---\n\nRead and follow [the full ${id} workflow](${link}). Resolve its supporting references from that file. Preserve all context appended to this invocation. Host permissions remain unchanged. Automatic events require the separately selected hook adapter and host trust. Use the host's available question and tool interfaces; if unavailable, report that limitation.\n`,
       );
     }
     for (const id of chosen.rules)
@@ -216,7 +216,7 @@ export function adapterFiles(root, target, selection = {}, { hooks = false } = {
       else
         files.set(
           `${adapter.agents}/just-vibe-${agent.id}.md`,
-          `---\nname: just-vibe-${agent.id}\ndescription: ${JSON.stringify(agent.description)}\ntools: ${agent.mode === 'inspect' ? 'Read, Glob, Grep' : 'Read, Glob, Grep, Edit, Write, Bash'}\nmodel: inherit\n---\n\n${nativeAgentInstructions(agent, catalog, { payload, destination: adapter.agents, rules: RULE_PACKS.filter((r) => chosen.rules.includes(r.id)) })}\n`,
+          `---\nname: just-vibe-${agent.id}\ndescription: ${JSON.stringify(agent.description)}\ntools: ${agent.mode === 'inspect' ? 'Read, Glob, Grep' : 'Read, Glob, Grep, Edit, Write, Bash'}\nmodel: inherit\n---\n\n${nativeAgentInstructions(agent, catalog, { payload, destination: adapter.agents, shell: agent.mode !== 'inspect', rules: RULE_PACKS.filter((r) => chosen.rules.includes(r.id)) })}\n`,
         );
     }
   if (target === 'kiro')
@@ -287,6 +287,18 @@ export function adapters(root, operation, payload = {}) {
   const { files, chosen } = adapterFiles(root, target, selection, { hooks });
   if (!['install', 'update', 'uninstall', 'doctor'].includes(operation))
     throw Error('Unknown adapter operation.');
+  // Zed and OpenClaw read the same .agents/skills folder, so one installation serves both hosts.
+  const owns = (id) => {
+    const path = within(root, `.just-vibe/installations/adapter-${id}.json`);
+    return existsSync(path) && Object.keys(JSON.parse(readFileSync(path, 'utf8')).files || {}).length > 0;
+  };
+  const sibling = adapter.skills && !owns(target)
+    && ADAPTERS.find((a) => a.id !== target && a.skills === adapter.skills && owns(a.id));
+  if (sibling) {
+    const note = `${adapter.skills} is already provided by the ${sibling.id} adapter; one installation serves both hosts. Update or remove it with --target ${sibling.id}.`;
+    if (operation === 'doctor') return { ...adapters(root, 'doctor', { ...payload, target: sibling.id }), target, providedBy: sibling.id, note, support: adapter.level };
+    return { target, operation, providedBy: sibling.id, note, support: adapter.level };
+  }
   const allowed = (path) =>
     path.startsWith(`.just-vibe/adapters/${target}/`) ||
     (adapter.skills && path.startsWith(`${adapter.skills}/just-vibe-`)) ||

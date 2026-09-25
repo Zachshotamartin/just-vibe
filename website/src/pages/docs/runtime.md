@@ -56,7 +56,7 @@ The static configuration scanner inspects agent instructions, permissions, hooks
 
 For one reviewed setup flow, use `just-vibe setup --guided --root /project`. It covers host/profile/rule choices and optional runtime capabilities. `--dry-run` previews without changes; existing MCP connections need a restart after access changes.
 
-Profiles select full, core, frontend, backend or ML workflows. Individual packs and language rules can refine that selection. Updates retain the selected configuration. Reference methods remain readable even when they are excluded from native skill discovery.
+Installation profiles (`--profile`) select full, core, frontend, backend or ML workflows; they are separate from the engineering role profiles. Individual packs and language rules can refine that selection. Updates retain the selected configuration. Reference methods remain readable even when they are excluded from native skill discovery.
 
 ```sh
 just-vibe setup --target claude --profile frontend --rules typescript,react
@@ -65,7 +65,7 @@ just-vibe setup --target cursor --root /project --profile frontend --rules react
 
 Skill adapters support Cursor, OpenCode, Copilot, Gemini, Kimi, Qwen, Windsurf, Antigravity IDE, Zed and Hermes. Cursor also receives scoped rules. Cursor/OpenCode native events are an explicit `--editor-hooks` option; Hermes requires its actual home as the destination. Updates track owned files and stop if you edited one; unrelated configuration is preserved. Host behavior and event coverage remain version-specific.
 
-The MCP catalog now contains 45 tools, including context health, quality preview and commit verification, security reports, and local GitHub epic reading/preparation. See [checks and integrations](/docs/integrations/) for activation, examples and limits.
+The MCP catalog includes tools for context health, quality preview and commit verification, security reports, and local GitHub epic reading/preparation. See [checks and integrations](/docs/integrations/) for activation, examples and limits.
 
 The package's `references/runtime-platform.md` contains operation schemas, examples, storage paths and recovery instructions. The source documentation records implementation and validation limits.
 

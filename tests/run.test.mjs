@@ -4,7 +4,7 @@ import { mkdtempSync, mkdirSync, symlinkSync, rmSync, realpathSync } from 'node:
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { loadCatalog } from '../plugins/just-vibe/scripts/lib/catalog.mjs';
-import { createRun, startStage, recordStage, finishRun, resumeRun, insideProject, supersedeStage, amendStage } from '../plugins/just-vibe/scripts/lib/run.mjs';
+import { createRun, startStage, recordStage, finishRun, resumeRun, insideProject, supersedeStage, amendStage, validateRun } from '../plugins/just-vibe/scripts/lib/run.mjs';
 
 const catalog = loadCatalog();
 const capabilities = { 'project.read': { status: 'available', reason: 'Read fixture.' } };
@@ -90,6 +90,31 @@ test('stage/time budgets stop execution and cannot be reset by resume', t => {
   const expired = createRun(catalog, 'auto', { root, brief: 'Task', budget: { maxMinutes: 1 } }, Date.now() - 120000);
   assert.throws(() => start(expired), /time budget/);
   assert.throws(() => resumeRun(expired, { root, summary: 'Observed state.', evidence: ['file'] }), /Budget expired/);
+});
+
+test('runs have no wall-clock limit unless one is requested', t => {
+  const root = fixture(t), created = Date.now() - 3 * 24 * 60 * 60000;
+  for (const budget of [undefined, {}, { maxMinutes: null }, { maxStages: 4, maxMinutes: null }]) {
+    const r = createRun(catalog, 'auto', { root, brief: 'Long task', budget }, created);
+    assert.equal(r.budget.maxMinutes, null);
+    assert.equal(validateRun(r), r);
+    const started = start(r);
+    assert.equal(started.stages[0].status, 'running');
+    const blocked = finishRun(recordStage(started, outcome('fix-stage', 'blocked')), { status: 'blocked', summary: 'Waited on review.' });
+    assert.equal(resumeRun(blocked, { root, summary: 'Review arrived.', evidence: ['file'] }).status, 'ready');
+  }
+  const capped = createRun(catalog, 'auto', { root, brief: 'Capped', budget: { maxMinutes: 60 } }, Date.now() - 61 * 60000);
+  assert.equal(capped.budget.maxMinutes, 60);
+  assert.throws(() => start(capped), /time budget/);
+});
+
+test('invalid time budgets are rejected with the allowed range', t => {
+  const root = fixture(t);
+  for (const maxMinutes of [0, -5, 1.5, '60', 1441, false]) {
+    assert.throws(() => createRun(catalog, 'auto', { root, brief: 'Task', budget: { maxMinutes } }), /maxMinutes must be null \(no time limit\) or an integer from 1 to 1440/);
+  }
+  const r = createRun(catalog, 'auto', { root, brief: 'Task' });
+  assert.throws(() => validateRun({ ...r, budget: { maxStages: 8, maxAttempts: 3 } }), /maxMinutes must be null/);
 });
 
 test('failed, missing and unverified evidence cannot pass a stage', t => {
@@ -206,4 +231,59 @@ test('superseding uncertain external effects requires explicit reconciliation ev
   assert.throws(()=>supersedeStage(r,resolution),/reconciliation/);
   const result=supersedeStage(r,{...resolution,effectReconciliation:{reference:'provider operation 123',detail:'Original deployment exists and matches the requested revision; no duplicate was created.',result:'pass'}});
   assert.equal(result.stages[0].resolution.effectReconciliation.result,'pass');
+});
+
+test('retrying a stage whose attempt had an uncertain external effect needs reconciliation first (R1-06)', t => {
+  let r = run(fixture(t));
+  r.context.authorization.push({ effect: 'external-write', target: 'github', action: 'Open the PR', basis: 'User asked to open the PR.' });
+  r = recordStage(start(r, { effect: 'external-write', target: 'github', action: 'Open the PR' }), outcome('fix-stage', 'failed'));
+  assert.throws(() => start(r, { effect: 'external-write', target: 'github', action: 'Open the PR', newEvidence: 'retrying' }), /reconcil/i);
+  assert.throws(() => start(r, { effect: 'external-write', target: 'github', action: 'Open the PR', newEvidence: 'retrying',
+    effectReconciliation: { reference: 'gh pr list', detail: 'Status still unknown.', result: 'unverified' } }), /reconcil/i);
+  const retried = start(r, { effect: 'external-write', target: 'github', action: 'Open the PR', newEvidence: 'No PR exists for the branch.',
+    effectReconciliation: { reference: 'gh pr list --head fix-branch', detail: 'No open or closed PR exists for the branch; the first attempt created nothing.', result: 'pass' } });
+  assert.equal(retried.stages[0].attempts.length, 2);
+  assert.equal(retried.stages[0].attempts[1].effectReconciliation.result, 'pass');
+  // A local-only failure still retries with new evidence alone.
+  const local = recordStage(start(run(fixture(t))), outcome('fix-stage', 'failed'));
+  assert.equal(start(local, { newEvidence: 'Found the real cause.' }).stages[0].attempts.length, 2);
+});
+
+test('success criteria are unique trimmed strings and finish names the uncovered ones (R1-08)', t => {
+  const root = fixture(t);
+  for (const successCriteria of [[{ criterion: 'Totals round' }], ['  Totals round '], ['Totals round', 'Totals round'], ['']]) {
+    assert.throws(() => run(root, 'apply', { context: { successCriteria } }), /successCriteria/, JSON.stringify(successCriteria));
+  }
+  let r = run(root, 'apply', { context: { successCriteria: ['Desired behavior works', 'Totals round'] } });
+  r = recordStage(start(r), outcome('fix-stage'));
+  assert.throws(() => finishRun(r, outcome()), /Totals round/);
+});
+
+test('an unavailable prerequisite names the capability and the capability report remedy (R1-09, A3-13)', t => {
+  const r = run(fixture(t));
+  assert.throws(() => start(r, { command: 'github-pr' }), error => /github\.context/.test(error.message) && /capabilityReport/.test(error.message) && /runtime\.md/.test(error.message));
+});
+
+test('finishing without stages and resuming without a root say what is missing (R1-13)', t => {
+  const root = mkdtempSync(join(tmpdir(), 'jv-run-messages-'));
+  t.after(() => rmSync(root, { recursive: true, force: true }));
+  const run = createRun(catalog, 'fix', { brief: 'Fix the login bug', root });
+  assert.throws(() => finishRun(run, { status: 'completed', summary: 'Done', evidence: [{ result: 'pass', reference: 'npm test', detail: 'exit 0' }], criteria: [{ criterion: 'Login works', result: 'pass', evidence: [0] }] }), /At least one completed stage is required/);
+  assert.throws(() => resumeRun(run, { summary: 'Checked', evidence: ['x'] }), /Resume needs observation\.root/);
+});
+
+test('a continuation run names the exhausted run and the evidence it carries forward (R1-15)', t => {
+  const root = mkdtempSync(join(tmpdir(), 'jv-run-continuation-'));
+  t.after(() => rmSync(root, { recursive: true, force: true }));
+  const prior = createRun(catalog, 'fix', { brief: 'Fix the login bug', root, budget: { maxStages: 1 } });
+  const next = createRun(catalog, 'fix', { brief: 'Fix the login bug', root, context: { continuationOf: { runId: prior.id, evidence: ['Reproduced the redirect loop in stage 1.'] } } });
+  assert.equal(next.context.continuationOf.runId, prior.id);
+  assert.equal(next.stages.length, 0, 'A continuation starts fresh counters without copying stages');
+  assert.equal(validateRun(next), next);
+  for (const [value, message] of [
+    ['run-1', /must be \{runId, evidence\}/],
+    [{ runId: prior.id }, /evidence must list/],
+    [{ runId: prior.id, evidence: [] }, /evidence must list/],
+    [{ runId: prior.id, evidence: ['x'], stages: [] }, /does not accept stages/],
+  ]) assert.throws(() => createRun(catalog, 'fix', { brief: 'Fix the login bug', root, context: { continuationOf: value } }), message);
 });

@@ -1,15 +1,15 @@
 ---
 name: backend-permissions
-description: "Define and test authorization for roles, resources, and ownership Use for application action/resource policy; arch-tenancy covers propagation across the whole system."
+description: "Define and test authorization for roles, resources, and ownership. Use for application action/resource policy; security-authz audits suspected bypasses, db-access covers database roles and row policies, and arch-tenancy covers propagation across the whole system."
 ---
 
 # backend-permissions
 
-Define and test authorization for roles, resources, and ownership
+Define and test authorization for roles, resources, and ownership.
 
 ## Choose this workflow
 
-Use for application action/resource policy; arch-tenancy covers propagation across the whole system.
+Use for application action/resource policy; security-authz audits suspected bypasses, db-access covers database roles and row policies, and arch-tenancy covers propagation across the whole system.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Backend methods](../../references/packs/backend.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan for policy definition; apply for explicit implementation. Requires roles, actions, ownership, tenant rules, and exceptions.
 
-service source, data/interface contracts, framework/runtime versions, and test environment. Default apply operations target local code and isolated tests; live infrastructure/data mutations require their own requested scope.
+**Pack prerequisites:** Service source, data/interface contracts, framework/runtime versions, and test environment. Default apply operations target local code and isolated tests; live infrastructure/data mutations require their own requested scope.
 
 - **Infer from evidence:** Trace service callers, request contracts, authorization, transactions, retries and existing test infrastructure.
 - **Reasonable default:** Use the existing persistence and framework; isolate local tests from live services.
@@ -33,8 +33,10 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the
 
 ## Execute
 
-1. Build an action/resource matrix, identify enforcement boundaries, implement consistent checks when requested, and test cross-user, cross-tenant, and indirect access.
-2. Build subject/action/resource/tenant cases, locate server-side enforcement and inspect alternate read/write/export paths and ownership transfers.
+1. Build subject/action/resource/tenant cases as an access matrix, and locate the server-side enforcement boundaries.
+2. Inspect alternate read, write and export paths and ownership transfers, and implement consistent checks when requested.
+3. Test cross-user, cross-tenant and indirect access with positive and negative cases.
+
 ## Technical method
 
 - **Inspect:** Build a subject/action/resource/tenant matrix from the product policy and locate all entry points.
@@ -59,8 +61,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the
 
 ## Deliver and verify
 
-- Permission contract, enforcement changes if authorized, and negative/positive tests.
-- Access matrix, enforcement locations and positive/negative isolation checks.
+- Access matrix, enforcement locations, enforcement changes if authorized, and positive/negative isolation checks.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -73,5 +74,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Define read/update/export access rules for organization-owned invoices.
-- **edge (apply):** Add permission checks for direct-ID access and background exports.
-- **blocked (inspect):** Audit source without real tenant accounts; use synthetic identities and state assumptions.
+- **Edge (apply):** Add permission checks for direct-ID access and background exports.
+- **Blocked (inspect):** Audit source without real tenant accounts; use synthetic identities and state assumptions.

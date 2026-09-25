@@ -17,8 +17,6 @@ Fix readiness and graceful termination before increasing restart thresholds.
 
 Trace workload readiness, scheduling and rollout behavior through actual manifests; distinguish an application failure from resource, identity or networking constraints.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Exercise rollout, eviction and dependency failure in the permitted cluster.
@@ -33,5 +31,9 @@ Do not mutate a cluster from a local manifest review.
 - [ops-container](../../skills/ops-container/SKILL.md)
 - [ops-runbook](../../skills/ops-runbook/SKILL.md)
 - [backend-resilience](../../skills/backend-resilience/SKILL.md)
+
+## Specialist methods
+
+- [Kubernetes release and failure recovery](../methods/kubernetes-release.md)
 
 Example: Diagnose a rollout that drops in-flight requests.

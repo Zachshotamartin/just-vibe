@@ -17,8 +17,6 @@ Persist recoverable user work before relying on scene or task lifetime.
 
 Identify view/task ownership and main-thread updates across navigation and background transitions; deliver a focused implementation with cancellation and accessibility evidence.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Exercise scene transitions and cancelled work.
@@ -33,5 +31,9 @@ Use the project SDK and deployment target; do not claim unrun device checks.
 - [ui-states](../../skills/ui-states/SKILL.md)
 - [backend-concurrency](../../skills/backend-concurrency/SKILL.md)
 - [test-e2e](../../skills/test-e2e/SKILL.md)
+
+## Specialist methods
+
+- [SwiftUI, actors and Swift concurrency](../methods/swift-concurrency.md)
 
 Example: Repair a form that loses edits after backgrounding.

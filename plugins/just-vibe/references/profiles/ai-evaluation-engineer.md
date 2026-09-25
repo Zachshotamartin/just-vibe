@@ -17,8 +17,6 @@ Use executable assertions for verifiable behavior and calibrated human review fo
 
 Produce an evaluation contract with independent expected outcomes, scorer controls, denominators and held-out limits; retain failed attempts rather than selecting only successful runs.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Check judge reliability, contamination and failure sensitivity.
@@ -33,5 +31,9 @@ Passing public fixtures is not a universal quality claim.
 - [llm-evals](../../skills/llm-evals/SKILL.md)
 - [ml-evaluate](../../skills/ml-evaluate/SKILL.md)
 - [test-regression](../../skills/test-regression/SKILL.md)
+
+Also relevant when the task calls for them:
+
+- [ml-calibrate](../../skills/ml-calibrate/SKILL.md)
 
 Example: Create a held-out evaluation for a tool-using assistant.

@@ -1,11 +1,11 @@
 ---
 name: github-pr
-description: "Prepare or create a PR with scope, evidence, and issue links Use for remote PR preparation or creation; pr writes a local description only."
+description: "Prepare or create a PR with scope, evidence, and issue links. Use for remote PR preparation or creation; pr writes a local description only."
 ---
 
 # github-pr
 
-Prepare or create a PR with scope, evidence, and issue links
+Prepare or create a PR with scope, evidence, and issue links.
 
 ## Choose this workflow
 
@@ -17,13 +17,13 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan or draft locally when requested; apply when the user asks to create or update a PR in a resolved repository.
 
-exact owner/repository and relevant issue/PR/ref; authenticated read access through an available connector or CLI for remote evidence. External writes require the requested operation, appropriate account permissions, and rechecking target state. Local preparation remains useful without write access.
+**Pack prerequisites:** Exact owner/repository and relevant issue/PR/ref; authenticated read access through an available connector or CLI for remote evidence. External writes require the requested operation, appropriate account permissions, and rechecking target state. Local preparation remains useful without write access.
 
 - **Infer from evidence:** Resolve owner/repository and PR/issue/ref from links, remotes and supplied artifacts; inspect available account and head identity.
 - **Reasonable default:** Prepare local text or analyze supplied evidence if remote access is absent; label its freshness.
 - **Ask only when needed:** Ask only when repository/account/target ambiguity blocks the requested remote action; missing write access does not block local drafting.
 
-Declared evidence requirements: `github.context`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
+Declared evidence requirements: `git.repo`, `github.context`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
@@ -38,6 +38,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 3. Create or update only when the exact remote action is authorized in the session; otherwise finish the concrete draft. Before a retry after timeout, query the exact head/base for an already-created PR so an uncertain response cannot create a duplicate.
 4. Re-read the resulting PR identity and head/base. Checks for an older SHA do not establish readiness of the current head; if it changed during review, report that and validate the new candidate before claiming readiness.
 5. Use the matching bundled evidence collector when available; read its result and limitations rather than treating exit zero as readiness. Revalidate identity before a dependent action.
+
 ## Technical method
 
 - **Inspect:** Verify base/head repositories and SHAs, actual diff, template, related issues and check attempts.
@@ -71,5 +72,6 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Prepare a draft PR for this exact head/base; show validation gaps.
-- **edge (plan):** Prepare a PR from a fork whose branch name also exists upstream.
-- **blocked (inspect):** Draft a PR without push permission; separate local changes from the remote head.
+- **Edge (plan):** Prepare a PR from a fork whose branch name also exists upstream.
+- **Blocked (inspect):** Draft a PR without push permission; separate local changes from the remote head.
+- **Edge (apply):** Create the PR for this pushed head; reuse an existing PR if one appeared after a timeout.

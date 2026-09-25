@@ -1,11 +1,11 @@
 ---
 name: vercel-audit
-description: "Inspect project configuration, build settings, and deployment assumptions Use to compare repository configuration with a specific Vercel project; vercel-runtime investigates a particular runtime failure."
+description: "Inspect project configuration, build settings, and deployment assumptions. Use to compare repository configuration with a specific Vercel project; vercel-runtime investigates a particular runtime failure."
 ---
 
 # vercel-audit
 
-Inspect project configuration, build settings, and deployment assumptions
+Inspect project configuration, build settings, and deployment assumptions.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; project and repository plus reported deployment concerns.
 
-exact team/project/environment and deployment/revision when applicable; read access to relevant configuration/logs. Verify installed CLI/API support and framework behavior during implementation. Never print environment values or infer promotion authorization from a preview request.
+**Pack prerequisites:** Exact team/project/environment and deployment/revision when applicable; read access to relevant configuration/logs. Verify installed CLI/API support and framework behavior during implementation. Never print environment values or infer promotion authorization from a preview request.
 
 - **Infer from evidence:** Read the linked project, team, framework, environment and deployment SHA from local config and supplied deployment evidence.
 - **Reasonable default:** Diagnose locally with existing build scripts when deployment access is missing; do not infer a production target from a preview URL.
@@ -33,8 +33,9 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Compare repository scripts/configuration with project settings, inspect recent deployment metadata, and identify drift or unsupported assumptions.
-2. Record team/project/revision and compare root directory, build/install command, output directory, framework preset and runtime against the relevant package.
+1. Record team, project and revision, and inspect recent deployment metadata.
+2. Compare root directory, build/install command, output directory, framework preset and runtime against the relevant package's scripts and configuration, and identify drift or unsupported assumptions.
+
 ## Technical method
 
 - **Inspect:** Read team/project identity, root directory, framework preset, package manager, build/output settings and deployment SHA.
@@ -53,8 +54,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Configuration inventory, evidence-backed findings, and ordered fixes.
-- Setting/source/effective-value comparison with drift and unavailable observations.
+- Setting/source/effective-value comparison with drift findings, unavailable observations and ordered fixes.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -67,5 +67,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Audit the linked project's build settings against this monorepo configuration.
-- **edge (inspect):** Audit a monorepo deploying the wrong workspace package.
-- **blocked (inspect):** Audit supplied settings and logs without live Vercel access.
+- **Edge (inspect):** Audit a monorepo deploying the wrong workspace package.
+- **Blocked (inspect):** Audit supplied settings and logs without live Vercel access.

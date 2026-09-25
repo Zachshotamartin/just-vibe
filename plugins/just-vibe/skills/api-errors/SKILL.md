@@ -1,11 +1,11 @@
 ---
 name: api-errors
-description: "Standardize useful error responses and propagation Use to standardize error behavior without changing business policy; api-design defines a new contract."
+description: "Standardize useful error responses and propagation. Use to standardize error behavior without changing business policy; api-design defines a new contract."
 ---
 
 # api-errors
 
-Standardize useful error responses and propagation
+Standardize useful error responses and propagation.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply; API scope, current error format, consumers, and logging requirements.
 
-interface definitions, producer/consumer source, authentication model, versioning constraints, and isolated test endpoints. External API calls must respect environment, credentials, rate limits, and side-effect scope.
+**Pack prerequisites:** Interface definitions, producer/consumer source, authentication model, versioning constraints, and isolated test endpoints. External API calls must respect environment, credentials, rate limits, and side-effect scope.
 
 - **Infer from evidence:** Read producer/consumer schemas, error contracts, auth conventions and known supported client versions.
 - **Reasonable default:** Keep compatible response and pagination semantics where the brief does not request a breaking change.
@@ -33,8 +33,10 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Execute
 
-1. Inventory errors, preserve required compatibility, map domain failures deliberately, redact internals, and test representative client/server failures.
-2. Inventory existing client-visible codes and shapes, map domain failures intentionally and preserve safe correlation IDs while redacting internal details.
+1. Inventory existing client-visible codes and shapes and the compatibility they must preserve.
+2. Map domain failures to stable public errors deliberately, redacting internal details while preserving safe correlation IDs.
+3. Test representative client and server failures: validation, authorization, dependency and unexpected errors.
+
 ## Technical method
 
 - **Inspect:** Inventory exception sources, status semantics, domain codes, request IDs and retry behavior.
@@ -52,11 +54,11 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 ## Decision branches
 
 - **When changing a code would break a known consumer:** Add a compatibility path or a versioned transition instead of silently normalizing it.
+- **When no published error contract exists:** Prefer RFC 9457 Problem Details (application/problem+json) with stable type URIs and extension members for field errors; never break an existing published shape.
 
 ## Deliver and verify
 
-- Consistent error handling, documented contract, and checks.
-- Error taxonomy, mapping locations and validation/auth/dependency failure cases.
+- Error taxonomy and documented contract, the mapping locations, and checks for validation, authorization and dependency failures.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -69,5 +71,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** Standardize safe API errors while preserving published machine-readable codes.
-- **edge (apply):** Standardize errors while preserving a client's retry behavior on conflict.
-- **blocked (inspect):** Review errors from source without provoking real service failures.
+- **Edge (apply):** Standardize errors while preserving a client's retry behavior on conflict.
+- **Blocked (inspect):** Review errors from source without provoking real service failures.

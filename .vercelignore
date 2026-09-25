@@ -4,6 +4,7 @@
 .env*
 PLAN.md
 NAMING.md
+REVIEW.md
 node_modules
 website/node_modules
 website/dist

@@ -1,15 +1,15 @@
 ---
 name: docs
-description: "Create or update documentation from verified behavior Use to maintain source-backed usage documentation; teach explains concepts interactively."
+description: "Create or update documentation from verified behavior. Use for README, guide and usage documentation from verified behavior; api-openapi owns OpenAPI contracts, release owns release notes, decision-adr owns decision records, and teach or explain answer in conversation."
 ---
 
 # docs
 
-Create or update documentation from verified behavior
+Create or update documentation from verified behavior.
 
 ## Choose this workflow
 
-Use to maintain source-backed usage documentation; teach explains concepts interactively.
+Use for README, guide and usage documentation from verified behavior; api-openapi owns OpenAPI contracts, release owns release notes, decision-adr owns decision records, and teach or explain answer in conversation.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [General methods](../../references/packs/general.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply; documentation target, audience, and relevant code behavior.
 
-Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
+**Pack prerequisites:** Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
 - **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
 - **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
@@ -33,8 +33,9 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Execute
 
-1. Inspect implementation and examples, update explanations and links, keep terminology consistent, and verify executable examples where authorized.
-2. Check documented commands, defaults and examples against current implementation; edit source documents rather than generated copies.
+1. Check documented commands, defaults and examples against the current implementation.
+2. Update explanations and links in source documents rather than generated copies, keeping terminology consistent, and verify executable examples where authorized.
+
 ## Technical method
 
 - **Inspect:** Read actual code, CLI help, examples, generated sources and supported versions.
@@ -53,8 +54,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Deliver and verify
 
-- Updated documentation and evidence for examples or clear unverified labels.
-- Updated topics, verified examples, compatibility scope and unverified instructions.
+- Updated documentation topics with verified examples, compatibility scope, and clear labels on unverified instructions.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -67,5 +67,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** Update setup instructions to match the scripts that exist today.
-- **edge (apply):** Update docs after a flag was renamed while preserving migration guidance.
-- **blocked (inspect):** Audit documentation against source with no service credentials.
+- **Edge (apply):** Update docs after a flag was renamed while preserving migration guidance.
+- **Blocked (inspect):** Audit documentation against source with no service credentials.

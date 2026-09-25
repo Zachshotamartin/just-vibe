@@ -26,8 +26,12 @@
       "name": "Security and privacy"
     },
     {
-      "id": "quality-leadership",
-      "name": "Quality and technical leadership"
+      "id": "technical-leadership",
+      "name": "Architecture and technical leadership"
+    },
+    {
+      "id": "quality-devrel",
+      "name": "Quality and developer relations"
     },
     {
       "id": "systems",
@@ -53,10 +57,22 @@
       "workflows": [
         "react-component",
         "react-state",
-        "ui-states"
+        "ui-states",
+        "react-async",
+        "react-forms"
       ],
       "example": "Add a filterable catalog while preserving deep links.",
-      "contribution": "For a feature request, produce an interaction/state map tied to components, including stale responses, URL restoration and keyboard recovery; use it to choose the smallest UI change."
+      "contribution": "For a feature request, produce an interaction/state map tied to components, including stale responses, URL restoration and keyboard recovery; use it to choose the smallest UI change.",
+      "searchTerms": [
+        "front-end",
+        "react",
+        "vue",
+        "angular",
+        "svelte"
+      ],
+      "methods": [
+        "react-behavior"
+      ]
     },
     {
       "id": "fullstack-engineer",
@@ -74,12 +90,15 @@
       ],
       "boundary": "Do not expand a small feature into a platform rewrite.",
       "workflows": [
-        "arch-feature",
+        "build",
         "api-design",
         "test-integration"
       ],
       "example": "Add saved searches from browser to database.",
-      "contribution": "Produce one end-to-end contract trace from user action through authorization and storage to the rendered result, identifying old/new client compatibility before changing any layer."
+      "contribution": "Produce one end-to-end contract trace from user action through authorization and storage to the rendered result, identifying old/new client compatibility before changing any layer.",
+      "searchTerms": [
+        "fullstack"
+      ]
     },
     {
       "id": "backend-engineer",
@@ -148,7 +167,13 @@
         "test-e2e"
       ],
       "example": "Design an offline-capable field inspection app.",
-      "contribution": "Map the feature across foreground, background, offline and reconnection states; identify persisted versus transient state before selecting navigation or synchronization changes."
+      "contribution": "Map the feature across foreground, background, offline and reconnection states; identify persisted versus transient state before selecting navigation or synchronization changes.",
+      "searchTerms": [
+        "react native",
+        "flutter",
+        "expo",
+        "mobile app"
+      ]
     },
     {
       "id": "ios-engineer",
@@ -171,7 +196,16 @@
         "test-e2e"
       ],
       "example": "Repair a form that loses edits after backgrounding.",
-      "contribution": "Identify view/task ownership and main-thread updates across navigation and background transitions; deliver a focused implementation with cancellation and accessibility evidence."
+      "contribution": "Identify view/task ownership and main-thread updates across navigation and background transitions; deliver a focused implementation with cancellation and accessibility evidence.",
+      "searchTerms": [
+        "swift",
+        "swiftui",
+        "uikit",
+        "xcode"
+      ],
+      "methods": [
+        "swift-concurrency"
+      ]
     },
     {
       "id": "android-engineer",
@@ -194,7 +228,15 @@
         "test-e2e"
       ],
       "example": "Preserve a draft through activity recreation and process death.",
-      "contribution": "Map state through rotation, process recreation and background limits; specify which owner restores it before editing the UI or worker."
+      "contribution": "Map state through rotation, process recreation and background limits; specify which owner restores it before editing the UI or worker.",
+      "searchTerms": [
+        "kotlin",
+        "jetpack compose",
+        "android studio"
+      ],
+      "methods": [
+        "android-compose"
+      ]
     },
     {
       "id": "desktop-engineer",
@@ -213,11 +255,20 @@
       "boundary": "Do not grant broad shell or filesystem access for convenience.",
       "workflows": [
         "security-inputs",
-        "ops-container",
-        "test-e2e"
+        "security-config",
+        "test-e2e",
+        "security-uploads"
       ],
       "example": "Add a safe local-file import flow to a desktop app.",
-      "contribution": "Produce a window/process/resource ownership map for the requested feature, including shutdown, stale IPC replies and persisted state across restart."
+      "contribution": "Produce a window/process/resource ownership map for the requested feature, including shutdown, stale IPC replies and persisted state across restart.",
+      "searchTerms": [
+        "electron",
+        "tauri",
+        "desktop app"
+      ],
+      "methods": [
+        "desktop-regression"
+      ]
     },
     {
       "id": "api-engineer",
@@ -237,7 +288,9 @@
       "workflows": [
         "api-design",
         "api-breaking",
-        "api-contract-test"
+        "api-contract-test",
+        "api-errors",
+        "api-openapi"
       ],
       "example": "Introduce cursor pagination without breaking existing clients.",
       "contribution": "Deliver the producer/consumer contract with concrete valid and invalid examples, stable error semantics and compatibility checks for existing clients."
@@ -260,7 +313,8 @@
       "workflows": [
         "api-webhooks",
         "integrate",
-        "data-reconcile"
+        "data-reconcile",
+        "api-client"
       ],
       "example": "Synchronize subscription changes from a payment provider.",
       "contribution": "Produce a provider-to-domain mapping with stable delivery identity, retry/reconciliation rules and explicit treatment of missing or renamed upstream fields."
@@ -309,7 +363,11 @@
         "decision-spike"
       ],
       "example": "Simplify a multi-step onboarding flow.",
-      "contribution": "Map the user’s task, recovery path and information needed at each decision; use the actual flow to justify changes rather than a generic usability checklist."
+      "contribution": "Map the user’s task, recovery path and information needed at each decision; use the actual flow to justify changes rather than a generic usability checklist.",
+      "searchTerms": [
+        "usability",
+        "user research"
+      ]
     },
     {
       "id": "design-systems-engineer",
@@ -352,10 +410,16 @@
       "workflows": [
         "ui-accessibility",
         "ui-flow",
-        "test-e2e"
+        "test-e2e",
+        "agent-qa"
       ],
       "example": "Audit and repair a dialog and its focus restoration.",
-      "contribution": "Produce a keyboard/focus/semantic trace for the actual flow, with separate evidence for automated checks and exercised assistive-technology behavior."
+      "contribution": "Produce a keyboard/focus/semantic trace for the actual flow, with separate evidence for automated checks and exercised assistive-technology behavior.",
+      "searchTerms": [
+        "wcag",
+        "a11y",
+        "screen reader"
+      ]
     },
     {
       "id": "web-performance-engineer",
@@ -375,10 +439,18 @@
       "workflows": [
         "perf",
         "vite-bundle",
-        "react-rerenders"
+        "react-rerenders",
+        "vite-chunks",
+        "vercel-performance"
       ],
       "example": "Diagnose slow filter interactions on a product grid.",
-      "contribution": "Deliver a reproducible measurement of the relevant user interaction, identify the dominant resource or main-thread cost, and compare the same state after the change."
+      "contribution": "Deliver a reproducible measurement of the relevant user interaction, identify the dominant resource or main-thread cost, and compare the same state after the change.",
+      "searchTerms": [
+        "lighthouse",
+        "inp",
+        "lcp",
+        "core web vitals"
+      ]
     },
     {
       "id": "creative-technologist",
@@ -401,7 +473,10 @@
         "ui-responsive"
       ],
       "example": "Prototype an interactive product demonstration.",
-      "contribution": "Prototype the smallest interaction that tests the visual idea while naming motion, input and reduced-motion constraints; keep experimental rendering isolated from core navigation."
+      "contribution": "Prototype the smallest interaction that tests the visual idea while naming motion, input and reduced-motion constraints; keep experimental rendering isolated from core navigation.",
+      "methods": [
+        "motion-design"
+      ]
     },
     {
       "id": "platform-engineer",
@@ -409,12 +484,12 @@
       "family": "platform",
       "summary": "Create internal capabilities that make product teams more effective.",
       "priorities": [
-        "Define the supported path, escape hatches and ownership.",
+        "Offer a paved path with a documented escape hatch.",
         "Treat configuration and developer interfaces as versioned products."
       ],
-      "decision": "Standardize recurring needs with evidence of adoption; preserve exceptions with explicit boundaries.",
+      "decision": "Make the supported path the easiest to adopt; measure time to first deploy and failure-diagnosis time before standardizing more.",
       "verification": [
-        "Exercise onboarding and a representative application lifecycle.",
+        "Time a new service from template to first deployment, including one induced failure.",
         "Check upgrade compatibility and failure diagnostics."
       ],
       "boundary": "Do not require a platform migration to solve an isolated application issue.",
@@ -432,10 +507,10 @@
       "family": "platform",
       "summary": "Improve build and delivery flow with reproducible operations.",
       "priorities": [
-        "Trace artifacts from source revision through deployment.",
+        "Map each environment's configuration source, secret provider and promotion gate.",
         "Separate environment configuration, credentials and release authority."
       ],
-      "decision": "Promote an immutable tested artifact when rebuilds could change release identity.",
+      "decision": "Make environment differences explicit configuration; prefer a rollback-capable, progressive rollout when a change cannot be fully verified before exposure.",
       "verification": [
         "Exercise failed deployment and recovery in the permitted environment.",
         "Verify pipeline permissions and artifact identity."
@@ -444,10 +519,16 @@
       "workflows": [
         "ci",
         "github-actions",
-        "deploy"
+        "deploy",
+        "github-fix-ci",
+        "vercel-preview"
       ],
       "example": "Make staging deployment reproducible from a commit.",
-      "contribution": "Trace a source change through build, artifact identity and deployment; make each environment transition and recovery condition explicit before changing automation."
+      "contribution": "Trace a source change through build, artifact identity and deployment; make each environment transition and recovery condition explicit before changing automation.",
+      "searchTerms": [
+        "ci/cd",
+        "deployment pipeline"
+      ]
     },
     {
       "id": "site-reliability-engineer",
@@ -470,13 +551,19 @@
         "backend-resilience"
       ],
       "example": "Reduce repeated checkout outages and noisy alerts.",
-      "contribution": "Connect the observed failure to a user-facing objective and error budget, then propose a bounded mitigation with a measurable recovery condition."
+      "contribution": "Connect the observed failure to a user-facing objective and error budget, then propose a bounded mitigation with a measurable recovery condition.",
+      "searchTerms": [
+        "sre",
+        "slo",
+        "on-call",
+        "error budget"
+      ]
     },
     {
       "id": "cloud-engineer",
       "name": "Cloud engineer",
       "family": "platform",
-      "summary": "Design and operate cloud resources around workload and identity requirements.",
+      "summary": "Provision and operate cloud resources around workload and identity requirements.",
       "priorities": [
         "Map workload traffic, storage, network and identity boundaries.",
         "Account for regional failure, quotas and cost drivers."
@@ -490,7 +577,7 @@
       "workflows": [
         "arch-scale",
         "security-config",
-        "ops-restore"
+        "deploy"
       ],
       "example": "Plan a resilient cloud deployment within a fixed budget.",
       "contribution": "Map the requested workload to account, region, identity and network boundaries; identify quota and failure-domain constraints before selecting managed resources."
@@ -516,7 +603,13 @@
         "ops-restore"
       ],
       "example": "Replace an infrastructure module without losing state.",
-      "contribution": "Produce an infrastructure plan that distinguishes in-place updates from replacements, names state ownership, and checks the actual dependency order."
+      "contribution": "Produce an infrastructure plan that distinguishes in-place updates from replacements, names state ownership, and checks the actual dependency order.",
+      "searchTerms": [
+        "terraform",
+        "iac",
+        "infrastructure as code",
+        "pulumi"
+      ]
     },
     {
       "id": "developer-experience-engineer",
@@ -534,12 +627,16 @@
       ],
       "boundary": "Do not enforce personal editor or shell preferences across a team.",
       "workflows": [
-        "doctor",
+        "orient",
+        "docs",
         "vite-hmr",
-        "docs"
+        "vite-config"
       ],
       "example": "Shorten a slow local development feedback loop.",
-      "contribution": "Trace a contributor’s setup-to-test path, identify a repeated failure or manual step, and remove it without hiding actionable errors."
+      "contribution": "Trace a contributor’s setup-to-test path, identify a repeated failure or manual step, and remove it without hiding actionable errors.",
+      "methods": [
+        "reproducible-environments"
+      ]
     },
     {
       "id": "build-release-engineer",
@@ -557,12 +654,15 @@
       ],
       "boundary": "Do not silently replace release artifacts or rewrite version history.",
       "workflows": [
-        "build",
+        "verify",
         "release",
         "github-release"
       ],
       "example": "Prepare a package release from a verified archive.",
-      "contribution": "Produce a source-to-archive identity chain and explicit release gates; verify the distributable that users receive rather than only the checkout."
+      "contribution": "Produce a source-to-archive identity chain and explicit release gates; verify the distributable that users receive rather than only the checkout.",
+      "methods": [
+        "release-maintenance"
+      ]
     },
     {
       "id": "observability-engineer",
@@ -585,7 +685,14 @@
         "ops-alerts"
       ],
       "example": "Diagnose a latency increase across asynchronous services.",
-      "contribution": "Define the question an operator must answer, add the missing correlated signal with bounded cardinality, and demonstrate diagnosis using a concrete failure."
+      "contribution": "Define the question an operator must answer, add the missing correlated signal with bounded cardinality, and demonstrate diagnosis using a concrete failure.",
+      "searchTerms": [
+        "monitoring",
+        "opentelemetry",
+        "tracing",
+        "prometheus",
+        "grafana"
+      ]
     },
     {
       "id": "network-engineer",
@@ -608,7 +715,10 @@
         "ops-incident"
       ],
       "example": "Diagnose intermittent connectivity between two services.",
-      "contribution": "Trace one packet/request through routing, name resolution, policy and connection reuse; identify the failing boundary with observations from both sides."
+      "contribution": "Trace one packet/request through routing, name resolution, policy and connection reuse; identify the failing boundary with observations from both sides.",
+      "methods": [
+        "network-operations"
+      ]
     },
     {
       "id": "finops-engineer",
@@ -627,11 +737,15 @@
       "boundary": "Use observed billing and current terms; estimates are not guaranteed savings.",
       "workflows": [
         "decision-matrix",
-        "ml-training-cost",
+        "decision-reversible",
         "llm-cost"
       ],
       "example": "Reduce inference cost without violating latency goals.",
-      "contribution": "Attribute cost to workload and unit of useful output, separate fixed from demand-driven spend, and propose a change whose service impact can be measured."
+      "contribution": "Attribute cost to workload and unit of useful output, separate fixed from demand-driven spend, and propose a change whose service impact can be measured.",
+      "searchTerms": [
+        "cloud cost",
+        "cloud bill"
+      ]
     },
     {
       "id": "storage-engineer",
@@ -700,7 +814,11 @@
         "arch-scale"
       ],
       "example": "Choose which request processing belongs at the edge.",
-      "contribution": "Identify which computation and state can safely move to the edge, including propagation delay, regional failure and origin consistency requirements."
+      "contribution": "Identify which computation and state can safely move to the edge, including propagation delay, regional failure and origin consistency requirements.",
+      "searchTerms": [
+        "cdn",
+        "edge functions"
+      ]
     },
     {
       "id": "kubernetes-engineer",
@@ -723,7 +841,15 @@
         "backend-resilience"
       ],
       "example": "Diagnose a rollout that drops in-flight requests.",
-      "contribution": "Trace workload readiness, scheduling and rollout behavior through actual manifests; distinguish an application failure from resource, identity or networking constraints."
+      "contribution": "Trace workload readiness, scheduling and rollout behavior through actual manifests; distinguish an application failure from resource, identity or networking constraints.",
+      "searchTerms": [
+        "k8s",
+        "helm",
+        "kubectl"
+      ],
+      "methods": [
+        "kubernetes-release"
+      ]
     },
     {
       "id": "data-engineer",
@@ -743,10 +869,18 @@
       "workflows": [
         "data-pipeline",
         "data-incremental",
-        "data-reconcile"
+        "data-reconcile",
+        "data-backfill"
       ],
       "example": "Build a restartable daily ingestion pipeline.",
-      "contribution": "Deliver a source-to-target lineage and grain contract, then prove replay/backfill behavior on duplicate, late and partially processed input."
+      "contribution": "Deliver a source-to-target lineage and grain contract, then prove replay/backfill behavior on duplicate, late and partially processed input.",
+      "searchTerms": [
+        "etl",
+        "elt",
+        "airflow",
+        "data warehouse",
+        "data pipeline"
+      ]
     },
     {
       "id": "analytics-engineer",
@@ -769,7 +903,12 @@
         "db-query"
       ],
       "example": "Create a consistent subscription revenue model.",
-      "contribution": "Define the model grain, keys and metric semantics before SQL transformations; show how joins preserve denominators and historical meaning."
+      "contribution": "Define the model grain, keys and metric semantics before SQL transformations; show how joins preserve denominators and historical meaning.",
+      "searchTerms": [
+        "dbt",
+        "semantic layer",
+        "metrics layer"
+      ]
     },
     {
       "id": "data-scientist",
@@ -780,7 +919,7 @@
         "Connect the decision to the estimand, population and available evidence.",
         "Inspect missingness, selection bias and alternative explanations."
       ],
-      "decision": "Use descriptive conclusions when the design cannot support causal claims.",
+      "decision": "Use descriptive or predictive conclusions when the design cannot support causal claims; route intervention-effect estimation to causal-inference-scientist.",
       "verification": [
         "Reproduce data preparation and uncertainty estimates.",
         "Test sensitivity to plausible assumptions and slices."
@@ -791,7 +930,7 @@
         "ml-evaluate",
         "decision-spike"
       ],
-      "example": "Assess whether an onboarding change improved activation.",
+      "example": "Quantify which acquisition channels have the highest 90-day retention, with uncertainty and a decision implication.",
       "contribution": "State the estimand or predictive question, check population and observation bias, and deliver uncertainty and a decision implication alongside the estimate."
     },
     {
@@ -835,10 +974,17 @@
       "workflows": [
         "data-contract",
         "db-query",
-        "ui-audit"
+        "data-reconcile",
+        "db-access"
       ],
       "example": "Build an operations dashboard with consistent metrics.",
-      "contribution": "Map each dashboard number to its governed metric and refresh state; test filtering and aggregation behavior that could change the interpretation."
+      "contribution": "Map each dashboard number to its governed metric and refresh state; test filtering and aggregation behavior that could change the interpretation.",
+      "searchTerms": [
+        "bi",
+        "looker",
+        "tableau",
+        "power bi"
+      ]
     },
     {
       "id": "database-engineer",
@@ -858,10 +1004,21 @@
       "workflows": [
         "db-schema",
         "db-query",
-        "db-migrate"
+        "db-explain"
       ],
       "example": "Improve a slow report without changing its results.",
-      "contribution": "Identify the access pattern, constraints and transactional owner, then propose schema/index/query changes with engine-specific lock and compatibility checks."
+      "contribution": "Identify the access pattern, constraints and transactional owner, then propose schema/index/query changes with engine-specific lock and compatibility checks.",
+      "searchTerms": [
+        "sql",
+        "postgres",
+        "postgresql",
+        "mysql",
+        "dba",
+        "slow query"
+      ],
+      "methods": [
+        "postgres-mysql"
+      ]
     },
     {
       "id": "database-reliability-engineer",
@@ -907,7 +1064,13 @@
         "arch-event-flow"
       ],
       "example": "Compute near-real-time aggregates that tolerate late events.",
-      "contribution": "Define event-time, watermark, key and replay semantics; demonstrate how late events and duplicate delivery affect the durable result."
+      "contribution": "Define event-time, watermark, key and replay semantics; demonstrate how late events and duplicate delivery affect the durable result.",
+      "searchTerms": [
+        "kafka",
+        "flink",
+        "kinesis",
+        "event streaming"
+      ]
     },
     {
       "id": "data-platform-engineer",
@@ -915,12 +1078,12 @@
       "family": "data",
       "summary": "Provide shared data infrastructure with usable governance and operations.",
       "priorities": [
-        "Define tenant isolation, discoverability and workload ownership.",
+        "Give each dataset a named producer, a discoverable schema and a per-workload compute quota.",
         "Separate platform interfaces from individual pipeline logic."
       ],
-      "decision": "Standardize a capability when multiple workloads share requirements and support costs.",
+      "decision": "Enforce producer schema and ownership contracts at ingestion; quarantine breaking changes instead of propagating them.",
       "verification": [
-        "Exercise onboarding, quotas and failure diagnosis.",
+        "Exercise a breaking schema change and one tenant's quota breach.",
         "Check schema evolution and access isolation."
       ],
       "boundary": "Do not require all teams to migrate to solve one pipeline problem.",
@@ -930,7 +1093,7 @@
         "ops-observability"
       ],
       "example": "Design a self-service data ingestion platform.",
-      "contribution": "Specify the ingestion/query contract and ownership boundaries across producers and consumers; make schema evolution and isolation observable."
+      "contribution": "Specify the ingestion and query interfaces and producer-to-consumer responsibilities; make schema evolution and quota use observable."
     },
     {
       "id": "data-quality-engineer",
@@ -964,19 +1127,19 @@
         "Map provenance, sensitivity and accountable ownership.",
         "Translate policy requirements into access and lifecycle controls."
       ],
-      "decision": "Use the least detailed retained data that supports the stated purpose.",
+      "decision": "Enforce ownership and classification at the storage and access layer; a catalog label is metadata until a control enforces it.",
       "verification": [
-        "Verify access and deletion propagation through derived copies.",
+        "Verify classification-driven access holds in every derived copy, extract and BI tool.",
         "Check catalog metadata against actual storage and consumers."
       ],
-      "boundary": "Do not invent legal requirements or equate a catalog label with enforcement.",
+      "boundary": "A catalog label or written policy is not enforcement; do not claim compliance from metadata alone.",
       "workflows": [
         "data-lineage",
         "data-contract",
         "db-access"
       ],
       "example": "Implement a documented retention policy across derived datasets.",
-      "contribution": "Map data purpose, owner, retention and access propagation for the requested flow; identify where derived datasets lose the original controls."
+      "contribution": "Show which owner and classification each dataset in the requested flow carries, and where a copy, extract or dashboard escapes the control that enforces them."
     },
     {
       "id": "search-engineer",
@@ -999,7 +1162,13 @@
         "ml-evaluate"
       ],
       "example": "Diagnose poor results for rare product queries.",
-      "contribution": "Separate retrieval, ranking and presentation failures with query-level relevance evidence; deliver an evaluation set that includes empty, rare and permission-filtered results."
+      "contribution": "Separate retrieval, ranking and presentation failures with query-level relevance evidence; deliver an evaluation set that includes empty, rare and permission-filtered results.",
+      "searchTerms": [
+        "elasticsearch",
+        "opensearch",
+        "solr",
+        "search relevance"
+      ]
     },
     {
       "id": "machine-learning-engineer",
@@ -1019,7 +1188,9 @@
       "workflows": [
         "ml-frame",
         "ml-baseline",
-        "ml-parity"
+        "ml-parity",
+        "ml-imbalance",
+        "ml-debug-training"
       ],
       "example": "Build a churn model with point-in-time features.",
       "contribution": "Produce a reproducible training-to-serving contract, with split/feature timing, checkpoint state and parity checks before attributing improvements to a model change."
@@ -1041,7 +1212,7 @@
       "boundary": "Do not introduce autonomous actions merely because a model can select tools.",
       "workflows": [
         "llm-evals",
-        "llm-tools",
+        "ml-threshold",
         "ml-evaluate"
       ],
       "example": "Add assisted document classification with review for uncertain cases.",
@@ -1065,10 +1236,18 @@
       "workflows": [
         "ml-reproduce",
         "ml-ablation",
-        "ml-train"
+        "ml-train",
+        "ml-tune",
+        "ml-debug-training"
       ],
       "example": "Reproduce an experiment under a limited GPU budget.",
-      "contribution": "Translate the hypothesis into a controlled implementation, preserving experiment identity and a reproducible reference before optimizing execution."
+      "contribution": "Translate the hypothesis into a controlled implementation, preserving experiment identity and a reproducible reference before optimizing execution.",
+      "searchTerms": [
+        "paper",
+        "reproduce results",
+        "replicate",
+        "research code"
+      ]
     },
     {
       "id": "research-scientist",
@@ -1111,10 +1290,16 @@
       "workflows": [
         "ml-package",
         "ml-rollout",
-        "ml-monitor"
+        "ml-monitor",
+        "ml-batch"
       ],
       "example": "Create a traceable model release pipeline.",
-      "contribution": "Connect dataset, code, configuration and model identities across the pipeline, with a concrete promotion/recovery condition at each operational boundary."
+      "contribution": "Connect dataset, code, configuration and model identities across the pipeline, with a concrete promotion/recovery condition at each operational boundary.",
+      "searchTerms": [
+        "ml ops",
+        "mlops",
+        "model registry"
+      ]
     },
     {
       "id": "ml-platform-engineer",
@@ -1125,9 +1310,9 @@
         "Define reusable training, artifact and serving interfaces.",
         "Separate workload isolation and quotas from model-specific logic."
       ],
-      "decision": "Provide a supported default with explicit escape hatches for unusual workloads.",
+      "decision": "Record code, data, environment and hardware identity in the job interface so any run can be reproduced and compared.",
       "verification": [
-        "Exercise onboarding, resource limits and reproducibility.",
+        "Rerun a representative job from its recorded identity and compare outputs.",
         "Test platform upgrades against representative models."
       ],
       "boundary": "Do not force one framework on unrelated models without a concrete requirement.",
@@ -1178,12 +1363,18 @@
       ],
       "boundary": "Do not treat fluent output or valid JSON as factual correctness.",
       "workflows": [
-        "llm-prompt",
+        "llm-rag",
         "llm-structured",
         "llm-injection"
       ],
       "example": "Build an assistant that answers from authorized documents.",
-      "contribution": "Deliver the prompt/tool/context contract and a failure-focused evaluation set; distinguish model behavior from deterministic validation and retrieval effects."
+      "contribution": "Deliver the prompt/tool/context contract and a failure-focused evaluation set; distinguish model behavior from deterministic validation and retrieval effects.",
+      "searchTerms": [
+        "rag",
+        "retrieval-augmented",
+        "chatbot",
+        "llm app"
+      ]
     },
     {
       "id": "nlp-engineer",
@@ -1206,7 +1397,12 @@
         "ml-slices"
       ],
       "example": "Train a multilingual support-ticket classifier.",
-      "contribution": "Map linguistic variation, tokenization and label policy to observed errors; test domain and language shifts before choosing preprocessing or architecture changes."
+      "contribution": "Map linguistic variation, tokenization and label policy to observed errors; test domain and language shifts before choosing preprocessing or architecture changes.",
+      "searchTerms": [
+        "text classification",
+        "named entity",
+        "sentiment"
+      ]
     },
     {
       "id": "computer-vision-engineer",
@@ -1229,7 +1425,13 @@
         "ml-error-analysis"
       ],
       "example": "Evaluate a detector across different camera conditions.",
-      "contribution": "Trace image acquisition, annotation and augmentation through evaluation; inspect geometric, lighting and device shifts that can invalidate aggregate metrics."
+      "contribution": "Trace image acquisition, annotation and augmentation through evaluation; inspect geometric, lighting and device shifts that can invalidate aggregate metrics.",
+      "searchTerms": [
+        "object detection",
+        "image classification",
+        "segmentation",
+        "opencv"
+      ]
     },
     {
       "id": "speech-engineer",
@@ -1252,7 +1454,12 @@
         "ml-evaluate"
       ],
       "example": "Evaluate streaming transcription under background noise.",
-      "contribution": "Define audio segmentation, timing and transcription/recognition conventions; compare performance across noise, speaker and latency conditions relevant to the task."
+      "contribution": "Define audio segmentation, timing and transcription/recognition conventions; compare performance across noise, speaker and latency conditions relevant to the task.",
+      "searchTerms": [
+        "asr",
+        "speech recognition",
+        "text to speech"
+      ]
     },
     {
       "id": "recommendation-engineer",
@@ -1275,7 +1482,16 @@
         "ml-slices"
       ],
       "example": "Improve recommendations for users with little history.",
-      "contribution": "Separate candidate generation, ranking and exposure feedback; assess cold-start and subgroup outcomes without treating logged engagement as unbiased preference."
+      "contribution": "Separate candidate generation, ranking and exposure feedback; assess cold-start and subgroup outcomes without treating logged engagement as unbiased preference.",
+      "searchTerms": [
+        "recommender",
+        "recommender system",
+        "recommendations",
+        "collaborative filtering"
+      ],
+      "methods": [
+        "recommender-systems"
+      ]
     },
     {
       "id": "reinforcement-learning-engineer",
@@ -1318,10 +1534,16 @@
       "workflows": [
         "llm-evals",
         "ml-evaluate",
-        "test-regression"
+        "test-regression",
+        "ml-calibrate"
       ],
       "example": "Create a held-out evaluation for a tool-using assistant.",
-      "contribution": "Produce an evaluation contract with independent expected outcomes, scorer controls, denominators and held-out limits; retain failed attempts rather than selecting only successful runs."
+      "contribution": "Produce an evaluation contract with independent expected outcomes, scorer controls, denominators and held-out limits; retain failed attempts rather than selecting only successful runs.",
+      "searchTerms": [
+        "evals",
+        "eval suite",
+        "llm evaluation"
+      ]
     },
     {
       "id": "responsible-ai-engineer",
@@ -1341,7 +1563,8 @@
       "workflows": [
         "ml-slices",
         "ml-robustness",
-        "ml-report"
+        "ml-report",
+        "ml-explain"
       ],
       "example": "Assess unequal model error across affected user groups.",
       "contribution": "Identify affected groups, intended use and concrete failure harms, then connect measured limitations to a deployment or mitigation decision."
@@ -1387,10 +1610,19 @@
       "workflows": [
         "llm-tools",
         "llm-evals",
-        "auto"
+        "backend-idempotency"
       ],
       "example": "Design an agent that can recover from a failed diagnostic step.",
-      "contribution": "Map context, tool effects and recovery state across an agent task; demonstrate constraint retention and uncertain-action reconciliation through multiple turns."
+      "contribution": "Map context, tool effects and recovery state across an agent task; demonstrate constraint retention and uncertain-action reconciliation through multiple turns.",
+      "searchTerms": [
+        "agents",
+        "agentic",
+        "ai agent",
+        "tool calling"
+      ],
+      "methods": [
+        "agent-harness"
+      ]
     },
     {
       "id": "ai-security-engineer",
@@ -1398,7 +1630,7 @@
       "family": "ml",
       "summary": "Assess model-system trust boundaries and abuse paths.",
       "priorities": [
-        "Trace instructions, retrieved content, tool inputs and sensitive outputs.",
+        "Trace prompt injection through instructions, retrieved content, tool inputs and sensitive outputs.",
         "Separate model refusal behavior from enforced access controls."
       ],
       "decision": "Enforce authorization outside model text when tools expose privileged data or actions.",
@@ -1413,7 +1645,12 @@
         "security-threat-model"
       ],
       "example": "Threat-model a retrieval assistant with write-capable tools.",
-      "contribution": "Trace untrusted prompts, retrieved content and tool arguments to effects; use synthetic canaries to test authorization boundaries without exposing real secrets."
+      "contribution": "Trace untrusted prompts, retrieved content and tool arguments to effects; use synthetic canaries to test authorization boundaries without exposing real secrets.",
+      "searchTerms": [
+        "prompt injection",
+        "jailbreak",
+        "model security"
+      ]
     },
     {
       "id": "causal-inference-scientist",
@@ -1424,7 +1661,7 @@
         "Specify treatment, outcome, estimand and assignment mechanism.",
         "Inspect confounding, selection and interference."
       ],
-      "decision": "Report an association when identification assumptions cannot be defended.",
+      "decision": "Choose the identification strategy from the assignment mechanism; report only an association when none is defensible.",
       "verification": [
         "Check balance, overlap and sensitivity to assumptions.",
         "Separate exploratory subgroup findings from prespecified estimates."
@@ -1435,7 +1672,7 @@
         "decision-spike",
         "ml-report"
       ],
-      "example": "Assess a feature rollout using an explicitly justified design.",
+      "example": "Estimate the retention effect of a staggered regional rollout with difference-in-differences, checking pre-trends and overlap.",
       "contribution": "State the causal contrast and identification assumptions, inspect confounding/selection, and show sensitivity before interpreting association as intervention effect."
     },
     {
@@ -1459,7 +1696,13 @@
         "ml-evaluate"
       ],
       "example": "Validate an A/B test before interpreting its results.",
-      "contribution": "Define randomization unit, exposure, guardrails and analysis window; verify assignment and interference before reading experiment outcomes."
+      "contribution": "Define randomization unit, exposure, guardrails and analysis window; verify assignment and interference before reading experiment outcomes.",
+      "searchTerms": [
+        "a/b test",
+        "ab test",
+        "split test",
+        "sample ratio mismatch"
+      ]
     },
     {
       "id": "application-security-engineer",
@@ -1479,10 +1722,17 @@
       "workflows": [
         "security-inputs",
         "security-authz",
-        "security-fix"
+        "security-fix",
+        "security",
+        "security-uploads"
       ],
       "example": "Repair a cross-tenant document access flaw.",
-      "contribution": "Trace a reachable input through trust transitions to the sensitive operation, with a legitimate control and an actionable correction at the enforcing boundary."
+      "contribution": "Trace a reachable input through trust transitions to the sensitive operation, with a legitimate control and an actionable correction at the enforcing boundary.",
+      "searchTerms": [
+        "appsec",
+        "pentest",
+        "owasp"
+      ]
     },
     {
       "id": "product-security-engineer",
@@ -1524,7 +1774,7 @@
       "boundary": "Do not disable functioning services or rotate credentials without the requested scope.",
       "workflows": [
         "security-config",
-        "db-access",
+        "security-secrets",
         "ops-runbook"
       ],
       "example": "Reduce overbroad access for a deployment service account.",
@@ -1551,7 +1801,12 @@
         "test-fixtures"
       ],
       "example": "Create a detection for suspicious service-account use.",
-      "contribution": "Define the behavior a signal distinguishes, validate it against benign controls and evasive variants, and report expected triage context and blind spots."
+      "contribution": "Define the behavior a signal distinguishes, validate it against benign controls and evasive variants, and report expected triage context and blind spots.",
+      "searchTerms": [
+        "siem",
+        "detection rules",
+        "sigma rules"
+      ]
     },
     {
       "id": "security-incident-responder",
@@ -1597,7 +1852,13 @@
         "data-contract"
       ],
       "example": "Remove unnecessary identifiers from an analytics pipeline.",
-      "contribution": "Trace collection, purpose, derived copies and deletion through the requested feature; verify minimization and retention at the actual storage/logging boundaries."
+      "contribution": "Trace collection, purpose, derived copies and deletion through the requested feature; verify minimization and retention at the actual storage/logging boundaries.",
+      "searchTerms": [
+        "gdpr",
+        "pii",
+        "ccpa",
+        "data retention"
+      ]
     },
     {
       "id": "identity-access-engineer",
@@ -1620,7 +1881,15 @@
         "security-authz"
       ],
       "example": "Implement tenant-scoped document permissions.",
-      "contribution": "Model principal, session, tenant and resource ownership separately; test privilege changes, stale sessions and cross-tenant access against the effective policy."
+      "contribution": "Model principal, session, tenant and resource ownership separately; test privilege changes, stale sessions and cross-tenant access against the effective policy.",
+      "searchTerms": [
+        "iam",
+        "oauth",
+        "oidc",
+        "sso",
+        "rbac",
+        "saml"
+      ]
     },
     {
       "id": "supply-chain-security-engineer",
@@ -1643,7 +1912,16 @@
         "release"
       ],
       "example": "Review a release pipeline that consumes pull-request artifacts.",
-      "contribution": "Identify which source, dependency, action or artifact becomes executable with which privilege; verify provenance and trust transitions in the real build path."
+      "contribution": "Identify which source, dependency, action or artifact becomes executable with which privilege; verify provenance and trust transitions in the real build path.",
+      "searchTerms": [
+        "sbom",
+        "slsa",
+        "dependency confusion"
+      ],
+      "methods": [
+        "release-maintenance",
+        "reproducible-environments"
+      ]
     },
     {
       "id": "security-automation-engineer",
@@ -1689,12 +1967,18 @@
         "test-property"
       ],
       "example": "Review encrypted token handling and key rotation.",
-      "contribution": "Identify the security property and trust/key lifecycle first; use established constructions and test misuse cases rather than designing a new primitive."
+      "contribution": "Identify the security property and trust/key lifecycle first; use established constructions and test misuse cases rather than designing a new primitive.",
+      "searchTerms": [
+        "encryption",
+        "tls",
+        "kms",
+        "certificates"
+      ]
     },
     {
       "id": "qa-automation-engineer",
       "name": "QA automation engineer",
-      "family": "quality-leadership",
+      "family": "quality-devrel",
       "summary": "Turn important user behavior into reliable automated coverage.",
       "priorities": [
         "Prioritize observable outcomes and high-cost regressions.",
@@ -1707,17 +1991,24 @@
       ],
       "boundary": "Do not add brittle assertions that merely mirror the implementation.",
       "workflows": [
-        "test-regression",
+        "test-unit",
         "test-integration",
-        "test-e2e"
+        "test-e2e",
+        "test-regression",
+        "agent-qa"
       ],
       "example": "Add coverage for checkout failures and recovery.",
-      "contribution": "Deliver a stable behavioral check that fails for the targeted defect and passes legitimate behavior; separate environment/setup failures from product failures."
+      "contribution": "Deliver a stable behavioral check that fails for the targeted defect and passes legitimate behavior; separate environment/setup failures from product failures.",
+      "searchTerms": [
+        "sdet",
+        "test automation",
+        "qa engineer"
+      ]
     },
     {
       "id": "test-infrastructure-engineer",
       "name": "Test infrastructure engineer",
-      "family": "quality-leadership",
+      "family": "quality-devrel",
       "summary": "Build fast, trustworthy test execution and fixture systems.",
       "priorities": [
         "Separate test behavior from runner, environment and data failures.",
@@ -1740,7 +2031,7 @@
     {
       "id": "performance-engineer",
       "name": "Performance engineer",
-      "family": "quality-leadership",
+      "family": "quality-devrel",
       "summary": "Improve system performance from controlled measurements.",
       "priorities": [
         "Define workload, bottleneck and acceptable behavior before optimizing.",
@@ -1758,12 +2049,21 @@
         "backend-concurrency"
       ],
       "example": "Find the cause of rising tail latency under load.",
-      "contribution": "Define the representative workload and success metric, measure the bottleneck, and compare tails/resource use without changing the workload between variants."
+      "contribution": "Define the representative workload and success metric, measure the bottleneck, and compare tails/resource use without changing the workload between variants.",
+      "searchTerms": [
+        "profiling",
+        "profiler",
+        "p99 latency",
+        "flame graph"
+      ],
+      "methods": [
+        "latency-systems"
+      ]
     },
     {
       "id": "senior-software-engineer",
       "name": "Senior software engineer",
-      "family": "quality-leadership",
+      "family": "technical-leadership",
       "summary": "Own a bounded implementation with sound tradeoffs and maintainability.",
       "priorities": [
         "Resolve ambiguous requirements from existing behavior and callers.",
@@ -1777,8 +2077,8 @@
       "boundary": "Seniority is an approach to judgment, not permission for broader scope.",
       "workflows": [
         "arch-feature",
-        "review",
-        "test-regression"
+        "build",
+        "review"
       ],
       "example": "Deliver a service feature with clear tests and tradeoffs.",
       "contribution": "Deliver a maintainable bounded change with explicit invariants, integration checks and a review of nearby compatibility risks, without expanding the feature."
@@ -1786,7 +2086,7 @@
     {
       "id": "staff-engineer",
       "name": "Staff engineer",
-      "family": "quality-leadership",
+      "family": "technical-leadership",
       "summary": "Resolve cross-team technical problems and make adoption practical.",
       "priorities": [
         "Map interfaces, ownership and migration dependencies.",
@@ -1809,7 +2109,7 @@
     {
       "id": "principal-engineer",
       "name": "Principal engineer",
-      "family": "quality-leadership",
+      "family": "technical-leadership",
       "summary": "Guide long-term technical direction across systems and teams.",
       "priorities": [
         "Identify systemic constraints, option value and irreversible decisions.",
@@ -1832,7 +2132,7 @@
     {
       "id": "software-architect",
       "name": "Software architect",
-      "family": "quality-leadership",
+      "family": "technical-leadership",
       "summary": "Design system boundaries and contracts around actual quality requirements.",
       "priorities": [
         "Map responsibilities, data ownership and dependencies.",
@@ -1855,7 +2155,7 @@
     {
       "id": "solutions-architect",
       "name": "Solutions architect",
-      "family": "quality-leadership",
+      "family": "technical-leadership",
       "summary": "Map a concrete business use case onto a workable technical system.",
       "priorities": [
         "Resolve integration, deployment and operational constraints.",
@@ -1870,7 +2170,7 @@
       "workflows": [
         "decision-buy-build",
         "arch-feature",
-        "integrate"
+        "research"
       ],
       "example": "Compare deployment approaches for a customer integration.",
       "contribution": "Map the customer’s concrete integration and operating constraints to a deployable design, documenting assumptions that must be validated before commitment."
@@ -1878,7 +2178,7 @@
     {
       "id": "enterprise-architect",
       "name": "Enterprise architect",
-      "family": "quality-leadership",
+      "family": "technical-leadership",
       "summary": "Align shared systems, capabilities and migration dependencies across an organization.",
       "priorities": [
         "Map duplicated capabilities, ownership and data authority.",
@@ -1887,7 +2187,7 @@
       "decision": "Standardize where shared contracts provide demonstrated value; preserve justified local variation.",
       "verification": [
         "Check transition states and dependencies across affected systems.",
-        "Assign decision owners and measurable review points."
+        "Name the accountable decision role (or mark it unassigned) and measurable review points."
       ],
       "boundary": "A reference architecture is not blanket authorization for migrations.",
       "workflows": [
@@ -1901,7 +2201,7 @@
     {
       "id": "data-architect",
       "name": "Data architect",
-      "family": "quality-leadership",
+      "family": "data",
       "summary": "Design data ownership, models and movement across systems.",
       "priorities": [
         "Identify authoritative entities, identifiers and semantic contracts.",
@@ -1924,7 +2224,7 @@
     {
       "id": "cloud-architect",
       "name": "Cloud architect",
-      "family": "quality-leadership",
+      "family": "platform",
       "summary": "Design cloud topology and service choices from workload requirements.",
       "priorities": [
         "Map trust, region, availability and data-placement boundaries.",
@@ -1939,15 +2239,15 @@
       "workflows": [
         "arch-scale",
         "decision-matrix",
-        "security-config"
+        "arch-map"
       ],
-      "example": "Design a cloud topology with explicit recovery targets.",
+      "example": "Choose account, region and disaster-recovery tiers for three workloads with different RTO and RPO.",
       "contribution": "Compare workload placement using actual availability, latency, identity and operating constraints, including the failure/recovery implications of a new boundary."
     },
     {
       "id": "security-architect",
       "name": "Security architect",
-      "family": "quality-leadership",
+      "family": "security",
       "summary": "Design enforceable trust boundaries across a system.",
       "priorities": [
         "Map identities, assets and privileged paths.",
@@ -1961,7 +2261,7 @@
       "boundary": "A diagram cannot substitute for checking implementation enforcement.",
       "workflows": [
         "security-threat-model",
-        "arch-boundaries",
+        "arch-tenancy",
         "backend-permissions"
       ],
       "example": "Design isolation between tenants and administrative services.",
@@ -1970,7 +2270,7 @@
     {
       "id": "tech-lead",
       "name": "Technical lead",
-      "family": "quality-leadership",
+      "family": "technical-leadership",
       "summary": "Coordinate a technical change through clear decisions and integration boundaries.",
       "priorities": [
         "Break work along coherent interfaces and dependencies.",
@@ -1993,7 +2293,7 @@
     {
       "id": "engineering-manager",
       "name": "Engineering manager",
-      "family": "quality-leadership",
+      "family": "technical-leadership",
       "summary": "Structure engineering planning around capacity, risk and delivery evidence.",
       "priorities": [
         "Separate outcomes, dependencies and staffing assumptions.",
@@ -2016,7 +2316,7 @@
     {
       "id": "technical-writer",
       "name": "Technical writer",
-      "family": "quality-leadership",
+      "family": "quality-devrel",
       "summary": "Create documentation that lets the intended reader complete a task.",
       "priorities": [
         "Identify reader prerequisites, purpose and successful outcome.",
@@ -2034,12 +2334,17 @@
         "teach"
       ],
       "example": "Write an installation guide with useful failure recovery.",
-      "contribution": "Produce task-oriented documentation whose commands and examples match the current artifact, and test the reader’s starting assumptions and recovery path."
+      "contribution": "Produce task-oriented documentation whose commands and examples match the current artifact, and test the reader’s starting assumptions and recovery path.",
+      "searchTerms": [
+        "documentation",
+        "installation docs",
+        "api docs"
+      ]
     },
     {
       "id": "developer-advocate",
       "name": "Developer advocate",
-      "family": "quality-leadership",
+      "family": "quality-devrel",
       "summary": "Create accurate developer examples and feedback grounded in real use.",
       "priorities": [
         "Choose a concrete developer task and minimal working path.",
@@ -2057,7 +2362,11 @@
         "teach"
       ],
       "example": "Prepare a runnable integration example and feedback notes.",
-      "contribution": "Build a small accurate example that demonstrates the intended developer outcome, including prerequisites and limitations without implying unverified production readiness."
+      "contribution": "Build a small accurate example that demonstrates the intended developer outcome, including prerequisites and limitations without implying unverified production readiness.",
+      "searchTerms": [
+        "devrel",
+        "developer relations"
+      ]
     },
     {
       "id": "systems-engineer",
@@ -2077,10 +2386,18 @@
       "workflows": [
         "backend-concurrency",
         "perf",
-        "test-property"
+        "debug"
       ],
       "example": "Diagnose a resource leak in a long-running service.",
-      "contribution": "Map resource ownership, lifetime and failure handling for the requested operation, then verify cleanup and bounded behavior under interruption."
+      "contribution": "Map resource ownership, lifetime and failure handling for the requested operation, then verify cleanup and bounded behavior under interruption.",
+      "searchTerms": [
+        "systems programmer",
+        "memory leak",
+        "systems programming"
+      ],
+      "methods": [
+        "systems-languages"
+      ]
     },
     {
       "id": "distributed-systems-engineer",
@@ -2103,7 +2420,13 @@
         "backend-resilience"
       ],
       "example": "Design reliable event publication across two services.",
-      "contribution": "Specify consistency, ordering and failure-detection assumptions; trace partition, retry and recovery interleavings that could violate the shared invariant."
+      "contribution": "Specify consistency, ordering and failure-detection assumptions; trace partition, retry and recovery interleavings that could violate the shared invariant.",
+      "searchTerms": [
+        "consensus",
+        "raft",
+        "paxos",
+        "network partition"
+      ]
     },
     {
       "id": "embedded-engineer",
@@ -2119,7 +2442,7 @@
         "Test boundary values, resets and peripheral failures.",
         "Validate timing and resource claims on the target or label simulator limits."
       ],
-      "boundary": "Host tests do not establish hardware timing or electrical safety.",
+      "boundary": "Host tests do not establish hardware timing or electrical safety. Do not flash, reset or power-cycle target hardware without the named device and authority.",
       "workflows": [
         "test-property",
         "backend-concurrency",
@@ -2146,10 +2469,15 @@
       "workflows": [
         "security-config",
         "test-fixtures",
-        "ops-restore"
+        "test-property"
       ],
       "example": "Review a firmware update flow for power-loss recovery.",
-      "contribution": "Map initialization, interrupt and persistent-state transitions; validate update/recovery behavior under interrupted writes before changing device state."
+      "contribution": "Map initialization, interrupt and persistent-state transitions; validate update/recovery behavior under interrupted writes before changing device state.",
+      "searchTerms": [
+        "bootloader",
+        "rtos",
+        "microcontroller"
+      ]
     },
     {
       "id": "robotics-engineer",
@@ -2188,14 +2516,18 @@
         "Test disturbances, sensor loss and actuator saturation.",
         "Compare observed response with the stated model assumptions."
       ],
-      "boundary": "A successful simulation is not proof of physical-system stability.",
+      "boundary": "A successful simulation is not proof of physical stability; this profile does not authorize actuating or tuning physical equipment without a named target, authority and safety limits.",
       "workflows": [
         "test-property",
         "decision-spike",
         "ml-robustness"
       ],
       "example": "Evaluate a controller in an isolated simulation.",
-      "contribution": "State plant/model assumptions, sampling and stability constraints, then compare the requested controller under disturbances and saturation with appropriate safety bounds."
+      "contribution": "State plant/model assumptions, sampling and stability constraints, then compare the requested controller under disturbances and saturation with appropriate safety bounds.",
+      "searchTerms": [
+        "pid",
+        "control loop"
+      ]
     },
     {
       "id": "gameplay-engineer",
@@ -2218,7 +2550,12 @@
         "perf"
       ],
       "example": "Implement an ability cooldown that survives save and reload.",
-      "contribution": "Describe the player-visible state transition and ownership of game objects; test input ordering, reset and frame-rate variation for the requested mechanic."
+      "contribution": "Describe the player-visible state transition and ownership of game objects; test input ordering, reset and frame-rate variation for the requested mechanic.",
+      "searchTerms": [
+        "game developer",
+        "unity",
+        "unreal"
+      ]
     },
     {
       "id": "game-networking-engineer",
@@ -2241,7 +2578,11 @@
         "security-inputs"
       ],
       "example": "Design reconciliation for a multiplayer movement prototype.",
-      "contribution": "Define authority, prediction and reconciliation for the mechanic; test latency, packet loss and reordered input without letting clients author server-owned state."
+      "contribution": "Define authority, prediction and reconciliation for the mechanic; test latency, packet loss and reordered input without letting clients author server-owned state.",
+      "searchTerms": [
+        "netcode",
+        "multiplayer"
+      ]
     },
     {
       "id": "graphics-engineer",
@@ -2264,7 +2605,13 @@
         "test-fixtures"
       ],
       "example": "Diagnose artifacts and frame spikes in a renderer.",
-      "contribution": "Identify the render stage and resource lifetime responsible for the visual or performance issue, and compare outputs under controlled camera/material/device conditions."
+      "contribution": "Identify the render stage and resource lifetime responsible for the visual or performance issue, and compare outputs under controlled camera/material/device conditions.",
+      "searchTerms": [
+        "shader",
+        "glsl",
+        "vulkan",
+        "opengl"
+      ]
     },
     {
       "id": "xr-engineer",
@@ -2287,7 +2634,14 @@
         "test-e2e"
       ],
       "example": "Prototype a spatial selection interface with tracking-loss recovery.",
-      "contribution": "Map interaction and rendering to tracking, comfort and latency constraints; include lost tracking and alternate input in the requested experience."
+      "contribution": "Map interaction and rendering to tracking, comfort and latency constraints; include lost tracking and alternate input in the requested experience.",
+      "searchTerms": [
+        "ar",
+        "vr",
+        "mixed reality",
+        "augmented reality",
+        "virtual reality"
+      ]
     },
     {
       "id": "compiler-engineer",
@@ -2310,7 +2664,12 @@
         "repro"
       ],
       "example": "Repair an optimization that changes program behavior.",
-      "contribution": "State the source-language invariant and affected transformation, then use valid/invalid programs and optimization boundaries to verify preserved semantics."
+      "contribution": "State the source-language invariant and affected transformation, then use valid/invalid programs and optimization boundaries to verify preserved semantics.",
+      "searchTerms": [
+        "llvm",
+        "codegen",
+        "parser"
+      ]
     },
     {
       "id": "runtime-engineer",
@@ -2328,12 +2687,15 @@
       ],
       "boundary": "Do not trade defined language behavior for a benchmark improvement.",
       "workflows": [
-        "backend-concurrency",
+        "repro",
         "perf",
         "test-property"
       ],
       "example": "Investigate long pauses in a managed runtime.",
-      "contribution": "Trace allocation, scheduling and resource lifetime through the failing path; distinguish API semantics from implementation behavior before changing runtime mechanisms."
+      "contribution": "Trace allocation, scheduling and resource lifetime through the failing path; distinguish API semantics from implementation behavior before changing runtime mechanisms.",
+      "methods": [
+        "systems-languages"
+      ]
     },
     {
       "id": "hpc-engineer",
@@ -2356,7 +2718,12 @@
         "test-property"
       ],
       "example": "Analyze scaling limits of a parallel simulation.",
-      "contribution": "Connect decomposition and communication to the measured bottleneck, preserving numerical validity while comparing scaling on the same workload."
+      "contribution": "Connect decomposition and communication to the measured bottleneck, preserving numerical validity while comparing scaling on the same workload.",
+      "searchTerms": [
+        "mpi",
+        "slurm",
+        "supercomputer"
+      ]
     },
     {
       "id": "scientific-software-engineer",
@@ -2379,7 +2746,12 @@
         "docs"
       ],
       "example": "Add verification to a numerical simulation.",
-      "contribution": "State units, numerical assumptions and reference behavior, then validate the algorithm against analytic or trusted controls before interpreting a faster result."
+      "contribution": "State units, numerical assumptions and reference behavior, then validate the algorithm against analytic or trusted controls before interpreting a faster result.",
+      "searchTerms": [
+        "research software engineer",
+        "rse",
+        "scientific computing"
+      ]
     },
     {
       "id": "bioinformatics-engineer",
@@ -2402,7 +2774,12 @@
         "ml-reproduce"
       ],
       "example": "Reconcile sample metadata in a sequencing workflow.",
-      "contribution": "Record reference assembly, coordinate conventions and sample/provenance identity; validate transformations against biological and file-format controls before interpreting results."
+      "contribution": "Record reference assembly, coordinate conventions and sample/provenance identity; validate transformations against biological and file-format controls before interpreting results.",
+      "searchTerms": [
+        "bioinformatician",
+        "genomics",
+        "sequencing"
+      ]
     },
     {
       "id": "geospatial-engineer",
@@ -2413,7 +2790,7 @@
         "Track coordinate reference systems, units and geometry validity.",
         "Account for spatial partitioning and edge effects."
       ],
-      "decision": "Transform into an appropriate coordinate system before applying distance or area operations.",
+      "decision": "Use geodesic (ellipsoidal) distance and area functions, or a projected coordinate system suited to the data extent, before measuring; never measure in raw degrees or a web display projection.",
       "verification": [
         "Check known locations, geometry boundaries and projection assumptions.",
         "Reconcile spatial joins and duplicate matches."
@@ -2425,7 +2802,12 @@
         "test-property"
       ],
       "example": "Diagnose inconsistent distances in a location service.",
-      "contribution": "Make coordinate system, units, topology and time explicit, then test projection and boundary cases that could silently change spatial meaning."
+      "contribution": "Make coordinate system, units, topology and time explicit, then test projection and boundary cases that could silently change spatial meaning.",
+      "searchTerms": [
+        "gis",
+        "crs",
+        "postgis"
+      ]
     },
     {
       "id": "blockchain-engineer",
@@ -2448,7 +2830,17 @@
         "test-property"
       ],
       "example": "Design a ledger event indexer that tolerates reorganizations.",
-      "contribution": "Trace authorization, state transitions and external calls under adversarial ordering; separate local contract tests from live-chain deployment authority."
+      "contribution": "Trace authorization, state transitions and external calls under adversarial ordering; separate local contract tests from live-chain deployment authority.",
+      "searchTerms": [
+        "smart contract",
+        "web3",
+        "ethereum",
+        "solidity",
+        "reorg"
+      ],
+      "methods": [
+        "blockchain-protocols"
+      ]
     },
     {
       "id": "protocol-engineer",
@@ -2522,7 +2914,7 @@
     {
       "id": "frontend-architect",
       "name": "Frontend architect",
-      "family": "quality-leadership",
+      "family": "application",
       "summary": "Design frontend boundaries and evolution across substantial applications.",
       "priorities": [
         "Map routing, rendering, state ownership and shared components.",
@@ -2537,7 +2929,8 @@
       "workflows": [
         "arch-boundaries",
         "react-state",
-        "ui-system"
+        "ui-system",
+        "react-hydration"
       ],
       "example": "Plan frontend boundaries for several product teams.",
       "contribution": "Place UI state, rendering and data-loading ownership across the existing application, with explicit navigation and hydration contracts and a staged adoption path."
@@ -2545,7 +2938,7 @@
     {
       "id": "ml-architect",
       "name": "ML systems architect",
-      "family": "quality-leadership",
+      "family": "ml",
       "summary": "Design the complete data-to-decision lifecycle across ML systems.",
       "priorities": [
         "Connect data availability, training, serving and feedback contracts.",
@@ -2559,27 +2952,28 @@
       "boundary": "Do not equate a model architecture choice with a complete production system design.",
       "workflows": [
         "ml-frame",
-        "ml-serving",
-        "arch-contracts"
+        "ml-rollout",
+        "arch-contracts",
+        "ml-drift"
       ],
-      "example": "Design a shared prediction platform with safe model upgrades.",
+      "example": "Design the data-to-decision lifecycle for a fraud model with delayed labels, online features and a rollback path.",
       "contribution": "Define dataset, feature, model and serving ownership across the lifecycle, including version compatibility and the evidence required before rollout."
     },
     {
       "id": "platform-architect",
       "name": "Platform architect",
-      "family": "quality-leadership",
+      "family": "platform",
       "summary": "Design shared platform capabilities and their long-term operating model.",
       "priorities": [
         "Define platform boundaries, tenant contracts and supported extension points.",
         "Plan adoption, migration and responsibility splits."
       ],
-      "decision": "Build shared capability when its reuse value exceeds the coordination and support cost.",
+      "decision": "Define tenant, extension and ownership contracts before shared implementation; a capability without an owner and an exit path is not a platform.",
       "verification": [
-        "Validate with representative workloads and upgrade paths.",
-        "Check isolation, escape hatches and recovery ownership."
+        "Validate the tenant model against the two most different consumer workloads.",
+        "Check that a tenant can extend or leave the platform without forking it."
       ],
-      "boundary": "A platform strategy should not force unnecessary migration on a local task.",
+      "boundary": "Leave application-specific problems with their owning team; propose a platform change only for a need shared across tenants.",
       "workflows": [
         "arch-tenancy",
         "arch-boundaries",
@@ -2591,7 +2985,7 @@
     {
       "id": "integration-architect",
       "name": "Integration architect",
-      "family": "quality-leadership",
+      "family": "application",
       "summary": "Design cross-system contracts and consistency boundaries.",
       "priorities": [
         "Map authoritative data, identity and delivery semantics.",
@@ -2610,6 +3004,36 @@
       ],
       "example": "Design order flow across billing, fulfillment and reporting.",
       "contribution": "Map source-of-truth ownership and contract evolution across systems, defining reconciliation and incremental cutover before selecting messaging topology."
+    },
+    {
+      "id": "open-source-maintainer",
+      "name": "Open-source maintainer",
+      "family": "quality-devrel",
+      "summary": "Steward a public repository through triage, contribution review and releases.",
+      "priorities": [
+        "Triage reports by reproducibility and user impact.",
+        "Review external contributions for scope, tests and fork CI trust."
+      ],
+      "decision": "Ask for a smaller tested change rather than merge an unreviewable contribution.",
+      "verification": [
+        "Reproduce a reported issue before classifying it as a bug.",
+        "Check that fork CI cannot reach secrets or write tokens."
+      ],
+      "boundary": "Do not label, close, merge, comment or publish without explicit authorization.",
+      "workflows": [
+        "github-triage",
+        "github-review",
+        "release"
+      ],
+      "example": "Review a first-time contributor PR that changes the public API and touches the release workflow.",
+      "contribution": "Deliver a triage or review decision with its evidence, a scoped request for changes and release notes that name breaking changes; leave labeling, merging and publishing to explicit authorization.",
+      "searchTerms": [
+        "maintainer",
+        "open source",
+        "oss",
+        "repository maintainer",
+        "external contributions"
+      ]
     }
   ]
 }

@@ -1,11 +1,11 @@
 ---
 name: security-fix
-description: "Implement and verify remediation for an identified vulnerability Use to repair a confirmed scoped vulnerability; security produces findings before remediation."
+description: "Implement and verify remediation for an identified vulnerability. Use to repair a confirmed scoped vulnerability; security produces findings before remediation."
 ---
 
 # security-fix
 
-Implement and verify remediation for an identified vulnerability
+Implement and verify remediation for an identified vulnerability.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply; confirmed vulnerability, affected versions/paths, desired compatibility, and safe reproduction.
 
-defined application boundary, authorized code/environment, relevant trust/access rules, and evidence sources. Default to defensive inspection; active tests use owned or explicitly authorized isolated targets. Minimize sensitive evidence and never print usable credentials.
+**Pack prerequisites:** Defined application boundary, authorized code/environment, relevant trust/access rules, and evidence sources. Default to defensive inspection; active tests use owned or explicitly authorized isolated targets. Minimize sensitive evidence and never print usable credentials.
 
 - **Infer from evidence:** Resolve the requested surface, source/runtime version, reachable callers and actual trust/access boundaries.
 - **Reasonable default:** Start with source analysis and bounded owned fixtures; treat scanner output as leads and preserve legitimate controls.
@@ -33,8 +33,10 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Execute
 
-1. Verify the vulnerable path, implement the control at the correct boundary, test abuse and legitimate behavior, inspect alternate paths, and document remaining operational work.
-2. Reproduce the affected path in a safe fixture, enforce the control at the owning boundary and test legitimate behavior plus alternate bypass routes.
+1. Reproduce the affected vulnerable path in a safe fixture.
+2. Enforce the control at the owning boundary.
+3. Test abuse, legitimate behavior and alternate bypass routes, and document remaining operational work.
+
 ## Technical method
 
 - **Inspect:** Resolve the established attacker path, prerequisite, original behavior, affected callers and accepted compatibility requirements.
@@ -52,15 +54,19 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 - The affected project uses FastAPI: [FastAPI](../../references/frameworks/fastapi.md).
 - The affected project uses Spring Boot: [Spring Boot](../../references/frameworks/spring-boot.md).
 - The task specifically involves bug bounty, authorized pentest, security proof; load only the matching method: [Authorized vulnerability research](../../references/methods/authorized-security-research.md).
+- The fix is a dependency upgrade, override or lockfile change: [Supply-chain remediation](../../references/security/supply-chain.md).
+- The fix changes authentication, sessions or authorization checks: [Identity, sessions and authorization](../../references/security/identity.md).
+- The fix involves upload, download or file-processing paths: [File handling](../../references/security/files.md).
 
 ## Decision branches
 
 - **When a code fix leaves historical credential exposure or persisted bad data:** Report the remaining rotation/recovery work separately from the repaired path.
+- **When the fix is a dependency upgrade:** Resolve the fixed version from the advisory, prefer a direct bump over an override, check peer and engine ranges, inspect the lockfile diff for unrelated churn, run behavior checks, and confirm the resolved version by re-running the audit. Never force-upgrade or delete the lockfile to clear a report.
+- **When the vulnerability is an exposed credential:** Follow the security-secrets containment order: confirm revocation or rotation comes first, replace the value with a secret-store reference in code and configuration, and leave history rewriting and force-push to their separate exact requests.
 
 ## Deliver and verify
 
-- Patch, safe proof of remediation, tests, and residual exposure notes.
-- Vulnerable trigger, boundary correction, abuse/legitimate checks and residual operational tasks.
+- Patch with the vulnerable trigger, boundary correction, safe proof of remediation through abuse and legitimate checks, and residual exposure and operational tasks.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -73,5 +79,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** Fix the demonstrated authorization bypass and verify legitimate owner access.
-- **edge (apply):** Fix an object-ownership bypass without preventing legitimate shared access.
-- **blocked (inspect):** Plan remediation with no safe reproduction environment; do not claim exploitation was eliminated.
+- **Edge (apply):** Fix an object-ownership bypass without preventing legitimate shared access.
+- **Blocked (inspect):** Plan remediation with no safe reproduction environment; do not claim exploitation was eliminated.

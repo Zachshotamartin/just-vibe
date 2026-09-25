@@ -1,11 +1,11 @@
 ---
 name: ml-serving
-description: "Implement online inference with validation and observable errors Use to implement model service behavior; ml-rollout plans traffic transition."
+description: "Implement online inference with validation and observable errors. Use to implement model service behavior; ml-rollout plans traffic transition."
 ---
 
 # ml-serving
 
-Implement online inference with validation and observable errors
+Implement online inference with validation and observable errors.
 
 ## Choose this workflow
 
@@ -17,13 +17,13 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply; model package, request/response contract, latency/resource constraints, and target runtime.
 
-versioned model and preprocessing artifacts, input/output schema, runtime/dependencies, operating targets, and authorized environment. Validate artifact trust before loading formats that can execute code. Packaging or writing monitoring configuration does not deploy a model or enable a hosted service.
+**Pack prerequisites:** Versioned model and preprocessing artifacts, input/output schema, runtime/dependencies, operating targets, and authorized environment. Validate artifact trust before loading formats that can execute code. Packaging or writing monitoring configuration does not deploy a model or enable a hosted service.
 
 - **Infer from evidence:** Read artifact format/trust, preprocessing schema, serving runtime, compatibility and existing rollout controls.
 - **Reasonable default:** Prepare packaging/configuration and isolated checks without treating them as a live deployment.
 - **Ask only when needed:** Resolve the target, rollback compatibility and operating limits before rollout or load generation; missing production access does not block packaging.
 
-Resolve any task-specific tools, target identity and evidence before dependent actions. No external connection is assumed.
+Declared evidence requirements: `ml.artifacts`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
@@ -33,8 +33,10 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Execute
 
-1. Validate inputs, manage model lifecycle/readiness, enforce resource/time limits, map errors, add redacted observability, and test concurrent valid/invalid requests.
-2. Define readiness for the correct artifact, input bounds, batching/concurrency and deadlines; validate shapes/types before inference and preserve version in responses/telemetry.
+1. Define readiness for the correct artifact, input bounds, batching/concurrency and deadlines.
+2. Validate shapes and types before inference, enforce resource and time limits, map errors, and preserve the model version in responses and redacted telemetry.
+3. Test concurrent valid and invalid requests.
+
 ## Technical method
 
 - **Inspect:** Resolve request schema, batching, concurrency, model lifecycle, device memory and timeout budget.
@@ -45,8 +47,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 ## Read when relevant
 
 - When a concrete decision or deliverable example would clarify this workflow: [ML deployment worked example](../../references/examples/ml-deployment.md).
-- The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method: [PyTorch autograd, device and distributed debugging](../../references/methods/pytorch-debug.md).
-- The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method: [Retrieval, ranking and recommendation evaluation](../../references/methods/recommender-systems.md).
+
 
 ## Decision branches
 
@@ -54,8 +55,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Deliver and verify
 
-- Service, configuration, operational checks, and performance evidence if measured.
-- Serving contract, lifecycle, failure handling and concurrent valid/invalid checks.
+- Service and configuration with its serving contract, lifecycle, failure handling, operational checks and performance evidence if measured.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -68,5 +68,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** Implement local inference with validation, readiness, and safe error handling.
-- **edge (apply):** Serve a model with bounded batch size and a failed startup load.
-- **blocked (inspect):** Design serving code without provisioning an endpoint or logging raw sensitive inputs.
+- **Edge (apply):** Serve a model with bounded batch size and a failed startup load.
+- **Blocked (inspect):** Design serving code without provisioning an endpoint or logging raw sensitive inputs.

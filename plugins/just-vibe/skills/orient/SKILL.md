@@ -1,11 +1,11 @@
 ---
 name: orient
-description: "Identify stack, structure, conventions, and actual working commands Use for first contact with an unfamiliar repository; use map for dependency detail and explain for one symbol."
+description: "Identify stack, structure, conventions, and the actual commands, marked verified or discovered. Use for first contact with an unfamiliar repository; use map for dependency detail and explain for one symbol."
 ---
 
 # orient
 
-Identify stack, structure, conventions, and actual working commands
+Identify stack, structure, conventions, and the actual commands, marked verified or discovered.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; repository or directory plus optional onboarding goal. Requires readable project files; runtime checks are optional.
 
-Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
+**Pack prerequisites:** Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
 - **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
 - **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
@@ -34,7 +34,8 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 ## Execute
 
 1. Run the bundled inspector with the selected project root. Read relevant ancestor and discovered project instructions, manifests, scripts, and representative entry points.
-2. Explain how the requested feature fits the actual project, list commands with their package directories, and distinguish discovered commands from checks you actually ran.
+2. When the user names a goal, explain how it fits the actual project; otherwise summarize each package's role and entry points. List commands with their package directories; run only side-effect-free checks after reading the script body, and label every other command discovered rather than verified.
+
 ## Technical method
 
 - **Inspect:** Inspect bounded manifests, entry points, scripts, workspace layout and applicable project instructions.
@@ -53,8 +54,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Project orientation with file links, likely run/check commands, conventions, and unknowns.
-- Entry-point table: path, role, caller, verification command, unresolved assumption.
+- Project orientation with file links, conventions and unknowns, plus an entry-point table (path, role, caller, verification command, unresolved assumption) that labels each command discovered or verified.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -67,5 +67,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Help me find how checkout works and which checks cover it.
-- **edge (inspect):** Orient this monorepo; the README describes an app that was removed.
-- **blocked (inspect):** Inspect this source archive without Git history or executing scripts.
+- **Edge (inspect):** Orient this monorepo; the README describes an app that was removed.
+- **Blocked (inspect):** Inspect this source archive without Git history or executing scripts.

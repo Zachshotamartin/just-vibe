@@ -30,6 +30,6 @@ Supply real code and actual scripts, not the placeholder. Protect all test/runne
 
 ## Native question prompts and cleanup
 
-For conceptual multiple-choice questions, use the existing [teach-test question workflow](teaching.md) and the host's actual question tool where available. Read its mode restrictions; never fake a native prompt inline or ask implementation-approval questions as assessment. If unavailable, explain the fallback and offer an exercise or ordinary conversational quiz according to the user's preference. Practice complements teach-test; it does not invent a new host API.
+For conceptual multiple-choice questions, use the existing [teach-test question workflow](teach-test.md) and the host's actual question tool where available. Read its mode restrictions; never fake a native prompt inline or ask implementation-approval questions as assessment. If native questions are unavailable, teach-test reports the limitation and stops; offer a practice exercise instead. A conversational review happens only when the user asks for one, and it is ordinary teaching, not a teach-test assessment. Practice complements teach-test; it does not invent a new host API.
 
 `practice cleanup NAME --stdin` takes `revision` and `expected`, mapping each existing variant ID to its complete `snapshot` object in `practice show`. Preserve the learner's work if requested, then remove only those reviewed workspaces. The same [workspace cleanup and recovery constraints](working-alternatives.md) apply. The original project remains untouched by exercise edits.

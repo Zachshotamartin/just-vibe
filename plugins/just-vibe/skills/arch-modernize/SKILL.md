@@ -1,15 +1,15 @@
 ---
 name: arch-modernize
-description: "Plan an incremental transition to a target architecture Use for staged architectural transition; refactor handles an internal structural change."
+description: "Plan an incremental transition to a target architecture. Use for staged architectural transition; refactor handles an internal structural change and migrate handles a version or platform transition."
 ---
 
 # arch-modernize
 
-Plan an incremental transition to a target architecture
+Plan an incremental transition to a target architecture.
 
 ## Choose this workflow
 
-Use for staged architectural transition; refactor handles an internal structural change.
+Use for staged architectural transition; refactor handles an internal structural change and migrate handles a version or platform transition.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Architecture methods](../../references/packs/architecture.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan; current/target architecture, constraints, business continuity needs, and migration horizon.
 
-readable source, infrastructure/configuration definitions, and any supplied system documentation. Runtime telemetry is optional evidence, never assumed available. Architecture proposals remain plans until implementation is requested.
+**Pack prerequisites:** Readable source, infrastructure/configuration definitions, and any supplied system documentation. Runtime telemetry is optional evidence, never assumed available. Architecture proposals remain plans until implementation is requested.
 
 - **Infer from evidence:** Trace current entry points, data owners, deployment units and documented constraints before proposing boundaries.
 - **Reasonable default:** Prefer extending an existing owner while scale or organizational evidence is absent; mark capacity estimates as assumptions.
@@ -33,8 +33,9 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Inventory dependencies, find separable seams, sequence compatibility layers and data movement, define parity checks, and set retirement criteria.
-2. Identify a seam with separable traffic and data ownership, define coexistence checks and retirement evidence before replacing it.
+1. Inventory dependencies and identify a seam with separable traffic and data ownership.
+2. Sequence compatibility layers and data movement, and define coexistence parity checks and retirement evidence before replacing the seam.
+
 ## Technical method
 
 - **Inspect:** Inventory active consumers, supported versions, write ownership and persisted representations.
@@ -53,8 +54,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Phased migration architecture, coexistence plan, risks, and recovery checkpoints.
-- Phase-by-phase working state, cutover conditions and irreversible boundaries.
+- Phased migration architecture with each phase's working state, the coexistence plan, cutover conditions, irreversible boundaries and recovery checkpoints.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -67,5 +67,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Plan an incremental extraction of billing while the old app keeps running.
-- **edge (plan):** Modernize a monolith while old reports still query its database.
-- **blocked (inspect):** Plan modernization without dependency ownership; list blocking unknowns by phase.
+- **Edge (plan):** Modernize a monolith while old reports still query its database.
+- **Blocked (inspect):** Plan modernization without dependency ownership; list blocking unknowns by phase.

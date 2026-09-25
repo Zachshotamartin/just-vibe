@@ -17,8 +17,6 @@ Prioritize a concrete high-impact abuse path over a generic checklist finding.
 
 Connect the product’s valuable actions and abuse cases to actual controls, prioritizing reachable impact over a generic vulnerability count.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Verify controls through representative misuse cases.

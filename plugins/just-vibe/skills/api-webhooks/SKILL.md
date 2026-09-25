@@ -1,15 +1,15 @@
 ---
 name: api-webhooks
-description: "Implement signatures, retries, replay handling, and delivery tracking Use for authenticated durable event receipt; backend-jobs handles deferred processing."
+description: "Implement signatures, retries, replay handling, and delivery tracking. Use for authenticated durable event receipt or signed outbound delivery; integrate wires the provider itself and backend-jobs handles deferred processing."
 ---
 
 # api-webhooks
 
-Implement signatures, retries, replay handling, and delivery tracking
+Implement signatures, retries, replay handling, and delivery tracking.
 
 ## Choose this workflow
 
-Use for authenticated durable event receipt; backend-jobs handles deferred processing.
+Use for authenticated durable event receipt or signed outbound delivery; integrate wires the provider itself and backend-jobs handles deferred processing.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [APIs methods](../../references/packs/api.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply; inbound/outbound direction, provider contract, signing method, events, and environment.
 
-interface definitions, producer/consumer source, authentication model, versioning constraints, and isolated test endpoints. External API calls must respect environment, credentials, rate limits, and side-effect scope.
+**Pack prerequisites:** Interface definitions, producer/consumer source, authentication model, versioning constraints, and isolated test endpoints. External API calls must respect environment, credentials, rate limits, and side-effect scope.
 
 - **Infer from evidence:** Read producer/consumer schemas, error contracts, auth conventions and known supported client versions.
 - **Reasonable default:** Keep compatible response and pagination semantics where the brief does not request a breaking change.
@@ -33,14 +33,16 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Execute
 
-1. Validate signatures against correct raw bytes, separate receipt from processing, implement durable deduplication, and test invalid, duplicate, delayed, and reordered messages.
-2. Verify signatures using provider-specified raw bytes and time rules, persist receipt identity before acknowledgment and separate deduplication from business processing.
+1. Verify signatures over the provider-specified raw bytes and time rules, comparing in constant time and accepting current and previous secrets during a bounded rotation period.
+2. Persist receipt identity before acknowledgment, and separate durable deduplication from business processing.
+3. Test invalid, duplicate, delayed and reordered messages.
+
 ## Technical method
 
 - **Inspect:** Read the provider's signature contract, raw-body handling, timestamp tolerance, event IDs and retry/order semantics.
-- **Method:** Verify authentic bytes before side effects, durably deduplicate delivery and business effects, and handle out-of-order versions deliberately.
+- **Method:** Verify authentic bytes before side effects with a constant-time comparison (for example crypto.timingSafeEqual or hmac.compare_digest), accepting current and previous secrets during a bounded rotation period; durably deduplicate delivery and business effects, and handle out-of-order versions deliberately.
 - **Avoid misdiagnosis:** Re-serialized JSON changes signed bytes; a valid signature does not prevent replay or duplicate processing.
-- **Check the result:** Test altered body, invalid/stale signature, concurrent duplicate, reversed event order and a crash before acknowledgment with synthetic fixtures.
+- **Check the result:** Test altered body, invalid/stale signature, a delivery signed with the previous secret during rotation, concurrent duplicate, reversed event order and a crash before acknowledgment with synthetic fixtures.
 
 ## Read when relevant
 
@@ -53,11 +55,11 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 ## Decision branches
 
 - **When valid events arrive out of order or concurrently:** Apply version/ordering policy and durable effect deduplication rather than assuming arrival order.
+- **When sending webhooks to customer-supplied URLs:** Validate destinations after DNS resolution (block private, loopback and link-local ranges; limit redirects), sign id.timestamp.body with a per-endpoint rotatable secret, give each event a stable ID, retry with bounded exponential backoff and jitter, record every attempt, and disable persistently failing endpoints. Test against a private-IP target and a redirecting endpoint.
 
 ## Deliver and verify
 
-- Webhook implementation, configuration names, and recovery/verification evidence.
-- Receipt/processing state machine and invalid, replayed, duplicate and reordered checks.
+- Webhook implementation and configuration names, a receipt/processing state machine, and invalid, replayed, duplicate and reordered checks.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -70,5 +72,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** Implement signed webhook validation and durable duplicate handling in the sandbox.
-- **edge (apply):** Handle two concurrent copies of a signed payment event.
-- **blocked (inspect):** Review webhook handling without live signing keys or sending real business events.
+- **Edge (apply):** Handle two concurrent copies of a signed payment event.
+- **Blocked (inspect):** Review webhook handling without live signing keys or sending real business events.

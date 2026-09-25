@@ -17,8 +17,6 @@ Choose document/entity splits when random examples would leak shared context.
 
 Map linguistic variation, tokenization and label policy to observed errors; test domain and language shifts before choosing preprocessing or architecture changes.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Evaluate by language, length and domain slices.

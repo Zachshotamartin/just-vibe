@@ -1,15 +1,15 @@
 ---
 name: security-authz
-description: "Test access decisions and cross-user or cross-tenant exposure Use for permission bypass inspection; backend-permissions implements an accepted access matrix."
+description: "Test access decisions and cross-user or cross-tenant exposure. Use for permission bypass inspection; backend-permissions implements an accepted access matrix, and security-fix repairs a confirmed bypass."
 ---
 
 # security-authz
 
-Test access decisions and cross-user or cross-tenant exposure
+Test access decisions and cross-user or cross-tenant exposure.
 
 ## Choose this workflow
 
-Use for permission bypass inspection; backend-permissions implements an accepted access matrix.
+Use for permission bypass inspection; backend-permissions implements an accepted access matrix, and security-fix repairs a confirmed bypass.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Security methods](../../references/packs/security.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; access matrix, endpoints/resources, roles/tenants, and authorized test identities.
 
-defined application boundary, authorized code/environment, relevant trust/access rules, and evidence sources. Default to defensive inspection; active tests use owned or explicitly authorized isolated targets. Minimize sensitive evidence and never print usable credentials.
+**Pack prerequisites:** Defined application boundary, authorized code/environment, relevant trust/access rules, and evidence sources. Default to defensive inspection; active tests use owned or explicitly authorized isolated targets. Minimize sensitive evidence and never print usable credentials.
 
 - **Infer from evidence:** Resolve the requested surface, source/runtime version, reachable callers and actual trust/access boundaries.
 - **Reasonable default:** Start with source analysis and bounded owned fixtures; treat scanner output as leads and preserve legitimate controls.
@@ -33,8 +33,10 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Trace checks at server/data boundaries, compare alternate endpoints and methods, design negative cases, and execute only permitted isolated probes.
-2. Test policy at server/data boundaries across direct IDs, alternate methods, exports and background tasks using synthetic identities and known allowed/denied cases.
+1. Trace policy checks at server and data boundaries.
+2. Design allowed and denied cases across direct IDs, alternate endpoints and methods, exports and background tasks, using synthetic identities.
+3. Execute only permitted isolated probes.
+
 ## Technical method
 
 - **Inspect:** Inspect identity derivation, subject/action/resource rules, tenant filters and indirect entry points.
@@ -50,6 +52,9 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 - The affected project uses FastAPI: [FastAPI](../../references/frameworks/fastapi.md).
 - The affected project uses Spring Boot: [Spring Boot](../../references/frameworks/spring-boot.md).
 - The task specifically involves bug bounty, authorized pentest, security proof; load only the matching method: [Authorized vulnerability research](../../references/methods/authorized-security-research.md).
+- Choosing which access paths to test and what evidence settles a finding: [Review selection and evidence](../../references/security/review.md).
+- Access is enforced through database row-level security, DRF querysets, Spring matchers or Next.js server actions: [Framework authorization pitfalls](../../references/security/frameworks.md).
+- Testing cross-user or cross-tenant access with synthetic identities: [Authentication and authorization scenarios](../../references/scenarios/auth.md).
 
 ## Decision branches
 
@@ -57,8 +62,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Access findings with safe reproduction and remediation/check proposals.
-- Subject/action/resource cases, enforcement paths and evidence-backed findings.
+- Subject/action/resource cases, enforcement paths, evidence-backed findings with safe reproduction, and remediation or check proposals.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -71,5 +75,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Audit direct API access to another organization's records using isolated identities.
-- **edge (inspect):** Audit an endpoint that hides buttons but accepts cross-tenant direct requests.
-- **blocked (inspect):** Review source without real accounts or retrieving private records as proof.
+- **Edge (inspect):** Audit an endpoint that hides buttons but accepts cross-tenant direct requests.
+- **Blocked (inspect):** Review source without real accounts or retrieving private records as proof.

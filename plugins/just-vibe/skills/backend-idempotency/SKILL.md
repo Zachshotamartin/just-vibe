@@ -1,15 +1,15 @@
 ---
 name: backend-idempotency
-description: "Prevent duplicate effects from retries and repeated requests Use to make repeated operations produce the intended single effect; backend-concurrency covers broader interleavings."
+description: "Prevent duplicate effects from retries and repeated requests. Use to make repeated operations produce the intended single effect; backend-concurrency covers broader interleavings, api-webhooks owns signature verification and receipt, and arch-event-flow designs delivery, ordering and dead-letter policy across producers and consumers."
 ---
 
 # backend-idempotency
 
-Prevent duplicate effects from retries and repeated requests
+Prevent duplicate effects from retries and repeated requests.
 
 ## Choose this workflow
 
-Use to make repeated operations produce the intended single effect; backend-concurrency covers broader interleavings.
+Use to make repeated operations produce the intended single effect; backend-concurrency covers broader interleavings, api-webhooks owns signature verification and receipt, and arch-event-flow designs delivery, ordering and dead-letter policy across producers and consumers.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Backend methods](../../references/packs/backend.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply; retried operation, effect boundary, request identity, and deduplication lifetime.
 
-service source, data/interface contracts, framework/runtime versions, and test environment. Default apply operations target local code and isolated tests; live infrastructure/data mutations require their own requested scope.
+**Pack prerequisites:** Service source, data/interface contracts, framework/runtime versions, and test environment. Default apply operations target local code and isolated tests; live infrastructure/data mutations require their own requested scope.
 
 - **Infer from evidence:** Trace service callers, request contracts, authorization, transactions, retries and existing test infrastructure.
 - **Reasonable default:** Use the existing persistence and framework; isolate local tests from live services.
@@ -38,6 +38,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 3. When the effect and deduplication record share a database, make their success/failure atomic using the engine-supported transaction and uniqueness mechanism. Define transaction ownership and make identical concurrent requests converge on the original stored result.
 4. For an external effect, walk the crash before send, timeout after possible success and failure before local recording. Use supported provider idempotency or durable reconciliation; a local key alone cannot prove exactly-once external execution.
 5. Test equal replay, conflicting payload, separate tenants, simultaneous claims and failure after each durable step. Assert state, stored result and hook/provider call count; verify a retry after rollback can succeed without repeating a completed effect.
+
 ## Technical method
 
 - **Inspect:** Identify key scope, normalized payload, unique storage constraint, external provider support and retention.
@@ -74,5 +75,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** Prevent duplicate payment credits from concurrent and reordered webhooks.
-- **edge (apply):** Make payment creation safe when two equal requests arrive simultaneously.
-- **blocked (inspect):** Design idempotency without provider deduplication support; identify reconciliation requirements.
+- **Edge (apply):** Make payment creation safe when two equal requests arrive simultaneously.
+- **Blocked (inspect):** Design idempotency without provider deduplication support; identify reconciliation requirements.

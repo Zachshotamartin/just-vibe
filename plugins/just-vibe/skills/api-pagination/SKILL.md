@@ -1,11 +1,11 @@
 ---
 name: api-pagination
-description: "Design stable pagination, filtering, and sorting Use for stable bounded collection traversal; db-query handles result correctness below it."
+description: "Design stable pagination, filtering, and sorting. Use for stable bounded collection traversal; db-query handles result correctness below it."
 ---
 
 # api-pagination
 
-Design stable pagination, filtering, and sorting
+Design stable pagination, filtering, and sorting.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan a pagination contract when requested; apply for requested implementation with resolved ordering, cursor scope and consistency semantics.
 
-interface definitions, producer/consumer source, authentication model, versioning constraints, and isolated test endpoints. External API calls must respect environment, credentials, rate limits, and side-effect scope.
+**Pack prerequisites:** Interface definitions, producer/consumer source, authentication model, versioning constraints, and isolated test endpoints. External API calls must respect environment, credentials, rate limits, and side-effect scope.
 
 - **Infer from evidence:** Read producer/consumer schemas, error contracts, auth conventions and known supported client versions.
 - **Reasonable default:** Keep compatible response and pagination semantics where the brief does not request a breaking change.
@@ -33,8 +33,10 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the
 
 ## Execute
 
-1. Choose deterministic ordering and tie-breakers, assess offset/cursor tradeoffs, bind cursors to filters/scope, and test inserts, deletes, ties, and end conditions.
-2. Define deterministic ordering with a unique tie-breaker, scope cursor identity to filters/tenant and specify consistency under concurrent inserts/deletes.
+1. Choose deterministic ordering with a unique tie-breaker, and assess offset against cursor traversal.
+2. Bind cursor identity to filters and tenant scope, and specify consistency under concurrent inserts and deletes.
+3. Test ties, concurrent inserts and deletes, invalid cursors and end conditions.
+
 ## Technical method
 
 - **Inspect:** Inspect ordering columns, uniqueness, null ordering, filters, tenant scope and consistency requirements.
@@ -55,8 +57,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the
 
 ## Deliver and verify
 
-- Pagination contract or implementation with concurrency-aware tests.
-- Ordering/cursor contract and tie, mutation, invalid-cursor and end-of-list checks.
+- Ordering and cursor contract or implementation, with tie, mutation, invalid-cursor and end-of-list checks.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -69,5 +70,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Plan stable cursor pagination when concurrent inserts share sort values.
-- **edge (apply):** Add cursor pagination with equal timestamps and deleted records between pages.
-- **blocked (inspect):** Design pagination without a declared consistency requirement; show the decision explicitly.
+- **Edge (apply):** Add cursor pagination with equal timestamps and deleted records between pages.
+- **Blocked (inspect):** Design pagination without a declared consistency requirement; show the decision explicitly.

@@ -2,7 +2,7 @@
 
 Read the installed Vite, framework and plugin versions, lockfile, build scripts and config sources. Do not execute imported config during read-only review; configuration may contain arbitrary code. Consult version-specific primary migration/configuration documentation when editing options.
 
-Aliases must agree between TypeScript/editor resolution and runtime/build resolution. Environment loading depends on mode; client-exposed prefixes are not a place for secrets. Inspect generated assets for exposure only when existing or when a build is authorized, and redact values in findings.
+Aliases must agree between TypeScript/editor resolution and runtime/build resolution. Environment loading depends on mode; client-exposed prefixes are not a place for secrets. Inspect generated assets for exposure from existing output or from a bounded local build written to an owned temporary directory (see [execution](../execution.md)), and redact values in findings.
 
 For HMR, follow file watcher → module graph → framework refresh → browser transport. Distinguish a full reload from preserved hot state. For assets, exercise dev and production output at root, nested and requested base paths. Public files and imported hashed assets have different path semantics.
 

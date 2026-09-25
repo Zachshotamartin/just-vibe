@@ -1,15 +1,15 @@
 ---
 name: db-explain
-description: "Interpret query plans and identify expensive operations Use to interpret an existing or authorized execution plan; db-index proposes an index from workload evidence."
+description: "Interpret query plans and identify expensive operations. Use to interpret an existing query plan or one captured in a permitted environment; db-index proposes an index from workload evidence."
 ---
 
 # db-explain
 
-Interpret query plans and identify expensive operations
+Interpret query plans and identify expensive operations.
 
 ## Choose this workflow
 
-Use to interpret an existing or authorized execution plan; db-index proposes an index from workload evidence.
+Use to interpret an existing query plan or one captured in a permitted environment; db-index proposes an index from workload evidence.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Databases methods](../../references/packs/database.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; query, engine/version, saved execution plan, and workload context.
 
-actual engine/version, schema/migrations, query workload, and explicitly identified environment. Prefer supplied plans, metadata, and isolated fixtures. Even a SELECT can lock, call mutating functions, or overload a database; inspect semantics before execution. Executing an analyzed query is distinct from reading its plan.
+**Pack prerequisites:** Actual engine/version, schema/migrations, query workload, and explicitly identified environment. Prefer supplied plans, metadata, and isolated fixtures. Even a SELECT can lock, call mutating functions, or overload a database; inspect semantics before execution. Executing an analyzed query is distinct from reading its plan.
 
 - **Infer from evidence:** Read engine/version, ORM/runner, schema and migration history from project artifacts before choosing SQL.
 - **Reasonable default:** Prepare local SQL and isolated fixtures without assuming production size, locks or recovery guarantees.
@@ -29,12 +29,13 @@ Declared evidence requirements: `database.context`. Use actual host discovery or
 
 Plan interpretation, estimates, scans, joins, sorting, and evidence-supported bottlenecks.
 
-No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
+No source changes in inspect/plan. Save only requested planning artifacts. db-query or db-index applies an accepted query or index change.
 
 ## Execute
 
-1. Read operators and row estimates, compare actuals when supplied, identify cardinality errors and costly stages, and propose discriminating measurements.
-2. Read estimated versus actual rows, loop counts, filters, joins, sorting/spilling and buffers using engine-specific meaning; locate the first large estimation divergence.
+1. Read estimated versus actual rows, loop counts, filters, joins, sorting/spilling and buffers using engine-specific meaning.
+2. Locate the first large estimation divergence and the costly stages, and propose discriminating measurements.
+
 ## Technical method
 
 - **Inspect:** Read engine/version, query bindings, plan format, row estimates, actual counts/loops and available timing.
@@ -55,8 +56,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Annotated plan, likely causes, and targeted query/index/statistics options.
-- Operator evidence, likely bottleneck, discriminating measurement and risk of running it.
+- Annotated plan with operator evidence, the likely bottleneck, targeted query/index/statistics options, and a discriminating measurement with the risk of running it.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -69,5 +69,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Interpret this saved query plan without executing EXPLAIN ANALYZE.
-- **edge (inspect):** Explain a plan whose nested loop multiplies work through a row-estimate error.
-- **blocked (inspect):** Analyze EXPLAIN output without executing EXPLAIN ANALYZE or mutating functions.
+- **Edge (inspect):** Explain a plan whose nested loop multiplies work through a row-estimate error.
+- **Blocked (inspect):** Analyze EXPLAIN output without executing EXPLAIN ANALYZE or mutating functions.

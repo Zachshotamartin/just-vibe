@@ -17,8 +17,6 @@ Narrow effective permissions after confirming the workload actions they support.
 
 Produce an identity-to-resource access path across accounts and networks; identify unintended privilege or exposure using the actual effective configuration.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Test required access and denied escalation paths.
@@ -31,7 +29,7 @@ Do not disable functioning services or rotate credentials without the requested 
 ## Candidate workflows
 
 - [security-config](../../skills/security-config/SKILL.md)
-- [db-access](../../skills/db-access/SKILL.md)
+- [security-secrets](../../skills/security-secrets/SKILL.md)
 - [ops-runbook](../../skills/ops-runbook/SKILL.md)
 
 Example: Reduce overbroad access for a deployment service account.

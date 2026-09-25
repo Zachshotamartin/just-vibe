@@ -22,11 +22,11 @@ The method below is bundled with this agent. At invocation, just-vibe's trusted 
 
 # build
 
-Implement a feature through appropriate verification
+Implement a feature through appropriate verification.
 
 ## Choose this workflow
 
-Use for a defined feature spanning existing code; specialist commands supply methods for fragile subproblems.
+Use for a defined feature spanning existing code; use plan for sequencing only, integrate when the core work connects an external service, design for a new visual direction, and orchestrate for multi-phase or delegated work. Specialist commands supply methods for fragile subproblems.
 
 Read [shared execution](../references/execution.md) for context/mode/authority handling and [General methods](../references/packs/general.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -34,7 +34,7 @@ Read [shared execution](../references/execution.md) for context/mode/authority h
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply; feature goal, constraints, and observable success criteria. Requires writable source and relevant local tooling.
 
-Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
+**Pack prerequisites:** Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
 - **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
 - **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
@@ -50,9 +50,11 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Execute
 
-1. Inspect current patterns, resolve critical ambiguity, implement coherent changes, handle error states, and run checks appropriate to the behavior changed.
-2. Trace the closest existing journey, implement the smallest complete vertical slice, and exercise failure recovery before expanding optional states.
-3. For a multi-phase feature, fix, refactor or MVP, use the relevant phase contract in the composed-workflows guide. Keep simple work direct. Delegate only when authorized, and use the reviewed worker result and acceptance flow before dependent work. Offer the plan-review canvas only when browser feedback is useful or requested.
+1. Inspect current patterns, trace the closest existing journey, and resolve critical ambiguity before editing.
+2. Implement the smallest complete vertical slice, including its error states, and exercise failure recovery before expanding optional states.
+3. Run checks appropriate to the behavior changed.
+4. For a multi-phase feature, fix, refactor or MVP, use the relevant phase contract in the composed-workflows guide. Keep simple work direct. Delegate only when authorized, and use the reviewed worker result and acceptance flow before dependent work. Offer the plan-review canvas only when browser feedback is useful or requested.
+
 ## Technical method
 
 - **Inspect:** Inspect the relevant architecture, data/interface contracts, existing conventions and acceptance criteria.
@@ -91,8 +93,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Deliver and verify
 
-- Working changes, validation evidence, and material limitations.
-- Files changed, acceptance criteria exercised, failure-path evidence and remaining integration gaps.
+- Working changes with the files changed, acceptance criteria and failure paths exercised, and remaining integration gaps or limitations.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -105,5 +106,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** Add saved filters to search; use the current API and no new dependencies.
-- **edge (apply):** Build checkout while preserving an existing discount rule and pending user edits.
-- **blocked (inspect):** Inspect what can be implemented locally when the payment sandbox is unavailable.
+- **Edge (apply):** Build checkout while preserving an existing discount rule and pending user edits.
+- **Blocked (inspect):** Inspect what can be implemented locally when the payment sandbox is unavailable.
