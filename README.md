@@ -6,7 +6,7 @@ Engineering workflows and role profiles for coding agents, with remembered prefe
 
 Describe what you want normally. With supported, trusted host hooks, just-vibe suggests relevant workflows and directs the agent to load their methods and discover the tools it needs. Explicit corrections can refine later instructions. Current requests always take precedence, and saved preferences grant no permissions.
 
-**Source version: 0.12.0**, including Agent QA, preference controls and live delivery diagnosis. The catalog has 221 skill names, 218 canonical workflows, 113 engineering profiles and 22 packs. Check [npm](https://www.npmjs.com/package/just-vibe) for published versions and the [implementation and verification plan](https://github.com/Zachshotamartin/just-vibe/blob/main/docs/agent-qa-and-learning-plan.md) for acceptance evidence. A source build is not evidence of publication.
+**Source version: 0.13.0**, with request routing, workflow contracts and profiles revised after a full review, on top of Agent QA, preference controls and live delivery diagnosis. The catalog has 221 skill names, 218 canonical workflows, 113 engineering profiles and 22 packs. Check [npm](https://www.npmjs.com/package/just-vibe) for published versions and the [implementation and verification plan](https://github.com/Zachshotamartin/just-vibe/blob/main/docs/agent-qa-and-learning-plan.md) for acceptance evidence. A source build is not evidence of publication.
 
 ## Install
 

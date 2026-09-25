@@ -63,3 +63,11 @@ Native Git pre-commit/pre-push hooks are opt-in and preserve foreign hook manage
 Claude Code setup installs two dispatcher commands and an owned skills-directory plugin named `jv`. Every selected command supports `/jv <command>`, `/just-vibe <command>`, `/jv:<command>` and `/just-vibe:<command>`. This syntax is checked on Claude Code 2.1.258 on macOS. Setup does not overwrite foreign or edited shortcut files, and uninstall retains persistent data.
 
 Codex uses its native skill picker. The just-vibe router also accepts all four forms when supplied as ordinary prompt text through supported, trusted hooks; parser support does not register new custom commands in the Codex slash menu. Other editors retain their native skill interfaces. See [verification and limits](https://github.com/Zachshotamartin/just-vibe/blob/main/docs/audits/command-shortcuts-2026-09-21.md).
+
+## v0.13 review fixes
+
+Tracked `auto` and workflow runs no longer have a default wall-clock limit; set `budget.maxMinutes` (1–1440) to cap one. Stage and attempt budgets are unchanged. A continuation after an exhausted budget is a new run whose `context.continuationOf` names the prior run and the evidence carried forward.
+
+PreToolUse hook events up to 64 MiB are evaluated and larger ones are denied; other hook events keep a 1 MiB bound. `session` and `quiz` accept `--root`, and checkpoint per-file paths use `/` on every platform. The npm archive now contains the plugin, installer, README, license, changelog, release and compatibility notes and localized pages; development, audit and evaluation records remain on GitHub.
+
+Routing, contract and profile changes were measured on a fixed corpus of 1,183 requests and the catalog's own examples. They were not evaluated with live model trials.
