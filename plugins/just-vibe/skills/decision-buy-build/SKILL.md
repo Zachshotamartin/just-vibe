@@ -23,7 +23,7 @@ the decision question, constraints, alternatives or permission to identify them,
 - **Reasonable default:** Compare feasible options qualitatively when weights were not supplied; make a reversible conditional recommendation when useful.
 - **Ask only when needed:** Ask only about a missing constraint or preference that could reverse the recommendation; do not demand a complete scoring questionnaire.
 
-Resolve any task-specific tools, target identity and evidence before dependent actions. No external connection is assumed.
+Declared evidence requirements: `project.read`, `web.research`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 

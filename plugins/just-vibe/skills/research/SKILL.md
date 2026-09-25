@@ -15,7 +15,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 ## Input and mode
 
-Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; technical question, constraints, and decision deadline. Requires local evidence and current primary sources when claims depend on versions or external facts.
+Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; technical question, constraints, and the time available, which bounds how deep the research goes. Requires local evidence and current primary sources when claims depend on versions or external facts.
 
 Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
@@ -23,7 +23,7 @@ Resolve the user brief and inspect the relevant project or supplied evidence. Ex
 - **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
 - **Ask only when needed:** Ask when competing targets or incompatible success conditions would change the result; continue independent inspection first.
 
-Resolve any task-specific tools, target identity and evidence before dependent actions. No external connection is assumed.
+Declared evidence requirements: `project.read`, `web.research`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 

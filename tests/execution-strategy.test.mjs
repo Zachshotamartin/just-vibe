@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { mkdtempSync, rmSync } from 'node:fs';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
+import { execFileSync } from 'node:child_process';
 import { loadCatalog } from '../plugins/just-vibe/scripts/lib/catalog.mjs';
 import { discoverCapabilities, recommend } from '../plugins/just-vibe/scripts/lib/discovery.mjs';
 import { executionStrategy } from '../plugins/just-vibe/scripts/lib/routing.mjs';
@@ -108,8 +109,10 @@ test('only missing or disabled capabilities make the route itself a reason to tr
 });
 
 test('an explicitly selected remote workflow is tracked unless the brief asks for preparation (B4-02)', t => {
+  // PR work happens inside a repository; outside one, github-pr is blocked and that alone suggests tracking.
   const root = mkdtempSync(join(tmpdir(), 'jv-strategy-'));
   t.after(() => rmSync(root, { recursive: true, force: true }));
+  execFileSync('git', ['init', '-q', root]);
   const found = discoverCapabilities(root);
   assert.equal(recommend(catalog, found, '/just-vibe:github-pr for my branch against main').strategy.suggested, 'tracked');
   assert.equal(recommend(catalog, found, '/just-vibe:deploy the approved preview').strategy.suggested, 'tracked');

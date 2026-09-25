@@ -356,7 +356,7 @@
       "brief": "Research an incremental migration strategy for our current database version.",
       "mode": "inspect",
       "requiredEvidence": [
-        "technical question, constraints, and decision deadline. Requires local evidence and current primary sources when claims depend on versions or external facts."
+        "technical question, constraints, and the time available, which bounds how deep the research goes. Requires local evidence and current primary sources when claims depend on versions or external facts."
       ],
       "inputPolicy": {
         "infer": "Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.",

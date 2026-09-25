@@ -23,7 +23,7 @@ Resolve the user brief and inspect the relevant project or supplied evidence. Ex
 - **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
 - **Ask only when needed:** Ask when competing targets or incompatible success conditions would change the result; continue independent inspection first.
 
-Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
+Declared evidence requirements: `project.read`, `git.repo`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 

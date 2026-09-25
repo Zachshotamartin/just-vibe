@@ -23,7 +23,7 @@ exact team/project/environment and deployment/revision when applicable; read acc
 - **Reasonable default:** Diagnose locally with existing build scripts when deployment access is missing; do not infer a production target from a preview URL.
 - **Ask only when needed:** Resolve a missing deployment/team/environment before the dependent remote operation; names and scope suffice without exposing environment values.
 
-Resolve any task-specific tools, target identity and evidence before dependent actions. No external connection is assumed.
+Declared evidence requirements: `vercel.context`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 

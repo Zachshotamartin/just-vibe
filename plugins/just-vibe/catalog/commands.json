@@ -732,9 +732,9 @@
       "aliases": [],
       "aliasOf": null,
       "defaultMode": "inspect",
-      "modePolicy": "Inspect; technical question, constraints, and decision deadline. Requires local evidence and current primary sources when claims depend on versions or external facts.",
+      "modePolicy": "Inspect; technical question, constraints, and the time available, which bounds how deep the research goes. Requires local evidence and current primary sources when claims depend on versions or external facts.",
       "requiredInputs": [
-        "technical question, constraints, and decision deadline. Requires local evidence and current primary sources when claims depend on versions or external facts."
+        "technical question, constraints, and the time available, which bounds how deep the research goes. Requires local evidence and current primary sources when claims depend on versions or external facts."
       ],
       "optionalInputs": [
         "scope",
@@ -745,7 +745,10 @@
         "mode",
         "budget"
       ],
-      "capabilities": [],
+      "capabilities": [
+        "project.read",
+        "web.research"
+      ],
       "readScope": "Resolve the question, not implement a preferred solution.",
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
       "procedure": [
@@ -4146,7 +4149,8 @@
         "budget"
       ],
       "capabilities": [
-        "project.read"
+        "project.read",
+        "git.repo"
       ],
       "readScope": "Prepare a PR title/body and diff summary; submission is handled by `github-pr` when requested.",
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
@@ -4239,7 +4243,8 @@
         "budget"
       ],
       "capabilities": [
-        "project.read"
+        "project.read",
+        "git.repo"
       ],
       "readScope": "Release notes and readiness; tagging, publication, and deployment require explicit requested actions.",
       "writeScope": "Inspect/plan: prepare notes and readiness checks; save requested artifacts only. Apply: edit only the requested changelog and version files and run relevant checks. Tagging, publishing and deployment need their own exact request; github-release handles GitHub publication.",
@@ -7232,7 +7237,10 @@
         "mode",
         "budget"
       ],
-      "capabilities": [],
+      "capabilities": [
+        "project.read",
+        "web.research"
+      ],
       "readScope": "Build, buy, and hybrid options across initial and ongoing ownership.",
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
       "procedure": [
@@ -8370,7 +8378,9 @@
         "mode",
         "budget"
       ],
-      "capabilities": [],
+      "capabilities": [
+        "github.context"
+      ],
       "readScope": "Actionable issue draft; submit only when explicitly instructed to create/post it.",
       "writeScope": "Inspect/plan: draft from available evidence without posting. Apply: create or update only the issue the user requested in the resolved repository; preserve prior submission identity and do not post duplicates after uncertain responses.",
       "procedure": [
@@ -8468,6 +8478,7 @@
         "budget"
       ],
       "capabilities": [
+        "git.repo",
         "github.context"
       ],
       "readScope": "PR preparation or explicitly requested creation/update; no merge or unsolicited reviewer messaging.",
@@ -8685,6 +8696,7 @@
       ],
       "capabilities": [
         "project.read",
+        "git.repo",
         "github.context"
       ],
       "readScope": "Implement actionable feedback locally; pushing, replying, and resolving threads follow explicit requested scope.",
@@ -8778,6 +8790,7 @@
       ],
       "capabilities": [
         "project.read",
+        "git.repo",
         "github.context"
       ],
       "readScope": "Repair the identified CI failure; no weakening checks to make them green.",
@@ -8990,7 +9003,9 @@
         "mode",
         "budget"
       ],
-      "capabilities": [],
+      "capabilities": [
+        "github.context"
+      ],
       "readScope": "GitHub release preparation; tags, asset uploads, and publication require those explicit actions.",
       "writeScope": "Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the requested changes or execute the requested operation within its resolved target and limits. Local preparation does not authorize live, remote, destructive or paid actions; existing explicit session authorization still applies.",
       "procedure": [
@@ -9388,7 +9403,9 @@
         "mode",
         "budget"
       ],
-      "capabilities": [],
+      "capabilities": [
+        "vercel.context"
+      ],
       "readScope": "Preview environment only, including authorized smoke checks.",
       "writeScope": "Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the requested changes or execute the requested operation within its resolved target and limits. Local preparation does not authorize live, remote, destructive or paid actions; existing explicit session authorization still applies.",
       "procedure": [
@@ -9763,7 +9780,9 @@
         "mode",
         "budget"
       ],
-      "capabilities": [],
+      "capabilities": [
+        "vercel.context"
+      ],
       "readScope": "Readiness and promotion/rollback preparation; actual promotion is a separate authorized action.",
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
       "procedure": [

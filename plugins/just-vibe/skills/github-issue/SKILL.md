@@ -23,7 +23,7 @@ exact owner/repository and relevant issue/PR/ref; authenticated read access thro
 - **Reasonable default:** Prepare local text or analyze supplied evidence if remote access is absent; label its freshness.
 - **Ask only when needed:** Ask only when repository/account/target ambiguity blocks the requested remote action; missing write access does not block local drafting.
 
-Resolve any task-specific tools, target identity and evidence before dependent actions. No external connection is assumed.
+Declared evidence requirements: `github.context`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
