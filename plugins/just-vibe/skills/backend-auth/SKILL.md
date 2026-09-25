@@ -78,5 +78,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Audit session refresh, logout, and expired-token behavior.
-- **edge (inspect):** Repair refresh behavior across concurrent browser tabs and expired sessions.
+- **edge (apply):** Repair refresh behavior across concurrent browser tabs and expired sessions.
 - **blocked (inspect):** Review auth configuration without credentials or live login attempts.

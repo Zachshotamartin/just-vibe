@@ -70,4 +70,4 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 - **Normal (apply):** Build a typed API client with bounded retries and useful errors.
 - **edge (apply):** Build a client for paginated responses and retry-after throttling.
-- **blocked (inspect):** Implement against supplied contracts without paid or mutating live requests.
+- **blocked (apply):** Implement against supplied contracts without paid or mutating live requests.

@@ -1,6 +1,6 @@
 ---
 name: db-explain
-description: "Interpret query plans and identify expensive operations Use to interpret an existing or authorized execution plan; db-index proposes an index from workload evidence."
+description: "Interpret query plans and identify expensive operations Use to interpret an existing query plan or one captured in a permitted environment; db-index proposes an index from workload evidence."
 ---
 
 # db-explain
@@ -9,7 +9,7 @@ Interpret query plans and identify expensive operations
 
 ## Choose this workflow
 
-Use to interpret an existing or authorized execution plan; db-index proposes an index from workload evidence.
+Use to interpret an existing query plan or one captured in a permitted environment; db-index proposes an index from workload evidence.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Databases methods](../../references/packs/database.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 

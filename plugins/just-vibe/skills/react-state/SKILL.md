@@ -69,5 +69,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Plan simplifying duplicated filter state without adding a state library.
-- **edge (plan):** Refactor a multi-tab editor without sharing unsaved drafts across documents.
+- **edge (apply):** Refactor a multi-tab editor without sharing unsaved drafts across documents.
 - **blocked (inspect):** Review state design when persistence requirements are unspecified.

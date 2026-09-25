@@ -55,6 +55,28 @@ test('malformed catalog content is rejected with the record and field named', ()
   ]) assert.throws(run, message, name);
 });
 
+// Mode, write scope, examples and default text must describe the same authority (A4-03, A5-01,
+// A6-05, A10-03, A2-12, A7-09, B5-03, B5-04).
+const contractCase = (id, mutate) => () => {
+  const commands = read('commands.json'), packs = read('packs.json');
+  mutate(commands.commands.find(c => c.id === id), packs);
+  validateCatalog(effective(commands, packs), packs);
+};
+test('contracts that promise writes without an apply mode are rejected', () => {
+  for (const [name, run, message] of [
+    ['inspect-only readScope promises a fix', contractCase('debug', c => { c.readScope += '; apply for an explicit fix.'; }), /Command debug: readScope promises a write/],
+    ['inspect-only output promises a patch', contractCase('review', c => { c.outputs[0] += ' Optional authorized patch.'; }), /Command review: outputs\[0\] promises a write/],
+    ['apply example on an inspect-only workflow', contractCase('debug', c => { c.examples[1].mode = 'apply'; }), /Command debug: examples\[1\]\.mode is apply/],
+    ['apply-capable workflow keeps the no-changes scope', contractCase('vite-chunks', c => { c.writeScope = 'No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.'; }), /Command vite-chunks: writeScope forbids all source changes/],
+    ['undefined execution authorization', contractCase('coverage', c => { c.stopConditions[0] = 'Running new coverage jobs requires execution authorization.'; }), /undefined "execution authorization"/],
+    ['mode clause in required inputs', contractCase('ci', c => { c.requiredInputs[0] = 'apply for requested fixes. Requires workflow files.'; }), /Command ci: requiredInputs\[0\] must list inputs/],
+    ['pack default edits for an inspect-only workflow', contractCase('vite-config', (c, packs) => {
+      c.modePolicy = 'Inspect; configuration files.'; c.writeScope = 'No source changes in inspect/plan.';
+      packs.packs.find(p => p.id === 'vite').inputPolicy.assume = 'Make a local focused change when the brief identifies the behavior.';
+    }), /Command vite-config: inputPolicy\.assume tells a workflow without apply mode/],
+  ]) assert.throws(run, message, name);
+});
+
 test('shipped catalogs satisfy the closed schemas', () => {
   assert.equal(loadCatalog().commands.length, 221);
   assert.equal(loadProfiles().profiles.length, 112);

@@ -10,6 +10,6 @@ Illustrative scenario, not a report of executed checks. Adapt its reasoning only
 
 **Useful artifact:** A diagnosis linked to the relevant config and, if repair is requested, the smallest compatible config change.
 
-**Verification to perform:** Run the matching local build when permitted, then distinguish that result from a deployed preview verification.
+**Verification to perform:** Run the matching local build as bounded local execution (see [execution](../execution.md)), then distinguish that result from a deployed preview verification.
 
 **Misleading case:** A passing local build does not establish that a later deployment used the same commit or environment.

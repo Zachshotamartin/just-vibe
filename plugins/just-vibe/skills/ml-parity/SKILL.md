@@ -15,7 +15,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 ## Input and mode
 
-Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; training and serving pipelines/artifacts plus representative versioned inputs.
+Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; training and serving pipelines/artifacts plus representative versioned inputs. Apply for a requested preprocessing fix or parity regression fixtures.
 
 versioned model and preprocessing artifacts, input/output schema, runtime/dependencies, operating targets, and authorized environment. Validate artifact trust before loading formats that can execute code. Packaging or writing monitoring configuration does not deploy a model or enable a hosted service.
 
@@ -29,11 +29,11 @@ Declared evidence requirements: `ml.artifacts`. Use actual host discovery or ade
 
 Preprocessing, feature order, types, defaults, model version, and numerical parity.
 
-No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
+Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the requested local implementation and perform relevant bounded checks while preserving unrelated work. Live data changes, remote actions and paid jobs require their resolved target and existing session authorization.
 
 ## Execute
 
-1. Align raw inputs and versions, compare each transformation boundary, localize first divergence, evaluate declared tolerances, and propose or apply requested fixes.
+1. Align raw inputs and versions, compare each transformation boundary, localize first divergence, evaluate declared tolerances, and propose fixes, applying a requested one in apply mode.
 2. Feed identical raw rows through each pipeline and compare schema, feature names/order, transformations and model outputs at each boundary.
 ## Technical method
 

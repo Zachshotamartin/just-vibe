@@ -15,7 +15,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 ## Input and mode
 
-Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan; mixed changes or commits and desired grouping. Applying a split requires explicit execution scope.
+Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan; mixed changes or commits and desired grouping. Applying a split uses apply mode and creates new commits only on the current unpublished branch.
 
 Git, exact repository/worktree, and readable refs/index. Record branch, HEAD, staged/unstaged/untracked state before mutation. Preserve unrelated edits and never default to broad staging, hard reset, clean, force push, or history rewriting.
 
@@ -29,11 +29,11 @@ Declared evidence requirements: `git.repo`. Use actual host discovery or adequat
 
 Separate coherent changes while preserving content; rewriting published history is a distinct action.
 
-No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
+Inspect/plan: propose the grouping; save requested artifacts only. Apply: create the new commits only on the current, unpublished branch after preserving the original patch and index. Rewriting pushed or shared history, force-pushing and other remote actions require their exact action and target in session authorization.
 
 ## Execute
 
-1. Snapshot current state, map hunks to behaviors, identify dependencies, propose commit ordering, and apply authorized grouping with verification.
+1. Snapshot current state, map hunks to behaviors, identify dependencies, propose commit ordering, and in apply mode create the grouped commits with verification.
 2. Map hunks to behavior and dependencies, preserve the original patch/index, and validate each proposed intermediate tree in isolation when feasible.
 3. All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
 ## Technical method
@@ -69,5 +69,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Plan separate formatting and checkout-fix commits without changing shared history.
-- **edge (plan):** Split a refactor and fix that overlap in one function.
+- **edge (apply):** Split a refactor and fix that overlap in one function.
 - **blocked (inspect):** Propose a split without permission to rewrite shared history.

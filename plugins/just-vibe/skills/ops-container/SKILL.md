@@ -15,7 +15,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 ## Input and mode
 
-Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; Dockerfile/image/runtime configuration, logs, and failing build/start behavior.
+Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; Dockerfile/image/runtime configuration, logs, and failing build/start behavior. Apply for a requested focused fix.
 
 exact service/environment, time window, revision/configuration identity, authorized logs/metrics, and operational constraints. Prefer observation before intervention; live restarts, traffic changes, restores, and notifications require the requested target/action. Redact sensitive telemetry.
 
@@ -29,11 +29,11 @@ Declared evidence requirements: `container.context`. Use actual host discovery o
 
 Container build context, dependencies, permissions, entrypoint, networking, resources, and health checks.
 
-No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
+Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the requested local implementation and perform relevant bounded checks while preserving unrelated work. Live data changes, remote actions and paid jobs require their resolved target and existing session authorization.
 
 ## Execute
 
-1. Compare build/runtime stages and host assumptions, inspect image metadata/logs, reproduce in isolation when authorized, and propose or apply a focused fix.
+1. Compare build/runtime stages and host assumptions, inspect image metadata/logs, reproduce in an isolated build after evaluating its execution effects, and propose a focused fix, applying it in apply mode.
 2. Compare build context, multi-stage copy paths, runtime user, working directory, ports and volume permissions with logs from the intended image digest.
 ## Technical method
 

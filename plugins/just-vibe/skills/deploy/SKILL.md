@@ -68,5 +68,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Prepare a staging deployment plan; identify the exact revision and rollback.
-- **edge (plan):** Deploy a preview whose build succeeds but startup health fails.
+- **edge (apply):** Deploy a preview whose build succeeds but startup health fails.
 - **blocked (inspect):** Plan deployment without provider access; do not claim a URL or deployed revision.

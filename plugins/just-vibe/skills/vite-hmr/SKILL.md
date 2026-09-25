@@ -15,12 +15,12 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 ## Input and mode
 
-Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; affected file/component, development environment, and HMR logs or reproduction.
+Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; affected file/component, development environment, and HMR logs or reproduction. Apply for a requested fix.
 
 project manifests, lockfile, Vite/framework/plugin versions, and existing build scripts. Verify current version-specific documentation when changing configuration. Requested isolated verification may generate disposable build/cache artifacts; inspect their scripts first and preserve product files.
 
 - **Infer from evidence:** Read manifests, lockfile, installed Vite/plugins, entry points, aliases, modes and current build scripts.
-- **Reasonable default:** Preserve existing tooling and base-path conventions; make a local focused change when the brief identifies the behavior.
+- **Reasonable default:** Preserve existing tooling and base-path conventions; in apply mode, make a local focused change when the brief identifies the behavior, and otherwise propose it.
 - **Ask only when needed:** Ask if the intended serving subpath or deployment target cannot be inferred and would change generated URLs; do not ask for versions present in the lockfile.
 
 Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
@@ -29,7 +29,7 @@ Declared evidence requirements: `project.read`. Use actual host discovery or ade
 
 Watcher events, module invalidation, framework refresh, and proxy/network transport.
 
-No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
+Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the requested local implementation and perform relevant bounded checks while preserving unrelated work. Live data changes, remote actions and paid jobs require their resolved target and existing session authorization.
 
 ## Execute
 
@@ -40,7 +40,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 - **Inspect:** Observe filesystem watcher, module invalidation, websocket transport and framework refresh boundary.
 - **Method:** Identify the first missing event and repair that layer; inspect proxy and container paths before changing host restrictions.
 - **Avoid misdiagnosis:** Full page reload and preserved hot state are different outcomes; disabling host checks is not a generic websocket repair.
-- **Check the result:** Edit a leaf and a shared dependency, verify the expected refresh behavior, and check reconnection after an ordinary dev restart.
+- **Check the result:** In apply mode or an owned copy, edit a leaf and a shared dependency, verify the expected refresh behavior, and check reconnection after an ordinary dev restart.
 
 ## Read when relevant
 
@@ -53,7 +53,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Diagnosis and focused fix proposal; apply and validate when requested.
+- Diagnosis and focused fix proposal; in apply mode, apply and validate the fix.
 - Reproduction steps, failing HMR boundary and update/state-preservation checks.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
@@ -62,7 +62,7 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 ## Stop and recover
 
-- Running a dev server requires execution authorization. Do not disable host protections or broadly relax filesystem access as a default fix.
+- Running the project's dev server is bounded local execution. Do not disable host protections or broadly relax filesystem access as a default fix.
 
 ## Example requests
 

@@ -15,7 +15,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 ## Input and mode
 
-Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; slow interaction, component scope, and profiler traces. Explicit profiling/fix requests authorize bounded execution/apply.
+Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; slow interaction, component scope, and profiler traces. Apply for an explicit fix request; profiling a local build is bounded local execution.
 
 component source, React/framework versions, state/data conventions, and relevant test tooling. Browser/profiler evidence is needed for measured rendering claims. Preserve existing framework and state libraries unless changing them is part of the request.
 

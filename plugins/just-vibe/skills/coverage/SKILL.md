@@ -29,7 +29,7 @@ Declared evidence requirements: `project.read`. Use actual host discovery or ade
 
 Important missing behavioral coverage; no automatic test generation or percentage chasing.
 
-No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
+No source changes in inspect/plan. Save only requested planning artifacts. A requested audit may demonstrate an escaping defect only in an owned temporary copy or fixture; never edit or reset the reviewed tree. The test workflow implements the selected cases.
 
 ## Execute
 
@@ -40,7 +40,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 - **Inspect:** Map requirements and failure modes to existing tests and observed execution.
 - **Method:** Prioritize unprotected invariants and boundary cases over raw line percentage.
 - **Avoid misdiagnosis:** Executed lines do not establish meaningful assertions; mocks can leave the real boundary untested.
-- **Check the result:** Demonstrate an important plausible defect that escapes current checks and specify the smallest test that would catch it.
+- **Check the result:** Show by source trace, or by a temporary mutation in an owned copy, an important plausible defect that escapes current checks, and specify the smallest test that would catch it.
 
 ## Read when relevant
 
@@ -62,7 +62,7 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 ## Stop and recover
 
-- Distinguish measured coverage from inferred coverage. Running new coverage jobs requires execution authorization.
+- Distinguish measured coverage from inferred coverage. Running the existing suite with coverage is bounded local execution; installing coverage tools or adding CI jobs is a separate implementation request.
 
 ## Example requests
 

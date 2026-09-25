@@ -15,7 +15,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 ## Input and mode
 
-Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; project, environment/branch scopes, and required variable names.
+Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; project, environment/branch scopes, and required variable names. Adding, changing or removing a requested variable uses apply mode.
 
 exact team/project/environment and deployment/revision when applicable; read access to relevant configuration/logs. Verify installed CLI/API support and framework behavior during implementation. Never print environment values or infer promotion authorization from a preview request.
 
@@ -29,7 +29,7 @@ Declared evidence requirements: `vercel.context`. Use actual host discovery or a
 
 Presence, scope, and source of configuration names; values remain secret.
 
-No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
+Inspect/plan: report names, scopes and gaps without reading or printing secret values; save requested artifacts only. Apply: add, update or remove only the requested variable in the resolved project and environment scope through a secure input channel, never echoing its value. Redeploying to pick up the change is a separate requested action.
 
 ## Execute
 

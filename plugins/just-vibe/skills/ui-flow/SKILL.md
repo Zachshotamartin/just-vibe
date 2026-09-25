@@ -33,7 +33,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Walk the journey, map decisions and state transitions, identify dead ends/friction, propose improvements, and implement only when requested.
+1. Walk the journey, map decisions and state transitions, identify dead ends/friction, and propose improvements; ui-states or design implements accepted changes.
 2. Trace entry, progress, validation, abandonment, retry and return paths; track which user input and permissions survive each transition.
 ## Technical method
 
@@ -70,5 +70,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Plan improving account recovery, including expired links and back navigation.
-- **edge (plan):** Improve onboarding interrupted by session expiry midway through a form.
+- **edge (plan):** Plan recovery for onboarding interrupted by session expiry midway through a form.
 - **blocked (inspect):** Assess a flow from mockups without claiming observed conversion improvements.

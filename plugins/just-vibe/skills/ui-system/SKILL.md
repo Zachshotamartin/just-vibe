@@ -1,6 +1,6 @@
 ---
 name: ui-system
-description: "Establish typography, spacing, colors, tokens, and component conventions Use to establish or refine shared design tokens/components; polish makes local refinements."
+description: "Establish typography, spacing, colors, tokens, and component conventions Use to establish or refine shared design tokens/components; polish makes local refinements and build implements an accepted adoption."
 ---
 
 # ui-system
@@ -9,7 +9,7 @@ Establish typography, spacing, colors, tokens, and component conventions
 
 ## Choose this workflow
 
-Use to establish or refine shared design tokens/components; polish makes local refinements.
+Use to establish or refine shared design tokens/components; polish makes local refinements and build implements an accepted adoption.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [UI and frontend methods](../../references/packs/ui.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -27,7 +27,7 @@ Declared evidence requirements: `project.read`. Use actual host discovery or ade
 
 ## Scope
 
-Tokens and component conventions; implementation requires an explicit build/adoption request.
+Tokens and component conventions; implementing an adoption is a separate build or polish request.
 
 No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
@@ -56,7 +56,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Typography/spacing/color/state system and migration mapping or authorized implementation.
+- Typography/spacing/color/state system and a migration mapping for adoption.
 - Token roles/scales, component state matrix and migration examples.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:

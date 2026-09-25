@@ -62,7 +62,7 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 ## Stop and recover
 
-- New load/profiling requires authorized execution and budget. No automatic paid plan upgrade or unrelated application rewrite.
+- Load generation belongs to test-load, and new remote profiling needs a resolved target and budget. No automatic paid plan upgrade or unrelated application rewrite.
 
 ## Example requests
 

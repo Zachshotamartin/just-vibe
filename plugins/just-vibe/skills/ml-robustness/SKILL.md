@@ -15,7 +15,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 ## Input and mode
 
-Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan; model, plausible perturbations, operating bounds, metrics, and evaluation budget.
+Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan; model, plausible perturbations, operating bounds, metrics, and evaluation budget. Apply for requested perturbation test code or bounded runs within that budget.
 
 frozen model/artifact, evaluation dataset identity, labels where needed, metric definitions, and task/operating context. Report sample counts and uncertainty appropriate to dependencies; avoid repeated test-set tuning. Exploratory findings need fresh confirmation before strong generalization claims.
 
@@ -29,11 +29,11 @@ Resolve any task-specific tools, target identity and evidence before dependent a
 
 Missing inputs, noise, boundary cases, and realistic distribution changes.
 
-No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
+Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the requested changes or execute the requested operation within its resolved target and limits. Local preparation does not authorize live, remote, destructive or paid actions; existing explicit session authorization still applies.
 
 ## Execute
 
-1. Define validity-preserving perturbations, protect labels from invalid transformations, run bounded authorized tests, compare baseline sensitivity, and identify failure envelopes.
+1. Define validity-preserving perturbations, protect labels from invalid transformations, run bounded tests in apply mode, compare baseline sensitivity, and identify failure envelopes.
 2. Define which changes should preserve labels and expected behavior, cap the sweep and compare both failure rate and input validity against a baseline.
 ## Technical method
 
@@ -68,5 +68,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Plan plausible missing-input and noise tests with fixed labels and bounded compute.
-- **edge (plan):** Test missing optional fields while rejecting transformations that change the outcome.
+- **edge (apply):** Test missing optional fields while rejecting transformations that change the outcome.
 - **blocked (inspect):** Design robustness tests without running a large synthetic inference sweep.

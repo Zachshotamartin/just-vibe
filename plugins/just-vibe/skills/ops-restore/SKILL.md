@@ -15,7 +15,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 ## Input and mode
 
-Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan; backup identity, source system, isolated destination, recovery objectives, and encryption/access prerequisites.
+Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan; backup identity, source system, isolated destination, recovery objectives, and encryption/access prerequisites. A requested rehearsal uses apply mode and writes only to the named isolated destination.
 
 exact service/environment, time window, revision/configuration identity, authorized logs/metrics, and operational constraints. Prefer observation before intervention; live restarts, traffic changes, restores, and notifications require the requested target/action. Redact sensitive telemetry.
 
@@ -23,18 +23,18 @@ exact service/environment, time window, revision/configuration identity, authori
 - **Reasonable default:** Start from supplied logs and read-only observation; rank hypotheses without presenting an unexecuted intervention as recovery.
 - **Ask only when needed:** Resolve the precise target and missing authority before restart, restore, notification or traffic changes; continue evidence analysis while waiting.
 
-Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
+Declared evidence requirements: `project.read`, `database.context`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
 Validate restoration and readiness; production replacement requires exact explicit authorization.
 
-No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
+Inspect/plan: plan the restore; save requested artifacts only. Apply: restore only into the named isolated destination and run integrity and application checks against it; never overwrite the source system or a shared database. Production replacement requires its exact explicit authorization.
 
 ## Execute
 
-1. Verify backup provenance/completeness, plan target isolation, execute authorized restore, check schema/counts/integrity and application behavior, and record recovery duration/data loss window.
-2. Verify backup identity, completeness, keys and destination isolation, then reconcile schema, counts, integrity and application behavior after authorized restoration.
+1. Verify backup provenance/completeness, plan target isolation, restore into the isolated destination in apply mode, check schema/counts/integrity and application behavior, and record recovery duration/data loss window.
+2. Verify backup identity, completeness, keys and destination isolation, then reconcile schema, counts, integrity and application behavior after restoration.
 ## Technical method
 
 - **Inspect:** Resolve backup identity, encryption access, retention, destination isolation and recovery objectives.
@@ -67,5 +67,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Plan restoring the specified backup into an isolated target, not production.
-- **edge (plan):** Rehearse restore into an isolated database with missing recent transactions.
+- **edge (apply):** Rehearse restore into an isolated database with missing recent transactions.
 - **blocked (inspect):** Plan restore with missing decryption keys or an ambiguous destination; do not execute.

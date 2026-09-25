@@ -67,5 +67,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Plan upgrading the job library while old workers remain active.
-- **edge (plan):** Migrate a library while older workers continue reading stored jobs.
+- **edge (apply):** Apply the job-format migration while v1 workers still read stored jobs; define a restart point.
 - **blocked (inspect):** Plan a migration with missing legacy fixtures; identify the compatibility evidence still needed.

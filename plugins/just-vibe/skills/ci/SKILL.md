@@ -40,7 +40,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the
 - **Inspect:** Inspect run identity, first causal failure, matrix, caches, tool versions and event permissions.
 - **Method:** Reproduce the failing boundary and preserve unrelated coverage; route GitHub-specific trust issues to its Actions guide.
 - **Avoid misdiagnosis:** Disabling tests or broadening secrets access can make CI green while weakening correctness or security.
-- **Check the result:** Run the relevant local check and verify a matching remote run when available, distinguishing infrastructure blockers from code defects.
+- **Check the result:** Run the relevant local check as bounded local execution and verify a matching remote run when available, distinguishing infrastructure blockers from code defects; use existing logs when no local run is possible.
 
 ## Read when relevant
 
@@ -67,5 +67,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Diagnose the failed matrix job from these logs without rerunning it.
-- **edge (inspect):** Diagnose one failing matrix job without disabling the other jobs.
+- **edge (apply):** Fix the failing Node 24 matrix job without disabling the other jobs.
 - **blocked (inspect):** Inspect supplied CI logs without runner access or triggering a rerun.

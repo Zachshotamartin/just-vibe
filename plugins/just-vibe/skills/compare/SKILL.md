@@ -15,7 +15,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 ## Input and mode
 
-Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; named approaches, project requirements, and important tradeoffs. Requires enough evidence to evaluate each option.
+Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; named approaches, project requirements, and important tradeoffs. Requires enough evidence to evaluate each option. A request to build or try alternatives uses apply mode.
 
 Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
@@ -29,7 +29,7 @@ Resolve any task-specific tools, target identity and evidence before dependent a
 
 Compare concrete alternatives; weighted decision policy belongs to `decision-matrix`.
 
-No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
+Inspect/plan: compare from evidence; save requested artifacts only. Apply (a request to build or try alternatives): write only in owned lab worktrees under .just-vibe/workspaces, run owned preview processes, and apply the chosen variant through lab select with an undo record only after the user selects it. No commit, push or deploy.
 
 ## Execute
 
@@ -76,3 +76,4 @@ Verify these observable conditions when applicable to the actual task; do not cl
 - **Normal (inspect):** Compare queue-backed jobs with our existing database job runner.
 - **edge (inspect):** Compare two queues when ordering is required only within an account.
 - **blocked (inspect):** Compare these proposals without usage or pricing data; leave costs bounded or unknown.
+- **Additional (apply):** Build two alternative account switchers, preview both and apply the one I choose.

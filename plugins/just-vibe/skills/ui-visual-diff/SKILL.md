@@ -27,7 +27,7 @@ Declared evidence requirements: `browser.inspect`. Use actual host discovery or 
 
 ## Scope
 
-Visual differences and regression classification; automatic fixes belong to `match` or an explicit apply request.
+Visual differences and regression classification; match applies visual fixes.
 
 No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
 
@@ -65,7 +65,7 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 ## Stop and recover
 
-- New captures require authorized browser execution. Unmatched conditions invalidate precise pixel-difference claims.
+- Capturing a local build is bounded local execution; capturing a shared or remote target needs that target in scope. Unmatched conditions invalidate precise pixel-difference claims.
 
 ## Example requests
 

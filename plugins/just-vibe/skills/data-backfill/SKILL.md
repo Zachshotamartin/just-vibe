@@ -68,5 +68,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Plan a resumable one-year backfill with explicit batch and load limits.
-- **edge (plan):** Resume a backfill while the live pipeline updates the same historical records.
+- **edge (plan):** Plan resuming a backfill while the live pipeline updates the same historical records.
 - **blocked (inspect):** Plan a backfill without production scan permission or known source volume.

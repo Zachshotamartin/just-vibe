@@ -15,7 +15,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 ## Input and mode
 
-Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; a topic, command name, implementation question, or current project context, plus optional experience level, language, depth and time available. Teaching never executes the target workflow.
+Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; a topic, command name, implementation question, or current project context, plus optional experience level, language, depth and time available. Teaching never executes the target workflow. Preparing a requested hands-on exercise is a separately scoped apply run when tracked.
 
 Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 

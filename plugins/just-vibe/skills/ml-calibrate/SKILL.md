@@ -15,7 +15,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 ## Input and mode
 
-Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; predicted probabilities, labels, sampling/prevalence context, and intended use.
+Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; predicted probabilities, labels, sampling/prevalence context, and intended use. Apply to fit a calibrator on a permitted split when requested.
 
 frozen model/artifact, evaluation dataset identity, labels where needed, metric definitions, and task/operating context. Report sample counts and uncertainty appropriate to dependencies; avoid repeated test-set tuning. Exploratory findings need fresh confirmation before strong generalization claims.
 
@@ -27,13 +27,13 @@ Declared evidence requirements: `ml.artifacts`. Use actual host discovery or ade
 
 ## Scope
 
-Probability reliability assessment; fitting calibration requires a separate held-out calibration protocol and explicit apply request.
+Probability reliability assessment; fitting a calibrator uses a separate held-out calibration protocol in apply mode.
 
-No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
+Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the requested changes or execute the requested operation within its resolved target and limits. Local preparation does not authorize live, remote, destructive or paid actions; existing explicit session authorization still applies.
 
 ## Execute
 
-1. Validate probability semantics, inspect reliability by range/cohort, use appropriate scoring measures, and compare any authorized calibrator on untouched evaluation data.
+1. Validate probability semantics, inspect reliability by range/cohort, use appropriate scoring measures, and compare any fitted calibrator on untouched evaluation data.
 2. Check probability semantics, reliability and proper scoring measures; fit any calibrator on permitted data separate from final evaluation and compare by cohort.
 ## Technical method
 
@@ -68,5 +68,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Assess probability calibration from the supplied held-out scores and outcomes.
-- **edge (inspect):** Calibrate a model trained on oversampled positives.
+- **edge (apply):** Calibrate a model trained on oversampled positives.
 - **blocked (inspect):** Review probability outputs with too few outcomes to fit a reliable calibrator.

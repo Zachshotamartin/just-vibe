@@ -15,12 +15,12 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 ## Input and mode
 
-Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; failing run logs/configuration, batches, model, and training symptom.
+Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; failing run logs/configuration, batches, model, and training symptom. Apply for requested bounded probes or a minimal corrective change.
 
 dataset/split manifests, fixed objective/metric, environment/dependencies, baseline where applicable, and explicit compute limits. Record code revision, configuration, seeds, artifact paths, and resource use. Local smoke checks do not imply authorization for paid training. Never optimize on the held-out test set.
 
 - **Infer from evidence:** Read framework, training entry point, loss/metric, split manifests and checkpoint conventions from supplied source.
-- **Reasonable default:** Implement requested code and tiny isolated smoke checks with existing tools; leave unmeasured model quality explicit.
+- **Reasonable default:** In apply mode, implement requested code and tiny isolated smoke checks with existing tools, and otherwise propose them; leave unmeasured model quality explicit.
 - **Ask only when needed:** Ask for unresolved objective/data semantics before encoding them, and environment/resource limits before launching training or a search; implementation alone does not need a hardware purchase decision.
 
 Declared evidence requirements: `ml.artifacts`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
@@ -29,11 +29,11 @@ Declared evidence requirements: `ml.artifacts`. Use actual host discovery or ade
 
 Numerical instability, shape/device issues, data/target mismatch, gradients, and failure to learn.
 
-No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
+Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the requested changes or execute the requested operation within its resolved target and limits. Local preparation does not authorize live, remote, destructive or paid actions; existing explicit session authorization still applies.
 
 ## Execute
 
-1. Check inputs/loss/optimizer state, compare expected scales, isolate a small batch, propose or run authorized overfit/gradient probes, and test the leading cause.
+1. Check inputs/loss/optimizer state, compare expected scales, isolate a small batch, propose overfit/gradient probes, running them in apply mode,, and test the leading cause.
 2. Inspect one batch's shapes, labels, scale, loss and gradients, locate the first non-finite value and compare optimizer updates with the intended objective.
 ## Technical method
 
@@ -55,7 +55,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Diagnosis, minimal corrective change when requested, and controlled evidence.
+- Diagnosis, controlled evidence and, in apply mode, a minimal corrective change.
 - First divergent tensor/step, hypothesis evidence and bounded corrective probe.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:

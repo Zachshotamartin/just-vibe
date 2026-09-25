@@ -15,7 +15,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 ## Input and mode
 
-Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; race symptom, shared resources, transaction semantics, and concurrency evidence.
+Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect for diagnosis; apply for an explicit fix to the violated invariant. Requires race symptom, shared resources, transaction semantics, and concurrency evidence.
 
 service source, data/interface contracts, framework/runtime versions, and test environment. Default apply operations target local code and isolated tests; live infrastructure/data mutations require their own requested scope.
 
@@ -27,9 +27,9 @@ Declared evidence requirements: `project.read`. Use actual host discovery or ade
 
 ## Scope
 
-Competing updates, locks, isolation, and atomicity; apply for an explicit fix.
+Competing updates, locks, isolation, and atomicity.
 
-No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
+Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the requested local implementation and perform relevant bounded checks while preserving unrelated work. Live data changes, remote actions and paid jobs require their resolved target and existing session authorization.
 
 ## Execute
 
@@ -75,5 +75,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Investigate two concurrent reservations exceeding inventory capacity.
-- **edge (inspect):** Prevent two concurrent reservations from selling the final available seat twice.
+- **edge (apply):** Prevent two concurrent reservations from selling the final available seat twice.
 - **blocked (inspect):** Review concurrency logic without performing live contention experiments.

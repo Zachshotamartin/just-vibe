@@ -15,12 +15,12 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 ## Input and mode
 
-Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; saved build stats/artifacts and size/performance goal; generating a build selects authorized execution.
+Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect for analysis; apply for a requested size change. Requires saved build stats/artifacts and a size/performance goal; a comparison build is bounded local execution with output in an owned temporary directory.
 
 project manifests, lockfile, Vite/framework/plugin versions, and existing build scripts. Verify current version-specific documentation when changing configuration. Requested isolated verification may generate disposable build/cache artifacts; inspect their scripts first and preserve product files.
 
 - **Infer from evidence:** Read manifests, lockfile, installed Vite/plugins, entry points, aliases, modes and current build scripts.
-- **Reasonable default:** Preserve existing tooling and base-path conventions; make a local focused change when the brief identifies the behavior.
+- **Reasonable default:** Preserve existing tooling and base-path conventions; in apply mode, make a local focused change when the brief identifies the behavior, and otherwise propose it.
 - **Ask only when needed:** Ask if the intended serving subpath or deployment target cannot be inferred and would change generated URLs; do not ask for versions present in the lockfile.
 
 Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
@@ -29,7 +29,7 @@ Declared evidence requirements: `project.read`. Use actual host discovery or ade
 
 Bundle composition and measured reductions, not arbitrary dependency removal.
 
-No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
+Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the requested local implementation and perform relevant bounded checks while preserving unrelated work. Live data changes, remote actions and paid jobs require their resolved target and existing session authorization.
 
 ## Execute
 
@@ -55,7 +55,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Size breakdown, cause, changes if authorized, and comparable before/after results.
+- Size breakdown, cause, changes made in apply mode, and comparable before/after results.
 - Import path, size metric, loaded route and before/after build conditions.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
@@ -69,5 +69,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Analyze the supplied production bundle statistics and prioritize size reductions.
-- **edge (inspect):** Reduce initial bytes without breaking a lazily loaded editor.
+- **edge (apply):** Reduce initial bytes without breaking a lazily loaded editor.
 - **blocked (inspect):** Review available bundle stats without installing an analyzer or inventing timing gains.

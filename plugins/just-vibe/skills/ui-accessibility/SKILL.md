@@ -71,5 +71,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Audit modal focus, keyboard dismissal, and error announcement behavior.
-- **edge (inspect):** Fix modal focus return and server validation announcements without relying on color.
+- **edge (apply):** Fix modal focus return and server validation announcements without relying on color.
 - **blocked (inspect):** Audit semantics without a screen reader; explicitly leave screen-reader behavior unverified.

@@ -15,7 +15,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 ## Input and mode
 
-Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; URL/path, expected response, project, and deployment configuration.
+Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; URL/path, expected response, project, and deployment configuration. Apply for a requested routing configuration fix.
 
 exact team/project/environment and deployment/revision when applicable; read access to relevant configuration/logs. Verify installed CLI/API support and framework behavior during implementation. Never print environment values or infer promotion authorization from a preview request.
 
@@ -29,7 +29,7 @@ Declared evidence requirements: `vercel.context`. Use actual host discovery or a
 
 Redirects, rewrites, headers, domains, and framework routing interactions.
 
-No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
+Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the requested local implementation and perform relevant bounded checks while preserving unrelated work. Live data changes, remote actions and paid jobs require their resolved target and existing session authorization.
 
 ## Execute
 
@@ -53,7 +53,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Route trace, cause, and proposed configuration patch; apply on an explicit fix request.
+- Route trace, cause, and proposed configuration patch; apply mode makes a requested fix.
 - Route matrix, observed status/location/content type and responsible rule.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
@@ -67,5 +67,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Explain why nested API routes receive the SPA page instead of JSON.
-- **edge (inspect):** Fix preview deep links without swallowing API requests.
+- **edge (apply):** Fix preview deep links without swallowing API requests.
 - **blocked (inspect):** Inspect routing configuration without DNS access or live request evidence.

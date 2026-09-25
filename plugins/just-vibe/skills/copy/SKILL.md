@@ -66,6 +66,6 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 ## Example requests
 
-- **Normal (apply):** Make payment failure messages actionable and preserve the user's entered data.
-- **edge (apply):** Improve payment errors while preserving a user's entered form values.
+- **Normal (apply):** Make payment failure messages actionable without changing refund-policy wording.
+- **edge (apply):** Shorten the checkout button labels so the German and French translations fit without truncation.
 - **blocked (inspect):** Suggest copy with unknown refund policy; do not invent eligibility promises.

@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { commandName } from './invocation.mjs';
 import { fail, identifier, line, lines, oneOf, record } from './catalog-schema.mjs';
 import { normalize } from './search.mjs';
+import { validateContracts } from './catalog-contracts.mjs';
 
 export const pluginRoot = fileURLToPath(new URL('../../', import.meta.url));
 export const MODES = ['inspect', 'plan', 'apply'];
@@ -116,6 +117,7 @@ export function validateCatalog(catalog, packs) {
       || Object.values(c.technical).some(value => typeof value !== 'string' || !value.trim())) throw new Error(`Invalid technical method: ${c.id}`);
     validateInputPolicy(c.inputPolicy, c.id);
     validateCommandShape(c);
+    if (!c.aliasOf) validateContracts(c);
     if (c.validation.structural !== 'automated' || !['fixtures-tested', 'not-applicable'].includes(c.validation.runtime)
         || !['not-evaluated', 'passed-fixtures', 'partial-fixtures'].includes(c.validation.behavioral)) throw new Error(`Invalid validation dimensions: ${c.id}`);
     if (c.validation.behavioral !== 'not-evaluated' && !c.validation.record?.trim()) throw new Error(`Behavioral results require an evidence record: ${c.id}`);

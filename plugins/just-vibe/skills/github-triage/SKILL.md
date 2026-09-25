@@ -15,7 +15,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 ## Input and mode
 
-Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; repository, issue set, triage criteria, and time range.
+Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; repository, issue set, triage criteria, and time range. Requested labels, assignments or closures use apply mode.
 
 exact owner/repository and relevant issue/PR/ref; authenticated read access through an available connector or CLI for remote evidence. External writes require the requested operation, appropriate account permissions, and rechecking target state. Local preparation remains useful without write access.
 
@@ -29,7 +29,7 @@ Declared evidence requirements: `github.context`. Use actual host discovery or a
 
 Classification, duplicate candidates, reproducibility, and priority recommendations; no unsolicited labels or comments.
 
-No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
+Inspect/plan: triage without changing issues; save requested artifacts only. Apply: make only the requested label, assignment, milestone, comment or closure changes on the listed issues in the resolved repository; never delete or transfer issues.
 
 ## Execute
 

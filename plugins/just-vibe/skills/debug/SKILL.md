@@ -15,7 +15,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 ## Input and mode
 
-Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; failure evidence, environment, and expected behavior. Running a reproduction that writes requires apply mode or explicit execution authorization.
+Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; failure evidence, environment, and expected behavior. Local reproduction follows the bounded local execution rule; a reproduction that writes tracked files is a separately scoped apply run.
 
 Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 

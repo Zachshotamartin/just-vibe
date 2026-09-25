@@ -33,7 +33,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Inspect grants and execution identities, trace connection-role behavior, evaluate policies including writes, and design or run authorized isolated access checks.
+1. Inspect grants and execution identities, trace connection-role behavior, evaluate policies including writes, and design isolated access checks; run read-only probes against an isolated target in scope, and leave write-policy probes to a separately scoped apply run.
 2. Trace the actual runtime role and ownership/bypass privileges; inspect read and write predicates with positive and cross-tenant negative cases.
 ## Technical method
 

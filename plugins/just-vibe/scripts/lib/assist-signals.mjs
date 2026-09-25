@@ -60,5 +60,3 @@ const REPAIR_OBJECT = String.raw`(?:it|that|them|those|these|this|all(?:\s+of\s+
 const REPAIR = new RegExp(String.raw`^(?:(?:please|now|ok(?:ay)?|yes|great|thanks|go\s+ahead\s+and|then|so|and)[,\s]+)*(?:fix|repair|patch|remediate|address|resolve|implement)\s+${REPAIR_OBJECT}(?:\s+(?:too|as\s+well|now|please|for\s+me))?[.!\s]*$`, 'i');
 export const repairFollowUp = text => REPAIR.test(text.trim());
 
-// A workflow can carry out a repair when it applies by default or its mode policy allows apply.
-export const canApply = command => command.defaultMode === 'apply' || /\bapply\b/i.test(command.modePolicy || '');

@@ -73,7 +73,7 @@
       "prerequisites": "project manifests, lockfile, Vite/framework/plugin versions, and existing build scripts. Verify current version-specific documentation when changing configuration. Requested isolated verification may generate disposable build/cache artifacts; inspect their scripts first and preserve product files.",
       "inputPolicy": {
         "infer": "Read manifests, lockfile, installed Vite/plugins, entry points, aliases, modes and current build scripts.",
-        "assume": "Preserve existing tooling and base-path conventions; make a local focused change when the brief identifies the behavior.",
+        "assume": "Preserve existing tooling and base-path conventions; in apply mode, make a local focused change when the brief identifies the behavior, and otherwise propose it.",
         "ask": "Ask if the intended serving subpath or deployment target cannot be inferred and would change generated URLs; do not ask for versions present in the lockfile."
       },
       "workedExample": "references/examples/vite.md"
@@ -161,7 +161,7 @@
       "prerequisites": "dataset/split manifests, fixed objective/metric, environment/dependencies, baseline where applicable, and explicit compute limits. Record code revision, configuration, seeds, artifact paths, and resource use. Local smoke checks do not imply authorization for paid training. Never optimize on the held-out test set.",
       "inputPolicy": {
         "infer": "Read framework, training entry point, loss/metric, split manifests and checkpoint conventions from supplied source.",
-        "assume": "Implement requested code and tiny isolated smoke checks with existing tools; leave unmeasured model quality explicit.",
+        "assume": "In apply mode, implement requested code and tiny isolated smoke checks with existing tools, and otherwise propose them; leave unmeasured model quality explicit.",
         "ask": "Ask for unresolved objective/data semantics before encoding them, and environment/resource limits before launching training or a search; implementation alone does not need a hardware purchase decision."
       },
       "workedExample": "references/examples/ml-experiments.md"
@@ -195,7 +195,7 @@
       "inputPolicy": {
         "infer": "Read current prompt/tool schemas, retrieval boundaries, installed SDK/provider config and permitted examples without reading secret values.",
         "assume": "Use mocked calls for local contract tests when remote access is absent; do not infer model quality from mocks.",
-        "ask": "Ask for budget and permitted data/provider before a paid or external run if not already set; local prompt/tool implementation can proceed."
+        "ask": "Ask for budget and permitted data/provider before a paid or external run if not already set; local prompt/tool implementation can proceed in apply mode."
       },
       "workedExample": "references/examples/llm.md"
     },

@@ -15,7 +15,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 ## Input and mode
 
-Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan; exact authorized endpoint/environment, workload, concurrency/rate/duration caps, and stop thresholds.
+Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan by default; apply to write the load script and run a bounded workload against the exact authorized target within the stated caps and stop thresholds. Requires exact authorized endpoint/environment, workload, concurrency/rate/duration caps, and stop thresholds.
 
 defined behavior, existing test conventions/runners, isolated fixtures, and relevant dependencies. Requested bounded verification may use owned isolated fixtures without authorizing product edits or live-system tests. Never test destructive behavior against production by default; distinguish mocked behavior from real integration evidence.
 
@@ -29,7 +29,7 @@ Declared evidence requirements: `project.read`. Use actual host discovery or ade
 
 Controlled load/capacity experiment; execution needs explicit target and resource authorization.
 
-No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
+Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the requested changes or execute the requested operation within its resolved target and limits. Local preparation does not authorize live, remote, destructive or paid actions; existing explicit session authorization still applies.
 
 ## Execute
 
@@ -74,3 +74,4 @@ Verify these observable conditions when applicable to the actual task; do not cl
 - **Normal (plan):** Plan load tests for the specified staging endpoint with duration and error stop limits.
 - **edge (plan):** Plan a ramp test that must stop before shared database pressure exceeds a threshold.
 - **blocked (inspect):** Prepare a load-test plan with no authorized endpoint; do not generate traffic.
+- **Additional (apply):** Run the approved staging load test on the search endpoint at up to 100 requests per second for five minutes, stopping above 1 percent errors.

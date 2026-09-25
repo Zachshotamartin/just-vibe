@@ -15,7 +15,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 ## Input and mode
 
-Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; lost commit/file symptom, approximate event, and repository.
+Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; lost commit/file symptom, approximate event, and repository. Restoring uses apply mode and writes only a new preservation ref.
 
 Git, exact repository/worktree, and readable refs/index. Record branch, HEAD, staged/unstaged/untracked state before mutation. Preserve unrelated edits and never default to broad staging, hard reset, clean, force push, or history rewriting.
 
@@ -29,11 +29,11 @@ Declared evidence requirements: `git.repo`. Use actual host discovery or adequat
 
 Find recoverable history and prepare non-destructive restoration; no reset by default.
 
-No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.
+Inspect/plan: locate candidates and describe restoration steps without writing. Apply: create only a new preservation ref (branch or tag) for the chosen content, or a copy of a recovered file outside tracked paths; never move the active branch, reset, rewrite history or run garbage collection.
 
 ## Execute
 
-1. Inspect reflog, refs, stashes, and reachable candidates; compare candidate contents; explain confidence; create a recovery branch/copy only when restoration is requested.
+1. Inspect reflog, refs, stashes, and reachable candidates; compare candidate contents; explain confidence; in apply mode, create a recovery ref or copy only when restoration is requested.
 2. Inspect reflog/stash/reachable candidates, compare file contents and preserve the chosen commit with a new ref before any active-branch movement.
 3. All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
 ## Technical method
@@ -69,5 +69,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Find a lost commit in reflog without resetting the current branch.
-- **edge (inspect):** Recover a dropped commit without moving the current branch.
+- **edge (apply):** Recover a dropped commit without moving the current branch.
 - **blocked (inspect):** Inspect recovery options after missing reflog history; do not promise restoration.

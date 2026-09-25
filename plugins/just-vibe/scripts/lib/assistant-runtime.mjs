@@ -11,7 +11,8 @@ import { lessons, learnedRoutes, recordFeedback, changeLesson, effectiveWorkflow
 import { workflowCapabilities, workflowRequirements, CAPABILITY_GUIDANCE } from './capability-guidance.mjs';
 import { digest, fingerprint, compareSnapshot, within, privateName } from './storage.mjs';
 import { redact } from './process.mjs';
-import { engineeringRequest, discoveryQuestion, continuation, repairFollowUp, canApply } from './assist-signals.mjs';
+import { engineeringRequest, discoveryQuestion, continuation, repairFollowUp } from './assist-signals.mjs';
+import { canApply } from './catalog-contracts.mjs';
 
 const now = () => new Date().toISOString();
 const feedbackCue = /\b(?:remember|always|never|next time|from now on|you should|you forgot|you missed|stop using|don't use|do not use|prefer|keep doing|that worked|that approach|too much|too many)\b/i;
