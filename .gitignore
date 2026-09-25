@@ -1,6 +1,7 @@
-# Local planning and naming research
+# Local planning, naming research and review notes
 /PLAN.md
 /NAMING.md
+/REVIEW.md
 
 # Dependencies, builds, and test output
 node_modules/

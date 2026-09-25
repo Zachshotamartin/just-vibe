@@ -13,6 +13,7 @@
 - Close local dashboard and review servers even with unfinished uploads, keep downloaded backups within the import byte limit, and preserve new canvas feedback entered while an earlier submission is pending.
 - Preserve coding-task context for repeat requests, detach skipped prompts from earlier task evidence, and retain interrupted approval journals until recovery finishes. Enforce lesson capacity across concurrent creation, feedback and approval processes.
 - Keep preference mutations exclusive across dashboard refreshes, ignore obsolete canvas polls, and reject QA text matches supplied only by invisible or zero-size descendants, including slotted text.
+- Remove the default sixty-minute limit from tracked `auto` and workflow runs. `budget.maxMinutes` is `null` (no wall-clock limit) unless the user sets 1–1440 minutes; stage and attempt budgets are unchanged, and capped runs still expire and cannot be reset by resume.
 
 - Add request-derived Agent QA with bounded browser assertions, screenshots, stale-evidence checks and retained failure/retest history.
 - Add local preference editing, preview, disable and restoration controls with provenance and revision checks.

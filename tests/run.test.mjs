@@ -4,7 +4,7 @@ import { mkdtempSync, mkdirSync, symlinkSync, rmSync, realpathSync } from 'node:
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { loadCatalog } from '../plugins/just-vibe/scripts/lib/catalog.mjs';
-import { createRun, startStage, recordStage, finishRun, resumeRun, insideProject, supersedeStage, amendStage } from '../plugins/just-vibe/scripts/lib/run.mjs';
+import { createRun, startStage, recordStage, finishRun, resumeRun, insideProject, supersedeStage, amendStage, validateRun } from '../plugins/just-vibe/scripts/lib/run.mjs';
 
 const catalog = loadCatalog();
 const capabilities = { 'project.read': { status: 'available', reason: 'Read fixture.' } };
@@ -90,6 +90,31 @@ test('stage/time budgets stop execution and cannot be reset by resume', t => {
   const expired = createRun(catalog, 'auto', { root, brief: 'Task', budget: { maxMinutes: 1 } }, Date.now() - 120000);
   assert.throws(() => start(expired), /time budget/);
   assert.throws(() => resumeRun(expired, { root, summary: 'Observed state.', evidence: ['file'] }), /Budget expired/);
+});
+
+test('runs have no wall-clock limit unless one is requested', t => {
+  const root = fixture(t), created = Date.now() - 3 * 24 * 60 * 60000;
+  for (const budget of [undefined, {}, { maxMinutes: null }, { maxStages: 4, maxMinutes: null }]) {
+    const r = createRun(catalog, 'auto', { root, brief: 'Long task', budget }, created);
+    assert.equal(r.budget.maxMinutes, null);
+    assert.equal(validateRun(r), r);
+    const started = start(r);
+    assert.equal(started.stages[0].status, 'running');
+    const blocked = finishRun(recordStage(started, outcome('fix-stage', 'blocked')), { status: 'blocked', summary: 'Waited on review.' });
+    assert.equal(resumeRun(blocked, { root, summary: 'Review arrived.', evidence: ['file'] }).status, 'ready');
+  }
+  const capped = createRun(catalog, 'auto', { root, brief: 'Capped', budget: { maxMinutes: 60 } }, Date.now() - 61 * 60000);
+  assert.equal(capped.budget.maxMinutes, 60);
+  assert.throws(() => start(capped), /time budget/);
+});
+
+test('invalid time budgets are rejected with the allowed range', t => {
+  const root = fixture(t);
+  for (const maxMinutes of [0, -5, 1.5, '60', 1441, false]) {
+    assert.throws(() => createRun(catalog, 'auto', { root, brief: 'Task', budget: { maxMinutes } }), /maxMinutes must be null \(no time limit\) or an integer from 1 to 1440/);
+  }
+  const r = createRun(catalog, 'auto', { root, brief: 'Task' });
+  assert.throws(() => validateRun({ ...r, budget: { maxStages: 8, maxAttempts: 3 } }), /maxMinutes must be null/);
 });
 
 test('failed, missing and unverified evidence cannot pass a stage', t => {

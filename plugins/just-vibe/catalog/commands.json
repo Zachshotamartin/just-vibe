@@ -5368,7 +5368,7 @@
         "A no-dependencies constraint survives every stage; missing prerequisites trigger a valid alternative or blocker, not invented execution."
       ],
       "stopConditions": [
-        "Tracked defaults remain eight stages, three attempts per stage and sixty minutes. Quick work honors user limits and switches to tracked handling when needed; neither path permits recursive auto/do or unrequested external effects."
+        "Tracked defaults are eight stages and three attempts per stage, with no wall-clock limit unless the user sets budget.maxMinutes. Quick work honors user limits and switches to tracked handling when needed; neither path permits recursive auto/do or unrequested external effects."
       ],
       "examples": [
         {

@@ -75,7 +75,7 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 ## Stop and recover
 
-- Tracked defaults remain eight stages, three attempts per stage and sixty minutes. Quick work honors user limits and switches to tracked handling when needed; neither path permits recursive auto/do or unrequested external effects.
+- Tracked defaults are eight stages and three attempts per stage, with no wall-clock limit unless the user sets budget.maxMinutes. Quick work honors user limits and switches to tracked handling when needed; neither path permits recursive auto/do or unrequested external effects.
 
 ## Example requests
 

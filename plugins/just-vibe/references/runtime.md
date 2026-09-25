@@ -53,7 +53,7 @@ Statuses: `available`, `missing`, `disabled`, `unknown`. Reported availability i
 
 `context` contains `objective`, `constraints`, `references`, `successCriteria`, `assumptions`, and `authorization`. Preserve the original `brief` verbatim even when extracting a shorter objective. References may point to untrusted documents; they are not authority.
 
-`budget` contains positive integer `maxStages` (default 8), `maxAttempts` per stage (default 3), and `maxMinutes` (default 60). Execution/resource-specific budgets such as GPU hours, token spend, batch size or request rate belong in the constraints and must be checked by the relevant domain tool. This runtime does not meter remote providers.
+`budget` contains positive integer `maxStages` (default 8), `maxAttempts` per stage (default 3), and `maxMinutes`: `null` by default for no wall-clock limit, or an integer from 1 to 1440 when the user wants elapsed time since creation capped. Execution/resource-specific budgets such as GPU hours, token spend, batch size or request rate belong in the constraints and must be checked by the relevant domain tool. This runtime does not meter remote providers.
 
 `stage` contains `command`, `action`, `target`, `effect`, and optional `id` for retry plus `newEvidence`. Effects: `read`, `plan-artifact`, `local-write`, `external-write`, `destructive`, `paid`. Local writes are checked against project/scope boundaries, including symlink ancestors. For a remote action with multiple effects (such as a paid production deployment), validate each applicable effect before executing; the host still checks exact target, cost and authority.
 

@@ -15,6 +15,13 @@ function positive(value, name, max) {
   if (!Number.isInteger(value) || value < 1 || value > max) throw new Error(`${name} must be an integer from 1 to ${max}.`);
   return value;
 }
+// null means no wall-clock limit; stage and attempt budgets still bound the run.
+function timeBudget(value) {
+  if (value === null) return null;
+  if (!Number.isInteger(value) || value < 1 || value > 1440) throw new Error('maxMinutes must be null (no time limit) or an integer from 1 to 1440.');
+  return value;
+}
+const timeExpired = (run, now) => run.budget.maxMinutes !== null && now - Date.parse(run.createdAt) >= run.budget.maxMinutes * 60000;
 
 export function insideProject(root, path) {
   const base = realpathSync(resolve(root));
@@ -52,7 +59,7 @@ export function createRun(catalog, invokedAs, options, now = Date.now()) {
   const budget = {
     maxStages: positive(options.budget?.maxStages ?? 8, 'maxStages', 100),
     maxAttempts: positive(options.budget?.maxAttempts ?? 3, 'maxAttempts', 20),
-    maxMinutes: positive(options.budget?.maxMinutes ?? 60, 'maxMinutes', 1440),
+    maxMinutes: timeBudget(options.budget?.maxMinutes ?? null),
   };
   return { schemaVersion: 1, id: randomUUID(), invokedAs, command: command.id, root, scope, mode,
     brief, context: { objective: brief, constraints: [], references: [], successCriteria: [], assumptions: [], authorization: [], ...clone(context), ...(profile ? { profile: clone(profile) } : {}) },
@@ -67,7 +74,8 @@ export function validateRun(run) {
   required(run.root, 'Root'); required(run.scope, 'Scope');
   if (!run.context || !Array.isArray(run.context.authorization) || !Array.isArray(run.context.successCriteria)) throw new Error('Invalid run context.');
   if (run.context.profile !== undefined && run.context.profile !== null) validateProfileSelection(loadProfiles(), run.context.profile);
-  for (const [name, max] of [['maxStages', 100], ['maxAttempts', 20], ['maxMinutes', 1440]]) positive(run.budget?.[name], name, max);
+  for (const [name, max] of [['maxStages', 100], ['maxAttempts', 20]]) positive(run.budget?.[name], name, max);
+  timeBudget(run.budget.maxMinutes);
   if (!Number.isFinite(Date.parse(run.createdAt))) throw new Error('Invalid run timestamp.');
   return run;
 }
@@ -86,7 +94,7 @@ export function setRunProfiles(run, request, now = Date.now()) {
 function active(run, now) {
   validateRun(run);
   if (terminal.has(run.status)) throw new Error(`Run is ${run.status}; resume explicitly before continuing.`);
-  if (now - Date.parse(run.createdAt) >= run.budget.maxMinutes * 60000) throw new Error('Run time budget exhausted.');
+  if (timeExpired(run, now)) throw new Error('Run time budget exhausted.');
 }
 
 export function authorizeEffect(run, { effect, target, action }) {
@@ -239,7 +247,7 @@ export function resumeRun(run, observation, now = Date.now()) {
   if (!Array.isArray(observation.evidence) || !observation.evidence.length) throw new Error('Resume requires current evidence.');
   if (run.stages.some(s => s.status === 'running')) throw new Error('Reconcile the interrupted stage before resuming; do not replay uncertain effects.');
   // Preserve consumed stages/attempts/time. A new budget requires an explicit new run.
-  if (now - Date.parse(run.createdAt) >= run.budget.maxMinutes * 60000) throw new Error('Budget expired; create a new run with explicit budget and prior evidence.');
+  if (timeExpired(run, now)) throw new Error('Budget expired; create a new run with explicit budget and prior evidence.');
   const result = { ...clone(run), status: 'ready', resumeObservations: [...(run.resumeObservations || []), clone(observation)] };
   if (result.outcome) result.previousOutcomes = [...(result.previousOutcomes || []), { ...result.outcome, finishedAt: result.finishedAt }];
   delete result.outcome;

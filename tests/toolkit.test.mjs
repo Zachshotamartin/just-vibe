@@ -156,6 +156,17 @@ test('CLI context preserves multiline text and shell metacharacters literally', 
   assert.deepEqual(errors, []);
 });
 
+test('session create defaults to no time limit and keeps a requested cap', async t => {
+  const root = fixture(t);
+  for (const [budget, expected] of [[undefined, null], [{ maxMinutes: null }, null], [{ maxMinutes: 90 }, 90]]) {
+    const logs = [], errors = [];
+    const payload = JSON.stringify({ command: 'auto', brief: 'Long task', root, ...(budget ? { budget } : {}) });
+    assert.equal(await main(['session', 'create'], { input: async () => payload, log: value => logs.push(value), error: value => errors.push(value) }), 0);
+    assert.equal(JSON.parse(logs[0]).budget.maxMinutes, expected);
+    assert.deepEqual(errors, []);
+  }
+});
+
 test('CLI rejects conflicting sources, unknown flags and inapplicable controls', () => {
   for (const args of [
     ['tools', '--mode', 'apply'], ['workflow', 'fix', '--stdin', '--brief-file', 'x'],
