@@ -48,6 +48,7 @@ None by default. Save lesson notes or example files only when explicitly request
 ## Read when relevant
 
 - When a concrete decision or deliverable example would clarify this workflow: [General worked example](../../references/examples/general.md).
+- Every topic or workflow-implementation lesson: [Teaching method](../../references/teaching.md).
 - The learner requests hands-on practice using repository code: [Project exercises](../../references/practice.md).
 
 ## Decision branches

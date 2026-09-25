@@ -33,9 +33,10 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Execute
 
-1. Treat the supplied handoff as historical context. Verify the actual project, branch, changed files and remote state; reconcile already-performed external actions before replaying anything.
-2. For a structured run, use session resume with current-state evidence; reconcile interrupted running stages first. Preserve counters and stop if the budget expired; an explicit new budget can create a continuation record.
-3. Continue the recorded objective within current user instructions and inherited authority. Update the handoff only when persistence is requested.
+1. List saved continuations (project list for checkpoints, vault list for handoffs, goal list for goals, workbench list for task records) and choose the one matching the request; ask only when several match.
+2. Treat saved text as historical context. For a named checkpoint run project resume NAME; reconcile each reported difference, re-verify each completed item that touches a changed file, and reconcile recorded external operations before replaying anything. For a saved goal use goal resume, for an orchestration orchestrate show or resume, and for a handoff vault read.
+3. For a structured run, pass the run saved with the checkpoint to session resume with current-state evidence; reconcile interrupted running stages first. Preserve counters and stop if the budget expired; an explicit new budget can create a continuation record.
+4. Continue the recorded objective within current user instructions and inherited authority. Update the handoff only when persistence is requested.
 ## Technical method
 
 - **Inspect:** Read the saved objective, constraints, identities, pending work and current repository/environment.
@@ -46,7 +47,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 ## Read when relevant
 
 - When a concrete decision or deliverable example would clarify this workflow: [General worked example](../../references/examples/general.md).
-- Saving requested preferences, decisions or a named continuation: [Project continuity](../../references/daily-workflows.md).
+- Saving or resuming a named checkpoint: [Project continuity](../../references/daily-workflows.md).
 - The task needs scoped memory search, a persistent goal, independent review, configuration scanning, worker control, learned-pattern review or editor installation: [Native memory, goals, specialists and runtime controls](../../references/runtime-platform.md).
 - The request needs proactive context warnings, detected checks, native editor events, GitHub epic coordination or configuration audit reports: [Context health, check presets, editor events and shared work](../../references/runtime-depth.md).
 - The task specifically involves side question, aside, remember context, compaction summary; load only the matching method: [Side questions and durable context](../../references/methods/session-aside.md).

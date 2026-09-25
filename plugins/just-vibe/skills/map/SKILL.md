@@ -35,6 +35,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 1. Identify nodes and imports, trace representative relationships, separate declared from observed dependencies, and select a readable level of detail.
 2. Identify public entry points and dependency direction; collapse generated/vendor code and distinguish imports, calls and data sharing.
+3. For a first pass run atlas map --root PROJECT --stdin with {paths}; treat its edges as lexical candidates, resolve specifiers, verify representative and cycle edges in source, and report partial coverage.
 ## Technical method
 
 - **Inspect:** Inspect imports, composition roots, schemas, network clients and deployment metadata.
@@ -45,7 +46,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 ## Read when relevant
 
 - When a concrete decision or deliverable example would clarify this workflow: [General worked example](../../references/examples/general.md).
-
+- Using atlas map for a bounded import inventory: [Extended capabilities and optional method library](../../references/runtime-expansion.md).
 
 ## Decision branches
 

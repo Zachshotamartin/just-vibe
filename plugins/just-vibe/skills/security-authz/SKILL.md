@@ -50,6 +50,9 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 - The affected project uses FastAPI: [FastAPI](../../references/frameworks/fastapi.md).
 - The affected project uses Spring Boot: [Spring Boot](../../references/frameworks/spring-boot.md).
 - The task specifically involves bug bounty, authorized pentest, security proof; load only the matching method: [Authorized vulnerability research](../../references/methods/authorized-security-research.md).
+- Choosing which access paths to test and what evidence settles a finding: [Review selection and evidence](../../references/security/review.md).
+- Access is enforced through database row-level security, DRF querysets, Spring matchers or Next.js server actions: [Framework authorization pitfalls](../../references/security/frameworks.md).
+- Testing cross-user or cross-tenant access with synthetic identities: [Authentication and authorization scenarios](../../references/scenarios/auth.md).
 
 ## Decision branches
 

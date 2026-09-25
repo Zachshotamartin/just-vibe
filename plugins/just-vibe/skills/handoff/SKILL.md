@@ -47,12 +47,13 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 - When a concrete decision or deliverable example would clarify this workflow: [General worked example](../../references/examples/general.md).
 - Saving requested preferences, decisions or a named continuation: [Project continuity](../../references/daily-workflows.md).
-- The task needs scoped memory search, a persistent goal, independent review, configuration scanning, worker control, learned-pattern review or editor installation: [Native memory, goals, specialists and runtime controls](../../references/runtime-platform.md).
+- Saving a structured handoff with vault handoff or memory_handoff, or searching scoped memory: [Native memory, goals, specialists and runtime controls](../../references/runtime-platform.md).
 - The request needs proactive context warnings, detected checks, native editor events, GitHub epic coordination or configuration audit reports: [Context health, check presets, editor events and shared work](../../references/runtime-depth.md).
 
 ## Decision branches
 
 - **When external action outcome is uncertain:** Include its operation identity and reconciliation step rather than instructing a blind retry.
+- **When saving the handoff is requested:** Prefer memory_handoff or vault handoff --stdin (project scope by default; team scope for teammates, reviewed through Git); otherwise use the project established handoff file.
 
 ## Deliver and verify
 

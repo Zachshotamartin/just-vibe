@@ -45,7 +45,9 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the
 ## Read when relevant
 
 - When a concrete decision or deliverable example would clarify this workflow: [Operations worked example](../../references/examples/operations.md).
-
+- The container runs on Kubernetes: probes, readiness or rollout recovery: [Kubernetes release and readiness](../../references/methods/kubernetes-release.md).
+- Pinning base images, toolchains or build environments: [Reproducible environments](../../references/methods/reproducible-environments.md).
+- Secrets or unpinned dependencies may be baked into image layers: [Supply chain and image secrets](../../references/security/supply-chain.md).
 
 ## Decision branches
 

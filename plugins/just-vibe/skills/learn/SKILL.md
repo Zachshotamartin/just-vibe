@@ -46,10 +46,12 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 - When a concrete decision or deliverable example would clarify this workflow: [General worked example](../../references/examples/general.md).
 - The task needs scoped memory search, a persistent goal, independent review, configuration scanning, worker control, learned-pattern review or editor installation: [Native memory, goals, specialists and runtime controls](../../references/runtime-platform.md).
+- Adopting a lesson as feedback or reviewing learned candidates: [Automatic assistance and learning](../../references/adaptive.md).
 
 ## Decision branches
 
 - **When evidence comes from one transient incident:** Keep the lesson conditional and propose a validation case instead of a universal rule.
+- **When the user adopts the lesson:** Project conventions go through remember; a workflow-specific behavior change goes through assist feedback, or learn propose for a conditional change, quoting the user adoption message. Review learned candidates with learn status, then learn approve or learn reject.
 
 ## Deliver and verify
 

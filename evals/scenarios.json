@@ -2393,16 +2393,16 @@
     },
     {
       "id": "doctor",
-      "pack": "general",
+      "pack": "installation",
       "brief": "Check the Claude project-scope just-vibe installation without changing it.",
       "mode": "inspect",
       "requiredEvidence": [
         "just-vibe host, installation source, and scope. Requires host CLI discovery."
       ],
       "inputPolicy": {
-        "infer": "Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.",
-        "assume": "Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.",
-        "ask": "Ask when competing targets or incompatible success conditions would change the result; continue independent inspection first."
+        "infer": "Inspect selected host, native CLI support, existing source/scope and package version without changing global configuration.",
+        "assume": "Use the documented bundled source and existing host conventions unless the user selects another source.",
+        "ask": "Ask only when multiple host/scope/source choices cannot be resolved from context and would change installation; report an actual missing executable instead of requesting unrelated credentials."
       },
       "rubric": [
         "Disabled and absent plugins are distinguished; an unexpected marketplace source blocks a healthy result.",

@@ -33,7 +33,7 @@ const skills = readdirSync(skillRoot);
 const catalog = loadCatalog();
 assert.equal(catalog.commands.length, 221);
 assert.deepEqual(skills.sort(), catalog.commands.map(c => c.id).sort());
-assert.equal(catalog.commands.filter(c => c.pack === 'general').length, 59);
+assert.equal(catalog.commands.filter(c => c.pack === 'general').length, 58);
 assert.equal(catalog.commands.filter(c => !['general', 'installation'].includes(c.pack)).length, 161);
 for (const name of skills) {
   const content = readFileSync(resolve(skillRoot, name, 'SKILL.md'), 'utf8');

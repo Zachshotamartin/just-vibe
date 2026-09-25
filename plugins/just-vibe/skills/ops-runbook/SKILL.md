@@ -45,7 +45,9 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 ## Read when relevant
 
 - When a concrete decision or deliverable example would clarify this workflow: [Operations worked example](../../references/examples/operations.md).
-
+- The procedure covers a Kubernetes rollout, rollback or readiness check: [Kubernetes release and readiness](../../references/methods/kubernetes-release.md).
+- The procedure rebuilds or pins an environment: [Reproducible environments](../../references/methods/reproducible-environments.md).
+- The procedure changes network device configuration: [Network operations](../../references/methods/network-operations.md).
 
 ## Decision branches
 

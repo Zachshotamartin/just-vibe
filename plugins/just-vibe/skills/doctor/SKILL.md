@@ -11,17 +11,17 @@ Diagnose installation and configuration problems
 
 Use to diagnose installed toolkit state; setup intentionally changes installation.
 
-Read [shared execution](../../references/execution.md) for context/mode/authority handling and [General methods](../../references/packs/general.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
+Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Installation methods](../../references/packs/installation.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
 ## Input and mode
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; just-vibe host, installation source, and scope. Requires host CLI discovery.
 
-Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
+Node.js 22+ and the selected host CLI with native plugin support. Git is required only for --github. Use the bundled installer; preserve marketplace and scope checks.
 
-- **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
-- **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
-- **Ask only when needed:** Ask when competing targets or incompatible success conditions would change the result; continue independent inspection first.
+- **Infer from evidence:** Inspect selected host, native CLI support, existing source/scope and package version without changing global configuration.
+- **Reasonable default:** Use the documented bundled source and existing host conventions unless the user selects another source.
+- **Ask only when needed:** Ask only when multiple host/scope/source choices cannot be resolved from context and would change installation; report an actual missing executable instead of requesting unrelated credentials.
 
 Resolve any task-specific tools, target identity and evidence before dependent actions. No external connection is assumed.
 
@@ -45,15 +45,15 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Read when relevant
 
-- When a concrete decision or deliverable example would clarify this workflow: [General worked example](../../references/examples/general.md).
+- When a concrete decision or deliverable example would clarify this workflow: [Installation worked example](../../references/examples/installation.md).
 - The task needs scoped memory search, a persistent goal, independent review, configuration scanning, worker control, learned-pattern review or editor installation: [Native memory, goals, specialists and runtime controls](../../references/runtime-platform.md).
 - The request needs proactive context warnings, detected checks, native editor events, GitHub epic coordination or configuration audit reports: [Context health, check presets, editor events and shared work](../../references/runtime-depth.md).
-- The task specifically involves console cleanup, documentation hook, design quality hook, pre-push gate; load only the matching method: [Focused quality, console and documentation hooks](../../references/methods/quality-hook-recipes.md).
 - Discovering session, inventory, rule, council, scheduler, monitor, graph, evaluation, operator or domain-specific capabilities: [Extended capabilities and optional method library](../../references/runtime-expansion.md).
 
 ## Decision branches
 
 - **When wrapper reports success but host cache is stale:** Report the mismatch and exact update/check sequence; do not call the installation healthy.
+- **When installation is healthy but automatic assistance does not activate:** Run diagnose status --root <project>, then assist status, and report the first unobserved stage (hook received, workflow selected, workflow loaded, tools observed) and the host hook-trust step.
 
 ## Deliver and verify
 

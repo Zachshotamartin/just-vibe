@@ -35,7 +35,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the
 
 1. Correlate logs with revision/runtime, inspect request and dependency boundaries, separate cold-start/resource/network causes, and propose a focused reproduction or fix.
 2. Correlate deployment/request/time and inspect handler entry, environment presence, dependency waits and runtime-specific API support.
-3. Use the matching bundled evidence collector when available; read its result and limitations rather than treating exit zero as readiness. Revalidate identity before a dependent action.
+3. The bundled Vercel collector covers build logs only, so its result is not runtime evidence. For runtime or function logs use the host Vercel connector or observability tools, or the installed CLI vercel logs after reading vercel logs --help: confirm whether that version supports a time window and which deployment it defaults to, since older releases only stream live logs briefly. Revalidate identity before a dependent action.
 ## Technical method
 
 - **Inspect:** Inspect function logs and request IDs with region, runtime, payload size, duration and dependency timing.

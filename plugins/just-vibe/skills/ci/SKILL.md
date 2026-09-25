@@ -45,7 +45,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the
 ## Read when relevant
 
 - When a concrete decision or deliverable example would clarify this workflow: [General worked example](../../references/examples/general.md).
-
+- The provider is GitHub Actions or the failure involves workflow permissions, secrets, pull_request_target or artifacts: [GitHub methods (Actions trust boundary)](../../references/packs/github.md).
 
 ## Decision branches
 

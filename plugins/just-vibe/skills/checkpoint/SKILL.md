@@ -33,8 +33,9 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Execute
 
-1. Save the objective, constraints, decisions, completed evidence, remaining work and next step using project checkpoint NAME with the current revision when structured storage is appropriate. The helper captures repository/worktree identity; keep external operation IDs in the task context without credentials.
-2. A checkpoint does not contain reversible file content. If undo support is requested before editing, create a separate task begin/capture record; never manufacture past ownership from a later snapshot.
+1. Save the objective, constraints, decisions, completed evidence, remaining work and next step using project checkpoint NAME with the current revision when structured storage is appropriate. Read an existing checkpoint and its revision with project resume NAME (project list shows names), and read it back the same way after saving. The helper captures repository/worktree identity per file; keep external operation IDs in the task context without credentials.
+2. If a tracked run is active, save its latest run record in the checkpoint run field so session resume keeps its stages, attempts and budget.
+3. A checkpoint does not contain reversible file content. If undo support is requested before editing, create a separate task begin/capture record; never manufacture past ownership from a later snapshot.
 ## Technical method
 
 - **Inspect:** Inspect worktree/index, task state, evidence, pending effects and chosen checkpoint location.

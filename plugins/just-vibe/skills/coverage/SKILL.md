@@ -45,7 +45,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A req
 ## Read when relevant
 
 - When a concrete decision or deliverable example would clarify this workflow: [General worked example](../../references/examples/general.md).
-
+- Choosing a test layer, independent assertions, or regression, flaky and property checks: [Testing methods](../../references/packs/testing.md).
 
 ## Decision branches
 

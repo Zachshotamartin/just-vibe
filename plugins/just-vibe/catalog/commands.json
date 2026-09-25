@@ -408,6 +408,11 @@
       ],
       "guides": [
         {
+          "path": "references/teaching.md",
+          "title": "Teaching method",
+          "when": "Every topic or workflow-implementation lesson"
+        },
+        {
           "title": "Project exercises",
           "when": "The learner requests hands-on practice using repository code",
           "path": "references/practice.md"
@@ -643,7 +648,8 @@
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
       "procedure": [
         "Identify nodes and imports, trace representative relationships, separate declared from observed dependencies, and select a readable level of detail.",
-        "Identify public entry points and dependency direction; collapse generated/vendor code and distinguish imports, calls and data sharing."
+        "Identify public entry points and dependency direction; collapse generated/vendor code and distinguish imports, calls and data sharing.",
+        "For a first pass run atlas map --root PROJECT --stdin with {paths}; treat its edges as lexical candidates, resolve specifiers, verify representative and cycle edges in source, and report partial coverage."
       ],
       "outputs": [
         "Diagram or adjacency table with a legend, entry points, evidence links, and uncertain edges.",
@@ -710,7 +716,14 @@
         "method": "Choose a diagram level that answers the request and label source coupling separately from runtime topology.",
         "pitfall": "A large unlabeled graph hides ownership and can imply nonexistent deployed services.",
         "check": "Validate representative edges and data owners against source evidence; flag inferred external components."
-      }
+      },
+      "guides": [
+        {
+          "path": "references/runtime-expansion.md",
+          "title": "Extended capabilities and optional method library",
+          "when": "Using atlas map for a bounded import inventory"
+        }
+      ]
     },
     {
       "id": "research",
@@ -3435,6 +3448,11 @@
       },
       "guides": [
         {
+          "path": "references/packs/testing.md",
+          "title": "Testing methods",
+          "when": "Choosing a test layer, independent assertions, or regression, flaky and property checks"
+        },
+        {
           "title": "Django / DRF",
           "when": "The affected project uses Django / DRF",
           "path": "references/frameworks/django.md"
@@ -3999,7 +4017,14 @@
         "method": "Reduce dependencies and data while preserving the causal trigger; keep synthetic substitutes faithful to the failing boundary.",
         "pitfall": "A smaller program with a different failure does not reproduce the original bug.",
         "check": "Run from a clean isolated setup and show the same expected-versus-actual mismatch with bounded execution."
-      }
+      },
+      "guides": [
+        {
+          "path": "references/packs/testing.md",
+          "title": "Testing methods",
+          "when": "Choosing a test layer, independent assertions, or regression, flaky and property checks"
+        }
+      ]
     },
     {
       "id": "coverage",
@@ -4091,7 +4116,14 @@
         "method": "Prioritize unprotected invariants and boundary cases over raw line percentage.",
         "pitfall": "Executed lines do not establish meaningful assertions; mocks can leave the real boundary untested.",
         "check": "Show by source trace, or by a temporary mutation in an owned copy, an important plausible defect that escapes current checks, and specify the smallest test that would catch it."
-      }
+      },
+      "guides": [
+        {
+          "path": "references/packs/testing.md",
+          "title": "Testing methods",
+          "when": "Choosing a test layer, independent assertions, or regression, flaky and property checks"
+        }
+      ]
     },
     {
       "id": "pr",
@@ -4379,7 +4411,14 @@
         "method": "Reproduce the failing boundary and preserve unrelated coverage; route GitHub-specific trust issues to its Actions guide.",
         "pitfall": "Disabling tests or broadening secrets access can make CI green while weakening correctness or security.",
         "check": "Run the relevant local check as bounded local execution and verify a matching remote run when available, distinguishing infrastructure blockers from code defects; use existing logs when no local run is possible."
-      }
+      },
+      "guides": [
+        {
+          "path": "references/packs/github.md",
+          "title": "GitHub methods (Actions trust boundary)",
+          "when": "The provider is GitHub Actions or the failure involves workflow permissions, secrets, pull_request_target or artifacts"
+        }
+      ]
     },
     {
       "id": "docs",
@@ -4707,7 +4746,8 @@
       "readScope": "Save task state in a local approved artifact; no permanent behavioral memory or external posting.",
       "writeScope": "Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.",
       "procedure": [
-        "Save the objective, constraints, decisions, completed evidence, remaining work and next step using project checkpoint NAME with the current revision when structured storage is appropriate. The helper captures repository/worktree identity; keep external operation IDs in the task context without credentials.",
+        "Save the objective, constraints, decisions, completed evidence, remaining work and next step using project checkpoint NAME with the current revision when structured storage is appropriate. Read an existing checkpoint and its revision with project resume NAME (project list shows names), and read it back the same way after saving. The helper captures repository/worktree identity per file; keep external operation IDs in the task context without credentials.",
+        "If a tracked run is active, save its latest run record in the checkpoint run field so session resume keeps its stages, attempts and budget.",
         "A checkpoint does not contain reversible file content. If undo support is requested before editing, create a separate task begin/capture record; never manufacture past ownership from a later snapshot."
       ],
       "outputs": [
@@ -4968,6 +5008,10 @@
         {
           "when": "external action outcome is uncertain",
           "then": "Include its operation identity and reconciliation step rather than instructing a blind retry."
+        },
+        {
+          "when": "saving the handoff is requested",
+          "then": "Prefer memory_handoff or vault handoff --stdin (project scope by default; team scope for teammates, reviewed through Git); otherwise use the project established handoff file."
         }
       ],
       "guides": [
@@ -4979,7 +5023,7 @@
         {
           "title": "Native memory, goals, specialists and runtime controls",
           "path": "references/runtime-platform.md",
-          "when": "The task needs scoped memory search, a persistent goal, independent review, configuration scanning, worker control, learned-pattern review or editor installation"
+          "when": "Saving a structured handoff with vault handoff or memory_handoff, or searching scoped memory"
         },
         {
           "title": "Context health, check presets, editor events and shared work",
@@ -5020,8 +5064,9 @@
       "readScope": "Continue the recorded objective, bounded by current user instructions; no blind replay of old actions.",
       "writeScope": "Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.",
       "procedure": [
-        "Treat the supplied handoff as historical context. Verify the actual project, branch, changed files and remote state; reconcile already-performed external actions before replaying anything.",
-        "For a structured run, use session resume with current-state evidence; reconcile interrupted running stages first. Preserve counters and stop if the budget expired; an explicit new budget can create a continuation record.",
+        "List saved continuations (project list for checkpoints, vault list for handoffs, goal list for goals, workbench list for task records) and choose the one matching the request; ask only when several match.",
+        "Treat saved text as historical context. For a named checkpoint run project resume NAME; reconcile each reported difference, re-verify each completed item that touches a changed file, and reconcile recorded external operations before replaying anything. For a saved goal use goal resume, for an orchestration orchestrate show or resume, and for a handoff vault read.",
+        "For a structured run, pass the run saved with the checkpoint to session resume with current-state evidence; reconcile interrupted running stages first. Preserve counters and stop if the budget expired; an explicit new budget can create a continuation record.",
         "Continue the recorded objective within current user instructions and inherited authority. Update the handoff only when persistence is requested."
       ],
       "outputs": [
@@ -5081,7 +5126,7 @@
       "guides": [
         {
           "title": "Project continuity",
-          "when": "Saving requested preferences, decisions or a named continuation",
+          "when": "Saving or resuming a named checkpoint",
           "path": "references/daily-workflows.md"
         },
         {
@@ -5328,6 +5373,10 @@
         {
           "when": "evidence comes from one transient incident",
           "then": "Keep the lesson conditional and propose a validation case instead of a universal rule."
+        },
+        {
+          "when": "the user adopts the lesson",
+          "then": "Project conventions go through remember; a workflow-specific behavior change goes through assist feedback, or learn propose for a conditional change, quoting the user adoption message. Review learned candidates with learn status, then learn approve or learn reject."
         }
       ],
       "technical": {
@@ -5341,6 +5390,11 @@
           "title": "Native memory, goals, specialists and runtime controls",
           "path": "references/runtime-platform.md",
           "when": "The task needs scoped memory search, a persistent goal, independent review, configuration scanning, worker control, learned-pattern review or editor installation"
+        },
+        {
+          "path": "references/adaptive.md",
+          "title": "Automatic assistance and learning",
+          "when": "Adopting a lesson as feedback or reviewing learned candidates"
         }
       ]
     },
@@ -5459,7 +5513,7 @@
     },
     {
       "id": "doctor",
-      "pack": "general",
+      "pack": "installation",
       "summary": "Diagnose installation and configuration problems",
       "aliases": [],
       "aliasOf": null,
@@ -5538,6 +5592,10 @@
         {
           "when": "wrapper reports success but host cache is stale",
           "then": "Report the mismatch and exact update/check sequence; do not call the installation healthy."
+        },
+        {
+          "when": "installation is healthy but automatic assistance does not activate",
+          "then": "Run diagnose status --root <project>, then assist status, and report the first unobserved stage (hook received, workflow selected, workflow loaded, tools observed) and the host hook-trust step."
         }
       ],
       "technical": {
@@ -5556,11 +5614,6 @@
           "title": "Context health, check presets, editor events and shared work",
           "when": "The request needs proactive context warnings, detected checks, native editor events, GitHub epic coordination or configuration audit reports",
           "path": "references/runtime-depth.md"
-        },
-        {
-          "title": "Focused quality, console and documentation hooks",
-          "path": "references/methods/quality-hook-recipes.md",
-          "when": "The task specifically involves console cleanup, documentation hook, design quality hook, pre-push gate; load only the matching method"
         },
         {
           "title": "Extended capabilities and optional method library",
@@ -9429,7 +9482,7 @@
       "procedure": [
         "Correlate logs with revision/runtime, inspect request and dependency boundaries, separate cold-start/resource/network causes, and propose a focused reproduction or fix.",
         "Correlate deployment/request/time and inspect handler entry, environment presence, dependency waits and runtime-specific API support.",
-        "Use the matching bundled evidence collector when available; read its result and limitations rather than treating exit zero as readiness. Revalidate identity before a dependent action."
+        "The bundled Vercel collector covers build logs only, so its result is not runtime evidence. For runtime or function logs use the host Vercel connector or observability tools, or the installed CLI vercel logs after reading vercel logs --help: confirm whether that version supports a time window and which deployment it defaults to, since older releases only stream live logs briefly. Revalidate identity before a dependent action."
       ],
       "outputs": [
         "Supported diagnosis, relevant log references, and repair/verification steps.",
@@ -9957,13 +10010,7 @@
         "pitfall": "A config file can execute arbitrary imports; read-only inspection should not evaluate it just to discover values.",
         "check": "Check the relevant dev and production resolution paths, including case-sensitive filenames and browser-exposed replacements."
       },
-      "guides": [
-        {
-          "title": "Frontend iconography",
-          "when": "Creating, editing or reviewing frontend UI, copy, states or visual assets",
-          "path": "references/frontend-icons.md"
-        }
-      ]
+      "guides": []
     },
     {
       "id": "vite-hmr",
@@ -10054,13 +10101,7 @@
         "pitfall": "Full page reload and preserved hot state are different outcomes; disabling host checks is not a generic websocket repair.",
         "check": "In apply mode or an owned copy, edit a leaf and a shared dependency, verify the expected refresh behavior, and check reconnection after an ordinary dev restart."
       },
-      "guides": [
-        {
-          "title": "Frontend iconography",
-          "when": "Creating, editing or reviewing frontend UI, copy, states or visual assets",
-          "path": "references/frontend-icons.md"
-        }
-      ]
+      "guides": []
     },
     {
       "id": "vite-env",
@@ -10155,11 +10196,6 @@
           "path": "references/security/frameworks.md",
           "title": "Framework-specific review branches",
           "when": "The task depends on framework defaults, middleware, RLS, server/client or deployment behavior"
-        },
-        {
-          "title": "Frontend iconography",
-          "when": "Creating, editing or reviewing frontend UI, copy, states or visual assets",
-          "path": "references/frontend-icons.md"
         }
       ]
     },
@@ -10254,13 +10290,7 @@
         "pitfall": "Removing a named import or counting source file sizes does not prove tree-shaking or network improvement.",
         "check": "Rebuild and exercise representative routes; record comparable bytes and loading behavior, including any new lazy-load waterfall."
       },
-      "guides": [
-        {
-          "title": "Frontend iconography",
-          "when": "Creating, editing or reviewing frontend UI, copy, states or visual assets",
-          "path": "references/frontend-icons.md"
-        }
-      ]
+      "guides": []
     },
     {
       "id": "vite-chunks",
@@ -10352,13 +10382,7 @@
         "pitfall": "A smaller entry chunk can add serial requests or cause a stale HTML document to reference a deleted old chunk.",
         "check": "Test cold navigation, lazy routes and an older open page during deployment; define reload/recovery for missing chunks."
       },
-      "guides": [
-        {
-          "title": "Frontend iconography",
-          "when": "Creating, editing or reviewing frontend UI, copy, states or visual assets",
-          "path": "references/frontend-icons.md"
-        }
-      ]
+      "guides": []
     },
     {
       "id": "vite-assets",
@@ -10556,13 +10580,7 @@
         "pitfall": "A passing install with ignored peer conflicts does not establish refresh or production compatibility.",
         "check": "Verify dev refresh, build, preview and relevant SSR/test integration; report a plugin blocker instead of forcing an unsupported combination."
       },
-      "guides": [
-        {
-          "title": "Frontend iconography",
-          "when": "Creating, editing or reviewing frontend UI, copy, states or visual assets",
-          "path": "references/frontend-icons.md"
-        }
-      ]
+      "guides": []
     },
     {
       "id": "react-audit",
@@ -16053,11 +16071,6 @@
       },
       "guides": [
         {
-          "title": "PyTorch autograd, device and distributed debugging",
-          "path": "references/methods/pytorch-debug.md",
-          "when": "The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method"
-        },
-        {
           "title": "Retrieval, ranking and recommendation evaluation",
           "path": "references/methods/recommender-systems.md",
           "when": "The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method"
@@ -16152,18 +16165,7 @@
         "pitfall": "More rows do not remove survivor bias or dependence between observations.",
         "check": "Reconcile sample membership and label coverage by important groups; distinguish observed gaps from unsupported population conclusions."
       },
-      "guides": [
-        {
-          "title": "PyTorch autograd, device and distributed debugging",
-          "path": "references/methods/pytorch-debug.md",
-          "when": "The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method"
-        },
-        {
-          "title": "Retrieval, ranking and recommendation evaluation",
-          "path": "references/methods/recommender-systems.md",
-          "when": "The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method"
-        }
-      ]
+      "guides": []
     },
     {
       "id": "ml-labels",
@@ -16257,18 +16259,7 @@
         "pitfall": "Majority vote can erase systematic ambiguity; labels recorded after prediction may be valid outcomes but unavailable for historical fitting.",
         "check": "Hand-check boundary examples, censored cases and disagreement resolution; report which historical training rows were label-eligible."
       },
-      "guides": [
-        {
-          "title": "PyTorch autograd, device and distributed debugging",
-          "path": "references/methods/pytorch-debug.md",
-          "when": "The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method"
-        },
-        {
-          "title": "Retrieval, ranking and recommendation evaluation",
-          "path": "references/methods/recommender-systems.md",
-          "when": "The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method"
-        }
-      ]
+      "guides": []
     },
     {
       "id": "ml-split",
@@ -16371,18 +16362,7 @@
         "pitfall": "Random splits can leak repeated entities, while universal group holdout can test a different task than the intended deployment.",
         "check": "Assert disjoint required identities and training-time availability; report the exact generalization question and unresolved provenance."
       },
-      "guides": [
-        {
-          "title": "PyTorch autograd, device and distributed debugging",
-          "path": "references/methods/pytorch-debug.md",
-          "when": "The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method"
-        },
-        {
-          "title": "Retrieval, ranking and recommendation evaluation",
-          "path": "references/methods/recommender-systems.md",
-          "when": "The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method"
-        }
-      ]
+      "guides": []
     },
     {
       "id": "ml-leakage",
@@ -16491,18 +16471,7 @@
         "pitfall": "Correlation or overlapping metadata alone does not prove leakage; filtering versions before selecting the visible revision can resurrect stale data.",
         "check": "Test late correction, boundary timestamps, duplicate versions and labels unavailable at fit time; state precisely which evaluation is invalidated."
       },
-      "guides": [
-        {
-          "title": "PyTorch autograd, device and distributed debugging",
-          "path": "references/methods/pytorch-debug.md",
-          "when": "The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method"
-        },
-        {
-          "title": "Retrieval, ranking and recommendation evaluation",
-          "path": "references/methods/recommender-systems.md",
-          "when": "The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method"
-        }
-      ]
+      "guides": []
     },
     {
       "id": "ml-features",
@@ -16598,18 +16567,7 @@
         "pitfall": "Target encoding or imputation fitted outside the training fold contaminates validation; feature importance is not causal effect.",
         "check": "Hand-compute a small example and exercise future-only input, unseen categories and missing values through both train and serving paths."
       },
-      "guides": [
-        {
-          "title": "PyTorch autograd, device and distributed debugging",
-          "path": "references/methods/pytorch-debug.md",
-          "when": "The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method"
-        },
-        {
-          "title": "Retrieval, ranking and recommendation evaluation",
-          "path": "references/methods/recommender-systems.md",
-          "when": "The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method"
-        }
-      ]
+      "guides": []
     },
     {
       "id": "ml-imbalance",
@@ -16701,18 +16659,7 @@
         "pitfall": "Accuracy can hide zero minority recall; resampling changes prevalence and can distort uncorrected probabilities.",
         "check": "Compare with an appropriate naive baseline, retain minority denominators and verify thresholds on untouched selection/evaluation data."
       },
-      "guides": [
-        {
-          "title": "PyTorch autograd, device and distributed debugging",
-          "path": "references/methods/pytorch-debug.md",
-          "when": "The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method"
-        },
-        {
-          "title": "Retrieval, ranking and recommendation evaluation",
-          "path": "references/methods/recommender-systems.md",
-          "when": "The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method"
-        }
-      ]
+      "guides": []
     },
     {
       "id": "ml-dataset-version",
@@ -16803,18 +16750,7 @@
         "pitfall": "A filename, seed or hash of only a sample cannot identify the full dataset.",
         "check": "Reconstruct membership from the manifest or record inaccessible components; changed upstream revisions must change or qualify dataset identity."
       },
-      "guides": [
-        {
-          "title": "PyTorch autograd, device and distributed debugging",
-          "path": "references/methods/pytorch-debug.md",
-          "when": "The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method"
-        },
-        {
-          "title": "Retrieval, ranking and recommendation evaluation",
-          "path": "references/methods/recommender-systems.md",
-          "when": "The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method"
-        }
-      ]
+      "guides": []
     },
     {
       "id": "ml-baseline",
@@ -16906,18 +16842,7 @@
         "pitfall": "A strong model with a different split is not a fair baseline; test-set selection makes later comparisons optimistic.",
         "check": "Preserve predictions, denominators and protocol identity and verify the baseline handles the same missing/rare cases as candidate models."
       },
-      "guides": [
-        {
-          "title": "PyTorch autograd, device and distributed debugging",
-          "path": "references/methods/pytorch-debug.md",
-          "when": "The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method"
-        },
-        {
-          "title": "Retrieval, ranking and recommendation evaluation",
-          "path": "references/methods/recommender-systems.md",
-          "when": "The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method"
-        }
-      ]
+      "guides": []
     },
     {
       "id": "ml-train",
@@ -17028,11 +16953,6 @@
           "title": "PyTorch autograd, device and distributed debugging",
           "path": "references/methods/pytorch-debug.md",
           "when": "The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method"
-        },
-        {
-          "title": "Retrieval, ranking and recommendation evaluation",
-          "path": "references/methods/recommender-systems.md",
-          "when": "The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method"
         }
       ],
       "technical": {
@@ -17142,11 +17062,6 @@
           "title": "PyTorch autograd, device and distributed debugging",
           "path": "references/methods/pytorch-debug.md",
           "when": "The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method"
-        },
-        {
-          "title": "Retrieval, ranking and recommendation evaluation",
-          "path": "references/methods/recommender-systems.md",
-          "when": "The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method"
         }
       ]
     },
@@ -17242,18 +17157,7 @@
         "pitfall": "More trials can overfit the validation set; dropping failed runs understates cost and instability.",
         "check": "Enforce trial/time caps and inspect selection provenance; evaluate the chosen configuration once under the reserved protocol."
       },
-      "guides": [
-        {
-          "title": "PyTorch autograd, device and distributed debugging",
-          "path": "references/methods/pytorch-debug.md",
-          "when": "The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method"
-        },
-        {
-          "title": "Retrieval, ranking and recommendation evaluation",
-          "path": "references/methods/recommender-systems.md",
-          "when": "The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method"
-        }
-      ]
+      "guides": []
     },
     {
       "id": "ml-ablation",
@@ -17345,18 +17249,7 @@
         "pitfall": "A changed preprocessing pipeline or compute budget can confound a claimed component improvement.",
         "check": "Compare paired outcomes where possible, report uncertainty and preserve a no-change control when evaluation noise matters."
       },
-      "guides": [
-        {
-          "title": "PyTorch autograd, device and distributed debugging",
-          "path": "references/methods/pytorch-debug.md",
-          "when": "The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method"
-        },
-        {
-          "title": "Retrieval, ranking and recommendation evaluation",
-          "path": "references/methods/recommender-systems.md",
-          "when": "The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method"
-        }
-      ]
+      "guides": []
     },
     {
       "id": "ml-experiments",
@@ -17449,16 +17342,6 @@
           "title": "Recorded experiment comparisons",
           "when": "Comparing supplied MLflow, W&B or JSON runs with row-level predictions",
           "path": "references/experiments.md"
-        },
-        {
-          "title": "PyTorch autograd, device and distributed debugging",
-          "path": "references/methods/pytorch-debug.md",
-          "when": "The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method"
-        },
-        {
-          "title": "Retrieval, ranking and recommendation evaluation",
-          "path": "references/methods/recommender-systems.md",
-          "when": "The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method"
         }
       ],
       "technical": {
@@ -17563,11 +17446,6 @@
           "title": "PyTorch autograd, device and distributed debugging",
           "path": "references/methods/pytorch-debug.md",
           "when": "The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method"
-        },
-        {
-          "title": "Retrieval, ranking and recommendation evaluation",
-          "path": "references/methods/recommender-systems.md",
-          "when": "The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method"
         }
       ]
     },
@@ -17667,11 +17545,6 @@
           "title": "PyTorch autograd, device and distributed debugging",
           "path": "references/methods/pytorch-debug.md",
           "when": "The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method"
-        },
-        {
-          "title": "Retrieval, ranking and recommendation evaluation",
-          "path": "references/methods/recommender-systems.md",
-          "when": "The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method"
         }
       ]
     },
@@ -17791,11 +17664,6 @@
           "path": "references/experiments.md"
         },
         {
-          "title": "PyTorch autograd, device and distributed debugging",
-          "path": "references/methods/pytorch-debug.md",
-          "when": "The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method"
-        },
-        {
           "title": "Retrieval, ranking and recommendation evaluation",
           "path": "references/methods/recommender-systems.md",
           "when": "The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method"
@@ -17898,18 +17766,7 @@
         "pitfall": "Anecdotal errors or explanation scores do not establish a causal pattern across the population.",
         "check": "Check the hypothesized group on independent examples and include correct predictions that resemble the failures."
       },
-      "guides": [
-        {
-          "title": "PyTorch autograd, device and distributed debugging",
-          "path": "references/methods/pytorch-debug.md",
-          "when": "The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method"
-        },
-        {
-          "title": "Retrieval, ranking and recommendation evaluation",
-          "path": "references/methods/recommender-systems.md",
-          "when": "The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method"
-        }
-      ]
+      "guides": []
     },
     {
       "id": "ml-slices",
@@ -18007,11 +17864,6 @@
           "title": "Recorded experiment comparisons",
           "when": "Comparing supplied MLflow, W&B or JSON runs with row-level predictions",
           "path": "references/experiments.md"
-        },
-        {
-          "title": "PyTorch autograd, device and distributed debugging",
-          "path": "references/methods/pytorch-debug.md",
-          "when": "The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method"
         },
         {
           "title": "Retrieval, ranking and recommendation evaluation",
@@ -18116,18 +17968,7 @@
         "pitfall": "Ranking quality does not imply probability accuracy; coarse bins or shifted prevalence can conceal miscalibration.",
         "check": "Check perfect, constant and confidently wrong synthetic predictions, then evaluate held-out calibration with sample support per region."
       },
-      "guides": [
-        {
-          "title": "PyTorch autograd, device and distributed debugging",
-          "path": "references/methods/pytorch-debug.md",
-          "when": "The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method"
-        },
-        {
-          "title": "Retrieval, ranking and recommendation evaluation",
-          "path": "references/methods/recommender-systems.md",
-          "when": "The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method"
-        }
-      ]
+      "guides": []
     },
     {
       "id": "ml-threshold",
@@ -18219,18 +18060,7 @@
         "pitfall": "A threshold maximizing F1 may violate a daily capacity or false-positive budget.",
         "check": "Compute the confusion matrix and workload at nearby thresholds, including tied scores and changing prevalence assumptions."
       },
-      "guides": [
-        {
-          "title": "PyTorch autograd, device and distributed debugging",
-          "path": "references/methods/pytorch-debug.md",
-          "when": "The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method"
-        },
-        {
-          "title": "Retrieval, ranking and recommendation evaluation",
-          "path": "references/methods/recommender-systems.md",
-          "when": "The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method"
-        }
-      ]
+      "guides": []
     },
     {
       "id": "ml-robustness",
@@ -18319,18 +18149,7 @@
         "pitfall": "Arbitrary corruption may not represent deployment, and invariance is wrong when the perturbation should change the answer.",
         "check": "Include an unchanged control, boundary-valid input and deliberately unsupported input; report the exact tested threat/shift model."
       },
-      "guides": [
-        {
-          "title": "PyTorch autograd, device and distributed debugging",
-          "path": "references/methods/pytorch-debug.md",
-          "when": "The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method"
-        },
-        {
-          "title": "Retrieval, ranking and recommendation evaluation",
-          "path": "references/methods/recommender-systems.md",
-          "when": "The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method"
-        }
-      ]
+      "guides": []
     },
     {
       "id": "ml-explain",
@@ -18421,18 +18240,7 @@
         "pitfall": "Attributions are not causal effects; correlated inputs or impossible counterfactuals can make an explanation misleading.",
         "check": "Compare nearby valid inputs or a known simple model and state approximation, background-data and stability limits."
       },
-      "guides": [
-        {
-          "title": "PyTorch autograd, device and distributed debugging",
-          "path": "references/methods/pytorch-debug.md",
-          "when": "The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method"
-        },
-        {
-          "title": "Retrieval, ranking and recommendation evaluation",
-          "path": "references/methods/recommender-systems.md",
-          "when": "The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method"
-        }
-      ]
+      "guides": []
     },
     {
       "id": "ml-report",
@@ -18522,18 +18330,7 @@
         "pitfall": "Omitting failed runs or weak slices produces a misleading model story even if the best metric is correct.",
         "check": "Trace every numerical claim to an artifact and verify data/model/version identity and unresolved limitations are retained."
       },
-      "guides": [
-        {
-          "title": "PyTorch autograd, device and distributed debugging",
-          "path": "references/methods/pytorch-debug.md",
-          "when": "The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method"
-        },
-        {
-          "title": "Retrieval, ranking and recommendation evaluation",
-          "path": "references/methods/recommender-systems.md",
-          "when": "The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method"
-        }
-      ]
+      "guides": []
     },
     {
       "id": "ml-package",
@@ -18630,16 +18427,6 @@
           "path": "references/security/files.md",
           "title": "Files and resource limits",
           "when": "Uploads, filesystem paths, extraction or artifact loading are in scope"
-        },
-        {
-          "title": "PyTorch autograd, device and distributed debugging",
-          "path": "references/methods/pytorch-debug.md",
-          "when": "The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method"
-        },
-        {
-          "title": "Retrieval, ranking and recommendation evaluation",
-          "path": "references/methods/recommender-systems.md",
-          "when": "The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method"
         }
       ]
     },
@@ -18730,18 +18517,7 @@
         "pitfall": "Unbounded batches or concurrent model copies can exhaust memory; returning a default prediction hides infrastructure failure.",
         "check": "Exercise valid/invalid inputs, queue saturation, model-load failure and cancellation; verify bounded resources and typed errors."
       },
-      "guides": [
-        {
-          "title": "PyTorch autograd, device and distributed debugging",
-          "path": "references/methods/pytorch-debug.md",
-          "when": "The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method"
-        },
-        {
-          "title": "Retrieval, ranking and recommendation evaluation",
-          "path": "references/methods/recommender-systems.md",
-          "when": "The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method"
-        }
-      ]
+      "guides": []
     },
     {
       "id": "ml-batch",
@@ -18829,18 +18605,7 @@
         "pitfall": "Restarting with a different model under the same output partition silently mixes incompatible predictions.",
         "check": "Interrupt before/after output commit and retry; verify full membership, no duplicate records and consistent model/data identity."
       },
-      "guides": [
-        {
-          "title": "PyTorch autograd, device and distributed debugging",
-          "path": "references/methods/pytorch-debug.md",
-          "when": "The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method"
-        },
-        {
-          "title": "Retrieval, ranking and recommendation evaluation",
-          "path": "references/methods/recommender-systems.md",
-          "when": "The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method"
-        }
-      ]
+      "guides": []
     },
     {
       "id": "ml-parity",
@@ -18940,18 +18705,7 @@
         "pitfall": "Equal tensor shape does not imply equal feature meaning; silently reordered columns can produce plausible wrong scores.",
         "check": "Include missing, unseen, zero and boundary inputs and locate the first differing transform rather than comparing only final accuracy."
       },
-      "guides": [
-        {
-          "title": "PyTorch autograd, device and distributed debugging",
-          "path": "references/methods/pytorch-debug.md",
-          "when": "The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method"
-        },
-        {
-          "title": "Retrieval, ranking and recommendation evaluation",
-          "path": "references/methods/recommender-systems.md",
-          "when": "The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method"
-        }
-      ]
+      "guides": []
     },
     {
       "id": "ml-inference-perf",
@@ -19045,18 +18799,7 @@
         "pitfall": "Timing asynchronous GPU dispatch without synchronization underreports work; throughput gains may violate tail-latency requirements.",
         "check": "Warm up deliberately, retain cold-start evidence and verify optimized predictions against reference tolerances and quality constraints."
       },
-      "guides": [
-        {
-          "title": "PyTorch autograd, device and distributed debugging",
-          "path": "references/methods/pytorch-debug.md",
-          "when": "The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method"
-        },
-        {
-          "title": "Retrieval, ranking and recommendation evaluation",
-          "path": "references/methods/recommender-systems.md",
-          "when": "The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method"
-        }
-      ]
+      "guides": []
     },
     {
       "id": "ml-drift",
@@ -19147,18 +18890,7 @@
         "pitfall": "A small p-value on a huge sample can flag irrelevant change, while missing labels prevent conclusions about accuracy.",
         "check": "Inject a known distribution shift and a stable control, then check alert volume, cohort mix and delayed-label follow-up."
       },
-      "guides": [
-        {
-          "title": "PyTorch autograd, device and distributed debugging",
-          "path": "references/methods/pytorch-debug.md",
-          "when": "The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method"
-        },
-        {
-          "title": "Retrieval, ranking and recommendation evaluation",
-          "path": "references/methods/recommender-systems.md",
-          "when": "The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method"
-        }
-      ]
+      "guides": []
     },
     {
       "id": "ml-monitor",
@@ -19250,18 +18982,7 @@
         "pitfall": "Missing outcomes can bias observed accuracy; unchanged inputs do not prove unchanged target relationships.",
         "check": "Simulate delayed/missing labels, a model revision and an outage; verify denominators, routing and unknown-quality states."
       },
-      "guides": [
-        {
-          "title": "PyTorch autograd, device and distributed debugging",
-          "path": "references/methods/pytorch-debug.md",
-          "when": "The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method"
-        },
-        {
-          "title": "Retrieval, ranking and recommendation evaluation",
-          "path": "references/methods/recommender-systems.md",
-          "when": "The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method"
-        }
-      ]
+      "guides": []
     },
     {
       "id": "ml-rollout",
@@ -19354,18 +19075,7 @@
         "pitfall": "Shadow requests must not duplicate real effects; early unlabeled traffic only establishes operational behavior.",
         "check": "Exercise rollback with in-flight requests, verify model attribution and keep operational acceptance separate from delayed quality acceptance."
       },
-      "guides": [
-        {
-          "title": "PyTorch autograd, device and distributed debugging",
-          "path": "references/methods/pytorch-debug.md",
-          "when": "The task specifically involves pytorch, autograd, ddp, cuda mismatch; load only the matching method"
-        },
-        {
-          "title": "Retrieval, ranking and recommendation evaluation",
-          "path": "references/methods/recommender-systems.md",
-          "when": "The task specifically involves recommender, ranking metrics, retrieval ranking, ml adoption; load only the matching method"
-        }
-      ]
+      "guides": []
     },
     {
       "id": "llm-evals",
@@ -21352,6 +21062,21 @@
           "title": "Authorized vulnerability research",
           "path": "references/methods/authorized-security-research.md",
           "when": "The task specifically involves bug bounty, authorized pentest, security proof; load only the matching method"
+        },
+        {
+          "path": "references/security/review.md",
+          "title": "Review selection and evidence",
+          "when": "Choosing which access paths to test and what evidence settles a finding"
+        },
+        {
+          "path": "references/security/frameworks.md",
+          "title": "Framework authorization pitfalls",
+          "when": "Access is enforced through database row-level security, DRF querysets, Spring matchers or Next.js server actions"
+        },
+        {
+          "path": "references/scenarios/auth.md",
+          "title": "Authentication and authorization scenarios",
+          "when": "Testing cross-user or cross-tenant access with synthetic identities"
         }
       ]
     },
@@ -22120,6 +21845,16 @@
           "path": "references/security/supply-chain.md",
           "title": "Supply-chain remediation",
           "when": "The fix is a dependency upgrade, override or lockfile change"
+        },
+        {
+          "path": "references/security/identity.md",
+          "title": "Identity, sessions and authorization",
+          "when": "The fix changes authentication, sessions or authorization checks"
+        },
+        {
+          "path": "references/security/files.md",
+          "title": "File handling",
+          "when": "The fix involves upload, download or file-processing paths"
         }
       ]
     },
@@ -22221,7 +21956,24 @@
         "method": "Maintain a timeline separating observation, hypothesis and intervention; preserve evidence before state-changing recovery.",
         "pitfall": "A nearby deployment is correlation, not proof; missing telemetry cannot establish no impact.",
         "check": "Tie each conclusion to timestamped evidence and record whether the proposed mitigation actually changed the observed symptom."
-      }
+      },
+      "guides": [
+        {
+          "path": "references/methods/kubernetes-release.md",
+          "title": "Kubernetes release and readiness",
+          "when": "The incident involves a Kubernetes rollout, crash loop or failing readiness"
+        },
+        {
+          "path": "references/methods/reproducible-environments.md",
+          "title": "Reproducible environments",
+          "when": "Environment drift between hosts or releases may explain the failure"
+        },
+        {
+          "path": "references/methods/network-operations.md",
+          "title": "Network operations",
+          "when": "The incident involves BGP, VLAN, VPN or other network device state"
+        }
+      ]
     },
     {
       "id": "ops-logs",
@@ -22599,7 +22351,24 @@
         "method": "Write steps that branch on real outcomes with abort conditions and explicit irreversible boundaries.",
         "pitfall": "A plausible command copied from another version or environment can be dangerous; documentation is not evidence it was exercised.",
         "check": "Rehearse in an appropriate isolated environment or mark untested steps, recording the exact observations needed to proceed."
-      }
+      },
+      "guides": [
+        {
+          "path": "references/methods/kubernetes-release.md",
+          "title": "Kubernetes release and readiness",
+          "when": "The procedure covers a Kubernetes rollout, rollback or readiness check"
+        },
+        {
+          "path": "references/methods/reproducible-environments.md",
+          "title": "Reproducible environments",
+          "when": "The procedure rebuilds or pins an environment"
+        },
+        {
+          "path": "references/methods/network-operations.md",
+          "title": "Network operations",
+          "when": "The procedure changes network device configuration"
+        }
+      ]
     },
     {
       "id": "ops-container",
@@ -22690,7 +22459,24 @@
         "method": "Separate build-time assets from runtime requirements; use least-needed privileges and remove secrets from build layers.",
         "pitfall": "Deleting a secret in a later layer leaves it in earlier layers; a running process does not prove readiness or graceful shutdown.",
         "check": "Build/run an isolated image, exercise readiness, SIGTERM and read-only/non-root requirements, and inspect final-image contents."
-      }
+      },
+      "guides": [
+        {
+          "path": "references/methods/kubernetes-release.md",
+          "title": "Kubernetes release and readiness",
+          "when": "The container runs on Kubernetes: probes, readiness or rollout recovery"
+        },
+        {
+          "path": "references/methods/reproducible-environments.md",
+          "title": "Reproducible environments",
+          "when": "Pinning base images, toolchains or build environments"
+        },
+        {
+          "path": "references/security/supply-chain.md",
+          "title": "Supply chain and image secrets",
+          "when": "Secrets or unpinned dependencies may be baked into image layers"
+        }
+      ]
     },
     {
       "id": "ops-restore",
@@ -22782,7 +22568,14 @@
         "method": "Restore into a verified separate target and validate schema, membership, constraints and application behavior.",
         "pitfall": "A readable archive or backup job success does not prove restoration; testing on production can overwrite current data.",
         "check": "Measure restored data cutoff and elapsed recovery, verify integrity and application checks, and retain the failed-step recovery plan."
-      }
+      },
+      "guides": [
+        {
+          "path": "references/packs/database.md",
+          "title": "Database methods",
+          "when": "Restoring a database: consistency, point-in-time recovery and integrity checks"
+        }
+      ]
     },
     {
       "id": "ops-postmortem",

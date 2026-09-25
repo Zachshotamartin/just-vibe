@@ -53,6 +53,8 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 - The affected project uses Spring Boot: [Spring Boot](../../references/frameworks/spring-boot.md).
 - The task specifically involves bug bounty, authorized pentest, security proof; load only the matching method: [Authorized vulnerability research](../../references/methods/authorized-security-research.md).
 - The fix is a dependency upgrade, override or lockfile change: [Supply-chain remediation](../../references/security/supply-chain.md).
+- The fix changes authentication, sessions or authorization checks: [Identity, sessions and authorization](../../references/security/identity.md).
+- The fix involves upload, download or file-processing paths: [File handling](../../references/security/files.md).
 
 ## Decision branches
 

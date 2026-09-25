@@ -45,7 +45,7 @@ Inspect/plan: plan the restore; save requested artifacts only. Apply: restore on
 ## Read when relevant
 
 - When a concrete decision or deliverable example would clarify this workflow: [Operations worked example](../../references/examples/operations.md).
-
+- Restoring a database: consistency, point-in-time recovery and integrity checks: [Database methods](../../references/packs/database.md).
 
 ## Decision branches
 

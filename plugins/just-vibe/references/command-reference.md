@@ -55,7 +55,6 @@
 | [remember](../skills/remember/SKILL.md) | apply | Save project instructions, inspect their loading, and make explicit rules checkable |
 | [learn](../skills/learn/SKILL.md) | plan | Extract a reusable lesson from completed work for review |
 | [skill](../skills/skill/SKILL.md) | apply | Create or improve a workflow skill |
-| [doctor](../skills/doctor/SKILL.md) | inspect | Diagnose installation and configuration problems |
 | [help](../skills/help/SKILL.md) | inspect | Find the right command and show examples |
 | [tools](../skills/tools/SKILL.md) | inspect | List and search commands and integrations, showing availability and prerequisites |
 | [auto](../skills/auto/SKILL.md) | apply | Select and apply the relevant engineering workflows from an ordinary request |
@@ -331,4 +330,5 @@
 
 | Command | Default | Purpose |
 |---|---|---|
+| [doctor](../skills/doctor/SKILL.md) | inspect | Diagnose installation and configuration problems |
 | [setup](../skills/setup/SKILL.md) | apply | Install, update, or remove just-vibe through native host plugin management. |

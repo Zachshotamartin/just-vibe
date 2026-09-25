@@ -45,7 +45,9 @@ Inspect/plan: triage and recommend; save requested artifacts only. Apply: carry 
 ## Read when relevant
 
 - When a concrete decision or deliverable example would clarify this workflow: [Operations worked example](../../references/examples/operations.md).
-
+- The incident involves a Kubernetes rollout, crash loop or failing readiness: [Kubernetes release and readiness](../../references/methods/kubernetes-release.md).
+- Environment drift between hosts or releases may explain the failure: [Reproducible environments](../../references/methods/reproducible-environments.md).
+- The incident involves BGP, VLAN, VPN or other network device state: [Network operations](../../references/methods/network-operations.md).
 
 ## Decision branches
 

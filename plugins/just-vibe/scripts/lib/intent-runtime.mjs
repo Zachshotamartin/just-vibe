@@ -6,6 +6,7 @@ import { practices } from "./practice.mjs";
 import { experiments } from "./experiments.mjs";
 import { decisions } from "./decisions.mjs";
 import { listRecords, recoverLock, projectRoot } from "./workbench.mjs";
+import { noteIds } from "./continuity.mjs";
 
 // [name required, input: required/optional/none]. Keep CLI errors ahead of side effects.
 export const INTENT_OPERATIONS = {
@@ -93,7 +94,8 @@ export async function intentRuntime(operation, root, op, id, input = {}) {
             "practice",
             "experiments",
             "decisions",
-          ].map((c) => [c, listRecords(root, c)]),
+            "checkpoints",
+          ].map((c) => [c, listRecords(root, c)]).concat([["notes", noteIds(root)]]),
         );
   const handlers = {
     memory,

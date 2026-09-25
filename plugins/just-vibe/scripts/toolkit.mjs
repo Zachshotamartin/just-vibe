@@ -86,7 +86,8 @@ Workflow utilities:
   practice <op> <name>  create, validate, submit, hint, cleanup, show
   experiment <op> <id>  import, compare, show: local ML exports and predictions
   decision <op> <name>  save, revisit, show: assumptions and evidence
-  workbench list       List all saved work; recover removes a dead owner's lock
+  workbench list       List project work records, checkpoints and notes (handoffs:
+                        vault list; goals: goal list); recover removes a dead owner's lock
                         Writes/check execution use --stdin JSON with revision.
                         Read references/intent-workflows.md for schemas.
 

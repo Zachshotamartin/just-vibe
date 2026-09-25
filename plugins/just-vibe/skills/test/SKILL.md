@@ -45,6 +45,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 ## Read when relevant
 
 - When a concrete decision or deliverable example would clarify this workflow: [General worked example](../../references/examples/general.md).
+- Choosing a test layer, independent assertions, or regression, flaky and property checks: [Testing methods](../../references/packs/testing.md).
 - The affected project uses Django / DRF: [Django / DRF](../../references/frameworks/django.md).
 - The affected project uses FastAPI: [FastAPI](../../references/frameworks/fastapi.md).
 - The affected project uses Spring Boot: [Spring Boot](../../references/frameworks/spring-boot.md).

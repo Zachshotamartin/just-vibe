@@ -56,7 +56,9 @@ export function atomicJson(root, relativePath, value, expectedRevision, maxBytes
   });
 }
 
-export function fingerprint(root) {
+// perFile keeps a short identity per path so a later comparison can name changed files; records
+// that only need staleness (evidence, goals, QA attempts) keep the single digest.
+export function fingerprint(root, { perFile = false } = {}) {
   const base = projectRoot(root);
   const head = gitRead(base, ['rev-parse', '--verify', 'HEAD']);
   const branch = gitRead(base, ['symbolic-ref', '--quiet', '--short', 'HEAD']);
@@ -85,11 +87,24 @@ export function fingerprint(root) {
   // Save hashes, never the patch or file contents. Index changes matter even when worktree bytes do not change.
   const index = repo ? gitRead(base, ['diff', '--cached', '--no-ext-diff', '--no-textconv', '--binary', '--', '.', ':(exclude).just-vibe']) : '';
   if (repo && index === null) partial = true;
-  return { root: base, repository: repo, head, branch, files: entries.length, content: digest(JSON.stringify(entries)), index: digest(index || ''), partial };
+  const snapshot = { root: base, repository: repo, head, branch, files: entries.length, content: digest(JSON.stringify(entries)), index: digest(index || ''), partial };
+  if (perFile) snapshot.entries = Object.fromEntries(entries.map(([path, ...identity]) => [path, digest(JSON.stringify(identity)).slice(0, 12)]));
+  return snapshot;
 }
 
+const LISTED_CHANGES = 200;
 export function compareSnapshot(saved, current) {
   const differences = ['root', 'repository', 'head', 'branch', 'content', 'index'].filter(key => saved?.[key] !== current[key]);
   if (saved?.partial || current.partial) differences.push('incomplete-snapshot-coverage');
-  return { stale: differences.length > 0, differences, current };
+  const { entries, ...shown } = current;
+  const result = { stale: differences.length > 0, differences, current: shown };
+  if (!entries) return result;
+  // Snapshots saved without per-file identities can report drift but not which files changed.
+  if (!saved?.entries) return { ...result, changedFiles: null };
+  const before = saved.entries, after = entries;
+  const added = Object.keys(after).filter(path => !Object.hasOwn(before, path)).sort();
+  const removed = Object.keys(before).filter(path => !Object.hasOwn(after, path)).sort();
+  const modified = Object.keys(after).filter(path => Object.hasOwn(before, path) && before[path] !== after[path]).sort();
+  const truncated = [added, removed, modified].some(list => list.length > LISTED_CHANGES);
+  return { ...result, changedFiles: { added: added.slice(0, LISTED_CHANGES), removed: removed.slice(0, LISTED_CHANGES), modified: modified.slice(0, LISTED_CHANGES), truncated } };
 }
