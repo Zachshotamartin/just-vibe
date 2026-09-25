@@ -1,11 +1,11 @@
 ---
 name: react-audit
-description: "Review components, hooks, state ownership, and behavioral risks Use for React correctness inspection; react-rerenders requires performance evidence and react-effects targets synchronization."
+description: "Review components, hooks, state ownership, and behavioral risks. Use for React correctness inspection; react-rerenders requires performance evidence and react-effects targets synchronization."
 ---
 
 # react-audit
 
-Review components, hooks, state ownership, and behavioral risks
+Review components, hooks, state ownership, and behavioral risks.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; component tree/feature and behavioral concerns.
 
-component source, React/framework versions, state/data conventions, and relevant test tooling. Browser/profiler evidence is needed for measured rendering claims. Preserve existing framework and state libraries unless changing them is part of the request.
+**Pack prerequisites:** Component source, React/framework versions, state/data conventions, and relevant test tooling. Browser/profiler evidence is needed for measured rendering claims. Preserve existing framework and state libraries unless changing them is part of the request.
 
 - **Infer from evidence:** Read component callers, ownership of state, installed React/framework versions and existing interaction tests.
 - **Reasonable default:** Retain the framework and state library; preserve intended loading/error/empty behavior while resolving the named bug.
@@ -35,6 +35,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 1. Trace props/state and lifecycle, identify reachable failure paths, inspect tests and framework constraints, and rank concrete risks.
 2. Identify React/framework version and server/client boundary, then trace state ownership, hook order, key identity and reachable interaction states.
+
 ## Technical method
 
 - **Inspect:** Inspect component ownership, hook dependencies, keys, server/client boundaries and concrete interactions.
@@ -70,5 +71,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Audit checkout hooks and state ownership for reachable behavioral bugs.
-- **edge (inspect):** Audit a reordered editable list and a component with an early return before a hook.
-- **blocked (inspect):** Review React source without a browser; mark interaction behavior unverified.
+- **Edge (inspect):** Audit a reordered editable list and a component with an early return before a hook.
+- **Blocked (inspect):** Review React source without a browser; mark interaction behavior unverified.

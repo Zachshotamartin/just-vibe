@@ -1,11 +1,11 @@
 ---
 name: match
-description: "Compare an implementation against a visual reference and close gaps Use when a supplied visual reference is the acceptance target and gaps must be closed; ui-visual-diff only reports differences between captured states, and design creates a direction when no exact target exists."
+description: "Compare an implementation against a visual reference and close gaps. Use when a supplied visual reference is the acceptance target and gaps must be closed; ui-visual-diff only reports differences between captured states, and design creates a direction when no exact target exists."
 ---
 
 # match
 
-Compare an implementation against a visual reference and close gaps
+Compare an implementation against a visual reference and close gaps.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply; reference image/design, target implementation, viewport, and assets. Requires readable reference and render capability for visual proof.
 
-Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
+**Pack prerequisites:** Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
 - **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
 - **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
@@ -33,8 +33,10 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Execute
 
-1. Analyze reference geometry, compare an equivalent render, prioritize largest discrepancies, implement changes, and repeat bounded comparisons.
-2. Match viewport, content and fonts before comparing geometry; adjust large layout discrepancies before decorative details and record legitimate responsive differences.
+1. Match viewport, content and fonts to the reference before comparing geometry.
+2. Compare an equivalent render and fix the largest layout discrepancies before decorative details.
+3. Repeat bounded comparisons after each change and record legitimate responsive differences.
+
 ## Technical method
 
 - **Inspect:** Establish reference identity, viewport, fonts, assets and the intended tolerance.
@@ -53,8 +55,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Deliver and verify
 
-- Updated UI plus matched-state comparison and remaining differences.
-- Reference conditions, matched regions, remaining differences and responsive checks.
+- Updated UI with the reference conditions, a matched-state comparison by region, remaining differences and responsive checks.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -67,5 +68,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** Match this supplied pricing-page reference at its captured viewport.
-- **edge (apply):** Match this desktop reference while retaining a usable narrow layout.
-- **blocked (inspect):** Analyze a reference with unavailable brand assets; distinguish substitutes from exact matches.
+- **Edge (apply):** Match this desktop reference while retaining a usable narrow layout.
+- **Blocked (inspect):** Analyze a reference with unavailable brand assets; distinguish substitutes from exact matches.

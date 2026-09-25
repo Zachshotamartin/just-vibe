@@ -17,7 +17,7 @@ Start with a bounded baseline; increase complexity only when evaluation identifi
 
 Produce a reproducible training-to-serving contract, with split/feature timing, checkpoint state and parity checks before attributing improvements to a model change.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+For how this role compares with other roles on one shared feature, see [the same feature through different roles](../profile-comparisons.md).
 
 ## Verify when relevant
 

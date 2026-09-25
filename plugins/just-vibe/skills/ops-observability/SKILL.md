@@ -1,11 +1,11 @@
 ---
 name: ops-observability
-description: "Add useful logs, metrics, and traces to unclear execution paths Use to implement requested diagnostic telemetry; ops-alerts turns signals into actionable notifications."
+description: "Add useful logs, metrics, and traces to unclear execution paths. Use to implement requested diagnostic telemetry; ops-alerts turns signals into actionable notifications."
 ---
 
 # ops-observability
 
-Add useful logs, metrics, and traces to unclear execution paths
+Add useful logs, metrics, and traces to unclear execution paths.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply; unclear path, diagnostic goals, telemetry stack, privacy, and overhead constraints.
 
-exact service/environment, time window, revision/configuration identity, authorized logs/metrics, and operational constraints. Prefer observation before intervention; live restarts, traffic changes, restores, and notifications require the requested target/action. Redact sensitive telemetry.
+**Pack prerequisites:** Exact service/environment, time window, revision/configuration identity, authorized logs/metrics, and operational constraints. Prefer observation before intervention; live restarts, traffic changes, restores, and notifications require the requested target/action. Redact sensitive telemetry.
 
 - **Infer from evidence:** Read service/environment, time window, revision, available telemetry and existing incident or recovery procedure.
 - **Reasonable default:** Start from supplied logs and read-only observation; rank hypotheses without presenting an unexecuted intervention as recovery.
@@ -35,6 +35,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 1. Identify questions telemetry must answer, choose stable low-cardinality dimensions, propagate correlation, redact data, and verify normal/error instrumentation locally.
 2. Start with questions operators must answer, propagate correlation across boundaries and select bounded-cardinality metrics plus redacted structured events.
+
 ## Technical method
 
 - **Inspect:** Identify a specific unanswered operational question, request lifecycle and data sensitivity/cardinality.
@@ -67,5 +68,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** Add focused tracing without logging raw user payloads or high-cardinality labels.
-- **edge (apply):** Add tracing across a queue while keeping sensitive payloads out of logs.
-- **blocked (inspect):** Design observability without provisioning a vendor or changing production configuration.
+- **Edge (apply):** Add tracing across a queue while keeping sensitive payloads out of logs.
+- **Blocked (inspect):** Design observability without provisioning a vendor or changing production configuration.

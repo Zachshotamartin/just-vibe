@@ -1,11 +1,11 @@
 ---
 name: backend-jobs
-description: "Implement background processing, scheduling, and recovery Use for durable background work; arch-event-flow defines cross-service consistency."
+description: "Implement background processing, scheduling, and recovery. Use for durable background work; arch-event-flow defines cross-service consistency."
 ---
 
 # backend-jobs
 
-Implement background processing, scheduling, and recovery
+Implement background processing, scheduling, and recovery.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply; job purpose, payload, scheduling/retry policy, concurrency, and environment.
 
-service source, data/interface contracts, framework/runtime versions, and test environment. Default apply operations target local code and isolated tests; live infrastructure/data mutations require their own requested scope.
+**Pack prerequisites:** Service source, data/interface contracts, framework/runtime versions, and test environment. Default apply operations target local code and isolated tests; live infrastructure/data mutations require their own requested scope.
 
 - **Infer from evidence:** Trace service callers, request contracts, authorization, transactions, retries and existing test infrastructure.
 - **Reasonable default:** Use the existing persistence and framework; isolate local tests from live services.
@@ -35,6 +35,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 1. Define durable payloads, idempotent effects, lease/retry/dead-letter behavior, implement checkpoints where needed, and test crash/restart paths.
 2. Specify payload version, stable job identity, lease expiry, ack timing, bounded retry and dead-letter inspection before coding the worker.
+
 ## Technical method
 
 - **Inspect:** Inspect queue delivery guarantees, claim/lease mechanism, retry policy, payload version and effect identity.
@@ -72,5 +73,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** Implement a resumable worker with bounded retries and poison-message handling.
-- **edge (apply):** Implement a resumable job that might receive the same message concurrently.
-- **blocked (inspect):** Plan worker behavior with unknown broker delivery guarantees.
+- **Edge (apply):** Implement a resumable job that might receive the same message concurrently.
+- **Blocked (inspect):** Plan worker behavior with unknown broker delivery guarantees.

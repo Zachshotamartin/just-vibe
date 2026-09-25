@@ -1,11 +1,11 @@
 ---
 name: vite-env
-description: "Check environment loading and exposure of server-only values Use for build mode, environment loading and client exposure; vercel-env checks deployment scope metadata."
+description: "Check environment loading and exposure of server-only values. Use for build mode, environment loading and client exposure; vercel-env checks deployment scope metadata."
 ---
 
 # vite-env
 
-Check environment loading and exposure of server-only values
+Check environment loading and exposure of server-only values.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; build mode, expected variable names, environment files, and exposure policy. Apply for a requested configuration fix without reading or printing secret values.
 
-project manifests, lockfile, Vite/framework/plugin versions, and existing build scripts. Verify current version-specific documentation when changing configuration. Requested isolated verification may generate disposable build/cache artifacts; inspect their scripts first and preserve product files.
+**Pack prerequisites:** Project manifests, lockfile, Vite/framework/plugin versions, and existing build scripts. Verify current version-specific documentation when changing configuration. Requested isolated verification may generate disposable build/cache artifacts; inspect their scripts first and preserve product files.
 
 - **Infer from evidence:** Read manifests, lockfile, installed Vite/plugins, entry points, aliases, modes and current build scripts.
 - **Reasonable default:** Preserve existing tooling and base-path conventions; in apply mode, make a local focused change when the brief identifies the behavior, and otherwise propose it.
@@ -35,6 +35,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the
 
 1. Inspect variable references and configuration names, trace which mode supplies them, inspect existing generated bundles for exposure when available, and recommend narrow corrections.
 2. Trace import.meta.env usage and configured envPrefix, inspect mode-specific files by names only, and separate build mode from NODE_ENV.
+
 ## Technical method
 
 - **Inspect:** Inspect modes, envDir, public prefixes, define substitutions and client import paths using variable names.
@@ -67,5 +68,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Check whether server-only configuration is exposed in the client bundle.
-- **edge (inspect):** Diagnose a staging build made with a production NODE_ENV and a custom mode.
-- **blocked (inspect):** Inspect environment references without reading secret values or building output.
+- **Edge (inspect):** Diagnose a staging build made with a production NODE_ENV and a custom mode.
+- **Blocked (inspect):** Inspect environment references without reading secret values or building output.

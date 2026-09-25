@@ -17,8 +17,6 @@ Make environment differences explicit configuration; prefer a rollback-capable, 
 
 Trace a source change through build, artifact identity and deployment; make each environment transition and recovery condition explicit before changing automation.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Exercise failed deployment and recovery in the permitted environment.

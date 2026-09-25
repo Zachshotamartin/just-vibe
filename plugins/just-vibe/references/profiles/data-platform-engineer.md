@@ -17,8 +17,6 @@ Enforce producer schema and ownership contracts at ingestion; quarantine breakin
 
 Specify the ingestion and query interfaces and producer-to-consumer responsibilities; make schema evolution and quota use observable.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Exercise a breaking schema change and one tenant's quota breach.

@@ -1,11 +1,11 @@
 ---
 name: decision-spike
-description: "Design or run a bounded experiment to resolve uncertainty Use for a bounded experiment resolving a decision; build creates production behavior."
+description: "Design or run a bounded experiment to resolve uncertainty. Use for a bounded experiment resolving a decision; build creates production behavior."
 ---
 
 # decision-spike
 
-Design or run a bounded experiment to resolve uncertainty
+Design or run a bounded experiment to resolve uncertainty.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan; uncertainty, competing hypotheses, success criteria, time/compute budget, and scratch scope. Running the spike uses apply mode within that budget.
 
-the decision question, constraints, alternatives or permission to identify them, and relevant project evidence. Current vendor claims and prices require current authoritative sources during execution. Scores are decision aids, not facts.
+**Pack prerequisites:** The decision question, constraints, alternatives or permission to identify them, and relevant project evidence. Current vendor claims and prices require current authoritative sources during execution. Scores are decision aids, not facts.
 
 - **Infer from evidence:** Recover hard constraints, the current option, adoption status and stated priorities from the brief and prior decisions.
 - **Reasonable default:** Without a stated budget, propose a time box and stop rule before any run.
@@ -37,6 +37,7 @@ Inspect/plan: design the experiment; save requested artifacts only. Apply: build
 2. Set a time/compute/data budget, isolated artifact location and stop rule. Choose the smallest prototype or measurement that can distinguish the alternatives; avoid building production scaffolding that does not test the hypothesis.
 3. In apply mode, run within the budget and record raw observations, versions and deviations from the plan. Preserve failures and resource-limit outcomes; do not change the success threshold after seeing the result.
 4. Classify supported, rejected or inconclusive. Explain the implication for the original decision and the limits of the sample; prototype success does not establish production readiness.
+
 ## Technical method
 
 - **Inspect:** Identify one uncertainty, representative input, budget and rejection condition.
@@ -69,5 +70,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Design a two-hour local spike to test whether our current search index is sufficient.
-- **edge (apply):** Test whether streaming reduces perceived latency without building the full product.
-- **blocked (inspect):** Design a spike without available hardware; do not fabricate benchmark results.
+- **Edge (apply):** Test whether streaming reduces perceived latency without building the full product.
+- **Blocked (inspect):** Design a spike without available hardware; do not fabricate benchmark results.

@@ -1,11 +1,11 @@
 ---
 name: security-fix
-description: "Implement and verify remediation for an identified vulnerability Use to repair a confirmed scoped vulnerability; security produces findings before remediation."
+description: "Implement and verify remediation for an identified vulnerability. Use to repair a confirmed scoped vulnerability; security produces findings before remediation."
 ---
 
 # security-fix
 
-Implement and verify remediation for an identified vulnerability
+Implement and verify remediation for an identified vulnerability.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply; confirmed vulnerability, affected versions/paths, desired compatibility, and safe reproduction.
 
-defined application boundary, authorized code/environment, relevant trust/access rules, and evidence sources. Default to defensive inspection; active tests use owned or explicitly authorized isolated targets. Minimize sensitive evidence and never print usable credentials.
+**Pack prerequisites:** Defined application boundary, authorized code/environment, relevant trust/access rules, and evidence sources. Default to defensive inspection; active tests use owned or explicitly authorized isolated targets. Minimize sensitive evidence and never print usable credentials.
 
 - **Infer from evidence:** Resolve the requested surface, source/runtime version, reachable callers and actual trust/access boundaries.
 - **Reasonable default:** Start with source analysis and bounded owned fixtures; treat scanner output as leads and preserve legitimate controls.
@@ -35,6 +35,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 1. Verify the vulnerable path, implement the control at the correct boundary, test abuse and legitimate behavior, inspect alternate paths, and document remaining operational work.
 2. Reproduce the affected path in a safe fixture, enforce the control at the owning boundary and test legitimate behavior plus alternate bypass routes.
+
 ## Technical method
 
 - **Inspect:** Resolve the established attacker path, prerequisite, original behavior, affected callers and accepted compatibility requirements.
@@ -78,5 +79,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** Fix the demonstrated authorization bypass and verify legitimate owner access.
-- **edge (apply):** Fix an object-ownership bypass without preventing legitimate shared access.
-- **blocked (inspect):** Plan remediation with no safe reproduction environment; do not claim exploitation was eliminated.
+- **Edge (apply):** Fix an object-ownership bypass without preventing legitimate shared access.
+- **Blocked (inspect):** Plan remediation with no safe reproduction environment; do not claim exploitation was eliminated.

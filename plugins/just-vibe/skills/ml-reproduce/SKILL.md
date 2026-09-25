@@ -1,11 +1,11 @@
 ---
 name: ml-reproduce
-description: "Reproduce a result from code, data, and configuration Use to repeat a specified run; ml-baseline defines a new benchmark."
+description: "Reproduce a result from code, data, and configuration. Use to repeat a specified run; ml-baseline defines a new benchmark."
 ---
 
 # ml-reproduce
 
-Reproduce a result from code, data, and configuration
+Reproduce a result from code, data, and configuration.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Inspect reproduction evidence or plan the attempt; apply for requested reproduction code or bounded execution.
 
-dataset/split manifests, fixed objective/metric, environment/dependencies, baseline where applicable, and explicit compute limits. Record code revision, configuration, seeds, artifact paths, and resource use. Local smoke checks do not imply authorization for paid training. Never optimize on the held-out test set.
+**Pack prerequisites:** Dataset/split manifests, fixed objective/metric, environment/dependencies, baseline where applicable, and explicit compute limits. Record code revision, configuration, seeds, artifact paths, and resource use. Local smoke checks do not imply authorization for paid training. Never optimize on the held-out test set.
 
 - **Infer from evidence:** Read framework, training entry point, loss/metric, split manifests and checkpoint conventions from supplied source.
 - **Reasonable default:** In apply mode, implement requested code and tiny isolated smoke checks with existing tools, and otherwise propose them; leave unmeasured model quality explicit.
@@ -35,6 +35,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 
 1. Verify immutable inputs and dependency versions, reconstruct the procedure, run authorized bounded work, compare outputs/metrics within justified tolerance, and isolate deviations.
 2. Resolve exact data/artifact/code/dependency identities, reconstruct preprocessing and evaluation, and declare nondeterminism tolerances before execution.
+
 ## Technical method
 
 - **Inspect:** Resolve code revision, dependencies, artifacts, dataset access, hardware and claimed tolerance.
@@ -68,5 +69,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Plan reproducing this result with exact artifact identities and a two-hour budget.
-- **edge (plan):** Reproduce a GPU run on another supported device with explicit tolerances.
-- **blocked (inspect):** Assess reproducibility when the original dataset snapshot is missing.
+- **Edge (plan):** Reproduce a GPU run on another supported device with explicit tolerances.
+- **Blocked (inspect):** Assess reproducibility when the original dataset snapshot is missing.

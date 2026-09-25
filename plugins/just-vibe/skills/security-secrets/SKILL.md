@@ -1,11 +1,11 @@
 ---
 name: security-secrets
-description: "Locate exposed credentials without printing secret values Use to locate possible exposed credentials; security-config inspects deployment settings, and security-fix repairs a confirmed exposure in code."
+description: "Locate exposed credentials without printing secret values. Use to locate possible exposed credentials; security-config inspects deployment settings, and security-fix repairs a confirmed exposure in code."
 ---
 
 # security-secrets
 
-Locate exposed credentials without printing secret values
+Locate exposed credentials without printing secret values.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; repository/history/log scope and approved scanner capability.
 
-defined application boundary, authorized code/environment, relevant trust/access rules, and evidence sources. Default to defensive inspection; active tests use owned or explicitly authorized isolated targets. Minimize sensitive evidence and never print usable credentials.
+**Pack prerequisites:** Defined application boundary, authorized code/environment, relevant trust/access rules, and evidence sources. Default to defensive inspection; active tests use owned or explicitly authorized isolated targets. Minimize sensitive evidence and never print usable credentials.
 
 - **Infer from evidence:** Resolve the requested surface, source/runtime version, reachable callers and actual trust/access boundaries.
 - **Reasonable default:** Start with source analysis and bounded owned fixtures; treat scanner output as leads and preserve legitimate controls.
@@ -35,6 +35,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 1. Scan the specified sources with redacted output, distinguish placeholders from plausible secrets, map exposure surfaces, and propose owner/provider-specific remediation.
 2. Run approved scanners with redacted output over the requested scope, classify placeholders and locate exposure surfaces without copying values into reports.
+
 ## Technical method
 
 - **Inspect:** Inspect scoped source, tracked history when requested, build outputs and redacted scanner locations.
@@ -73,5 +74,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Scan the requested repository scope with redacted findings only.
-- **edge (inspect):** Scan history containing both test placeholders and a plausible credential.
-- **blocked (inspect):** Assess secret handling without an approved scanner; do not upload the repository.
+- **Edge (inspect):** Scan history containing both test placeholders and a plausible credential.
+- **Blocked (inspect):** Assess secret handling without an approved scanner; do not upload the repository.

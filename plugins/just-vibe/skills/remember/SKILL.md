@@ -1,11 +1,11 @@
 ---
 name: remember
-description: "Save project instructions, inspect their loading, and make explicit rules checkable Use to build or update project instructions from this conversation or save an explicit convention; checkpoint saves progress, while learn proposes lessons for adoption."
+description: "Save project instructions, inspect their loading, and make explicit rules checkable. Use to build or update project instructions from this conversation or save an explicit convention; checkpoint saves progress, while learn proposes lessons for adoption."
 ---
 
 # remember
 
-Save project instructions, inspect their loading, and make explicit rules checkable
+Save project instructions, inspect their loading, and make explicit rules checkable.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply by default. A rule saves that rule; context or no appended brief extracts durable instructions from the available conversation. Honor an explicit preview/inspect request without writing.
 
-Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
+**Pack prerequisites:** Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
 - **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
 - **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
@@ -42,6 +42,7 @@ Update the requested project CLAUDE.md, AGENTS.md or established scoped instruct
 7. For a new managed explicit rule, read the current file bytes and rule revision, then use memory save with its source excerpt, exact scope and expected file hash. Preserve unrelated prose. Store narrower scope in the instruction itself and retain history. Use the instruction-memory workflow for established shared imports/context sections; never duplicate the same rule in competing mechanisms.
 8. When enforcement is requested, choose an assertion the runtime can actually test. Literal/import guards need representative positive and negative controls and a matching rule scope. For semantic behavior, implement a focused project test with a meaningful failure control instead of claiming a string scanner proves it.
 9. Inspect saved state and read the written block back. Run the guard and report its covered files, failures or incomplete coverage. A changed/retired/missing rule makes its guard stale. Integrate automatic enforcement into existing CI or explicitly trusted hooks only when requested.
+
 ## Technical method
 
 - **Inspect:** Identify explicit durable rules, accepted decisions, corrections, target files and instruction precedence.
@@ -86,5 +87,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** context — update this project's instructions with the decisions and corrections from this conversation.
-- **edge (apply):** context both, including a checkpoint named checkout for unfinished work; preserve existing Claude-specific guidance.
-- **blocked (inspect):** Preview what you can save when earlier conversation details are unavailable and an existing rule has an ambiguous conflict.
+- **Edge (apply):** context both, including a checkpoint named checkout for unfinished work; preserve existing Claude-specific guidance.
+- **Blocked (inspect):** Preview what you can save when earlier conversation details are unavailable and an existing rule has an ambiguous conflict.

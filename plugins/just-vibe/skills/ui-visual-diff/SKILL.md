@@ -1,11 +1,11 @@
 ---
 name: ui-visual-diff
-description: "Compare screenshots against an accepted reference Use to compare matched visual states; match closes gaps against an accepted reference, and ui-audit judges usability of the resulting interface."
+description: "Compare screenshots against an accepted reference. Use to compare matched visual states; match closes gaps against an accepted reference, and ui-audit judges usability of the resulting interface."
 ---
 
 # ui-visual-diff
 
-Compare screenshots against an accepted reference
+Compare screenshots against an accepted reference.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect existing captures; reference/current renders with matching viewport, state, data, fonts, and theme.
 
-target screens/flows, existing design conventions, and runnable UI or supplied references. Visual claims require actual renders; accessibility claims distinguish automated, keyboard, and assistive-technology evidence.
+**Pack prerequisites:** Target screens/flows, existing design conventions, and runnable UI or supplied references. Visual claims require actual renders; accessibility claims distinguish automated, keyboard, and assistive-technology evidence.
 
 - **Infer from evidence:** Inspect the target flow, existing components/tokens, actual renders or supplied references and current responsive behavior.
 - **Reasonable default:** Reuse established visual conventions and preserve keyboard behavior; label unrendered changes as visually unverified.
@@ -35,6 +35,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 1. Normalize capture conditions, identify meaningful regions, separate dynamic content noise, and describe differences by user impact.
 2. Match viewport, DPR, fonts, content, theme and animation state; mask only justified nondeterminism and inspect changed regions before accepting baselines.
+
 ## Technical method
 
 - **Inspect:** Record baseline approval, viewport, fonts, data, time and screenshot environment.
@@ -70,5 +71,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Compare these matched-viewport screenshots and separate dynamic noise from regressions.
-- **edge (inspect):** Compare screenshots with dynamic timestamps and a real layout shift.
-- **blocked (inspect):** Compare supplied captures with unknown font loading; do not assert exact pixel fidelity.
+- **Edge (inspect):** Compare screenshots with dynamic timestamps and a real layout shift.
+- **Blocked (inspect):** Compare supplied captures with unknown font loading; do not assert exact pixel fidelity.

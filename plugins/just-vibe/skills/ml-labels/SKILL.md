@@ -1,11 +1,11 @@
 ---
 name: ml-labels
-description: "Inspect label definitions, noise, disagreement, and missing outcomes Use for label construction and annotation quality; ml-leakage checks prediction-time information flow."
+description: "Inspect label definitions, noise, disagreement, and missing outcomes. Use for label construction and annotation quality; ml-leakage checks prediction-time information flow."
 ---
 
 # ml-labels
 
-Inspect label definitions, noise, disagreement, and missing outcomes
+Inspect label definitions, noise, disagreement, and missing outcomes.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; label definitions, annotation/outcome sources, timing, and permitted samples.
 
-task definition, dataset identity, field semantics, entity/time keys, and permission to inspect bounded data. Record prediction moment, label horizon, sampling, and provenance. Preserve held-out evaluation boundaries; no data upload, label alteration, or feature fitting across splits implicitly.
+**Pack prerequisites:** Task definition, dataset identity, field semantics, entity/time keys, and permission to inspect bounded data. Record prediction moment, label horizon, sampling, and provenance. Preserve held-out evaluation boundaries; no data upload, label alteration, or feature fitting across splits implicitly.
 
 - **Infer from evidence:** Read prediction moment, label horizon, entity/time keys, split policy and dataset provenance from the task and manifests.
 - **Reasonable default:** Use explicit synthetic examples for design when raw data is unavailable; do not infer missing labels or fit preprocessing across held-out boundaries.
@@ -35,6 +35,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 1. Trace label construction, compare annotations/outcomes, distinguish disagreement from ambiguous policy, inspect timing and coverage, and propose adjudication/quality checks.
 2. Trace label source, event horizon and maturity; distinguish true negatives, unobserved outcomes, contradictory annotations and policy ambiguity.
+
 ## Technical method
 
 - **Inspect:** Read labeling policy, event identity, annotator agreement, outcome window and availability timestamps.
@@ -67,5 +68,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Audit how missing outcome follow-up and annotation disagreement affect labels.
-- **edge (inspect):** Audit labels when missing follow-up was encoded as no failure.
-- **blocked (inspect):** Assess annotation policy without identifiable raw examples or relabeling permission.
+- **Edge (inspect):** Audit labels when missing follow-up was encoded as no failure.
+- **Blocked (inspect):** Assess annotation policy without identifiable raw examples or relabeling permission.

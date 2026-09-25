@@ -1,6 +1,6 @@
 ---
 name: responsive
-description: "Fix layouts across screen sizes and input methods Alias for ui-responsive."
+description: "Fix layouts across screen sizes and input methods. Alias for ui-responsive."
 ---
 
 # responsive

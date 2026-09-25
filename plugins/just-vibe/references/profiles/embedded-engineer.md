@@ -17,8 +17,6 @@ Use bounded work and storage when deadlines or memory cannot tolerate dynamic gr
 
 Connect timing, memory and peripheral constraints to the actual control path, with a bounded failure behavior that does not depend on a desktop environment.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Test boundary values, resets and peripheral failures.

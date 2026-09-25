@@ -1,11 +1,11 @@
 ---
 name: llm-injection
-description: "Test handling of hostile instructions in untrusted content Use for scoped instruction-boundary evaluation; security-inputs handles interpreter injection."
+description: "Test handling of hostile instructions in untrusted content. Use for scoped instruction-boundary evaluation; security-inputs handles interpreter injection."
 ---
 
 # llm-injection
 
-Test handling of hostile instructions in untrusted content
+Test handling of hostile instructions in untrusted content.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan; agent workflow, untrusted input surfaces, trust boundaries, and isolated test scope. Apply for requested canary test fixtures or bounded isolated runs.
 
-task definition, model/provider configuration, representative permitted data, versioned prompts/corpus where relevant, and explicit token/cost/latency limits for remote calls. Use current provider interfaces during implementation. Retrieved content and model-generated tool arguments remain untrusted.
+**Pack prerequisites:** Task definition, model/provider configuration, representative permitted data, versioned prompts/corpus where relevant, and explicit token/cost/latency limits for remote calls. Use current provider interfaces during implementation. Retrieved content and model-generated tool arguments remain untrusted.
 
 - **Infer from evidence:** Read current prompt/tool schemas, retrieval boundaries, installed SDK/provider config and permitted examples without reading secret values.
 - **Reasonable default:** Use mocked calls for local contract tests when remote access is absent; do not infer model quality from mocks.
@@ -35,6 +35,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 
 1. Map data-to-authority boundaries, create benign canary scenarios, run isolated tests in apply mode, inspect tool actions as well as text, and propose enforceable mitigations.
 2. Map untrusted documents and tool results into model context, plant benign canaries and inspect tool actions as well as generated text.
+
 ## Technical method
 
 - **Inspect:** Identify untrusted surfaces, sensitive capabilities, instruction boundaries and observable tool-call logs.
@@ -67,5 +68,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Plan isolated prompt-injection tests using benign canaries and no real secrets.
-- **edge (apply):** Test a retrieved document asking the agent to send a synthetic secret elsewhere.
-- **blocked (inspect):** Design canary tests without real secrets or external exfiltration endpoints.
+- **Edge (apply):** Test a retrieved document asking the agent to send a synthetic secret elsewhere.
+- **Blocked (inspect):** Design canary tests without real secrets or external exfiltration endpoints.

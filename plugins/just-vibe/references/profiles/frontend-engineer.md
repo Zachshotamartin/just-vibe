@@ -17,7 +17,7 @@ Keep state local until multiple owners or navigation require a wider lifetime.
 
 For a feature request, produce an interaction/state map tied to components, including stale responses, URL restoration and keyboard recovery; use it to choose the smallest UI change.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+For how this role compares with other roles on one shared feature, see [the same feature through different roles](../profile-comparisons.md).
 
 ## Verify when relevant
 

@@ -1,11 +1,11 @@
 ---
 name: plan-review
-description: "Review a concrete plan or artifact in a private browser canvas with annotations and version-bound feedback Use when the user requests browser review, line annotations or a visual feedback loop for a concrete plan or artifact. Ordinary planning can stay in the conversation."
+description: "Review a concrete plan or artifact in a private browser canvas with annotations and version-bound feedback. Use when the user requests browser review, line annotations or a visual feedback loop for a concrete plan or artifact. Ordinary planning can stay in the conversation."
 ---
 
 # plan-review
 
-Review a concrete plan or artifact in a private browser canvas with annotations and version-bound feedback
+Review a concrete plan or artifact in a private browser canvas with annotations and version-bound feedback.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Creating a review is a reversible local action within a requested review. Approval is a user browser action and applies only to the displayed artifact hash, not to publishing or unrelated execution.
 
-Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
+**Pack prerequisites:** Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
 - **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
 - **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
@@ -39,6 +39,7 @@ Save the artifact review in personal project storage and open an expiring authen
 4. Read feedback with canvas_read show/wait. The user can comment, annotate a source line, request changes or approve the current version. Preserve attributed feedback and its artifact hash; never submit approval on behalf of the user.
 5. Resolve actionable feedback in the requested scope. If the artifact changes, refresh the canvas using its current revision, which archives the old feedback and clears the verdict. Ask for another review only when the task actually requires that decision; continue independent authorized work.
 6. Use effectiveVerdict only when stale is false and the reviewed artifact hash matches. Close the review when finished. Report the decision, implemented changes, remaining disagreements and any unverified behavior; do not infer external-action permission from approval.
+
 ## Technical method
 
 - **Inspect:** Artifact content hash, current file, review revision, attributed annotations and effective verdict.
@@ -75,6 +76,6 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 ## Example requests
 
-- **normal (apply):** Open docs/design.md for browser review so I can annotate the plan.
-- **edge (inspect):** Check whether the approved plan changed before implementation.
-- **blocked (apply):** Open this plan for approval, but it includes credentials; prepare a safe review copy first.
+- **Normal (apply):** Open docs/design.md for browser review so I can annotate the plan.
+- **Edge (inspect):** Check whether the approved plan changed before implementation.
+- **Blocked (apply):** Open this plan for approval, but it includes credentials; prepare a safe review copy first.

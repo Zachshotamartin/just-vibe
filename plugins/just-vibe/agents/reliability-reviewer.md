@@ -24,7 +24,7 @@ The method below is bundled with this agent. At invocation, just-vibe's trusted 
 
 # review
 
-Review a change, selected files, or an entire repository for actionable defects
+Review a change, selected files, or an entire repository for actionable defects.
 
 ## Choose this workflow
 
@@ -36,7 +36,7 @@ Read [shared execution](../references/execution.md) for context/mode/authority h
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect. Select diff review for an explicit base/PR, repository review for a broad request, or file review for named paths. General source review does not require a base revision.
 
-Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
+**Pack prerequisites:** Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
 - **Infer from evidence:** Resolve diff/base for a named PR or branch comparison; otherwise use the current repository or named files and report scope. Inspect callers, contracts and current tests.
 - **Reasonable default:** For “general code review,” examine current source and important integration boundaries without requiring a clean diff or inventing change attribution.
@@ -56,6 +56,7 @@ No product edits or external review submission. A code review permits bounded lo
 2. Read surrounding contracts and callers, then select only matching security/language/domain guides. Trace input through transformation, side effect and persisted/report output; check the composed behavior as well as individual helpers.
 3. For each suspected defect establish the input/state trigger, reachable impact and expected invariant. Try to disprove it using existing guards or an isolated legitimate control. Reconfirm locations; distinguish source reasoning, exercised regressions and unavailable runtime evidence.
 4. Report prioritized actionable findings or an honest no-findings result with coverage limits. Do not fill a quota or repair the code during review. For a follow-up repair request, retain the exact selected findings and exclusions across “continue” messages.
+
 ## Technical method
 
 - **Inspect:** Inspect the selected diff/base, repository or file scope, surrounding contracts, callers, tests and generated artifacts.
@@ -111,7 +112,7 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Review this branch against main for behavioral regressions.
-- **edge (inspect):** Review my rebased branch against main where main already has unrelated warnings.
-- **blocked (inspect):** Review supplied diff only; mark missing surrounding source and tests as coverage limits.
-- **repository (inspect):** Do a general code review of this repository; identify existing bugs and useful improvements without editing the product.
-- **files (inspect):** Review the evidence recorder and its callers for output-handling defects.
+- **Edge (inspect):** Review my rebased branch against main where main already has unrelated warnings.
+- **Blocked (inspect):** Review supplied diff only; mark missing surrounding source and tests as coverage limits.
+- **Repository (inspect):** Do a general code review of this repository; identify existing bugs and useful improvements without editing the product.
+- **Files (inspect):** Review the evidence recorder and its callers for output-handling defects.

@@ -1,11 +1,11 @@
 ---
 name: api-client
-description: "Build a typed client with authentication and error handling Use for a typed transport boundary to a known API; integrate handles wider product wiring."
+description: "Build a typed client with authentication and error handling. Use for a typed transport boundary to a known API; integrate handles wider product wiring."
 ---
 
 # api-client
 
-Build a typed client with authentication and error handling
+Build a typed client with authentication and error handling.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply; API specification, language/runtime, authentication source, and consumer needs.
 
-interface definitions, producer/consumer source, authentication model, versioning constraints, and isolated test endpoints. External API calls must respect environment, credentials, rate limits, and side-effect scope.
+**Pack prerequisites:** Interface definitions, producer/consumer source, authentication model, versioning constraints, and isolated test endpoints. External API calls must respect environment, credentials, rate limits, and side-effect scope.
 
 - **Infer from evidence:** Read producer/consumer schemas, error contracts, auth conventions and known supported client versions.
 - **Reasonable default:** Keep compatible response and pagination semantics where the brief does not request a breaking change.
@@ -35,6 +35,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 1. Verify contract/version, generate or write a narrow client, isolate credentials, preserve useful errors, and exercise controlled successful and failed responses.
 2. Resolve version/auth/schema, validate runtime response shape and preserve actionable status, retry-after and request IDs without leaking credentials.
+
 ## Technical method
 
 - **Inspect:** Inspect API version, runtime response shape, token destination, retryable operations and timeout ownership.
@@ -69,5 +70,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** Build a typed API client with bounded retries and useful errors.
-- **edge (apply):** Build a client for paginated responses and retry-after throttling.
-- **blocked (apply):** Implement against supplied contracts without paid or mutating live requests.
+- **Edge (apply):** Build a client for paginated responses and retry-after throttling.
+- **Blocked (apply):** Implement against supplied contracts without paid or mutating live requests.

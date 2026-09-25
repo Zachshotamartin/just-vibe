@@ -1,11 +1,11 @@
 ---
 name: explain
-description: "Explain code or behavior at the requested depth Use for what existing code does and why its observed branches matter; use teach for fundamentals or trace for an entire request path."
+description: "Explain code or behavior at the requested depth. Use for what existing code does and why its observed branches matter; use teach for fundamentals or trace for an entire request path."
 ---
 
 # explain
 
-Explain code or behavior at the requested depth
+Explain code or behavior at the requested depth.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; symbol, file, behavior, or question plus desired depth. Requires relevant source access.
 
-Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
+**Pack prerequisites:** Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
 - **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
 - **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
@@ -33,8 +33,9 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Locate definitions and callers, inspect important branches, distinguish static inference from observed runtime behavior, and adapt terminology to the brief.
-2. Locate the definition and a real caller; walk one concrete input through transformations, outputs, side effects and failure handling with file references.
+1. Locate the definition and a real caller, and inspect the branches that matter for the question.
+2. Walk one concrete input through transformations, outputs, side effects and failure handling with file references, at the depth and in the terminology the brief asks for; distinguish what the source shows statically from observed runtime behavior.
+
 ## Technical method
 
 - **Inspect:** Read the target definition, at least one caller, data shapes and relevant error handling.
@@ -53,8 +54,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- A causal explanation with source links, a concrete example, and relevant caveats.
-- Input-to-output walkthrough, cited source locations, edge path, and unresolved runtime assumptions.
+- A causal explanation that walks one concrete input to its output with cited source locations, the edge path that matters, and unresolved runtime assumptions.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -67,5 +67,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Explain how session refresh works, including expired credentials.
-- **edge (inspect):** Explain how this function handles an empty array and a rejected dependency.
-- **blocked (inspect):** Explain this module from source only; runtime configuration is unavailable.
+- **Edge (inspect):** Explain how this function handles an empty array and a rejected dependency.
+- **Blocked (inspect):** Explain this module from source only; runtime configuration is unavailable.

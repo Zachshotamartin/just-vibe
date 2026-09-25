@@ -1,11 +1,11 @@
 ---
 name: decision-matrix
-description: "Compare options using weighted criteria and explain the weights Use when several explicit criteria need weighted comparison; decide suffices for a decisive hard constraint."
+description: "Compare options using weighted criteria and explain the weights. Use when several explicit criteria need weighted comparison; decide suffices for a decisive hard constraint."
 ---
 
 # decision-matrix
 
-Compare options using weighted criteria and explain the weights
+Compare options using weighted criteria and explain the weights.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan; options, measurable criteria, weights or priority guidance.
 
-the decision question, constraints, alternatives or permission to identify them, and relevant project evidence. Current vendor claims and prices require current authoritative sources during execution. Scores are decision aids, not facts.
+**Pack prerequisites:** The decision question, constraints, alternatives or permission to identify them, and relevant project evidence. Current vendor claims and prices require current authoritative sources during execution. Scores are decision aids, not facts.
 
 - **Infer from evidence:** Recover hard constraints, the current option, adoption status and stated priorities from the brief and prior decisions.
 - **Reasonable default:** When only a priority order is given, derive provisional weights from it, show them, and report whether plausible reweighting changes the winner.
@@ -35,6 +35,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 1. Define score scales, cite evidence for scores, separate must-haves, normalize weights, and vary uncertain values to test ranking stability.
 2. Define score anchors before rating, keep feasibility separate, and vary uncertain weights/scores over plausible ranges.
+
 ## Technical method
 
 - **Inspect:** Collect criterion definitions, score anchors, weights, evidence ranges and excluded options.
@@ -67,5 +68,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Compare three authentication options; maintenance is the highest priority.
-- **edge (plan):** Compare three databases when one fails a hard regional requirement.
-- **blocked (inspect):** Build a comparison with unknown costs; use bounds or missing values instead of invented scores.
+- **Edge (plan):** Compare three databases when one fails a hard regional requirement.
+- **Blocked (inspect):** Build a comparison with unknown costs; use bounds or missing values instead of invented scores.

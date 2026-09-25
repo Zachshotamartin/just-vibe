@@ -5,6 +5,7 @@ import roles from '../../../plugins/just-vibe/catalog/profiles.json' with { type
 import methodSource from '../../../plugins/just-vibe/catalog/methods.json' with { type: 'json' };
 import pkg from '../../../package.json' with { type: 'json' };
 import {
+  capitalize,
   materializeAliases,
   validateCatalog,
 } from '../../../plugins/just-vibe/scripts/lib/catalog.mjs';
@@ -26,6 +27,7 @@ const catalog = materializeAliases({
 validateCatalog(catalog, packSource);
 // Profiles use the same rules as the CLI: known canonical workflows, closed fields, unique names.
 validateProfiles(roles, catalog, methodSource.methods);
+export { capitalize };
 export const commands = catalog.commands;
 export const packs = packSource.packs;
 export const profiles = roles.profiles;

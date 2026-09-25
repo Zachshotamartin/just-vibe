@@ -17,8 +17,6 @@ Pause interpretation when sample-ratio mismatch or logging errors invalidate ass
 
 Define randomization unit, exposure, guardrails and analysis window; verify assignment and interference before reading experiment outcomes.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Reconcile assignment and exposure logs.

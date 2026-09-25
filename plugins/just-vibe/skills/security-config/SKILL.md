@@ -1,11 +1,11 @@
 ---
 name: security-config
-description: "Review application, container, and deployment configuration Use for effective security-relevant settings; vercel-audit is a deployment-specific configuration comparison, and security-fix repairs a confirmed misconfiguration."
+description: "Review application, container, and deployment configuration. Use for effective security-relevant settings; vercel-audit is a deployment-specific configuration comparison, and security-fix repairs a confirmed misconfiguration."
 ---
 
 # security-config
 
-Review application, container, and deployment configuration
+Review application, container, and deployment configuration.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; app/container/deployment configuration and exact environment.
 
-defined application boundary, authorized code/environment, relevant trust/access rules, and evidence sources. Default to defensive inspection; active tests use owned or explicitly authorized isolated targets. Minimize sensitive evidence and never print usable credentials.
+**Pack prerequisites:** Defined application boundary, authorized code/environment, relevant trust/access rules, and evidence sources. Default to defensive inspection; active tests use owned or explicitly authorized isolated targets. Minimize sensitive evidence and never print usable credentials.
 
 - **Infer from evidence:** Resolve the requested surface, source/runtime version, reachable callers and actual trust/access boundaries.
 - **Reasonable default:** Start with source analysis and bounded owned fixtures; treat scanner output as leads and preserve legitimate controls.
@@ -35,6 +35,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 1. Compare effective configuration with intended boundaries, distinguish dev from production requirements, trace high-impact settings, and verify available deployment evidence.
 2. Compare declared and effective settings for the exact environment, inspect trust boundaries and distinguish local development exceptions from public production exposure.
+
 ## Technical method
 
 - **Inspect:** Inspect effective production settings, network exposure, cookie/CORS/proxy rules, container privileges and CI trust paths.
@@ -73,5 +74,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Audit production configuration without changing infrastructure settings.
-- **edge (inspect):** Review debug exposure and cross-origin settings in separate dev and production configurations.
-- **blocked (inspect):** Audit configuration files without infrastructure access or changing live settings.
+- **Edge (inspect):** Review debug exposure and cross-origin settings in separate dev and production configurations.
+- **Blocked (inspect):** Audit configuration files without infrastructure access or changing live settings.

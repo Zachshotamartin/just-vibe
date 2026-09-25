@@ -17,8 +17,6 @@ Optimize a runtime path only when the semantic and observability contracts remai
 
 Trace allocation, scheduling and resource lifetime through the failing path; distinguish API semantics from implementation behavior before changing runtime mechanisms.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Exercise stress, interruption and resource limits.

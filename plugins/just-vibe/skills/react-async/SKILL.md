@@ -1,11 +1,11 @@
 ---
 name: react-async
-description: "Fix loading races, cancellation, stale responses, and async behavior Use for request races, optimistic updates and async states; react-effects handles effect lifetime, subscriptions and cleanup."
+description: "Fix loading races, cancellation, stale responses, and async behavior. Use for request races, optimistic updates and async states; react-effects handles effect lifetime, subscriptions and cleanup."
 ---
 
 # react-async
 
-Fix loading races, cancellation, stale responses, and async behavior
+Fix loading races, cancellation, stale responses, and async behavior.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply; async interaction, request/cache layer, and observed race or loading issue.
 
-component source, React/framework versions, state/data conventions, and relevant test tooling. Browser/profiler evidence is needed for measured rendering claims. Preserve existing framework and state libraries unless changing them is part of the request.
+**Pack prerequisites:** Component source, React/framework versions, state/data conventions, and relevant test tooling. Browser/profiler evidence is needed for measured rendering claims. Preserve existing framework and state libraries unless changing them is part of the request.
 
 - **Infer from evidence:** Read component callers, ownership of state, installed React/framework versions and existing interaction tests.
 - **Reasonable default:** Retain the framework and state library; preserve intended loading/error/empty behavior while resolving the named bug.
@@ -37,6 +37,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 2. Use the existing framework/data layer mechanism to separate stale-result suppression from actual cancellation. Shared requests may outlive one component; cancelling one subscriber must not invalidate another subscriber’s result.
 3. Guard both success and failure publication against stale identity and disposal. Clean up subscriptions/listeners on all terminal paths and prevent disposed owners from starting further work unless the lifecycle contract explicitly permits reactivation.
 4. Control completion order in tests: newer success before older success, newer success before older failure, unmount while pending and shared-request cancellation. For optimistic writes, reconcile from authoritative state after ambiguous completion instead of assuming abort undid the server effect.
+
 ## Technical method
 
 - **Inspect:** Identify request identity, state owner, shared work lifetime and cancellation contract.
@@ -70,5 +71,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** Fix out-of-order search responses overwriting newer results.
-- **edge (apply):** Fix search results that revert when older requests finish last.
-- **blocked (inspect):** Inspect async behavior without live network access; use a controlled deferred-response fixture.
+- **Edge (apply):** Fix search results that revert when older requests finish last.
+- **Blocked (inspect):** Inspect async behavior without live network access; use a controlled deferred-response fixture.

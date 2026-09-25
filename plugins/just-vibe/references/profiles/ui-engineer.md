@@ -17,8 +17,6 @@ Extend existing primitives when their semantics fit; create a component only for
 
 Deliver the component state inventory, token usage and responsive behavior for the requested screen; connect each interaction to an existing primitive before adding one.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Compare rendered output to the reference.

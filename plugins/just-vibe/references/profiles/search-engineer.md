@@ -17,8 +17,6 @@ Fix candidate recall before tuning a ranker that never sees relevant documents.
 
 Separate retrieval, ranking and presentation failures with query-level relevance evidence; deliver an evaluation set that includes empty, rare and permission-filtered results.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Measure relevance and latency by query slice.

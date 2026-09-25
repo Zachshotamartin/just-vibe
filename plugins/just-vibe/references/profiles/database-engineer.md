@@ -17,7 +17,7 @@ Prefer constraints for invariant enforcement when application checks can race.
 
 Identify the access pattern, constraints and transactional owner, then propose schema/index/query changes with engine-specific lock and compatibility checks.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+For how this role compares with other roles on one shared feature, see [the same feature through different roles](../profile-comparisons.md).
 
 ## Verify when relevant
 

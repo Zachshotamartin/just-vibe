@@ -1,11 +1,11 @@
 ---
 name: ml-calibrate
-description: "Assess predicted probabilities against observed outcomes Use to assess or fit probability calibration; ml-threshold maps scores to decisions."
+description: "Assess predicted probabilities against observed outcomes. Use to assess or fit probability calibration; ml-threshold maps scores to decisions."
 ---
 
 # ml-calibrate
 
-Assess predicted probabilities against observed outcomes
+Assess predicted probabilities against observed outcomes.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; predicted probabilities, labels, sampling/prevalence context, and intended use. Apply to fit a calibrator on a permitted split when requested.
 
-frozen model/artifact, evaluation dataset identity, labels where needed, metric definitions, and task/operating context. Report sample counts and uncertainty appropriate to dependencies; avoid repeated test-set tuning. Exploratory findings need fresh confirmation before strong generalization claims.
+**Pack prerequisites:** Frozen model/artifact, evaluation dataset identity, labels where needed, metric definitions, and task/operating context. Report sample counts and uncertainty appropriate to dependencies; avoid repeated test-set tuning. Exploratory findings need fresh confirmation before strong generalization claims.
 
 - **Infer from evidence:** Read frozen model/data identities, metric definitions, denominators and supplied predictions; separate validation from test use.
 - **Reasonable default:** Compute only supported metrics on permitted samples and label missing labels or subgroup coverage as unknown.
@@ -35,6 +35,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 
 1. Validate probability semantics, inspect reliability by range/cohort, use appropriate scoring measures, and compare any fitted calibrator on untouched evaluation data.
 2. Check probability semantics, reliability and proper scoring measures; fit any calibrator on permitted data separate from final evaluation and compare by cohort.
+
 ## Technical method
 
 - **Inspect:** Inspect probability outputs, class definition, prevalence, selection split and calibration metric/binning.
@@ -67,5 +68,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Assess probability calibration from the supplied held-out scores and outcomes.
-- **edge (apply):** Calibrate a model trained on oversampled positives.
-- **blocked (inspect):** Review probability outputs with too few outcomes to fit a reliable calibrator.
+- **Edge (apply):** Calibrate a model trained on oversampled positives.
+- **Blocked (inspect):** Review probability outputs with too few outcomes to fit a reliable calibrator.

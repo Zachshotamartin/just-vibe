@@ -1,11 +1,11 @@
 ---
 name: cleanup
-description: "Remove verified dead code and unnecessary complexity Use for evidence-backed removal of unnecessary code or assets; refactor preserves behavior through restructuring."
+description: "Remove verified dead code and unnecessary complexity. Use for evidence-backed removal of unnecessary code or assets; refactor preserves behavior through restructuring."
 ---
 
 # cleanup
 
-Remove verified dead code and unnecessary complexity
+Remove verified dead code and unnecessary complexity.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply; directory/change scope and cleanup objective. Requires references, build configuration, and relevant checks.
 
-Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
+**Pack prerequisites:** Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
 - **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
 - **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
@@ -33,8 +33,9 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Execute
 
-1. Find candidates, check dynamic/configuration references and public exports, remove only supported candidates, and verify affected builds/behavior.
-2. Check static callers, public exports, framework conventions and runtime registration; remove a coherent candidate set with a restorable diff.
+1. Find candidates and check static callers, dynamic and configuration references, public exports, framework conventions and runtime registration.
+2. Remove only a coherent set of supported candidates with a restorable diff, then verify the affected builds and behavior.
+
 ## Technical method
 
 - **Inspect:** Locate apparently unused code/assets and inspect static, dynamic, generated and externally documented consumers.
@@ -53,8 +54,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Deliver and verify
 
-- Focused deletions/simplifications with evidence of non-use and checks.
-- Removed items with non-use evidence and checks for affected consumers.
+- Removed or simplified items, each with non-use evidence, and checks for affected consumers.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -67,5 +67,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** Remove demonstrably unused checkout helpers; preserve public exports.
-- **edge (apply):** Clean dead files while preserving route files discovered by filename.
-- **blocked (inspect):** Identify cleanup candidates without build access; leave uncertain dynamic modules intact.
+- **Edge (apply):** Clean dead files while preserving route files discovered by filename.
+- **Blocked (inspect):** Identify cleanup candidates without build access; leave uncertain dynamic modules intact.

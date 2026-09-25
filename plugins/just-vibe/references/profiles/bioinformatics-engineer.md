@@ -17,8 +17,6 @@ Preserve cohort and subject boundaries when related samples could contaminate ev
 
 Record reference assembly, coordinate conventions and sample/provenance identity; validate transformations against biological and file-format controls before interpreting results.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Check sample mapping, quality controls and workflow reproducibility.

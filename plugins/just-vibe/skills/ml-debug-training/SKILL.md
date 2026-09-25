@@ -1,11 +1,11 @@
 ---
 name: ml-debug-training
-description: "Investigate exploding loss, unstable gradients, NaNs, or failure to learn Use for NaNs, shape/device errors or non-learning; ml-error-analysis studies generalization failures."
+description: "Investigate exploding loss, unstable gradients, NaNs, or failure to learn. Use for NaNs, shape/device errors or non-learning; ml-error-analysis studies generalization failures."
 ---
 
 # ml-debug-training
 
-Investigate exploding loss, unstable gradients, NaNs, or failure to learn
+Investigate exploding loss, unstable gradients, NaNs, or failure to learn.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; failing run logs/configuration, batches, model, and training symptom. Apply for requested bounded probes or a minimal corrective change.
 
-dataset/split manifests, fixed objective/metric, environment/dependencies, baseline where applicable, and explicit compute limits. Record code revision, configuration, seeds, artifact paths, and resource use. Local smoke checks do not imply authorization for paid training. Never optimize on the held-out test set.
+**Pack prerequisites:** Dataset/split manifests, fixed objective/metric, environment/dependencies, baseline where applicable, and explicit compute limits. Record code revision, configuration, seeds, artifact paths, and resource use. Local smoke checks do not imply authorization for paid training. Never optimize on the held-out test set.
 
 - **Infer from evidence:** Read framework, training entry point, loss/metric, split manifests and checkpoint conventions from supplied source.
 - **Reasonable default:** In apply mode, implement requested code and tiny isolated smoke checks with existing tools, and otherwise propose them; leave unmeasured model quality explicit.
@@ -35,6 +35,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 
 1. Check inputs/loss/optimizer state, compare expected scales, isolate a small batch, propose overfit/gradient probes, running them in apply mode,, and test the leading cause.
 2. Inspect one batch's shapes, labels, scale, loss and gradients, locate the first non-finite value and compare optimizer updates with the intended objective.
+
 ## Technical method
 
 - **Inspect:** Capture the first divergent batch, activations/loss, gradient finiteness and parameter update.
@@ -68,5 +69,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Diagnose NaNs from this run's first failing batch and gradient logs.
-- **edge (inspect):** Debug a loss that becomes NaN only after mixed-precision updates.
-- **blocked (inspect):** Inspect saved training logs without retraining or guessing a learning-rate cure.
+- **Edge (inspect):** Debug a loss that becomes NaN only after mixed-precision updates.
+- **Blocked (inspect):** Inspect saved training logs without retraining or guessing a learning-rate cure.

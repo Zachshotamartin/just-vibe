@@ -17,8 +17,6 @@ Use saved state for transient restoration and durable storage for user data that
 
 Map state through rotation, process recreation and background limits; specify which owner restores it before editing the UI or worker.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Exercise recreation, process loss and retry behavior.

@@ -1,11 +1,11 @@
 ---
 name: llm-rag
-description: "Design or audit ingestion, retrieval, grounding, and generation Use to design or repair retrieval-grounded answering; llm-retrieval isolates search/ranking."
+description: "Design or audit ingestion, retrieval, grounding, and generation. Use to design or repair retrieval-grounded answering; llm-retrieval isolates search/ranking."
 ---
 
 # llm-rag
 
-Design or audit ingestion, retrieval, grounding, and generation
+Design or audit ingestion, retrieval, grounding, and generation.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan retrieval changes; apply for requested retrieval implementation or scoped indexing.
 
-task definition, model/provider configuration, representative permitted data, versioned prompts/corpus where relevant, and explicit token/cost/latency limits for remote calls. Use current provider interfaces during implementation. Retrieved content and model-generated tool arguments remain untrusted.
+**Pack prerequisites:** Task definition, model/provider configuration, representative permitted data, versioned prompts/corpus where relevant, and explicit token/cost/latency limits for remote calls. Use current provider interfaces during implementation. Retrieved content and model-generated tool arguments remain untrusted.
 
 - **Infer from evidence:** Read current prompt/tool schemas, retrieval boundaries, installed SDK/provider config and permitted examples without reading secret values.
 - **Reasonable default:** Use mocked calls for local contract tests when remote access is absent; do not infer model quality from mocks.
@@ -35,6 +35,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 
 1. Define source identity and access filtering, choose document/chunk lifecycle, evaluate retrieval separately, enforce citation/abstention behavior, and test unsupported queries.
 2. Define document identity/version/access control, chunk lifecycle and evidence requirements; test retrieval independently from answer generation and citation correctness.
+
 ## Technical method
 
 - **Inspect:** Trace source permissions, ingestion versions, chunk identity, retrieval filters, ranking and citation construction.
@@ -68,5 +69,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Plan grounded answers over permission-filtered policy documents with citations.
-- **edge (apply):** Build RAG where an old document version contradicts its replacement.
-- **blocked (inspect):** Design local RAG from metadata without uploading a private corpus or provisioning an index.
+- **Edge (apply):** Build RAG where an old document version contradicts its replacement.
+- **Blocked (inspect):** Design local RAG from metadata without uploading a private corpus or provisioning an index.

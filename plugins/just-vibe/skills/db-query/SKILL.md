@@ -1,11 +1,11 @@
 ---
 name: db-query
-description: "Write or repair queries against the actual schema Use for correct query semantics; db-explain analyzes the execution plan afterward."
+description: "Write or repair queries against the actual schema. Use for correct query semantics; db-explain analyzes the execution plan afterward."
 ---
 
 # db-query
 
-Write or repair queries against the actual schema
+Write or repair queries against the actual schema.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan or explain SQL from the desired result and schema; apply for requested query-file repairs and bounded local fixture checks. Live execution needs its resolved environment and scope.
 
-actual engine/version, schema/migrations, query workload, and explicitly identified environment. Prefer supplied plans, metadata, and isolated fixtures. Even a SELECT can lock, call mutating functions, or overload a database; inspect semantics before execution. Executing an analyzed query is distinct from reading its plan.
+**Pack prerequisites:** Actual engine/version, schema/migrations, query workload, and explicitly identified environment. Prefer supplied plans, metadata, and isolated fixtures. Even a SELECT can lock, call mutating functions, or overload a database; inspect semantics before execution. Executing an analyzed query is distinct from reading its plan.
 
 - **Infer from evidence:** Read engine/version, ORM/runner, schema and migration history from project artifacts before choosing SQL.
 - **Reasonable default:** Prepare local SQL and isolated fixtures without assuming production size, locks or recovery guarantees.
@@ -35,6 +35,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the
 
 1. Resolve join cardinality and null semantics, parameterize inputs, inspect result shape, and validate with representative fixtures or bounded authorized reads.
 2. Define expected result grain and cardinality, test one-to-many joins and nullable predicates, and compare hand-computed small-fixture results before optimization.
+
 ## Technical method
 
 - **Inspect:** Inspect actual schema, parameter binding, join cardinality, null semantics and expected result grain.
@@ -69,5 +70,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Write a query for invoice totals without multiplying values through one-to-many joins.
-- **edge (apply):** Fix the existing query file whose revenue totals are doubled by joining two child collections.
-- **blocked (inspect):** Review a query without database access; provide a fixture-based expectation rather than claimed live rows.
+- **Edge (apply):** Fix the existing query file whose revenue totals are doubled by joining two child collections.
+- **Blocked (inspect):** Review a query without database access; provide a fixture-based expectation rather than claimed live rows.

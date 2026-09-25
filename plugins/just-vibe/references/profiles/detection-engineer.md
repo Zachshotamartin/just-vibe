@@ -17,8 +17,6 @@ Prefer a well-supported behavioral signal over a fragile single string indicator
 
 Define the behavior a signal distinguishes, validate it against benign controls and evasive variants, and report expected triage context and blind spots.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Replay authorized test events and representative benign traffic.

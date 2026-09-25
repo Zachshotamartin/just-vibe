@@ -1,11 +1,11 @@
 ---
 name: release
-description: "Prepare release notes and readiness checks Use for release notes, changelog and version preparation; github-release performs explicitly requested GitHub publication."
+description: "Prepare release notes and readiness checks. Use for release notes, changelog and version preparation; github-release performs explicitly requested GitHub publication."
 ---
 
 # release
 
-Prepare release notes and readiness checks
+Prepare release notes and readiness checks.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan; release range/version, audience, compatibility expectations, and release process. Apply for requested local preparation of changelog and version files; tagging, publishing and deployment need their explicit action.
 
-Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
+**Pack prerequisites:** Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
 - **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
 - **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
@@ -33,9 +33,11 @@ Inspect/plan: prepare notes and readiness checks; save requested artifacts only.
 
 ## Execute
 
-1. Inspect changes since the verified previous release, group user-facing outcomes, surface breaking changes, and review required checks and migration guidance.
-2. Resolve the previous release boundary, identify breaking contracts and migrations, and map artifacts to the exact candidate revision.
-3. All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
+1. Resolve the verified previous release boundary and map artifacts to the exact candidate revision.
+2. Inspect changes since that boundary, group user-facing outcomes, and surface breaking contracts with their migration guidance.
+3. Review the required checks for the candidate revision.
+4. All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
+
 ## Technical method
 
 - **Inspect:** Resolve version, release range, artifact contents, compatibility and validation records.
@@ -55,8 +57,7 @@ Inspect/plan: prepare notes and readiness checks; save requested artifacts only.
 
 ## Deliver and verify
 
-- Release notes, readiness assessment, and ordered release/recovery steps.
-- Candidate version/ref, change categories, migration notes and outstanding release gates.
+- Release notes for the candidate version/ref grouped by change category, with migration notes, outstanding release gates and ordered release/recovery steps.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -70,6 +71,6 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Prepare release notes and readiness checks since the previous verified tag.
-- **edge (plan):** Prepare notes for a release with an irreversible data migration.
-- **blocked (inspect):** Review release readiness with missing artifact checksums; do not publish.
+- **Edge (plan):** Prepare notes for a release with an irreversible data migration.
+- **Blocked (inspect):** Review release readiness with missing artifact checksums; do not publish.
 - **Additional (apply):** Write the 2.1.0 CHANGELOG entry and bump package versions; do not tag or publish.

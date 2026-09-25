@@ -1,15 +1,15 @@
 ---
 name: test
-description: "Add meaningful coverage for specified behavior Use to implement behavior checks; coverage identifies gaps and verify runs existing checks."
+description: "Add meaningful coverage for specified behavior. Use to implement behavior checks; test-unit, test-integration, test-e2e and test-property own layer-specific methods, coverage identifies gaps and verify runs existing checks."
 ---
 
 # test
 
-Add meaningful coverage for specified behavior
+Add meaningful coverage for specified behavior.
 
 ## Choose this workflow
 
-Use to implement behavior checks; coverage identifies gaps and verify runs existing checks.
+Use to implement behavior checks; test-unit, test-integration, test-e2e and test-property own layer-specific methods, coverage identifies gaps and verify runs existing checks.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [General methods](../../references/packs/general.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply; behavior to protect, target code, and existing test conventions.
 
-Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
+**Pack prerequisites:** Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
 - **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
 - **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
@@ -33,8 +33,10 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Execute
 
-1. Inspect existing tests, identify important gaps, choose unit/integration/end-to-end scope, add representative cases, and run relevant checks.
-2. Choose the lowest layer that can observe the contract; retain an independent expected result and demonstrate that the check detects a plausible regression.
+1. Inspect existing tests and identify the important gaps.
+2. Choose the lowest layer (unit, integration or end-to-end) that can observe the contract and add representative cases there, each with an independently derived expected result.
+3. Run the relevant checks and demonstrate that each new test detects a plausible regression.
+
 ## Technical method
 
 - **Inspect:** Identify the behavior at risk, existing test layer and independently known expected result.
@@ -72,8 +74,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Deliver and verify
 
-- Tests, fixture changes when necessary, execution results, and covered behavior.
-- Tests and fixtures mapped to requirements, execution results and uncovered boundaries.
+- Tests and any necessary fixtures mapped to the requirements they cover, execution results and uncovered boundaries.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -86,5 +87,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** Add meaningful coverage for expired invitations and repeated acceptance.
-- **edge (apply):** Add tests for duplicate submissions and a legitimate repeated purchase.
-- **blocked (inspect):** Assess test design without the integration environment; do not mark mocks as live coverage.
+- **Edge (apply):** Add tests for duplicate submissions and a legitimate repeated purchase.
+- **Blocked (inspect):** Assess test design without the integration environment; do not mark mocks as live coverage.

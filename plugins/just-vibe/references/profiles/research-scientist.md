@@ -17,8 +17,6 @@ Prefer experiments that discriminate hypotheses over broad parameter search.
 
 State the falsifiable claim, comparison and uncertainty assumptions; separate an observed effect from a mechanism or generalization that needs further evidence.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Test robustness across seeds, datasets or conditions relevant to the claim.

@@ -17,8 +17,6 @@ Define tenant, extension and ownership contracts before shared implementation; a
 
 Specify the platform contract, tenancy and extension boundaries; connect each proposed shared capability to a demonstrated consumer need and migration path.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Validate the tenant model against the two most different consumer workloads.

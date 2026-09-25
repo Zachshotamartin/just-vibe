@@ -1,11 +1,11 @@
 ---
 name: ml-tune
-description: "Design a bounded hyperparameter search with a fixed evaluation protocol Use for a bounded search under a valid protocol; ml-ablation isolates component contribution."
+description: "Design a bounded hyperparameter search with a fixed evaluation protocol. Use for a bounded search under a valid protocol; ml-ablation isolates component contribution."
 ---
 
 # ml-tune
 
-Design a bounded hyperparameter search with a fixed evaluation protocol
+Design a bounded hyperparameter search with a fixed evaluation protocol.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan a search; apply for requested search code or a run with explicit resource limits.
 
-dataset/split manifests, fixed objective/metric, environment/dependencies, baseline where applicable, and explicit compute limits. Record code revision, configuration, seeds, artifact paths, and resource use. Local smoke checks do not imply authorization for paid training. Never optimize on the held-out test set.
+**Pack prerequisites:** Dataset/split manifests, fixed objective/metric, environment/dependencies, baseline where applicable, and explicit compute limits. Record code revision, configuration, seeds, artifact paths, and resource use. Local smoke checks do not imply authorization for paid training. Never optimize on the held-out test set.
 
 - **Infer from evidence:** Read framework, training entry point, loss/metric, split manifests and checkpoint conventions from supplied source.
 - **Reasonable default:** In apply mode, implement requested code and tiny isolated smoke checks with existing tools, and otherwise propose them; leave unmeasured model quality explicit.
@@ -35,6 +35,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 
 1. Validate comparable trials, select search strategy, define pruning/failure behavior, log every trial, and choose by the predeclared validation criterion.
 2. Freeze search space, split, objective, trial/resource caps and selection rule; keep failure/pruning records and compare candidates under equal evaluation conditions.
+
 ## Technical method
 
 - **Inspect:** Fix search space, metric direction, split, resource budget, pruning and selection rule.
@@ -68,5 +69,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Plan at most 20 trials on validation PR-AUC; never tune on the test set.
-- **edge (plan):** Tune with failed trials and a strict GPU-hour cap.
-- **blocked (inspect):** Design tuning when compute is unavailable; do not fabricate winning hyperparameters.
+- **Edge (plan):** Tune with failed trials and a strict GPU-hour cap.
+- **Blocked (inspect):** Design tuning when compute is unavailable; do not fabricate winning hyperparameters.

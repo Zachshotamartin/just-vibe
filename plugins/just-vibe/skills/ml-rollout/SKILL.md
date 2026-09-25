@@ -1,11 +1,11 @@
 ---
 name: ml-rollout
-description: "Prepare shadow, canary or staged rollout of a model version with rollback criteria Use for a scoped model promotion plan or transition; ml-report documents offline evidence."
+description: "Prepare shadow, canary or staged rollout of a model version with rollback criteria. Use for a scoped model promotion plan or transition; ml-report documents offline evidence."
 ---
 
 # ml-rollout
 
-Prepare shadow, canary or staged rollout of a model version with rollback criteria
+Prepare shadow, canary or staged rollout of a model version with rollback criteria.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan rollout; apply for requested rollout configuration or an explicitly requested promotion.
 
-versioned model and preprocessing artifacts, input/output schema, runtime/dependencies, operating targets, and authorized environment. Validate artifact trust before loading formats that can execute code. Packaging or writing monitoring configuration does not deploy a model or enable a hosted service.
+**Pack prerequisites:** Versioned model and preprocessing artifacts, input/output schema, runtime/dependencies, operating targets, and authorized environment. Validate artifact trust before loading formats that can execute code. Packaging or writing monitoring configuration does not deploy a model or enable a hosted service.
 
 - **Infer from evidence:** Read artifact format/trust, preprocessing schema, serving runtime, compatibility and existing rollout controls.
 - **Reasonable default:** Prepare packaging/configuration and isolated checks without treating them as a live deployment.
@@ -35,6 +35,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 
 1. Check package/schema compatibility, define cohort routing and comparison metrics, preserve fallback artifacts, prepare staged gates, and verify authorized transitions against evidence.
 2. Check feature/schema/artifact compatibility, define shadow/canary routing and predeclared stop criteria, and preserve a usable fallback plus traffic-switch mechanism.
+
 ## Technical method
 
 - **Inspect:** Resolve candidate/baseline models, compatibility, routing identity, shadow side effects and rollback conditions.
@@ -68,5 +69,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Prepare a canary rollout and rollback plan for the new ranking model; do not change production traffic.
-- **edge (plan):** Plan a canary when the previous model expects an older feature schema.
-- **blocked (inspect):** Assess rollout readiness without live routing access or shadow-inference budget.
+- **Edge (plan):** Plan a canary when the previous model expects an older feature schema.
+- **Blocked (inspect):** Assess rollout readiness without live routing access or shadow-inference budget.

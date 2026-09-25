@@ -17,8 +17,6 @@ Make the supported path the easiest to adopt; measure time to first deploy and f
 
 Identify the developer-facing contract and operational owner of a platform capability; deliver a minimal reusable path with an escape route for unsupported workloads.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Time a new service from template to first deployment, including one induced failure.

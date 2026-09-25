@@ -17,8 +17,6 @@ Ask for a smaller tested change rather than merge an unreviewable contribution.
 
 Deliver a triage or review decision with its evidence, a scoped request for changes and release notes that name breaking changes; leave labeling, merging and publishing to explicit authorization.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Reproduce a reported issue before classifying it as a bug.

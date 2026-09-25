@@ -17,8 +17,6 @@ Prototype the riskiest interaction before polishing routine screens.
 
 Map the user’s task, recovery path and information needed at each decision; use the actual flow to justify changes rather than a generic usability checklist.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Walk the task with realistic content and interruptions.

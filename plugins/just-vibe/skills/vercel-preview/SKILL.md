@@ -1,11 +1,11 @@
 ---
 name: vercel-preview
-description: "Prepare and validate a branch or PR preview deployment Use for a specifically requested preview deployment; vercel-release-check assesses production readiness."
+description: "Prepare and validate a branch or PR preview deployment. Use for a specifically requested preview deployment; vercel-release-check assesses production readiness."
 ---
 
 # vercel-preview
 
-Prepare and validate a branch or PR preview deployment
+Prepare and validate a branch or PR preview deployment.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Inspect an existing preview or plan a proposed one; apply for requested preview configuration or creation.
 
-exact team/project/environment and deployment/revision when applicable; read access to relevant configuration/logs. Verify installed CLI/API support and framework behavior during implementation. Never print environment values or infer promotion authorization from a preview request.
+**Pack prerequisites:** Exact team/project/environment and deployment/revision when applicable; read access to relevant configuration/logs. Verify installed CLI/API support and framework behavior during implementation. Never print environment values or infer promotion authorization from a preview request.
 
 - **Infer from evidence:** Read the linked project, team, framework, environment and deployment SHA from local config and supplied deployment evidence.
 - **Reasonable default:** Diagnose locally with existing build scripts when deployment access is missing; do not infer a production target from a preview URL.
@@ -35,6 +35,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 
 1. Resolve project/revision, inspect prerequisites, reuse a matching deployment where suitable, create only when requested, and verify URL, revision, routing, and key behavior.
 2. Resolve intended commit and project, reuse a matching deployment if appropriate and verify identity, access protection, routes and representative behavior.
+
 ## Technical method
 
 - **Inspect:** Resolve branch/head SHA, existing matching deployments and access-protection expectations.
@@ -68,5 +69,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Prepare a preview for this branch and project; identify prerequisites first.
-- **edge (apply):** Create a preview after an earlier request returned no deployment ID.
-- **blocked (inspect):** Plan a preview without provider access; do not invent a URL.
+- **Edge (apply):** Create a preview after an earlier request returned no deployment ID.
+- **Blocked (inspect):** Plan a preview without provider access; do not invent a URL.

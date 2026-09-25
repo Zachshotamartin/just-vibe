@@ -1,11 +1,11 @@
 ---
 name: ml-leakage
-description: "Find target leakage, temporal leakage, and split contamination Use to audit demonstrated information leakage; ml-split designs the evaluation protocol, and ml-parity or ml-drift own train/serve skew and population change."
+description: "Find target leakage, temporal leakage, and split contamination. Use to audit demonstrated information leakage; ml-split designs the evaluation protocol, and ml-parity or ml-drift own train/serve skew and population change."
 ---
 
 # ml-leakage
 
-Find target leakage, temporal leakage, and split contamination
+Find target leakage, temporal leakage, and split contamination.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; task/prediction moment, features, preprocessing, labels, and split lineage.
 
-task definition, dataset identity, field semantics, entity/time keys, and permission to inspect bounded data. Record prediction moment, label horizon, sampling, and provenance. Preserve held-out evaluation boundaries; no data upload, label alteration, or feature fitting across splits implicitly.
+**Pack prerequisites:** Task definition, dataset identity, field semantics, entity/time keys, and permission to inspect bounded data. Record prediction moment, label horizon, sampling, and provenance. Preserve held-out evaluation boundaries; no data upload, label alteration, or feature fitting across splits implicitly.
 
 - **Infer from evidence:** Read prediction moment, label horizon, entity/time keys, split policy and dataset provenance from the task and manifests.
 - **Reasonable default:** Use explicit synthetic examples for design when raw data is unavailable; do not infer missing labels or fit preprocessing across held-out boundaries.
@@ -41,6 +41,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 6. Check label maturity against the simulated model-fit and prediction times. State the historical-deployment assumption when applying temporal cutoffs or an embargo; choose gaps from actual availability and overlap instead of a universal duration.
 7. Before delivering, check every claim labeled proven against its cited evidence. Correct unsupported absolutes, including assertions that all scores are invalid or a split is always wrong. Identify which scores would be affected under which assumptions, and require re-evaluation after confirmed leakage is corrected.
 8. Build a compact evidence ledger: field or row, availability time, prediction/fit time, observed violation, affected score and assumptions; keep overlap metadata separate from shared measurements or events.
+
 ## Technical method
 
 - **Inspect:** Trace suspicious features, fit transforms, revisions, event time, availability time and split membership.
@@ -76,5 +77,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Audit churn features for values unavailable 30 days before cancellation.
-- **edge (inspect):** Audit overlapping windows whose metadata does not prove shared sensor values or outcome events.
-- **blocked (inspect):** Review lineage with missing preprocessing code and event IDs; leave unsupported claims unknown.
+- **Edge (inspect):** Audit overlapping windows whose metadata does not prove shared sensor values or outcome events.
+- **Blocked (inspect):** Review lineage with missing preprocessing code and event IDs; leave unsupported claims unknown.

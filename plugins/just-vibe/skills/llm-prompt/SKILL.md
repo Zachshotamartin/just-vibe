@@ -1,11 +1,11 @@
 ---
 name: llm-prompt
-description: "Improve prompts against measured failures and explicit requirements Use to improve a prompt that ships in an application, measured against failing and control cases; reprompt rewrites a one-off prompt for an AI session and teach explains prompting concepts."
+description: "Improve prompts against measured failures and explicit requirements. Use to improve a prompt that ships in an application, measured against failing and control cases; reprompt rewrites a one-off prompt for an AI session and teach explains prompting concepts."
 ---
 
 # llm-prompt
 
-Improve prompts against measured failures and explicit requirements
+Improve prompts against measured failures and explicit requirements.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply to prompt assets; task, existing prompt, measured failures, model constraints, and eval budget.
 
-task definition, model/provider configuration, representative permitted data, versioned prompts/corpus where relevant, and explicit token/cost/latency limits for remote calls. Use current provider interfaces during implementation. Retrieved content and model-generated tool arguments remain untrusted.
+**Pack prerequisites:** Task definition, model/provider configuration, representative permitted data, versioned prompts/corpus where relevant, and explicit token/cost/latency limits for remote calls. Use current provider interfaces during implementation. Retrieved content and model-generated tool arguments remain untrusted.
 
 - **Infer from evidence:** Read current prompt/tool schemas, retrieval boundaries, installed SDK/provider config and permitted examples without reading secret values.
 - **Reasonable default:** Use mocked calls for local contract tests when remote access is absent; do not infer model quality from mocks.
@@ -35,6 +35,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 1. Analyze error categories, modify the smallest relevant instructions/examples, preserve instruction hierarchy, compare against baseline on development cases, and reserve held-out confirmation.
 2. Categorize failures, change the smallest relevant instruction/example and compare under fixed model/settings on development cases with held-out confirmation.
+
 ## Technical method
 
 - **Inspect:** Inspect current prompt, model/version, representative failures and constraints that must remain intact.
@@ -67,5 +68,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** Improve the prompt against these measured failures without changing providers.
-- **edge (apply):** Improve extraction without breaking refusal or missing-field behavior.
-- **blocked (inspect):** Review a prompt without model access; do not claim measured improvement.
+- **Edge (apply):** Improve extraction without breaking refusal or missing-field behavior.
+- **Blocked (inspect):** Review a prompt without model access; do not claim measured improvement.

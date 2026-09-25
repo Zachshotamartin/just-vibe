@@ -1,11 +1,11 @@
 ---
 name: ml-baseline
-description: "Establish simple, reproducible baselines Use for a first comparable benchmark; ml-tune searches hyperparameters after protocol validity."
+description: "Establish simple, reproducible baselines. Use for a first comparable benchmark; ml-tune searches hyperparameters after protocol validity."
 ---
 
 # ml-baseline
 
-Establish simple, reproducible baselines
+Establish simple, reproducible baselines.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan a baseline comparison; apply for requested baseline code or a bounded experiment.
 
-dataset/split manifests, fixed objective/metric, environment/dependencies, baseline where applicable, and explicit compute limits. Record code revision, configuration, seeds, artifact paths, and resource use. Local smoke checks do not imply authorization for paid training. Never optimize on the held-out test set.
+**Pack prerequisites:** Dataset/split manifests, fixed objective/metric, environment/dependencies, baseline where applicable, and explicit compute limits. Record code revision, configuration, seeds, artifact paths, and resource use. Local smoke checks do not imply authorization for paid training. Never optimize on the held-out test set.
 
 - **Infer from evidence:** Read framework, training entry point, loss/metric, split manifests and checkpoint conventions from supplied source.
 - **Reasonable default:** In apply mode, implement requested code and tiny isolated smoke checks with existing tools, and otherwise propose them; leave unmeasured model quality explicit.
@@ -35,6 +35,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 
 1. Match baseline to task, build leakage-safe preprocessing, fix evaluation protocol, run bounded training when authorized, and report score plus cost/uncertainty.
 2. Include a task-appropriate constant/rule baseline and simple model, use the same splits and preprocessing fit boundaries and record resources alongside quality.
+
 ## Technical method
 
 - **Inspect:** Resolve task, split, target availability, metric and naive prediction policy.
@@ -68,5 +69,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Plan reproducible naive and simple-model baselines under the fixed split.
-- **edge (plan):** Establish a baseline when class imbalance makes accuracy misleading.
-- **blocked (inspect):** Plan a baseline with unresolved label maturity; do not claim trustworthy scores.
+- **Edge (plan):** Establish a baseline when class imbalance makes accuracy misleading.
+- **Blocked (inspect):** Plan a baseline with unresolved label maturity; do not claim trustworthy scores.

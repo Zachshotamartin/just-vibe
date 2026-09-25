@@ -17,7 +17,7 @@ Keep a local solution when the abstraction has no demonstrated second consumer.
 
 Deliver a maintainable bounded change with explicit invariants, integration checks and a review of nearby compatibility risks, without expanding the feature.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+For how this role compares with other roles on one shared feature, see [the same feature through different roles](../profile-comparisons.md).
 
 ## Verify when relevant
 

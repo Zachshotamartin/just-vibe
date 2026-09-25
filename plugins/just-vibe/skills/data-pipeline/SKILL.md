@@ -1,11 +1,11 @@
 ---
 name: data-pipeline
-description: "Build ingestion or transformation with observable failures Use for a transformation pipeline; data-incremental focuses on checkpoints and change processing."
+description: "Build ingestion or transformation with observable failures. Use for a transformation pipeline; data-incremental focuses on checkpoints and change processing."
 ---
 
 # data-pipeline
 
-Build ingestion or transformation with observable failures
+Build ingestion or transformation with observable failures.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply; sources, transforms, destination, cadence, correctness criteria, and resource limits.
 
-data source/version, schema/semantics, transformation code, permitted sampling scope, and storage/compute budget. Prefer aggregates and redacted samples; never upload datasets to external services implicitly. Record time zones and snapshot identity for reproducibility.
+**Pack prerequisites:** Data source/version, schema/semantics, transformation code, permitted sampling scope, and storage/compute budget. Prefer aggregates and redacted samples; never upload datasets to external services implicitly. Record time zones and snapshot identity for reproducibility.
 
 - **Infer from evidence:** Inspect schema, source snapshot, transformation code, grain, time zones and permitted sample scope.
 - **Reasonable default:** Use bounded synthetic or supplied samples when full data is unavailable; keep unknown values distinct from zero.
@@ -35,6 +35,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 1. Define source identity and keys, validate inputs, implement transformations and atomic/staged writes, expose failures, and test restart and bad-record handling.
 2. Establish stable source/output identity, validate transformations with small hand-checked fixtures and stage writes so completion markers follow durable output.
+
 ## Technical method
 
 - **Inspect:** Trace source identity, transformations, sink transaction and checkpoint ownership.
@@ -67,5 +68,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** Implement isolated ingestion with observable failures and atomic partition writes.
-- **edge (apply):** Build a pipeline interrupted between writing data and publishing its manifest.
-- **blocked (inspect):** Design transformations with missing field semantics; block only the affected conversions.
+- **Edge (apply):** Build a pipeline interrupted between writing data and publishing its manifest.
+- **Blocked (inspect):** Design transformations with missing field semantics; block only the affected conversions.

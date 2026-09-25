@@ -2319,7 +2319,7 @@
       "evidence": [
         {
           "path": "plugins/just-vibe/scripts/lib/editor-adapters.mjs",
-          "sha256": "c28d3b857732608e5c8208804a3d15aaad85ebc5c0eab00c2e68b0ea90b5f65e"
+          "sha256": "7775d4dd9169d9a6bbc94515ea07c4998fc06ffd14e46ddf2037c88b8617f0af"
         },
         {
           "path": "plugins/just-vibe/scripts/lib/editor-events.mjs",

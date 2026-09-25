@@ -1,6 +1,6 @@
 ---
 name: do
-description: "Use the goal and project context to select, execute, and verify appropriate workflows Alias for auto."
+description: "Use the goal and project context to select, execute, and verify appropriate workflows. Alias for auto."
 ---
 
 # do

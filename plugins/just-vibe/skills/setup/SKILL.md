@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply for an installation request; target host, bundled source, --github or --local checkout, and Claude scope. A preview request uses the existing `--dry-run` behavior.
 
-Node.js 22+. Codex and Claude targets also need the host CLI with native plugin support; editor adapters need only the project directory. Git is required only for --github. Use the bundled installer; preserve marketplace and scope checks.
+**Pack prerequisites:** Node.js 22+. Codex and Claude targets also need the host CLI with native plugin support; editor adapters need only the project directory. Git is required only for --github. Use the bundled installer; preserve marketplace and scope checks.
 
 - **Infer from evidence:** Inspect selected host, native CLI support, existing source/scope and package version without changing global configuration.
 - **Reasonable default:** Use the documented bundled source and existing host conventions unless the user selects another source.
@@ -37,6 +37,7 @@ Selected host plugin registration and its managed just-vibe payload directory. F
 2. Honor the host, bundled default / --github / --local source and Claude --scope user|project|local; Claude project/local operations run with the project as the working directory; --root applies only to editor adapters. Never place tokens in commands or files.
 3. For a requested preview append --dry-run and report conditional steps without claiming installed state was inspected. Preserve all native source/scope/inventory conflict checks.
 4. Read back native source, scope, enabled state and version after the authorized installation; preserve unrelated plugins and report partial native failures. Explain that changed skills load in a fresh conversation. Uninstall retains marketplace registration and persistent data. Do not bypass errors with global edits or cache deletion.
+
 ## Technical method
 
 - **Inspect:** Resolve host, scope, source channel, native plugin inventory and candidate bundled version.
@@ -73,5 +74,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** Install just-vibe for Claude Code at user scope.
-- **edge (apply):** Update a bundled installation after its original package cache was removed.
-- **blocked (inspect):** Inspect installation prerequisites on a machine without a supported host executable.
+- **Edge (apply):** Update a bundled installation after its original package cache was removed.
+- **Blocked (inspect):** Inspect installation prerequisites on a machine without a supported host executable.

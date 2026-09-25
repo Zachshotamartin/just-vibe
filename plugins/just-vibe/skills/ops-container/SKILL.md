@@ -1,11 +1,11 @@
 ---
 name: ops-container
-description: "Diagnose container builds, runtime failures, and configuration differences Use for image/build/runtime diagnosis; ops-restore handles recovery of persisted state."
+description: "Diagnose container builds, runtime failures, and configuration differences. Use for image/build/runtime diagnosis; ops-restore handles recovery of persisted state."
 ---
 
 # ops-container
 
-Diagnose container builds, runtime failures, and configuration differences
+Diagnose container builds, runtime failures, and configuration differences.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; Dockerfile/image/runtime configuration, logs, and failing build/start behavior. Apply for a requested focused fix.
 
-exact service/environment, time window, revision/configuration identity, authorized logs/metrics, and operational constraints. Prefer observation before intervention; live restarts, traffic changes, restores, and notifications require the requested target/action. Redact sensitive telemetry.
+**Pack prerequisites:** Exact service/environment, time window, revision/configuration identity, authorized logs/metrics, and operational constraints. Prefer observation before intervention; live restarts, traffic changes, restores, and notifications require the requested target/action. Redact sensitive telemetry.
 
 - **Infer from evidence:** Read service/environment, time window, revision, available telemetry and existing incident or recovery procedure.
 - **Reasonable default:** Start from supplied logs and read-only observation; rank hypotheses without presenting an unexecuted intervention as recovery.
@@ -35,6 +35,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the
 
 1. Compare build/runtime stages and host assumptions, inspect image metadata/logs, reproduce in an isolated build after evaluating its execution effects, and propose a focused fix, applying it in apply mode.
 2. Compare build context, multi-stage copy paths, runtime user, working directory, ports and volume permissions with logs from the intended image digest.
+
 ## Technical method
 
 - **Inspect:** Inspect build stages, image digest, architecture, user, filesystem permissions, entrypoint and signal handling.
@@ -69,5 +70,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Diagnose why this multi-stage image lacks its runtime files.
-- **edge (inspect):** Diagnose a multi-stage image missing a required runtime file under a non-root user.
-- **blocked (inspect):** Inspect a Dockerfile without building untrusted images or granting privileged mounts.
+- **Edge (inspect):** Diagnose a multi-stage image missing a required runtime file under a non-root user.
+- **Blocked (inspect):** Inspect a Dockerfile without building untrusted images or granting privileged mounts.

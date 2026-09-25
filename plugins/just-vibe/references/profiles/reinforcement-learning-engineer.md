@@ -17,8 +17,6 @@ Start with offline or simulated evaluation when real interaction is costly or un
 
 Specify environment transitions, reward, termination and evaluation policy; test reward shortcuts and distribution shifts before interpreting return as task success.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Test reward exploitation, seed variability and distribution shift.

@@ -1,11 +1,11 @@
 ---
 name: checkpoint
-description: "Save progress, evidence, and unresolved work Use for a compact continuation snapshot; handoff adds context for a different reader."
+description: "Save progress, evidence, and unresolved work. Use for a compact continuation snapshot; handoff adds context for a different reader."
 ---
 
 # checkpoint
 
-Save progress, evidence, and unresolved work
+Save progress, evidence, and unresolved work.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply; current task, destination if supplied, and continuity needs.
 
-Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
+**Pack prerequisites:** Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
 - **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
 - **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
@@ -36,6 +36,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 1. Save the objective, constraints, decisions, completed evidence, remaining work and next step using project checkpoint NAME with the current revision when structured storage is appropriate. Read an existing checkpoint and its revision with project resume NAME (project list shows names), and read it back the same way after saving. The helper captures repository/worktree identity per file; keep external operation IDs in the task context without credentials.
 2. If a tracked run is active, save its latest run record in the checkpoint run field so session resume keeps its stages, attempts and budget.
 3. A checkpoint does not contain reversible file content. If undo support is requested before editing, create a separate task begin/capture record; never manufacture past ownership from a later snapshot.
+
 ## Technical method
 
 - **Inspect:** Inspect worktree/index, task state, evidence, pending effects and chosen checkpoint location.
@@ -69,5 +70,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** Save the current task state to the existing project checkpoint file.
-- **edge (apply):** Checkpoint work after a successful test followed by additional edits.
-- **blocked (inspect):** Summarize current work without saving files or implying unavailable checks passed.
+- **Edge (apply):** Checkpoint work after a successful test followed by additional edits.
+- **Blocked (inspect):** Summarize current work without saving files or implying unavailable checks passed.

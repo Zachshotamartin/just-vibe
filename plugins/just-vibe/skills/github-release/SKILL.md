@@ -1,11 +1,11 @@
 ---
 name: github-release
-description: "Prepare a release from merged changes, tags, and issues Use for an explicitly scoped GitHub release; release drafts notes and readiness criteria."
+description: "Prepare a release from merged changes, tags, and issues. Use for an explicitly scoped GitHub release; release drafts notes and readiness criteria."
 ---
 
 # github-release
 
-Prepare a release from merged changes, tags, and issues
+Prepare a release from merged changes, tags, and issues.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan release notes and artifacts; apply for requested local release preparation or publication.
 
-exact owner/repository and relevant issue/PR/ref; authenticated read access through an available connector or CLI for remote evidence. External writes require the requested operation, appropriate account permissions, and rechecking target state. Local preparation remains useful without write access.
+**Pack prerequisites:** Exact owner/repository and relevant issue/PR/ref; authenticated read access through an available connector or CLI for remote evidence. External writes require the requested operation, appropriate account permissions, and rechecking target state. Local preparation remains useful without write access.
 
 - **Infer from evidence:** Resolve owner/repository and PR/issue/ref from links, remotes and supplied artifacts; inspect available account and head identity.
 - **Reasonable default:** Prepare local text or analyze supplied evidence if remote access is absent; label its freshness.
@@ -36,6 +36,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 1. Verify commit range and existing releases, compile notes, inspect compatibility/checks, validate asset identities, and execute authorized publication once.
 2. Resolve tag and commit immutably, verify asset hashes and existing release state, and reconcile partial uploads before publication or retry.
 3. All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
+
 ## Technical method
 
 - **Inspect:** Resolve tag commit, release range, candidate asset hashes, existing uploaded assets and verification records.
@@ -70,5 +71,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Prepare a release from the specified refs; do not create a tag or publish.
-- **edge (plan):** Resume a release after one of three assets uploaded successfully.
-- **blocked (inspect):** Prepare a release with missing verified binaries; do not publish placeholders.
+- **Edge (plan):** Resume a release after one of three assets uploaded successfully.
+- **Blocked (inspect):** Prepare a release with missing verified binaries; do not publish placeholders.

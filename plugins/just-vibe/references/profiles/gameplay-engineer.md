@@ -17,8 +17,6 @@ Keep authoritative rules independent of visual frame rate.
 
 Describe the player-visible state transition and ownership of game objects; test input ordering, reset and frame-rate variation for the requested mechanic.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Test state transitions, save/load and unusual input sequences.

@@ -1,11 +1,11 @@
 ---
 name: trace
-description: "Follow a request, event, or data value through the system Use to follow one execution or data path across boundaries; map shows topology without reconstructing a particular flow."
+description: "Follow a request, event, or data value through the system. Use to follow one execution or data path across boundaries; map shows topology without reconstructing a particular flow."
 ---
 
 # trace
 
-Follow a request, event, or data value through the system
+Follow a request, event, or data value through the system.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; request, event, identifier, or data value and optional environment/time window. Requires source or relevant sanitized telemetry.
 
-Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
+**Pack prerequisites:** Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
 - **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
 - **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
@@ -33,8 +33,9 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Identify the entry point, follow transformations and dispatches, correlate available IDs, and mark async boundaries and missing spans.
-2. Start from an identified input or correlation ID; record each hop's input, output, identity propagation and synchronous or asynchronous transition.
+1. Identify the entry point and start from a concrete input or correlation ID.
+2. Follow each transformation and dispatch, recording the hop's input, output, identity propagation and synchronous or asynchronous transition; mark missing spans where the path is unobserved.
+
 ## Technical method
 
 - **Inspect:** Locate entry point, transformations, asynchronous handoffs, identity propagation and terminal effects.
@@ -53,8 +54,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Ordered path with source/telemetry evidence, transformations, failure branches, and gaps.
-- Hop table with ordering, payload transformations, evidence and gaps.
+- Ordered hop table with each hop's source or telemetry evidence, payload transformation, failure branches and gaps.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -67,5 +67,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Trace an order from the checkout route through the payment job.
-- **edge (inspect):** Trace a checkout request through a queued email and a failed payment callback.
-- **blocked (inspect):** Trace only these supplied logs; downstream worker logs are unavailable.
+- **Edge (inspect):** Trace a checkout request through a queued email and a failed payment callback.
+- **Blocked (inspect):** Trace only these supplied logs; downstream worker logs are unavailable.

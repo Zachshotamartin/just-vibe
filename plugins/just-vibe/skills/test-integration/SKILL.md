@@ -1,11 +1,11 @@
 ---
 name: test-integration
-description: "Verify real component and dependency interactions Use for real component/dependency contracts; test-unit isolates logic and test-e2e covers a user journey."
+description: "Verify real component and dependency interactions. Use for real component/dependency contracts; test-unit isolates logic and test-e2e covers a user journey."
 ---
 
 # test-integration
 
-Verify real component and dependency interactions
+Verify real component and dependency interactions.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply; interacting components, actual dependency types, contracts, and isolated environment.
 
-defined behavior, existing test conventions/runners, isolated fixtures, and relevant dependencies. Requested bounded verification may use owned isolated fixtures without authorizing product edits or live-system tests. Never test destructive behavior against production by default; distinguish mocked behavior from real integration evidence.
+**Pack prerequisites:** Defined behavior, existing test conventions/runners, isolated fixtures, and relevant dependencies. Requested bounded verification may use owned isolated fixtures without authorizing product edits or live-system tests. Never test destructive behavior against production by default; distinguish mocked behavior from real integration evidence.
 
 - **Infer from evidence:** Read behavior contracts, existing runners and test conventions; distinguish fixture setup failure from a behavioral failure.
 - **Reasonable default:** Use the smallest existing local runner and isolated synthetic fixtures that distinguish the requested behavior. When the method needs a library, runner, container runtime or load tool the project lacks, name the exact package or tool, the files it changes and any download, and add it only when the request authorizes new dev dependencies or tools; label a hand-written generator without shrinking, or a fake in place of a real dependency, as such.
@@ -35,6 +35,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 1. Provision/use authorized isolated fixtures, exercise actual interfaces, control setup/cleanup, test failures, and record what remains mocked.
 2. Choose an isolated dependency instance or existing fixture environment, control data identity and verify persistence, serialization and failure cleanup across the actual boundary.
+
 ## Technical method
 
 - **Inspect:** Locate the real serialization, database, process or provider boundary and isolated test target.
@@ -72,5 +73,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** Test actual transaction rollback against an isolated database.
-- **edge (apply):** Test a database write failure that must leave no partial order.
-- **blocked (inspect):** Design integration tests without service credentials or provisioning a database.
+- **Edge (apply):** Test a database write failure that must leave no partial order.
+- **Blocked (inspect):** Design integration tests without service credentials or provisioning a database.

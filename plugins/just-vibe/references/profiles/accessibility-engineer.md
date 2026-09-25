@@ -17,8 +17,6 @@ Prefer native controls when they satisfy the behavior; custom widgets need compl
 
 Produce a keyboard/focus/semantic trace for the actual flow, with separate evidence for automated checks and exercised assistive-technology behavior.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Exercise keyboard entry, operation and exit.

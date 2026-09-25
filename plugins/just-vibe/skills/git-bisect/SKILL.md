@@ -1,11 +1,11 @@
 ---
 name: git-bisect
-description: "Locate a regression with a reproducible pass/fail check Use to locate a deterministic regression boundary; debug first establishes a reliable oracle."
+description: "Locate a regression with a reproducible pass/fail check. Use to locate a deterministic regression boundary; debug first establishes a reliable oracle."
 ---
 
 # git-bisect
 
-Locate a regression with a reproducible pass/fail check
+Locate a regression with a reproducible pass/fail check.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply; known good/bad refs, deterministic oracle, and run budget.
 
-Git, exact repository/worktree, and readable refs/index. Record branch, HEAD, staged/unstaged/untracked state before mutation. Preserve unrelated edits and never default to broad staging, hard reset, clean, force push, or history rewriting.
+**Pack prerequisites:** Git, exact repository/worktree, and readable refs/index. Record branch, HEAD, staged/unstaged/untracked state before mutation. Preserve unrelated edits and never default to broad staging, hard reset, clean, force push, or history rewriting.
 
 - **Infer from evidence:** Read repository root, HEAD, branch, refs and staged/unstaged/untracked distinctions; use the configured human identity.
 - **Reasonable default:** Limit an ambiguous inspection to the current repository and report that scope; preserve all existing changes.
@@ -36,6 +36,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 1. Validate endpoints, create/use an isolated worktree, run the bounded pass/fail oracle, distinguish unbuildable revisions as skips, and confirm the candidate.
 2. Confirm good/bad endpoints and oracle exit semantics, run in an isolated worktree, treat untestable revisions as skips and retest the candidate and parent.
 3. All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
+
 ## Technical method
 
 - **Inspect:** Resolve known-good and known-bad commits and validate the oracle at both endpoints.
@@ -69,5 +70,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** Find the regression between these supplied refs using the deterministic fixture; cap at 12 runs.
-- **edge (apply):** Bisect across a dependency migration where intermediate commits do not build.
-- **blocked (inspect):** Plan bisect when the failure is not reproducible; do not move the active checkout.
+- **Edge (apply):** Bisect across a dependency migration where intermediate commits do not build.
+- **Blocked (inspect):** Plan bisect when the failure is not reproducible; do not move the active checkout.

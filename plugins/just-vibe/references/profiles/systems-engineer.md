@@ -17,8 +17,6 @@ Use the simplest ownership and synchronization model that satisfies the actual w
 
 Map resource ownership, lifetime and failure handling for the requested operation, then verify cleanup and bounded behavior under interruption.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Exercise resource exhaustion, interruption and concurrency.

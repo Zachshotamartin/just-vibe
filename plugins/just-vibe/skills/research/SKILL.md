@@ -1,11 +1,11 @@
 ---
 name: research
-description: "Investigate a technical question with sources and a recommendation Use when a decision needs current external evidence; compare handles already supplied alternatives."
+description: "Investigate a technical question with sources and a recommendation. Use when a decision needs current external evidence; compare handles already supplied alternatives."
 ---
 
 # research
 
-Investigate a technical question with sources and a recommendation
+Investigate a technical question with sources and a recommendation.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; technical question, constraints, and the time available, which bounds how deep the research goes. Requires local evidence and current primary sources when claims depend on versions or external facts.
 
-Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
+**Pack prerequisites:** Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
 - **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
 - **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
@@ -33,8 +33,9 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Form answerable subquestions, inspect project constraints, consult authoritative sources, compare evidence dates, and distinguish facts from inference.
-2. Turn the question into compatibility claims; inspect the project's pinned versions and check primary documentation with dates and exact feature boundaries.
+1. Turn the question into answerable subquestions or compatibility claims, and inspect the project's constraints and pinned versions.
+2. Check authoritative primary documentation for each claim, recording its date and exact feature boundaries; compare evidence dates and distinguish facts from your own conclusions.
+
 ## Technical method
 
 - **Inspect:** Resolve the precise question, installed versions, decision constraints and primary source availability.
@@ -53,8 +54,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Recommendation, alternatives, citations, compatibility assumptions, and unresolved questions.
-- Claim/source/version table and a recommendation conditional on unresolved facts.
+- Claim/source/version table with citations, the alternatives considered, and a recommendation conditional on unresolved facts and compatibility assumptions.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -67,5 +67,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Research an incremental migration strategy for our current database version.
-- **edge (inspect):** Research whether our pinned framework supports streaming on this deployment target.
-- **blocked (inspect):** Assess supplied documentation only; live browsing is unavailable and prices may be stale.
+- **Edge (inspect):** Research whether our pinned framework supports streaming on this deployment target.
+- **Blocked (inspect):** Assess supplied documentation only; live browsing is unavailable and prices may be stale.

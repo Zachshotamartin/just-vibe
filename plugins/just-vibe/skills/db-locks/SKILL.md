@@ -1,11 +1,11 @@
 ---
 name: db-locks
-description: "Investigate blocking, deadlocks, long transactions, and contention Use for transaction blocking/deadlock diagnosis; backend-concurrency designs application consistency, and db-migrate designs a lock-safe rollout."
+description: "Investigate blocking, deadlocks, long transactions, and contention. Use for transaction blocking/deadlock diagnosis; backend-concurrency designs application consistency, and db-migrate designs a lock-safe rollout."
 ---
 
 # db-locks
 
-Investigate blocking, deadlocks, long transactions, and contention
+Investigate blocking, deadlocks, long transactions, and contention.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; engine, time window, affected workload, and lock/session metadata.
 
-actual engine/version, schema/migrations, query workload, and explicitly identified environment. Prefer supplied plans, metadata, and isolated fixtures. Even a SELECT can lock, call mutating functions, or overload a database; inspect semantics before execution. Executing an analyzed query is distinct from reading its plan.
+**Pack prerequisites:** Actual engine/version, schema/migrations, query workload, and explicitly identified environment. Prefer supplied plans, metadata, and isolated fixtures. Even a SELECT can lock, call mutating functions, or overload a database; inspect semantics before execution. Executing an analyzed query is distinct from reading its plan.
 
 - **Infer from evidence:** Read engine/version, ORM/runner, schema and migration history from project artifacts before choosing SQL.
 - **Reasonable default:** Prepare local SQL and isolated fixtures without assuming production size, locks or recovery guarantees.
@@ -35,6 +35,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. fix a
 
 1. Correlate blocked/blocking sessions and queries, inspect transaction boundaries, distinguish transient waits from persistent contention, and propose targeted remedies.
 2. Correlate wait and blocker snapshots with transaction age, query identity and application transaction boundaries; follow the root blocker rather than the noisiest victim.
+
 ## Technical method
 
 - **Inspect:** Inspect blocking chain, lock modes, transaction age, statements and isolation on the exact database.
@@ -69,5 +70,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Explain the blocking chain from these session and lock snapshots.
-- **edge (inspect):** Diagnose an idle transaction blocking several otherwise fast updates.
-- **blocked (inspect):** Analyze a saved lock snapshot without cancelling sessions or changing timeouts.
+- **Edge (inspect):** Diagnose an idle transaction blocking several otherwise fast updates.
+- **Blocked (inspect):** Analyze a saved lock snapshot without cancelling sessions or changing timeouts.

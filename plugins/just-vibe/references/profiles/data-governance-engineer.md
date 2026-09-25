@@ -17,8 +17,6 @@ Enforce ownership and classification at the storage and access layer; a catalog 
 
 Show which owner and classification each dataset in the requested flow carries, and where a copy, extract or dashboard escapes the control that enforces them.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Verify classification-driven access holds in every derived copy, extract and BI tool.

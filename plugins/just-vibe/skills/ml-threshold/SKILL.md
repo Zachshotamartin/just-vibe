@@ -1,11 +1,11 @@
 ---
 name: ml-threshold
-description: "Choose thresholds against explicit costs or capacity limits Use to choose a decision cutoff under explicit costs/capacity; ml-evaluate measures fixed behavior."
+description: "Choose thresholds against explicit costs or capacity limits. Use to choose a decision cutoff under explicit costs/capacity; ml-evaluate measures fixed behavior."
 ---
 
 # ml-threshold
 
-Choose thresholds against explicit costs or capacity limits
+Choose thresholds against explicit costs or capacity limits.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan; scores/labels, explicit error costs or capacity, prevalence, and validation protocol.
 
-frozen model/artifact, evaluation dataset identity, labels where needed, metric definitions, and task/operating context. Report sample counts and uncertainty appropriate to dependencies; avoid repeated test-set tuning. Exploratory findings need fresh confirmation before strong generalization claims.
+**Pack prerequisites:** Frozen model/artifact, evaluation dataset identity, labels where needed, metric definitions, and task/operating context. Report sample counts and uncertainty appropriate to dependencies; avoid repeated test-set tuning. Exploratory findings need fresh confirmation before strong generalization claims.
 
 - **Infer from evidence:** Read frozen model/data identities, metric definitions, denominators and supplied predictions; separate validation from test use.
 - **Reasonable default:** Compute only supported metrics on permitted samples and label missing labels or subgroup coverage as unknown.
@@ -35,6 +35,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 1. Compare threshold tradeoffs, model workload/capacity, handle ties and uncertainty, choose using validation data, and reserve independent confirmation.
 2. Compute validation tradeoffs with denominators and tie handling, translate them into expected workload under stated volume/prevalence and reserve independent confirmation.
+
 ## Technical method
 
 - **Inspect:** Obtain score distribution, error costs, review capacity, protected requirements and selection data.
@@ -67,5 +68,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Choose validation thresholds when reviewers can inspect 200 transactions daily.
-- **edge (plan):** Select a daily review threshold with tied scores and a hard queue cap.
-- **blocked (inspect):** Compare cutoffs with unknown error costs; do not optimize on test labels.
+- **Edge (plan):** Select a daily review threshold with tied scores and a hard queue cap.
+- **Blocked (inspect):** Compare cutoffs with unknown error costs; do not optimize on test labels.

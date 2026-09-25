@@ -1,11 +1,11 @@
 ---
 name: test-e2e
-description: "Exercise complete user journeys and recovery Use for a critical user journey across the actual interface; test-unit is preferable for pure logic branches."
+description: "Exercise complete user journeys and recovery. Use for a critical user journey across the actual interface; test-unit is preferable for pure logic branches."
 ---
 
 # test-e2e
 
-Exercise complete user journeys and recovery
+Exercise complete user journeys and recovery.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply; critical journey, environment, test accounts, and external side-effect constraints.
 
-defined behavior, existing test conventions/runners, isolated fixtures, and relevant dependencies. Requested bounded verification may use owned isolated fixtures without authorizing product edits or live-system tests. Never test destructive behavior against production by default; distinguish mocked behavior from real integration evidence.
+**Pack prerequisites:** Defined behavior, existing test conventions/runners, isolated fixtures, and relevant dependencies. Requested bounded verification may use owned isolated fixtures without authorizing product edits or live-system tests. Never test destructive behavior against production by default; distinguish mocked behavior from real integration evidence.
 
 - **Infer from evidence:** Read behavior contracts, existing runners and test conventions; distinguish fixture setup failure from a behavioral failure.
 - **Reasonable default:** Use the smallest existing local runner and isolated synthetic fixtures that distinguish the requested behavior. When the method needs a library, runner, container runtime or load tool the project lacks, name the exact package or tool, the files it changes and any download, and add it only when the request authorizes new dev dependencies or tools; label a hand-written generator without shrinking, or a fake in place of a real dependency, as such.
@@ -35,6 +35,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 1. Seed controlled data, use robust user-facing selectors, exercise the journey and failure recovery, assert observable outcomes, and clean up owned data.
 2. Define stable setup and cleanup, drive user-visible controls with semantic locators and assert the final meaningful outcome plus a recovery path.
+
 ## Technical method
 
 - **Inspect:** Define the critical user journey, identities, stable state and permitted side effects.
@@ -72,5 +73,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** Test checkout error recovery using controlled test accounts and no real charges.
-- **edge (apply):** Test checkout failure and retry without duplicate orders.
-- **blocked (inspect):** Plan browser tests when no browser tool is available; do not claim rendered success.
+- **Edge (apply):** Test checkout failure and retry without duplicate orders.
+- **Blocked (inspect):** Plan browser tests when no browser tool is available; do not claim rendered success.

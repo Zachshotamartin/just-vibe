@@ -17,8 +17,6 @@ Choose the lowest layer that can establish the required behavior without hiding 
 
 Deliver a stable behavioral check that fails for the targeted defect and passes legitimate behavior; separate environment/setup failures from product failures.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Demonstrate failure on the targeted defect.

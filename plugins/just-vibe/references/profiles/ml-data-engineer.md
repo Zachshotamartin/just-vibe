@@ -17,8 +17,6 @@ Compute features as of prediction time when later corrections could leak future 
 
 Deliver a versioned dataset/feature contract with availability timestamps and split boundaries; test backfills and training-serving transformations for leakage and drift.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Verify split isolation and feature availability.

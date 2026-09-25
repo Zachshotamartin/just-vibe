@@ -1,11 +1,11 @@
 ---
 name: vite-hmr
-description: "Diagnose broken, slow, or inconsistent hot-module updates Use for broken development updates; react-effects handles lifecycle bugs visible during refresh."
+description: "Diagnose broken, slow, or inconsistent hot-module updates. Use for broken development updates; react-effects handles lifecycle bugs visible during refresh."
 ---
 
 # vite-hmr
 
-Diagnose broken, slow, or inconsistent hot-module updates
+Diagnose broken, slow, or inconsistent hot-module updates.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; affected file/component, development environment, and HMR logs or reproduction. Apply for a requested fix.
 
-project manifests, lockfile, Vite/framework/plugin versions, and existing build scripts. Verify current version-specific documentation when changing configuration. Requested isolated verification may generate disposable build/cache artifacts; inspect their scripts first and preserve product files.
+**Pack prerequisites:** Project manifests, lockfile, Vite/framework/plugin versions, and existing build scripts. Verify current version-specific documentation when changing configuration. Requested isolated verification may generate disposable build/cache artifacts; inspect their scripts first and preserve product files.
 
 - **Infer from evidence:** Read manifests, lockfile, installed Vite/plugins, entry points, aliases, modes and current build scripts.
 - **Reasonable default:** Preserve existing tooling and base-path conventions; in apply mode, make a local focused change when the brief identifies the behavior, and otherwise propose it.
@@ -35,6 +35,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the
 
 1. Trace file change to browser update, inspect plugin boundaries and duplicate modules, distinguish full reload from hot replacement, and localize the failure.
 2. Follow file watcher to module graph to HMR connection and framework boundary; distinguish transport loss from invalidation and deliberate full reload.
+
 ## Technical method
 
 - **Inspect:** Observe filesystem watcher, module invalidation, websocket transport and framework refresh boundary.
@@ -67,5 +68,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Investigate why changes trigger full reloads and lose form state.
-- **edge (inspect):** Diagnose refresh failing behind a reverse proxy while direct localhost works.
-- **blocked (inspect):** Inspect HMR configuration without starting a dev server; identify needed browser evidence.
+- **Edge (inspect):** Diagnose refresh failing behind a reverse proxy while direct localhost works.
+- **Blocked (inspect):** Inspect HMR configuration without starting a dev server; identify needed browser evidence.

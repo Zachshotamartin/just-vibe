@@ -17,8 +17,6 @@ Record code, data, environment and hardware identity in the job interface so any
 
 Define the reusable experiment/serving interface and isolation policy; test reproducibility and failure recovery with more than one supported workload.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Rerun a representative job from its recorded identity and compare outputs.

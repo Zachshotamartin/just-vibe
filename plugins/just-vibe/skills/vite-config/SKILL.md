@@ -1,11 +1,11 @@
 ---
 name: vite-config
-description: "Audit aliases, plugins, build options, and environment handling Use to inspect effective configuration; vite-hmr or vite-assets handles a known failure surface."
+description: "Audit aliases, plugins, build options, and environment handling. Use to inspect effective configuration; vite-hmr or vite-assets handles a known failure surface."
 ---
 
 # vite-config
 
-Audit aliases, plugins, build options, and environment handling
+Audit aliases, plugins, build options, and environment handling.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; configuration files, intended behavior, and observed issue. Apply for a requested configuration fix.
 
-project manifests, lockfile, Vite/framework/plugin versions, and existing build scripts. Verify current version-specific documentation when changing configuration. Requested isolated verification may generate disposable build/cache artifacts; inspect their scripts first and preserve product files.
+**Pack prerequisites:** Project manifests, lockfile, Vite/framework/plugin versions, and existing build scripts. Verify current version-specific documentation when changing configuration. Requested isolated verification may generate disposable build/cache artifacts; inspect their scripts first and preserve product files.
 
 - **Infer from evidence:** Read manifests, lockfile, installed Vite/plugins, entry points, aliases, modes and current build scripts.
 - **Reasonable default:** Preserve existing tooling and base-path conventions; in apply mode, make a local focused change when the brief identifies the behavior, and otherwise propose it.
@@ -35,6 +35,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the
 
 1. Read effective configuration sources and version compatibility, trace conflicting options, compare development/production behavior, and propose focused corrections.
 2. Resolve command, mode, root, envDir, aliases and plugin order from the actual invoked script; compare TypeScript resolution with bundler resolution.
+
 ## Technical method
 
 - **Inspect:** Read effective command/mode, root/envDir, aliases, plugins, define replacements and server restrictions.
@@ -67,5 +68,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Audit aliases and plugin order for the installed Vite version.
-- **edge (inspect):** Diagnose an alias that typechecks but fails in the production bundle.
-- **blocked (inspect):** Inspect config source with no build permission; do not execute arbitrary imports.
+- **Edge (inspect):** Diagnose an alias that typechecks but fails in the production bundle.
+- **Blocked (inspect):** Inspect config source with no build permission; do not execute arbitrary imports.

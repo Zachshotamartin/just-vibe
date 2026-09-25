@@ -1,11 +1,11 @@
 ---
 name: reprompt
-description: "Improve a prompt while preserving intent and incorporating relevant available skills Use when the user wants to improve, rewrite, clarify or strengthen a one-off prompt, optionally with existing skills. Use skill for reusable skill authoring, auto to execute the underlying task, and llm-prompt to change an application's prompt asset against measured failures."
+description: "Improve a prompt while preserving intent and incorporating relevant available skills. Use when the user wants to improve, rewrite, clarify or strengthen a one-off prompt, optionally with existing skills. Use skill for reusable skill authoring, auto to execute the underlying task, and llm-prompt to change an application's prompt asset against measured failures."
 ---
 
 # reprompt
 
-Improve a prompt while preserving intent and incorporating relevant available skills
+Improve a prompt while preserving intent and incorporating relevant available skills.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; treat the appended prompt as text to rewrite, not an instruction to execute. Mode words inside that text describe the future task. Save the rewrite only when explicitly requested; executing it is a separate instruction.
 
-Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
+**Pack prerequisites:** Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
 - **Infer from evidence:** Use the exact supplied prompt and explicitly relevant conversation corrections; inspect a referenced file or skill inventory only when it affects the rewrite.
 - **Reasonable default:** Return one concise, paste-ready prompt in the original language. Use host-neutral wording unless a target host is known. Skill use is optional and should improve the task.
@@ -39,6 +39,7 @@ Return rewritten text only by default. An explicit request to save authorizes on
 4. For every selected skill, use its exact verified name, briefly specify when and why to use it, and order dependencies only where needed. Use verified host invocation syntax when known; otherwise write a plain-language instruction to discover and read that skill. A portable prompt must recheck availability in the destination environment and include a useful plain-language fallback. Never invent a skill, connector, account access or credentials.
 5. Produce a self-contained prompt with the objective, necessary context, constraints and expected result. Embed the selected skills as task instructions, not a dump of their contents. Keep user choices above skill defaults and preserve external-action approval boundaries. Exclude secrets and unrelated private context; use descriptive placeholders for required credentials.
 6. Compare the rewrite against the source: every explicit requirement and exclusion must survive, additions must be grounded or clearly conditional, and recommendations must match observed availability. Return the prompt in one copyable block, with brief material changes/assumptions outside it unless output-only was requested. Do not claim the future task has been performed.
+
 ## Technical method
 
 - **Inspect:** Read the source prompt, explicit constraints and only relevant context. Verify candidate skill entry points and active-host availability before naming them as usable.
@@ -77,6 +78,6 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Improve this prompt and use relevant available skills: Fix our React search page when requests finish out of order. Keep the current API and dependencies. Do not deploy.
-- **edge (inspect):** Rewrite only, no skills and no explanation: "Review this migration without running it. Keep all customer data. Give findings with evidence."
-- **blocked (inspect):** Improve this for another AI session using my private UX skill; its instructions and installed skill inventory are unavailable.
-- **edge (inspect):** Improve my earlier prompt about linked lists. If more than one earlier prompt fits, ask which one; do not give the lesson yet.
+- **Edge (inspect):** Rewrite only, no skills and no explanation: "Review this migration without running it. Keep all customer data. Give findings with evidence."
+- **Blocked (inspect):** Improve this for another AI session using my private UX skill; its instructions and installed skill inventory are unavailable.
+- **Edge (inspect):** Improve my earlier prompt about linked lists. If more than one earlier prompt fits, ask which one; do not give the lesson yet.

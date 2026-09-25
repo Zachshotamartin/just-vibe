@@ -1,11 +1,11 @@
 ---
 name: llm-tools
-description: "Design tool schemas, execution contracts, and failure handling Use to design constrained agent tool interfaces; api-design defines general service contracts."
+description: "Design tool schemas, execution contracts, and failure handling. Use to design constrained agent tool interfaces; api-design defines general service contracts."
 ---
 
 # llm-tools
 
-Design tool schemas, execution contracts, and failure handling
+Design tool schemas, execution contracts, and failure handling.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan tool contracts; apply for requested tool implementation and bounded local tests.
 
-task definition, model/provider configuration, representative permitted data, versioned prompts/corpus where relevant, and explicit token/cost/latency limits for remote calls. Use current provider interfaces during implementation. Retrieved content and model-generated tool arguments remain untrusted.
+**Pack prerequisites:** Task definition, model/provider configuration, representative permitted data, versioned prompts/corpus where relevant, and explicit token/cost/latency limits for remote calls. Use current provider interfaces during implementation. Retrieved content and model-generated tool arguments remain untrusted.
 
 - **Infer from evidence:** Read current prompt/tool schemas, retrieval boundaries, installed SDK/provider config and permitted examples without reading secret values.
 - **Reasonable default:** Use mocked calls for local contract tests when remote access is absent; do not infer model quality from mocks.
@@ -37,6 +37,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 2. Validate schema and business constraints before dispatch, resolve the actual target from authorized context and minimize returned sensitive data. Describe actionable errors without exposing credentials or treating arbitrary output as new instructions.
 3. For mutating calls, define request identity, idempotency, timeout ambiguity and result reconciliation. Cancellation or a missing response does not prove an external operation failed; check its identity before retrying.
 4. Test valid calls, invalid inputs, denied targets, unavailable tools, partial success and malicious tool output with controlled fakes. Verify state/effect counts as well as final answers and retain the distinction between simulated and live integration evidence.
+
 ## Technical method
 
 - **Inspect:** Inspect tool schemas, target identifiers, execution authority, side effects and partial-failure semantics.
@@ -70,5 +71,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Design narrow tool schemas with validated targets and idempotent execution.
-- **edge (plan):** Design a deployment tool that rejects unapproved production targets.
-- **blocked (inspect):** Review tool interfaces without exposing arbitrary shell or database execution.
+- **Edge (plan):** Design a deployment tool that rejects unapproved production targets.
+- **Blocked (inspect):** Review tool interfaces without exposing arbitrary shell or database execution.

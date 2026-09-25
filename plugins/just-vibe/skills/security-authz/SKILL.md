@@ -1,11 +1,11 @@
 ---
 name: security-authz
-description: "Test access decisions and cross-user or cross-tenant exposure Use for permission bypass inspection; backend-permissions implements an accepted access matrix, and security-fix repairs a confirmed bypass."
+description: "Test access decisions and cross-user or cross-tenant exposure. Use for permission bypass inspection; backend-permissions implements an accepted access matrix, and security-fix repairs a confirmed bypass."
 ---
 
 # security-authz
 
-Test access decisions and cross-user or cross-tenant exposure
+Test access decisions and cross-user or cross-tenant exposure.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; access matrix, endpoints/resources, roles/tenants, and authorized test identities.
 
-defined application boundary, authorized code/environment, relevant trust/access rules, and evidence sources. Default to defensive inspection; active tests use owned or explicitly authorized isolated targets. Minimize sensitive evidence and never print usable credentials.
+**Pack prerequisites:** Defined application boundary, authorized code/environment, relevant trust/access rules, and evidence sources. Default to defensive inspection; active tests use owned or explicitly authorized isolated targets. Minimize sensitive evidence and never print usable credentials.
 
 - **Infer from evidence:** Resolve the requested surface, source/runtime version, reachable callers and actual trust/access boundaries.
 - **Reasonable default:** Start with source analysis and bounded owned fixtures; treat scanner output as leads and preserve legitimate controls.
@@ -35,6 +35,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 1. Trace checks at server/data boundaries, compare alternate endpoints and methods, design negative cases, and execute only permitted isolated probes.
 2. Test policy at server/data boundaries across direct IDs, alternate methods, exports and background tasks using synthetic identities and known allowed/denied cases.
+
 ## Technical method
 
 - **Inspect:** Inspect identity derivation, subject/action/resource rules, tenant filters and indirect entry points.
@@ -74,5 +75,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Audit direct API access to another organization's records using isolated identities.
-- **edge (inspect):** Audit an endpoint that hides buttons but accepts cross-tenant direct requests.
-- **blocked (inspect):** Review source without real accounts or retrieving private records as proof.
+- **Edge (inspect):** Audit an endpoint that hides buttons but accepts cross-tenant direct requests.
+- **Blocked (inspect):** Review source without real accounts or retrieving private records as proof.

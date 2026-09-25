@@ -1,11 +1,11 @@
 ---
 name: api-openapi
-description: "Create or reconcile OpenAPI documentation with implementation Use to maintain an OpenAPI contract; api-breaking assesses compatibility between versions."
+description: "Create or reconcile OpenAPI documentation with implementation. Use to maintain an OpenAPI contract; api-breaking assesses compatibility between versions."
 ---
 
 # api-openapi
 
-Create or reconcile OpenAPI documentation with implementation
+Create or reconcile OpenAPI documentation with implementation.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply; existing OpenAPI/schema, implementation, and source-of-truth convention.
 
-interface definitions, producer/consumer source, authentication model, versioning constraints, and isolated test endpoints. External API calls must respect environment, credentials, rate limits, and side-effect scope.
+**Pack prerequisites:** Interface definitions, producer/consumer source, authentication model, versioning constraints, and isolated test endpoints. External API calls must respect environment, credentials, rate limits, and side-effect scope.
 
 - **Infer from evidence:** Read producer/consumer schemas, error contracts, auth conventions and known supported client versions.
 - **Reasonable default:** Keep compatible response and pagination semantics where the brief does not request a breaking change.
@@ -35,6 +35,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 1. Inspect routes and serializers, compare schema coverage, resolve documentation-versus-code discrepancies, update the correct source, and validate references/examples.
 2. Identify the authoritative schema source, compare serializers and route validators, then check references, required/null distinctions and representative examples.
+
 ## Technical method
 
 - **Inspect:** Identify OpenAPI version, source-of-truth convention, generators, serializers and client usage.
@@ -69,5 +70,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** Reconcile the existing specification with actual request and error schemas.
-- **edge (apply):** Document nullable fields and a rate-limit response omitted from generated output.
-- **blocked (inspect):** Review supplied schema without running the provider; do not claim runtime conformance.
+- **Edge (apply):** Document nullable fields and a rate-limit response omitted from generated output.
+- **Blocked (inspect):** Review supplied schema without running the provider; do not claim runtime conformance.

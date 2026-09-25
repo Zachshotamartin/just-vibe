@@ -4,7 +4,7 @@
     {
       "id": "orient",
       "pack": "general",
-      "summary": "Identify stack, structure, conventions, and actual working commands",
+      "summary": "Identify stack, structure, conventions, and the actual commands, marked verified or discovered",
       "aliases": [],
       "aliasOf": null,
       "defaultMode": "inspect",
@@ -28,11 +28,10 @@
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
       "procedure": [
         "Run the bundled inspector with the selected project root. Read relevant ancestor and discovered project instructions, manifests, scripts, and representative entry points.",
-        "Explain how the requested feature fits the actual project, list commands with their package directories, and distinguish discovered commands from checks you actually ran."
+        "When the user names a goal, explain how it fits the actual project; otherwise summarize each package's role and entry points. List commands with their package directories; run only side-effect-free checks after reading the script body, and label every other command discovered rather than verified."
       ],
       "outputs": [
-        "Project orientation with file links, likely run/check commands, conventions, and unknowns.",
-        "Entry-point table: path, role, caller, verification command, unresolved assumption."
+        "Project orientation with file links, conventions and unknowns, plus an entry-point table (path, role, caller, verification command, unresolved assumption) that labels each command discovered or verified."
       ],
       "verification": [
         "A monorepo yields package-specific commands; stale README instructions are identified rather than repeated as working."
@@ -121,12 +120,11 @@
       "readScope": "Explain the selected behavior and its necessary dependencies; no refactoring or unsolicited repository-wide tutorial.",
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
       "procedure": [
-        "Locate definitions and callers, inspect important branches, distinguish static inference from observed runtime behavior, and adapt terminology to the brief.",
-        "Locate the definition and a real caller; walk one concrete input through transformations, outputs, side effects and failure handling with file references."
+        "Locate the definition and a real caller, and inspect the branches that matter for the question.",
+        "Walk one concrete input through transformations, outputs, side effects and failure handling with file references, at the depth and in the terminology the brief asks for; distinguish what the source shows statically from observed runtime behavior."
       ],
       "outputs": [
-        "A causal explanation with source links, a concrete example, and relevant caveats.",
-        "Input-to-output walkthrough, cited source locations, edge path, and unresolved runtime assumptions."
+        "A causal explanation that walks one concrete input to its output with cited source locations, the edge path that matters, and unresolved runtime assumptions."
       ],
       "verification": [
         "Explains both the normal path and a meaningful edge path; missing runtime configuration remains explicitly unknown."
@@ -555,12 +553,11 @@
       "readScope": "One end-to-end execution/data path, including service boundaries; no new instrumentation by default.",
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
       "procedure": [
-        "Identify the entry point, follow transformations and dispatches, correlate available IDs, and mark async boundaries and missing spans.",
-        "Start from an identified input or correlation ID; record each hop's input, output, identity propagation and synchronous or asynchronous transition."
+        "Identify the entry point and start from a concrete input or correlation ID.",
+        "Follow each transformation and dispatch, recording the hop's input, output, identity propagation and synchronous or asynchronous transition; mark missing spans where the path is unobserved."
       ],
       "outputs": [
-        "Ordered path with source/telemetry evidence, transformations, failure branches, and gaps.",
-        "Hop table with ordering, payload transformations, evidence and gaps."
+        "Ordered hop table with each hop's source or telemetry evidence, payload transformation, failure branches and gaps."
       ],
       "verification": [
         "An async job is separated from its triggering request; an absent downstream log is reported as a gap rather than proof of success."
@@ -647,13 +644,12 @@
       "readScope": "Existing modules and dependencies; deeper distributed architecture questions belong to `arch-map`.",
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
       "procedure": [
-        "Identify nodes and imports, trace representative relationships, separate declared from observed dependencies, and select a readable level of detail.",
-        "Identify public entry points and dependency direction; collapse generated/vendor code and distinguish imports, calls and data sharing.",
-        "For a first pass run atlas map --root PROJECT --stdin with {paths}; treat its edges as lexical candidates, resolve specifiers, verify representative and cycle edges in source, and report partial coverage."
+        "Identify public entry points, nodes and dependency direction; collapse generated/vendor code to keep a readable level of detail.",
+        "For a first pass run atlas map --root PROJECT --stdin with {paths}; treat its edges as lexical candidates, resolve specifiers, verify representative and cycle edges in source, and report partial coverage.",
+        "Distinguish imports, calls and data sharing, and separate declared from observed dependencies."
       ],
       "outputs": [
-        "Diagram or adjacency table with a legend, entry points, evidence links, and uncertain edges.",
-        "Diagram legend, representative dependency paths, cycles and unresolved dynamic edges."
+        "Diagram or adjacency table with a legend, entry points, representative dependency paths, cycles, evidence links, and uncertain or unresolved dynamic edges."
       ],
       "verification": [
         "Detects a real dependency cycle; generated/vendor directories do not overwhelm the map."
@@ -752,12 +748,11 @@
       "readScope": "Resolve the question, not implement a preferred solution.",
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
       "procedure": [
-        "Form answerable subquestions, inspect project constraints, consult authoritative sources, compare evidence dates, and distinguish facts from inference.",
-        "Turn the question into compatibility claims; inspect the project's pinned versions and check primary documentation with dates and exact feature boundaries."
+        "Turn the question into answerable subquestions or compatibility claims, and inspect the project's constraints and pinned versions.",
+        "Check authoritative primary documentation for each claim, recording its date and exact feature boundaries; compare evidence dates and distinguish facts from your own conclusions."
       ],
       "outputs": [
-        "Recommendation, alternatives, citations, compatibility assumptions, and unresolved questions.",
-        "Claim/source/version table and a recommendation conditional on unresolved facts."
+        "Claim/source/version table with citations, the alternatives considered, and a recommendation conditional on unresolved facts and compatibility assumptions."
       ],
       "verification": [
         "Conflicting documentation is surfaced; an unsupported feature is not recommended based on outdated examples."
@@ -842,8 +837,8 @@
       "readScope": "Compare concrete alternatives; weighted decision policy belongs to `decision-matrix`.",
       "writeScope": "Inspect/plan: compare from evidence; save requested artifacts only. Apply (a request to build or try alternatives): write only in owned lab worktrees under .just-vibe/workspaces, run owned preview processes, and apply the chosen variant through lab select with an undo record only after the user selects it. No commit, push or deploy.",
       "procedure": [
-        "Normalize assumptions, compare behavior, complexity, maintenance, migration, and relevant cost; identify where evidence is missing.",
-        "Normalize workload, feature requirements and time horizon; include a baseline/current option and distinguish switching cost from steady-state cost.",
+        "Normalize workload, feature requirements, time horizon and other assumptions; include a baseline/current option.",
+        "Compare behavior, complexity, maintenance, migration and relevant cost, distinguishing switching cost from steady-state cost; identify where evidence is missing.",
         "Keep an ordinary comparison in inspect/plan mode. When the brief explicitly asks to build or try alternatives, define two or three distinct approaches with the same requirements and budget, inspect the Git root and starting changes, and create a lab using the working-alternatives guide.",
         "Implement each approach in its returned owned worktree. Preserve initial user edits and use equivalent dependency/test conditions; record meaningful environment differences. Read and run the same declared checks for all variants and inspect actual renders before describing visual behavior.",
         "For previewable projects, launch a bounded lease with the real loopback server command and literal {port} placeholder; verify its response and open the comparison report and previews. Compare observable behavior and subjective tradeoffs separately, with no invented universal quality score.",
@@ -851,8 +846,7 @@
         "Stop owned preview processes and clean up reviewed workspace snapshots when requested or as agreed for the task. Preserve wanted alternatives first. Recover interrupted selection through lab recover; never force-clean a stale or unowned workspace."
       ],
       "outputs": [
-        "Side-by-side comparison, conditional recommendation, and a discriminating test if needed.",
-        "Comparable assumptions, evidence-backed differences and conditions that change the result.",
+        "Side-by-side comparison on shared assumptions with evidence-backed differences, the conditions that change the result, a conditional recommendation and a discriminating test if needed.",
         "Working variants, shared check evidence, preview/report links, selected changes and an undo record when applied."
       ],
       "verification": [
@@ -953,12 +947,11 @@
       "readScope": "Generate distinct viable approaches; no implementation or final product commitment.",
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
       "procedure": [
-        "Restate the objective, vary meaningful design dimensions, discard duplicates, and explain benefits, costs, and a validation method for each remaining approach.",
-        "Vary actual mechanisms such as ownership, interaction or persistence; include a minimal approach and attach a cheap validation experiment to each candidate."
+        "Restate the objective, then vary actual mechanisms such as ownership, interaction or persistence; include a minimal approach and discard duplicates.",
+        "For each remaining candidate explain its benefits and costs and attach a cheap validation experiment."
       ],
       "outputs": [
-        "A bounded set of differentiated options and a recommended shortlist.",
-        "Distinct options, tradeoffs, validation experiments and a justified shortlist."
+        "A bounded set of distinct options with tradeoffs and a validation experiment for each, and a justified shortlist."
       ],
       "verification": [
         "Alternatives differ in actual behavior or architecture; all respect explicit constraints such as no new service."
@@ -1041,12 +1034,11 @@
       "readScope": "Requirements and observable behavior; no code changes or invented business policy.",
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
       "procedure": [
-        "Inspect current behavior, identify actors and states, define normal/error paths, record exclusions, and turn ambiguity into explicit assumptions or decisions.",
-        "Write actors, preconditions, state transitions and observable acceptance examples; separate business decisions from implementation preferences."
+        "Inspect current behavior, then write actors, preconditions and state transitions with normal and error paths.",
+        "Give observable acceptance examples, record exclusions, and turn ambiguity into explicit assumptions or decisions, separating business decisions from implementation preferences."
       ],
       "outputs": [
-        "Requirements, acceptance criteria, edge cases, compatibility needs, and unresolved questions; save only when requested.",
-        "Requirement IDs, acceptance examples, exclusions and unresolved decision owners."
+        "Requirements with IDs, acceptance examples, edge cases, compatibility needs, exclusions and unresolved questions with their decision owners; save only when requested."
       ],
       "verification": [
         "Each requirement has an observable completion condition; conflicting requirements are flagged before downstream implementation."
@@ -1089,9 +1081,10 @@
         "user stories",
         "edge cases",
         "prd",
-        "requirements doc"
+        "requirements doc",
+        "product requirements"
       ],
-      "selection": "Use to define observable product behavior before implementation; plan maps an accepted specification onto code.",
+      "selection": "Use to define observable product behavior before implementation; a PRD is a specification, and plan derives the implementation plan from it.",
       "branches": [
         {
           "when": "two requirements conflict on the same transition",
@@ -1103,7 +1096,14 @@
         "method": "Define observable acceptance criteria and state transitions, including invalid, interrupted and recovered behavior where material.",
         "pitfall": "Implementation detail can prematurely constrain a product requirement; vague adjectives cannot establish completion.",
         "check": "Walk a representative user scenario and a failure scenario against the criteria and expose unresolved choices."
-      }
+      },
+      "guides": [
+        {
+          "title": "PRD, implementation plans and team handoffs",
+          "path": "references/methods/planning-teams.md",
+          "when": "The user asks for a PRD"
+        }
+      ]
     },
     {
       "id": "plan",
@@ -1131,13 +1131,12 @@
       "readScope": "An executable implementation sequence grounded in this project; no feature implementation.",
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
       "procedure": [
-        "Find affected modules, check existing patterns, order dependencies, identify verification and rollout needs, and separate discovery tasks from known changes.",
-        "Connect each step to actual files, interfaces and a completion check; put discovery before changes that depend on uncertain contracts.",
+        "Find affected modules and existing patterns, and separate discovery tasks from known changes.",
+        "Order the steps by dependency, putting discovery before changes that depend on uncertain contracts; connect each step to actual files, interfaces and a completion check, and note rollout needs.",
         "For a multi-phase feature, fix, refactor or MVP, use the relevant phase contract in the composed-workflows guide. Keep simple work direct. Delegate only when authorized, and use the reviewed worker result and acceptance flow before dependent work. Offer the plan-review canvas only when browser feedback is useful or requested."
       ],
       "outputs": [
-        "File/component-level steps, success criteria, risks, recovery approach, and dependencies.",
-        "Ordered change table with target files, dependencies, checks and rollback boundaries."
+        "Ordered change table with target files or components, dependencies, a completion check per step, risks and rollback boundaries."
       ],
       "verification": [
         "A developer can start the first task without guessing its target; a missing integration is an explicit prerequisite rather than assumed available."
@@ -1232,12 +1231,11 @@
       "readScope": "Release boundaries and sequencing; no removal of already required behavior without identifying that tradeoff.",
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
       "procedure": [
-        "Identify user outcomes, map dependencies, distinguish essentials from enhancements, and assess what remains viable under the limits.",
-        "Trace each proposed cut through a complete user journey and its operational dependencies; preserve the smallest usable outcome."
+        "Identify user outcomes and distinguish essentials from enhancements.",
+        "Trace each proposed cut through a complete user journey and its operational dependencies, and keep the smallest usable outcome that remains viable under the limits."
       ],
       "outputs": [
-        "Included/excluded work, minimum release criteria, later phases, and consequences of cuts.",
-        "Included journeys, explicit cuts, dependency consequences and minimum release checks."
+        "Included journeys, explicit cuts with their dependency consequences, later phases and minimum release checks."
       ],
       "verification": [
         "Deferred work does not break an included journey; an impossible deadline is exposed with concrete options."
@@ -1322,12 +1320,12 @@
       "readScope": "Test assumptions and failure modes; no adversarial criticism for its own sake and no implementation changes.",
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
       "procedure": [
-        "Identify critical assumptions, search for disconfirming evidence, construct plausible edge cases, and rank issues by impact and likelihood.",
-        "Extract falsifiable assumptions and seek counterexamples in current code, workload and constraints; distinguish observed defects from speculative risks."
+        "Extract the critical assumptions as falsifiable claims.",
+        "Seek disconfirming evidence and plausible edge cases in current code, workload and constraints.",
+        "Rank issues by impact and likelihood, distinguishing observed defects from speculative risks."
       ],
       "outputs": [
-        "Evidence-backed challenges, questions that matter, and smaller or more robust alternatives.",
-        "Ranked challenges with trigger, consequence, evidence and discriminating experiment."
+        "Ranked challenges, each with its trigger, consequence, evidence and a discriminating experiment, plus smaller or more robust alternatives where they exist."
       ],
       "verification": [
         "A supported assumption remains accepted; a serious unsupported dependency receives a concrete validation step."
@@ -1411,12 +1409,11 @@
       "readScope": "Break work into implementable units; external issue creation is separate and requires a request to submit.",
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
       "procedure": [
-        "Preserve requirements, map dependencies, define bounded outputs and checks, order the critical path, and flag tasks needing a decision.",
-        "Assign each task one observable output and dependency edge; keep inseparable schema/client changes together or state their compatibility bridge."
+        "Preserve the requirements and map dependencies; keep inseparable schema/client changes in one task or state their compatibility bridge.",
+        "Give each task one observable output, an acceptance check and its prerequisite edges; order the critical path and flag tasks that need a decision."
       ],
       "outputs": [
-        "Ordered tasks with scope, dependencies, acceptance criteria, and traceability to the brief.",
-        "Task IDs, requirements covered, prerequisites, deliverables and acceptance checks."
+        "Ordered tasks with IDs, the requirements each covers, prerequisites, deliverable and acceptance check."
       ],
       "verification": [
         "Every required outcome maps to a task; tasks do not duplicate ownership of the same inseparable change."
@@ -1463,11 +1460,15 @@
         "subtasks",
         "work items"
       ],
-      "selection": "Use to turn an accepted plan into independently verifiable work; plan resolves architecture and sequencing first.",
+      "selection": "Use to turn an accepted plan into independently verifiable work; plan resolves architecture and sequencing first, and github-issue files the tasks when submission is requested.",
       "branches": [
         {
           "when": "tasks overlap the same shared interface",
           "then": "Define an integration order and owner boundary before parallel work is proposed."
+        },
+        {
+          "when": "the user asks to file the tasks in a tracker",
+          "then": "Prepare issue drafts; create them only on an explicit submit request, through github-issue or the epic plan and epic publish operations."
         }
       ],
       "technical": {
@@ -1479,7 +1480,7 @@
       "guides": [
         {
           "title": "Context health, check presets, editor events and shared work",
-          "when": "The request needs proactive context warnings, detected checks, native editor events, GitHub epic coordination or configuration audit reports",
+          "when": "The user wants the tasks coordinated on a GitHub epic issue",
           "path": "references/runtime-depth.md"
         }
       ]
@@ -1510,13 +1511,13 @@
       "readScope": "Complete the requested feature and necessary integration; no unrelated modernization or automatic publication.",
       "writeScope": "Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.",
       "procedure": [
-        "Inspect current patterns, resolve critical ambiguity, implement coherent changes, handle error states, and run checks appropriate to the behavior changed.",
-        "Trace the closest existing journey, implement the smallest complete vertical slice, and exercise failure recovery before expanding optional states.",
+        "Inspect current patterns, trace the closest existing journey, and resolve critical ambiguity before editing.",
+        "Implement the smallest complete vertical slice, including its error states, and exercise failure recovery before expanding optional states.",
+        "Run checks appropriate to the behavior changed.",
         "For a multi-phase feature, fix, refactor or MVP, use the relevant phase contract in the composed-workflows guide. Keep simple work direct. Delegate only when authorized, and use the reviewed worker result and acceptance flow before dependent work. Offer the plan-review canvas only when browser feedback is useful or requested."
       ],
       "outputs": [
-        "Working changes, validation evidence, and material limitations.",
-        "Files changed, acceptance criteria exercised, failure-path evidence and remaining integration gaps."
+        "Working changes with the files changed, acceptance criteria and failure paths exercised, and remaining integration gaps or limitations."
       ],
       "verification": [
         "The requested journey works end to end; an error path preserves existing contracts and user data."
@@ -1562,7 +1563,7 @@
         "dark mode",
         "settings screen"
       ],
-      "selection": "Use for a defined feature spanning existing code; specialist commands supply methods for fragile subproblems.",
+      "selection": "Use for a defined feature spanning existing code; use plan for sequencing only, integrate when the core work connects an external service, design for a new visual direction, and orchestrate for multi-phase or delegated work. Specialist commands supply methods for fragile subproblems.",
       "branches": [
         {
           "when": "a business rule is unspecified",
@@ -1920,12 +1921,11 @@
       "readScope": "Diagnosis and narrowing; no automatic code repair.",
       "writeScope": "No product edits during diagnosis. Requested reproduction may create synthetic fixtures in owned temporary locations; tracked fixture-writing checks use an explicitly scoped apply verification. A request to repair selects the fix workflow.",
       "procedure": [
-        "Build a hypothesis list, inspect logs and code, seek evidence that distinguishes causes, and identify the smallest next experiment.",
-        "Rank hypotheses by discriminating observations, trace the first divergence from expected behavior, and use bounded probes rather than repeated full runs."
+        "Inspect logs and code, then build a hypothesis list ranked by the observations that would discriminate between causes.",
+        "Trace the first divergence from expected behavior with the smallest next experiment, using bounded probes rather than repeated full runs."
       ],
       "outputs": [
-        "Most supported cause, supporting/contradicting evidence, and a proposed fix or reproduction step.",
-        "Hypothesis table with supporting/contradicting evidence and the next targeted probe."
+        "Hypothesis table with supporting and contradicting evidence, the most supported cause, and the next targeted probe or proposed fix."
       ],
       "verification": [
         "Eliminates an initially plausible false cause; insufficient evidence yields ranked hypotheses, not false certainty."
@@ -1972,7 +1972,7 @@
         "hangs",
         "500 error"
       ],
-      "selection": "Use to identify a cause and next experiment; fix applies a requested repair.",
+      "selection": "Use to identify a cause and next experiment; fix applies a requested repair and repro builds a durable minimal reproduction.",
       "branches": [
         {
           "when": "logs establish symptoms but not causation",
@@ -2114,13 +2114,12 @@
       "readScope": "Internal organization with preserved observable behavior; feature changes are separate.",
       "writeScope": "Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.",
       "procedure": [
-        "Capture relevant behavior, identify seams, transform incrementally, preserve call contracts, and compare results against the baseline.",
-        "Identify public exports, serialization and error contracts; transform one seam at a time and compare behavior against existing consumer checks.",
+        "Capture the current behavior as a baseline and identify public exports, serialization and error contracts.",
+        "Transform one seam at a time, preserving call contracts, and compare behavior against the baseline and existing consumer checks after each step.",
         "For a multi-phase feature, fix, refactor or MVP, use the relevant phase contract in the composed-workflows guide. Keep simple work direct. Delegate only when authorized, and use the reviewed worker result and acceptance flow before dependent work. Offer the plan-review canvas only when browser feedback is useful or requested."
       ],
       "outputs": [
-        "Focused structural changes, rationale, compatibility evidence, and remaining debt.",
-        "Structural rationale, compatibility surface and checks showing preserved behavior."
+        "Focused structural changes with their rationale, the compatibility surface, checks showing preserved behavior, and remaining debt."
       ],
       "verification": [
         "Existing consumers continue to work; boundary/error behavior survives the reorganization."
@@ -2173,7 +2172,7 @@
         "smaller files",
         "smaller functions"
       ],
-      "selection": "Use for structural change with preserved behavior; migrate changes a version or public compatibility boundary.",
+      "selection": "Use for structural change with preserved behavior; migrate changes a version or public compatibility boundary and cleanup removes verified dead code.",
       "branches": [
         {
           "when": "code appears unused but is registered dynamically",
@@ -2320,12 +2319,12 @@
       "readScope": "Client/server adapter, configuration names, errors, and tests; no account purchase or live side effects unless requested.",
       "writeScope": "Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.",
       "procedure": [
-        "Verify compatibility, implement a narrow boundary, protect secrets, add timeout/error behavior, and validate with a sandbox or controlled fixture.",
-        "Resolve provider version and request/response schemas; implement a controlled fake for success, refusal, timeout and malformed replies before live verification."
+        "Resolve the provider version and request/response schemas, and verify compatibility with the project.",
+        "Implement a narrow boundary that keeps secrets out of code and logs and adds timeout and error behavior.",
+        "Validate against a controlled fake or sandbox for success, refusal, timeout and malformed replies before any live verification."
       ],
       "outputs": [
-        "Integration code, configuration instructions, failure handling, and validation evidence.",
-        "Boundary contract, configuration names, failure matrix and sandbox evidence when available."
+        "Integration code behind a boundary contract, configuration names and instructions, a failure matrix, and fake or sandbox validation evidence."
       ],
       "verification": [
         "A valid response works; authentication failure or timeout produces a useful recoverable error."
@@ -2426,12 +2425,12 @@
       "readScope": "Ordered migration across affected code/config/data contracts; no unrelated upgrades.",
       "writeScope": "Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the requested local implementation and perform relevant bounded checks while preserving unrelated work. Live data changes, remote actions and paid jobs require their resolved target and existing session authorization.",
       "procedure": [
-        "Inventory dependents, read version-specific changes, design transitional compatibility, prepare edits/checks, and define recovery before execution.",
-        "Inventory old/new consumers and persisted formats; identify the last reversible point and validate coexistence before removing compatibility code."
+        "Inventory old and new consumers, dependents and persisted formats, and read the version-specific changes.",
+        "Design transitional compatibility, prepare the edits and checks, and define recovery and the last reversible point before execution.",
+        "Validate coexistence before removing compatibility code."
       ],
       "outputs": [
-        "Migration sequence or authorized patch, compatibility matrix, verification, and recovery limitations.",
-        "Compatibility matrix, ordered transitions, recovery point and verified/unverified stages."
+        "Ordered transitions or the authorized patch, a compatibility matrix, the recovery point and its limits, and verified versus unverified stages."
       ],
       "verification": [
         "Old/new overlap behaves as specified; interrupted execution has a documented restart or recovery path."
@@ -2528,12 +2527,12 @@
       "readScope": "Script or workflow implementing the process; registering schedules or enabling external triggers requires that requested action.",
       "writeScope": "Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.",
       "procedure": [
-        "Observe current steps, isolate deterministic operations, validate inputs, implement failure reporting and repeat behavior, and test with controlled fixtures.",
-        "Define inputs, output ownership, locking and idempotency; produce meaningful exit statuses and rehearse interruption between durable steps."
+        "Observe the current steps, isolate the deterministic operations, and define inputs, output ownership, locking and idempotency.",
+        "Implement input validation, failure reporting with meaningful exit statuses, and the defined repeat behavior.",
+        "Test with controlled fixtures and rehearse interruption between durable steps."
       ],
       "outputs": [
-        "Runnable automation, usage, required permissions, and execution evidence.",
-        "Runnable entry point, input contract, repeat-run policy and failure/exit behavior."
+        "Runnable entry point with usage, input contract, required permissions, repeat-run policy, failure/exit behavior and execution evidence."
       ],
       "verification": [
         "Repeated execution has deliberate duplicate handling; partial failure exits clearly and preserves recoverable state."
@@ -2581,7 +2580,7 @@
         "manual steps",
         "one command"
       ],
-      "selection": "Use for a repeatable local workflow; a scheduled service requires an actual separately scoped runtime.",
+      "selection": "Use for a repeatable local workflow; github-actions owns scheduled CI workflow files, and any other scheduled service requires an actual separately scoped runtime.",
       "branches": [
         {
           "when": "a previous run left partial output",
@@ -2621,12 +2620,11 @@
       "readScope": "Demonstrably unused code, stale artifacts, or needless complexity; no behavior redesign.",
       "writeScope": "Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.",
       "procedure": [
-        "Find candidates, check dynamic/configuration references and public exports, remove only supported candidates, and verify affected builds/behavior.",
-        "Check static callers, public exports, framework conventions and runtime registration; remove a coherent candidate set with a restorable diff."
+        "Find candidates and check static callers, dynamic and configuration references, public exports, framework conventions and runtime registration.",
+        "Remove only a coherent set of supported candidates with a restorable diff, then verify the affected builds and behavior."
       ],
       "outputs": [
-        "Focused deletions/simplifications with evidence of non-use and checks.",
-        "Removed items with non-use evidence and checks for affected consumers."
+        "Removed or simplified items, each with non-use evidence, and checks for affected consumers."
       ],
       "verification": [
         "Verified dead code is removed; a dynamically loaded module survives despite lacking static imports."
@@ -2716,12 +2714,12 @@
       "readScope": "Requested visual direction and interface, using the existing design system where applicable.",
       "writeScope": "Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.",
       "procedure": [
-        "Inspect current UI, define hierarchy and states, implement a coherent direction, and inspect the rendered result across relevant sizes.",
-        "Infer hierarchy from real content and user actions; reuse project primitives, choose a coherent composition and render the primary and failure states."
+        "Inspect the current UI and infer hierarchy and states from real content and user actions.",
+        "Choose a coherent composition that reuses project primitives, and implement it for the primary and failure states.",
+        "Inspect the rendered result across relevant sizes."
       ],
       "outputs": [
-        "Interface or requested concept, design rationale, and visual/interaction evidence.",
-        "Implemented interface, visual decisions, inspected states/viewports and remaining visual gaps."
+        "Implemented interface or requested concept, its visual decisions, the states and viewports inspected, and remaining visual gaps."
       ],
       "verification": [
         "Primary action and content hierarchy are clear; narrow screens and error states remain usable."
@@ -2827,12 +2825,12 @@
       "readScope": "Typography, spacing, hierarchy, consistency, and interaction detail; preserve product structure and behavior.",
       "writeScope": "Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.",
       "procedure": [
-        "Inspect baseline renders, prioritize visible issues, adjust shared tokens/components where appropriate, and compare the same states after changes.",
-        "Capture the same viewport/state before editing; fix the dominant hierarchy, spacing or alignment issue at the shared primitive when appropriate."
+        "Capture baseline renders of the target viewport and state before editing, and prioritize the visible issues.",
+        "Fix the dominant hierarchy, spacing or alignment issue first, at the shared token or primitive when appropriate.",
+        "Compare the same viewport and state after the change."
       ],
       "outputs": [
-        "Focused UI improvements and before/after evidence.",
-        "Comparable before/after views and the behavior preserved by the refinement."
+        "Focused UI refinements with comparable before/after views and the behavior they preserve."
       ],
       "verification": [
         "Refined alignment or hierarchy is visible; keyboard focus and responsive behavior are preserved."
@@ -2954,12 +2952,12 @@
       "readScope": "Match layout, typography, imagery, and states within the given reference; no invented unseen product behavior.",
       "writeScope": "Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.",
       "procedure": [
-        "Analyze reference geometry, compare an equivalent render, prioritize largest discrepancies, implement changes, and repeat bounded comparisons.",
-        "Match viewport, content and fonts before comparing geometry; adjust large layout discrepancies before decorative details and record legitimate responsive differences."
+        "Match viewport, content and fonts to the reference before comparing geometry.",
+        "Compare an equivalent render and fix the largest layout discrepancies before decorative details.",
+        "Repeat bounded comparisons after each change and record legitimate responsive differences."
       ],
       "outputs": [
-        "Updated UI plus matched-state comparison and remaining differences.",
-        "Reference conditions, matched regions, remaining differences and responsive checks."
+        "Updated UI with the reference conditions, a matched-state comparison by region, remaining differences and responsive checks."
       ],
       "verification": [
         "Layout aligns at the reference viewport; responsive behavior is retained outside that viewport."
@@ -3057,12 +3055,11 @@
       "readScope": "Labels, help text, error messages, and supplied marketing content; no invented guarantees or policy changes.",
       "writeScope": "Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.",
       "procedure": [
-        "Identify user decisions, preserve meaning, make actions/errors specific, check space/localization constraints, and update authorized surfaces.",
-        "Identify the decision each label or message supports; preserve legal/business meaning and test truncation, pluralization and missing-value variants."
+        "Identify the decision each label or message supports and the legal or business meaning it must keep.",
+        "Make actions and errors specific, then check truncation, pluralization, missing-value variants and localization space before updating the authorized surfaces."
       ],
       "outputs": [
-        "Revised copy with necessary context and affected states.",
-        "Copy changes by state, rationale, character constraints and unresolved policy wording."
+        "Revised copy by affected state, with rationale, character constraints and unresolved policy wording."
       ],
       "verification": [
         "A failure message gives an actionable next step; labels remain understandable without surrounding visual context."
@@ -3386,12 +3383,12 @@
       "readScope": "Meaningful behavior coverage at the cheapest reliable layer; no arbitrary coverage quota or whole-suite rewrite.",
       "writeScope": "Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.",
       "procedure": [
-        "Inspect existing tests, identify important gaps, choose unit/integration/end-to-end scope, add representative cases, and run relevant checks.",
-        "Choose the lowest layer that can observe the contract; retain an independent expected result and demonstrate that the check detects a plausible regression."
+        "Inspect existing tests and identify the important gaps.",
+        "Choose the lowest layer (unit, integration or end-to-end) that can observe the contract and add representative cases there, each with an independently derived expected result.",
+        "Run the relevant checks and demonstrate that each new test detects a plausible regression."
       ],
       "outputs": [
-        "Tests, fixture changes when necessary, execution results, and covered behavior.",
-        "Tests and fixtures mapped to requirements, execution results and uncovered boundaries."
+        "Tests and any necessary fixtures mapped to the requirements they cover, execution results and uncovered boundaries."
       ],
       "verification": [
         "A realistic behavioral regression fails the new test; harmless internal refactoring does not invalidate assertions."
@@ -3436,7 +3433,7 @@
         "spec file",
         "test file"
       ],
-      "selection": "Use to implement behavior checks; coverage identifies gaps and verify runs existing checks.",
+      "selection": "Use to implement behavior checks; test-unit, test-integration, test-e2e and test-property own layer-specific methods, coverage identifies gaps and verify runs existing checks.",
       "branches": [
         {
           "when": "the proposed assertion mirrors internal implementation",
@@ -3848,12 +3845,12 @@
       "readScope": "Measured bottlenecks and focused optimization; no blanket rewrites or unbounded production load.",
       "writeScope": "Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.",
       "procedure": [
-        "Establish repeatable baseline conditions, profile the path, target the dominant cause, and compare latency/resource use and correctness after the change.",
-        "Define a repeatable workload and metric, preserve baseline conditions, and isolate the dominant resource or wait before changing code."
+        "Define a repeatable workload and metric and record the baseline conditions.",
+        "Profile the path to isolate the dominant resource or wait before changing code.",
+        "After the change, compare latency, resource use and correctness under the same conditions."
       ],
       "outputs": [
-        "Patch, measurement method, before/after results, and tradeoffs.",
-        "Workload, sample size, before/after measurements, correctness checks and tradeoffs."
+        "Patch with the workload, sample size, before/after measurements, correctness checks and tradeoffs."
       ],
       "verification": [
         "Improvement persists under comparable workloads; optimized behavior remains correct at a relevant boundary."
@@ -3904,7 +3901,7 @@
         "memory usage",
         "optimize"
       ],
-      "selection": "Use for measured performance repair; architecture scaling work needs workload-level evidence.",
+      "selection": "Use for measured performance repair; architecture scaling work needs workload-level evidence. Once the bottleneck is located in one layer, prefer react-rerenders, vite-bundle, vercel-performance, db-explain or ml-inference-perf.",
       "branches": [
         {
           "when": "a faster implementation changes output quality or consistency",
@@ -3956,12 +3953,12 @@
       "readScope": "Minimal reproducer in an agreed scratch/test location; not a product fix.",
       "writeScope": "Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.",
       "procedure": [
-        "Confirm the symptom, reduce unrelated dependencies and data, preserve the failure trigger, and document exact run/reset steps.",
-        "Freeze input and environment identity, reduce one dimension at a time, and include a negative control that removes the suspected trigger."
+        "Confirm the symptom and freeze input and environment identity.",
+        "Reduce unrelated dependencies and data one dimension at a time while preserving the failure trigger.",
+        "Include a negative control that removes the suspected trigger, and document exact run and reset steps."
       ],
       "outputs": [
-        "Reproduction fixture or script with expected versus actual behavior and environment identity.",
-        "Isolated reproduction, exact run/reset steps, expected/actual output and required conditions."
+        "Isolated reproduction fixture or script with exact run/reset steps, expected versus actual output, environment identity and required conditions."
       ],
       "verification": [
         "A fresh isolated run reproduces the issue; removing the critical trigger makes the failure disappear."
@@ -4008,7 +4005,7 @@
         "mcve",
         "isolate the failure"
       ],
-      "selection": "Use to isolate an observable failure; fix changes production behavior after the trigger is understood.",
+      "selection": "Use to isolate an observable failure; debug diagnoses the cause, test-flaky owns order and timing nondeterminism, test-regression locks the reproduced case, and fix changes production behavior after the trigger is understood.",
       "branches": [
         {
           "when": "reducing the case removes the failure intermittently",
@@ -4055,12 +4052,11 @@
       "readScope": "Important missing behavioral coverage; no automatic test generation or percentage chasing.",
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A requested audit may demonstrate an escaping defect only in an owned temporary copy or fixture; never edit or reset the reviewed tree. The test workflow implements the selected cases.",
       "procedure": [
-        "Map requirements and failure paths to tests, inspect assertions rather than names, and rank gaps by consequence and likelihood.",
-        "Trace important failure and recovery paths to actual assertions; look for tests that pass when the requirement is deliberately violated."
+        "Map requirements and important failure and recovery paths to the actual assertions, not test names.",
+        "Look for tests that would still pass if the requirement were deliberately violated, and rank gaps by consequence and likelihood."
       ],
       "outputs": [
-        "Prioritized test opportunities with suggested layer, setup, and expected assertion.",
-        "Ranked gap table with consequence, setup, layer and expected assertion."
+        "Ranked gap table with consequence, suggested layer, setup and expected assertion."
       ],
       "verification": [
         "Untested recovery behavior is identified despite high line coverage; a low-risk uncovered getter is not prioritized over access control."
@@ -4155,13 +4151,12 @@
       "readScope": "Prepare a PR title/body and diff summary; submission is handled by `github-pr` when requested.",
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
       "procedure": [
-        "Inspect the actual diff, separate unrelated edits, explain changed behavior, and include only checks supported by evidence.",
-        "Base the description on the final diff and verified checks, account for generated artifacts, and state user-visible behavior before implementation details.",
+        "Inspect the final diff, separate unrelated edits and account for generated artifacts.",
+        "Describe user-visible behavior before implementation details, and include only checks supported by verified evidence.",
         "All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices."
       ],
       "outputs": [
-        "Reviewable title, description, risk notes, and readiness gaps.",
-        "Title, problem/behavior description, validation and readiness gaps."
+        "Reviewable title and problem/behavior description with validation, risk notes and readiness gaps."
       ],
       "verification": [
         "Description matches the final diff; unrun tests are not listed as passing.",
@@ -4249,13 +4244,13 @@
       "readScope": "Release notes and readiness; tagging, publication, and deployment require explicit requested actions.",
       "writeScope": "Inspect/plan: prepare notes and readiness checks; save requested artifacts only. Apply: edit only the requested changelog and version files and run relevant checks. Tagging, publishing and deployment need their own exact request; github-release handles GitHub publication.",
       "procedure": [
-        "Inspect changes since the verified previous release, group user-facing outcomes, surface breaking changes, and review required checks and migration guidance.",
-        "Resolve the previous release boundary, identify breaking contracts and migrations, and map artifacts to the exact candidate revision.",
+        "Resolve the verified previous release boundary and map artifacts to the exact candidate revision.",
+        "Inspect changes since that boundary, group user-facing outcomes, and surface breaking contracts with their migration guidance.",
+        "Review the required checks for the candidate revision.",
         "All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices."
       ],
       "outputs": [
-        "Release notes, readiness assessment, and ordered release/recovery steps.",
-        "Candidate version/ref, change categories, migration notes and outstanding release gates."
+        "Release notes for the candidate version/ref grouped by change category, with migration notes, outstanding release gates and ordered release/recovery steps."
       ],
       "verification": [
         "Included changes fall within the release range; an unresolved breaking migration blocks a ready-to-release claim.",
@@ -4350,12 +4345,12 @@
       "readScope": "Repository CI behavior; GitHub-specific operations use the GitHub pack.",
       "writeScope": "Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the requested local implementation and perform relevant bounded checks while preserving unrelated work. Live data changes, remote actions and paid jobs require their resolved target and existing session authorization.",
       "procedure": [
-        "Locate the first meaningful failure, compare runner/local environments, distinguish code failure from infrastructure, and validate authorized workflow changes.",
-        "Find the first causal failure in the job graph, compare effective runtime and lockfile inputs, and distinguish required failures from downstream cancellations."
+        "Find the first causal failure in the job graph, distinguishing required failures from downstream cancellations.",
+        "Compare effective runner and local runtime and lockfile inputs to separate a code failure from an infrastructure failure.",
+        "Validate authorized workflow changes."
       ],
       "outputs": [
-        "Root-cause evidence or focused patch, local checks, and remaining remote validation.",
-        "Run/revision identity, causal log excerpt, environment difference and remaining verification."
+        "Run/revision identity, causal log excerpt and environment difference, with a focused patch and local checks when a fix was requested, and remaining remote verification."
       ],
       "verification": [
         "A cache-related failure is not hidden by ignoring errors; unrelated matrix jobs remain intact."
@@ -4451,12 +4446,11 @@
       "readScope": "Accurate usage, interfaces, and maintenance guidance; no invented features or changes outside the named documentation scope.",
       "writeScope": "Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.",
       "procedure": [
-        "Inspect implementation and examples, update explanations and links, keep terminology consistent, and verify executable examples where authorized.",
-        "Check documented commands, defaults and examples against current implementation; edit source documents rather than generated copies."
+        "Check documented commands, defaults and examples against the current implementation.",
+        "Update explanations and links in source documents rather than generated copies, keeping terminology consistent, and verify executable examples where authorized."
       ],
       "outputs": [
-        "Updated documentation and evidence for examples or clear unverified labels.",
-        "Updated topics, verified examples, compatibility scope and unverified instructions."
+        "Updated documentation topics with verified examples, compatibility scope, and clear labels on unverified instructions."
       ],
       "verification": [
         "A documented command exists with the described behavior; deprecated behavior is not presented as current."
@@ -4503,7 +4497,7 @@
         "docstrings",
         "jsdoc"
       ],
-      "selection": "Use to maintain source-backed usage documentation; teach explains concepts interactively.",
+      "selection": "Use for README, guide and usage documentation from verified behavior; api-openapi owns OpenAPI contracts, release owns release notes, decision-adr owns decision records, and teach or explain answer in conversation.",
       "branches": [
         {
           "when": "examples need credentials or destructive execution",
@@ -4543,13 +4537,12 @@
       "readScope": "Dependency health and upgrade proposals; a requested update uses apply mode and includes lockfiles.",
       "writeScope": "Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the requested local implementation and perform relevant bounded checks while preserving unrelated work. Live data changes, remote actions and paid jobs require their resolved target and existing session authorization.",
       "procedure": [
-        "Inspect manifests/resolution, check current release notes and advisories, identify peer/runtime constraints, and group changes by risk.",
-        "Read resolved versions and peer/runtime ranges; identify why each dependency exists and isolate direct changes from lockfile churn.",
+        "Read manifests, resolved versions and peer/runtime ranges, and identify why each dependency exists.",
+        "Check current release notes and advisories, and group changes by risk, isolating direct changes from lockfile churn.",
         "In apply mode, change the manifest through the project's package manager, then inspect the lockfile diff for unrelated churn before running checks."
       ],
       "outputs": [
-        "Prioritized recommendations or, in apply mode, the requested update with compatibility checks.",
-        "Current/target versions, compatibility risks, advisory evidence and update checks."
+        "Current/target versions with compatibility risks and advisory evidence, and prioritized recommendations or, in apply mode, the requested update with its checks."
       ],
       "verification": [
         "A peer conflict is detected; updating one package does not silently churn unrelated dependency versions."
@@ -4650,12 +4643,12 @@
       "readScope": "Prepare deployment; execute only the deployment explicitly requested and authorized, including promotion separately when needed.",
       "writeScope": "Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the requested changes or execute the requested operation within its resolved target and limits. Local preparation does not authorize live, remote, destructive or paid actions; existing explicit session authorization still applies.",
       "procedure": [
-        "Resolve target, inspect prerequisites and checks, identify recovery, execute authorized steps, and verify the deployed revision and health.",
-        "Confirm immutable artifact/revision, environment and health criteria; resolve schema compatibility and the previous usable target before execution."
+        "Resolve the target environment and confirm the immutable artifact or revision, its prerequisites, checks and health criteria.",
+        "Before execution, resolve schema compatibility and identify recovery to the previous usable target.",
+        "Execute the authorized steps and verify the deployed revision and health."
       ],
       "outputs": [
-        "Deployment plan or actual deployment ID/URL, health evidence, and recovery information.",
-        "Target, revision, deployment identity, health results and recoverability limits."
+        "Target and revision with the deployment plan or the actual deployment ID/URL, health results, and the recovery path with its limits."
       ],
       "verification": [
         "Successful upload without healthy startup is not completion; an ambiguous production target blocks execution."
@@ -4956,13 +4949,13 @@
       "readScope": "Produce a self-contained handoff; creating tasks, sending messages, or assigning ownership is separate.",
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
       "procedure": [
-        "Reconstruct the original objective, summarize verified state, include decisions and constraints, document blockers, and provide actionable continuation steps.",
-        "Reconstruct the original goal and accepted decisions, separate proposed from completed work, and identify files or artifacts needed for the next step.",
+        "Reconstruct the original objective, constraints and accepted decisions.",
+        "Summarize verified state, separating proposed from completed work, and document blockers.",
+        "Give actionable continuation steps with the files or artifacts the next step needs.",
         "All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices."
       ],
       "outputs": [
-        "Handoff brief with file links, commands already run, results, and next action; save when requested.",
-        "Self-contained goal, constraints, evidence, blockers and continuation sequence."
+        "Self-contained handoff brief with the goal, constraints, file links, commands already run with results, blockers and the continuation sequence; save when requested."
       ],
       "verification": [
         "A reader needs no hidden conversation history; proposed changes are not described as completed.",
@@ -5322,12 +5315,11 @@
       "readScope": "Extract a reusable lesson for review; no automatic permanent rule installation.",
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
       "procedure": [
-        "Identify the actual cause and successful intervention, separate generalizable conditions from accidents, and test the lesson against a counterexample.",
-        "Link the failure trigger to the successful intervention and test a plausible exception; state when the lesson should not apply."
+        "Link the actual failure trigger to the successful intervention, separating generalizable conditions from accidents.",
+        "Test the lesson against a plausible counterexample and state when it should not apply."
       ],
       "outputs": [
-        "Proposed lesson with trigger, action, evidence, exceptions, and suggested scope.",
-        "Trigger/action/evidence/exception record and suggested adoption scope."
+        "Proposed lesson recorded as trigger, action, evidence and exceptions, with a suggested adoption scope."
       ],
       "verification": [
         "A transient outage does not become a universal coding rule; an applicable repeated failure yields a bounded recommendation."
@@ -5429,12 +5421,12 @@
       "readScope": "Create/update a skill and necessary supporting utilities; installation/publication is separate unless requested.",
       "writeScope": "Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.",
       "procedure": [
-        "Inspect existing skills, define boundaries and inputs, write actionable instructions, separate repeatable execution into utilities, and validate triggering plus behavior fixtures.",
-        "Define a matching and a near-miss request, reuse established packaging conventions, and move conditional detail into references only when needed."
+        "Inspect existing skills and the target host's packaging conventions; define the boundary, inputs, and one matching and one near-miss request.",
+        "Write actionable instructions, separate repeatable execution into utilities, and move conditional detail into references only when needed. When the project generates its skills, edit the source catalog or generator, not the generated SKILL.md.",
+        "Validate triggering with the matching and near-miss requests, and behavior with fixtures."
       ],
       "outputs": [
-        "Skill files, capability requirements, usage examples, and validation evidence.",
-        "Skill entry point, supporting assets, matching boundaries and independent fixture evidence."
+        "Skill entry point and supporting assets with capability requirements, usage examples, matching boundaries and independent fixture evidence."
       ],
       "verification": [
         "A matching request triggers the intended behavior; a nearby out-of-scope request does not acquire unrelated instructions."
@@ -5513,6 +5505,11 @@
           "title": "Extended capabilities and optional method library",
           "path": "references/runtime-expansion.md",
           "when": "Discovering session, inventory, rule, council, scheduler, monitor, graph, evaluation, operator or domain-specific capabilities"
+        },
+        {
+          "title": "Host skill formats",
+          "path": "references/runtime.md",
+          "when": "The skill targets a specific host's skill format or install location; read the Host mapping section"
         }
       ]
     },

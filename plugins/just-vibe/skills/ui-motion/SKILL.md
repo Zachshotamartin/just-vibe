@@ -1,11 +1,11 @@
 ---
 name: ui-motion
-description: "Add purposeful transitions with reduced-motion behavior Use for purposeful transitions and animation behavior; polish addresses static hierarchy and spacing."
+description: "Add purposeful transitions with reduced-motion behavior. Use for purposeful transitions and animation behavior; polish addresses static hierarchy and spacing."
 ---
 
 # ui-motion
 
-Add purposeful transitions with reduced-motion behavior
+Add purposeful transitions with reduced-motion behavior.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply; interaction purpose, existing motion language, performance constraints, and reduced-motion requirements.
 
-target screens/flows, existing design conventions, and runnable UI or supplied references. Visual claims require actual renders; accessibility claims distinguish automated, keyboard, and assistive-technology evidence.
+**Pack prerequisites:** Target screens/flows, existing design conventions, and runnable UI or supplied references. Visual claims require actual renders; accessibility claims distinguish automated, keyboard, and assistive-technology evidence.
 
 - **Infer from evidence:** Inspect the target flow, existing components/tokens, actual renders or supplied references and current responsive behavior.
 - **Reasonable default:** Reuse established visual conventions and preserve keyboard behavior; label unrendered changes as visually unverified.
@@ -35,6 +35,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 1. Identify what motion communicates, select minimal properties/timing, implement cancellation and reduced-motion behavior, and inspect rapid/repeated interactions.
 2. Define what state change motion communicates, implement interruption/cancellation and inspect repeated input plus reduced-motion preferences.
+
 ## Technical method
 
 - **Inspect:** Identify the change motion should explain, animation properties, interruption behavior and reduced-motion preference.
@@ -70,5 +71,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** Add restrained disclosure transitions with reduced-motion support.
-- **edge (apply):** Animate a drawer that users can rapidly open and close.
-- **blocked (inspect):** Review motion design without rendered timing evidence or installing an animation library.
+- **Edge (apply):** Animate a drawer that users can rapidly open and close.
+- **Blocked (inspect):** Review motion design without rendered timing evidence or installing an animation library.

@@ -17,8 +17,6 @@ Use multiple regions only when recovery or latency needs justify their consisten
 
 Compare workload placement using actual availability, latency, identity and operating constraints, including the failure/recovery implications of a new boundary.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Exercise critical failure paths through design review or permitted tests.

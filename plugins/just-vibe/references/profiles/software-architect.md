@@ -17,7 +17,7 @@ Choose boundaries from change and ownership needs; avoid distributed services wi
 
 Translate requirements into component responsibilities and contracts, walking normal/failure paths to expose duplicated ownership or unhandled partial effects.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+For how this role compares with other roles on one shared feature, see [the same feature through different roles](../profile-comparisons.md).
 
 ## Verify when relevant
 

@@ -1,11 +1,11 @@
 ---
 name: vite-bundle
-description: "Analyze bundle composition and measured size reductions Use for bundle composition and size; vite-chunks focuses on loading boundaries."
+description: "Analyze bundle composition and measured size reductions. Use for bundle composition and size; vite-chunks focuses on loading boundaries."
 ---
 
 # vite-bundle
 
-Analyze bundle composition and measured size reductions
+Analyze bundle composition and measured size reductions.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect for analysis; apply for a requested size change. Requires saved build stats/artifacts and a size/performance goal; a comparison build is bounded local execution with output in an owned temporary directory.
 
-project manifests, lockfile, Vite/framework/plugin versions, and existing build scripts. Verify current version-specific documentation when changing configuration. Requested isolated verification may generate disposable build/cache artifacts; inspect their scripts first and preserve product files.
+**Pack prerequisites:** Project manifests, lockfile, Vite/framework/plugin versions, and existing build scripts. Verify current version-specific documentation when changing configuration. Requested isolated verification may generate disposable build/cache artifacts; inspect their scripts first and preserve product files.
 
 - **Infer from evidence:** Read manifests, lockfile, installed Vite/plugins, entry points, aliases, modes and current build scripts.
 - **Reasonable default:** Preserve existing tooling and base-path conventions; in apply mode, make a local focused change when the brief identifies the behavior, and otherwise propose it.
@@ -37,6 +37,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the
 2. Trace a large or duplicate module to imports and the user journey that loads it. Distinguish startup cost from total application cost and verify whether an existing lazy boundary is defeated by an eager import.
 3. Choose a focused change based on the observed cost. Splitting a module can add a waterfall or alter side-effect order; avoid generic manual-chunk rules or removing dependencies solely because they are large.
 4. Build and exercise affected entry/lazy routes, direct navigation and failure recovery. Report comparable before/after measurements plus functional checks; a smaller output file alone does not prove faster interaction.
+
 ## Technical method
 
 - **Inspect:** Read production stats or source maps, entry imports and real route loading with identical build conditions.
@@ -69,5 +70,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Analyze the supplied production bundle statistics and prioritize size reductions.
-- **edge (apply):** Reduce initial bytes without breaking a lazily loaded editor.
-- **blocked (inspect):** Review available bundle stats without installing an analyzer or inventing timing gains.
+- **Edge (apply):** Reduce initial bytes without breaking a lazily loaded editor.
+- **Blocked (inspect):** Review available bundle stats without installing an analyzer or inventing timing gains.

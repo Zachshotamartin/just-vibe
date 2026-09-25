@@ -17,8 +17,6 @@ Reserve headroom where overload creates nonlinear failure; validate autoscaling 
 
 Produce a demand-to-bottleneck model with measured saturation points, headroom assumptions and an explicit workload where the estimate ceases to apply.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Compare modeled and measured saturation points.

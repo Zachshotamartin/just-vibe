@@ -17,8 +17,6 @@ Choose the identification strategy from the assignment mechanism; report only an
 
 State the causal contrast and identification assumptions, inspect confounding/selection, and show sensitivity before interpreting association as intervention effect.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Check balance, overlap and sensitivity to assumptions.

@@ -1,11 +1,11 @@
 ---
 name: coverage
-description: "Identify important untested behaviors and prioritize them Use to prioritize missing behavioral checks; test implements the selected cases."
+description: "Identify important untested behaviors and prioritize them. Use to prioritize missing behavioral checks; test implements the selected cases."
 ---
 
 # coverage
 
-Identify important untested behaviors and prioritize them
+Identify important untested behaviors and prioritize them.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; subsystem/change and existing test or coverage evidence.
 
-Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
+**Pack prerequisites:** Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
 - **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
 - **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
@@ -33,8 +33,9 @@ No source changes in inspect/plan. Save only requested planning artifacts. A req
 
 ## Execute
 
-1. Map requirements and failure paths to tests, inspect assertions rather than names, and rank gaps by consequence and likelihood.
-2. Trace important failure and recovery paths to actual assertions; look for tests that pass when the requirement is deliberately violated.
+1. Map requirements and important failure and recovery paths to the actual assertions, not test names.
+2. Look for tests that would still pass if the requirement were deliberately violated, and rank gaps by consequence and likelihood.
+
 ## Technical method
 
 - **Inspect:** Map requirements and failure modes to existing tests and observed execution.
@@ -53,8 +54,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A req
 
 ## Deliver and verify
 
-- Prioritized test opportunities with suggested layer, setup, and expected assertion.
-- Ranked gap table with consequence, setup, layer and expected assertion.
+- Ranked gap table with consequence, suggested layer, setup and expected assertion.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -67,5 +67,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Identify the highest-risk untested billing behaviors from existing tests.
-- **edge (inspect):** Audit coverage of failed checkout retries despite 95 percent line coverage.
-- **blocked (inspect):** Inspect test sources without a coverage report; avoid claiming measured percentages.
+- **Edge (inspect):** Audit coverage of failed checkout retries despite 95 percent line coverage.
+- **Blocked (inspect):** Inspect test sources without a coverage report; avoid claiming measured percentages.

@@ -1,11 +1,11 @@
 ---
 name: ops-postmortem
-description: "Produce evidence-based timelines and concrete follow-up work Use to reconstruct an actual incident; decision-premortem analyzes hypothetical failure."
+description: "Produce evidence-based timelines and concrete follow-up work. Use to reconstruct an actual incident; decision-premortem analyzes hypothetical failure."
 ---
 
 # ops-postmortem
 
-Produce evidence-based timelines and concrete follow-up work
+Produce evidence-based timelines and concrete follow-up work.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan; incident evidence, timeline, impacts, actions, and intended audience.
 
-exact service/environment, time window, revision/configuration identity, authorized logs/metrics, and operational constraints. Prefer observation before intervention; live restarts, traffic changes, restores, and notifications require the requested target/action. Redact sensitive telemetry.
+**Pack prerequisites:** Exact service/environment, time window, revision/configuration identity, authorized logs/metrics, and operational constraints. Prefer observation before intervention; live restarts, traffic changes, restores, and notifications require the requested target/action. Redact sensitive telemetry.
 
 - **Infer from evidence:** Read service/environment, time window, revision, available telemetry and existing incident or recovery procedure.
 - **Reasonable default:** Start from supplied logs and read-only observation; rank hypotheses without presenting an unexecuted intervention as recovery.
@@ -35,6 +35,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 1. Reconcile times and observations, distinguish trigger from contributing conditions, document detection/recovery gaps, and define specific preventive/detective actions with measurable outcomes.
 2. Reconcile timestamps and impact evidence, separate trigger from contributing conditions and tie each proposed action to a documented detection or recovery gap.
+
 ## Technical method
 
 - **Inspect:** Collect timestamped events, impact evidence, hypotheses, interventions and unresolved gaps.
@@ -67,5 +68,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Write an evidence-based postmortem without inventing impact counts or owners.
-- **edge (plan):** Write a postmortem where deployment timing correlates with failure but causation is unproven.
-- **blocked (inspect):** Draft from partial logs without inventing customers affected, owners or consensus.
+- **Edge (plan):** Write a postmortem where deployment timing correlates with failure but causation is unproven.
+- **Blocked (inspect):** Draft from partial logs without inventing customers affected, owners or consensus.

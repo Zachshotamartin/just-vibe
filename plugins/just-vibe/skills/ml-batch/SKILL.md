@@ -1,11 +1,11 @@
 ---
 name: ml-batch
-description: "Build resumable batch inference and output tracking Use for resumable batch inference; ml-serving handles request/response service behavior."
+description: "Build resumable batch inference and output tracking. Use for resumable batch inference; ml-serving handles request/response service behavior."
 ---
 
 # ml-batch
 
-Build resumable batch inference and output tracking
+Build resumable batch inference and output tracking.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply for implementation; model/data versions, partitioning, output keys, checkpoint destination, and run budget.
 
-versioned model and preprocessing artifacts, input/output schema, runtime/dependencies, operating targets, and authorized environment. Validate artifact trust before loading formats that can execute code. Packaging or writing monitoring configuration does not deploy a model or enable a hosted service.
+**Pack prerequisites:** Versioned model and preprocessing artifacts, input/output schema, runtime/dependencies, operating targets, and authorized environment. Validate artifact trust before loading formats that can execute code. Packaging or writing monitoring configuration does not deploy a model or enable a hosted service.
 
 - **Infer from evidence:** Read artifact format/trust, preprocessing schema, serving runtime, compatibility and existing rollout controls.
 - **Reasonable default:** Prepare packaging/configuration and isolated checks without treating them as a live deployment.
@@ -35,6 +35,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 1. Validate schemas, create stable row/partition identities, implement checkpointed writes, track failures and model versions, and test resume/replay on controlled input.
 2. Freeze model and input snapshot identity, partition by stable keys, stage outputs and commit a manifest/checkpoint only after durable complete partitions.
+
 ## Technical method
 
 - **Inspect:** Identify input snapshot, stable record IDs, model version, partitioning and output commit/checkpoint policy.
@@ -67,5 +68,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** Implement resumable batch inference with stable output keys and model-version tracking.
-- **edge (apply):** Resume inference after output writes succeeded but checkpointing failed.
-- **blocked (inspect):** Plan batch prediction without scanning the full dataset or launching unbounded compute.
+- **Edge (apply):** Resume inference after output writes succeeded but checkpointing failed.
+- **Blocked (inspect):** Plan batch prediction without scanning the full dataset or launching unbounded compute.

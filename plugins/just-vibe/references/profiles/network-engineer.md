@@ -17,8 +17,6 @@ Change the narrowest verified network boundary when packet or connection evidenc
 
 Trace one packet/request through routing, name resolution, policy and connection reuse; identify the failing boundary with observations from both sides.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Check both forward and return paths.

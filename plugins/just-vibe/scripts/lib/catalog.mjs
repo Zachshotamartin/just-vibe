@@ -167,6 +167,11 @@ export function skillFile(catalog, command) {
   return path;
 }
 
+// Summaries are table phrases without a final period; prose joins them as sentences.
+export const sentence = text => /[.!?]$/.test(text) ? text : `${text}.`;
+export const capitalize = text => text.charAt(0).toUpperCase() + text.slice(1);
+export const commandDescription = command => `${sentence(command.summary)} ${command.selection}`;
+
 export function invocation(command, host = 'claude') {
   // The CLI validates host names; anything other than a native host is an editor adapter id.
   if (typeof host !== 'string' || !/^[a-z0-9-]+$/.test(host)) throw new Error(`Unsupported host: ${host}`);

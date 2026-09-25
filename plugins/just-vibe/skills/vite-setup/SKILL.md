@@ -1,11 +1,11 @@
 ---
 name: vite-setup
-description: "Configure Vite for the framework and project requirements Use to add or repair Vite project wiring; vite-upgrade changes an existing version."
+description: "Configure Vite for the framework and project requirements. Use to add or repair Vite project wiring; vite-upgrade changes an existing version."
 ---
 
 # vite-setup
 
-Configure Vite for the framework and project requirements
+Configure Vite for the framework and project requirements.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply; framework, language, project location, deployment shape, and dependency constraints.
 
-project manifests, lockfile, Vite/framework/plugin versions, and existing build scripts. Verify current version-specific documentation when changing configuration. Requested isolated verification may generate disposable build/cache artifacts; inspect their scripts first and preserve product files.
+**Pack prerequisites:** Project manifests, lockfile, Vite/framework/plugin versions, and existing build scripts. Verify current version-specific documentation when changing configuration. Requested isolated verification may generate disposable build/cache artifacts; inspect their scripts first and preserve product files.
 
 - **Infer from evidence:** Read manifests, lockfile, installed Vite/plugins, entry points, aliases, modes and current build scripts.
 - **Reasonable default:** Preserve existing tooling and base-path conventions; in apply mode, make a local focused change when the brief identifies the behavior, and otherwise propose it.
@@ -35,6 +35,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 1. Inspect existing setup, choose compatible plugins, configure development/build/preview scripts, preserve existing source, and validate basic development and production paths.
 2. Inspect package manager, workspace root, framework plugin and Node support; preserve existing entry files and establish dev/build/preview paths using project conventions.
+
 ## Technical method
 
 - **Inspect:** Inspect framework, installed Node/Vite/plugin versions, workspace scripts, module format and deployment base path.
@@ -67,5 +68,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** Set up Vite for this existing React app without replacing source files.
-- **edge (apply):** Configure Vite in an existing React workspace served under /dashboard/.
-- **blocked (inspect):** Inspect setup requirements without installing dependencies or overwriting source.
+- **Edge (apply):** Configure Vite in an existing React workspace served under /dashboard/.
+- **Blocked (inspect):** Inspect setup requirements without installing dependencies or overwriting source.

@@ -17,8 +17,6 @@ Reuse the tested artifact when promotion should preserve exact contents.
 
 Produce a source-to-archive identity chain and explicit release gates; verify the distributable that users receive rather than only the checkout.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Verify archive membership and checksums.

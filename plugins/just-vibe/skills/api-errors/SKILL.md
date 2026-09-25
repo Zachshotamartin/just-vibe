@@ -1,11 +1,11 @@
 ---
 name: api-errors
-description: "Standardize useful error responses and propagation Use to standardize error behavior without changing business policy; api-design defines a new contract."
+description: "Standardize useful error responses and propagation. Use to standardize error behavior without changing business policy; api-design defines a new contract."
 ---
 
 # api-errors
 
-Standardize useful error responses and propagation
+Standardize useful error responses and propagation.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply; API scope, current error format, consumers, and logging requirements.
 
-interface definitions, producer/consumer source, authentication model, versioning constraints, and isolated test endpoints. External API calls must respect environment, credentials, rate limits, and side-effect scope.
+**Pack prerequisites:** Interface definitions, producer/consumer source, authentication model, versioning constraints, and isolated test endpoints. External API calls must respect environment, credentials, rate limits, and side-effect scope.
 
 - **Infer from evidence:** Read producer/consumer schemas, error contracts, auth conventions and known supported client versions.
 - **Reasonable default:** Keep compatible response and pagination semantics where the brief does not request a breaking change.
@@ -35,6 +35,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 1. Inventory errors, preserve required compatibility, map domain failures deliberately, redact internals, and test representative client/server failures.
 2. Inventory existing client-visible codes and shapes, map domain failures intentionally and preserve safe correlation IDs while redacting internal details.
+
 ## Technical method
 
 - **Inspect:** Inventory exception sources, status semantics, domain codes, request IDs and retry behavior.
@@ -69,5 +70,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** Standardize safe API errors while preserving published machine-readable codes.
-- **edge (apply):** Standardize errors while preserving a client's retry behavior on conflict.
-- **blocked (inspect):** Review errors from source without provoking real service failures.
+- **Edge (apply):** Standardize errors while preserving a client's retry behavior on conflict.
+- **Blocked (inspect):** Review errors from source without provoking real service failures.

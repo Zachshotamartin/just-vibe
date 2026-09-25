@@ -1,11 +1,11 @@
 ---
 name: vercel-routing
-description: "Diagnose redirects, rewrites, headers, domains, and route behavior Use for platform/framework route interaction; vite-assets diagnoses emitted asset paths."
+description: "Diagnose redirects, rewrites, headers, domains, and route behavior. Use for platform/framework route interaction; vite-assets diagnoses emitted asset paths."
 ---
 
 # vercel-routing
 
-Diagnose redirects, rewrites, headers, domains, and route behavior
+Diagnose redirects, rewrites, headers, domains, and route behavior.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; URL/path, expected response, project, and deployment configuration. Apply for a requested routing configuration fix.
 
-exact team/project/environment and deployment/revision when applicable; read access to relevant configuration/logs. Verify installed CLI/API support and framework behavior during implementation. Never print environment values or infer promotion authorization from a preview request.
+**Pack prerequisites:** Exact team/project/environment and deployment/revision when applicable; read access to relevant configuration/logs. Verify installed CLI/API support and framework behavior during implementation. Never print environment values or infer promotion authorization from a preview request.
 
 - **Infer from evidence:** Read the linked project, team, framework, environment and deployment SHA from local config and supplied deployment evidence.
 - **Reasonable default:** Diagnose locally with existing build scripts when deployment access is missing; do not infer a production target from a preview URL.
@@ -35,6 +35,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the
 
 1. Inspect precedence and base paths, trace bounded read-only requests, compare preview/production assumptions, and identify loops or unmatched paths.
 2. Build a request table with host, path, method and expected handler; trace redirects, rewrites, filesystem and framework routing in effective order.
+
 ## Technical method
 
 - **Inspect:** Inspect framework routes, platform rewrites/redirects, domain target, base path and effective response headers.
@@ -67,5 +68,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Explain why nested API routes receive the SPA page instead of JSON.
-- **edge (apply):** Fix preview deep links without swallowing API requests.
-- **blocked (inspect):** Inspect routing configuration without DNS access or live request evidence.
+- **Edge (apply):** Fix preview deep links without swallowing API requests.
+- **Blocked (inspect):** Inspect routing configuration without DNS access or live request evidence.

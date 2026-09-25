@@ -1,11 +1,11 @@
 ---
 name: profile
-description: "Set, inspect, automatically select or clear task-scoped engineering profiles Use when the user wants to change the agent’s working priorities or asks it to choose an appropriate role; this does not execute a product task by itself."
+description: "Set, inspect, automatically select or clear task-scoped engineering profiles. Use when the user wants to change the agent’s working priorities or asks it to choose an appropriate role; this does not execute a product task by itself."
 ---
 
 # profile
 
-Set, inspect, automatically select or clear task-scoped engineering profiles
+Set, inspect, automatically select or clear task-scoped engineering profiles.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect/project-read-only; changing in-context task selection does not grant apply mode. Preserve all appended task constraints.
 
-Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
+**Pack prerequisites:** Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
 - **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
 - **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
@@ -36,6 +36,7 @@ Only active task context or a supplied run record returned as JSON. Persist to a
 1. Read [profile selection](../../references/profiles.md), then use toolkit profiles and toolkit profile ID to find and inspect relevant roles.
 2. Keep simple selection in task context. With an existing run, call session profile using run and selection; with a new explicit single role, workflow COMMAND --profile ID preserves it. Do not create a fresh run just to evade a prior pin or budget.
 3. State the selected profile and its concrete task contribution briefly once. Apply relevant priorities in subsequent workflows without repeating role claims, changing permissions or scope, overriding a user pin, or forcing every suggested workflow to run.
+
 ## Technical method
 
 - **Inspect:** Read current selection, explicit user pins, task scope and proposed primary/secondary roles.
@@ -70,6 +71,6 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 ## Example requests
 
-- **normal (inspect):** Set machine-learning-engineer for this implementation, with mlops-engineer as a secondary focus.
-- **edge (inspect):** Use principal-engineer to review this design, but keep the change local and do not redesign the platform.
-- **blocked (inspect):** Choose automatically while frontend-engineer is pinned; preserve the pin and explain relevant task checks.
+- **Normal (inspect):** Set machine-learning-engineer for this implementation, with mlops-engineer as a secondary focus.
+- **Edge (inspect):** Use principal-engineer to review this design, but keep the change local and do not redesign the platform.
+- **Blocked (inspect):** Choose automatically while frontend-engineer is pinned; preserve the pin and explain relevant task checks.

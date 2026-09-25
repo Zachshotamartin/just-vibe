@@ -1,7 +1,7 @@
 ---
 import Icon from '../../components/Icon.astro';
 import Base from '../../layouts/Base.astro';
-import { commands, packs, packName, version } from '../../lib/catalog.mjs';
+import { capitalize, commands, packs, packName, version } from '../../lib/catalog.mjs';
 export function getStaticPaths() {
   return commands.map((command) => ({ params: { id: command.id }, props: { command } }));
 }
@@ -102,7 +102,7 @@ const related = commands
           <dt>Mode</dt>
           <dd>{c.modePolicy}</dd>
           <dt>Prerequisites</dt>
-          <dd>{pack.prerequisites}</dd>
+          <dd>{capitalize(pack.prerequisites)}</dd>
         </dl>
         <h3>Expected output</h3>
         <ul>

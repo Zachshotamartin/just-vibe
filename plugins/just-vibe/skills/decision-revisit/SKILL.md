@@ -1,11 +1,11 @@
 ---
 name: decision-revisit
-description: "Reassess a decision using new constraints or evidence Use when new evidence may invalidate a recorded choice; decision-adr preserves the resulting decision record."
+description: "Reassess a decision using new constraints or evidence. Use when new evidence may invalidate a recorded choice; decision-adr preserves the resulting decision record."
 ---
 
 # decision-revisit
 
-Reassess a decision using new constraints or evidence
+Reassess a decision using new constraints or evidence.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan; prior decision record, new evidence, and changed constraints.
 
-the decision question, constraints, alternatives or permission to identify them, and relevant project evidence. Current vendor claims and prices require current authoritative sources during execution. Scores are decision aids, not facts.
+**Pack prerequisites:** The decision question, constraints, alternatives or permission to identify them, and relevant project evidence. Current vendor claims and prices require current authoritative sources during execution. Scores are decision aids, not facts.
 
 - **Infer from evidence:** Recover hard constraints, the current option, adoption status and stated priorities from the brief and prior decisions.
 - **Reasonable default:** Compare feasible options qualitatively when weights were not supplied; make a reversible conditional recommendation when useful.
@@ -36,6 +36,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 1. Identify original assumptions, compare them to current facts, estimate transition consequences, and recommend retaining, modifying, or superseding the decision.
 2. Compare original assumptions with current facts and include migration costs, disruption and option value in retaining versus replacing.
 3. If the decision was saved, run decision show NAME and then decision revisit NAME with attributed observations; otherwise reconstruct the rationale and label it as reconstructed.
+
 ## Technical method
 
 - **Inspect:** Read the original premise, accepted status, trigger and new evidence with dates.
@@ -68,5 +69,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Reassess the cache decision now that writes occur in two regions.
-- **edge (plan):** Revisit a queue choice after workload ordering requirements change.
-- **blocked (inspect):** Review an old decision without its rationale; distinguish reconstruction from recorded facts.
+- **Edge (plan):** Revisit a queue choice after workload ordering requirements change.
+- **Blocked (inspect):** Review an old decision without its rationale; distinguish reconstruction from recorded facts.

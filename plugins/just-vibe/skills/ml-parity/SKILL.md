@@ -1,11 +1,11 @@
 ---
 name: ml-parity
-description: "Check training preprocessing against production inference Use to compare training and serving transformations; ml-drift compares populations over time and ml-leakage audits prediction-time information."
+description: "Check training preprocessing against production inference. Use to compare training and serving transformations; ml-drift compares populations over time and ml-leakage audits prediction-time information."
 ---
 
 # ml-parity
 
-Check training preprocessing against production inference
+Check training preprocessing against production inference.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; training and serving pipelines/artifacts plus representative versioned inputs. Apply for a requested preprocessing fix or parity regression fixtures.
 
-versioned model and preprocessing artifacts, input/output schema, runtime/dependencies, operating targets, and authorized environment. Validate artifact trust before loading formats that can execute code. Packaging or writing monitoring configuration does not deploy a model or enable a hosted service.
+**Pack prerequisites:** Versioned model and preprocessing artifacts, input/output schema, runtime/dependencies, operating targets, and authorized environment. Validate artifact trust before loading formats that can execute code. Packaging or writing monitoring configuration does not deploy a model or enable a hosted service.
 
 - **Infer from evidence:** Read artifact format/trust, preprocessing schema, serving runtime, compatibility and existing rollout controls.
 - **Reasonable default:** Prepare packaging/configuration and isolated checks without treating them as a live deployment.
@@ -35,6 +35,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the
 
 1. Align raw inputs and versions, compare each transformation boundary, localize first divergence, evaluate declared tolerances, and propose fixes, applying a requested one in apply mode.
 2. Feed identical raw rows through each pipeline and compare schema, feature names/order, transformations and model outputs at each boundary.
+
 ## Technical method
 
 - **Inspect:** Compare fitted preprocessing, feature ordering, units, categorical vocabularies, missingness and runtime numerics.
@@ -68,5 +69,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Compare training and serving transformations on these exact versioned inputs.
-- **edge (inspect):** Diagnose high offline scores but poor serving due to reordered features.
-- **blocked (inspect):** Assess parity with missing training transforms; keep unobserved stages unknown.
+- **Edge (inspect):** Diagnose high offline scores but poor serving due to reordered features.
+- **Blocked (inspect):** Assess parity with missing training transforms; keep unobserved stages unknown.

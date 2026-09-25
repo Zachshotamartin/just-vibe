@@ -1,6 +1,6 @@
 import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { join, relative } from 'node:path';
-import { pluginRoot, loadCatalog } from './catalog.mjs';
+import { pluginRoot, loadCatalog, commandDescription } from './catalog.mjs';
 import { selectPayload } from './selection.mjs';
 import { RULE_PACKS, renderRule } from './rule-packs.mjs';
 import { SPECIALISTS, specialistInstructions } from './specialists.mjs';
@@ -189,7 +189,7 @@ export function adapterFiles(root, target, selection = {}, { hooks = false } = {
       const link = relative(directory, `${payload}/${command.skillPath}`).replaceAll('\\', '/');
       files.set(
         `${directory}/SKILL.md`,
-        `---\nname: just-vibe-${id}\ndescription: ${JSON.stringify(target === 'zed' ? command.summary.slice(0, 200) : command.summary + ' ' + command.selection)}\n---\n\nRead and follow [the full ${id} workflow](${link}). Resolve its supporting references from that file. Preserve all context appended to this invocation. Host permissions remain unchanged. Automatic events require the separately selected hook adapter and host trust. Use the host's available question and tool interfaces; if unavailable, report that limitation.\n`,
+        `---\nname: just-vibe-${id}\ndescription: ${JSON.stringify(target === 'zed' ? command.summary.slice(0, 200) : commandDescription(command))}\n---\n\nRead and follow [the full ${id} workflow](${link}). Resolve its supporting references from that file. Preserve all context appended to this invocation. Host permissions remain unchanged. Automatic events require the separately selected hook adapter and host trust. Use the host's available question and tool interfaces; if unavailable, report that limitation.\n`,
       );
     }
     for (const id of chosen.rules)

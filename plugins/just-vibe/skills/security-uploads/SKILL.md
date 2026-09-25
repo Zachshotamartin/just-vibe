@@ -1,11 +1,11 @@
 ---
 name: security-uploads
-description: "Review file validation, storage, processing, and download access Use for file receipt, processing and download safety; backend-permissions handles general resource access, and security-fix repairs a confirmed upload flaw."
+description: "Review file validation, storage, processing, and download access. Use for file receipt, processing and download safety; backend-permissions handles general resource access, and security-fix repairs a confirmed upload flaw."
 ---
 
 # security-uploads
 
-Review file validation, storage, processing, and download access
+Review file validation, storage, processing, and download access.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; upload/download/processing paths, storage policy, file types, and access rules.
 
-defined application boundary, authorized code/environment, relevant trust/access rules, and evidence sources. Default to defensive inspection; active tests use owned or explicitly authorized isolated targets. Minimize sensitive evidence and never print usable credentials.
+**Pack prerequisites:** Defined application boundary, authorized code/environment, relevant trust/access rules, and evidence sources. Default to defensive inspection; active tests use owned or explicitly authorized isolated targets. Minimize sensitive evidence and never print usable credentials.
 
 - **Infer from evidence:** Resolve the requested surface, source/runtime version, reachable callers and actual trust/access boundaries.
 - **Reasonable default:** Start with source analysis and bounded owned fixtures; treat scanner output as leads and preserve legitimate controls.
@@ -35,6 +35,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 1. Trace file lifecycle, inspect content/type trust, object ownership, parser behavior, and resource limits; define safe malicious/invalid-file fixtures.
 2. Follow filename/content/type trust, storage ownership, parser invocation, resource limits and download authorization across the complete file lifecycle.
+
 ## Technical method
 
 - **Inspect:** Trace receipt, content validation, parser, quarantine, extraction, storage and download authorization.
@@ -71,5 +72,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Audit file validation, processing, private storage, and download access.
-- **edge (inspect):** Audit private uploads with user filenames and an asynchronous processor.
-- **blocked (inspect):** Review upload source without executing hostile files or publishing dangerous test content.
+- **Edge (inspect):** Audit private uploads with user filenames and an asynchronous processor.
+- **Blocked (inspect):** Review upload source without executing hostile files or publishing dangerous test content.

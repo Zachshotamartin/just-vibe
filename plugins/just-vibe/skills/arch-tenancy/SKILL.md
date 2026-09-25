@@ -1,11 +1,11 @@
 ---
 name: arch-tenancy
-description: "Evaluate tenant isolation across authentication, storage, queries, and jobs Use for system-wide tenant isolation; backend-permissions handles individual application checks."
+description: "Evaluate tenant isolation across authentication, storage, queries, and jobs. Use for system-wide tenant isolation; backend-permissions handles individual application checks."
 ---
 
 # arch-tenancy
 
-Evaluate tenant isolation across authentication, storage, queries, and jobs
+Evaluate tenant isolation across authentication, storage, queries, and jobs.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; tenant model, resource types, membership rules, and access boundaries.
 
-readable source, infrastructure/configuration definitions, and any supplied system documentation. Runtime telemetry is optional evidence, never assumed available. Architecture proposals remain plans until implementation is requested.
+**Pack prerequisites:** Readable source, infrastructure/configuration definitions, and any supplied system documentation. Runtime telemetry is optional evidence, never assumed available. Architecture proposals remain plans until implementation is requested.
 
 - **Infer from evidence:** Trace current entry points, data owners, deployment units and documented constraints before proposing boundaries.
 - **Reasonable default:** Prefer extending an existing owner while scale or organizational evidence is absent; mark capacity estimates as assumptions.
@@ -35,6 +35,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 1. Map tenant ownership, follow identity through every boundary, inspect membership changes and shared resources, and identify missing isolation checks.
 2. Follow tenant identity through API, database role, cache key, queue payload, file storage and support/admin paths.
+
 ## Technical method
 
 - **Inspect:** Trace authenticated tenant identity through queries, caches, queues, search, object storage and support access.
@@ -67,5 +68,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Audit organization isolation across caches, jobs, APIs, and exports.
-- **edge (inspect):** Review multi-organization users and background exports.
-- **blocked (inspect):** Inspect tenancy without authorized test identities; use source and synthetic fixtures only.
+- **Edge (inspect):** Review multi-organization users and background exports.
+- **Blocked (inspect):** Inspect tenancy without authorized test identities; use source and synthetic fixtures only.

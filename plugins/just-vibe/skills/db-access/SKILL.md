@@ -1,11 +1,11 @@
 ---
 name: db-access
-description: "Audit roles, tenant filtering, and row-level policies where supported Use for grants, connection roles and row policies; backend-permissions checks application enforcement."
+description: "Audit roles, tenant filtering, and row-level policies where supported. Use for grants, connection roles and row policies; backend-permissions checks application enforcement."
 ---
 
 # db-access
 
-Audit roles, tenant filtering, and row-level policies where supported
+Audit roles, tenant filtering, and row-level policies where supported.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; roles, tenant model, policies, engine, and representative access matrix.
 
-actual engine/version, schema/migrations, query workload, and explicitly identified environment. Prefer supplied plans, metadata, and isolated fixtures. Even a SELECT can lock, call mutating functions, or overload a database; inspect semantics before execution. Executing an analyzed query is distinct from reading its plan.
+**Pack prerequisites:** Actual engine/version, schema/migrations, query workload, and explicitly identified environment. Prefer supplied plans, metadata, and isolated fixtures. Even a SELECT can lock, call mutating functions, or overload a database; inspect semantics before execution. Executing an analyzed query is distinct from reading its plan.
 
 - **Infer from evidence:** Read engine/version, ORM/runner, schema and migration history from project artifacts before choosing SQL.
 - **Reasonable default:** Prepare local SQL and isolated fixtures without assuming production size, locks or recovery guarantees.
@@ -35,6 +35,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. db-mi
 
 1. Inspect grants and execution identities, trace connection-role behavior, evaluate policies including writes, and design isolated access checks; run read-only probes against an isolated target in scope, and leave write-policy probes to a separately scoped apply run.
 2. Trace the actual runtime role and ownership/bypass privileges; inspect read and write predicates with positive and cross-tenant negative cases.
+
 ## Technical method
 
 - **Inspect:** Read actual connection roles, grants, RLS read/write predicates, owner/bypass privileges and tenant context setup/reset.
@@ -71,5 +72,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Audit tenant policies and service-role bypass paths from supplied metadata.
-- **edge (inspect):** Review row policies where reads are scoped but inserts permit another tenant ID.
-- **blocked (inspect):** Inspect policy definitions without probing real tenant data or changing grants.
+- **Edge (inspect):** Review row policies where reads are scoped but inserts permit another tenant ID.
+- **Blocked (inspect):** Inspect policy definitions without probing real tenant data or changing grants.

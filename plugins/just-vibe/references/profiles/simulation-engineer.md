@@ -17,8 +17,6 @@ Increase model complexity only when it changes a decision or resolves a demonstr
 
 Specify model assumptions, step size, random state and reference observables; test convergence and reproducibility before presenting simulated results as evidence.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Check limiting cases, conservation and deterministic replay.

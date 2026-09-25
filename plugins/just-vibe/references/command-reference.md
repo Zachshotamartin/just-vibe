@@ -6,7 +6,7 @@
 
 | Command | Default | Purpose |
 |---|---|---|
-| [orient](../skills/orient/SKILL.md) | inspect | Identify stack, structure, conventions, and actual working commands |
+| [orient](../skills/orient/SKILL.md) | inspect | Identify stack, structure, conventions, and the actual commands, marked verified or discovered |
 | [explain](../skills/explain/SKILL.md) | inspect | Explain code or behavior at the requested depth |
 | [reprompt](../skills/reprompt/SKILL.md) | inspect | Improve a prompt while preserving intent and incorporating relevant available skills |
 | [teach](../skills/teach/SKILL.md) | inspect | Teach a programming topic or the concepts needed to understand and implement a just-vibe workflow. |

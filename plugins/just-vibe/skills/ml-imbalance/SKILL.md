@@ -1,11 +1,11 @@
 ---
 name: ml-imbalance
-description: "Evaluate sampling, weighting, metrics, and thresholds for rare outcomes Use when rare outcomes affect metrics or training; ml-threshold selects operational decisions."
+description: "Evaluate sampling, weighting, metrics, and thresholds for rare outcomes. Use when rare outcomes affect metrics or training; ml-threshold selects operational decisions."
 ---
 
 # ml-imbalance
 
-Evaluate sampling, weighting, metrics, and thresholds for rare outcomes
+Evaluate sampling, weighting, metrics, and thresholds for rare outcomes.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan; prevalence, class definitions, error costs/capacity, and split protocol.
 
-task definition, dataset identity, field semantics, entity/time keys, and permission to inspect bounded data. Record prediction moment, label horizon, sampling, and provenance. Preserve held-out evaluation boundaries; no data upload, label alteration, or feature fitting across splits implicitly.
+**Pack prerequisites:** Task definition, dataset identity, field semantics, entity/time keys, and permission to inspect bounded data. Record prediction moment, label horizon, sampling, and provenance. Preserve held-out evaluation boundaries; no data upload, label alteration, or feature fitting across splits implicitly.
 
 - **Infer from evidence:** Read prediction moment, label horizon, entity/time keys, split policy and dataset provenance from the task and manifests.
 - **Reasonable default:** Use explicit synthetic examples for design when raw data is unavailable; do not infer missing labels or fit preprocessing across held-out boundaries.
@@ -35,6 +35,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 1. Establish naive baselines, inspect per-class/sample counts, choose suitable metrics, compare resampling/weighting only within training folds, and assess deployment prevalence effects.
 2. Compute baseline prevalence and class counts by split, choose task-relevant precision/recall measures and restrict resampling to training folds.
+
 ## Technical method
 
 - **Inspect:** Measure prevalence, minority counts per split, error costs and operational capacity.
@@ -67,5 +68,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Compare weighting and metrics for rare fraud with limited review capacity.
-- **edge (plan):** Compare a high-accuracy all-negative baseline against a rare-event model.
-- **blocked (inspect):** Assess imbalance with few positives; do not invent stable confidence or business costs.
+- **Edge (plan):** Compare a high-accuracy all-negative baseline against a rare-event model.
+- **Blocked (inspect):** Assess imbalance with few positives; do not invent stable confidence or business costs.

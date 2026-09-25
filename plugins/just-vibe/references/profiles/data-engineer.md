@@ -17,8 +17,6 @@ Use idempotent incremental writes when a pipeline may replay or overlap runs.
 
 Deliver a source-to-target lineage and grain contract, then prove replay/backfill behavior on duplicate, late and partially processed input.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Reconcile keys and values, not just row counts.

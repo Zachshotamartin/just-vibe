@@ -17,8 +17,6 @@ Separate operational and analytical models when their consistency and access nee
 
 Define semantic ownership, grain and lifecycle across data stores and consumers; show how the proposed transition preserves meaning and access controls.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Walk create/update/delete propagation and replay scenarios.

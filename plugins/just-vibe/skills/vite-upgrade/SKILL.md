@@ -1,11 +1,11 @@
 ---
 name: vite-upgrade
-description: "Upgrade Vite and plugins with compatibility and build checks Use for a requested Vite version transition; deps handles general dependency selection."
+description: "Upgrade Vite and plugins with compatibility and build checks. Use for a requested Vite version transition; deps handles general dependency selection."
 ---
 
 # vite-upgrade
 
-Upgrade Vite and plugins with compatibility and build checks
+Upgrade Vite and plugins with compatibility and build checks.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply for a requested upgrade; source/target version, framework/plugins, and runtime constraints.
 
-project manifests, lockfile, Vite/framework/plugin versions, and existing build scripts. Verify current version-specific documentation when changing configuration. Requested isolated verification may generate disposable build/cache artifacts; inspect their scripts first and preserve product files.
+**Pack prerequisites:** Project manifests, lockfile, Vite/framework/plugin versions, and existing build scripts. Verify current version-specific documentation when changing configuration. Requested isolated verification may generate disposable build/cache artifacts; inspect their scripts first and preserve product files.
 
 - **Infer from evidence:** Read manifests, lockfile, installed Vite/plugins, entry points, aliases, modes and current build scripts.
 - **Reasonable default:** Preserve existing tooling and base-path conventions; in apply mode, make a local focused change when the brief identifies the behavior, and otherwise propose it.
@@ -35,6 +35,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 1. Read relevant migration notes, inspect plugin and Node compatibility, update controlled dependencies/lockfile, adjust deprecated behavior, and test development plus production build.
 2. Check target migration notes and framework-plugin/Node compatibility, update only the required graph and compare dev refresh, production output and preview behavior.
+
 ## Technical method
 
 - **Inspect:** Read current/target migration notes, Node support, framework plugin peer ranges and config differences.
@@ -67,5 +68,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** Upgrade to the specified Vite version and verify framework-plugin compatibility.
-- **edge (apply):** Upgrade Vite while retaining an older framework plugin until a supported replacement exists.
-- **blocked (inspect):** Plan an upgrade with unavailable release-note access; do not guess removed options.
+- **Edge (apply):** Upgrade Vite while retaining an older framework plugin until a supported replacement exists.
+- **Blocked (inspect):** Plan an upgrade with unavailable release-note access; do not guess removed options.

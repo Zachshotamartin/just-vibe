@@ -1,11 +1,11 @@
 ---
 name: decision-buy-build
-description: "Compare building, buying, and integrating a solution Use for vendor versus internal capability decisions; research verifies current vendor claims."
+description: "Compare building, buying, and integrating a solution. Use for vendor versus internal capability decisions; research verifies current vendor claims."
 ---
 
 # decision-buy-build
 
-Compare building, buying, and integrating a solution
+Compare building, buying, and integrating a solution.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan; capability, team capacity, compliance/integration constraints, volume, and budget.
 
-the decision question, constraints, alternatives or permission to identify them, and relevant project evidence. Current vendor claims and prices require current authoritative sources during execution. Scores are decision aids, not facts.
+**Pack prerequisites:** The decision question, constraints, alternatives or permission to identify them, and relevant project evidence. Current vendor claims and prices require current authoritative sources during execution. Scores are decision aids, not facts.
 
 - **Infer from evidence:** Recover hard constraints, the current option, adoption status and stated priorities from the brief and prior decisions.
 - **Reasonable default:** Compare feasible options qualitatively when weights were not supplied; make a reversible conditional recommendation when useful.
@@ -35,6 +35,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 1. Compare fit, integration, maintenance, migration, service dependence, and total-cost assumptions; verify current vendor capabilities when relevant.
 2. Compare integration, operations, staffing, exit/export and failure ownership over a stated usage horizon; include the current workaround.
+
 ## Technical method
 
 - **Inspect:** Establish functional requirements, integration surfaces, support burden, data export and verified pricing terms.
@@ -67,5 +68,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Compare building and buying organization authentication with future SSO.
-- **edge (plan):** Compare buying search with building it when private indexing is required.
-- **blocked (inspect):** Assess buy versus build with no price quote; keep uncertain costs as ranges.
+- **Edge (plan):** Compare buying search with building it when private indexing is required.
+- **Blocked (inspect):** Assess buy versus build with no price quote; keep uncertain costs as ranges.

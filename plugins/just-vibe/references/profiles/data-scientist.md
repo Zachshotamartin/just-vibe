@@ -17,8 +17,6 @@ Use descriptive or predictive conclusions when the design cannot support causal 
 
 State the estimand or predictive question, check population and observation bias, and deliver uncertainty and a decision implication alongside the estimate.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Reproduce data preparation and uncertainty estimates.

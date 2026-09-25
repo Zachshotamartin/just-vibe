@@ -1,11 +1,11 @@
 ---
 name: git-worktree
-description: "Create or manage isolated working directories Use for an explicitly selected isolated checkout; git-recover preserves lost candidates."
+description: "Create or manage isolated working directories. Use for an explicitly selected isolated checkout; git-recover preserves lost candidates."
 ---
 
 # git-worktree
 
-Create or manage isolated working directories
+Create or manage isolated working directories.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan worktree organization; apply when the user requests creating or removing a specific local worktree.
 
-Git, exact repository/worktree, and readable refs/index. Record branch, HEAD, staged/unstaged/untracked state before mutation. Preserve unrelated edits and never default to broad staging, hard reset, clean, force push, or history rewriting.
+**Pack prerequisites:** Git, exact repository/worktree, and readable refs/index. Record branch, HEAD, staged/unstaged/untracked state before mutation. Preserve unrelated edits and never default to broad staging, hard reset, clean, force push, or history rewriting.
 
 - **Infer from evidence:** Read repository root, HEAD, branch, refs and staged/unstaged/untracked distinctions; use the configured human identity.
 - **Reasonable default:** Limit an ambiguous inspection to the current repository and report that scope; preserve all existing changes.
@@ -36,6 +36,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 1. Inspect existing worktrees/branch ownership, validate target paths, create the requested checkout or inspect removal safety, and verify the resulting state.
 2. List existing worktrees and branch ownership, resolve the requested ref or current-state transfer, and verify destination emptiness before creation.
 3. All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
+
 ## Technical method
 
 - **Inspect:** Inspect worktree porcelain inventory, branch ownership, destination identity and dirty/untracked state.
@@ -70,5 +71,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** Create an isolated worktree from the specified branch at the requested path.
-- **edge (apply):** Create a worktree including current edits while another worktree owns the branch.
-- **blocked (inspect):** Inspect removal of a dirty worktree; report its changes without forcing removal.
+- **Edge (apply):** Create a worktree including current edits while another worktree owns the branch.
+- **Blocked (inspect):** Inspect removal of a dirty worktree; report its changes without forcing removal.

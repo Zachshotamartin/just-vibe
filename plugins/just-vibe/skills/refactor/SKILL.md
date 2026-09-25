@@ -1,15 +1,15 @@
 ---
 name: refactor
-description: "Improve structure while preserving behavior Use for structural change with preserved behavior; migrate changes a version or public compatibility boundary."
+description: "Improve structure while preserving behavior. Use for structural change with preserved behavior; migrate changes a version or public compatibility boundary and cleanup removes verified dead code."
 ---
 
 # refactor
 
-Improve structure while preserving behavior
+Improve structure while preserving behavior.
 
 ## Choose this workflow
 
-Use for structural change with preserved behavior; migrate changes a version or public compatibility boundary.
+Use for structural change with preserved behavior; migrate changes a version or public compatibility boundary and cleanup removes verified dead code.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [General methods](../../references/packs/general.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply; structural goal, target modules, and behavior/API constraints. Requires source and a baseline verification method.
 
-Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
+**Pack prerequisites:** Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
 - **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
 - **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
@@ -33,9 +33,10 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Execute
 
-1. Capture relevant behavior, identify seams, transform incrementally, preserve call contracts, and compare results against the baseline.
-2. Identify public exports, serialization and error contracts; transform one seam at a time and compare behavior against existing consumer checks.
+1. Capture the current behavior as a baseline and identify public exports, serialization and error contracts.
+2. Transform one seam at a time, preserving call contracts, and compare behavior against the baseline and existing consumer checks after each step.
 3. For a multi-phase feature, fix, refactor or MVP, use the relevant phase contract in the composed-workflows guide. Keep simple work direct. Delegate only when authorized, and use the reviewed worker result and acceptance flow before dependent work. Offer the plan-review canvas only when browser feedback is useful or requested.
+
 ## Technical method
 
 - **Inspect:** Identify public contracts, state ownership, side effects and behavior-sensitive tests.
@@ -74,8 +75,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Deliver and verify
 
-- Focused structural changes, rationale, compatibility evidence, and remaining debt.
-- Structural rationale, compatibility surface and checks showing preserved behavior.
+- Focused structural changes with their rationale, the compatibility surface, checks showing preserved behavior, and remaining debt.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -88,5 +88,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** Separate validation from persistence without changing the public API.
-- **edge (apply):** Extract a service without changing exception types or serialized output.
-- **blocked (inspect):** Assess a refactor when integration tests cannot run; identify unverified contracts.
+- **Edge (apply):** Extract a service without changing exception types or serialized output.
+- **Blocked (inspect):** Assess a refactor when integration tests cannot run; identify unverified contracts.

@@ -1,11 +1,11 @@
 ---
 name: orchestrate
-description: "Coordinate a feature, fix, refactor or MVP through scoped phases and reviewed dependent assignments Use for a multi-phase implementation or explicitly requested worker coordination. For a small localized edit use build, fix or refactor directly. This workflow does not itself authorize subagents."
+description: "Coordinate a feature, fix, refactor or MVP through scoped phases and reviewed dependent assignments. Use for a multi-phase implementation or explicitly requested worker coordination. For a small localized edit use build, fix or refactor directly. This workflow does not itself authorize subagents."
 ---
 
 # orchestrate
 
-Coordinate a feature, fix, refactor or MVP through scoped phases and reviewed dependent assignments
+Coordinate a feature, fix, refactor or MVP through scoped phases and reviewed dependent assignments.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. An implementation request authorizes proportional local work. Delegate only when the current host policy and user authorization allow it. Plan mode produces a reviewable phase plan without starting workers.
 
-Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
+**Pack prerequisites:** Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
 - **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
 - **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
@@ -39,6 +39,7 @@ Implement only the requested feature, fix, refactor or MVP scope. Save orchestra
 4. Collect structured results, inspect actual diffs and logs, run relevant checks with workers_verify, then apply the exact reviewed result hash with workers_apply. Applied changes preserve the original index and return an undo task. Accept a prerequisite only after its evidence and current files match; process exit is insufficient.
 5. Retry only a failed, cancelled or expired assignment with a concrete correction and within maxAttempts. Cancel owned workers on user cancellation. If a prerequisite changed, reconcile and obtain a fresh result before downstream dispatch. Keep partial changes and report what remains.
 6. Use plan-review when the user wants browser feedback on a concrete artifact or a required design decision. Respect changed scope, continue independent work and never treat a review verdict as a deployment permission. Complete the requested implementation, verify integrated behavior and report remaining limitations.
+
 ## Technical method
 
 - **Inspect:** Current source, acceptance criteria, dependency graph, worker baseline and result hashes, verification records and index state.
@@ -77,6 +78,6 @@ Verify these observable conditions when applicable to the actual task; do not cl
 
 ## Example requests
 
-- **normal (apply):** Build password reset end to end, preserving our session contract; coordinate the API, UI and tests.
-- **edge (apply):** Refactor the parser but preserve behavior; one file is involved so keep the work simple.
-- **blocked (plan):** Plan the MVP; identify the data ownership decision we need before implementation.
+- **Normal (apply):** Build password reset end to end, preserving our session contract; coordinate the API, UI and tests.
+- **Edge (apply):** Refactor the parser but preserve behavior; one file is involved so keep the work simple.
+- **Blocked (plan):** Plan the MVP; identify the data ownership decision we need before implementation.

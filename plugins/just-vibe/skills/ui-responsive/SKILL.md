@@ -1,11 +1,11 @@
 ---
 name: ui-responsive
-description: "Fix layouts across screen sizes and input methods Use for layout adaptation, zoom and input differences; responsive is the same canonical workflow."
+description: "Fix layouts across screen sizes and input methods. Use for layout adaptation, zoom and input differences; responsive is the same canonical workflow."
 ---
 
 # ui-responsive
 
-Fix layouts across screen sizes and input methods
+Fix layouts across screen sizes and input methods.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply; target layouts, content extremes, and supported input/viewport conditions.
 
-target screens/flows, existing design conventions, and runnable UI or supplied references. Visual claims require actual renders; accessibility claims distinguish automated, keyboard, and assistive-technology evidence.
+**Pack prerequisites:** Target screens/flows, existing design conventions, and runnable UI or supplied references. Visual claims require actual renders; accessibility claims distinguish automated, keyboard, and assistive-technology evidence.
 
 - **Infer from evidence:** Inspect the target flow, existing components/tokens, actual renders or supplied references and current responsive behavior.
 - **Reasonable default:** Reuse established visual conventions and preserve keyboard behavior; label unrendered changes as visually unverified.
@@ -35,6 +35,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 1. Inspect intrinsic sizes and flow, reproduce failures, adjust layout constraints, and verify intermediate widths, long text, and relevant orientation changes.
 2. Find the intrinsic width constraint or overflow source, adjust layout at content-driven boundaries and test nearby widths with long text and keyboard focus.
+
 ## Technical method
 
 - **Inspect:** Inspect layout constraints, intrinsic content size, breakpoints, zoom, touch targets and input methods.
@@ -70,5 +71,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** Fix the checkout layout for narrow screens, zoom, and touch input.
-- **edge (apply):** Repair a table at narrow widths and high zoom without hiding essential actions.
-- **blocked (inspect):** Review responsive source and screenshots without claiming real-device interaction coverage.
+- **Edge (apply):** Repair a table at narrow widths and high zoom without hiding essential actions.
+- **Blocked (inspect):** Review responsive source and screenshots without claiming real-device interaction coverage.

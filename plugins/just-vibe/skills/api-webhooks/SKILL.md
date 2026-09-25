@@ -1,11 +1,11 @@
 ---
 name: api-webhooks
-description: "Implement signatures, retries, replay handling, and delivery tracking Use for authenticated durable event receipt or signed outbound delivery; integrate wires the provider itself and backend-jobs handles deferred processing."
+description: "Implement signatures, retries, replay handling, and delivery tracking. Use for authenticated durable event receipt or signed outbound delivery; integrate wires the provider itself and backend-jobs handles deferred processing."
 ---
 
 # api-webhooks
 
-Implement signatures, retries, replay handling, and delivery tracking
+Implement signatures, retries, replay handling, and delivery tracking.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply; inbound/outbound direction, provider contract, signing method, events, and environment.
 
-interface definitions, producer/consumer source, authentication model, versioning constraints, and isolated test endpoints. External API calls must respect environment, credentials, rate limits, and side-effect scope.
+**Pack prerequisites:** Interface definitions, producer/consumer source, authentication model, versioning constraints, and isolated test endpoints. External API calls must respect environment, credentials, rate limits, and side-effect scope.
 
 - **Infer from evidence:** Read producer/consumer schemas, error contracts, auth conventions and known supported client versions.
 - **Reasonable default:** Keep compatible response and pagination semantics where the brief does not request a breaking change.
@@ -35,6 +35,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 1. Validate signatures against correct raw bytes, separate receipt from processing, implement durable deduplication, and test invalid, duplicate, delayed, and reordered messages.
 2. Verify signatures using provider-specified raw bytes and time rules, persist receipt identity before acknowledgment and separate deduplication from business processing.
+
 ## Technical method
 
 - **Inspect:** Read the provider's signature contract, raw-body handling, timestamp tolerance, event IDs and retry/order semantics.
@@ -71,5 +72,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** Implement signed webhook validation and durable duplicate handling in the sandbox.
-- **edge (apply):** Handle two concurrent copies of a signed payment event.
-- **blocked (inspect):** Review webhook handling without live signing keys or sending real business events.
+- **Edge (apply):** Handle two concurrent copies of a signed payment event.
+- **Blocked (inspect):** Review webhook handling without live signing keys or sending real business events.

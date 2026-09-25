@@ -1,11 +1,11 @@
 ---
 name: doctor
-description: "Diagnose installation and configuration problems Use to diagnose installed toolkit state; setup intentionally changes installation."
+description: "Diagnose installation and configuration problems. Use to diagnose installed toolkit state; setup intentionally changes installation."
 ---
 
 # doctor
 
-Diagnose installation and configuration problems
+Diagnose installation and configuration problems.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; just-vibe host, installation source, and scope. Requires host CLI discovery.
 
-Node.js 22+. Codex and Claude targets also need the host CLI with native plugin support; editor adapters need only the project directory. Git is required only for --github. Use the bundled installer; preserve marketplace and scope checks.
+**Pack prerequisites:** Node.js 22+. Codex and Claude targets also need the host CLI with native plugin support; editor adapters need only the project directory. Git is required only for --github. Use the bundled installer; preserve marketplace and scope checks.
 
 - **Infer from evidence:** Inspect selected host, native CLI support, existing source/scope and package version without changing global configuration.
 - **Reasonable default:** Use the documented bundled source and existing host conventions unless the user selects another source.
@@ -37,6 +37,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 2. Report actual prerequisite, marketplace, installation and enablement results. Do not run setup/update or edit configuration to make a status question pass. Unknown inventory formats and conflicts remain actionable blockers.
 3. Separate package presence, native registration, enabled state and actual version; recommend a repair for the observed failing layer only.
 4. Claude shortcut health (commands/jv.md, commands/just-vibe.md and the jv skills plugin) is a separate layer from native registration; report it separately.
+
 ## Technical method
 
 - **Inspect:** Inspect selected host, source/scope, native inventory, enabled state, payload version and supported CLI commands.
@@ -73,5 +74,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Check the Claude project-scope just-vibe installation without changing it.
-- **edge (inspect):** Diagnose a disabled plugin with a newer payload than the native cache.
-- **blocked (inspect):** Inspect prerequisites when the host executable is missing; do not install it implicitly.
+- **Edge (inspect):** Diagnose a disabled plugin with a newer payload than the native cache.
+- **Blocked (inspect):** Inspect prerequisites when the host executable is missing; do not install it implicitly.

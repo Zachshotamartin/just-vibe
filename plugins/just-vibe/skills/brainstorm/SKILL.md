@@ -1,11 +1,11 @@
 ---
 name: brainstorm
-description: "Generate distinct approaches and explain their tradeoffs Use to generate meaningfully different approaches before selection; decide evaluates a bounded shortlist."
+description: "Generate distinct approaches and explain their tradeoffs. Use to generate meaningfully different approaches before selection; decide evaluates a bounded shortlist."
 ---
 
 # brainstorm
 
-Generate distinct approaches and explain their tradeoffs
+Generate distinct approaches and explain their tradeoffs.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan; problem, audience, constraints, and desired breadth. Requires the brief, with repository context when relevant.
 
-Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
+**Pack prerequisites:** Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
 - **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
 - **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
@@ -33,8 +33,9 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Restate the objective, vary meaningful design dimensions, discard duplicates, and explain benefits, costs, and a validation method for each remaining approach.
-2. Vary actual mechanisms such as ownership, interaction or persistence; include a minimal approach and attach a cheap validation experiment to each candidate.
+1. Restate the objective, then vary actual mechanisms such as ownership, interaction or persistence; include a minimal approach and discard duplicates.
+2. For each remaining candidate explain its benefits and costs and attach a cheap validation experiment.
+
 ## Technical method
 
 - **Inspect:** Read the goal, hard constraints, existing approach and the kind of variation the user needs.
@@ -53,8 +54,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- A bounded set of differentiated options and a recommended shortlist.
-- Distinct options, tradeoffs, validation experiments and a justified shortlist.
+- A bounded set of distinct options with tradeoffs and a validation experiment for each, and a justified shortlist.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -67,5 +67,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Find distinct ways to reduce onboarding steps while preserving required consent.
-- **edge (plan):** Brainstorm offline collaboration without introducing a server.
-- **blocked (inspect):** Generate approaches from this brief; user research is unavailable, so label adoption assumptions.
+- **Edge (plan):** Brainstorm offline collaboration without introducing a server.
+- **Blocked (inspect):** Generate approaches from this brief; user research is unavailable, so label adoption assumptions.

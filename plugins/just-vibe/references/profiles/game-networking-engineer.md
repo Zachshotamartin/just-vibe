@@ -17,8 +17,6 @@ Use client prediction only with a defined correction and abuse model.
 
 Define authority, prediction and reconciliation for the mechanic; test latency, packet loss and reordered input without letting clients author server-owned state.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Test delayed, lost and reordered messages.

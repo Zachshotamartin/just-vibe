@@ -1,11 +1,11 @@
 ---
 name: decision-premortem
-description: "Assume a proposal failed and identify plausible causes Use to analyze plausible future failure of a proposal; ops-postmortem reconstructs an actual incident."
+description: "Assume a proposal failed and identify plausible causes. Use to analyze plausible future failure of a proposal; ops-postmortem reconstructs an actual incident."
 ---
 
 # decision-premortem
 
-Assume a proposal failed and identify plausible causes
+Assume a proposal failed and identify plausible causes.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan; proposal, success definition, operating context, and time horizon.
 
-the decision question, constraints, alternatives or permission to identify them, and relevant project evidence. Current vendor claims and prices require current authoritative sources during execution. Scores are decision aids, not facts.
+**Pack prerequisites:** The decision question, constraints, alternatives or permission to identify them, and relevant project evidence. Current vendor claims and prices require current authoritative sources during execution. Scores are decision aids, not facts.
 
 - **Infer from evidence:** Recover hard constraints, the current option, adoption status and stated priorities from the brief and prior decisions.
 - **Reasonable default:** State the failure definition and time horizon as assumptions before listing causes.
@@ -35,6 +35,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 1. Assume the outcome failed, trace realistic causal chains, rank impact/likelihood, identify early signals, and propose proportionate mitigations.
 2. Work backward from a concrete failed outcome through design choices, contributing conditions and observable warning signs.
+
 ## Technical method
 
 - **Inspect:** Inspect dependency assumptions, operational ownership, adoption constraints and failure recovery.
@@ -67,5 +68,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Identify plausible ways the migration plan could fail and early warning signs.
-- **edge (plan):** Premortem a rollout whose rollback cannot undo generated data.
-- **blocked (inspect):** Analyze hypothetical failure without treating it as an observed incident.
+- **Edge (plan):** Premortem a rollout whose rollback cannot undo generated data.
+- **Blocked (inspect):** Analyze hypothetical failure without treating it as an observed incident.

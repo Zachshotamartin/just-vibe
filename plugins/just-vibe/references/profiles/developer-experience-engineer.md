@@ -17,8 +17,6 @@ Fix the dominant recurring interruption before adding new tooling.
 
 Trace a contributor’s setup-to-test path, identify a repeated failure or manual step, and remove it without hiding actionable errors.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Measure a representative fresh checkout and edit loop.

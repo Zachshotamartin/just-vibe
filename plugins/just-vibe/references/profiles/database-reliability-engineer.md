@@ -17,8 +17,6 @@ Stabilize contention or capacity before attempting a risky schema change.
 
 Produce an operational timeline connecting database health to workload and recovery readiness; distinguish a successful backup from demonstrated restoration.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Verify backup restoration and recovery bounds.

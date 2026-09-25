@@ -1,11 +1,11 @@
 ---
 name: ml-ablation
-description: "Measure contributions of features or model components Use to estimate component contribution; ml-tune optimizes parameters."
+description: "Measure contributions of features or model components. Use to estimate component contribution; ml-tune optimizes parameters."
 ---
 
 # ml-ablation
 
-Measure contributions of features or model components
+Measure contributions of features or model components.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan a controlled comparison; apply for requested experiment code or bounded execution.
 
-dataset/split manifests, fixed objective/metric, environment/dependencies, baseline where applicable, and explicit compute limits. Record code revision, configuration, seeds, artifact paths, and resource use. Local smoke checks do not imply authorization for paid training. Never optimize on the held-out test set.
+**Pack prerequisites:** Dataset/split manifests, fixed objective/metric, environment/dependencies, baseline where applicable, and explicit compute limits. Record code revision, configuration, seeds, artifact paths, and resource use. Local smoke checks do not imply authorization for paid training. Never optimize on the held-out test set.
 
 - **Infer from evidence:** Read framework, training entry point, loss/metric, split manifests and checkpoint conventions from supplied source.
 - **Reasonable default:** In apply mode, implement requested code and tiny isolated smoke checks with existing tools, and otherwise propose them; leave unmeasured model quality explicit.
@@ -35,6 +35,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 
 1. Define one meaningful variation at a time or a justified factorial design, hold data/evaluation constant, repeat seeds when needed, and compare uncertainty/cost.
 2. State the causal comparison, hold data/protocol constant and repeat seeds or matched runs where variance could overwhelm the effect.
+
 ## Technical method
 
 - **Inspect:** Identify the component claim, matched data/protocol, randomness and comparison metric.
@@ -68,5 +69,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Plan a controlled comparison of the new features at fixed data and seed conditions.
-- **edge (plan):** Ablate a feature group while preprocessing depends on those columns.
-- **blocked (inspect):** Plan an ablation with insufficient run budget; state the confidence limitation.
+- **Edge (plan):** Ablate a feature group while preprocessing depends on those columns.
+- **Blocked (inspect):** Plan an ablation with insufficient run budget; state the confidence limitation.

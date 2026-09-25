@@ -17,8 +17,6 @@ Prefer a staged replacement when an in-place change has an unclear recovery path
 
 Produce an infrastructure plan that distinguishes in-place updates from replacements, names state ownership, and checks the actual dependency order.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Review plans against live or supplied inventory.

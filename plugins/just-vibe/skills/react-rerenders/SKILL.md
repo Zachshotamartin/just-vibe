@@ -1,11 +1,11 @@
 ---
 name: react-rerenders
-description: "Measure unnecessary rendering and identify its causes Use for a measured slow interaction; react-state addresses ownership inconsistency."
+description: "Measure unnecessary rendering and identify its causes. Use for a measured slow interaction; react-state addresses ownership inconsistency."
 ---
 
 # react-rerenders
 
-Measure unnecessary rendering and identify its causes
+Measure unnecessary rendering and identify its causes.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; slow interaction, component scope, and profiler traces. Apply for an explicit fix request; profiling a local build is bounded local execution.
 
-component source, React/framework versions, state/data conventions, and relevant test tooling. Browser/profiler evidence is needed for measured rendering claims. Preserve existing framework and state libraries unless changing them is part of the request.
+**Pack prerequisites:** Component source, React/framework versions, state/data conventions, and relevant test tooling. Browser/profiler evidence is needed for measured rendering claims. Preserve existing framework and state libraries unless changing them is part of the request.
 
 - **Infer from evidence:** Read component callers, ownership of state, installed React/framework versions and existing interaction tests.
 - **Reasonable default:** Retain the framework and state library; preserve intended loading/error/empty behavior while resolving the named bug.
@@ -35,6 +35,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the
 
 1. Establish the interaction baseline, inspect profiler commits, trace changing props/context/identities, fix the measured cause when requested, and compare behavior and timing.
 2. Capture the same interaction in a profiler, separate render from commit cost and trace the props/context identity responsible for expensive work.
+
 ## Technical method
 
 - **Inspect:** Capture a representative interaction in the profiler with fixed data and production-like behavior.
@@ -69,5 +70,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Analyze why changing a filter rerenders the full product grid using this profile.
-- **edge (inspect):** Improve filter typing in a large product grid without stale selections.
-- **blocked (inspect):** Inspect likely render causes without profiler access; do not add blanket memoization.
+- **Edge (inspect):** Improve filter typing in a large product grid without stale selections.
+- **Blocked (inspect):** Inspect likely render causes without profiler access; do not add blanket memoization.

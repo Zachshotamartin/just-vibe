@@ -1,11 +1,11 @@
 ---
 name: decide
-description: "Recommend an option against explicit requirements Use to recommend one bounded choice; brainstorm expands options and compare describes differences."
+description: "Recommend an option against explicit requirements. Use to recommend one bounded choice; brainstorm expands options and compare describes differences."
 ---
 
 # decide
 
-Recommend an option against explicit requirements
+Recommend an option against explicit requirements.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan; decision, options, hard requirements, and priorities.
 
-the decision question, constraints, alternatives or permission to identify them, and relevant project evidence. Current vendor claims and prices require current authoritative sources during execution. Scores are decision aids, not facts.
+**Pack prerequisites:** The decision question, constraints, alternatives or permission to identify them, and relevant project evidence. Current vendor claims and prices require current authoritative sources during execution. Scores are decision aids, not facts.
 
 - **Infer from evidence:** Recover hard constraints, the current option, adoption status and stated priorities from the brief and prior decisions.
 - **Reasonable default:** Compare feasible options qualitatively when weights were not supplied; make a reversible conditional recommendation when useful.
@@ -40,6 +40,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 5. When the user asks to save an adopted decision, use decision save with actual rationale, rejected alternatives and assumptions tied to watched files or numeric reconsideration triggers. A recommendation alone is not adoption; do not fabricate agreement.
 6. For a request to revisit a saved decision, decision-revisit loads the record and history, gathers fresh attributed observations and runs decision revisit; hit thresholds are reasons to review, not permission to change architecture.
 7. Do not schedule monitoring, buy services or implement the new architecture without that task scope.
+
 ## Technical method
 
 - **Inspect:** Gather hard constraints, current approach, realistic alternatives and evidence for the decisive unknown.
@@ -73,5 +74,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Choose a job queue approach given our small team and existing Postgres service.
-- **edge (plan):** Choose a cache strategy when consistency is mandatory but traffic is uncertain.
-- **blocked (inspect):** Recommend a conditional choice with no stakeholder cost weights.
+- **Edge (plan):** Choose a cache strategy when consistency is mandatory but traffic is uncertain.
+- **Blocked (inspect):** Recommend a conditional choice with no stakeholder cost weights.

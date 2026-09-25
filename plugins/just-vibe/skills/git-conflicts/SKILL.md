@@ -1,11 +1,11 @@
 ---
 name: git-conflicts
-description: "Resolve conflicts while preserving the intent of both changes Use during a merge/rebase conflict; git-recover restores lost work."
+description: "Resolve conflicts while preserving the intent of both changes. Use during a merge/rebase conflict; git-recover restores lost work."
 ---
 
 # git-conflicts
 
-Resolve conflicts while preserving the intent of both changes
+Resolve conflicts while preserving the intent of both changes.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply; active merge/rebase/cherry-pick conflicts and intended behavior.
 
-Git, exact repository/worktree, and readable refs/index. Record branch, HEAD, staged/unstaged/untracked state before mutation. Preserve unrelated edits and never default to broad staging, hard reset, clean, force push, or history rewriting.
+**Pack prerequisites:** Git, exact repository/worktree, and readable refs/index. Record branch, HEAD, staged/unstaged/untracked state before mutation. Preserve unrelated edits and never default to broad staging, hard reset, clean, force push, or history rewriting.
 
 - **Infer from evidence:** Read repository root, HEAD, branch, refs and staged/unstaged/untracked distinctions; use the configured human identity.
 - **Reasonable default:** Limit an ambiguous inspection to the current repository and report that scope; preserve all existing changes.
@@ -36,6 +36,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 1. Inspect base/ours/theirs and change intent, resolve behavior rather than choose a side wholesale, handle generated files via their source, and verify merged behavior.
 2. Read merge base and both sides plus callers; resolve semantic intent, then regenerate derived files from their sources and check the combined behavior.
 3. All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
+
 ## Technical method
 
 - **Inspect:** Read merge-base, both sides, callers and whether the operation is merge, rebase or cherry-pick.
@@ -69,5 +70,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** Resolve this merge while preserving both account switching and refresh behavior.
-- **edge (apply):** Resolve a lockfile conflict after compatible dependency changes on both sides.
-- **blocked (inspect):** Inspect a conflict with unknown intended behavior; do not choose ours or theirs blindly.
+- **Edge (apply):** Resolve a lockfile conflict after compatible dependency changes on both sides.
+- **Blocked (inspect):** Inspect a conflict with unknown intended behavior; do not choose ours or theirs blindly.

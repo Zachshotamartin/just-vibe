@@ -1,11 +1,11 @@
 ---
 name: ml-inference-perf
-description: "Measure latency, throughput, memory, and optimization tradeoffs Use for latency/throughput/resource benchmarking; ml-training-cost covers training."
+description: "Measure latency, throughput, memory, and optimization tradeoffs. Use for latency/throughput/resource benchmarking; ml-training-cost covers training."
 ---
 
 # ml-inference-perf
 
-Measure latency, throughput, memory, and optimization tradeoffs
+Measure latency, throughput, memory, and optimization tradeoffs.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Inspect supplied performance evidence or plan measurement; apply for requested benchmark code or bounded runs.
 
-versioned model and preprocessing artifacts, input/output schema, runtime/dependencies, operating targets, and authorized environment. Validate artifact trust before loading formats that can execute code. Packaging or writing monitoring configuration does not deploy a model or enable a hosted service.
+**Pack prerequisites:** Versioned model and preprocessing artifacts, input/output schema, runtime/dependencies, operating targets, and authorized environment. Validate artifact trust before loading formats that can execute code. Packaging or writing monitoring configuration does not deploy a model or enable a hosted service.
 
 - **Infer from evidence:** Read artifact format/trust, preprocessing schema, serving runtime, compatibility and existing rollout controls.
 - **Reasonable default:** Prepare packaging/configuration and isolated checks without treating them as a live deployment.
@@ -35,6 +35,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 
 1. Define comparable benchmark conditions, separate cold/warm paths, measure bounded authorized workloads, identify bottlenecks, and check quality after optimizations.
 2. Specify hardware, precision, batch/concurrency and payload distribution; separate load/warmup from steady-state and measure tail behavior within caps.
+
 ## Technical method
 
 - **Inspect:** Measure preprocessing, transfer, model compute, postprocessing, batching and queue time with representative inputs.
@@ -68,5 +69,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Plan a bounded benchmark for cold/warm latency and throughput at fixed quality.
-- **edge (plan):** Benchmark batched inference under a latency deadline without hiding warmup cost.
-- **blocked (inspect):** Plan a benchmark with no authorized hardware or production traffic budget.
+- **Edge (plan):** Benchmark batched inference under a latency deadline without hiding warmup cost.
+- **Blocked (inspect):** Plan a benchmark with no authorized hardware or production traffic budget.

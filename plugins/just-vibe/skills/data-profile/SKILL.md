@@ -1,11 +1,11 @@
 ---
 name: data-profile
-description: "Summarize distributions, missingness, duplicates, and suspicious values Use for descriptive data inspection; data-quality evaluates declared rules."
+description: "Summarize distributions, missingness, duplicates, and suspicious values. Use for descriptive data inspection; data-quality evaluates declared rules."
 ---
 
 # data-profile
 
-Summarize distributions, missingness, duplicates, and suspicious values
+Summarize distributions, missingness, duplicates, and suspicious values.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; dataset/snapshot, columns, sampling limit, and task context.
 
-data source/version, schema/semantics, transformation code, permitted sampling scope, and storage/compute budget. Prefer aggregates and redacted samples; never upload datasets to external services implicitly. Record time zones and snapshot identity for reproducibility.
+**Pack prerequisites:** Data source/version, schema/semantics, transformation code, permitted sampling scope, and storage/compute budget. Prefer aggregates and redacted samples; never upload datasets to external services implicitly. Record time zones and snapshot identity for reproducibility.
 
 - **Infer from evidence:** Inspect schema, source snapshot, transformation code, grain, time zones and permitted sample scope.
 - **Reasonable default:** Use bounded synthetic or supplied samples when full data is unavailable; keep unknown values distinct from zero.
@@ -35,6 +35,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. data-
 
 1. Validate schema, select a representative bounded sample or authorized aggregate scan, compute summaries, and flag anomalies relative to declared semantics.
 2. Inspect schema and volume before scanning, distinguish nulls from sentinels and sample across relevant time/group strata with stated selection limits.
+
 ## Technical method
 
 - **Inspect:** Establish snapshot, row grain, sample method, units, timezones, sensitive fields and denominator.
@@ -67,5 +68,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Profile missingness and duplicates in this bounded dataset sample.
-- **edge (inspect):** Profile a time-partitioned dataset with sentinel zeros and missing recent partitions.
-- **blocked (inspect):** Inspect metadata only when row access is unavailable; do not fabricate distributions.
+- **Edge (inspect):** Profile a time-partitioned dataset with sentinel zeros and missing recent partitions.
+- **Blocked (inspect):** Inspect metadata only when row access is unavailable; do not fabricate distributions.

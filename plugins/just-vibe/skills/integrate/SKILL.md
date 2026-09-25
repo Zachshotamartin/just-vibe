@@ -1,11 +1,11 @@
 ---
 name: integrate
-description: "Connect an API, library, or external service Use to connect an external capability through a narrow boundary; api-client focuses on the transport client and api-webhooks owns verified inbound events."
+description: "Connect an API, library, or external service. Use to connect an external capability through a narrow boundary; api-client focuses on the transport client and api-webhooks owns verified inbound events."
 ---
 
 # integrate
 
-Connect an API, library, or external service
+Connect an API, library, or external service.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply; service/library, intended use, environment, and credentials mechanism. Requires supported interface documentation and local integration points.
 
-Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
+**Pack prerequisites:** Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
 - **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
 - **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
@@ -33,8 +33,10 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Execute
 
-1. Verify compatibility, implement a narrow boundary, protect secrets, add timeout/error behavior, and validate with a sandbox or controlled fixture.
-2. Resolve provider version and request/response schemas; implement a controlled fake for success, refusal, timeout and malformed replies before live verification.
+1. Resolve the provider version and request/response schemas, and verify compatibility with the project.
+2. Implement a narrow boundary that keeps secrets out of code and logs and adds timeout and error behavior.
+3. Validate against a controlled fake or sandbox for success, refusal, timeout and malformed replies before any live verification.
+
 ## Technical method
 
 - **Inspect:** Resolve provider/library version, credentials ownership, request/response contracts and failure semantics.
@@ -54,8 +56,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Deliver and verify
 
-- Integration code, configuration instructions, failure handling, and validation evidence.
-- Boundary contract, configuration names, failure matrix and sandbox evidence when available.
+- Integration code behind a boundary contract, configuration names and instructions, a failure matrix, and fake or sandbox validation evidence.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -68,5 +69,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** Connect the sandbox shipping API using our existing HTTP client.
-- **edge (apply):** Integrate a provider whose timed-out request may still create an order.
-- **blocked (inspect):** Design and inspect the integration without credentials; do not invent a successful sandbox call.
+- **Edge (apply):** Integrate a provider whose timed-out request may still create an order.
+- **Blocked (inspect):** Design and inspect the integration without credentials; do not invent a successful sandbox call.

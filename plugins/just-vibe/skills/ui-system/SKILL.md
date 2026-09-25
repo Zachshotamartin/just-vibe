@@ -1,11 +1,11 @@
 ---
 name: ui-system
-description: "Establish typography, spacing, colors, tokens, and component conventions Use to establish or refine shared design tokens/components; polish makes local refinements and build implements an accepted adoption."
+description: "Establish typography, spacing, colors, tokens, and component conventions. Use to establish or refine shared design tokens/components; polish makes local refinements and build implements an accepted adoption."
 ---
 
 # ui-system
 
-Establish typography, spacing, colors, tokens, and component conventions
+Establish typography, spacing, colors, tokens, and component conventions.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan; existing screens, brand constraints, reusable components, and desired consistency.
 
-target screens/flows, existing design conventions, and runnable UI or supplied references. Visual claims require actual renders; accessibility claims distinguish automated, keyboard, and assistive-technology evidence.
+**Pack prerequisites:** Target screens/flows, existing design conventions, and runnable UI or supplied references. Visual claims require actual renders; accessibility claims distinguish automated, keyboard, and assistive-technology evidence.
 
 - **Infer from evidence:** Inspect the target flow, existing components/tokens, actual renders or supplied references and current responsive behavior.
 - **Reasonable default:** Reuse established visual conventions and preserve keyboard behavior; label unrendered changes as visually unverified.
@@ -35,6 +35,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 1. Inventory existing values, identify a coherent scale, define semantic tokens and component states, and plan incremental adoption without visual regressions.
 2. Inventory actual repeated values and component states; separate semantic roles from raw scales and define incremental adoption with representative specimens.
+
 ## Technical method
 
 - **Inspect:** Inventory repeated tokens, typography, spacing, component states and existing theme contracts.
@@ -70,5 +71,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Plan semantic design tokens from the existing screens and brand constraints.
-- **edge (plan):** Consolidate spacing and color tokens across light and dark settings screens.
-- **blocked (inspect):** Plan a system from existing UI without replacing unavailable brand assets.
+- **Edge (plan):** Consolidate spacing and color tokens across light and dark settings screens.
+- **Blocked (inspect):** Plan a system from existing UI without replacing unavailable brand assets.

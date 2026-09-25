@@ -17,8 +17,6 @@ Choose a supported standard construction before considering custom cryptography.
 
 Identify the security property and trust/key lifecycle first; use established constructions and test misuse cases rather than designing a new primitive.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Verify known vectors, malformed inputs and key-rotation behavior.

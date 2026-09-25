@@ -1,11 +1,11 @@
 ---
 name: git-commit
-description: "Prepare coherent commits with accurate messages and deliberate staging Use for an explicit bounded commit or undoing one; git-split designs several coherent commits."
+description: "Prepare coherent commits with accurate messages and deliberate staging. Use for an explicit bounded commit or undoing one; git-split designs several coherent commits."
 ---
 
 # git-commit
 
-Prepare coherent commits with accurate messages and deliberate staging
+Prepare coherent commits with accurate messages and deliberate staging.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply; intended changes, commit scope, and message preferences. A direct commit request authorizes the bounded commit; a request to undo a commit authorizes only a non-destructive reset or revert.
 
-Git, exact repository/worktree, and readable refs/index. Record branch, HEAD, staged/unstaged/untracked state before mutation. Preserve unrelated edits and never default to broad staging, hard reset, clean, force push, or history rewriting.
+**Pack prerequisites:** Git, exact repository/worktree, and readable refs/index. Record branch, HEAD, staged/unstaged/untracked state before mutation. Preserve unrelated edits and never default to broad staging, hard reset, clean, force push, or history rewriting.
 
 - **Infer from evidence:** Read repository root, HEAD, branch, refs and staged/unstaged/untracked distinctions; use the configured human identity.
 - **Reasonable default:** Limit an ambiguous inspection to the current repository and report that scope; preserve all existing changes.
@@ -38,6 +38,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 3. Review the actual candidate tree and verify it independently when unrelated worktree changes could affect the result. With a temporary index, stage only intended blobs/tests and run the normal commit path with that index so required hooks still run. Preserve a recoverable record of the original real index until post-commit reconciliation succeeds.
 4. After committing through a temporary index, reconcile intended committed changes into the real index while retaining unrelated staged hunks. Verify HEAD contains only the intended change, HEAD-to-index retains the user’s staged work, and index-to-worktree retains the user’s unstaged work. Do not blindly restore an old index against the new HEAD.
 5. Use the existing user identity and describe the change without agent/model self-attribution or agent Co-authored-by trailers. Inspect actual committed content and message, including hook changes. A failed hook leaves the operation incomplete; inspect state before retrying and never bypass it.
+
 ## Technical method
 
 - **Inspect:** Capture the user's initial index and worktree distinctions and the exact requested commit membership.
@@ -71,5 +72,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** Commit only the verified checkout fix; preserve other staged and unstaged work.
-- **edge (apply):** Commit only the bug fix when the same file contains unrelated staged edits.
-- **blocked (inspect):** Inspect commit readiness with missing identity or a rejected hook; do not bypass either.
+- **Edge (apply):** Commit only the bug fix when the same file contains unrelated staged edits.
+- **Blocked (inspect):** Inspect commit readiness with missing identity or a rejected hook; do not bypass either.

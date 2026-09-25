@@ -17,8 +17,6 @@ Use deterministic state transitions when recovery or external effects require au
 
 Map context, tool effects and recovery state across an agent task; demonstrate constraint retention and uncertain-action reconciliation through multiple turns.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Test interruption, duplicate actions and unavailable tools.

@@ -1,11 +1,11 @@
 ---
 name: ml-evaluate
-description: "Evaluate using task-appropriate metrics and baselines Use for fixed-model evaluation; ml-threshold and ml-calibrate require separate selection data."
+description: "Evaluate using task-appropriate metrics and baselines. Use for fixed-model evaluation; ml-threshold and ml-calibrate require separate selection data."
 ---
 
 # ml-evaluate
 
-Evaluate using task-appropriate metrics and baselines
+Evaluate using task-appropriate metrics and baselines.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Inspect supplied evaluation results; apply for requested evaluator implementation or scoped evaluation execution.
 
-frozen model/artifact, evaluation dataset identity, labels where needed, metric definitions, and task/operating context. Report sample counts and uncertainty appropriate to dependencies; avoid repeated test-set tuning. Exploratory findings need fresh confirmation before strong generalization claims.
+**Pack prerequisites:** Frozen model/artifact, evaluation dataset identity, labels where needed, metric definitions, and task/operating context. Report sample counts and uncertainty appropriate to dependencies; avoid repeated test-set tuning. Exploratory findings need fresh confirmation before strong generalization claims.
 
 - **Infer from evidence:** Read frozen model/data identities, metric definitions, denominators and supplied predictions; separate validation from test use.
 - **Reasonable default:** Compute only supported metrics on permitted samples and label missing labels or subgroup coverage as unknown.
@@ -38,6 +38,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 3. For supplied binary/regression run exports, follow the experiments guide to import actual provider metadata and aligned prediction rows with dataset/split, code/model identity, preprocessing, seed and feature maps. Keep provider-reported metrics separate from recomputed metrics; do not log into a provider or train merely to import.
 4. Compare only fresh compatible task/dataset/split and row/target/slice identities. Suppress deltas when incompatible or stale. Explain overall and per-slice changes together, small denominators, missing dimensions, threshold changes, feature parity mismatches and temporal check coverage.
 5. Investigate an aggregate gain with a subgroup regression before making a recommendation. Supplied metadata is attributed evidence, matching feature maps do not execute preprocessing, and observed differences do not establish cause. Reconcile unexported/missing predictions and use project tooling for uncertainty, unsupported tasks or larger data.
+
 ## Technical method
 
 - **Inspect:** Resolve metric formula/direction, positive class, sample weights, population, split and retained predictions.
@@ -74,5 +75,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Plan evaluating the frozen model against the declared baseline and untouched test split.
-- **edge (plan):** Evaluate shuffled prediction rows with missing outputs and delayed labels.
-- **blocked (inspect):** Evaluate operational behavior without ground truth; do not report accuracy.
+- **Edge (plan):** Evaluate shuffled prediction rows with missing outputs and delayed labels.
+- **Blocked (inspect):** Evaluate operational behavior without ground truth; do not report accuracy.

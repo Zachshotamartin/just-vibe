@@ -1,11 +1,11 @@
 ---
 name: ml-report
-description: "Document data, results, limitations, and intended use Use to communicate established ML evidence; ml-evaluate creates evaluation results."
+description: "Document data, results, limitations, and intended use. Use to communicate established ML evidence; ml-evaluate creates evaluation results."
 ---
 
 # ml-report
 
-Document data, results, limitations, and intended use
+Document data, results, limitations, and intended use.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan; task, dataset/model manifests, evaluation results, intended use, and audience.
 
-frozen model/artifact, evaluation dataset identity, labels where needed, metric definitions, and task/operating context. Report sample counts and uncertainty appropriate to dependencies; avoid repeated test-set tuning. Exploratory findings need fresh confirmation before strong generalization claims.
+**Pack prerequisites:** Frozen model/artifact, evaluation dataset identity, labels where needed, metric definitions, and task/operating context. Report sample counts and uncertainty appropriate to dependencies; avoid repeated test-set tuning. Exploratory findings need fresh confirmation before strong generalization claims.
 
 - **Infer from evidence:** Read frozen model/data identities, metric definitions, denominators and supplied predictions; separate validation from test use.
 - **Reasonable default:** Compute only supported metrics on permitted samples and label missing labels or subgroup coverage as unknown.
@@ -35,6 +35,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 1. Reconcile evidence, describe training/evaluation conditions, summarize baseline and slice results, document limitations and excluded uses, and identify missing release evidence.
 2. Reconcile every number with a run and denominator, separate validation selection from independent test evidence and document deployment population/excluded uses.
+
 ## Technical method
 
 - **Inspect:** Collect intended use, dataset provenance, protocol, selected model, metrics, slices and deployment constraints.
@@ -67,5 +68,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Write a model report using these actual runs and identify unsupported uses.
-- **edge (plan):** Write a model report with strong average performance but poor sparse-cohort evidence.
-- **blocked (inspect):** Draft a report with missing test results; do not invent metrics or deployment approval.
+- **Edge (plan):** Write a model report with strong average performance but poor sparse-cohort evidence.
+- **Blocked (inspect):** Draft a report with missing test results; do not invent metrics or deployment approval.

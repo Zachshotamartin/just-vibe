@@ -17,8 +17,6 @@ Narrow effective permissions after confirming the workload actions they support.
 
 Produce an identity-to-resource access path across accounts and networks; identify unintended privilege or exposure using the actual effective configuration.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Test required access and denied escalation paths.

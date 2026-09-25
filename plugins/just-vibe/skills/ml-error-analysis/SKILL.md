@@ -1,11 +1,11 @@
 ---
 name: ml-error-analysis
-description: "Group failures into actionable patterns and examples Use to inspect model mistakes; ml-slices computes cohort metrics and ml-debug-training diagnoses optimization."
+description: "Group failures into actionable patterns and examples. Use to inspect model mistakes; ml-slices computes cohort metrics and ml-debug-training diagnoses optimization."
 ---
 
 # ml-error-analysis
 
-Group failures into actionable patterns and examples
+Group failures into actionable patterns and examples.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; predictions, labels, task costs, and permitted redacted examples.
 
-frozen model/artifact, evaluation dataset identity, labels where needed, metric definitions, and task/operating context. Report sample counts and uncertainty appropriate to dependencies; avoid repeated test-set tuning. Exploratory findings need fresh confirmation before strong generalization claims.
+**Pack prerequisites:** Frozen model/artifact, evaluation dataset identity, labels where needed, metric definitions, and task/operating context. Report sample counts and uncertainty appropriate to dependencies; avoid repeated test-set tuning. Exploratory findings need fresh confirmation before strong generalization claims.
 
 - **Infer from evidence:** Read frozen model/data identities, metric definitions, denominators and supplied predictions; separate validation from test use.
 - **Reasonable default:** Compute only supported metrics on permitted samples and label missing labels or subgroup coverage as unknown.
@@ -35,6 +35,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 1. Define errors according to task, group by meaningful factors, inspect representative cases and denominators, distinguish label problems, and propose targeted next experiments.
 2. Define the error event and denominator, group by meaningful factors and compare representative failures with matched successes and possible label problems.
+
 ## Technical method
 
 - **Inspect:** Inspect representative failures, successes, uncertainty, labels and error severity.
@@ -67,5 +68,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Group failures from these predictions into actionable patterns with denominators.
-- **edge (inspect):** Analyze rare high-cost errors without treating vivid examples as prevalence.
-- **blocked (inspect):** Analyze aggregate errors when sensitive examples cannot be inspected.
+- **Edge (inspect):** Analyze rare high-cost errors without treating vivid examples as prevalence.
+- **Blocked (inspect):** Analyze aggregate errors when sensitive examples cannot be inspected.

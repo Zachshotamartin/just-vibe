@@ -1,11 +1,11 @@
 ---
 name: ml-monitor
-description: "Define operational and model-quality monitoring, including delayed labels Use to design or implement requested ML telemetry; ops-alerts designs response-worthy alert behavior."
+description: "Define operational and model-quality monitoring, including delayed labels. Use to design or implement requested ML telemetry; ops-alerts designs response-worthy alert behavior."
 ---
 
 # ml-monitor
 
-Define operational and model-quality monitoring, including delayed labels
+Define operational and model-quality monitoring, including delayed labels.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan monitoring; apply for requested instrumentation or configuration in the identified environment.
 
-versioned model and preprocessing artifacts, input/output schema, runtime/dependencies, operating targets, and authorized environment. Validate artifact trust before loading formats that can execute code. Packaging or writing monitoring configuration does not deploy a model or enable a hosted service.
+**Pack prerequisites:** Versioned model and preprocessing artifacts, input/output schema, runtime/dependencies, operating targets, and authorized environment. Validate artifact trust before loading formats that can execute code. Packaging or writing monitoring configuration does not deploy a model or enable a hosted service.
 
 - **Infer from evidence:** Read artifact format/trust, preprocessing schema, serving runtime, compatibility and existing rollout controls.
 - **Reasonable default:** Prepare packaging/configuration and isolated checks without treating them as a live deployment.
@@ -35,6 +35,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 
 1. Separate leading signals from outcome metrics, define joins and delay windows, choose thresholds and runbook actions, and implement only requested instrumentation/configuration.
 2. Separate service, feature, prediction and delayed-outcome signals; define stable joins, label-lag windows and model-version attribution.
+
 ## Technical method
 
 - **Inspect:** Trace prediction IDs to model/data versions, outcomes, label delay, errors and operational measurements.
@@ -68,5 +69,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Design quality monitoring with delayed labels and model-version separation.
-- **edge (plan):** Monitor a model whose outcomes arrive thirty days after prediction.
-- **blocked (inspect):** Plan monitoring without activating alerts or claiming an ongoing watcher exists.
+- **Edge (plan):** Monitor a model whose outcomes arrive thirty days after prediction.
+- **Blocked (inspect):** Plan monitoring without activating alerts or claiming an ongoing watcher exists.

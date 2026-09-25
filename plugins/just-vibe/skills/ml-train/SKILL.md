@@ -1,11 +1,11 @@
 ---
 name: ml-train
-description: "Implement training with checkpoints and recorded configuration Use for bounded training implementation/execution; ml-debug-training diagnoses a failed optimization process."
+description: "Implement training with checkpoints and recorded configuration. Use for bounded training implementation/execution; ml-debug-training diagnoses a failed optimization process."
 ---
 
 # ml-train
 
-Implement training with checkpoints and recorded configuration
+Implement training with checkpoints and recorded configuration.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan the training design; apply for requested pipeline implementation or an authorized bounded run.
 
-dataset/split manifests, fixed objective/metric, environment/dependencies, baseline where applicable, and explicit compute limits. Record code revision, configuration, seeds, artifact paths, and resource use. Local smoke checks do not imply authorization for paid training. Never optimize on the held-out test set.
+**Pack prerequisites:** Dataset/split manifests, fixed objective/metric, environment/dependencies, baseline where applicable, and explicit compute limits. Record code revision, configuration, seeds, artifact paths, and resource use. Local smoke checks do not imply authorization for paid training. Never optimize on the held-out test set.
 
 - **Infer from evidence:** Read framework, training entry point, loss/metric, split manifests and checkpoint conventions from supplied source.
 - **Reasonable default:** In apply mode, implement requested code and tiny isolated smoke checks with existing tools, and otherwise propose them; leave unmeasured model quality explicit.
@@ -35,6 +35,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 
 1. Validate shapes and pipeline, run a small smoke test, record configuration/environment, train within bounds, checkpoint, and evaluate only the permitted validation protocol.
 2. For resumable training inventory model, optimizer, scheduler, scaler when used, step, RNG and sampler/data position; checkpoint atomically and compare interrupted versus uninterrupted continuation under declared tolerances.
+
 ## Technical method
 
 - **Inspect:** Inspect framework/version, shapes, loss semantics, device/dtype, optimizer, scheduler and data/sampler state.
@@ -70,5 +71,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Plan checkpointed training on one GPU for at most six hours; do not provision compute.
-- **edge (apply):** Implement checkpointed training that resumes mid-epoch without silently changing sample order.
-- **blocked (inspect):** Plan training with no authorized hardware budget; do not provision or launch a run.
+- **Edge (apply):** Implement checkpointed training that resumes mid-epoch without silently changing sample order.
+- **Blocked (inspect):** Plan training with no authorized hardware budget; do not provision or launch a run.

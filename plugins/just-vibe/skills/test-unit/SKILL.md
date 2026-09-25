@@ -1,11 +1,11 @@
 ---
 name: test-unit
-description: "Test isolated behaviors and boundaries Use for isolated domain/component behavior; test-integration checks real dependency boundaries."
+description: "Test isolated behaviors and boundaries. Use for isolated domain/component behavior; test-integration checks real dependency boundaries."
 ---
 
 # test-unit
 
-Test isolated behaviors and boundaries
+Test isolated behaviors and boundaries.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply; unit/behavior, edge cases, and existing test framework.
 
-defined behavior, existing test conventions/runners, isolated fixtures, and relevant dependencies. Requested bounded verification may use owned isolated fixtures without authorizing product edits or live-system tests. Never test destructive behavior against production by default; distinguish mocked behavior from real integration evidence.
+**Pack prerequisites:** Defined behavior, existing test conventions/runners, isolated fixtures, and relevant dependencies. Requested bounded verification may use owned isolated fixtures without authorizing product edits or live-system tests. Never test destructive behavior against production by default; distinguish mocked behavior from real integration evidence.
 
 - **Infer from evidence:** Read behavior contracts, existing runners and test conventions; distinguish fixture setup failure from a behavioral failure.
 - **Reasonable default:** Use the smallest existing local runner and isolated synthetic fixtures that distinguish the requested behavior. When the method needs a library, runner, container runtime or load tool the project lacks, name the exact package or tool, the files it changes and any download, and add it only when the request authorizes new dev dependencies or tools; label a hand-written generator without shrinking, or a fake in place of a real dependency, as such.
@@ -35,6 +35,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 1. Identify observable inputs/outputs, choose meaningful boundaries, create focused tests, check error cases, and run the relevant suite.
 2. Select a public behavior and independent expected result, use minimal valid fixtures and cover a meaningful invalid or boundary input without asserting private implementation steps.
+
 ## Technical method
 
 - **Inspect:** Identify the public behavior, pure boundary, dependencies and independently derivable expectations.
@@ -72,5 +73,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** Test invitation expiry boundaries without asserting internal helper calls.
-- **edge (apply):** Test a pricing function with null coupons and zero-value discounts.
-- **blocked (inspect):** Design unit cases without executing unavailable tooling; label unrun checks.
+- **Edge (apply):** Test a pricing function with null coupons and zero-value discounts.
+- **Blocked (inspect):** Design unit cases without executing unavailable tooling; label unrun checks.

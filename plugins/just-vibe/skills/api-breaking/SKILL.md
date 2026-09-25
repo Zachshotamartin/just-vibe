@@ -1,11 +1,11 @@
 ---
 name: api-breaking
-description: "Identify backward-incompatible API changes Use to assess consumer impact of a change; api-design creates the intended contract."
+description: "Identify backward-incompatible API changes. Use to assess consumer impact of a change; api-design creates the intended contract."
 ---
 
 # api-breaking
 
-Identify backward-incompatible API changes
+Identify backward-incompatible API changes.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; old/new contracts or revisions, consumer expectations, and compatibility policy.
 
-interface definitions, producer/consumer source, authentication model, versioning constraints, and isolated test endpoints. External API calls must respect environment, credentials, rate limits, and side-effect scope.
+**Pack prerequisites:** Interface definitions, producer/consumer source, authentication model, versioning constraints, and isolated test endpoints. External API calls must respect environment, credentials, rate limits, and side-effect scope.
 
 - **Infer from evidence:** Read producer/consumer schemas, error contracts, auth conventions and known supported client versions.
 - **Reasonable default:** Keep compatible response and pagination semantics where the brief does not request a breaking change.
@@ -35,6 +35,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 1. Diff interfaces, inspect behavioral changes, identify affected consumers, classify compatibility impact, and propose rollout/deprecation steps.
 2. Compare field presence/types, enum values, validation, defaults, error/status behavior, pagination and timing guarantees against identified consumers.
+
 ## Technical method
 
 - **Inspect:** Compare old/new payloads, enums, validation, errors, pagination and authentication using known consumers.
@@ -69,5 +70,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Compare these API versions for validation and response-contract breaks.
-- **edge (inspect):** Review a new enum value and a stricter validation rule for old clients.
-- **blocked (inspect):** Assess compatibility without consumer source; avoid declaring universal backward compatibility.
+- **Edge (inspect):** Review a new enum value and a stricter validation rule for old clients.
+- **Blocked (inspect):** Assess compatibility without consumer source; avoid declaring universal backward compatibility.

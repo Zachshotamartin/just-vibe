@@ -1,11 +1,11 @@
 ---
 name: ops-logs
-description: "Correlate available logs around a specific failure Use for bounded log correlation; trace follows a particular execution path through source and telemetry."
+description: "Correlate available logs around a specific failure. Use for bounded log correlation; trace follows a particular execution path through source and telemetry."
 ---
 
 # ops-logs
 
-Correlate available logs around a specific failure
+Correlate available logs around a specific failure.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; service/environment, time window, correlation identifiers, and question.
 
-exact service/environment, time window, revision/configuration identity, authorized logs/metrics, and operational constraints. Prefer observation before intervention; live restarts, traffic changes, restores, and notifications require the requested target/action. Redact sensitive telemetry.
+**Pack prerequisites:** Exact service/environment, time window, revision/configuration identity, authorized logs/metrics, and operational constraints. Prefer observation before intervention; live restarts, traffic changes, restores, and notifications require the requested target/action. Redact sensitive telemetry.
 
 - **Infer from evidence:** Read service/environment, time window, revision, available telemetry and existing incident or recovery procedure.
 - **Reasonable default:** Start from supplied logs and read-only observation; rank hypotheses without presenting an unexecuted intervention as recovery.
@@ -35,6 +35,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 1. Normalize timestamps, follow request/job IDs, compare related services, separate repeated symptoms from root events, and redact sensitive fields.
 2. Normalize time zones and identify clock skew, follow stable request/job IDs and distinguish original failures from retry cascades and repeated symptoms.
+
 ## Technical method
 
 - **Inspect:** Identify request/job IDs, service boundaries, clock skew, retention and redaction rules.
@@ -67,5 +68,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Correlate sanitized logs for this request ID and time window.
-- **edge (inspect):** Correlate logs across services with different clock offsets.
-- **blocked (inspect):** Analyze a redacted excerpt without querying or dumping full production logs.
+- **Edge (inspect):** Correlate logs across services with different clock offsets.
+- **Blocked (inspect):** Analyze a redacted excerpt without querying or dumping full production logs.

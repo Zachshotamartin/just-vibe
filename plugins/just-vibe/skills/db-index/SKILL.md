@@ -1,11 +1,11 @@
 ---
 name: db-index
-description: "Recommend indexes based on queries, write costs, and measurements Use for workload-specific index design; db-schema handles broader constraints and data shape."
+description: "Recommend indexes based on queries, write costs, and measurements. Use for workload-specific index design; db-schema handles broader constraints and data shape."
 ---
 
 # db-index
 
-Recommend indexes based on queries, write costs, and measurements
+Recommend indexes based on queries, write costs, and measurements.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan; actual queries/plans, schema/indexes, write workload, engine, and storage constraints.
 
-actual engine/version, schema/migrations, query workload, and explicitly identified environment. Prefer supplied plans, metadata, and isolated fixtures. Even a SELECT can lock, call mutating functions, or overload a database; inspect semantics before execution. Executing an analyzed query is distinct from reading its plan.
+**Pack prerequisites:** Actual engine/version, schema/migrations, query workload, and explicitly identified environment. Prefer supplied plans, metadata, and isolated fixtures. Even a SELECT can lock, call mutating functions, or overload a database; inspect semantics before execution. Executing an analyzed query is distinct from reading its plan.
 
 - **Infer from evidence:** Read engine/version, ORM/runner, schema and migration history from project artifacts before choosing SQL.
 - **Reasonable default:** Prepare local SQL and isolated fixtures without assuming production size, locks or recovery guarantees.
@@ -35,6 +35,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. db-mi
 
 1. Analyze predicates/order/selectivity, compare existing indexes, estimate write/storage costs from evidence, and design before/after measurement and online-creation strategy where supported.
 2. Match equality/range/order predicates and selectivity to existing indexes, account for write/storage cost and compare the exact workload before/after.
+
 ## Technical method
 
 - **Inspect:** Inspect real predicates, ordering, selectivity, existing index definitions and write volume.
@@ -69,5 +70,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Recommend indexes from these query plans, including write and storage costs.
-- **edge (plan):** Design an index for a tenant-filtered timeline with a stable secondary sort key.
-- **blocked (inspect):** Assess indexing from schema without plans or workload counts; label performance estimates unknown.
+- **Edge (plan):** Design an index for a tenant-filtered timeline with a stable secondary sort key.
+- **Blocked (inspect):** Assess indexing from schema without plans or workload counts; label performance estimates unknown.

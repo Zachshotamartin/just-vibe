@@ -17,7 +17,7 @@ Introduce a shared contract when local fixes create repeated coordination failur
 
 Map the requested cross-team change to existing owners and interfaces, identify the adoption dependency that can block it, and propose an incremental integration path.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
+For how this role compares with other roles on one shared feature, see [the same feature through different roles](../profile-comparisons.md).
 
 ## Verify when relevant
 

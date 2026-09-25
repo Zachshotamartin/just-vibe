@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; a topic, workflow, or recent lesson plus optional experience, question count and practice/test preference. Requires an available native question tool permitted for this interaction in the current host mode.
 
-Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
+**Pack prerequisites:** Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
 - **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
 - **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
@@ -41,6 +41,7 @@ No project or external-service writes. Keep quiz state in session context; save 
 6. Normalize the actual response into questionId, submitted, selection/freeText, skipped/cancelled and call toolkit quiz answer. For a free-text explanation, use quiz review only after assessing its meaning; preserve the actual response and explain the judgment.
 7. Show returned feedback after answers in practice mode; withhold correctness in test mode until finished. Generate the next question using demonstrated misconceptions and remaining budget, then repeat through the native tool. Use quiz report for the final assessment; report sample limits and optional review topics.
 8. Test one concept at a time, mixing a state prediction with an application when useful. Adapt to the specific misconception; a short quiz cannot establish mastery.
+
 ## Technical method
 
 - **Inspect:** Inspect requested topic, level, previous answers and availability of the host's native question dialog.
@@ -75,5 +76,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Quiz me on linked lists using the native question dialog, one question at a time.
-- **edge (inspect):** Test linked-list operations; skip one question and explain only at the end.
-- **blocked (inspect):** Inspect whether this host permits native assessment dialogs; do not print an inline quiz.
+- **Edge (inspect):** Test linked-list operations; skip one question and explain only at the end.
+- **Blocked (inspect):** Inspect whether this host permits native assessment dialogs; do not print an inline quiz.

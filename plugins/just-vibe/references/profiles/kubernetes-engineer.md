@@ -17,8 +17,6 @@ Fix readiness and graceful termination before increasing restart thresholds.
 
 Trace workload readiness, scheduling and rollout behavior through actual manifests; distinguish an application failure from resource, identity or networking constraints.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Exercise rollout, eviction and dependency failure in the permitted cluster.

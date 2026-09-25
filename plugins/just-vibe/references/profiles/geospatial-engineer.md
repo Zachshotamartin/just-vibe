@@ -17,8 +17,6 @@ Use geodesic (ellipsoidal) distance and area functions, or a projected coordinat
 
 Make coordinate system, units, topology and time explicit, then test projection and boundary cases that could silently change spatial meaning.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Check known locations, geometry boundaries and projection assumptions.

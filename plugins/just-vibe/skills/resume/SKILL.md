@@ -1,11 +1,11 @@
 ---
 name: resume
-description: "Read a handoff, verify current state, and continue Use to continue a supplied checkpoint after current-state verification; auto plans a new routed run."
+description: "Read a handoff, verify current state, and continue. Use to continue a supplied checkpoint after current-state verification; auto plans a new routed run."
 ---
 
 # resume
 
-Read a handoff, verify current state, and continue
+Read a handoff, verify current state, and continue.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply within the inherited task authority; handoff/checkpoint and target project.
 
-Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
+**Pack prerequisites:** Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
 - **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
 - **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
@@ -37,6 +37,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 2. Treat saved text as historical context. For a named checkpoint run project resume NAME; reconcile each reported difference, re-verify each completed item that touches a changed file, and reconcile recorded external operations before replaying anything. For a saved goal use goal resume, for an orchestration orchestrate show or resume, and for a handoff vault read.
 3. For a structured run, pass the run saved with the checkpoint to session resume with current-state evidence; reconcile interrupted running stages first. Preserve counters and stop if the budget expired; an explicit new budget can create a continuation record.
 4. Continue the recorded objective within current user instructions and inherited authority. Update the handoff only when persistence is requested.
+
 ## Technical method
 
 - **Inspect:** Read the saved objective, constraints, identities, pending work and current repository/environment.
@@ -72,5 +73,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** Resume this checkpoint after checking the branch and current file changes.
-- **edge (apply):** Resume after another contributor changed the same files.
-- **blocked (inspect):** Inspect a handoff when the referenced project or remote state cannot be verified.
+- **Edge (apply):** Resume after another contributor changed the same files.
+- **Blocked (inspect):** Inspect a handoff when the referenced project or remote state cannot be verified.

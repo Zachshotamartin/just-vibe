@@ -1,11 +1,11 @@
 ---
 name: arch-feature
-description: "Design where a feature belongs within the existing architecture Use to place an accepted feature within a system; spec resolves unclear product behavior."
+description: "Design where a feature belongs within the existing architecture. Use to place an accepted feature within a system; spec resolves unclear product behavior."
 ---
 
 # arch-feature
 
-Design where a feature belongs within the existing architecture
+Design where a feature belongs within the existing architecture.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan; feature specification, current architecture, and scale/compatibility constraints.
 
-readable source, infrastructure/configuration definitions, and any supplied system documentation. Runtime telemetry is optional evidence, never assumed available. Architecture proposals remain plans until implementation is requested.
+**Pack prerequisites:** Readable source, infrastructure/configuration definitions, and any supplied system documentation. Runtime telemetry is optional evidence, never assumed available. Architecture proposals remain plans until implementation is requested.
 
 - **Infer from evidence:** Trace current entry points, data owners, deployment units and documented constraints before proposing boundaries.
 - **Reasonable default:** Prefer extending an existing owner while scale or organizational evidence is absent; mark capacity estimates as assumptions.
@@ -37,6 +37,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 2. Compare extending the current module, introducing an internal boundary and deploying a separate service. Assess data consistency, latency, independent rollout and operational ownership against demonstrated requirements.
 3. Specify the chosen contract, compatibility window, failure/retry behavior and observability. Define who writes each datum and who reconciles partial effects; diagrams must distinguish observed code dependencies from proposed runtime edges.
 4. Plan incremental implementation with a verification and recovery condition for each phase. Identify the smallest experiment that could overturn a material assumption before committing to an expensive boundary.
+
 ## Technical method
 
 - **Inspect:** Inspect acceptance criteria, existing data owners, extension points and deployment constraints.
@@ -68,5 +69,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Design where organization invitations fit in the existing architecture.
-- **edge (plan):** Design a feature that updates billing and access without a distributed transaction.
-- **blocked (inspect):** Plan placement while an external consumer contract is unavailable.
+- **Edge (plan):** Design a feature that updates billing and access without a distributed transaction.
+- **Blocked (inspect):** Plan placement while an external consumer contract is unavailable.

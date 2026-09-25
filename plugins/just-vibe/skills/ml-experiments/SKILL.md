@@ -1,11 +1,11 @@
 ---
 name: ml-experiments
-description: "Compare runs and check that data and evaluation conditions match Use to compare recorded runs; ml-train produces a run and ml-report communicates validated conclusions."
+description: "Compare runs and check that data and evaluation conditions match. Use to compare recorded runs; ml-train produces a run and ml-report communicates validated conclusions."
 ---
 
 # ml-experiments
 
-Compare runs and check that data and evaluation conditions match
+Compare runs and check that data and evaluation conditions match.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; run IDs/artifacts, metric of interest, and comparison scope.
 
-dataset/split manifests, fixed objective/metric, environment/dependencies, baseline where applicable, and explicit compute limits. Record code revision, configuration, seeds, artifact paths, and resource use. Local smoke checks do not imply authorization for paid training. Never optimize on the held-out test set.
+**Pack prerequisites:** Dataset/split manifests, fixed objective/metric, environment/dependencies, baseline where applicable, and explicit compute limits. Record code revision, configuration, seeds, artifact paths, and resource use. Local smoke checks do not imply authorization for paid training. Never optimize on the held-out test set.
 
 - **Infer from evidence:** Read framework, training entry point, loss/metric, split manifests and checkpoint conventions from supplied source.
 - **Reasonable default:** In apply mode, implement requested code and tiny isolated smoke checks with existing tools, and otherwise propose them; leave unmeasured model quality explicit.
@@ -38,6 +38,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 3. For supplied binary/regression run exports, follow the experiments guide to import actual provider metadata and aligned prediction rows with dataset/split, code/model identity, preprocessing, seed and feature maps. Keep provider-reported metrics separate from recomputed metrics; do not log into a provider or train merely to import.
 4. Compare only fresh compatible task/dataset/split and row/target/slice identities. Suppress deltas when incompatible or stale. Explain overall and per-slice changes together, small denominators, missing dimensions, threshold changes, feature parity mismatches and temporal check coverage.
 5. Investigate an aggregate gain with a subgroup regression before making a recommendation. Supplied metadata is attributed evidence, matching feature maps do not execute preprocessing, and observed differences do not establish cause. Reconcile unexported/missing predictions and use project tooling for uncertainty, unsupported tasks or larger data.
+
 ## Technical method
 
 - **Inspect:** Inspect run manifests, data/split identity, metric definitions, code, failures and selection history.
@@ -70,5 +71,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Compare these runs and flag different datasets or metric definitions.
-- **edge (inspect):** Compare experiments that used different test periods and rounded headline scores.
-- **blocked (inspect):** Inspect incomplete run exports without inventing missing metrics or costs.
+- **Edge (inspect):** Compare experiments that used different test periods and rounded headline scores.
+- **Blocked (inspect):** Inspect incomplete run exports without inventing missing metrics or costs.

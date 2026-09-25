@@ -1,11 +1,11 @@
 ---
 name: ui-flow
-description: "Improve a complete user journey, including error recovery Use for a multi-step journey's decisions and recovery; ui-states defines individual screen states."
+description: "Improve a complete user journey, including error recovery. Use for a multi-step journey's decisions and recovery; ui-states defines individual screen states."
 ---
 
 # ui-flow
 
-Improve a complete user journey, including error recovery
+Improve a complete user journey, including error recovery.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan; user goal, entry/exit points, current flow, and success constraints.
 
-target screens/flows, existing design conventions, and runnable UI or supplied references. Visual claims require actual renders; accessibility claims distinguish automated, keyboard, and assistive-technology evidence.
+**Pack prerequisites:** Target screens/flows, existing design conventions, and runnable UI or supplied references. Visual claims require actual renders; accessibility claims distinguish automated, keyboard, and assistive-technology evidence.
 
 - **Infer from evidence:** Inspect the target flow, existing components/tokens, actual renders or supplied references and current responsive behavior.
 - **Reasonable default:** Reuse established visual conventions and preserve keyboard behavior; label unrendered changes as visually unverified.
@@ -35,6 +35,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 1. Walk the journey, map decisions and state transitions, identify dead ends/friction, and propose improvements; ui-states or design implements accepted changes.
 2. Trace entry, progress, validation, abandonment, retry and return paths; track which user input and permissions survive each transition.
+
 ## Technical method
 
 - **Inspect:** Map the user's objective, steps, branching choices, saved state and recovery from interruption.
@@ -70,5 +71,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Plan improving account recovery, including expired links and back navigation.
-- **edge (plan):** Plan how the onboarding flow recovers when session expiry interrupts it midway through a form.
-- **blocked (inspect):** Assess a flow from mockups without claiming observed conversion improvements.
+- **Edge (plan):** Plan how the onboarding flow recovers when session expiry interrupts it midway through a form.
+- **Blocked (inspect):** Assess a flow from mockups without claiming observed conversion improvements.

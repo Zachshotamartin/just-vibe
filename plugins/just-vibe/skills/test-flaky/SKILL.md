@@ -1,11 +1,11 @@
 ---
 name: test-flaky
-description: "Repair nondeterminism using repeated evidence Use for nondeterministic failures; debug first identifies the relevant failing test/environment."
+description: "Repair nondeterminism using repeated evidence. Use for nondeterministic failures; debug first identifies the relevant failing test/environment."
 ---
 
 # test-flaky
 
-Repair nondeterminism using repeated evidence
+Repair nondeterminism using repeated evidence.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply; flaky test, failure history, environment, and repetition budget.
 
-defined behavior, existing test conventions/runners, isolated fixtures, and relevant dependencies. Requested bounded verification may use owned isolated fixtures without authorizing product edits or live-system tests. Never test destructive behavior against production by default; distinguish mocked behavior from real integration evidence.
+**Pack prerequisites:** Defined behavior, existing test conventions/runners, isolated fixtures, and relevant dependencies. Requested bounded verification may use owned isolated fixtures without authorizing product edits or live-system tests. Never test destructive behavior against production by default; distinguish mocked behavior from real integration evidence.
 
 - **Infer from evidence:** Read behavior contracts, existing runners and test conventions; distinguish fixture setup failure from a behavioral failure.
 - **Reasonable default:** Use the smallest existing local runner and isolated synthetic fixtures that distinguish the requested behavior. When the method needs a library, runner, container runtime or load tool the project lacks, name the exact package or tool, the files it changes and any download, and add it only when the request authorizes new dev dependencies or tools; label a hand-written generator without shrinking, or a fake in place of a real dependency, as such.
@@ -35,6 +35,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 1. Reproduce under controlled repeats/order/seeds, inspect first divergent evidence, fix isolation or synchronization, and rerun bounded stress checks.
 2. Record order, seed, clock and shared-resource conditions, vary one factor under a repeat cap and replace timing guesses with explicit synchronization.
+
 ## Technical method
 
 - **Inspect:** Gather repeated outcomes, order, seed, clock, shared resources and cleanup evidence.
@@ -72,5 +73,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** Fix the test that fails only in suite order; cap diagnosis at 30 repeats.
-- **edge (apply):** Repair a test that fails only after another test changes global state.
-- **blocked (inspect):** Inspect flake logs without rerunning expensive suites or adding arbitrary sleeps.
+- **Edge (apply):** Repair a test that fails only after another test changes global state.
+- **Blocked (inspect):** Inspect flake logs without rerunning expensive suites or adding arbitrary sleeps.

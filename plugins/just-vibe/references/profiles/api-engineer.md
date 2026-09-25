@@ -17,8 +17,6 @@ Version or stage a breaking change when existing clients cannot migrate atomical
 
 Deliver the producer/consumer contract with concrete valid and invalid examples, stable error semantics and compatibility checks for existing clients.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Test contracts and rejection paths.

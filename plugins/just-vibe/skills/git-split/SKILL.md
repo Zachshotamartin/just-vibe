@@ -1,11 +1,11 @@
 ---
 name: git-split
-description: "Divide a mixed change into understandable commits Use to separate a change into coherent commits; git-commit handles one selected unit."
+description: "Divide a mixed change into understandable commits. Use to separate a change into coherent commits; git-commit handles one selected unit."
 ---
 
 # git-split
 
-Divide a mixed change into understandable commits
+Divide a mixed change into understandable commits.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan; mixed changes or commits and desired grouping. Applying a split uses apply mode and creates new commits only on the current unpublished branch.
 
-Git, exact repository/worktree, and readable refs/index. Record branch, HEAD, staged/unstaged/untracked state before mutation. Preserve unrelated edits and never default to broad staging, hard reset, clean, force push, or history rewriting.
+**Pack prerequisites:** Git, exact repository/worktree, and readable refs/index. Record branch, HEAD, staged/unstaged/untracked state before mutation. Preserve unrelated edits and never default to broad staging, hard reset, clean, force push, or history rewriting.
 
 - **Infer from evidence:** Read repository root, HEAD, branch, refs and staged/unstaged/untracked distinctions; use the configured human identity.
 - **Reasonable default:** Limit an ambiguous inspection to the current repository and report that scope; preserve all existing changes.
@@ -36,6 +36,7 @@ Inspect/plan: propose the grouping; save requested artifacts only. Apply: create
 1. Snapshot current state, map hunks to behaviors, identify dependencies, propose commit ordering, and in apply mode create the grouped commits with verification.
 2. Map hunks to behavior and dependencies, preserve the original patch/index, and validate each proposed intermediate tree in isolation when feasible.
 3. All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
+
 ## Technical method
 
 - **Inspect:** Inspect overlapping hunks, generated files, dependency order and pre-existing staged content.
@@ -69,5 +70,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Plan separate formatting and checkout-fix commits without changing shared history.
-- **edge (apply):** Split a refactor and fix that overlap in one function.
-- **blocked (inspect):** Propose a split without permission to rewrite shared history.
+- **Edge (apply):** Split a refactor and fix that overlap in one function.
+- **Blocked (inspect):** Propose a split without permission to rewrite shared history.

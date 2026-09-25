@@ -1,11 +1,11 @@
 ---
 name: auto
-description: "Select and apply the relevant engineering workflows from an ordinary request Use for ordinary coding, debugging, review, UI, delivery, architecture or ML requests that benefit from project workflows, including multi-step tasks without a command name. Skip unrelated conversation; use a directly relevant skill when it is already selected."
+description: "Select and apply the relevant engineering workflows from an ordinary request. Use for ordinary coding, debugging, review, UI, delivery, architecture or ML requests that benefit from project workflows, including multi-step tasks without a command name. Skip unrelated conversation; use a directly relevant skill when it is already selected."
 ---
 
 # auto
 
-Select and apply the relevant engineering workflows from an ordinary request
+Select and apply the relevant engineering workflows from an ordinary request.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply within the requested goal; objective plus arbitrary constraints, references, environment, and optional mode/budget. Requires available workflow discovery.
 
-Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
+**Pack prerequisites:** Resolve the user brief and inspect the relevant project or supplied evidence. External capabilities are optional unless the selected action actually needs them.
 
 - **Infer from evidence:** Resolve the named files, existing scripts, current task and earlier corrections from the conversation and repository.
 - **Reasonable default:** Use the narrowest interpretation that completes a reversible local task; state a consequential assumption once.
@@ -42,6 +42,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 7. If quick work grows, carry the original brief, completed work, observations, selected profile and consumed budget into tracked context; pass the profile as a selection request with selectedBy agent unless the user pinned it. Record remaining stages; never fabricate earlier validated transitions or restart a user limit.
 8. Reconcile uncertain external effects before retrying. Keep failures and stop within the applicable stage/attempt/time budget. Finish only when original success conditions are supported; report partial or blocked results plainly.
 9. Check the original outcome and exclusions before each workflow transition; a new routing suggestion does not expand scope.
+
 ## Technical method
 
 - **Inspect:** Read the complete goal, exclusions, pinned profile, project evidence and stage dependencies.
@@ -80,5 +81,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** Fix the checkout bug, add meaningful regression coverage, and verify; no new dependencies.
-- **edge (apply):** Finish a task using local artifacts after a remote diagnostic stage is blocked.
-- **blocked (inspect):** Inspect a route with missing access; do not invent credentials or claim blocked actions ran.
+- **Edge (apply):** Finish a task using local artifacts after a remote diagnostic stage is blocked.
+- **Blocked (inspect):** Inspect a route with missing access; do not invent credentials or claim blocked actions ran.

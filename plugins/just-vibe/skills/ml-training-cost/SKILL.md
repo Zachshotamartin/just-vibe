@@ -1,11 +1,11 @@
 ---
 name: ml-training-cost
-description: "Profile training time, memory, and resource bottlenecks Use to analyze training resource use; ml-inference-perf measures deployed prediction work."
+description: "Profile training time, memory, and resource bottlenecks. Use to analyze training resource use; ml-inference-perf measures deployed prediction work."
 ---
 
 # ml-training-cost
 
-Profile training time, memory, and resource bottlenecks
+Profile training time, memory, and resource bottlenecks.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; training traces, hardware, workload, budget, and cost-rate evidence.
 
-dataset/split manifests, fixed objective/metric, environment/dependencies, baseline where applicable, and explicit compute limits. Record code revision, configuration, seeds, artifact paths, and resource use. Local smoke checks do not imply authorization for paid training. Never optimize on the held-out test set.
+**Pack prerequisites:** Dataset/split manifests, fixed objective/metric, environment/dependencies, baseline where applicable, and explicit compute limits. Record code revision, configuration, seeds, artifact paths, and resource use. Local smoke checks do not imply authorization for paid training. Never optimize on the held-out test set.
 
 - **Infer from evidence:** Read framework, training entry point, loss/metric, split manifests and checkpoint conventions from supplied source.
 - **Reasonable default:** In apply mode, implement requested code and tiny isolated smoke checks with existing tools, and otherwise propose them; leave unmeasured model quality explicit.
@@ -35,6 +35,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 1. Separate startup/loading/compute/checkpoint time, inspect batch/resource utilization, identify bottlenecks, and propose measured optimizations or bounded profiling.
 2. Separate data loading, host-to-device transfer, compute, synchronization and checkpoint time; relate utilization to the same quality target and workload.
+
 ## Technical method
 
 - **Inspect:** Measure data loading, compute, synchronization, memory peaks, checkpointing and failed trials.
@@ -67,5 +68,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Analyze the supplied profile for loading, compute, and checkpoint bottlenecks.
-- **edge (inspect):** Diagnose an idle accelerator stalled by data loading.
-- **blocked (inspect):** Estimate training effort from sparse logs without inventing cloud prices.
+- **Edge (inspect):** Diagnose an idle accelerator stalled by data loading.
+- **Blocked (inspect):** Estimate training effort from sparse logs without inventing cloud prices.

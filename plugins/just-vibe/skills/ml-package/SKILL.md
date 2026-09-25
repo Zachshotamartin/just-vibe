@@ -1,11 +1,11 @@
 ---
 name: ml-package
-description: "Package preprocessing, artifacts, dependencies, and interfaces Use to create a reproducible inference artifact; ml-serving implements the serving boundary."
+description: "Package preprocessing, artifacts, dependencies, and interfaces. Use to create a reproducible inference artifact; ml-serving implements the serving boundary."
 ---
 
 # ml-package
 
-Package preprocessing, artifacts, dependencies, and interfaces
+Package preprocessing, artifacts, dependencies, and interfaces.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply; model/preprocessing artifacts, runtime, interface, and output location.
 
-versioned model and preprocessing artifacts, input/output schema, runtime/dependencies, operating targets, and authorized environment. Validate artifact trust before loading formats that can execute code. Packaging or writing monitoring configuration does not deploy a model or enable a hosted service.
+**Pack prerequisites:** Versioned model and preprocessing artifacts, input/output schema, runtime/dependencies, operating targets, and authorized environment. Validate artifact trust before loading formats that can execute code. Packaging or writing monitoring configuration does not deploy a model or enable a hosted service.
 
 - **Infer from evidence:** Read artifact format/trust, preprocessing schema, serving runtime, compatibility and existing rollout controls.
 - **Reasonable default:** Prepare packaging/configuration and isolated checks without treating them as a live deployment.
@@ -35,6 +35,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 1. Verify artifact provenance, bundle preprocessing and schema, pin compatible dependencies, record versions/checksums, and run known-input smoke/parity checks.
 2. Bundle preprocessing, feature order/schema, model identity, dependency constraints and known-input expectations; validate fresh-load parity in an isolated supported environment.
+
 ## Technical method
 
 - **Inspect:** Inventory model/preprocessor, ordered feature schema, versions, provenance and artifact format.
@@ -67,5 +68,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** Package the model with preprocessing, schema, dependencies, and parity fixtures.
-- **edge (apply):** Package a model whose categorical encoder and feature order were saved separately.
-- **blocked (inspect):** Inspect an artifact manifest without loading untrusted executable serialization.
+- **Edge (apply):** Package a model whose categorical encoder and feature order were saved separately.
+- **Blocked (inspect):** Inspect an artifact manifest without loading untrusted executable serialization.

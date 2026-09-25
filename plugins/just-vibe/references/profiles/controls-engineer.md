@@ -17,8 +17,6 @@ Use a bounded model or simulation when live tuning would risk equipment or peopl
 
 State plant/model assumptions, sampling and stability constraints, then compare the requested controller under disturbances and saturation with appropriate safety bounds.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Test disturbances, sensor loss and actuator saturation.

@@ -1,11 +1,11 @@
 ---
 name: data-incremental
-description: "Implement checkpoints, deduplication, and incremental processing Use for replay-safe CDC or watermark processing; data-backfill handles bounded historical ranges."
+description: "Implement checkpoints, deduplication, and incremental processing. Use for replay-safe CDC or watermark processing; data-backfill handles bounded historical ranges."
 ---
 
 # data-incremental
 
-Implement checkpoints, deduplication, and incremental processing
+Implement checkpoints, deduplication, and incremental processing.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply; source change mechanism, stable keys, watermark/checkpoint, late-data policy, and destination semantics.
 
-data source/version, schema/semantics, transformation code, permitted sampling scope, and storage/compute budget. Prefer aggregates and redacted samples; never upload datasets to external services implicitly. Record time zones and snapshot identity for reproducibility.
+**Pack prerequisites:** Data source/version, schema/semantics, transformation code, permitted sampling scope, and storage/compute budget. Prefer aggregates and redacted samples; never upload datasets to external services implicitly. Record time zones and snapshot identity for reproducibility.
 
 - **Infer from evidence:** Inspect schema, source snapshot, transformation code, grain, time zones and permitted sample scope.
 - **Reasonable default:** Use bounded synthetic or supplied samples when full data is unavailable; keep unknown values distinct from zero.
@@ -35,6 +35,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 1. Define ordering and checkpoint transactions, handle overlap/late arrivals, make replay safe, and test crashes around write/checkpoint boundaries.
 2. Define event versus arrival order, stable keys, deletions and overlap; persist checkpoints only after durable effects and test both sides of that boundary.
+
 ## Technical method
 
 - **Inspect:** Identify ordering key, watermark meaning, late arrival bound, change/delete events and deduplication identity.
@@ -67,5 +68,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** Implement checkpointed updates that handle late records and deletion events.
-- **edge (apply):** Process late corrections while safely replaying the previous hour.
-- **blocked (inspect):** Review incremental design without stable source identity; identify the blocking semantic gap.
+- **Edge (apply):** Process late corrections while safely replaying the previous hour.
+- **Blocked (inspect):** Review incremental design without stable source identity; identify the blocking semantic gap.

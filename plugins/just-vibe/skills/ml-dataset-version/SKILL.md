@@ -1,11 +1,11 @@
 ---
 name: ml-dataset-version
-description: "Record dataset identity, transformations, and provenance Use to identify reproducible data/splits; data-lineage explains transformations."
+description: "Record dataset identity, transformations, and provenance. Use to identify reproducible data/splits; data-lineage explains transformations."
 ---
 
 # ml-dataset-version
 
-Record dataset identity, transformations, and provenance
+Record dataset identity, transformations, and provenance.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply; dataset snapshot, transforms, source identifiers, and approved manifest location.
 
-task definition, dataset identity, field semantics, entity/time keys, and permission to inspect bounded data. Record prediction moment, label horizon, sampling, and provenance. Preserve held-out evaluation boundaries; no data upload, label alteration, or feature fitting across splits implicitly.
+**Pack prerequisites:** Task definition, dataset identity, field semantics, entity/time keys, and permission to inspect bounded data. Record prediction moment, label horizon, sampling, and provenance. Preserve held-out evaluation boundaries; no data upload, label alteration, or feature fitting across splits implicitly.
 
 - **Infer from evidence:** Read prediction moment, label horizon, entity/time keys, split policy and dataset provenance from the task and manifests.
 - **Reasonable default:** Use explicit synthetic examples for design when raw data is unavailable; do not infer missing labels or fit preprocessing across held-out boundaries.
@@ -35,6 +35,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 1. Record immutable references or hashes where feasible, schema, transformation/code versions, split identity, and creation parameters; verify referential accessibility.
 2. Record source snapshot or content identity, transformation revision, schema, split membership and immutable access references without storing secrets or raw private data.
+
 ## Technical method
 
 - **Inspect:** Inventory source snapshot IDs, transforms, schema, split membership and label-version policy.
@@ -67,5 +68,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** Write a provenance manifest for the identified dataset without copying raw records.
-- **edge (apply):** Version a dataset whose remote contents can change at the same path.
-- **blocked (inspect):** Plan versioning without permission for a full expensive hash scan.
+- **Edge (apply):** Version a dataset whose remote contents can change at the same path.
+- **Blocked (inspect):** Plan versioning without permission for a full expensive hash scan.

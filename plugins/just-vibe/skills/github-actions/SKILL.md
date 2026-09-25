@@ -1,11 +1,11 @@
 ---
 name: github-actions
-description: "Improve workflows, caching, permissions, and job structure Use to implement requested workflow changes; github-fix-ci repairs one failed run."
+description: "Improve workflows, caching, permissions, and job structure. Use to implement requested workflow changes; github-fix-ci repairs one failed run."
 ---
 
 # github-actions
 
-Improve workflows, caching, permissions, and job structure
+Improve workflows, caching, permissions, and job structure.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply; workflow goal, event model, runtime constraints, and existing workflows.
 
-exact owner/repository and relevant issue/PR/ref; authenticated read access through an available connector or CLI for remote evidence. External writes require the requested operation, appropriate account permissions, and rechecking target state. Local preparation remains useful without write access.
+**Pack prerequisites:** Exact owner/repository and relevant issue/PR/ref; authenticated read access through an available connector or CLI for remote evidence. External writes require the requested operation, appropriate account permissions, and rechecking target state. Local preparation remains useful without write access.
 
 - **Infer from evidence:** Resolve owner/repository and PR/issue/ref from links, remotes and supplied artifacts; inspect available account and head identity.
 - **Reasonable default:** Prepare local text or analyze supplied evidence if remote access is absent; label its freshness.
@@ -38,6 +38,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 3. Design job dependencies, cache identity and cancellation by effect: cancelling an obsolete test run differs from interrupting a release halfway through publication. Prevent overlapping destructive jobs without hiding failures or sharing artifacts across untrusted scopes.
 4. Validate syntax plus representative trusted/untrusted event paths. Verify required check names remain reachable for applicable branches and that skipped/conditional jobs do not accidentally report an untested release as ready. Describe changes without agent self-attribution.
 5. Use the matching bundled evidence collector when available; read its result and limitations rather than treating exit zero as readiness. Revalidate identity before a dependent action.
+
 ## Technical method
 
 - **Inspect:** Inspect event, checked-out ref, job permissions, secret access, interpolation, action pins and artifact producers.
@@ -72,5 +73,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** Improve workflow caching and permissions while preserving fork-PR checks.
-- **edge (apply):** Add a release workflow without exposing secrets to fork pull requests.
-- **blocked (inspect):** Review a workflow from YAML only; distinguish syntax validation from a successful runner execution.
+- **Edge (apply):** Add a release workflow without exposing secrets to fork pull requests.
+- **Blocked (inspect):** Review a workflow from YAML only; distinguish syntax validation from a successful runner execution.

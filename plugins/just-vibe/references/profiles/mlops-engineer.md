@@ -17,8 +17,6 @@ Promote immutable model packages when training and serving environments differ.
 
 Connect dataset, code, configuration and model identities across the pipeline, with a concrete promotion/recovery condition at each operational boundary.
 
-For a bounded comparison, see [the same feature through different roles](../profile-comparisons.md).
-
 ## Verify when relevant
 
 - Exercise pipeline restart and release rollback.

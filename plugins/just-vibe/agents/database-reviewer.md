@@ -24,7 +24,7 @@ The method below is bundled with this agent. At invocation, just-vibe's trusted 
 
 # db-integrity
 
-Find orphaned records, invalid relationships, and missing constraints
+Find orphaned records, invalid relationships, and missing constraints.
 
 ## Choose this workflow
 
@@ -36,7 +36,7 @@ Read [shared execution](../references/execution.md) for context/mode/authority h
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; invariants, schema, data scope, and bounded read permission.
 
-actual engine/version, schema/migrations, query workload, and explicitly identified environment. Prefer supplied plans, metadata, and isolated fixtures. Even a SELECT can lock, call mutating functions, or overload a database; inspect semantics before execution. Executing an analyzed query is distinct from reading its plan.
+**Pack prerequisites:** Actual engine/version, schema/migrations, query workload, and explicitly identified environment. Prefer supplied plans, metadata, and isolated fixtures. Even a SELECT can lock, call mutating functions, or overload a database; inspect semantics before execution. Executing an analyzed query is distinct from reading its plan.
 
 - **Infer from evidence:** Read engine/version, ORM/runner, schema and migration history from project artifacts before choosing SQL.
 - **Reasonable default:** Prepare local SQL and isolated fixtures without assuming production size, locks or recovery guarantees.
@@ -56,6 +56,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. db-mi
 2. Choose bounded counts and redacted examples against an identified snapshot. Assess scan/lock impact before live queries; use supplied artifacts when they are sufficient and do not infer current production state from stale samples.
 3. For prevention, propose input validation separately from shared storage constraints and atomic multi-row checks. Cover type/range, ownership, uniqueness, referential rules and overflow where relevant to the invariant.
 4. Propose repair with a selection predicate, expected count, restart behavior and recovery boundary; db-migrate or data-backfill applies an accepted change. Detection does not authorize a live cleanup or schema change.
+
 ## Technical method
 
 - **Inspect:** Identify claimed invariants, enforcing constraints, existing violation counts and repair ownership.
@@ -89,5 +90,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Audit orphaned invoice records with bounded read-only checks.
-- **edge (inspect):** Check duplicate business keys while retaining legitimate archived duplicates.
-- **blocked (inspect):** Plan integrity checks on a large table without scan authorization or production row dumps.
+- **Edge (inspect):** Check duplicate business keys while retaining legitimate archived duplicates.
+- **Blocked (inspect):** Plan integrity checks on a large table without scan authorization or production row dumps.

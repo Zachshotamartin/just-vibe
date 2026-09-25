@@ -24,7 +24,7 @@ The method below is bundled with this agent. At invocation, just-vibe's trusted 
 
 # arch-boundaries
 
-Find misplaced responsibilities, dependency cycles, and leaking abstractions
+Find misplaced responsibilities, dependency cycles, and leaking abstractions.
 
 ## Choose this workflow
 
@@ -36,7 +36,7 @@ Read [shared execution](../references/execution.md) for context/mode/authority h
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; modules/services and intended responsibility rules.
 
-readable source, infrastructure/configuration definitions, and any supplied system documentation. Runtime telemetry is optional evidence, never assumed available. Architecture proposals remain plans until implementation is requested.
+**Pack prerequisites:** Readable source, infrastructure/configuration definitions, and any supplied system documentation. Runtime telemetry is optional evidence, never assumed available. Architecture proposals remain plans until implementation is requested.
 
 - **Infer from evidence:** Trace current entry points, data owners, deployment units and documented constraints before proposing boundaries.
 - **Reasonable default:** Prefer extending an existing owner while scale or organizational evidence is absent; mark capacity estimates as assumptions.
@@ -56,6 +56,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 2. Trace a representative change and failure across the proposed boundary. Identify shared transactions, cycles, leaked internals and callers that would need coordinated release; file count alone is not evidence of a bad boundary.
 3. Propose the smallest interface or ownership correction that reduces the demonstrated coupling. Specify allowed dependencies, compatibility, error semantics and enforcement in the existing build/test architecture.
 4. Verify the boundary with a consumer-facing contract check and a forbidden-dependency example when appropriate. Estimate migration impact from actual consumers and keep unmeasured organizational benefits conditional.
+
 ## Technical method
 
 - **Inspect:** Find dependency cycles, shared mutable tables, cross-module imports and repeated business rules at actual call sites.
@@ -88,5 +89,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Find responsibility leaks and dependency cycles in billing.
-- **edge (inspect):** Assess a shared utility with many callers but no ownership violation.
-- **blocked (inspect):** Review boundaries without an ownership map; identify assumptions requiring team input.
+- **Edge (inspect):** Assess a shared utility with many callers but no ownership violation.
+- **Blocked (inspect):** Review boundaries without an ownership map; identify assumptions requiring team input.

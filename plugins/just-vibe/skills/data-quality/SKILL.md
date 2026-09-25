@@ -1,11 +1,11 @@
 ---
 name: data-quality
-description: "Check freshness, completeness, validity, and consistency Use to evaluate an identified snapshot against declared rules; data-profile discovers descriptive anomalies, data-pipeline embeds checks and ops-observability or ops-alerts implement monitoring."
+description: "Check freshness, completeness, validity, and consistency. Use to evaluate an identified snapshot against declared rules; data-profile discovers descriptive anomalies, data-pipeline embeds checks and ops-observability or ops-alerts implement monitoring."
 ---
 
 # data-quality
 
-Check freshness, completeness, validity, and consistency
+Check freshness, completeness, validity, and consistency.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; dataset, quality contract, thresholds, time window, and bounded execution access.
 
-data source/version, schema/semantics, transformation code, permitted sampling scope, and storage/compute budget. Prefer aggregates and redacted samples; never upload datasets to external services implicitly. Record time zones and snapshot identity for reproducibility.
+**Pack prerequisites:** Data source/version, schema/semantics, transformation code, permitted sampling scope, and storage/compute budget. Prefer aggregates and redacted samples; never upload datasets to external services implicitly. Record time zones and snapshot identity for reproducibility.
 
 - **Infer from evidence:** Inspect schema, source snapshot, transformation code, grain, time zones and permitted sample scope.
 - **Reasonable default:** Use bounded synthetic or supplied samples when full data is unavailable; keep unknown values distinct from zero.
@@ -35,6 +35,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. data-
 
 1. Resolve applicable rules, evaluate against the identified snapshot, separate warnings from failures, compare history where available, and identify likely upstream causes.
 2. Freeze applicable thresholds before observing results, evaluate completeness/freshness/validity separately and count excluded or unreadable records.
+
 ## Technical method
 
 - **Inspect:** Resolve completeness, freshness, validity and consistency rules with denominators and consumer impact.
@@ -67,5 +68,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Check these records against the supplied freshness and validity rules.
-- **edge (inspect):** Evaluate fresh-but-incomplete and complete-but-stale partitions separately.
-- **blocked (inspect):** Assess known rules without data access; do not install monitors or invent pass rates.
+- **Edge (inspect):** Evaluate fresh-but-incomplete and complete-but-stale partitions separately.
+- **Blocked (inspect):** Assess known rules without data access; do not install monitors or invent pass rates.

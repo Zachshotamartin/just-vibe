@@ -1,11 +1,11 @@
 ---
 name: vite-chunks
-description: "Investigate loading boundaries, duplicated modules, and chunks Use to change lazy-loading/cache boundaries; vite-bundle first identifies heavy contributors."
+description: "Investigate loading boundaries, duplicated modules, and chunks. Use to change lazy-loading/cache boundaries; vite-bundle first identifies heavy contributors."
 ---
 
 # vite-chunks
 
-Investigate loading boundaries, duplicated modules, and chunks
+Investigate loading boundaries, duplicated modules, and chunks.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect for analysis; apply for a requested split or loading-boundary change. Requires route/loading behavior, build artifacts, and chunk configuration.
 
-project manifests, lockfile, Vite/framework/plugin versions, and existing build scripts. Verify current version-specific documentation when changing configuration. Requested isolated verification may generate disposable build/cache artifacts; inspect their scripts first and preserve product files.
+**Pack prerequisites:** Project manifests, lockfile, Vite/framework/plugin versions, and existing build scripts. Verify current version-specific documentation when changing configuration. Requested isolated verification may generate disposable build/cache artifacts; inspect their scripts first and preserve product files.
 
 - **Infer from evidence:** Read manifests, lockfile, installed Vite/plugins, entry points, aliases, modes and current build scripts.
 - **Reasonable default:** Preserve existing tooling and base-path conventions; in apply mode, make a local focused change when the brief identifies the behavior, and otherwise propose it.
@@ -35,6 +35,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the
 
 1. Map entry/chunk relationships, inspect waterfalls and dependency duplication, evaluate cache/initial-load tradeoffs, and propose focused splitting changes.
 2. Map dynamic imports and shared chunks to representative navigation waterfalls; examine duplication, circular dependencies and cache invalidation costs.
+
 ## Technical method
 
 - **Inspect:** Inspect dynamic imports, shared dependencies, manual chunk rules and module side effects.
@@ -67,5 +68,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Find duplicated dependencies and loading-boundary issues in these build artifacts.
-- **edge (apply):** Split a heavy dashboard while preserving direct deep links and shared vendor initialization.
-- **blocked (inspect):** Plan chunks without network traces; report loading benefits as hypotheses.
+- **Edge (apply):** Split a heavy dashboard while preserving direct deep links and shared vendor initialization.
+- **Blocked (inspect):** Plan chunks without network traces; report loading benefits as hypotheses.

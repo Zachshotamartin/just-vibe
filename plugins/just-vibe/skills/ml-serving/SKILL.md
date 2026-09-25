@@ -1,11 +1,11 @@
 ---
 name: ml-serving
-description: "Implement online inference with validation and observable errors Use to implement model service behavior; ml-rollout plans traffic transition."
+description: "Implement online inference with validation and observable errors. Use to implement model service behavior; ml-rollout plans traffic transition."
 ---
 
 # ml-serving
 
-Implement online inference with validation and observable errors
+Implement online inference with validation and observable errors.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **apply**. Apply; model package, request/response contract, latency/resource constraints, and target runtime.
 
-versioned model and preprocessing artifacts, input/output schema, runtime/dependencies, operating targets, and authorized environment. Validate artifact trust before loading formats that can execute code. Packaging or writing monitoring configuration does not deploy a model or enable a hosted service.
+**Pack prerequisites:** Versioned model and preprocessing artifacts, input/output schema, runtime/dependencies, operating targets, and authorized environment. Validate artifact trust before loading formats that can execute code. Packaging or writing monitoring configuration does not deploy a model or enable a hosted service.
 
 - **Infer from evidence:** Read artifact format/trust, preprocessing schema, serving runtime, compatibility and existing rollout controls.
 - **Reasonable default:** Prepare packaging/configuration and isolated checks without treating them as a live deployment.
@@ -35,6 +35,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 1. Validate inputs, manage model lifecycle/readiness, enforce resource/time limits, map errors, add redacted observability, and test concurrent valid/invalid requests.
 2. Define readiness for the correct artifact, input bounds, batching/concurrency and deadlines; validate shapes/types before inference and preserve version in responses/telemetry.
+
 ## Technical method
 
 - **Inspect:** Resolve request schema, batching, concurrency, model lifecycle, device memory and timeout budget.
@@ -67,5 +68,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** Implement local inference with validation, readiness, and safe error handling.
-- **edge (apply):** Serve a model with bounded batch size and a failed startup load.
-- **blocked (inspect):** Design serving code without provisioning an endpoint or logging raw sensitive inputs.
+- **Edge (apply):** Serve a model with bounded batch size and a failed startup load.
+- **Blocked (inspect):** Design serving code without provisioning an endpoint or logging raw sensitive inputs.

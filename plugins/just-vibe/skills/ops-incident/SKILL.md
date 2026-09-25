@@ -1,11 +1,11 @@
 ---
 name: ops-incident
-description: "Organize symptoms, evidence, impact, hypotheses, and immediate actions Use for current operational triage; ops-postmortem reconstructs the completed incident."
+description: "Organize symptoms, evidence, impact, hypotheses, and immediate actions. Use for current operational triage; ops-postmortem reconstructs the completed incident."
 ---
 
 # ops-incident
 
-Organize symptoms, evidence, impact, hypotheses, and immediate actions
+Organize symptoms, evidence, impact, hypotheses, and immediate actions.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; symptoms, affected service/environment, incident window, and known impact. Apply for a specific mitigation the user authorizes.
 
-exact service/environment, time window, revision/configuration identity, authorized logs/metrics, and operational constraints. Prefer observation before intervention; live restarts, traffic changes, restores, and notifications require the requested target/action. Redact sensitive telemetry.
+**Pack prerequisites:** Exact service/environment, time window, revision/configuration identity, authorized logs/metrics, and operational constraints. Prefer observation before intervention; live restarts, traffic changes, restores, and notifications require the requested target/action. Redact sensitive telemetry.
 
 - **Infer from evidence:** Read service/environment, time window, revision, available telemetry and existing incident or recovery procedure.
 - **Reasonable default:** Start from supplied logs and read-only observation; rank hypotheses without presenting an unexecuted intervention as recovery.
@@ -35,6 +35,7 @@ Inspect/plan: triage and recommend; save requested artifacts only. Apply: carry 
 
 1. Establish impact and timeline, separate facts from hypotheses, inspect recent changes and dependencies, prioritize reversible mitigations, and track action/evidence state.
 2. Establish impact, time window, affected revision and current changes; keep a timestamped fact/hypothesis/action ledger and prefer reversible mitigations within scope.
+
 ## Technical method
 
 - **Inspect:** Resolve incident window/timezone, service/revision, customer impact and available logs/metrics/traces.
@@ -70,6 +71,6 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Organize this incident's impact, timeline, and next diagnostic actions without restarting services.
-- **edge (inspect):** Triage rising errors after a deployment with an unrelated provider incident.
-- **blocked (inspect):** Inspect supplied incident evidence without restarting services or sending customer messages.
+- **Edge (inspect):** Triage rising errors after a deployment with an unrelated provider incident.
+- **Blocked (inspect):** Inspect supplied incident evidence without restarting services or sending customer messages.
 - **Additional (apply):** Roll back checkout-api to the previous release and restart the payment worker; I authorize both.

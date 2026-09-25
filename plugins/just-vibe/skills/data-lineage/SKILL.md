@@ -1,11 +1,11 @@
 ---
 name: data-lineage
-description: "Trace field origins and transformations Use to trace a field's origin and transformation; trace follows an execution instance."
+description: "Trace field origins and transformations. Use to trace a field's origin and transformation; trace follows an execution instance."
 ---
 
 # data-lineage
 
-Trace field origins and transformations
+Trace field origins and transformations.
 
 ## Choose this workflow
 
@@ -17,7 +17,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **inspect**. Inspect; field/table/report and source/transformation definitions.
 
-data source/version, schema/semantics, transformation code, permitted sampling scope, and storage/compute budget. Prefer aggregates and redacted samples; never upload datasets to external services implicitly. Record time zones and snapshot identity for reproducibility.
+**Pack prerequisites:** Data source/version, schema/semantics, transformation code, permitted sampling scope, and storage/compute budget. Prefer aggregates and redacted samples; never upload datasets to external services implicitly. Record time zones and snapshot identity for reproducibility.
 
 - **Infer from evidence:** Inspect schema, source snapshot, transformation code, grain, time zones and permitted sample scope.
 - **Reasonable default:** Use bounded synthetic or supplied samples when full data is unavailable; keep unknown values distinct from zero.
@@ -35,6 +35,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. data-
 
 1. Trace field expressions through jobs/views, identify version and ownership boundaries, record lossy transformations, and mark opaque external steps.
 2. Follow expressions through joins, filters, aggregations and versioned jobs; record grain changes and lossy transformations at each boundary.
+
 ## Technical method
 
 - **Inspect:** Read SQL, transformation code, field mappings, job versions and execution/snapshot metadata.
@@ -67,5 +68,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Trace invoice_total through the transforms and source columns.
-- **edge (inspect):** Trace a revenue metric through currency conversion and filtered joins.
-- **blocked (inspect):** Map lineage from partial job definitions without upstream access.
+- **Edge (inspect):** Trace a revenue metric through currency conversion and filtered joins.
+- **Blocked (inspect):** Map lineage from partial job definitions without upstream access.
