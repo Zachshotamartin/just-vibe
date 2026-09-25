@@ -2,6 +2,16 @@
 
 ## Unreleased
 
+- Route ordinary requests to the right workflow. On 1,183 realistic requests from the September 2026 review, the right workflow now ranks first for 63% (was 35%) and in the top three for 82% (was 53%); a ratchet on that corpus guards the rates.
+- Engage automatic assistance on everyday engineering requests, answer "which workflow should I use" questions without starting the task, and keep a chosen role across prompts, compaction and resume.
+- Classify quick versus tracked work from each request's verbs and objects, so external, destructive and consequential effects are tracked and local edits stay quick.
+- Make every workflow's mode policy, write scope, examples and defaults agree, and validate that agreement, including examples that ask for a change.
+- State each workflow's procedure once and in order, with one output, and name neighboring workflows where their scopes meet. Generated skills punctuate descriptions, label pack prerequisites and keep headings separate.
+- Link profiles to the workflows and specialist methods their work needs, differentiate overlapping roles, move domain architects into their domains and add an open-source maintainer profile. Profile search finds roles by name and by task.
+- Correct technical guidance, including React 19 APIs, WCAG 2.2 thresholds, RFC 9457 errors, webhook signature rotation, provider-neutral token accounting and unreachable Git objects.
+- Make tracked runs safe to retry and add a validated continuation link. CLI operations name missing fields, missing records point to the command that lists them, and doctor reports every failing layer at once.
+- Evaluate large tool events in hooks instead of letting them through, and show the last hook failure in diagnose status.
+- Stop shipping development and audit records in the npm archive, and use one product description across the package, marketplaces and plugin manifests.
 - Remove the default sixty-minute limit from tracked `auto` and workflow runs. `budget.maxMinutes` is `null` (no wall-clock limit) unless the user sets 1–1440 minutes; stage and attempt budgets are unchanged, and capped runs still expire and cannot be reset by resume.
 
 ## 0.12.0
