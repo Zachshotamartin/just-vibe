@@ -52,6 +52,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 ## Decision branches
 
 - **When duplicate clicks or retries can create duplicate effects:** Coordinate UI pending state with server idempotency; disabling a button alone is insufficient.
+- **When the form uses React 19 Actions (form action or useActionState):** A completed Action resets uncontrolled fields even when it returns validation errors as state. When input must survive a rejection, return the submitted values and bind defaultValue to them, use controlled inputs, or submit through onSubmit with startTransition. Use useFormStatus for pending UI, and useOptimistic only with reconciliation against the server result.
 
 ## Deliver and verify
 
@@ -61,6 +62,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
 - Invalid input is actionable without losing data; server rejection and double submission have deliberate outcomes.
+- A server rejection under a form Action retains the entered field values.
 
 ## Stop and recover
 

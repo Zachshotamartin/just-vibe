@@ -28,7 +28,7 @@ Find target leakage, temporal leakage, and split contamination
 
 ## Choose this workflow
 
-Use to audit demonstrated information leakage; ml-split designs the evaluation protocol.
+Use to audit demonstrated information leakage; ml-split designs the evaluation protocol, and ml-parity or ml-drift own train/serve skew and population change.
 
 Read [shared execution](../references/execution.md) for context/mode/authority handling and [ML data methods](../references/packs/ml-data.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -75,6 +75,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 ## Decision branches
 
 - **When no raw measurements, event IDs or fitting history establish dependence:** Report conditional risk or unknown, not proven shared events, mandatory gap length or universal score invalidity.
+- **When the symptom is an offline-versus-production gap:** Run one discriminating check per cause before concluding and report which causes each check excludes: recompute offline metrics on production-logged features for the same rows (skew, ml-parity), compare evaluation-window and production feature and prediction distributions (drift, ml-drift), and audit feature availability and split lineage (leakage, ml-leakage).
 
 ## Deliver and verify
 

@@ -33,12 +33,12 @@ Inspect/plan: locate candidates and describe restoration steps without writing. 
 
 ## Execute
 
-1. Inspect reflog, refs, stashes, and reachable candidates; compare candidate contents; explain confidence; in apply mode, create a recovery ref or copy only when restoration is requested.
+1. Inspect reflog, refs, stashes, and reachable candidates, then unreachable objects with read-only git fsck --unreachable --no-reflogs (stash commits are merge commits titled WIP on or On); avoid commands that may trigger automatic garbage collection until the candidate is preserved; compare candidate contents; explain confidence; in apply mode, create a recovery ref or copy only when restoration is requested.
 2. Inspect reflog/stash/reachable candidates, compare file contents and preserve the chosen commit with a new ref before any active-branch movement.
 3. All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
 ## Technical method
 
-- **Inspect:** Inspect reflogs, stashes, reachable refs and candidate object contents before changing active refs.
+- **Inspect:** Inspect reflogs, stashes, reachable refs, unreachable objects from git fsck and candidate object contents before changing active refs.
 - **Method:** Preserve a verified candidate with a new branch or copy, then explain how it differs from current work.
 - **Avoid misdiagnosis:** Reflogs expire and may not exist for another clone; garbage collection can remove the very objects being recovered.
 - **Check the result:** Verify the recovered tree contains the requested content and leaves the original branch, index and worktree recoverable.
@@ -50,7 +50,7 @@ Inspect/plan: locate candidates and describe restoration steps without writing. 
 
 ## Decision branches
 
-- **When the candidate is absent or unreachable evidence is incomplete:** State the recovery limit and avoid cleanup that could reduce recoverability.
+- **When the candidate is absent after the reflog, ref, stash and unreachable-object search:** State the recovery limit only then, and avoid cleanup that could reduce recoverability.
 
 ## Deliver and verify
 
@@ -71,3 +71,4 @@ Verify these observable conditions when applicable to the actual task; do not cl
 - **Normal (inspect):** Find a lost commit in reflog without resetting the current branch.
 - **edge (apply):** Recover a dropped commit without moving the current branch.
 - **blocked (inspect):** Inspect recovery options after missing reflog history; do not promise restoration.
+- **edge (inspect):** Find stash entries lost after git stash clear without running garbage collection.

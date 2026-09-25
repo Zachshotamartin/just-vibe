@@ -37,8 +37,8 @@ Inspect/plan: report names, scopes and gaps without reading or printing secret v
 2. Map each referenced name to build-time or runtime usage and intended environment/branch; report presence and scope without fetching secret values.
 ## Technical method
 
-- **Inspect:** Inventory required names and whether consumers read them during build, server runtime or browser execution.
-- **Method:** Compare development, preview, branch and production presence using names only; identify which changes require a rebuild/redeployment.
+- **Inspect:** Inventory required names across the default and any custom environments, and whether consumers read them during build, server runtime or browser execution.
+- **Method:** Compare development, preview, branch, production and any custom environment presence using names only; identify which changes require a rebuild/redeployment.
 - **Avoid misdiagnosis:** Public prefixes expose compiled values; changing a setting does not update already-built assets.
 - **Check the result:** Verify the expected consumer sees the correct environment using a non-secret sentinel or presence check without downloading or printing credentials.
 

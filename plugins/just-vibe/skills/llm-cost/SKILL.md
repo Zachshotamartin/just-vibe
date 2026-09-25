@@ -33,11 +33,11 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Reconcile billed versus estimated usage, separate input/output/cached tokens, identify expensive failure loops, and propose bounded comparisons preserving task quality.
-2. Reconcile provider usage with input/output/cached tokens and retries; verify dated pricing and include failed runs in per-completed-task cost.
+1. Reconcile billed versus estimated usage, separate input, output, cached and reasoning or thinking tokens (read reasoning from the provider usage report, billed as output, never estimated from visible text), identify expensive failure loops, and propose bounded comparisons preserving task quality.
+2. Reconcile provider usage with input, output and cached tokens and retries. Normalize each provider to disjoint categories first (uncached input, output, cache reads, cache writes), since some APIs count cached tokens inside input and others report them separately; verify dated pricing and include failed runs in per-completed-task cost.
 ## Technical method
 
-- **Inspect:** Measure all requests, retries, failures, cached/uncached inputs, outputs and latency by task outcome.
+- **Inspect:** Measure all requests, retries, failures, cached/uncached inputs, outputs, reasoning or thinking tokens from provider usage fields, and latency by task outcome.
 - **Method:** Compare routes at matched quality requirements using dated verified prices and explicit privacy/transfer constraints.
 - **Avoid misdiagnosis:** Lower price per call can raise cost per completed task through retries or quality failures.
 - **Check the result:** Reconcile usage totals with actual calls and compare successful outcomes, latency and failure rates under the same cases.
@@ -45,7 +45,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 ## Read when relevant
 
 - When a concrete decision or deliverable example would clarify this workflow: [LLMs and retrieval worked example](../../references/examples/llm.md).
-
+- Recording or pricing observed usage with usage observe, pricing and report: [Usage ledger](../../references/runtime-expansion.md).
 
 ## Decision branches
 

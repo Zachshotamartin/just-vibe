@@ -1272,7 +1272,8 @@
       "brief": "Audit modal focus, keyboard dismissal, and error announcement behavior.",
       "mode": "inspect",
       "requiredEvidence": [
-        "component/flow and target accessibility concerns."
+        "component/flow and target accessibility concerns.",
+        "conformance target (default WCAG 2.2 AA when unspecified; state it)."
       ],
       "inputPolicy": {
         "infer": "Inspect the target flow, existing components/tokens, actual renders or supplied references and current responsive behavior.",
@@ -3760,7 +3761,7 @@
         "Verify the recovered tree contains the requested content and leaves the original branch, index and worktree recoverable."
       ],
       "technicalMethod": {
-        "evidence": "Inspect reflogs, stashes, reachable refs and candidate object contents before changing active refs.",
+        "evidence": "Inspect reflogs, stashes, reachable refs, unreachable objects from git fsck and candidate object contents before changing active refs.",
         "method": "Preserve a verified candidate with a new branch or copy, then explain how it differs from current work.",
         "pitfall": "Reflogs expire and may not exist for another clone; garbage collection can remove the very objects being recovered.",
         "check": "Verify the recovered tree contains the requested content and leaves the original branch, index and worktree recoverable."
@@ -3782,6 +3783,11 @@
           "kind": "blocked",
           "mode": "inspect",
           "brief": "Inspect recovery options after missing reflog history; do not promise restoration."
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Find stash entries lost after git stash clear without running garbage collection."
         }
       ],
       "invariants": [
@@ -4296,8 +4302,8 @@
         "Verify the expected consumer sees the correct environment using a non-secret sentinel or presence check without downloading or printing credentials."
       ],
       "technicalMethod": {
-        "evidence": "Inventory required names and whether consumers read them during build, server runtime or browser execution.",
-        "method": "Compare development, preview, branch and production presence using names only; identify which changes require a rebuild/redeployment.",
+        "evidence": "Inventory required names across the default and any custom environments, and whether consumers read them during build, server runtime or browser execution.",
+        "method": "Compare development, preview, branch, production and any custom environment presence using names only; identify which changes require a rebuild/redeployment.",
         "pitfall": "Public prefixes expose compiled values; changing a setting does not update already-built assets.",
         "check": "Verify the expected consumer sees the correct environment using a non-secret sentinel or presence check without downloading or printing credentials."
       },
@@ -5205,6 +5211,7 @@
       },
       "rubric": [
         "Invalid input is actionable without losing data; server rejection and double submission have deliberate outcomes.",
+        "A server rejection under a form Action retains the entered field values.",
         "Test invalid, empty, zero, double-submit, delayed response and retry cases; verify labels, error associations and focus."
       ],
       "technicalMethod": {
@@ -5532,7 +5539,8 @@
       "brief": "Audit modal focus, keyboard dismissal, and error announcement behavior.",
       "mode": "inspect",
       "requiredEvidence": [
-        "component/flow and target accessibility concerns."
+        "component/flow and target accessibility concerns.",
+        "conformance target (default WCAG 2.2 AA when unspecified; state it)."
       ],
       "inputPolicy": {
         "infer": "Inspect the target flow, existing components/tokens, actual renders or supplied references and current responsive behavior.",
@@ -9146,7 +9154,7 @@
         "Reconcile usage totals with actual calls and compare successful outcomes, latency and failure rates under the same cases."
       ],
       "technicalMethod": {
-        "evidence": "Measure all requests, retries, failures, cached/uncached inputs, outputs and latency by task outcome.",
+        "evidence": "Measure all requests, retries, failures, cached/uncached inputs, outputs, reasoning or thinking tokens from provider usage fields, and latency by task outcome.",
         "method": "Compare routes at matched quality requirements using dated verified prices and explicit privacy/transfer constraints.",
         "pitfall": "Lower price per call can raise cost per completed task through retries or quality failures.",
         "check": "Reconcile usage totals with actual calls and compare successful outcomes, latency and failure rates under the same cases."

@@ -1,6 +1,6 @@
 # Vercel methods
 
-Resolve the exact team, project, deployment ID, environment and Git revision before diagnosing or mutating. Use available project/deployment metadata and logs via a connector or installed CLI; verify its supported read commands. Do not relink a project or create `.vercel` configuration just to inspect it.
+Resolve the exact team, project, deployment ID, environment and Git revision before diagnosing or mutating. Use available project/deployment metadata and logs via a connector or installed CLI; verify its supported read commands. Do not relink a project or create `.vercel` configuration just to inspect it: `vercel link`, `vercel pull` and `vercel env pull` create `.vercel/` or download variable values into the working tree. Prefer the host Vercel connector, `vercel inspect <deployment>`, `vercel env ls` in an already linked folder (names and targets only), and a project-settings read where the installed CLI supports one (check `vercel project --help`).
 
 Compare repository root, framework, build command, output path, runtime/package-manager versions and variable **names/scopes** with deployment settings. A preview can differ from production and local builds. Locate the first failing build or runtime boundary rather than patching symptoms.
 
@@ -18,7 +18,7 @@ For a local-success/deployment-failure case, locate the first causal build line.
 
 ### Environment and runtime branches
 
-Record variable names, consumer and environment/branch scope. Build-time client substitution differs from server runtime lookup. A changed variable may require a new deployment; existing compiled assets do not update simply because project metadata changed. Preview, production and development are distinct environments. [Vercel environments](https://vercel.com/docs/deployments/environments).
+Record variable names, consumer and environment/branch scope. Build-time client substitution differs from server runtime lookup. A changed variable may require a new deployment; existing compiled assets do not update simply because project metadata changed. Preview, production and development are distinct environments, and a project can define custom environments (such as staging) with their own variable scopes. [Vercel environments](https://vercel.com/docs/deployments/environments).
 
 For a runtime failure, trace handler entry, validation, dependency acquisition, downstream wait and response. A build pass establishes no handler health. Compare cold/warm and cache-hit/cache-miss samples under equivalent region, payload and revision conditions before attributing latency.
 

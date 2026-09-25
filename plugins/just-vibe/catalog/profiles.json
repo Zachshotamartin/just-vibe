@@ -2413,7 +2413,7 @@
         "Track coordinate reference systems, units and geometry validity.",
         "Account for spatial partitioning and edge effects."
       ],
-      "decision": "Transform into an appropriate coordinate system before applying distance or area operations.",
+      "decision": "Use geodesic (ellipsoidal) distance and area functions, or a projected coordinate system suited to the data extent, before measuring; never measure in raw degrees or a web display projection.",
       "verification": [
         "Check known locations, geometry boundaries and projection assumptions.",
         "Reconcile spatial joins and duplicate matches."

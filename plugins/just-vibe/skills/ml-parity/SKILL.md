@@ -1,6 +1,6 @@
 ---
 name: ml-parity
-description: "Check training preprocessing against production inference Use to compare training and serving transformations; ml-drift compares populations over time."
+description: "Check training preprocessing against production inference Use to compare training and serving transformations; ml-drift compares populations over time and ml-leakage audits prediction-time information."
 ---
 
 # ml-parity
@@ -9,7 +9,7 @@ Check training preprocessing against production inference
 
 ## Choose this workflow
 
-Use to compare training and serving transformations; ml-drift compares populations over time.
+Use to compare training and serving transformations; ml-drift compares populations over time and ml-leakage audits prediction-time information.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [ML deployment methods](../../references/packs/ml-deployment.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -50,6 +50,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the
 ## Decision branches
 
 - **When model/artifact versions differ:** Resolve version identity before attributing output differences solely to preprocessing.
+- **When the symptom is an offline-versus-production gap:** Run one discriminating check per cause before concluding and report which causes each check excludes: recompute offline metrics on production-logged features for the same rows (skew, ml-parity), compare evaluation-window and production feature and prediction distributions (drift, ml-drift), and audit feature availability and split lineage (leakage, ml-leakage).
 
 ## Deliver and verify
 

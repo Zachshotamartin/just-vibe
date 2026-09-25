@@ -1,0 +1,15 @@
+# Menu, tabs, disclosure, tooltip and popover interaction
+
+These overlays and composite widgets are not dialogs: none of them traps focus. Start with the repository's existing primitive, or a native element (`<details>`/`<summary>`, the `popover` attribute, `<select>`), before writing keyboard handling. Identify which pattern the design actually is; an action list, site navigation and a settings panel look similar but have different contracts.
+
+**Menu button (actions).** The trigger is a button with `aria-haspopup="menu"` and `aria-expanded`. Enter, Space or ArrowDown opens the menu and focuses the first item; ArrowUp may open it on the last item. Items use `role="menuitem"` (or `menuitemcheckbox`/`menuitemradio`); manage focus with a roving `tabindex` or `aria-activedescendant`. ArrowDown/ArrowUp move between items, Home/End jump to the ends, and typing a character moves to the next item starting with it. Enter activates an item and closes the menu. Escape closes and returns focus to the trigger. Tab closes the menu and moves focus to the next element in the page; never trap it. For site navigation links use a disclosure (a button that expands a list of links), not `role="menu"`.
+
+**Tabs.** Use `role="tablist"`, `tab` and `tabpanel`, with `aria-selected` and `aria-controls`. Only the selected tab is in the Tab sequence; arrow keys move between tabs (Left/Right when horizontal) with Home/End, and Tab moves into the panel. Select on focus only when panels render instantly; otherwise require Enter or Space.
+
+**Disclosure.** A button with `aria-expanded` shows and hides the content it controls; Enter and Space toggle it and there is no arrow-key navigation. Native `<details>`/`<summary>` provides this behavior.
+
+**Tooltip.** A tooltip describes its trigger (`aria-describedby`), appears on both hover and keyboard focus, and holds no interactive content. It must be dismissible with Escape without moving focus, stay visible while the pointer moves over it, and remain until dismissed or no longer relevant (WCAG 1.4.13).
+
+**Popover.** A non-modal panel: the native `popover` attribute supplies light dismiss and Escape. Do not trap focus. When it opens with interactive content, move focus into it only if the user expects to act there, and return focus to the trigger when Escape closes it. A menu inside a popover still follows the menu keyboard contract.
+
+Verify with a keyboard fixture in a real browser: open by keyboard, move with arrows and typeahead where the pattern has them, confirm Escape returns focus to the trigger, confirm Tab leaves the widget and closes a menu, and check two instances on one page stay independent. Record the browser and assistive technology used. See the APG [menu button](https://www.w3.org/WAI/ARIA/apg/patterns/menu-button/), [tabs](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/), [disclosure](https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/) and [tooltip](https://www.w3.org/WAI/ARIA/apg/patterns/tooltip/) patterns and the [Popover API](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API).

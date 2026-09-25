@@ -50,6 +50,7 @@ Inspect/plan: design alerts; save requested artifacts only. Apply: write only th
 ## Decision branches
 
 - **When signal quality cannot distinguish failure from missing telemetry:** Add an explicit missing-data state instead of silently treating absence as healthy.
+- **When a service level objective exists:** Derive page and ticket rules from error-budget burn rate over paired long and short windows (for a 30-day SLO: page at 14.4 times over 1 hour confirmed over 5 minutes, and 6 times over 6 hours confirmed over 30 minutes; ticket at 1 times over 3 days confirmed over 6 hours). Without an SLO, state the rationale for each threshold.
 
 ## Deliver and verify
 

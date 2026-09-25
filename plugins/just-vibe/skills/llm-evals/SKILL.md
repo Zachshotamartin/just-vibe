@@ -35,8 +35,8 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 
 1. Define the task distribution, expected behavior, unacceptable outcomes and a versioned evaluation set. Separate development examples from held-out assessment; record consent/provenance for any real user data.
 2. Choose independently checkable artifact or outcome assertions first. Where a model judge is necessary, blind/randomize presentation where feasible, calibrate against human or deterministic examples and document judge disagreement and failure modes.
-3. Freeze model/configuration, prompts, tool availability, retrieval snapshot and budgets for a comparison. Repeat matched cases, preserve every attempt and distinguish answer correctness from tool side effects, scope adherence and unsupported claims.
-4. Report per-case failures and denominators alongside aggregate results, latency and actual token accounting. Missing traces or usage remain missing; cached tokens are a subset of input and a token count is not automatically a dollar charge.
+3. Freeze model/configuration including reasoning effort or thinking budget, prompts, tool availability, retrieval snapshot and budgets for a comparison. Repeat matched cases, preserve every attempt and distinguish answer correctness from tool side effects, scope adherence and unsupported claims.
+4. Report per-case failures and denominators alongside aggregate results, latency and actual token accounting. Missing traces or usage remain missing. Normalize usage per provider before summing or pricing: some APIs include cached tokens in the input total and report them as a detail, others report cache reads and writes separately from input. A token count is not automatically a dollar charge.
 5. Use observed failures for targeted revisions, then evaluate on fresh cases as well as regression examples. Do not call improved scores on the now-known development set evidence of generalization or overall superiority.
 ## Technical method
 

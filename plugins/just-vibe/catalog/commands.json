@@ -8190,7 +8190,7 @@
       "readScope": "Find recoverable history and prepare non-destructive restoration; no reset by default.",
       "writeScope": "Inspect/plan: locate candidates and describe restoration steps without writing. Apply: create only a new preservation ref (branch or tag) for the chosen content, or a copy of a recovered file outside tracked paths; never move the active branch, reset, rewrite history or run garbage collection.",
       "procedure": [
-        "Inspect reflog, refs, stashes, and reachable candidates; compare candidate contents; explain confidence; in apply mode, create a recovery ref or copy only when restoration is requested.",
+        "Inspect reflog, refs, stashes, and reachable candidates, then unreachable objects with read-only git fsck --unreachable --no-reflogs (stash commits are merge commits titled WIP on or On); avoid commands that may trigger automatic garbage collection until the candidate is preserved; compare candidate contents; explain confidence; in apply mode, create a recovery ref or copy only when restoration is requested.",
         "Inspect reflog/stash/reachable candidates, compare file contents and preserve the chosen commit with a new ref before any active-branch movement.",
         "All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices."
       ],
@@ -8219,6 +8219,11 @@
           "kind": "blocked",
           "mode": "inspect",
           "brief": "Inspect recovery options after missing reflog history; do not promise restoration."
+        },
+        {
+          "kind": "edge",
+          "mode": "inspect",
+          "brief": "Find stash entries lost after git stash clear without running garbage collection."
         }
       ],
       "hostSupport": [
@@ -8248,12 +8253,12 @@
       "selection": "Use to find and preserve lost Git content; git-conflicts resolves an active operation.",
       "branches": [
         {
-          "when": "the candidate is absent or unreachable evidence is incomplete",
-          "then": "State the recovery limit and avoid cleanup that could reduce recoverability."
+          "when": "the candidate is absent after the reflog, ref, stash and unreachable-object search",
+          "then": "State the recovery limit only then, and avoid cleanup that could reduce recoverability."
         }
       ],
       "technical": {
-        "evidence": "Inspect reflogs, stashes, reachable refs and candidate object contents before changing active refs.",
+        "evidence": "Inspect reflogs, stashes, reachable refs, unreachable objects from git fsck and candidate object contents before changing active refs.",
         "method": "Preserve a verified candidate with a new branch or copy, then explain how it differs from current work.",
         "pitfall": "Reflogs expire and may not exist for another clone; garbage collection can remove the very objects being recovered.",
         "check": "Verify the recovered tree contains the requested content and leaves the original branch, index and worktree recoverable."
@@ -9377,8 +9382,8 @@
         }
       ],
       "technical": {
-        "evidence": "Inventory required names and whether consumers read them during build, server runtime or browser execution.",
-        "method": "Compare development, preview, branch and production presence using names only; identify which changes require a rebuild/redeployment.",
+        "evidence": "Inventory required names across the default and any custom environments, and whether consumers read them during build, server runtime or browser execution.",
+        "method": "Compare development, preview, branch, production and any custom environment presence using names only; identify which changes require a rebuild/redeployment.",
         "pitfall": "Public prefixes expose compiled values; changing a setting does not update already-built assets.",
         "check": "Verify the expected consumer sees the correct environment using a non-secret sentinel or presence check without downloading or printing credentials."
       }
@@ -11084,7 +11089,7 @@
       "writeScope": "Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.",
       "procedure": [
         "Inspect existing primitives and the consumer contract. Choose state ownership, semantics and interaction behavior before implementing the narrow component API.",
-        "Select only the relevant scenario guide for dialogs, comboboxes or date inputs; implement normal and recovery states, then verify real interactions and parent-controlled updates."
+        "Select only the relevant scenario guide for dialogs, menus and other non-dialog overlays, comboboxes or date inputs; implement normal and recovery states, then verify real interactions and parent-controlled updates."
       ],
       "outputs": [
         "Component, documented contract, usage, and meaningful checks.",
@@ -11136,8 +11141,12 @@
       "selection": "Use to implement one component with a clear contract; ui-system defines shared primitives and tokens.",
       "branches": [
         {
-          "when": "the component opens an overlay",
+          "when": "the component opens a modal or non-modal dialog",
           "then": "Specify initial/contained/return focus and dismissal with the dialog guide."
+        },
+        {
+          "when": "it is a menu button, tabs, disclosure, tooltip or popover",
+          "then": "Apply the matching pattern from the menu guide: roving tabindex or aria-activedescendant, arrow keys and typeahead where the pattern has them, Escape returning focus to the trigger, and Tab leaving without a focus trap. Prefer native details, the popover attribute or an existing primitive."
         },
         {
           "when": "search text and selection are different states",
@@ -11157,6 +11166,11 @@
           "title": "dialog interaction",
           "when": "Implementing a dialog or modal overlay",
           "path": "references/scenarios/dialog.md"
+        },
+        {
+          "path": "references/scenarios/menu.md",
+          "title": "menu, tabs, disclosure, tooltip and popover interaction",
+          "when": "Implementing a menu button, tabs, disclosure, tooltip or popover"
         },
         {
           "title": "combobox interaction",
@@ -11225,7 +11239,8 @@
         "Field/error contract, submission state machine and keyboard/server-failure checks."
       ],
       "verification": [
-        "Invalid input is actionable without losing data; server rejection and double submission have deliberate outcomes."
+        "Invalid input is actionable without losing data; server rejection and double submission have deliberate outcomes.",
+        "A server rejection under a form Action retains the entered field values."
       ],
       "stopConditions": [
         "Do not invent business validation or trust client validation as authorization. Real submissions use only the authorized environment."
@@ -11275,6 +11290,10 @@
         {
           "when": "duplicate clicks or retries can create duplicate effects",
           "then": "Coordinate UI pending state with server idempotency; disabling a button alone is insufficient."
+        },
+        {
+          "when": "the form uses React 19 Actions (form action or useActionState)",
+          "then": "A completed Action resets uncontrolled fields even when it returns validation errors as state. When input must survive a rejection, return the submitted values and bind defaultValue to them, use controlled inputs, or submit through onSubmit with startTransition. Use useFormStatus for pending UI, and useOptimistic only with reconciliation against the server result."
         }
       ],
       "technical": {
@@ -11994,7 +12013,8 @@
       "defaultMode": "inspect",
       "modePolicy": "Inspect; component/flow and target accessibility concerns. Apply for requested remediation.",
       "requiredInputs": [
-        "component/flow and target accessibility concerns."
+        "component/flow and target accessibility concerns.",
+        "conformance target (default WCAG 2.2 AA when unspecified; state it)."
       ],
       "optionalInputs": [
         "scope",
@@ -12008,10 +12028,10 @@
       "capabilities": [
         "project.read"
       ],
-      "readScope": "Semantic roles, labels, focus sequence, keyboard interactions, contrast, and announcements.",
+      "readScope": "Semantic roles, labels, focus sequence and focus not obscured, keyboard interactions, pointer target size and dragging alternatives, contrast, reflow and text spacing, accessible authentication, consistent help, redundant entry, and announcements.",
       "writeScope": "Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the requested local implementation and perform relevant bounded checks while preserving unrelated work. Live data changes, remote actions and paid jobs require their resolved target and existing session authorization.",
       "procedure": [
-        "Choose the actual task/route and interaction states: initial, loading, empty, error, open/closed and recovery where relevant. Inspect semantics, accessible names, relationships and contrast alongside the visible design.",
+        "Choose the actual task/route and interaction states: initial, loading, empty, error, open/closed and recovery where relevant. Inspect semantics, accessible names, relationships and contrast alongside the visible design, then the WCAG 2.2 AA additions for the stated target: focus not obscured by sticky content, 24 by 24 CSS pixel targets, single-pointer alternatives to dragging, authentication without a cognitive test, consistent help placement and no redundant re-entry.",
         "Execute the keyboard path and record focus at each transition. For dialogs test entry, containment where appropriate, escape/close and return to the initiating control; if that control disappears, define a sensible surviving destination.",
         "Exercise form errors and dynamic updates using the relevant interaction method. Check programmatic error association and announcements without relying on color or duplicate noisy live regions.",
         "Use automated scanning as one evidence source, then verify corrected barriers with the actual keyboard or assistive technology tested. State browser/device/AT and uncovered states; an automated pass is not a blanket conformance claim."
@@ -12107,6 +12127,16 @@
           "title": "Motion, visual direction and click paths",
           "path": "references/methods/motion-design.md",
           "when": "The task specifically involves gsap, motion design, framer motion, view transition, click path; load only the matching method"
+        },
+        {
+          "path": "references/scenarios/dialog.md",
+          "title": "dialog interaction",
+          "when": "Auditing a dialog or modal overlay"
+        },
+        {
+          "path": "references/scenarios/menu.md",
+          "title": "menu, tabs, disclosure, tooltip and popover interaction",
+          "when": "Auditing a menu button, tabs, disclosure, tooltip or popover"
         }
       ]
     },
@@ -16482,11 +16512,15 @@
         "future information",
         "lookahead"
       ],
-      "selection": "Use to audit demonstrated information leakage; ml-split designs the evaluation protocol.",
+      "selection": "Use to audit demonstrated information leakage; ml-split designs the evaluation protocol, and ml-parity or ml-drift own train/serve skew and population change.",
       "branches": [
         {
           "when": "no raw measurements, event IDs or fitting history establish dependence",
           "then": "Report conditional risk or unknown, not proven shared events, mandatory gap length or universal score invalidity."
+        },
+        {
+          "when": "the symptom is an offline-versus-production gap",
+          "then": "Run one discriminating check per cause before concluding and report which causes each check excludes: recompute offline metrics on production-logged features for the same rows (skew, ml-parity), compare evaluation-window and production feature and prediction distributions (drift, ml-drift), and audit feature availability and split lineage (leakage, ml-leakage)."
         }
       ],
       "technical": {
@@ -18716,11 +18750,15 @@
         "notebook vs production",
         "predictions don't match"
       ],
-      "selection": "Use to compare training and serving transformations; ml-drift compares populations over time.",
+      "selection": "Use to compare training and serving transformations; ml-drift compares populations over time and ml-leakage audits prediction-time information.",
       "branches": [
         {
           "when": "model/artifact versions differ",
           "then": "Resolve version identity before attributing output differences solely to preprocessing."
+        },
+        {
+          "when": "the symptom is an offline-versus-production gap",
+          "then": "Run one discriminating check per cause before concluding and report which causes each check excludes: recompute offline metrics on production-logged features for the same rows (skew, ml-parity), compare evaluation-window and production feature and prediction distributions (drift, ml-drift), and audit feature availability and split lineage (leakage, ml-leakage)."
         }
       ],
       "technical": {
@@ -18901,7 +18939,7 @@
         "feature drift",
         "prediction drift"
       ],
-      "selection": "Use for observed input/prediction distribution change; ml-evaluate requires outcomes to establish quality.",
+      "selection": "Use for observed input/prediction distribution change; ml-evaluate requires outcomes to establish quality, and ml-parity or ml-leakage explain an offline-versus-production gap that is not population change.",
       "branches": [
         {
           "when": "drift is statistically significant but outcomes are unavailable",
@@ -19127,8 +19165,8 @@
       "procedure": [
         "Define the task distribution, expected behavior, unacceptable outcomes and a versioned evaluation set. Separate development examples from held-out assessment; record consent/provenance for any real user data.",
         "Choose independently checkable artifact or outcome assertions first. Where a model judge is necessary, blind/randomize presentation where feasible, calibrate against human or deterministic examples and document judge disagreement and failure modes.",
-        "Freeze model/configuration, prompts, tool availability, retrieval snapshot and budgets for a comparison. Repeat matched cases, preserve every attempt and distinguish answer correctness from tool side effects, scope adherence and unsupported claims.",
-        "Report per-case failures and denominators alongside aggregate results, latency and actual token accounting. Missing traces or usage remain missing; cached tokens are a subset of input and a token count is not automatically a dollar charge.",
+        "Freeze model/configuration including reasoning effort or thinking budget, prompts, tool availability, retrieval snapshot and budgets for a comparison. Repeat matched cases, preserve every attempt and distinguish answer correctness from tool side effects, scope adherence and unsupported claims.",
+        "Report per-case failures and denominators alongside aggregate results, latency and actual token accounting. Missing traces or usage remain missing. Normalize usage per provider before summing or pricing: some APIs include cached tokens in the input total and report them as a detail, others report cache reads and writes separately from input. A token count is not automatically a dollar charge.",
         "Use observed failures for targeted revisions, then evaluate on fresh cases as well as regression examples. Do not call improved scores on the now-known development set evidence of generalization or overall superiority."
       ],
       "outputs": [
@@ -19791,8 +19829,8 @@
       "readScope": "Tokens, retries, caching, model routing, concurrency, and cost/quality tradeoffs.",
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
       "procedure": [
-        "Reconcile billed versus estimated usage, separate input/output/cached tokens, identify expensive failure loops, and propose bounded comparisons preserving task quality.",
-        "Reconcile provider usage with input/output/cached tokens and retries; verify dated pricing and include failed runs in per-completed-task cost."
+        "Reconcile billed versus estimated usage, separate input, output, cached and reasoning or thinking tokens (read reasoning from the provider usage report, billed as output, never estimated from visible text), identify expensive failure loops, and propose bounded comparisons preserving task quality.",
+        "Reconcile provider usage with input, output and cached tokens and retries. Normalize each provider to disjoint categories first (uncached input, output, cache reads, cache writes), since some APIs count cached tokens inside input and others report them separately; verify dated pricing and include failed runs in per-completed-task cost."
       ],
       "outputs": [
         "Cost/latency breakdown, rate/date assumptions, and optimization priorities.",
@@ -19850,11 +19888,18 @@
         }
       ],
       "technical": {
-        "evidence": "Measure all requests, retries, failures, cached/uncached inputs, outputs and latency by task outcome.",
+        "evidence": "Measure all requests, retries, failures, cached/uncached inputs, outputs, reasoning or thinking tokens from provider usage fields, and latency by task outcome.",
         "method": "Compare routes at matched quality requirements using dated verified prices and explicit privacy/transfer constraints.",
         "pitfall": "Lower price per call can raise cost per completed task through retries or quality failures.",
         "check": "Reconcile usage totals with actual calls and compare successful outcomes, latency and failure rates under the same cases."
-      }
+      },
+      "guides": [
+        {
+          "path": "references/runtime-expansion.md",
+          "title": "Usage ledger",
+          "when": "Recording or pricing observed usage with usage observe, pricing and report"
+        }
+      ]
     },
     {
       "id": "test-unit",
@@ -22277,6 +22322,10 @@
         {
           "when": "signal quality cannot distinguish failure from missing telemetry",
           "then": "Add an explicit missing-data state instead of silently treating absence as healthy."
+        },
+        {
+          "when": "a service level objective exists",
+          "then": "Derive page and ticket rules from error-budget burn rate over paired long and short windows (for a 30-day SLO: page at 14.4 times over 1 hour confirmed over 5 minutes, and 6 times over 6 hours confirmed over 30 minutes; ticket at 1 times over 3 days confirmed over 6 hours). Without an SLO, state the rationale for each threshold."
         }
       ],
       "technical": {

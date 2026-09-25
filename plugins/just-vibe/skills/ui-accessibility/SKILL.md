@@ -27,13 +27,13 @@ Declared evidence requirements: `project.read`. Use actual host discovery or ade
 
 ## Scope
 
-Semantic roles, labels, focus sequence, keyboard interactions, contrast, and announcements.
+Semantic roles, labels, focus sequence and focus not obscured, keyboard interactions, pointer target size and dragging alternatives, contrast, reflow and text spacing, accessible authentication, consistent help, redundant entry, and announcements.
 
 Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the requested local implementation and perform relevant bounded checks while preserving unrelated work. Live data changes, remote actions and paid jobs require their resolved target and existing session authorization.
 
 ## Execute
 
-1. Choose the actual task/route and interaction states: initial, loading, empty, error, open/closed and recovery where relevant. Inspect semantics, accessible names, relationships and contrast alongside the visible design.
+1. Choose the actual task/route and interaction states: initial, loading, empty, error, open/closed and recovery where relevant. Inspect semantics, accessible names, relationships and contrast alongside the visible design, then the WCAG 2.2 AA additions for the stated target: focus not obscured by sticky content, 24 by 24 CSS pixel targets, single-pointer alternatives to dragging, authentication without a cognitive test, consistent help placement and no redundant re-entry.
 2. Execute the keyboard path and record focus at each transition. For dialogs test entry, containment where appropriate, escape/close and return to the initiating control; if that control disappears, define a sensible surviving destination.
 3. Exercise form errors and dynamic updates using the relevant interaction method. Check programmatic error association and announcements without relying on color or duplicate noisy live regions.
 4. Use automated scanning as one evidence source, then verify corrected barriers with the actual keyboard or assistive technology tested. State browser/device/AT and uncovered states; an automated pass is not a blanket conformance claim.
@@ -51,6 +51,8 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the
 - The affected project uses Flutter: [Flutter](../../references/frameworks/flutter.md).
 - The affected project uses React Native / Expo: [React Native / Expo](../../references/frameworks/react-native.md).
 - The task specifically involves gsap, motion design, framer motion, view transition, click path; load only the matching method: [Motion, visual direction and click paths](../../references/methods/motion-design.md).
+- Auditing a dialog or modal overlay: [dialog interaction](../../references/scenarios/dialog.md).
+- Auditing a menu button, tabs, disclosure, tooltip or popover: [menu, tabs, disclosure, tooltip and popover interaction](../../references/scenarios/menu.md).
 
 ## Decision branches
 

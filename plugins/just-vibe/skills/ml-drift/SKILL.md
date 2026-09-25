@@ -1,6 +1,6 @@
 ---
 name: ml-drift
-description: "Design checks for input or prediction-distribution changes Use for observed input/prediction distribution change; ml-evaluate requires outcomes to establish quality."
+description: "Design checks for input or prediction-distribution changes Use for observed input/prediction distribution change; ml-evaluate requires outcomes to establish quality, and ml-parity or ml-leakage explain an offline-versus-production gap that is not population change."
 ---
 
 # ml-drift
@@ -9,7 +9,7 @@ Design checks for input or prediction-distribution changes
 
 ## Choose this workflow
 
-Use for observed input/prediction distribution change; ml-evaluate requires outcomes to establish quality.
+Use for observed input/prediction distribution change; ml-evaluate requires outcomes to establish quality, and ml-parity or ml-leakage explain an offline-versus-production gap that is not population change.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [ML deployment methods](../../references/packs/ml-deployment.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
