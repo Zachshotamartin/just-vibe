@@ -1,8 +1,9 @@
 import { readFileSync, existsSync } from 'node:fs';
 import { resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { commandName, parseInvocation } from './invocation.mjs';
+import { commandName } from './invocation.mjs';
 import { fail, identifier, line, lines, oneOf, record } from './catalog-schema.mjs';
+import { normalize } from './search.mjs';
 
 export const pluginRoot = fileURLToPath(new URL('../../', import.meta.url));
 export const MODES = ['inspect', 'plan', 'apply'];
@@ -46,6 +47,20 @@ function validatePack(pack) {
   if (pack.workedExample !== `references/examples/${pack.id}.md`) throw Error(`Invalid worked example: ${pack.id}`);
 }
 
+// Discovery terms must add distinguishing evidence. A term that normalizes to nothing, or only to
+// everyday words the workflow does not own, would pull unrelated requests toward it.
+const EVERYDAY_TERMS = new Set(normalize('work keep local production missing server client account data change fix check error move another '
+  + 'improve rewrite retry memory context code file app page test issue problem bug update add new make build run use help review plan '
+  + 'thing way start set show find create write remove delete open go come look').map(t => t.stem));
+function validateSearchTerms(c, label) {
+  const owned = new Set(normalize(c.id.replace(/-/g, ' ')).map(t => t.stem));
+  c.searchTerms.forEach((term, index) => {
+    const words = normalize(term).map(t => t.stem);
+    if (!words.length) fail(label, `searchTerms[${index}]`, 'has no searchable words.');
+    if (words.every(w => EVERYDAY_TERMS.has(w) && !owned.has(w))) fail(label, `searchTerms[${index}]`, 'needs a distinctive word, not only everyday words.');
+  });
+}
+
 // Field types, closed key sets and table-safe text; semantic rules follow in validateCatalog.
 function validateCommandShape(c) {
   const label = `Command ${c?.id}`;
@@ -55,6 +70,7 @@ function validateCommandShape(c) {
   for (const key of ['requiredInputs', 'procedure', 'outputs', 'verification', 'stopConditions']) lines(c[key], label, key);
   lines(c.optionalInputs, label, 'optionalInputs', { min: 0 });
   lines(c.searchTerms, label, 'searchTerms', { min: 0 });
+  validateSearchTerms(c, label);
   lines(c.aliases, label, 'aliases', { min: 0, each: identifier });
   if (c.aliasOf !== null) identifier(c.aliasOf, label, 'aliasOf');
   lines(c.capabilities, label, 'capabilities', { min: 0, each: (v, l, f) => oneOf(v, l, f, CAPABILITIES) });
@@ -167,49 +183,5 @@ export function availability(catalog, command, capabilities = {}, host = 'claude
     reasons: unknown.map(c => `${c.id}: ${c.reason}`), capabilities: checks };
 }
 
-const stopWords = new Set('the a an and or to for of in on with my this that it is are be can please me do how what why i we our'.split(' '));
-const synonyms = { 'ci': ['checks', 'actions', 'pipeline'], 'ml': ['model', 'training', 'dataset'],
-  'a11y': ['accessibility', 'keyboard', 'focus'], 'db': ['database', 'sql', 'postgres', 'sqlite'],
-  'rerenders': ['rendering', 'renders', 'freezes'], 'leakage': ['contamination', 'leak', 'future'],
-  'recovery': ['recover', 'restore'], 'pr': ['pull', 'request'], 'env': ['environment', 'variables'] };
-function tokens(text) {
-  return (text.toLowerCase().match(/[a-z0-9]+/g) || []).filter(w => !stopWords.has(w));
-}
-
-// Command token sets are derived from immutable catalog text; build them once per catalog object.
-const indexes = new WeakMap();
-function indexCommand(command) {
-  return {
-    id: new Set(tokens(command.id)),
-    summary: new Set(tokens(command.summary)),
-    detail: new Set(tokens([command.pack, ...command.procedure, ...command.examples.map(e => e.brief)].join(' '))),
-    scenarios: new Set(tokens((command.searchTerms || []).join(' '))),
-  };
-}
-function searchIndex(catalog) {
-  if (!indexes.has(catalog)) indexes.set(catalog, new WeakMap());
-  const index = indexes.get(catalog);
-  return { get: command => index.get(command) ?? index.set(command, indexCommand(command)).get(command) };
-}
-
-export function searchCommands(catalog, query = '', { pack, limit = 1000 } = {}) {
-  if (pack && !catalog.packs.some(p => p.id === pack)) throw new Error(`Unknown pack: ${pack}`);
-  if (!Number.isInteger(limit) || limit < 1 || limit > 1000) throw new Error('limit must be between 1 and 1000.');
-  const exact = (parseInvocation(query)?.id || query.trim()).toLowerCase();
-  const exactCommand = catalog.commands.find(c => c.id === exact && (!pack || c.pack === pack));
-  if (exactCommand) return [{ command: exactCommand, score: 100 }];
-  const exactPack = catalog.packs.find(p => p.id === exact.replace(/\s+/g, '-') || p.name.toLowerCase() === exact);
-  if (exactPack && !pack) pack = exactPack.id;
-  const queryTokens = tokens(query);
-  const expanded = new Set(queryTokens);
-  for (const token of queryTokens) for (const word of synonyms[token] || []) expanded.add(word);
-  const index = searchIndex(catalog);
-  const scored = catalog.commands.filter(c => !pack || c.pack === pack).map(command => {
-    const { id, summary, detail, scenarios } = index.get(command);
-    let score = command.id === query.toLowerCase().trim() ? 100 : 0;
-    if (command.pack === query.toLowerCase().trim()) score += 40;
-    for (const token of expanded) score += id.has(token) ? 8 : scenarios.has(token) ? 5 : summary.has(token) ? 4 : detail.has(token) ? 1 : 0;
-    return { command, score };
-  }).filter(c => !queryTokens.length || c.score > 0 || (exactPack && c.command.pack === exactPack.id));
-  return scored.sort((a, b) => b.score - a.score || a.command.id.localeCompare(b.command.id)).slice(0, limit);
-}
+// Lexical search lives in search.mjs; re-exported here for existing callers.
+export { searchCommands } from './search.mjs';

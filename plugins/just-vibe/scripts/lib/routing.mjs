@@ -1,41 +1,14 @@
 import { inspectProject } from './project.mjs';
-import { readFileSync, statSync } from 'node:fs';
+import { existsSync, readFileSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 import { readPreferences } from './continuity.mjs';
 import { parseInvocation } from './invocation.mjs';
+import { promptRewrite, ruleText, matchIntents } from './intents.mjs';
 
 const starter = ['auto', 'fix', 'explain', 'reprompt', 'plan', 'review', 'test', 'teach', 'tools', 'profile', 'checkpoint', 'resume', 'help'];
-// A clear outer rewrite request owns routing. Embedded workflow names and actions
-// are source text, not explicit selection or authority to perform those actions.
-const promptRewrite = /^(?:(?:please|can you|could you|would you)\s+)*(?:reprompt\b|(?:improve|rewrite|rephrase|clarify|strengthen)\s+(?:(?:this|that|my|the|following|previous|last|our)\s+)?prompt(?=\s*(?:$|[:.!?\n]|\b(?:for|with|using|to|so|without|and|by|in)\b)))/i;
-const intents = [
-  { test: /^(?:please\s+)?(?:fix|repair|correct)\b(?=[\s\S]*(?:\b(?:bug|defect|function|method)\b|\.[cm]?[jt]sx?\b))/i, ids: ['fix'], boost: 25, reason: 'Repair an identified code defect and verify its behavior' },
-  { test: /\b(?:verify|check|test)\b[\s\S]*\b(?:visitor|user journey|upload|playback|acceptance)\b/i, ids: ['agent-qa', 'verify'], reason: 'Verify an observable visitor outcome in the browser' },
-  { test: /\b(?:sql injection|xss|cross.site scripting|csrf|ssrf|path traversal|insecure deserialization|vulnerabilit(?:y|ies)|security review)\b/i, ids: ['security', 'review'], reason: 'Security review with a concrete vulnerability class' },
-  { test: /\b(?:docker|container)\b.*\b(?:build|fail|broken|runtime)|\b(?:broken|fail)\w*\b.*\b(?:docker|container)\b/i, ids: ['ops-container'], reason: 'Container build or runtime diagnosis' },
-  { test: /\b(?:mobile menu|hamburger|navigation menu|dropdown|responsive|layout|spacing|overlap)\b/i, ids: ['ui-states', 'ui-responsive'], reason: 'UI state and viewport behavior' },
-  { test: /\b(?:training|loss|gradient)\b.*\b(?:unstable|diverg|nan|explod|plateau)|\b(?:unstable|diverg|nan|explod)\w*\b.*\b(?:training|loss|gradient)\b/i, ids: ['ml-debug-training'], reason: 'Training stability diagnosis' },
-  { test: /\b(?:address|resolve|fix|respond)\b.*\b(?:pr|pull request|review)\b.*\b(?:feedback|comments?|requests?)\b|\b(?:pr|pull request)\b.*\bfeedback\b/i, ids: ['github-address-review'], reason: 'Requested pull request feedback' },
-  { test: /\b(?:undo|reverse)\b.*\b(?:task|recorded|later|changes)\b/i, ids: ['undo'], reason: 'Selective local task reversal' },
-  { test: /\b(?:build|implement|try)\b.*\b(?:alternatives|variants|two versions|three versions)\b/i, ids: ['compare'], reason: 'Working alternatives with common requirements' },
-  { test: /\b(?:exercise|practice)\b.*\b(?:project|repo|code)\b/i, ids: ['teach'], reason: 'Hands-on project learning' },
-  { test: /\b(?:mlflow|wandb|w&b)\b.*\b(?:compare|export|runs?|metrics)\b|\bcompare\b.*\b(?:mlflow|wandb)\b/i, ids: ['ml-evaluate'], reason: 'Recorded ML experiment comparison' },
-  { test: /\b(?:evidence report|acceptance report|requirement-linked)\b/i, ids: ['verify'], reason: 'Requirement-linked verification evidence' },
-  { test: /\b(?:claude|agents)\.md\b|\b(?:save|remember|persist|preserve)\b.*\b(?:conversation|project instructions|context|decisions|corrections)\b/i, ids: ['remember'], reason: 'Durable project instructions from conversation context' },
-  { test: /\b(?:ci|checks?|actions|pipeline)\b.*\b(?:fail|broken|red)|\b(?:fail|broken|red)\w*\b.*\b(?:ci|checks?|actions|pipeline)\b/i, ids: ['github-fix-ci', 'github-actions'], reason: 'Failing CI/checks' },
-  { test: /\b(?:refresh|oauth|login|logout|session|password reset|authentication)\b/i, ids: ['backend-auth'], reason: 'Identity or session lifecycle' },
-  { test: /\b(?:dialog|combobox|date picker|datepicker|component)\b/i, ids: ['react-component', 'ui-component'], reason: 'Component interaction contract' },
-  { test: /\b(?:race|stale|out.of.order)\b.*\b(?:request|response|fetch)|\b(?:request|response|fetch)\b.*\b(?:race|stale|out.of.order)\b/i, ids: ['react-async', 'backend-concurrency'], reason: 'Request ordering and ownership' },
-  { test: /\b(?:freeze|freezes|slow|rerender|re-render)\b.*\b(?:filter|grid|render|component)|\b(?:filter|grid|render|component)\b.*\b(?:freeze|freezes|slow|rerender|re-render)\b/i, ids: ['react-rerenders'], reason: 'Slow UI interaction' },
-  { test: /\b(?:offline|validation)\b.*\b(?:production|serving|live)\b/i, ids: ['ml-parity', 'ml-leakage'], reason: 'Offline versus serving mismatch' },
-  { test: /\b(?:leakage|future information|look.?ahead|point.in.time)\b/i, ids: ['ml-leakage', 'ml-features'], reason: 'Prediction-time information boundary' },
-  { test: /\b(?:train|training)\b.*\b(?:resume|checkpoint|interrupt)|\b(?:resume|checkpoint)\b.*\b(?:train|training)\b/i, ids: ['ml-train', 'ml-reproduce'], reason: 'Training continuation state' },
-  { test: /\b(?:vercel|preview|deployment)\b.*\b(?:build|fail|broken)|\bbuild\b.*\b(?:vercel|preview|deployment)\b/i, ids: ['vercel-build-fix'], reason: 'Deployment build diagnosis' },
-  { test: /\b(?:migration|migrations|schema change)\b/i, ids: ['db-migrate'], reason: 'Schema rollout and recovery' },
-  { test: /\b(?:partial|staged|unstaged|only these|selected files)\b.*\bcommit|\bcommit\b.*\b(?:partial|staged|unstaged|only these|selected files)\b/i, ids: ['git-commit', 'git-split'], reason: 'Commit scope and index preservation' },
-  { test: /\b(?:which|compare|choose|trade.?off|decide)\b/i, ids: ['decide'], reason: 'A decision rather than immediate implementation' },
-];
-const stackPacks = { react: ['react', 'ui'], vite: ['vite'], next: ['react', 'ui', 'vercel'], prisma: ['database'], torch: ['ml-experiments', 'ml-data'], 'scikit-learn': ['ml-experiments', 'ml-data'], django: ['backend'], fastapi: ['backend'], postgres: ['database'] };
+const ML_PACKS = ['ml-data', 'ml-experiments', 'ml-evaluation', 'ml-deployment'];
+// Detected stacks break ties toward matching packs. Vercel is detected from its own project files, not inferred from Next.js.
+const stackPacks = { react: ['react', 'ui'], vite: ['vite'], next: ['react', 'ui'], vercel: ['vercel'], prisma: ['database'], torch: ML_PACKS, 'scikit-learn': ML_PACKS, django: ['backend'], fastapi: ['backend'], postgres: ['database'] };
 
 export function routeContext(root) {
   const project = inspectProject(root);
@@ -48,39 +21,73 @@ export function routeContext(root) {
     }
   }
   // Parse bounded manifest text only; never import framework configuration.
-  const frameworks = Object.keys(stackPacks).filter(key => dependencies.has(key) || (key === 'prisma' && dependencies.has('@prisma/client')));
+  const vercel = project.manifests.some(path => /(?:^|\/)vercel\.json$/.test(path)) || existsSync(join(project.root, '.vercel', 'project.json'));
+  const frameworks = Object.keys(stackPacks).filter(key => (key === 'vercel' ? vercel : dependencies.has(key) || (key === 'prisma' && dependencies.has('@prisma/client'))));
   let preferences = null, preferenceError = null;
   try { preferences = readPreferences(root)?.preferences || null; } catch (error) { preferenceError = error.message; }
   return { frameworks, packs: [...new Set(frameworks.flatMap(f => stackPacks[f]))], manifests: project.manifests, packages: project.packages.map(p => p.path), truncated: project.truncated,
     preferences, preferenceError, preferencePolicy: 'Saved context only. The host must resolve conflicts with the current request; a saved profile is not an active pin or permission.' };
 }
 
+// Negated clauses are excluded from ranking only; the full brief is always preserved.
+// A clause ends at sentence punctuation, a comma or a pivot word, so "Don't deploy, just fix
+// the login bug" keeps its task. A leading negation excludes its clause; "without" excludes the
+// rest of an imperative clause ("fix it without new dependencies") but not a symptom
+// ("the page reloads without saving"); "never" is a symptom unless it leads the clause.
+const clauseBreak = /([.;!?\n]+|,\s*|\s+(?=(?:but|just|then|instead|only|so that)\b))/i;
+const negationLead = /^(?:(?:and|but|also|just|then|please|so)\s+)*(?:do not|don't|dont|never|no|skip|avoid|not|without|nothing|instead of)\b/i;
+const subjectLead = /^(?:the|a|an|this|that|these|those|it|its|my|our|their|his|her|your|when|if|why|how|what|which|where|who|i|we|you|they|he|she|there|some|every|each|all)\b/i;
+export function splitNegations(brief) {
+  const text = brief.replace(/[\u2018\u2019\u02bc]/g, "'");
+  const kept = [], excluded = [];
+  for (const part of text.split(clauseBreak)) {
+    if (!part || clauseBreak.test(part) && !/[a-z0-9]/i.test(part)) { kept.push(part); continue; }
+    const clause = part.trim();
+    if (negationLead.test(clause)) { excluded.push(clause); kept.push(' '); continue; }
+    const tail = !subjectLead.test(clause) && clause.match(/\s(?:without|instead of)\s.+$/i);
+    if (tail) { excluded.push(tail[0].trim()); kept.push(part.replace(tail[0], ' ')); continue; }
+    kept.push(part);
+  }
+  return { positive: kept.join(''), excluded };
+}
+
+// Lesson and explanation requests name workflows as their subject, not as a selection.
+const lessonLead = /^(?:please\s+)?(?:teach(?:\s+me)?|explain|quiz(?:\s+me)?|test\s+me|help\s+me\s+understand|how\s+does|how\s+do|what\s+(?:is|does|are)|walk\s+me\s+through)\b/i;
+export const isLesson = brief => lessonLead.test(brief.trim());
+
 export function intentSignals(brief) {
-  // Ignore ordinary negative clauses for ranking only. The full brief is returned unchanged.
-  const excluded = [...brief.matchAll(/\b(?:do not|don't|never|without)\s+([^.;\n]+)/gi)].map(m => m[0]);
   const explicit = parseInvocation(brief);
+  const { positive, excluded } = splitNegations(brief);
   if (explicit) return { positive: explicit.id, excluded, explicit,
     matches: [{ ids: [explicit.id], reason: 'Workflow selected by an explicit just-vibe invocation' }] };
   if (promptRewrite.test(brief.trim())) return { positive: 'reprompt', excluded,
     matches: [{ ids: ['reprompt'], reason: 'Rewrite the prompt without executing its embedded task' }] };
-  const positive = brief.replace(/\b(?:do not|don't|never|without)\s+[^.;\n]+/gi, ' ');
-  return { positive, excluded, matches: intents.filter(rule => rule.test.test(positive)) };
+  return { positive, excluded, matches: matchIntents(ruleText(positive)) };
 }
 
+const MODE_ORDER = { inspect: 0, plan: 1, apply: 2 };
 export function rankCandidates(candidates, brief, context) {
   const { positive, excluded, matches } = intentSignals(brief);
-  const named = new Set((positive.match(/\b[a-z][a-z0-9]*(?:-[a-z0-9]+)+\b/g) || []));
+  const actionRequested = matches.some(rule => rule.action || rule.damp);
+  const named = isLesson(brief) ? new Set() : new Set((positive.match(/\b[a-z][a-z0-9]*(?:-[a-z0-9]+)+\b/g) || []));
   return candidates.map(c => {
     const reasons = [];
     let score = c.score;
+    const lexical = c.score;
     if (named.has(c.id) || c.matchedNames.some(id => named.has(id))) { score += 1000; reasons.push('Workflow named explicitly'); }
-    for (const rule of matches) if (rule.ids.includes(c.id)) { score += (rule.boost ?? 45) - rule.ids.indexOf(c.id) * 8; reasons.push(rule.reason); }
-    if (context.packs.includes(c.pack)) { score += 10; reasons.push(`Fits detected ${context.frameworks.join(', ')} project`); }
-    if (c.status === 'available') { score += 3; reasons.push('Declared prerequisites observed'); }
-    else reasons.push(`Prerequisites ${c.status}; inspect before execution`);
+    let ruled = false;
+    for (const rule of matches) if (rule.ids.includes(c.id)) {
+      // When the request names a kind of work, domain topic rules only break ties.
+      const boost = actionRequested && !rule.action && !rule.damp ? Math.min(rule.boost ?? 45, 10) : rule.boost ?? 45;
+      ruled = true; score += boost - rule.ids.indexOf(c.id) * 8; reasons.push(rule.reason);
+    }
+    // Project context breaks ties between workflows the request already supports; it is not evidence by itself.
+    if (context.packs.includes(c.pack) && (ruled || lexical >= 4)) { score += 2; reasons.push(`Fits detected ${context.frameworks.join(', ')} project`); }
+    // Availability is reported, not ranked: an honest capability declaration must not lose relevance.
+    if (c.status !== 'available') reasons.push(`Prerequisites ${c.status}; inspect before execution`);
     if (!reasons.length) reasons.push('Request terms match this workflow');
-    return { ...c, score, selectionReasons: reasons, excludedClauses: excluded };
-  }).sort((a, b) => b.score - a.score || a.id.localeCompare(b.id));
+    return { ...c, score: Math.round(score * 10) / 10, selectionReasons: reasons, excludedClauses: excluded };
+  }).sort((a, b) => b.score - a.score || (MODE_ORDER[a.defaultMode] ?? 3) - (MODE_ORDER[b.defaultMode] ?? 3) || a.id.localeCompare(b.id));
 }
 
 export function executionStrategy(brief, candidates = []) {

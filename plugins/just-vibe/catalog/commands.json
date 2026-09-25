@@ -69,7 +69,18 @@
       },
       "skillPath": "skills/orient/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "codebase tour",
+        "project structure",
+        "folder structure",
+        "repo layout",
+        "repository layout",
+        "onboarding",
+        "tech stack",
+        "unfamiliar codebase",
+        "new codebase",
+        "run locally"
+      ],
       "selection": "Use for first contact with an unfamiliar repository; use map for dependency detail and explain for one symbol.",
       "branches": [
         {
@@ -152,7 +163,15 @@
       },
       "skillPath": "skills/explain/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "walk me through",
+        "walkthrough",
+        "line by line",
+        "under the hood",
+        "plain english",
+        "eli5",
+        "high level overview"
+      ],
       "selection": "Use for what existing code does and why its observed branches matter; use teach for fundamentals or trace for an entire request path.",
       "branches": [
         {
@@ -366,7 +385,15 @@
       "skillPath": "skills/teach/SKILL.md",
       "runtimeSteps": [],
       "searchTerms": [
-        "teach learn explain tutorial lesson linked lists data structures prerequisites implementation concepts understand"
+        "tutorial",
+        "lesson",
+        "learn about",
+        "from scratch",
+        "fundamentals",
+        "beginner",
+        "linked lists",
+        "data structures",
+        "big o"
       ],
       "selection": "Use for conceptual instruction or prerequisites; use explain for an existing implementation and teach-test for assessment.",
       "branches": [
@@ -474,7 +501,14 @@
       "skillPath": "skills/teach-test/SKILL.md",
       "runtimeSteps": [],
       "searchTerms": [
-        "quiz test teach learning questions multiple choice interactive clarification dialog knowledge assessment linked lists"
+        "quiz",
+        "quiz me",
+        "test my knowledge",
+        "test my understanding",
+        "practice questions",
+        "multiple choice",
+        "flashcards",
+        "check my understanding"
       ],
       "selection": "Use for interactive assessment after checking native dialog support; teach handles lessons without assessment.",
       "branches": [
@@ -558,7 +592,16 @@
       },
       "skillPath": "skills/trace/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "follow the request",
+        "request lifecycle",
+        "call chain",
+        "call path",
+        "data flow",
+        "code path",
+        "control flow",
+        "trace through"
+      ],
       "selection": "Use to follow one execution or data path across boundaries; map shows topology without reconstructing a particular flow.",
       "branches": [
         {
@@ -641,7 +684,15 @@
       },
       "skillPath": "skills/map/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "dependency graph",
+        "architecture diagram",
+        "module graph",
+        "import graph",
+        "system map",
+        "component map",
+        "diagram"
+      ],
       "selection": "Use for module dependencies inside a repository; arch-map covers deployed services and stores.",
       "branches": [
         {
@@ -722,7 +773,16 @@
       },
       "skillPath": "skills/research/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "best practices",
+        "state of the art",
+        "industry standard",
+        "official documentation",
+        "library options",
+        "prior art",
+        "recommend a library",
+        "cite sources"
+      ],
       "selection": "Use when a decision needs current external evidence; compare handles already supplied alternatives.",
       "branches": [
         {
@@ -809,7 +869,16 @@
       },
       "skillPath": "skills/compare/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "versus",
+        "vs",
+        "differences",
+        "side by side",
+        "pros and cons",
+        "tradeoffs",
+        "trade offs",
+        "alternatives"
+      ],
       "selection": "Use for a factual side-by-side comparison; decide recommends adoption and decision-matrix handles weighted priorities.",
       "branches": [
         {
@@ -901,7 +970,14 @@
       },
       "skillPath": "skills/brainstorm/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "ideas",
+        "different approaches",
+        "explore approaches",
+        "possible approaches",
+        "creative options",
+        "alternatives to consider"
+      ],
       "selection": "Use to generate meaningfully different approaches before selection; decide evaluates a bounded shortlist.",
       "branches": [
         {
@@ -982,7 +1058,14 @@
       },
       "skillPath": "skills/spec/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "requirements",
+        "acceptance criteria",
+        "user stories",
+        "edge cases",
+        "prd",
+        "requirements doc"
+      ],
       "selection": "Use to define observable product behavior before implementation; plan maps an accepted specification onto code.",
       "branches": [
         {
@@ -1066,7 +1149,14 @@
       },
       "skillPath": "skills/plan/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "implementation plan",
+        "step by step plan",
+        "game plan",
+        "plan of attack",
+        "approach before coding",
+        "roadmap"
+      ],
       "selection": "Use for implementation sequencing against existing code; tasks breaks an accepted plan into work items.",
       "branches": [
         {
@@ -1159,7 +1249,16 @@
       },
       "skillPath": "skills/scope/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "mvp",
+        "minimum viable",
+        "must-have features",
+        "nice to have",
+        "cut scope",
+        "descope",
+        "ship first",
+        "v1 scope"
+      ],
       "selection": "Use to choose a feasible release boundary under constraints; spec defines behavior within that boundary.",
       "branches": [
         {
@@ -1240,7 +1339,15 @@
       },
       "skillPath": "skills/challenge/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "poke holes",
+        "devil's advocate",
+        "sanity check the plan",
+        "go wrong",
+        "weak points",
+        "critique",
+        "stress test the idea"
+      ],
       "selection": "Use to test a proposal's assumptions, not to manufacture objections; decision-premortem explores a future failure story.",
       "branches": [
         {
@@ -1321,7 +1428,16 @@
       },
       "skillPath": "skills/tasks/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "task list",
+        "break down",
+        "breakdown",
+        "todo list",
+        "checklist",
+        "tickets",
+        "subtasks",
+        "work items"
+      ],
       "selection": "Use to turn an accepted plan into independently verifiable work; plan resolves architecture and sequencing first.",
       "branches": [
         {
@@ -1412,7 +1528,15 @@
       },
       "skillPath": "skills/build/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "new feature",
+        "implement feature",
+        "add feature",
+        "vertical slice",
+        "end to end feature",
+        "dark mode",
+        "settings screen"
+      ],
       "selection": "Use for a defined feature spanning existing code; specialist commands supply methods for fragile subproblems.",
       "branches": [
         {
@@ -1612,7 +1736,14 @@
       },
       "skillPath": "skills/fix/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "bugfix",
+        "broken",
+        "doesn't work",
+        "wrong output",
+        "repair",
+        "bug fix"
+      ],
       "selection": "Use when the requested outcome is correcting a demonstrated defect; debug diagnoses without default edits.",
       "branches": [
         {
@@ -1806,7 +1937,16 @@
       },
       "skillPath": "skills/debug/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "crash",
+        "exception",
+        "stack trace",
+        "traceback",
+        "root cause",
+        "segfault",
+        "hangs",
+        "500 error"
+      ],
       "selection": "Use to identify a cause and next experiment; fix applies a requested repair.",
       "branches": [
         {
@@ -1992,7 +2132,22 @@
       },
       "skillPath": "skills/refactor/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "restructure",
+        "reorganize",
+        "extract function",
+        "extract module",
+        "split module",
+        "decouple",
+        "tidy up",
+        "rename",
+        "move to its own file",
+        "separation of concerns",
+        "duplication",
+        "smaller modules",
+        "smaller files",
+        "smaller functions"
+      ],
       "selection": "Use for structural change with preserved behavior; migrate changes a version or public compatibility boundary.",
       "branches": [
         {
@@ -2182,7 +2337,19 @@
       },
       "skillPath": "skills/integrate/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "third party",
+        "integrate with",
+        "connect to",
+        "sdk",
+        "stripe",
+        "slack",
+        "twilio",
+        "sendgrid",
+        "oauth provider",
+        "external service",
+        "api key setup"
+      ],
       "selection": "Use to connect an external capability through a narrow boundary; api-client focuses on the transport client.",
       "branches": [
         {
@@ -2272,7 +2439,19 @@
       },
       "skillPath": "skills/migrate/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "upgrade",
+        "major version",
+        "version upgrade",
+        "framework migration",
+        "library migration",
+        "codemod",
+        "deprecation",
+        "deprecated api",
+        "end of life",
+        "move off",
+        "switch from"
+      ],
       "selection": "Use for coordinated version or platform transitions; db-migrate handles database-specific mechanics.",
       "branches": [
         {
@@ -2362,7 +2541,17 @@
       },
       "skillPath": "skills/automate/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "script",
+        "automate",
+        "cron",
+        "scheduled job",
+        "makefile",
+        "shell script",
+        "repetitive",
+        "manual steps",
+        "one command"
+      ],
       "selection": "Use for a repeatable local workflow; a scheduled service requires an actual separately scoped runtime.",
       "branches": [
         {
@@ -2445,7 +2634,19 @@
       },
       "skillPath": "skills/cleanup/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "dead code",
+        "unused code",
+        "unused exports",
+        "unused imports",
+        "remove unused",
+        "knip",
+        "ts-prune",
+        "delete unused",
+        "leftover",
+        "stale flags",
+        "feature flags cleanup"
+      ],
       "selection": "Use for evidence-backed removal of unnecessary code or assets; refactor preserves behavior through restructuring.",
       "branches": [
         {
@@ -2528,7 +2729,18 @@
       },
       "skillPath": "skills/design/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "landing page",
+        "visual design",
+        "redesign",
+        "look and feel",
+        "mockup",
+        "hero section",
+        "brand",
+        "visual style",
+        "high fidelity",
+        "figma"
+      ],
       "selection": "Use for a new visual direction and requested interface; polish improves an established direction and ui-system defines reusable tokens.",
       "branches": [
         {
@@ -2628,7 +2840,16 @@
       },
       "skillPath": "skills/polish/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "pixel",
+        "spacing",
+        "alignment",
+        "typography",
+        "visual details",
+        "looks off",
+        "micro-interactions",
+        "finishing touches"
+      ],
       "selection": "Use for focused refinement of existing UI; design handles a larger visual direction change.",
       "branches": [
         {
@@ -2746,7 +2967,15 @@
       },
       "skillPath": "skills/match/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "match the design",
+        "match the mockup",
+        "match figma",
+        "pixel perfect",
+        "design screenshot",
+        "reference screenshot",
+        "looks different from the design"
+      ],
       "selection": "Use when a supplied visual reference is the acceptance target; design creates a direction when no exact target exists.",
       "branches": [
         {
@@ -2836,7 +3065,18 @@
       },
       "skillPath": "skills/copy/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "wording",
+        "microcopy",
+        "copywriting",
+        "button text",
+        "error messages",
+        "empty state text",
+        "tone of voice",
+        "labels",
+        "phrasing",
+        "ux writing"
+      ],
       "selection": "Use for interface language preserving product semantics; docs explains implementation and usage.",
       "branches": [
         {
@@ -2938,7 +3178,15 @@
       },
       "skillPath": "skills/review/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "code review",
+        "review my changes",
+        "eyes on my code",
+        "second pair of eyes",
+        "feedback on my code",
+        "before i merge",
+        "before i commit"
+      ],
       "selection": "Use for evidence-backed code review of a diff or current source. Choose a security/domain audit when the requested scope is that specific risk surface.",
       "branches": [
         {
@@ -3146,7 +3394,14 @@
       },
       "skillPath": "skills/test/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "write tests",
+        "add tests",
+        "test cases",
+        "missing tests",
+        "spec file",
+        "test file"
+      ],
       "selection": "Use to implement behavior checks; coverage identifies gaps and verify runs existing checks.",
       "branches": [
         {
@@ -3330,7 +3585,15 @@
       },
       "skillPath": "skills/verify/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "make sure it works",
+        "confirm it works",
+        "run the test suite",
+        "lint and typecheck",
+        "double check",
+        "smoke test",
+        "sanity check"
+      ],
       "selection": "Use to establish evidence for explicit completion criteria; test authors missing checks.",
       "branches": [
         {
@@ -3454,7 +3717,16 @@
       },
       "skillPath": "skills/security/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "security review",
+        "security audit",
+        "vulnerabilities",
+        "owasp",
+        "pentest",
+        "attack surface",
+        "hardening",
+        "secure"
+      ],
       "selection": "Use for a scoped security review; security-* commands investigate one specific attack surface.",
       "branches": [
         {
@@ -3579,7 +3851,20 @@
       },
       "skillPath": "skills/perf/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "slow",
+        "latency",
+        "faster",
+        "speed up",
+        "performance",
+        "profiling",
+        "bottleneck",
+        "load time",
+        "sluggish",
+        "high cpu",
+        "memory usage",
+        "optimize"
+      ],
       "selection": "Use for measured performance repair; architecture scaling work needs workload-level evidence.",
       "branches": [
         {
@@ -3674,7 +3959,16 @@
       },
       "skillPath": "skills/repro/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "reproduce",
+        "reproduction",
+        "minimal reproduction",
+        "repro case",
+        "reproducible example",
+        "can't reproduce",
+        "mcve",
+        "isolate the failure"
+      ],
       "selection": "Use to isolate an observable failure; fix changes production behavior after the trigger is understood.",
       "branches": [
         {
@@ -3757,7 +4051,16 @@
       },
       "skillPath": "skills/coverage/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "test coverage",
+        "coverage report",
+        "untested",
+        "coverage gaps",
+        "missing coverage",
+        "istanbul",
+        "c8",
+        "codecov"
+      ],
       "selection": "Use to prioritize missing behavioral checks; test implements the selected cases.",
       "branches": [
         {
@@ -3842,7 +4145,15 @@
       },
       "skillPath": "skills/pr/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "pr description",
+        "pull request description",
+        "pr title",
+        "pr body",
+        "pr summary",
+        "describe my changes",
+        "pr blurb"
+      ],
       "selection": "Use to prepare a local PR title/body; github-pr handles remote PR identity and creation.",
       "branches": [
         {
@@ -3927,7 +4238,15 @@
       },
       "skillPath": "skills/release/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "release notes",
+        "changelog",
+        "version bump",
+        "cut a release",
+        "release checklist",
+        "semver",
+        "tag a release"
+      ],
       "selection": "Use for release notes and readiness planning; github-release performs explicitly requested GitHub publication.",
       "branches": [
         {
@@ -4010,7 +4329,18 @@
       },
       "skillPath": "skills/ci/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "ci pipeline",
+        "continuous integration",
+        "build pipeline",
+        "jenkins",
+        "gitlab ci",
+        "circleci",
+        "buildkite",
+        "azure pipelines",
+        "red build",
+        "matrix build"
+      ],
       "selection": "Use for CI diagnosis across providers; github-fix-ci handles GitHub run identity and requested repairs.",
       "branches": [
         {
@@ -4093,7 +4423,16 @@
       },
       "skillPath": "skills/docs/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "readme",
+        "documentation",
+        "docs site",
+        "api docs",
+        "usage guide",
+        "how-to guide",
+        "docstrings",
+        "jsdoc"
+      ],
       "selection": "Use to maintain source-backed usage documentation; teach explains concepts interactively.",
       "branches": [
         {
@@ -4176,7 +4515,18 @@
       },
       "skillPath": "skills/deps/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "dependencies",
+        "dependency update",
+        "bump",
+        "outdated packages",
+        "npm outdated",
+        "renovate",
+        "lockfile",
+        "package.json",
+        "peer dependency",
+        "upgrade packages"
+      ],
       "selection": "Use for dependency assessment or requested updates; vite-upgrade handles Vite-specific migration behavior.",
       "branches": [
         {
@@ -4271,7 +4621,18 @@
       },
       "skillPath": "skills/deploy/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "ship to production",
+        "go live",
+        "staging",
+        "production release",
+        "roll out to production",
+        "push to prod",
+        "deployment",
+        "canary release",
+        "canary deploy",
+        "blue green"
+      ],
       "selection": "Use for an explicitly targeted deployment or its plan; vercel-preview is the Vercel preview specialization.",
       "branches": [
         {
@@ -4356,7 +4717,14 @@
       },
       "skillPath": "skills/checkpoint/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "save progress",
+        "save my progress",
+        "snapshot of work",
+        "pause here",
+        "before i stop",
+        "save state"
+      ],
       "selection": "Use for a compact continuation snapshot; handoff adds context for a different reader.",
       "branches": [
         {
@@ -4455,7 +4823,12 @@
       "skillPath": "skills/undo/SKILL.md",
       "runtimeSteps": [],
       "searchTerms": [
-        "undo reverse task rollback preserve later edits ownership selective recovery"
+        "undo my changes",
+        "revert my changes",
+        "roll back my edits",
+        "undo the task",
+        "take back",
+        "restore previous state"
       ],
       "selection": "Use for a recorded local working-tree task; Git history reversal and remote rollback require their own exact targets and authorization.",
       "branches": [
@@ -4550,7 +4923,14 @@
       },
       "skillPath": "skills/handoff/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "handoff",
+        "hand off",
+        "brief for another",
+        "pass to a teammate",
+        "next session context",
+        "summary for a colleague"
+      ],
       "selection": "Use when another person or session needs context to continue; checkpoint is a shorter state capture.",
       "branches": [
         {
@@ -4651,7 +5031,14 @@
       },
       "skillPath": "skills/resume/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "pick up where we left off",
+        "continue the task",
+        "carry on",
+        "yesterday's work",
+        "resume work",
+        "last session"
+      ],
       "selection": "Use to continue a supplied checkpoint after current-state verification; auto plans a new routed run.",
       "branches": [
         {
@@ -4769,11 +5156,12 @@
       "searchTerms": [
         "CLAUDE.md",
         "AGENTS.md",
-        "context",
-        "memory",
-        "forgetting",
-        "conversation",
-        "persistent instructions"
+        "persistent instructions",
+        "project instructions",
+        "remember this",
+        "save this rule",
+        "from now on",
+        "always do"
       ],
       "selection": "Use to build or update project instructions from this conversation or save an explicit convention; checkpoint saves progress, while learn proposes lessons for adoption.",
       "branches": [
@@ -4894,7 +5282,14 @@
       },
       "skillPath": "skills/learn/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "lesson learned",
+        "what we learned",
+        "takeaway",
+        "retro note",
+        "rule for the future",
+        "remember this correction"
+      ],
       "selection": "Use to extract a candidate reusable lesson from observed work; remember persists an authorized convention.",
       "branches": [
         {
@@ -4984,7 +5379,15 @@
       },
       "skillPath": "skills/skill/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "custom command",
+        "slash command",
+        "reusable skill",
+        "create a skill",
+        "new workflow",
+        "skill file",
+        "SKILL.md"
+      ],
       "selection": "Use to author or revise a reusable workflow; ordinary one-off work should not create a new skill.",
       "branches": [
         {
@@ -5088,7 +5491,15 @@
       },
       "skillPath": "skills/doctor/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "installation",
+        "installed",
+        "plugin not loading",
+        "hooks not activating",
+        "diagnose install",
+        "marketplace",
+        "version mismatch"
+      ],
       "selection": "Use to diagnose installed toolkit state; setup intentionally changes installation.",
       "branches": [
         {
@@ -5192,7 +5603,13 @@
       },
       "skillPath": "skills/help/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "which command",
+        "which workflow",
+        "just-vibe commands",
+        "list commands",
+        "command examples"
+      ],
       "selection": "Use to choose a workflow and explain invocation; tools lists/searches the inventory.",
       "branches": [
         {
@@ -5292,7 +5709,13 @@
       },
       "skillPath": "skills/tools/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "list workflows",
+        "available commands",
+        "search commands",
+        "integrations",
+        "prerequisites"
+      ],
       "selection": "Use for catalog discovery and availability; help selects among candidates for a goal.",
       "branches": [
         {
@@ -5527,7 +5950,15 @@
       },
       "skillPath": "skills/arch-map/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "system architecture",
+        "services diagram",
+        "topology",
+        "infrastructure map",
+        "architecture overview",
+        "c4 diagram",
+        "service map"
+      ],
       "selection": "Use for deployed service/store topology; map covers repository modules.",
       "branches": [
         {
@@ -5612,7 +6043,19 @@
       },
       "skillPath": "skills/arch-boundaries/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "circular imports",
+        "circular dependency",
+        "dependency cycles",
+        "layering violation",
+        "leaky abstraction",
+        "module boundaries",
+        "god class",
+        "coupling",
+        "module structure",
+        "imports each other",
+        "import cycle"
+      ],
       "selection": "Use to inspect responsibility and dependency violations; arch-feature designs a new feature's placement.",
       "branches": [
         {
@@ -5694,7 +6137,13 @@
       },
       "skillPath": "skills/arch-feature/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "where should this logic live",
+        "where does this belong",
+        "feature placement",
+        "which layer",
+        "fit into the architecture"
+      ],
       "selection": "Use to place an accepted feature within a system; spec resolves unclear product behavior.",
       "branches": [
         {
@@ -5775,7 +6224,14 @@
       },
       "skillPath": "skills/arch-contracts/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "interface contract",
+        "service contract",
+        "message format",
+        "event schema",
+        "shared types",
+        "contract between services"
+      ],
       "selection": "Use for contracts across services or modules; api-openapi maintains a concrete HTTP schema.",
       "branches": [
         {
@@ -5865,7 +6321,19 @@
       },
       "skillPath": "skills/arch-event-flow/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "event driven",
+        "message queue",
+        "pub sub",
+        "pubsub",
+        "kafka",
+        "rabbitmq",
+        "event ordering",
+        "at least once",
+        "exactly once delivery",
+        "outbox",
+        "dead letter"
+      ],
       "selection": "Use for asynchronous consistency and delivery design; backend-jobs implements worker mechanics.",
       "branches": [
         {
@@ -5948,7 +6416,14 @@
       },
       "skillPath": "skills/arch-tenancy/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "multi-tenant",
+        "multitenant",
+        "tenant isolation",
+        "cross-tenant",
+        "tenant boundaries",
+        "saas isolation"
+      ],
       "selection": "Use for system-wide tenant isolation; backend-permissions handles individual application checks.",
       "branches": [
         {
@@ -6038,7 +6513,15 @@
       },
       "skillPath": "skills/arch-scale/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "10x traffic",
+        "scalability",
+        "capacity planning",
+        "handle load",
+        "scale out",
+        "horizontal scaling",
+        "growth"
+      ],
       "selection": "Use for workload-driven capacity design; perf measures and repairs a specific bottleneck.",
       "branches": [
         {
@@ -6119,7 +6602,15 @@
       },
       "skillPath": "skills/arch-modernize/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "monolith",
+        "strangler",
+        "microservices",
+        "incremental migration",
+        "legacy system",
+        "modernize",
+        "decompose the monolith"
+      ],
       "selection": "Use for staged architectural transition; refactor handles an internal structural change.",
       "branches": [
         {
@@ -6205,7 +6696,14 @@
       },
       "skillPath": "skills/decide/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "choose between",
+        "pick one",
+        "which option",
+        "recommend an option",
+        "recommendation",
+        "decision"
+      ],
       "selection": "Use to recommend one bounded choice; brainstorm expands options and compare describes differences.",
       "branches": [
         {
@@ -6306,7 +6804,16 @@
       },
       "skillPath": "skills/decision-matrix/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "weighted criteria",
+        "highest priority",
+        "priorities",
+        "scoring matrix",
+        "decision matrix",
+        "weigh the options",
+        "criteria weights",
+        "score the options"
+      ],
       "selection": "Use when several explicit criteria need weighted comparison; decide suffices for a decisive hard constraint.",
       "branches": [
         {
@@ -6387,7 +6894,13 @@
       },
       "skillPath": "skills/decision-adr/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "adr",
+        "architecture decision record",
+        "decision record",
+        "document the decision",
+        "decision log"
+      ],
       "selection": "Use to record a proposed or adopted architectural decision; decide determines a recommendation first.",
       "branches": [
         {
@@ -6468,7 +6981,13 @@
       },
       "skillPath": "skills/decision-premortem/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "premortem",
+        "pre-mortem",
+        "failure modes",
+        "imagine it failed",
+        "risks of this plan"
+      ],
       "selection": "Use to analyze plausible future failure of a proposal; ops-postmortem reconstructs an actual incident.",
       "branches": [
         {
@@ -6549,7 +7068,16 @@
       },
       "skillPath": "skills/decision-reversible/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "hard to undo",
+        "reversible",
+        "lock-in",
+        "locked in",
+        "exit cost",
+        "one-way door",
+        "two-way door",
+        "irreversible"
+      ],
       "selection": "Use to classify and reduce switching cost; decision-spike tests a specific uncertainty.",
       "branches": [
         {
@@ -6630,7 +7158,14 @@
       },
       "skillPath": "skills/decision-buy-build/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "buy vs build",
+        "buy or build",
+        "build vs buy",
+        "vendor",
+        "off-the-shelf",
+        "in-house"
+      ],
       "selection": "Use for vendor versus internal capability decisions; research verifies current vendor claims.",
       "branches": [
         {
@@ -6713,7 +7248,14 @@
       },
       "skillPath": "skills/decision-spike/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "spike",
+        "proof of concept",
+        "poc",
+        "timeboxed experiment",
+        "feasibility",
+        "prototype to test"
+      ],
       "selection": "Use for a bounded experiment resolving a decision; build creates production behavior.",
       "branches": [
         {
@@ -6794,7 +7336,13 @@
       },
       "skillPath": "skills/decision-revisit/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "revisit the decision",
+        "reconsider",
+        "reassess",
+        "still the right choice",
+        "change course"
+      ],
       "selection": "Use when new evidence may invalidate a recorded choice; decision-adr preserves the resulting decision record.",
       "branches": [
         {
@@ -6879,7 +7427,16 @@
       },
       "skillPath": "skills/git-status/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "git status",
+        "repo state",
+        "rebase in progress",
+        "detached head",
+        "ahead behind",
+        "what's staged",
+        "merge in progress",
+        "untracked files"
+      ],
       "selection": "Use to explain repository state; git-diff explains actual content changes.",
       "branches": [
         {
@@ -6964,7 +7521,14 @@
       },
       "skillPath": "skills/git-diff/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "changes since main",
+        "diff against main",
+        "compared to main",
+        "uncommitted changes",
+        "summarize the diff",
+        "changes on this branch"
+      ],
       "selection": "Use to understand changes against specified refs; review evaluates their correctness.",
       "branches": [
         {
@@ -7049,7 +7613,14 @@
       },
       "skillPath": "skills/git-commit/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "commit message",
+        "commit only",
+        "stage only",
+        "partial commit",
+        "conventional commit",
+        "commit these files"
+      ],
       "selection": "Use for an explicit bounded commit; git-split designs several coherent commits.",
       "branches": [
         {
@@ -7145,7 +7716,14 @@
       },
       "skillPath": "skills/git-split/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "split the commit",
+        "split into commits",
+        "separate commits",
+        "multiple commits",
+        "untangle changes",
+        "interactive staging"
+      ],
       "selection": "Use to separate a change into coherent commits; git-commit handles one selected unit.",
       "branches": [
         {
@@ -7230,7 +7808,13 @@
       },
       "skillPath": "skills/git-conflicts/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "merge conflict",
+        "conflict markers",
+        "rebase conflict",
+        "resolve conflicts",
+        "both modified"
+      ],
       "selection": "Use during a merge/rebase conflict; git-recover restores lost work.",
       "branches": [
         {
@@ -7315,7 +7899,13 @@
       },
       "skillPath": "skills/git-bisect/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "which commit broke",
+        "when did this break",
+        "first bad commit",
+        "bisect",
+        "regression range"
+      ],
       "selection": "Use to locate a deterministic regression boundary; debug first establishes a reliable oracle.",
       "branches": [
         {
@@ -7401,7 +7991,13 @@
       "skillPath": "skills/git-worktree/SKILL.md",
       "runtimeSteps": [],
       "searchTerms": [
-        "move uncommitted changes another branch isolated checkout worktree"
+        "worktree",
+        "second checkout",
+        "parallel branches",
+        "two branches at once",
+        "separate checkout",
+        "uncommitted changes to another branch",
+        "work on two branches"
       ],
       "selection": "Use for an explicitly selected isolated checkout; git-recover preserves lost candidates.",
       "branches": [
@@ -7491,7 +8087,17 @@
       },
       "skillPath": "skills/git-recover/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "lost commit",
+        "reflog",
+        "undo reset",
+        "deleted branch",
+        "get it back",
+        "recover lost work",
+        "dropped stash",
+        "lost changes",
+        "fsck"
+      ],
       "selection": "Use to find and preserve lost Git content; git-conflicts resolves an active operation.",
       "branches": [
         {
@@ -7576,7 +8182,14 @@
       },
       "skillPath": "skills/github-triage/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "triage issues",
+        "label issues",
+        "duplicate issues",
+        "issue backlog",
+        "prioritize issues",
+        "stale issues"
+      ],
       "selection": "Use to classify reported issues; github-issue drafts a new report.",
       "branches": [
         {
@@ -7666,7 +8279,14 @@
       },
       "skillPath": "skills/github-issue/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "open an issue",
+        "file an issue",
+        "issue template",
+        "bug report",
+        "feature request",
+        "write an issue"
+      ],
       "selection": "Use to draft or explicitly create an issue; github-triage assesses existing reports.",
       "branches": [
         {
@@ -7768,7 +8388,14 @@
       },
       "skillPath": "skills/github-pr/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "open a pr",
+        "create a pull request",
+        "gh pr create",
+        "draft pr",
+        "link the issue",
+        "push and open"
+      ],
       "selection": "Use for remote PR preparation or creation; pr writes a local description only.",
       "branches": [
         {
@@ -7864,7 +8491,13 @@
       },
       "skillPath": "skills/github-review/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "review this pr",
+        "review pull request",
+        "teammate's pr",
+        "approve the pr",
+        "pr review"
+      ],
       "selection": "Use to review a specific remote PR revision; review handles supplied/local diffs.",
       "branches": [
         {
@@ -7962,7 +8595,14 @@
       },
       "skillPath": "skills/github-address-review/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "reviewer asked",
+        "review comments",
+        "requested changes",
+        "address feedback",
+        "resolve comments",
+        "respond to review"
+      ],
       "selection": "Use to implement accepted review feedback; github-review produces findings.",
       "branches": [
         {
@@ -8050,7 +8690,11 @@
       "skillPath": "skills/github-fix-ci/SKILL.md",
       "runtimeSteps": [],
       "searchTerms": [
-        "failing checks PR CI Actions logs job failure"
+        "github actions failing",
+        "workflow run failed",
+        "pr checks failing",
+        "actions job failed",
+        "red check on my pr"
       ],
       "selection": "Use for repairing a specific GitHub Actions failure; ci diagnoses provider-neutral logs.",
       "branches": [
@@ -8151,7 +8795,16 @@
       },
       "skillPath": "skills/github-actions/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "github actions",
+        "workflow yaml",
+        "workflow file",
+        "actions cache",
+        "pull_request_target",
+        "pin actions",
+        "reusable workflow",
+        "actions permissions"
+      ],
       "selection": "Use to implement requested workflow changes; github-fix-ci repairs one failed run.",
       "branches": [
         {
@@ -8246,7 +8899,13 @@
       },
       "skillPath": "skills/github-release/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "github release",
+        "release tag",
+        "release assets",
+        "draft release",
+        "gh release"
+      ],
       "selection": "Use for an explicitly scoped GitHub release; release drafts notes and readiness criteria.",
       "branches": [
         {
@@ -8340,7 +8999,14 @@
       },
       "skillPath": "skills/vercel-audit/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "vercel settings",
+        "vercel project",
+        "framework preset",
+        "root directory",
+        "vercel config",
+        "vercel build settings"
+      ],
       "selection": "Use to compare repository configuration with a specific Vercel project; vercel-runtime investigates a particular runtime failure.",
       "branches": [
         {
@@ -8434,7 +9100,13 @@
       "skillPath": "skills/vercel-build-fix/SKILL.md",
       "runtimeSteps": [],
       "searchTerms": [
-        "preview deployments fail local builds work differently"
+        "vercel build failed",
+        "vercel deployment failed",
+        "build fails on vercel",
+        "works locally fails on vercel",
+        "vercel build logs",
+        "behaves differently from local builds",
+        "differs from local"
       ],
       "selection": "Use for a failed Vercel build; vite-bundle handles size and splitting of a successful build.",
       "branches": [
@@ -8534,7 +9206,15 @@
       },
       "skillPath": "skills/vercel-env/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "environment variables",
+        "env vars",
+        "vercel env",
+        "missing env",
+        "preview env",
+        "production env",
+        "env pull"
+      ],
       "selection": "Use to inspect or explicitly manage variable names/scopes; vite-env traces client exposure and build modes.",
       "branches": [
         {
@@ -8615,7 +9295,13 @@
       },
       "skillPath": "skills/vercel-preview/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "preview deployment",
+        "preview url",
+        "preview link",
+        "branch preview",
+        "deploy preview"
+      ],
       "selection": "Use for a specifically requested preview deployment; vercel-release-check assesses production readiness.",
       "branches": [
         {
@@ -8703,7 +9389,15 @@
       },
       "skillPath": "skills/vercel-runtime/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "function timeout",
+        "serverless function",
+        "edge function",
+        "500 on vercel",
+        "runtime logs",
+        "function logs",
+        "cold start"
+      ],
       "selection": "Use for failures after a successful build; vercel-build-fix handles build-time errors.",
       "branches": [
         {
@@ -8793,7 +9487,19 @@
       },
       "skillPath": "skills/vercel-routing/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "vercel rewrites",
+        "redirect rules",
+        "rewrite rules",
+        "vercel.json",
+        "catch-all",
+        "spa fallback",
+        "api route returns html",
+        "redirect loop",
+        "custom domain",
+        "404 on refresh",
+        "trailing slash"
+      ],
       "selection": "Use for platform/framework route interaction; vite-assets diagnoses emitted asset paths.",
       "branches": [
         {
@@ -8876,7 +9582,14 @@
       },
       "skillPath": "skills/vercel-performance/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "slow route",
+        "ttfb",
+        "vercel analytics",
+        "speed insights",
+        "slow page on vercel",
+        "cache headers"
+      ],
       "selection": "Use for measured deployment latency/cache problems; react-rerenders handles client render cost.",
       "branches": [
         {
@@ -8958,7 +9671,14 @@
       },
       "skillPath": "skills/vercel-release-check/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "promote to production",
+        "promotion",
+        "rollback deployment",
+        "release gate",
+        "instant rollback",
+        "check the deployment"
+      ],
       "selection": "Use to verify a named deployment's release gates; deploy executes authorized transition.",
       "branches": [
         {
@@ -9041,7 +9761,12 @@
       },
       "skillPath": "skills/vite-setup/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "set up vite",
+        "vite project",
+        "create vite",
+        "vite template"
+      ],
       "selection": "Use to add or repair Vite project wiring; vite-upgrade changes an existing version.",
       "branches": [
         {
@@ -9131,7 +9856,13 @@
       },
       "skillPath": "skills/vite-config/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "vite.config",
+        "vite config",
+        "vite alias",
+        "vite plugin",
+        "resolve alias"
+      ],
       "selection": "Use to inspect effective configuration; vite-hmr or vite-assets handles a known failure surface.",
       "branches": [
         {
@@ -9221,7 +9952,14 @@
       },
       "skillPath": "skills/vite-hmr/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "hmr",
+        "hot reload",
+        "hot module replacement",
+        "fast refresh",
+        "changes not reflected",
+        "full reload"
+      ],
       "selection": "Use for broken development updates; react-effects handles lifecycle bugs visible during refresh.",
       "branches": [
         {
@@ -9311,7 +10049,13 @@
       },
       "skillPath": "skills/vite-env/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "import.meta.env",
+        "vite_ prefix",
+        "vite env",
+        ".env.local",
+        "env mode"
+      ],
       "selection": "Use for build mode, environment loading and client exposure; vercel-env checks deployment scope metadata.",
       "branches": [
         {
@@ -9408,7 +10152,14 @@
       },
       "skillPath": "skills/vite-bundle/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "bundle size",
+        "bundle analyzer",
+        "large bundle",
+        "tree shaking",
+        "rollup visualizer",
+        "initial js"
+      ],
       "selection": "Use for bundle composition and size; vite-chunks focuses on loading boundaries.",
       "branches": [
         {
@@ -9498,7 +10249,15 @@
       },
       "skillPath": "skills/vite-chunks/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "code splitting",
+        "lazy loading",
+        "dynamic import",
+        "manual chunks",
+        "chunk size",
+        "duplicated modules",
+        "vendor chunk"
+      ],
       "selection": "Use to change lazy-loading/cache boundaries; vite-bundle first identifies heavy contributors.",
       "branches": [
         {
@@ -9598,7 +10357,15 @@
       },
       "skillPath": "skills/vite-assets/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "asset paths",
+        "public folder",
+        "base path",
+        "images 404",
+        "assets 404",
+        "broken images",
+        "static assets"
+      ],
       "selection": "Use for missing assets or wrong emitted URLs; vercel-routing handles platform rewrites.",
       "branches": [
         {
@@ -9688,7 +10455,13 @@
       },
       "skillPath": "skills/vite-upgrade/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "upgrade vite",
+        "vite 6",
+        "vite 7",
+        "vite migration",
+        "vite major version"
+      ],
       "selection": "Use for a requested Vite version transition; deps handles general dependency selection.",
       "branches": [
         {
@@ -9778,7 +10551,13 @@
       },
       "skillPath": "skills/react-audit/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "rules of hooks",
+        "react review",
+        "component review",
+        "react best practices",
+        "hooks audit"
+      ],
       "selection": "Use for React correctness inspection; react-rerenders requires performance evidence and react-effects targets synchronization.",
       "branches": [
         {
@@ -9884,7 +10663,19 @@
       "skillPath": "skills/react-rerenders/SKILL.md",
       "runtimeSteps": [],
       "searchTerms": [
-        "product grid freezes filters slow rerenders rendering profiler"
+        "re-renders",
+        "rerenders",
+        "freezes",
+        "grid freezes",
+        "typing lag",
+        "janky",
+        "react profiler",
+        "memo",
+        "usememo",
+        "usecallback",
+        "keystroke lag",
+        "render count",
+        "why did you render"
       ],
       "selection": "Use for a measured slow interaction; react-state addresses ownership inconsistency.",
       "branches": [
@@ -9988,7 +10779,13 @@
       "skillPath": "skills/react-effects/SKILL.md",
       "runtimeSteps": [],
       "searchTerms": [
-        "stale account switch effect loop cleanup"
+        "useeffect",
+        "effect loop",
+        "infinite loop",
+        "stale closure",
+        "missing cleanup",
+        "dependency array",
+        "effect runs twice"
       ],
       "selection": "Use for synchronization, cleanup or dependency defects; react-state handles authoritative data placement.",
       "branches": [
@@ -10089,7 +10886,19 @@
       },
       "skillPath": "skills/react-state/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "state management",
+        "derived state",
+        "duplicated state",
+        "out of sync",
+        "lift state",
+        "zustand",
+        "redux",
+        "context provider",
+        "prop drilling",
+        "disagree",
+        "source of truth"
+      ],
       "selection": "Use for duplicated/inconsistent state ownership; react-effects handles external synchronization.",
       "branches": [
         {
@@ -10189,7 +10998,14 @@
       },
       "skillPath": "skills/react-component/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "reusable component",
+        "component api",
+        "controlled component",
+        "props api",
+        "storybook",
+        "accessible component"
+      ],
       "selection": "Use to implement one component with a clear contract; ui-system defines shared primitives and tokens.",
       "branches": [
         {
@@ -10316,7 +11132,17 @@
       },
       "skillPath": "skills/react-forms/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "form validation",
+        "form submit",
+        "loses input",
+        "clears the form",
+        "react hook form",
+        "zod",
+        "formik",
+        "useactionstate",
+        "server action"
+      ],
       "selection": "Use for form validation/submission and recovery; backend-permissions supplies authoritative access checks.",
       "branches": [
         {
@@ -10426,7 +11252,15 @@
       },
       "skillPath": "skills/react-async/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "race condition in the ui",
+        "stale response",
+        "abortcontroller",
+        "request cancellation",
+        "loading race",
+        "suspense",
+        "out of order responses"
+      ],
       "selection": "Use for request races, optimistic updates and async states; react-effects handles general lifecycle synchronization.",
       "branches": [
         {
@@ -10528,7 +11362,11 @@
       "skillPath": "skills/react-hydration/SKILL.md",
       "runtimeSteps": [],
       "searchTerms": [
-        "server client mismatch hydration SSR"
+        "hydration",
+        "hydration error",
+        "hydration mismatch",
+        "ssr mismatch",
+        "server client mismatch"
       ],
       "selection": "Use for SSR/first-client mismatches; client-only rendering does not need hydration repair.",
       "branches": [
@@ -10629,7 +11467,15 @@
       },
       "skillPath": "skills/ui-audit/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "ui review",
+        "ux review",
+        "usability",
+        "visual hierarchy",
+        "design audit",
+        "heuristic evaluation",
+        "inconsistent ui"
+      ],
       "selection": "Use to identify usability/visual issues in an existing journey; design implements a new direction.",
       "branches": [
         {
@@ -10734,7 +11580,15 @@
       },
       "skillPath": "skills/ui-system/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "design system",
+        "design tokens",
+        "style guide",
+        "component library",
+        "color palette",
+        "spacing scale",
+        "type scale"
+      ],
       "selection": "Use to establish or refine shared design tokens/components; polish makes local refinements.",
       "branches": [
         {
@@ -10839,7 +11693,16 @@
       },
       "skillPath": "skills/ui-states/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "loading state",
+        "empty state",
+        "error state",
+        "skeleton",
+        "spinner",
+        "disabled state",
+        "success state",
+        "partial data"
+      ],
       "selection": "Use to implement missing interface states; ui-flow connects states across a journey.",
       "branches": [
         {
@@ -10946,7 +11809,17 @@
       },
       "skillPath": "skills/ui-responsive/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "responsive",
+        "mobile layout",
+        "tablet",
+        "breakpoints",
+        "small screens",
+        "overflow",
+        "tap target",
+        "viewport",
+        "on mobile"
+      ],
       "selection": "Use for layout adaptation, zoom and input differences; responsive is the same canonical workflow.",
       "branches": [
         {
@@ -11063,7 +11936,17 @@
       },
       "skillPath": "skills/ui-accessibility/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "accessibility",
+        "a11y",
+        "wcag",
+        "screen reader",
+        "keyboard navigation",
+        "focus order",
+        "color contrast",
+        "aria",
+        "voiceover"
+      ],
       "selection": "Use for accessibility audit or requested remediation; a11y is the same canonical workflow.",
       "branches": [
         {
@@ -11168,7 +12051,14 @@
       },
       "skillPath": "skills/ui-motion/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "animation",
+        "transitions",
+        "prefers-reduced-motion",
+        "framer motion",
+        "gsap",
+        "animate"
+      ],
       "selection": "Use for purposeful transitions and animation behavior; polish addresses static hierarchy and spacing.",
       "branches": [
         {
@@ -11273,7 +12163,14 @@
       },
       "skillPath": "skills/ui-visual-diff/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "visual regression",
+        "screenshot diff",
+        "percy",
+        "chromatic",
+        "pixel diff",
+        "snapshot comparison"
+      ],
       "selection": "Use to compare matched visual states; ui-audit judges usability of the resulting interface.",
       "branches": [
         {
@@ -11378,7 +12275,15 @@
       },
       "skillPath": "skills/ui-flow/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "user flow",
+        "onboarding flow",
+        "checkout flow",
+        "signup flow",
+        "user journey",
+        "wizard",
+        "multi-step"
+      ],
       "selection": "Use for a multi-step journey's decisions and recovery; ui-states defines individual screen states.",
       "branches": [
         {
@@ -11483,7 +12388,14 @@
       },
       "skillPath": "skills/backend-service/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "business logic",
+        "service layer",
+        "domain service",
+        "use case",
+        "service boundaries",
+        "controller logic"
+      ],
       "selection": "Use for a domain service implementation; api-design defines transport-facing contracts.",
       "branches": [
         {
@@ -11608,7 +12520,17 @@
       },
       "skillPath": "skills/backend-auth/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "login",
+        "logout",
+        "session expiry",
+        "jwt",
+        "oauth",
+        "refresh token",
+        "password reset",
+        "sign in",
+        "authentication"
+      ],
       "selection": "Use for identity/session lifecycle; backend-permissions handles what an identity may do.",
       "branches": [
         {
@@ -11750,7 +12672,16 @@
       },
       "skillPath": "skills/backend-permissions/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "permission checks",
+        "role permissions",
+        "rbac",
+        "authorization",
+        "access control",
+        "admin only",
+        "role check",
+        "owner only"
+      ],
       "selection": "Use for application action/resource policy; arch-tenancy covers propagation across the whole system.",
       "branches": [
         {
@@ -11870,7 +12801,18 @@
       },
       "skillPath": "skills/backend-jobs/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "background job",
+        "job queue",
+        "worker",
+        "cron job",
+        "scheduled task",
+        "retry forever",
+        "dead letter",
+        "sidekiq",
+        "celery",
+        "bullmq"
+      ],
       "selection": "Use for durable background work; arch-event-flow defines cross-service consistency.",
       "branches": [
         {
@@ -11997,7 +12939,13 @@
       "skillPath": "skills/backend-idempotency/SKILL.md",
       "runtimeSteps": [],
       "searchTerms": [
-        "duplicate payment credit webhook retry twice concurrent"
+        "idempotent",
+        "idempotency key",
+        "duplicate charge",
+        "charged twice",
+        "double submit",
+        "retry safe",
+        "duplicate payment"
       ],
       "selection": "Use to make repeated operations produce the intended single effect; backend-concurrency covers broader interleavings.",
       "branches": [
@@ -12114,7 +13062,14 @@
       },
       "skillPath": "skills/backend-concurrency/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "race condition",
+        "concurrent updates",
+        "lost update",
+        "double booking",
+        "optimistic locking",
+        "same time"
+      ],
       "selection": "Use for violated invariants under competing operations; backend-idempotency handles repeat identity.",
       "branches": [
         {
@@ -12240,7 +13195,14 @@
       },
       "skillPath": "skills/backend-cache/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "cache invalidation",
+        "stale cache",
+        "cache key",
+        "redis cache",
+        "ttl",
+        "cache stampede"
+      ],
       "selection": "Use for cache correctness and measured caching changes; db-query fixes the underlying query semantics.",
       "branches": [
         {
@@ -12359,7 +13321,18 @@
       },
       "skillPath": "skills/backend-resilience/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "timeouts",
+        "retry policy",
+        "circuit breaker",
+        "backoff",
+        "fallback",
+        "flaky dependency",
+        "graceful degradation",
+        "provider is down",
+        "provider outage",
+        "degrade gracefully"
+      ],
       "selection": "Use for bounded dependency failure behavior; ops-incident handles an active incident.",
       "branches": [
         {
@@ -12472,7 +13445,15 @@
       },
       "skillPath": "skills/api-design/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "endpoint design",
+        "rest api",
+        "api design",
+        "resource naming",
+        "request validation",
+        "response shape",
+        "graphql schema"
+      ],
       "selection": "Use to design consumer-visible operations; backend-service implements business behavior.",
       "branches": [
         {
@@ -12577,7 +13558,13 @@
       },
       "skillPath": "skills/api-openapi/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "openapi",
+        "swagger",
+        "api spec",
+        "openapi spec",
+        "schema drift"
+      ],
       "selection": "Use to maintain an OpenAPI contract; api-breaking assesses compatibility between versions.",
       "branches": [
         {
@@ -12677,7 +13664,14 @@
       },
       "skillPath": "skills/api-breaking/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "breaking change",
+        "backward compatible",
+        "backwards compatibility",
+        "old clients",
+        "versioning",
+        "deprecate field"
+      ],
       "selection": "Use to assess consumer impact of a change; api-design creates the intended contract.",
       "branches": [
         {
@@ -12777,7 +13771,12 @@
       },
       "skillPath": "skills/api-contract-test/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "contract test",
+        "consumer driven",
+        "pact",
+        "provider test"
+      ],
       "selection": "Use to implement consumer/provider contract checks; test-integration exercises broader dependency behavior.",
       "branches": [
         {
@@ -12877,7 +13876,14 @@
       },
       "skillPath": "skills/api-errors/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "error responses",
+        "error format",
+        "problem details",
+        "status codes",
+        "error codes",
+        "rfc 9457"
+      ],
       "selection": "Use to standardize error behavior without changing business policy; api-design defines a new contract.",
       "branches": [
         {
@@ -12977,7 +13983,14 @@
       },
       "skillPath": "skills/api-pagination/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "pagination",
+        "paginate",
+        "cursor pagination",
+        "offset pagination",
+        "page size",
+        "next page token"
+      ],
       "selection": "Use for stable bounded collection traversal; db-query handles result correctness below it.",
       "branches": [
         {
@@ -13077,7 +14090,14 @@
       },
       "skillPath": "skills/api-webhooks/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "webhook",
+        "signature verification",
+        "webhook retries",
+        "replay",
+        "outbound webhooks",
+        "send webhooks"
+      ],
       "selection": "Use for authenticated durable event receipt; backend-jobs handles deferred processing.",
       "branches": [
         {
@@ -13182,7 +14202,14 @@
       },
       "skillPath": "skills/api-client/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "api client",
+        "typed client",
+        "generate client",
+        "fetch wrapper",
+        "client library",
+        "client sdk"
+      ],
       "selection": "Use for a typed transport boundary to a known API; integrate handles wider product wiring.",
       "branches": [
         {
@@ -13280,7 +14307,15 @@
       },
       "skillPath": "skills/db-schema/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "schema design",
+        "table design",
+        "foreign key",
+        "data model",
+        "entity relationship",
+        "normalize tables",
+        "column types"
+      ],
       "selection": "Use for relational modeling and constraints; db-migrate plans transition of existing data.",
       "branches": [
         {
@@ -13392,7 +14427,17 @@
       },
       "skillPath": "skills/db-migrate/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "schema migration",
+        "alter table",
+        "add column",
+        "non-null column",
+        "zero downtime migration",
+        "rollback migration",
+        "alembic",
+        "prisma migrate",
+        "flyway"
+      ],
       "selection": "Use for schema/data transition mechanics; db-schema designs the target model.",
       "branches": [
         {
@@ -13510,7 +14555,15 @@
       },
       "skillPath": "skills/db-query/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "sql query",
+        "materialized view",
+        "write a query",
+        "join",
+        "group by",
+        "subquery",
+        "orm query"
+      ],
       "selection": "Use for correct query semantics; db-explain analyzes the execution plan afterward.",
       "branches": [
         {
@@ -13610,7 +14663,14 @@
       },
       "skillPath": "skills/db-explain/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "explain analyze",
+        "query plan",
+        "execution plan",
+        "seq scan",
+        "nested loop",
+        "slow query plan"
+      ],
       "selection": "Use to interpret an existing or authorized execution plan; db-index proposes an index from workload evidence.",
       "branches": [
         {
@@ -13710,7 +14770,13 @@
       },
       "skillPath": "skills/db-index/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "add an index",
+        "missing index",
+        "composite index",
+        "covering index",
+        "slow query index"
+      ],
       "selection": "Use for workload-specific index design; db-schema handles broader constraints and data shape.",
       "branches": [
         {
@@ -13811,7 +14877,14 @@
       },
       "skillPath": "skills/db-integrity/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "orphaned rows",
+        "orphan records",
+        "foreign key violations",
+        "missing constraints",
+        "data integrity",
+        "invalid references"
+      ],
       "selection": "Use to check declared invariants in existing data; db-access checks permission policy.",
       "branches": [
         {
@@ -13912,7 +14985,13 @@
       "skillPath": "skills/db-locks/SKILL.md",
       "runtimeSteps": [],
       "searchTerms": [
-        "deadlock blocking blocked transaction contention"
+        "deadlock",
+        "blocking",
+        "blocked query",
+        "transaction contention",
+        "lock wait",
+        "long running transaction",
+        "migration blocked on lock"
       ],
       "selection": "Use for transaction blocking/deadlock diagnosis; backend-concurrency designs application consistency.",
       "branches": [
@@ -14013,7 +15092,14 @@
       },
       "skillPath": "skills/db-access/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "row level security",
+        "rls",
+        "database roles",
+        "grants",
+        "tenant filtering",
+        "db permissions"
+      ],
       "selection": "Use for grants, connection roles and row policies; backend-permissions checks application enforcement.",
       "branches": [
         {
@@ -14123,7 +15209,15 @@
       },
       "skillPath": "skills/data-profile/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "profile the data",
+        "distributions",
+        "null values",
+        "missing values",
+        "summary statistics",
+        "data exploration",
+        "eda"
+      ],
       "selection": "Use for descriptive data inspection; data-quality evaluates declared rules.",
       "branches": [
         {
@@ -14204,7 +15298,13 @@
       },
       "skillPath": "skills/data-contract/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "data contract",
+        "schema contract",
+        "freshness sla",
+        "producer consumer",
+        "column semantics"
+      ],
       "selection": "Use to define producer/consumer data expectations; data-quality checks an accepted contract.",
       "branches": [
         {
@@ -14287,7 +15387,16 @@
       },
       "skillPath": "skills/data-pipeline/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "etl",
+        "elt",
+        "ingestion",
+        "data pipeline",
+        "airflow",
+        "dbt",
+        "dag",
+        "transform job"
+      ],
       "selection": "Use for a transformation pipeline; data-incremental focuses on checkpoints and change processing.",
       "branches": [
         {
@@ -14370,7 +15479,15 @@
       },
       "skillPath": "skills/data-incremental/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "incremental load",
+        "incremental processing",
+        "watermark",
+        "cdc",
+        "change data capture",
+        "deduplicate",
+        "upsert"
+      ],
       "selection": "Use for replay-safe CDC or watermark processing; data-backfill handles bounded historical ranges.",
       "branches": [
         {
@@ -14453,7 +15570,12 @@
       },
       "skillPath": "skills/data-backfill/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "backfill",
+        "historical data",
+        "reprocess history",
+        "rerun history"
+      ],
       "selection": "Use for bounded historical reprocessing; data-pipeline creates normal transformation behavior.",
       "branches": [
         {
@@ -14549,7 +15671,14 @@
       },
       "skillPath": "skills/data-reconcile/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "reconcile",
+        "row counts differ",
+        "source and destination",
+        "numbers don't match",
+        "discrepancy",
+        "mismatch between"
+      ],
       "selection": "Use to compare corresponding datasets; db-integrity checks database invariants.",
       "branches": [
         {
@@ -14632,7 +15761,13 @@
       },
       "skillPath": "skills/data-lineage/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "lineage",
+        "column come from",
+        "field origin",
+        "upstream sources",
+        "column lineage"
+      ],
       "selection": "Use to trace a field's origin and transformation; trace follows an execution instance.",
       "branches": [
         {
@@ -14715,7 +15850,15 @@
       },
       "skillPath": "skills/data-quality/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "data quality",
+        "freshness",
+        "completeness",
+        "great expectations",
+        "dbt tests",
+        "data checks",
+        "anomaly"
+      ],
       "selection": "Use to evaluate an identified snapshot against declared rules; data-profile discovers descriptive anomalies.",
       "branches": [
         {
@@ -14796,7 +15939,16 @@
       },
       "skillPath": "skills/ml-frame/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "frame the problem",
+        "regression problem",
+        "classification problem",
+        "prediction target",
+        "what to predict",
+        "unit of analysis",
+        "objective definition",
+        "ml problem"
+      ],
       "selection": "Use to define the prediction problem; ml-baseline implements the first comparator after the task is defined.",
       "branches": [
         {
@@ -14891,7 +16043,13 @@
       },
       "skillPath": "skills/ml-dataset/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "dataset audit",
+        "enough data",
+        "representative data",
+        "dataset coverage",
+        "training data quality"
+      ],
       "selection": "Use to assess whether data supports a task; data-profile summarizes its columns.",
       "branches": [
         {
@@ -14986,7 +16144,17 @@
       },
       "skillPath": "skills/ml-labels/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "label noise",
+        "labeling guidelines",
+        "label quality",
+        "relabel",
+        "annotation",
+        "annotator disagreement",
+        "mislabeled",
+        "ground truth",
+        "missing labels"
+      ],
       "selection": "Use for label construction and annotation quality; ml-leakage checks prediction-time information flow.",
       "branches": [
         {
@@ -15092,7 +16260,15 @@
       },
       "skillPath": "skills/ml-split/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "train test split",
+        "validation split",
+        "cross validation",
+        "time split",
+        "group split",
+        "k-fold",
+        "holdout"
+      ],
       "selection": "Use to design evaluation partitions matching deployment; ml-leakage audits actual contamination evidence.",
       "branches": [
         {
@@ -15205,7 +16381,13 @@
       "skillPath": "skills/ml-leakage/SKILL.md",
       "runtimeSteps": [],
       "searchTerms": [
-        "target temporal future leakage contamination split contaminated"
+        "leakage",
+        "target leakage",
+        "data leakage",
+        "too good to be true",
+        "suspiciously high",
+        "future information",
+        "lookahead"
       ],
       "selection": "Use to audit demonstrated information leakage; ml-split designs the evaluation protocol.",
       "branches": [
@@ -15303,7 +16485,13 @@
       },
       "skillPath": "skills/ml-features/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "feature engineering",
+        "feature store",
+        "prediction time",
+        "categorical features",
+        "feature encoding"
+      ],
       "selection": "Use to implement prediction-time feature transformations; ml-labels defines outcomes and ml-leakage audits leakage.",
       "branches": [
         {
@@ -15402,7 +16590,15 @@
       },
       "skillPath": "skills/ml-imbalance/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "class imbalance",
+        "imbalanced",
+        "rare class",
+        "oversampling",
+        "smote",
+        "class weights",
+        "minority class"
+      ],
       "selection": "Use when rare outcomes affect metrics or training; ml-threshold selects operational decisions.",
       "branches": [
         {
@@ -15497,7 +16693,14 @@
       },
       "skillPath": "skills/ml-dataset-version/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "dataset version",
+        "data versioning",
+        "dvc",
+        "provenance",
+        "snapshot the dataset",
+        "dataset hash"
+      ],
       "selection": "Use to identify reproducible data/splits; data-lineage explains transformations.",
       "branches": [
         {
@@ -15590,7 +16793,13 @@
       },
       "skillPath": "skills/ml-baseline/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "baseline model",
+        "simple baseline",
+        "naive baseline",
+        "logistic regression baseline",
+        "benchmark model"
+      ],
       "selection": "Use for a first comparable benchmark; ml-tune searches hyperparameters after protocol validity.",
       "branches": [
         {
@@ -15696,7 +16905,15 @@
       },
       "skillPath": "skills/ml-train/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "train the model",
+        "training loop",
+        "training script",
+        "fine-tune",
+        "fine tuning",
+        "checkpointing",
+        "resume training"
+      ],
       "selection": "Use for bounded training implementation/execution; ml-debug-training diagnoses a failed optimization process.",
       "branches": [
         {
@@ -15804,7 +17021,15 @@
       },
       "skillPath": "skills/ml-debug-training/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "loss not decreasing",
+        "nan loss",
+        "exploding gradients",
+        "not learning",
+        "training diverges",
+        "loss is flat",
+        "unstable training"
+      ],
       "selection": "Use for NaNs, shape/device errors or non-learning; ml-error-analysis studies generalization failures.",
       "branches": [
         {
@@ -15902,7 +17127,15 @@
       },
       "skillPath": "skills/ml-tune/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "hyperparameter",
+        "hyperparameters",
+        "optuna",
+        "grid search",
+        "random search",
+        "learning rate sweep",
+        "tuning"
+      ],
       "selection": "Use for a bounded search under a valid protocol; ml-ablation isolates component contribution.",
       "branches": [
         {
@@ -15999,7 +17232,13 @@
       },
       "skillPath": "skills/ml-ablation/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "ablation",
+        "remove features",
+        "which component matters",
+        "feature contribution",
+        "ablation study"
+      ],
       "selection": "Use to estimate component contribution; ml-tune optimizes parameters.",
       "branches": [
         {
@@ -16101,7 +17340,14 @@
       },
       "skillPath": "skills/ml-experiments/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "compare runs",
+        "experiment tracking",
+        "mlflow",
+        "wandb",
+        "run comparison",
+        "experiment results"
+      ],
       "selection": "Use to compare recorded runs; ml-train produces a run and ml-report communicates validated conclusions.",
       "branches": [
         {
@@ -16199,7 +17445,13 @@
       },
       "skillPath": "skills/ml-reproduce/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "reproduce the result",
+        "different results",
+        "random seed",
+        "reproducibility",
+        "replicate the paper"
+      ],
       "selection": "Use to repeat a specified run; ml-baseline defines a new benchmark.",
       "branches": [
         {
@@ -16298,7 +17550,16 @@
       },
       "skillPath": "skills/ml-training-cost/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "gpu memory",
+        "training time",
+        "cuda out of memory",
+        "oom",
+        "gpu utilization",
+        "dataloader bottleneck",
+        "training cost",
+        "idle gpu"
+      ],
       "selection": "Use to analyze training resource use; ml-inference-perf measures deployed prediction work.",
       "branches": [
         {
@@ -16406,7 +17667,19 @@
       },
       "skillPath": "skills/ml-evaluate/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "evaluate the model",
+        "held-out test",
+        "metrics",
+        "precision",
+        "recall",
+        "f1",
+        "auc",
+        "prauc",
+        "accuracy",
+        "model evaluation",
+        "test set metrics"
+      ],
       "selection": "Use for fixed-model evaluation; ml-threshold and ml-calibrate require separate selection data.",
       "branches": [
         {
@@ -16514,7 +17787,15 @@
       },
       "skillPath": "skills/ml-error-analysis/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "error analysis",
+        "failure cases",
+        "misclassified",
+        "confusion matrix",
+        "where the model fails",
+        "false positives",
+        "false negatives"
+      ],
       "selection": "Use to inspect model mistakes; ml-slices computes cohort metrics and ml-debug-training diagnoses optimization.",
       "branches": [
         {
@@ -16613,7 +17894,14 @@
       },
       "skillPath": "skills/ml-slices/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "subgroups",
+        "cohorts",
+        "per segment",
+        "fairness across groups",
+        "performance by region",
+        "slice metrics"
+      ],
       "selection": "Use for cohort performance comparisons; ml-error-analysis investigates individual failure mechanisms.",
       "branches": [
         {
@@ -16717,7 +18005,15 @@
       },
       "skillPath": "skills/ml-calibrate/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "calibration",
+        "calibrated probabilities",
+        "overconfident",
+        "reliability diagram",
+        "platt",
+        "isotonic",
+        "brier score"
+      ],
       "selection": "Use to assess or fit probability calibration; ml-threshold maps scores to decisions.",
       "branches": [
         {
@@ -16812,7 +18108,15 @@
       },
       "skillPath": "skills/ml-threshold/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "threshold",
+        "cutoff",
+        "decision threshold",
+        "operating point",
+        "alerts per day",
+        "review capacity",
+        "precision at k"
+      ],
       "selection": "Use to choose a decision cutoff under explicit costs/capacity; ml-evaluate measures fixed behavior.",
       "branches": [
         {
@@ -16905,7 +18209,14 @@
       },
       "skillPath": "skills/ml-robustness/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "robustness",
+        "noisy inputs",
+        "missing inputs",
+        "adversarial",
+        "stress test the model",
+        "distribution shift test"
+      ],
       "selection": "Use for bounded valid perturbation tests; ml-drift compares observed populations.",
       "branches": [
         {
@@ -17000,7 +18311,14 @@
       },
       "skillPath": "skills/ml-explain/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "feature importance",
+        "shap",
+        "explain predictions",
+        "interpretability",
+        "lime",
+        "partial dependence"
+      ],
       "selection": "Use to interpret model behavior; explain describes code and teach explains concepts.",
       "branches": [
         {
@@ -17095,7 +18413,13 @@
       },
       "skillPath": "skills/ml-report/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "model card",
+        "model report",
+        "evaluation report",
+        "intended use",
+        "document the model"
+      ],
       "selection": "Use to communicate established ML evidence; ml-evaluate creates evaluation results.",
       "branches": [
         {
@@ -17190,7 +18514,15 @@
       },
       "skillPath": "skills/ml-package/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "package the model",
+        "model artifact",
+        "serialize the model",
+        "onnx",
+        "torchscript",
+        "model container",
+        "pickle"
+      ],
       "selection": "Use to create a reproducible inference artifact; ml-serving implements the serving boundary.",
       "branches": [
         {
@@ -17288,7 +18620,14 @@
       },
       "skillPath": "skills/ml-serving/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "model api",
+        "inference endpoint",
+        "serve the model",
+        "online inference",
+        "model server",
+        "real-time predictions"
+      ],
       "selection": "Use to implement model service behavior; ml-rollout plans traffic transition.",
       "branches": [
         {
@@ -17381,7 +18720,13 @@
       },
       "skillPath": "skills/ml-batch/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "batch inference",
+        "batch predictions",
+        "score the table",
+        "nightly scoring",
+        "offline scoring"
+      ],
       "selection": "Use for resumable batch inference; ml-serving handles request/response service behavior.",
       "branches": [
         {
@@ -17486,7 +18831,12 @@
       "skillPath": "skills/ml-parity/SKILL.md",
       "runtimeSteps": [],
       "searchTerms": [
-        "offline scores good production predictions different training serving mismatch"
+        "training serving skew",
+        "training and serving",
+        "offline online mismatch",
+        "preprocessing mismatch",
+        "notebook vs production",
+        "predictions don't match"
       ],
       "selection": "Use to compare training and serving transformations; ml-drift compares populations over time.",
       "branches": [
@@ -17580,7 +18930,15 @@
       },
       "skillPath": "skills/ml-inference-perf/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "inference latency",
+        "inference is slow",
+        "throughput",
+        "quantization",
+        "batching requests",
+        "gpu inference",
+        "model latency"
+      ],
       "selection": "Use for latency/throughput/resource benchmarking; ml-training-cost covers training.",
       "branches": [
         {
@@ -17679,7 +19037,14 @@
       },
       "skillPath": "skills/ml-drift/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "data drift",
+        "concept drift",
+        "distribution shift",
+        "psi",
+        "feature drift",
+        "prediction drift"
+      ],
       "selection": "Use for observed input/prediction distribution change; ml-evaluate requires outcomes to establish quality.",
       "branches": [
         {
@@ -17772,7 +19137,13 @@
       },
       "skillPath": "skills/ml-monitor/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "model monitoring",
+        "monitor the model",
+        "delayed labels",
+        "model dashboard",
+        "alert on accuracy"
+      ],
       "selection": "Use to design or implement requested ML telemetry; ops-alerts designs response-worthy alert behavior.",
       "branches": [
         {
@@ -17869,7 +19240,14 @@
       },
       "skillPath": "skills/ml-rollout/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "model rollout",
+        "shadow mode",
+        "canary model",
+        "a/b test the model",
+        "roll back the model",
+        "new model version"
+      ],
       "selection": "Use for a scoped model promotion plan or transition; ml-report documents offline evidence.",
       "branches": [
         {
@@ -17968,7 +19346,15 @@
       },
       "skillPath": "skills/llm-evals/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "evals",
+        "eval set",
+        "llm evaluation",
+        "golden set",
+        "llm judge",
+        "grading rubric",
+        "regression evals"
+      ],
       "selection": "Use to establish LLM task evaluation; llm-prompt optimizes against development cases.",
       "branches": [
         {
@@ -18055,7 +19441,14 @@
       },
       "skillPath": "skills/llm-prompt/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "system prompt",
+        "prompt engineering",
+        "prompt template",
+        "few-shot",
+        "production prompt",
+        "prompt versioning"
+      ],
       "selection": "Use to improve a specified prompt under evidence; teach explains prompting concepts without running optimization.",
       "branches": [
         {
@@ -18138,7 +19531,14 @@
       },
       "skillPath": "skills/llm-structured/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "structured output",
+        "json mode",
+        "json schema",
+        "parse llm output",
+        "pydantic",
+        "invalid json"
+      ],
       "selection": "Use for validated structured model output; api-client handles the provider transport boundary.",
       "branches": [
         {
@@ -18228,7 +19628,16 @@
       },
       "skillPath": "skills/llm-rag/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "rag",
+        "retrieval augmented",
+        "knowledge base",
+        "chat with docs",
+        "chatbot over docs",
+        "grounding",
+        "citations",
+        "vector database"
+      ],
       "selection": "Use to design or repair retrieval-grounded answering; llm-retrieval isolates search/ranking.",
       "branches": [
         {
@@ -18316,7 +19725,14 @@
       "skillPath": "skills/llm-retrieval/SKILL.md",
       "runtimeSteps": [],
       "searchTerms": [
-        "missed missing exception passages retrieval recall ranking"
+        "retrieval recall",
+        "chunking",
+        "reranking",
+        "embeddings",
+        "vector search",
+        "top-k",
+        "hybrid search",
+        "missed passages"
       ],
       "selection": "Use to diagnose candidate generation/ranking failures; llm-rag covers the whole answer pipeline.",
       "branches": [
@@ -18400,7 +19816,14 @@
       },
       "skillPath": "skills/llm-tools/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "tool calling",
+        "function calling",
+        "agent tools",
+        "tool schema",
+        "mcp tools",
+        "tool errors"
+      ],
       "selection": "Use to design constrained agent tool interfaces; api-design defines general service contracts.",
       "branches": [
         {
@@ -18494,7 +19917,14 @@
       },
       "skillPath": "skills/llm-injection/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "prompt injection",
+        "jailbreak",
+        "hostile instructions",
+        "untrusted content",
+        "indirect injection",
+        "ignore previous instructions"
+      ],
       "selection": "Use for scoped instruction-boundary evaluation; security-inputs handles interpreter injection.",
       "branches": [
         {
@@ -18577,7 +20007,15 @@
       },
       "skillPath": "skills/llm-cost/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "token usage",
+        "token cost",
+        "llm cost",
+        "prompt caching",
+        "model routing",
+        "reduce tokens",
+        "cheaper model"
+      ],
       "selection": "Use to measure LLM spend and cost-preserving alternatives; llm-evals measures task quality.",
       "branches": [
         {
@@ -18660,7 +20098,14 @@
       },
       "skillPath": "skills/test-unit/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "unit test",
+        "jest",
+        "vitest",
+        "pytest",
+        "isolated test",
+        "mock"
+      ],
       "selection": "Use for isolated domain/component behavior; test-integration checks real dependency boundaries.",
       "branches": [
         {
@@ -18775,7 +20220,12 @@
       },
       "skillPath": "skills/test-integration/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "integration test",
+        "real database test",
+        "testcontainers",
+        "api integration test"
+      ],
       "selection": "Use for real component/dependency contracts; test-unit isolates logic and test-e2e covers a user journey.",
       "branches": [
         {
@@ -18890,7 +20340,14 @@
       },
       "skillPath": "skills/test-e2e/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "e2e",
+        "end to end test",
+        "playwright",
+        "cypress",
+        "browser test",
+        "selenium"
+      ],
       "selection": "Use for a critical user journey across the actual interface; test-unit is preferable for pure logic branches.",
       "branches": [
         {
@@ -19015,7 +20472,13 @@
       },
       "skillPath": "skills/test-regression/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "regression test",
+        "failing test first",
+        "test for the bug",
+        "doesn't come back",
+        "lock in the fix"
+      ],
       "selection": "Use to prevent recurrence of a confirmed defect; test adds general coverage.",
       "branches": [
         {
@@ -19130,7 +20593,14 @@
       },
       "skillPath": "skills/test-flaky/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "flaky",
+        "flaky test",
+        "intermittent failure",
+        "passes locally fails in ci",
+        "nondeterministic",
+        "random failures"
+      ],
       "selection": "Use for nondeterministic failures; debug first identifies the relevant failing test/environment.",
       "branches": [
         {
@@ -19245,7 +20715,15 @@
       },
       "skillPath": "skills/test-fixtures/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "test fixtures",
+        "fixture data",
+        "test data",
+        "factories",
+        "seed data",
+        "mock data",
+        "faker"
+      ],
       "selection": "Use for controlled test data and factories; data-profile inspects real datasets.",
       "branches": [
         {
@@ -19360,7 +20838,15 @@
       },
       "skillPath": "skills/test-load/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "load test",
+        "stress test",
+        "k6",
+        "locust",
+        "jmeter",
+        "requests per second",
+        "concurrent users"
+      ],
       "selection": "Use for a bounded authorized workload experiment; perf diagnoses an existing measured bottleneck.",
       "branches": [
         {
@@ -19475,7 +20961,15 @@
       },
       "skillPath": "skills/test-property/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "property-based",
+        "property based testing",
+        "fast-check",
+        "hypothesis",
+        "fuzz",
+        "invariants",
+        "generated inputs"
+      ],
       "selection": "Use for general invariants over generated inputs; test-regression freezes a known counterexample.",
       "branches": [
         {
@@ -19590,7 +21084,14 @@
       },
       "skillPath": "skills/security-threat-model/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "threat model",
+        "attack surface",
+        "attacker",
+        "abuse cases",
+        "stride",
+        "security risks"
+      ],
       "selection": "Use for systematic threats to a scoped system; security-authz or security-inputs investigates a concrete path.",
       "branches": [
         {
@@ -19709,7 +21210,14 @@
       },
       "skillPath": "skills/security-authz/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "idor",
+        "bola",
+        "authorization bypass",
+        "cross-tenant",
+        "other users data",
+        "privilege escalation"
+      ],
       "selection": "Use for permission bypass inspection; backend-permissions implements an accepted access matrix.",
       "branches": [
         {
@@ -19819,7 +21327,16 @@
       },
       "skillPath": "skills/security-secrets/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "leaked secret",
+        "api key in repo",
+        "committed credentials",
+        "hardcoded password",
+        "secret scanning",
+        "gitleaks",
+        "trufflehog",
+        "exposed token"
+      ],
       "selection": "Use to locate possible exposed credentials; security-config inspects deployment settings.",
       "branches": [
         {
@@ -19934,7 +21451,15 @@
       },
       "skillPath": "skills/security-inputs/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "sql injection",
+        "xss",
+        "input validation",
+        "sanitize",
+        "command injection",
+        "path traversal",
+        "ssrf"
+      ],
       "selection": "Use for injection and unsafe interpreter boundaries; llm-injection handles model instruction confusion.",
       "branches": [
         {
@@ -20049,7 +21574,14 @@
       },
       "skillPath": "skills/security-uploads/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "file upload",
+        "upload handling",
+        "upload validation",
+        "malicious file",
+        "content type",
+        "image upload"
+      ],
       "selection": "Use for file receipt, processing and download safety; backend-permissions handles general resource access.",
       "branches": [
         {
@@ -20159,7 +21691,14 @@
       },
       "skillPath": "skills/security-dependencies/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "dependabot alert",
+        "cve",
+        "npm audit",
+        "snyk",
+        "vulnerable dependency",
+        "security advisory"
+      ],
       "selection": "Use for advisory-driven dependency risk; deps covers general maintenance and compatibility.",
       "branches": [
         {
@@ -20274,7 +21813,16 @@
       },
       "skillPath": "skills/security-config/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "cors",
+        "access-control-allow-origin",
+        "security headers",
+        "csp",
+        "hsts",
+        "cookie flags",
+        "tls",
+        "misconfiguration"
+      ],
       "selection": "Use for effective security-relevant settings; vercel-audit is a deployment-specific configuration comparison.",
       "branches": [
         {
@@ -20403,7 +21951,14 @@
       },
       "skillPath": "skills/security-fix/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "patch the vulnerability",
+        "fix the xss",
+        "remediate",
+        "security patch",
+        "fix the injection",
+        "close the hole"
+      ],
       "selection": "Use to repair a confirmed scoped vulnerability; security produces findings before remediation.",
       "branches": [
         {
@@ -20523,7 +22078,16 @@
       },
       "skillPath": "skills/ops-incident/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "incident",
+        "outage",
+        "site is down",
+        "production down",
+        "incident response",
+        "sev1",
+        "on-call",
+        "500s in production"
+      ],
       "selection": "Use for current operational triage; ops-postmortem reconstructs the completed incident.",
       "branches": [
         {
@@ -20615,7 +22179,16 @@
       },
       "skillPath": "skills/ops-logs/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "application logs",
+        "error logs",
+        "log search",
+        "correlate logs",
+        "cloudwatch",
+        "datadog logs",
+        "kibana",
+        "grep the logs"
+      ],
       "selection": "Use for bounded log correlation; trace follows a particular execution path through source and telemetry.",
       "branches": [
         {
@@ -20698,7 +22271,15 @@
       },
       "skillPath": "skills/ops-observability/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "observability",
+        "metrics",
+        "tracing",
+        "opentelemetry",
+        "instrumentation",
+        "spans",
+        "dashboards"
+      ],
       "selection": "Use to implement requested diagnostic telemetry; ops-alerts turns signals into actionable notifications.",
       "branches": [
         {
@@ -20781,7 +22362,15 @@
       },
       "skillPath": "skills/ops-alerts/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "alerts",
+        "alerting",
+        "pagerduty",
+        "alert fatigue",
+        "noisy alerts",
+        "slo",
+        "burn rate"
+      ],
       "selection": "Use to design response-worthy alerts; ops-observability supplies reliable signals.",
       "branches": [
         {
@@ -20864,7 +22453,15 @@
       },
       "skillPath": "skills/ops-runbook/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "runbook",
+        "playbook",
+        "operational procedure",
+        "on-call guide",
+        "recovery steps",
+        "steps to recover",
+        "document the steps"
+      ],
       "selection": "Use to write an operational procedure; ops-incident executes a scoped response.",
       "branches": [
         {
@@ -20947,7 +22544,15 @@
       },
       "skillPath": "skills/ops-container/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "docker",
+        "dockerfile",
+        "container",
+        "docker image",
+        "kubernetes pod",
+        "crashloopbackoff",
+        "k8s"
+      ],
       "selection": "Use for image/build/runtime diagnosis; ops-restore handles recovery of persisted state.",
       "branches": [
         {
@@ -21031,7 +22636,13 @@
       "skillPath": "skills/ops-restore/SKILL.md",
       "runtimeSteps": [],
       "searchTerms": [
-        "backup restore recover recovery isolated database"
+        "backup",
+        "restore",
+        "point-in-time recovery",
+        "pitr",
+        "restore from backup",
+        "snapshot restore",
+        "disaster recovery"
       ],
       "selection": "Use for a scoped backup recovery plan or rehearsal; db-migrate changes schema/data intentionally.",
       "branches": [
@@ -21115,7 +22726,14 @@
       },
       "skillPath": "skills/ops-postmortem/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "postmortem",
+        "post-mortem",
+        "retrospective",
+        "incident review",
+        "went wrong",
+        "timeline of the outage"
+      ],
       "selection": "Use to reconstruct an actual incident; decision-premortem analyzes hypothetical failure.",
       "branches": [
         {
@@ -21194,7 +22812,13 @@
       },
       "skillPath": "skills/setup/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "install just-vibe",
+        "uninstall",
+        "update plugin",
+        "reinstall",
+        "configure hooks"
+      ],
       "selection": "Use for an intentional installation, update or removal; doctor inspects without changes.",
       "branches": [
         {
@@ -21290,7 +22914,13 @@
       },
       "skillPath": "skills/profiles/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "engineering roles",
+        "role profiles",
+        "which role",
+        "persona",
+        "list profiles"
+      ],
       "selection": "Use to discover roles; profile selects or clears the active task role, while tools discovers actions.",
       "branches": [
         {
@@ -21372,7 +23002,13 @@
       },
       "skillPath": "skills/profile/SKILL.md",
       "runtimeSteps": [],
-      "searchTerms": [],
+      "searchTerms": [
+        "set role",
+        "act as",
+        "switch role",
+        "engineering role",
+        "pin a role"
+      ],
       "selection": "Use when the user wants to change the agent’s working priorities or asks it to choose an appropriate role; this does not execute a product task by itself.",
       "branches": [
         {
@@ -21476,9 +23112,11 @@
       "searchTerms": [
         "goal",
         "objective",
-        "keep working",
+        "keep working until",
         "persistent progress",
-        "completion criteria"
+        "completion criteria",
+        "until the tests pass",
+        "long-running task"
       ],
       "selection": "Use when the user explicitly asks to establish, resume, inspect or manage a persistent goal. Use plan for a proposal alone and checkpoint for a one-time context snapshot.",
       "branches": [
@@ -21587,11 +23225,12 @@
       "runtimeSteps": [],
       "searchTerms": [
         "orchestration",
-        "feature pipeline",
-        "fix pipeline",
-        "refactor pipeline",
-        "MVP",
-        "dependent workers"
+        "parallel work",
+        "split into parallel",
+        "multiple agents",
+        "dependent tasks",
+        "coordinate the work",
+        "mvp end to end"
       ],
       "selection": "Use for a multi-phase implementation or explicitly requested worker coordination. For a small localized edit use build, fix or refactor directly. This workflow does not itself authorize subagents.",
       "branches": [
@@ -21712,6 +23351,7 @@
         "canvas",
         "plan review",
         "artifact review",
+        "annotate",
         "annotations",
         "browser feedback"
       ],

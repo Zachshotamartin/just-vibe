@@ -47,12 +47,19 @@ export function discoverCapabilities(root = process.cwd(), { report, git = gitRe
     note: 'Executable presence is not authentication. Host reports are session evidence, not permission grants. No external services were contacted.' };
 }
 
-export function listTools(catalog, discovery, { query = '', pack, available = false, all = false, host = 'claude', limit = 1000 } = {}) {
-  return searchCommands(catalog, query, { pack, limit: 1000 }).map(({ command, score }) => ({
-    id: command.id, pack: command.pack, summary: command.summary, aliasOf: command.aliasOf,
+// The router never suggests these entry points; they are selected explicitly.
+export const UNROUTED = ['auto', 'do', 'help', 'tools', 'setup'];
+
+function toolEntry(catalog, discovery, command, host) {
+  return { id: command.id, pack: command.pack, summary: command.summary, aliasOf: command.aliasOf,
     defaultMode: command.defaultMode, invocation: invocation(command, host), example: command.examples[0],
     implementationStatus: command.implementationStatus, executionModel: command.executionModel,
-    validation: command.validation, score, ...availability(catalog, command, discovery.capabilities, host),
+    validation: command.validation, ...availability(catalog, command, discovery.capabilities, host) };
+}
+
+export function listTools(catalog, discovery, { query = '', pack, available = false, all = false, host = 'claude', limit = 1000 } = {}) {
+  return searchCommands(catalog, query, { pack, limit: 1000 }).map(({ command, score }) => ({
+    ...toolEntry(catalog, discovery, command, host), score,
   })).filter(c => (all || !['planned', 'uninstalled', 'unsupported'].includes(c.status)) && (!available || c.status === 'available')).slice(0, limit);
 }
 
@@ -73,17 +80,21 @@ export function recommend(catalog, discovery, brief, { host = 'claude', limit = 
   }
   const query = signals.positive.trim();
   const matches = (/[a-z0-9]/i.test(query) ? listTools(catalog, discovery, { query, host, all: true, limit: catalog.commands.length }) : [])
-    .filter(c => !['auto', 'do', 'help', 'tools', 'setup'].includes(c.id));
+    .filter(c => !UNROUTED.includes(c.id));
+  // A rule names workflows the words may not; it adds them with no lexical credit, so the
+  // rule boost and the request text decide the order rather than a synthetic exact-id score.
   for (const rule of signals.matches) for (const id of rule.ids) {
-    if (catalog.commands.some(c => c.id === id) && !matches.some(c => c.id === id)) matches.push(...listTools(catalog, discovery, { query: id, host, all: true }));
+    const command = catalog.commands.find(c => c.id === id);
+    if (command && !matches.some(c => c.id === id)) matches.push({ ...toolEntry(catalog, discovery, command, host), score: 0 });
   }
+  // Collapse aliases into their canonical workflow: canonical contract fields, best score.
   const unique = new Map();
   for (const match of matches) {
     const id = match.aliasOf || match.id;
-    if (unique.has(id)) { unique.get(id).matchedNames.push(match.id); continue; }
     const canonical = getCommand(catalog, id);
-    unique.set(id, { ...match, id, aliasOf: undefined, summary: canonical.summary,
-      invocation: invocation(canonical, host), matchedNames: [match.id] });
+    const existing = unique.get(id);
+    if (existing) { existing.matchedNames.push(match.id); existing.score = Math.max(existing.score, match.score); continue; }
+    unique.set(id, { ...toolEntry(catalog, discovery, canonical, host), score: match.score, matchedNames: [match.id] });
   }
   const candidates = rankCandidates([...unique.values()], brief, context);
   return { brief, executableHere: false,

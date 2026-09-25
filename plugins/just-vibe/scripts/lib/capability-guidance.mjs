@@ -19,7 +19,8 @@ export function workflowCapabilities(command, mode, brief = '') {
   if (command.id.startsWith('github-')) capabilities.add('github.context');
   if (command.id.startsWith('vercel-')) capabilities.add('vercel.context');
   if (command.id.startsWith('ml-') && /train|evaluat|parity|reproduce|debug/.test(command.id)) capabilities.add('ml.artifacts');
-  if (/\b(?:no browser|without (?:a |the )?browser|do not (?:use|open) (?:a |the )?browser)\b/i.test(brief)) capabilities.delete('browser.inspect');
+  const text = brief.replace(/[\u2018\u2019\u02bc]/g, "'");
+  if (/\b(?:no browser|without (?:using |opening )?(?:a |the )?browser|(?:do not|don't|dont|never|avoid|skip)\s+(?:using |use |opening |open )?(?:a |the )?browser)\b/i.test(text)) capabilities.delete('browser.inspect');
   return [...capabilities];
 }
 

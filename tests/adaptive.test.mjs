@@ -38,7 +38,8 @@ test('ordinary requests route across frontend, ML, GitHub and backend without co
     ['Review the database migration', 'db-migrate'],
     ['Add pagination to this endpoint', 'api-pagination'],
     ['Reduce the JavaScript bundle size', 'vite-bundle'],
-    ['Review the API for SQL injection', 'security'],
+    // Injection classes route to the input-boundary specialist first (review finding V-A10-01).
+    ['Review the API for SQL injection', 'security-inputs'],
     ['Investigate a broken Docker build', 'ops-container'],
   ]) assert.equal(f.run('route', { brief }).recommendations[0].id, expected, brief);
   for (const brief of ['Hello', 'What is the weather?', 'Help choose a restaurant menu', 'Review my marathon training', 'Do not deploy anything']) {
