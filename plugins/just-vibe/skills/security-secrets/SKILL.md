@@ -1,6 +1,6 @@
 ---
 name: security-secrets
-description: "Locate exposed credentials without printing secret values. Use to locate possible exposed credentials; security-config inspects deployment settings, and security-fix repairs a confirmed exposure in code."
+description: "Locate exposed credentials without printing secret values. Use to locate possible exposed credentials; security-config inspects deployment settings, and security-fix repairs a confirmed exposure in code; vite-env checks client-bundle exposure through Vite env handling."
 ---
 
 # security-secrets
@@ -9,7 +9,7 @@ Locate exposed credentials without printing secret values.
 
 ## Choose this workflow
 
-Use to locate possible exposed credentials; security-config inspects deployment settings, and security-fix repairs a confirmed exposure in code.
+Use to locate possible exposed credentials; security-config inspects deployment settings, and security-fix repairs a confirmed exposure in code; vite-env checks client-bundle exposure through Vite env handling.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Security methods](../../references/packs/security.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 

@@ -74,3 +74,4 @@ Verify these observable conditions when applicable to the actual task; do not cl
 - **Normal (plan):** Prepare a draft PR for this exact head/base; show validation gaps.
 - **Edge (plan):** Prepare a PR from a fork whose branch name also exists upstream.
 - **Blocked (inspect):** Draft a PR without push permission; separate local changes from the remote head.
+- **Edge (apply):** Create the PR for this pushed head; reuse an existing PR if one appeared after a timeout.

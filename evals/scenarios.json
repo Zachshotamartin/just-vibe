@@ -3806,7 +3806,6 @@
       },
       "rubric": [
         "Similar titles with different causes remain separate; a duplicate recommendation links the supporting issue.",
-        "Review newly prepared commit/PR/message text, including template or hook additions, for agent self-attribution before submission; verify the resulting artifact when available. Do not silently rewrite existing history or remove human credits.",
         "Cite why two reports share a cause or remain separate, and keep proposed labels or closures distinct from submitted changes."
       ],
       "technicalMethod": {
@@ -3930,6 +3929,11 @@
           "kind": "blocked",
           "mode": "inspect",
           "brief": "Draft a PR without push permission; separate local changes from the remote head."
+        },
+        {
+          "kind": "edge",
+          "mode": "apply",
+          "brief": "Create the PR for this pushed head; reuse an existing PR if one appeared after a timeout."
         }
       ],
       "invariants": [
@@ -4168,8 +4172,8 @@
         },
         {
           "kind": "edge",
-          "mode": "plan",
-          "brief": "Resume a release after one of three assets uploaded successfully."
+          "mode": "apply",
+          "brief": "Upload the missing third asset after verifying the first two hashes; do not replace existing assets."
         },
         {
           "kind": "blocked",
@@ -4889,7 +4893,7 @@
         {
           "kind": "edge",
           "mode": "apply",
-          "brief": "Fix images that work in dev but fail under a deployed subdirectory."
+          "brief": "Fix a font referenced from CSS that returns 404 once the app is served under /app/."
         },
         {
           "kind": "blocked",

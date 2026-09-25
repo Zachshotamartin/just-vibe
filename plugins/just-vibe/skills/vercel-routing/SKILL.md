@@ -33,8 +33,9 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the
 
 ## Execute
 
-1. Inspect precedence and base paths, trace bounded read-only requests, compare preview/production assumptions, and identify loops or unmatched paths.
-2. Build a request table with host, path, method and expected handler; trace redirects, rewrites, filesystem and framework routing in effective order.
+1. Build a request table with host, path, method and expected handler, and inspect base paths.
+2. Trace redirects, rewrites, filesystem and framework routing in effective precedence order with bounded read-only requests, comparing preview and production assumptions.
+3. Identify loops, unmatched paths and the responsible rule.
 
 ## Technical method
 
@@ -54,8 +55,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the
 
 ## Deliver and verify
 
-- Route trace, cause, and proposed configuration patch; apply mode makes a requested fix.
-- Route matrix, observed status/location/content type and responsible rule.
+- Route matrix with observed status, location and content type, the responsible rule and cause, and a proposed configuration patch; apply mode makes a requested fix.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

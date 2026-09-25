@@ -33,8 +33,8 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Correlate timing with runtime/cache state, separate server from network/client delays, compare like-for-like requests, and rank optimizations by evidence.
-2. Separate cold start, warm handler, dependency, network and browser timing; compare matching regions, payloads and cache states.
+1. Correlate timing with runtime and cache state, and compare like-for-like requests with matching regions, payloads and cache states.
+2. Separate cold start, warm handler, dependency, network and browser timing, and rank optimizations by evidence.
 
 ## Technical method
 
@@ -54,8 +54,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Bottleneck analysis, measurement conditions, and bounded optimization plan.
-- Measurement conditions, distributions, limiting boundary and bounded optimization experiment.
+- Measurement conditions and distributions, the limiting boundary, and a bounded optimization plan or experiment.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

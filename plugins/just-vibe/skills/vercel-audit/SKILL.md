@@ -33,8 +33,8 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Compare repository scripts/configuration with project settings, inspect recent deployment metadata, and identify drift or unsupported assumptions.
-2. Record team/project/revision and compare root directory, build/install command, output directory, framework preset and runtime against the relevant package.
+1. Record team, project and revision, and inspect recent deployment metadata.
+2. Compare root directory, build/install command, output directory, framework preset and runtime against the relevant package's scripts and configuration, and identify drift or unsupported assumptions.
 
 ## Technical method
 
@@ -54,8 +54,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Configuration inventory, evidence-backed findings, and ordered fixes.
-- Setting/source/effective-value comparison with drift and unavailable observations.
+- Setting/source/effective-value comparison with drift findings, unavailable observations and ordered fixes.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

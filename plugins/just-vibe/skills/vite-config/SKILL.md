@@ -33,8 +33,8 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the
 
 ## Execute
 
-1. Read effective configuration sources and version compatibility, trace conflicting options, compare development/production behavior, and propose focused corrections.
-2. Resolve command, mode, root, envDir, aliases and plugin order from the actual invoked script; compare TypeScript resolution with bundler resolution.
+1. Resolve command, mode, root, envDir, aliases and plugin order from the actual invoked script, and check version compatibility.
+2. Trace conflicting options, compare development with production behavior and TypeScript with bundler resolution, and propose focused corrections.
 
 ## Technical method
 
@@ -54,8 +54,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the
 
 ## Deliver and verify
 
-- Configuration findings, reasoning and, in apply mode, a focused patch.
-- Effective configuration by invocation and unsupported/conflicting settings.
+- Effective configuration by invocation, unsupported or conflicting settings with reasoning and, in apply mode, a focused patch.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

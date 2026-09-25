@@ -33,9 +33,10 @@ Inspect/plan: review without posting; save requested artifacts only. Apply: post
 
 ## Execute
 
-1. Fetch the correct diff, read surrounding code and relevant discussion, verify findings against the current head, and distinguish blockers from optional observations.
-2. Record head/base SHA, inspect changed and surrounding source, map each finding to a current diff location and revalidate head before requested posting.
-3. All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
+1. Record the head and base SHA and fetch that diff; read changed and surrounding source and relevant discussion.
+2. Map each finding to a current diff location and verify it against the current head, distinguishing blockers from optional observations.
+3. Revalidate the head before any requested posting.
+4. All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
 
 ## Technical method
 
@@ -56,8 +57,7 @@ Inspect/plan: review without posting; save requested artifacts only. Apply: post
 
 ## Deliver and verify
 
-- Prioritized findings with valid diff locations, evidence, and review limitations.
-- Findings with trigger and current diff locations, reviewed SHA and check limitations.
+- Prioritized findings with trigger, evidence and current diff locations, the reviewed SHA and review limitations.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

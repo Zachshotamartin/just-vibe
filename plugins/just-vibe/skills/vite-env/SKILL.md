@@ -1,6 +1,6 @@
 ---
 name: vite-env
-description: "Check environment loading and exposure of server-only values. Use for build mode, environment loading and client exposure; vercel-env checks deployment scope metadata."
+description: "Check environment loading and exposure of server-only values. Use for build mode, environment loading and client exposure; vercel-env checks deployment scope metadata and security-secrets searches the repository and history for committed credentials."
 ---
 
 # vite-env
@@ -9,7 +9,7 @@ Check environment loading and exposure of server-only values.
 
 ## Choose this workflow
 
-Use for build mode, environment loading and client exposure; vercel-env checks deployment scope metadata.
+Use for build mode, environment loading and client exposure; vercel-env checks deployment scope metadata and security-secrets searches the repository and history for committed credentials.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Vite methods](../../references/packs/vite.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -33,8 +33,9 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the
 
 ## Execute
 
-1. Inspect variable references and configuration names, trace which mode supplies them, inspect existing generated bundles for exposure when available, and recommend narrow corrections.
-2. Trace import.meta.env usage and configured envPrefix, inspect mode-specific files by names only, and separate build mode from NODE_ENV.
+1. Trace import.meta.env usage and the configured envPrefix, and inspect mode-specific files by names only.
+2. Determine which mode supplies each name, separating build mode from NODE_ENV, and inspect existing generated bundles for exposure when available.
+3. Recommend narrow corrections.
 
 ## Technical method
 
@@ -54,8 +55,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the
 
 ## Deliver and verify
 
-- Redacted environment map and exposure/missing-value findings.
-- Name/consumer/mode/exposure table and evidence from a controlled built artifact.
+- Redacted name/consumer/mode/exposure table with exposure and missing-value findings, and evidence from a controlled built artifact.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

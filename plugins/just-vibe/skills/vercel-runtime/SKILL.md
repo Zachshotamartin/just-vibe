@@ -33,9 +33,9 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the
 
 ## Execute
 
-1. Correlate logs with revision/runtime, inspect request and dependency boundaries, separate cold-start/resource/network causes, and propose a focused reproduction or fix.
-2. Correlate deployment/request/time and inspect handler entry, environment presence, dependency waits and runtime-specific API support.
-3. The bundled Vercel collector covers build logs only, so its result is not runtime evidence. For runtime or function logs use the host Vercel connector or observability tools, or the installed CLI vercel logs after reading vercel logs --help: confirm whether that version supports a time window and which deployment it defaults to, since older releases only stream live logs briefly. Revalidate identity before a dependent action.
+1. The bundled Vercel collector covers build logs only, so its result is not runtime evidence. For runtime or function logs use the host Vercel connector or observability tools, or the installed CLI vercel logs after reading vercel logs --help: confirm whether that version supports a time window and which deployment it defaults to, since older releases only stream live logs briefly.
+2. Correlate deployment, revision, request and time window, and inspect handler entry, environment presence, dependency waits and runtime-specific API support.
+3. Separate cold-start, resource and network causes, and propose a focused reproduction or fix. Revalidate identity before a dependent action.
 
 ## Technical method
 
@@ -55,8 +55,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the
 
 ## Deliver and verify
 
-- Supported diagnosis, relevant log references, and repair/verification steps.
-- Request/deployment identity, causal hypotheses, discriminating probe and recovery limits.
+- Request/deployment identity, a supported diagnosis with log references and causal hypotheses, the discriminating probe, and repair, verification and recovery limits.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

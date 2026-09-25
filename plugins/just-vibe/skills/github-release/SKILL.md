@@ -33,9 +33,10 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 
 ## Execute
 
-1. Verify commit range and existing releases, compile notes, inspect compatibility/checks, validate asset identities, and execute authorized publication once.
-2. Resolve tag and commit immutably, verify asset hashes and existing release state, and reconcile partial uploads before publication or retry.
-3. All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
+1. Resolve the tag and commit immutably, and check existing releases and the commit range.
+2. Compile notes and inspect compatibility and checks; verify asset hashes and reconcile any partial upload before publication or retry.
+3. Execute authorized publication once.
+4. All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
 
 ## Technical method
 
@@ -56,8 +57,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 
 ## Deliver and verify
 
-- Release draft or verified URL/tag/assets, with readiness and migration notes.
-- Tag/SHA, release state, asset names/hashes and observed publication result.
+- Release draft or verified URL with tag/SHA, release state, asset names and hashes, readiness and migration notes, and the observed publication result.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -71,5 +71,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Prepare a release from the specified refs; do not create a tag or publish.
-- **Edge (plan):** Resume a release after one of three assets uploaded successfully.
+- **Edge (apply):** Upload the missing third asset after verifying the first two hashes; do not replace existing assets.
 - **Blocked (inspect):** Prepare a release with missing verified binaries; do not publish placeholders.

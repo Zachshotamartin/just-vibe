@@ -1,6 +1,6 @@
 ---
 name: vite-setup
-description: "Configure Vite for the framework and project requirements. Use to add or repair Vite project wiring; vite-upgrade changes an existing version."
+description: "Configure Vite for the framework and project requirements. Use to add or repair Vite project wiring, including moving an existing webpack or Create React App project to Vite; vite-upgrade changes an existing version and migrate plans multi-step platform transitions beyond the bundler."
 ---
 
 # vite-setup
@@ -9,7 +9,7 @@ Configure Vite for the framework and project requirements.
 
 ## Choose this workflow
 
-Use to add or repair Vite project wiring; vite-upgrade changes an existing version.
+Use to add or repair Vite project wiring, including moving an existing webpack or Create React App project to Vite; vite-upgrade changes an existing version and migrate plans multi-step platform transitions beyond the bundler.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [Vite methods](../../references/packs/vite.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -33,8 +33,9 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Execute
 
-1. Inspect existing setup, choose compatible plugins, configure development/build/preview scripts, preserve existing source, and validate basic development and production paths.
-2. Inspect package manager, workspace root, framework plugin and Node support; preserve existing entry files and establish dev/build/preview paths using project conventions.
+1. Inspect the existing setup, package manager, workspace root, framework plugin and Node support.
+2. Choose compatible plugins and establish dev, build and preview scripts using project conventions, preserving existing source and entry files.
+3. Validate the development, production and subpath paths.
 
 ## Technical method
 
@@ -54,8 +55,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Deliver and verify
 
-- Working setup, dependency/config changes, usage, and check results.
-- Configuration/script changes and dev/production/subpath verification.
+- Working setup with dependency, configuration and script changes, usage, and dev/production/subpath check results.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

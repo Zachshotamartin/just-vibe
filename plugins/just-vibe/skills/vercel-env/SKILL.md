@@ -33,8 +33,8 @@ Inspect/plan: report names, scopes and gaps without reading or printing secret v
 
 ## Execute
 
-1. Derive required names from code/configuration, compare authorized metadata, identify missing/mis-scoped variables, and explain rebuild/redeployment implications.
-2. Map each referenced name to build-time or runtime usage and intended environment/branch; report presence and scope without fetching secret values.
+1. Derive required names from code and configuration, and map each to build-time or runtime usage and its intended environment and branch.
+2. Compare with authorized metadata to report presence and scope without fetching secret values; identify missing or mis-scoped variables and explain rebuild or redeployment implications.
 
 ## Technical method
 
@@ -54,8 +54,7 @@ Inspect/plan: report names, scopes and gaps without reading or printing secret v
 
 ## Deliver and verify
 
-- Redacted name/scope matrix and proposed corrections.
-- Variable-name table with consumer, environment, branch scope and rebuild implications.
+- Redacted variable-name table with consumer, environment, branch scope, rebuild implications and proposed corrections.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

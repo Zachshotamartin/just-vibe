@@ -33,8 +33,8 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the
 
 ## Execute
 
-1. Map entry/chunk relationships, inspect waterfalls and dependency duplication, evaluate cache/initial-load tradeoffs, and propose focused splitting changes.
-2. Map dynamic imports and shared chunks to representative navigation waterfalls; examine duplication, circular dependencies and cache invalidation costs.
+1. Map entry points, dynamic imports and shared chunks to representative navigation waterfalls.
+2. Examine dependency duplication, circular dependencies and cache invalidation against initial-load cost, and propose focused splitting changes.
 
 ## Technical method
 
@@ -54,8 +54,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the
 
 ## Deliver and verify
 
-- Chunk graph explanation and optimization plan or, in apply mode, a patch with loading evidence.
-- Chunk/dependency map, request waterfall and relevant navigation checks.
+- Chunk and dependency map with the request waterfall, and an optimization plan or, in apply mode, a patch with loading evidence and navigation checks.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

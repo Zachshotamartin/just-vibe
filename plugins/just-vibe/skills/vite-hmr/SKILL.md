@@ -33,8 +33,8 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the
 
 ## Execute
 
-1. Trace file change to browser update, inspect plugin boundaries and duplicate modules, distinguish full reload from hot replacement, and localize the failure.
-2. Follow file watcher to module graph to HMR connection and framework boundary; distinguish transport loss from invalidation and deliberate full reload.
+1. Follow the file change from watcher to module graph to HMR connection and framework boundary, inspecting plugin boundaries and duplicate modules.
+2. Localize the failure, distinguishing transport loss, invalidation and a deliberate full reload from hot replacement.
 
 ## Technical method
 
@@ -54,8 +54,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the
 
 ## Deliver and verify
 
-- Diagnosis and focused fix proposal; in apply mode, apply and validate the fix.
-- Reproduction steps, failing HMR boundary and update/state-preservation checks.
+- Reproduction steps, the failing HMR boundary and a focused fix proposal; in apply mode, the applied fix with update and state-preservation checks.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

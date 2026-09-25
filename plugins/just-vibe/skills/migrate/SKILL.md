@@ -1,6 +1,6 @@
 ---
 name: migrate
-description: "Plan and apply a version, schema, or implementation migration. Use for coordinated version or platform transitions; db-migrate handles database-specific mechanics."
+description: "Plan and apply a version, schema, or implementation migration. Use for coordinated version or platform transitions; db-migrate handles database-specific mechanics; a bundler switch to Vite uses vite-setup."
 ---
 
 # migrate
@@ -9,7 +9,7 @@ Plan and apply a version, schema, or implementation migration.
 
 ## Choose this workflow
 
-Use for coordinated version or platform transitions; db-migrate handles database-specific mechanics.
+Use for coordinated version or platform transitions; db-migrate handles database-specific mechanics; a bundler switch to Vite uses vite-setup.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [General methods](../../references/packs/general.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 

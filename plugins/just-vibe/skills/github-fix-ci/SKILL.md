@@ -33,10 +33,11 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Execute
 
-1. Find the first causal failure, compare runner configuration and lockfiles, reproduce locally where feasible, patch, and validate before an authorized rerun/push.
-2. Resolve run ID, attempt, job and head SHA; find the first causal failure and reproduce using the relevant workspace/runtime before patching.
-3. All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
-4. Use the matching bundled evidence collector when available; read its result and limitations rather than treating exit zero as readiness. Revalidate identity before a dependent action.
+1. Resolve the run ID, attempt, job and head SHA, and find the first causal failure.
+2. Compare runner configuration and lockfiles, and reproduce locally with the relevant workspace and runtime before patching.
+3. Patch the cause and validate it before an authorized rerun or push.
+4. All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
+5. Use the matching bundled evidence collector when available; read its result and limitations rather than treating exit zero as readiness. Revalidate identity before a dependent action.
 
 ## Technical method
 
@@ -57,8 +58,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Deliver and verify
 
-- Cause, focused changes, local evidence, and remote run status if actually exercised.
-- Run/job/revision, causal log, focused fix and corrected-revision check status.
+- Run/job/revision identity, causal log, focused fix with local evidence, and corrected-revision check status only if actually exercised.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

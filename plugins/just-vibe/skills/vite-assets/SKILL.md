@@ -69,5 +69,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (apply):** Fix images that work locally but fail when hosted under a subpath.
-- **Edge (apply):** Fix images that work in dev but fail under a deployed subdirectory.
+- **Edge (apply):** Fix a font referenced from CSS that returns 404 once the app is served under /app/.
 - **Blocked (inspect):** Inspect source paths without deployment access; separate build evidence from live serving.

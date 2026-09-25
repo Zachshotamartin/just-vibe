@@ -106,6 +106,10 @@ const FIRST = [
   ['B4-01', 'canary the new API build to 5% of traffic before full rollout', ['deploy']],
   ['B4-01', 'gradual rollout of the v2 backend behind a feature flag', ['deploy']],
   ['B4-01', 'Prepare a canary rollout and rollback plan for the new ranking model; do not change production traffic.', ['ml-rollout']],
+  ['B5-07', 'switch from webpack to vite', ['vite-setup']],
+  ['B5-07', 'move our create react app project to vite', ['vite-setup']],
+  ['B5-07', 'upgrade to vite 6 and check the plugins still work', ['vite-upgrade']],
+  ['V-A5-04', 'are we leaking secrets into the frontend bundle', ['security-secrets', 'vite-env']],
 ];
 const TOP3 = [
   ['A1-01', 'which file handles password reset?', ['explain', 'trace', 'orient', 'map']],

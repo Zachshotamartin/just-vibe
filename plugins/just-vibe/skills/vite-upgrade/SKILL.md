@@ -33,8 +33,9 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Execute
 
-1. Read relevant migration notes, inspect plugin and Node compatibility, update controlled dependencies/lockfile, adjust deprecated behavior, and test development plus production build.
-2. Check target migration notes and framework-plugin/Node compatibility, update only the required graph and compare dev refresh, production output and preview behavior.
+1. Read the target version's migration notes and check framework-plugin and Node compatibility.
+2. Update only the required dependency graph and lockfile, and adjust deprecated behavior.
+3. Compare dev refresh, production output and preview behavior with the previous version.
 
 ## Technical method
 
@@ -54,8 +55,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Deliver and verify
 
-- Upgrade patch, compatibility rationale, checks, and rollback steps.
-- Version/peer matrix, configuration changes and dev/build/runtime checks.
+- Upgrade patch with a version/peer matrix, configuration changes, dev/build/runtime checks and rollback steps.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

@@ -33,8 +33,8 @@ Inspect/plan: draft from available evidence without posting. Apply: create or up
 
 ## Execute
 
-1. Check templates and related issues, extract verified facts, include minimal reproduction or acceptance criteria, and redact sensitive logs.
-2. Inspect repository templates, separate expected/actual behavior and include a minimal reproduction with sanitized logs and tested version.
+1. Inspect repository templates and related issues to avoid a duplicate.
+2. Write only verified facts: separate expected from actual behavior and include a minimal reproduction or acceptance criteria, the tested version and sanitized logs.
 3. All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
 
 ## Technical method
@@ -55,8 +55,7 @@ Inspect/plan: draft from available evidence without posting. Apply: create or up
 
 ## Deliver and verify
 
-- Title/body/appropriate metadata or created issue URL with verified contents.
-- Reviewable issue body, target identity, duplicate check and created URL only when observed.
+- Reviewable title, body and metadata with the target repository and duplicate check, and the created issue URL only when creation was observed.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

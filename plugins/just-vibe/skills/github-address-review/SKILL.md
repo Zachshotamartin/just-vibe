@@ -33,9 +33,10 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Execute
 
-1. Classify each comment, verify its premise, identify conflicts, implement coherent changes, run relevant checks, and map each change to feedback.
-2. Map comments to current code and accepted contracts, resolve conflicting suggestions, and keep a per-comment disposition tied to the final diff.
-3. All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
+1. Map each comment to current code and accepted contracts, verify its premise and identify conflicting suggestions.
+2. Implement coherent changes for the accepted comments and run the relevant checks.
+3. Keep a per-comment disposition tied to the final diff.
+4. All changes are owned by the user. Add no agent/model self-attribution, AI-generated signature, badge, or agent Co-authored-by trailer to commits, PRs, comments, release notes or messages. Use the existing user Git identity; preserve legitimate human attribution and required third-party notices.
 
 ## Technical method
 
@@ -55,8 +56,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Deliver and verify
 
-- Patch, comment-to-resolution summary, evidence, and disputed or blocked items.
-- Comment-to-change mapping, verification and remote threads still requiring action.
+- Patch with a comment-to-change mapping, verification evidence, and disputed, blocked or remote threads still requiring action.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

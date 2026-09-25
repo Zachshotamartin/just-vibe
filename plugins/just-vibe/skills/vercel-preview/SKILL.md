@@ -33,8 +33,9 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 
 ## Execute
 
-1. Resolve project/revision, inspect prerequisites, reuse a matching deployment where suitable, create only when requested, and verify URL, revision, routing, and key behavior.
-2. Resolve intended commit and project, reuse a matching deployment if appropriate and verify identity, access protection, routes and representative behavior.
+1. Resolve the intended project and commit, and inspect prerequisites.
+2. Reuse a matching deployment where suitable; create one only when requested.
+3. Verify identity, URL, access protection, routes and representative behavior.
 
 ## Technical method
 
@@ -55,8 +56,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 
 ## Deliver and verify
 
-- Preview plan or actual URL/deployment ID with smoke-check results.
-- Preview identity/URL, exact revision, access requirements and observed checks.
+- Preview plan or actual URL and deployment ID with the exact revision, access requirements and observed smoke-check results.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
