@@ -1,6 +1,6 @@
 ---
 name: ml-drift
-description: "Design checks for input or prediction-distribution changes. Use for observed input/prediction distribution change; ml-evaluate requires outcomes to establish quality, and ml-parity or ml-leakage explain an offline-versus-production gap that is not population change."
+description: "Design checks for input or prediction-distribution changes. Use for observed input/prediction distribution change; ml-evaluate requires outcomes to establish quality, and ml-parity or ml-leakage explain an offline-versus-production gap that is not population change; ml-monitor implements production drift and quality monitors and alert wiring."
 ---
 
 # ml-drift
@@ -9,7 +9,7 @@ Design checks for input or prediction-distribution changes.
 
 ## Choose this workflow
 
-Use for observed input/prediction distribution change; ml-evaluate requires outcomes to establish quality, and ml-parity or ml-leakage explain an offline-versus-production gap that is not population change.
+Use for observed input/prediction distribution change; ml-evaluate requires outcomes to establish quality, and ml-parity or ml-leakage explain an offline-versus-production gap that is not population change; ml-monitor implements production drift and quality monitors and alert wiring.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [ML deployment methods](../../references/packs/ml-deployment.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -33,8 +33,9 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Align schemas/windows, choose meaningful per-feature and aggregate checks, account for sample size/seasonality, inspect effect sizes, and define follow-up on signals.
-2. Align schema, sampling and seasonal windows, compare effect sizes and support changes and separate data-pipeline changes from population changes.
+1. Align schemas, sampling and seasonal windows of the baseline and current data.
+2. Choose meaningful per-feature and aggregate checks, and compare effect sizes and support changes in light of sample size.
+3. Separate data-pipeline changes from population changes, and define follow-up on signals.
 
 ## Technical method
 
@@ -54,8 +55,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Drift protocol or report with baselines, thresholds, uncertainty, and investigation guidance.
-- Baseline/current identities, shift measures, sample sizes and next evidence needed.
+- Drift protocol or report with baseline/current identities, shift measures and thresholds, sample sizes, uncertainty and the next evidence needed.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

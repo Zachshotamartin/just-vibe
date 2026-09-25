@@ -33,8 +33,9 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 
 ## Execute
 
-1. Match baseline to task, build leakage-safe preprocessing, fix evaluation protocol, run bounded training when authorized, and report score plus cost/uncertainty.
-2. Include a task-appropriate constant/rule baseline and simple model, use the same splits and preprocessing fit boundaries and record resources alongside quality.
+1. Fix the evaluation protocol: the same splits and leakage-safe preprocessing fit boundaries for every compared model.
+2. Include a task-appropriate constant or rule baseline and a simple model; run bounded training when authorized.
+3. Report each score with its uncertainty, recording resources alongside quality.
 
 ## Technical method
 
@@ -55,8 +56,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 
 ## Deliver and verify
 
-- Baseline configuration/code and results if executed.
-- Data/split identity, baseline/model comparison, metric definitions and compute record.
+- Baseline configuration or code with data/split identity, metric definitions, the baseline/model comparison and a compute record when executed.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

@@ -33,8 +33,8 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Reconcile data/split/code/config identities, normalize metric definitions, inspect failed/missing runs, compare quality and resources, and separate incompatible cohorts.
-2. Reconcile dataset/split/code/config identities, metric denominator and selection history; include failed/pruned runs in total resource accounting.
+1. Reconcile dataset, split, code and config identities, metric definitions and denominators, and selection history.
+2. Inspect failed and missing runs, compare quality and resources with failed or pruned runs included in total resource accounting, and separate incompatible cohorts.
 3. For supplied binary/regression run exports, follow the experiments guide to import actual provider metadata and aligned prediction rows with dataset/split, code/model identity, preprocessing, seed and feature maps. Keep provider-reported metrics separate from recomputed metrics; do not log into a provider or train merely to import.
 4. Compare only fresh compatible task/dataset/split and row/target/slice identities. Suppress deltas when incompatible or stale. Explain overall and per-slice changes together, small denominators, missing dimensions, threshold changes, feature parity mismatches and temporal check coverage.
 5. Investigate an aggregate gain with a subgroup regression before making a recommendation. Supplied metadata is attributed evidence, matching feature maps do not execute preprocessing, and observed differences do not establish cause. Reconcile unexported/missing predictions and use project tooling for uncertainty, unsupported tasks or larger data.
@@ -57,8 +57,8 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Experiment comparison, strongest supported result, and comparability gaps.
-- Comparable-run groups, quality/resource evidence and missing metadata.
+- Experiment comparison in comparable-run groups with quality/resource evidence, the strongest supported result, comparability gaps and missing metadata.
+- For imported exports: normalized runs, actual input hashes, recomputed aggregate/slice metrics, comparability and parity/temporal findings.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

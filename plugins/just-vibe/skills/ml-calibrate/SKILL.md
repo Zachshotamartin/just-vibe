@@ -33,8 +33,8 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 
 ## Execute
 
-1. Validate probability semantics, inspect reliability by range/cohort, use appropriate scoring measures, and compare any fitted calibrator on untouched evaluation data.
-2. Check probability semantics, reliability and proper scoring measures; fit any calibrator on permitted data separate from final evaluation and compare by cohort.
+1. Check probability semantics, then inspect reliability by range and cohort with proper scoring measures.
+2. Fit any calibrator on permitted data separate from final evaluation, and compare it by cohort on untouched evaluation data.
 
 ## Technical method
 
@@ -54,8 +54,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 
 ## Deliver and verify
 
-- Calibration report or calibrated artifact with split provenance and checks.
-- Calibration protocol, reliability evidence and independent comparison.
+- Calibration report or calibrated artifact with split provenance, the calibration protocol, reliability evidence and an independent comparison.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

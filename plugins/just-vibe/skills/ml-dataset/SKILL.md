@@ -33,8 +33,8 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Compare available fields/outcomes with task needs, inspect cohort/time coverage, assess missing-label patterns and selection processes, and identify unsupported deployment populations.
-2. Compare collection/selection and follow-up windows with deployment population, inspect coverage by cohort/time and identify censored or missing outcomes.
+1. Compare the collection and selection process and follow-up windows with the task's needs and the deployment population.
+2. Inspect coverage by cohort and time, identify censored or missing outcomes and missing-label patterns, and name deployment populations the data does not cover.
 
 ## Technical method
 
@@ -54,8 +54,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Dataset readiness report with exclusions, risks, and needed collection/validation work.
-- Population/coverage table, missingness/selection risks and supported deployment claims.
+- Dataset readiness report with a population/coverage table, missingness and selection risks, exclusions, supported deployment claims and needed collection or validation work.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

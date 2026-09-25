@@ -15,7 +15,7 @@ Read [shared execution](../../references/execution.md) for context/mode/authorit
 
 ## Input and mode
 
-Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Inspect supplied evaluation results; apply for requested evaluator implementation or scoped evaluation execution.
+Use the complete request appended to this invocation, preserving all constraints and references. Default mode: **plan**. Plan an evaluation; inspect supplied results; apply for requested evaluator implementation or scoped evaluation execution.
 
 **Pack prerequisites:** Frozen model/artifact, evaluation dataset identity, labels where needed, metric definitions, and task/operating context. Report sample counts and uncertainty appropriate to dependencies; avoid repeated test-set tuning. Exploratory findings need fresh confirmation before strong generalization claims.
 
@@ -33,11 +33,9 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 
 ## Execute
 
-1. Validate alignment and eligibility, run authorized predictions, compute declared metrics and appropriate uncertainty, compare baseline, and record excluded/missing cases.
-2. Align predictions and labels by stable row identity, freeze eligibility/metric definitions and count missing, excluded and failed predictions before computing results.
-3. For supplied binary/regression run exports, follow the experiments guide to import actual provider metadata and aligned prediction rows with dataset/split, code/model identity, preprocessing, seed and feature maps. Keep provider-reported metrics separate from recomputed metrics; do not log into a provider or train merely to import.
-4. Compare only fresh compatible task/dataset/split and row/target/slice identities. Suppress deltas when incompatible or stale. Explain overall and per-slice changes together, small denominators, missing dimensions, threshold changes, feature parity mismatches and temporal check coverage.
-5. Investigate an aggregate gain with a subgroup regression before making a recommendation. Supplied metadata is attributed evidence, matching feature maps do not execute preprocessing, and observed differences do not establish cause. Reconcile unexported/missing predictions and use project tooling for uncertainty, unsupported tasks or larger data.
+1. Align predictions and labels by stable row identity, and freeze eligibility and metric definitions.
+2. Count missing, excluded and failed predictions, then compute results for the declared metrics with appropriate uncertainty against the baseline; run predictions only when authorized.
+3. For supplied run exports, import and compare them with the experiments guide as ml-experiments does.
 
 ## Technical method
 
@@ -55,14 +53,12 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 ## Decision branches
 
 - **When observations are dependent within entities or time blocks:** Use an uncertainty method matching that dependence or explicitly leave uncertainty unestimated.
-- **When aggregate performance improves while a slice regresses:** Show denominators and both outcomes, inspect parity/temporal issues and avoid ranking an incompatible evaluation.
+- **When aggregate performance improves while a slice regresses:** Report both with denominators and use ml-slices for the cohort comparison before recommending the model.
 - **When the request is for local preparation or implementation:** Implement the metric and slice evaluator with known-label controls; missing production labels limit conclusions without blocking evaluator code.
 
 ## Deliver and verify
 
-- Reproducible evaluation report with data/model identity, metrics, denominators, and limitations.
-- Model/data/split identity, denominators, baseline metrics and uncertainty method.
-- Normalized imported runs, actual input hashes, recomputed aggregate/slice metrics, comparability and parity/temporal findings.
+- Reproducible evaluation report with model/data/split identity, metrics, denominators, baseline comparison, uncertainty method and limitations.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

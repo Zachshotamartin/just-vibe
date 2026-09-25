@@ -33,11 +33,9 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Predefine important slices where possible, compute counts and metrics consistently, account for dependent samples, flag small groups, and distinguish exploratory comparisons.
-2. Define important slices and overlap, compute consistent counts/metrics and distinguish planned from exploratory comparisons with small-sample limits.
-3. For supplied binary/regression run exports, follow the experiments guide to import actual provider metadata and aligned prediction rows with dataset/split, code/model identity, preprocessing, seed and feature maps. Keep provider-reported metrics separate from recomputed metrics; do not log into a provider or train merely to import.
-4. Compare only fresh compatible task/dataset/split and row/target/slice identities. Suppress deltas when incompatible or stale. Explain overall and per-slice changes together, small denominators, missing dimensions, threshold changes, feature parity mismatches and temporal check coverage.
-5. Investigate an aggregate gain with a subgroup regression before making a recommendation. Supplied metadata is attributed evidence, matching feature maps do not execute preprocessing, and observed differences do not establish cause. Reconcile unexported/missing predictions and use project tooling for uncertainty, unsupported tasks or larger data.
+1. Predefine important slices and their overlap where possible, and account for dependent samples.
+2. Compute counts and metrics consistently, flag small groups, and distinguish planned from exploratory comparisons.
+3. For supplied run exports, import and compare them with the experiments guide as ml-experiments does.
 
 ## Technical method
 
@@ -59,9 +57,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Slice table, uncertainty, worst-supported conditions, and follow-up data needs.
-- Slice definition, denominator, metric, uncertainty and coverage gaps.
-- Normalized imported runs, actual input hashes, recomputed aggregate/slice metrics, comparability and parity/temporal findings.
+- Slice table with definitions, denominators, metrics, uncertainty, worst-supported conditions, coverage gaps and follow-up data needs.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

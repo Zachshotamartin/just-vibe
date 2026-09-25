@@ -23,7 +23,7 @@ Use the complete request appended to this invocation, preserving all constraints
 - **Reasonable default:** Prepare packaging/configuration and isolated checks without treating them as a live deployment.
 - **Ask only when needed:** Resolve the target, rollback compatibility and operating limits before rollout or load generation; missing production access does not block packaging.
 
-Resolve any task-specific tools, target identity and evidence before dependent actions. No external connection is assumed.
+Declared evidence requirements: `telemetry.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
@@ -33,8 +33,9 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 
 ## Execute
 
-1. Separate leading signals from outcome metrics, define joins and delay windows, choose thresholds and runbook actions, and implement only requested instrumentation/configuration.
-2. Separate service, feature, prediction and delayed-outcome signals; define stable joins, label-lag windows and model-version attribution.
+1. Separate service, feature, prediction and delayed-outcome signals, distinguishing leading signals from outcome metrics.
+2. Define stable joins, label-lag windows and model-version attribution, and choose thresholds and runbook actions.
+3. Implement only requested instrumentation or configuration.
 
 ## Technical method
 
@@ -55,8 +56,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 
 ## Deliver and verify
 
-- Monitoring design or code with metric definitions, privacy controls, and alert tests.
-- Signal/window/join/threshold/action contract and delayed-label test cases.
+- Monitoring design or code with the signal/window/join/threshold/action contract, metric definitions, privacy controls and delayed-label and alert tests.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

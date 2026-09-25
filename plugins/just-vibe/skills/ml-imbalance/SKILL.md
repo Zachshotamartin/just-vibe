@@ -33,8 +33,9 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Establish naive baselines, inspect per-class/sample counts, choose suitable metrics, compare resampling/weighting only within training folds, and assess deployment prevalence effects.
-2. Compute baseline prevalence and class counts by split, choose task-relevant precision/recall measures and restrict resampling to training folds.
+1. Compute baseline prevalence, naive baselines and class counts by split.
+2. Choose task-relevant precision/recall measures, and compare resampling or weighting only within training folds.
+3. Assess how deployment prevalence changes the metrics and the threshold.
 
 ## Technical method
 
@@ -54,8 +55,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Imbalance strategy with bounded experiments and threshold considerations.
-- Baselines, per-class denominators, resampling protocol and uncertainty limits.
+- Imbalance strategy with baselines, per-class denominators, the resampling protocol, bounded experiments, threshold considerations and uncertainty limits.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

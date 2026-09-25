@@ -33,8 +33,9 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Trace label construction, compare annotations/outcomes, distinguish disagreement from ambiguous policy, inspect timing and coverage, and propose adjudication/quality checks.
-2. Trace label source, event horizon and maturity; distinguish true negatives, unobserved outcomes, contradictory annotations and policy ambiguity.
+1. Trace each label's source, construction, event horizon and maturity.
+2. Compare annotations and outcomes, distinguishing true negatives, unobserved outcomes, contradictory annotations and policy ambiguity.
+3. Propose adjudication and quality checks.
 
 ## Technical method
 
@@ -54,8 +55,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Label audit with concrete patterns, estimated rates with denominators, and corrective options.
-- Label definition, maturity/coverage checks and reproducible disagreement examples.
+- Label audit with the label definition, maturity/coverage checks, concrete patterns with rates and denominators, reproducible disagreement examples and corrective options.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

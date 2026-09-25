@@ -33,8 +33,9 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Compare threshold tradeoffs, model workload/capacity, handle ties and uncertainty, choose using validation data, and reserve independent confirmation.
-2. Compute validation tradeoffs with denominators and tie handling, translate them into expected workload under stated volume/prevalence and reserve independent confirmation.
+1. Compute validation tradeoffs with denominators and tie handling.
+2. Translate them into expected workload under the stated volume, prevalence and capacity, with uncertainty, and choose using validation data.
+3. Reserve independent confirmation.
 
 ## Technical method
 
@@ -54,8 +55,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Threshold recommendation, confusion/workload estimates, assumptions, and sensitivity.
-- Threshold policy, expected workload assumptions and independent evaluation requirement.
+- Threshold policy and recommendation with confusion and workload estimates, assumptions, sensitivity and the independent evaluation requirement.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

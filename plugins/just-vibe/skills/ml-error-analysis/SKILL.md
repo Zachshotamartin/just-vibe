@@ -33,8 +33,9 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Define errors according to task, group by meaningful factors, inspect representative cases and denominators, distinguish label problems, and propose targeted next experiments.
-2. Define the error event and denominator, group by meaningful factors and compare representative failures with matched successes and possible label problems.
+1. Define the error event and its denominator according to the task.
+2. Group the model's errors by meaningful factors, and compare representative failures with matched successes and possible label problems.
+3. Propose targeted discriminating experiments.
 
 ## Technical method
 
@@ -54,8 +55,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Error taxonomy, frequency/impact evidence, examples, and interventions to test.
-- Error taxonomy, cohort counts, examples and proposed discriminating experiments.
+- Error taxonomy with cohort counts and impact, representative examples, and interventions to test as discriminating experiments.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

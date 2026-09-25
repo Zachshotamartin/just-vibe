@@ -33,8 +33,9 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 
 ## Execute
 
-1. Validate comparable trials, select search strategy, define pruning/failure behavior, log every trial, and choose by the predeclared validation criterion.
-2. Freeze search space, split, objective, trial/resource caps and selection rule; keep failure/pruning records and compare candidates under equal evaluation conditions.
+1. Freeze the search space, split, objective, trial and resource caps and the selection rule before searching.
+2. Select a search strategy with pruning and failure behavior, and log every trial, including failed and pruned ones.
+3. Compare candidates under equal evaluation conditions and choose by the predeclared validation criterion; keep the confirmation set untouched.
 
 ## Technical method
 
@@ -55,8 +56,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 
 ## Deliver and verify
 
-- Search configuration, trial ledger, selected candidate, and cost/selection caveats.
-- Trial ledger, budgets consumed, selection rationale and untouched confirmation set.
+- Search configuration and trial ledger with budgets consumed, the selected candidate, selection rationale, cost caveats and the untouched confirmation set.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -69,5 +69,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Plan at most 20 trials on validation PR-AUC; never tune on the test set.
-- **Edge (plan):** Tune with failed trials and a strict GPU-hour cap.
+- **Edge (plan):** Plan a search that tolerates failed trials under a strict GPU-hour cap.
 - **Blocked (inspect):** Design tuning when compute is unavailable; do not fabricate winning hyperparameters.

@@ -33,8 +33,8 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Execute
 
-1. Record immutable references or hashes where feasible, schema, transformation/code versions, split identity, and creation parameters; verify referential accessibility.
-2. Record source snapshot or content identity, transformation revision, schema, split membership and immutable access references without storing secrets or raw private data.
+1. Record source snapshot or content identity (immutable access references or hashes where feasible), transformation revision, schema, split membership and creation parameters, without storing secrets or raw private data.
+2. Verify each reference's accessibility and mark mutable boundaries.
 
 ## Technical method
 
@@ -54,8 +54,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Deliver and verify
 
-- Dataset manifest with lineage, reconstruction instructions, and known reproducibility limits.
-- Version manifest, provenance chain, accessibility check and mutable boundaries.
+- Version manifest with the provenance chain, reconstruction instructions, accessibility check and known reproducibility limits or mutable boundaries.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

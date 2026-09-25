@@ -1,6 +1,6 @@
 ---
 name: ml-explain
-description: "Investigate behavior with appropriate explanation methods and limits. Use to interpret model behavior; explain describes code and teach explains concepts."
+description: "Investigate behavior with appropriate explanation methods and limits. Use to interpret model behavior; explain describes code, teach explains concepts, and ml-ablation measures a feature group's contribution to held-out performance by retraining without it."
 ---
 
 # ml-explain
@@ -9,7 +9,7 @@ Investigate behavior with appropriate explanation methods and limits.
 
 ## Choose this workflow
 
-Use to interpret model behavior; explain describes code and teach explains concepts.
+Use to interpret model behavior; explain describes code, teach explains concepts, and ml-ablation measures a feature group's contribution to held-out performance by retraining without it.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [ML evaluation methods](../../references/packs/ml-evaluation.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -33,8 +33,8 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Choose a method compatible with the model/question, inspect baseline/background dependence, check stability/correlated features, and connect explanations to actual examples.
-2. State whether the question concerns one prediction or global behavior, select a compatible method and examine background data and correlated-feature sensitivity.
+1. State whether the question concerns one prediction or global behavior, and choose a compatible method.
+2. Examine background or baseline data dependence, stability and correlated-feature sensitivity, and connect explanations to actual examples.
 
 ## Technical method
 
@@ -54,8 +54,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Explanation, method/settings, supporting evidence, and limits.
-- Method/question fit, example explanations, stability checks and limitations.
+- Explanation with method/question fit, settings, example explanations, stability checks and limitations.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

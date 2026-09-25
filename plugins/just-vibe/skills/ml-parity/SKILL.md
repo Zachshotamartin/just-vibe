@@ -33,8 +33,9 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the
 
 ## Execute
 
-1. Align raw inputs and versions, compare each transformation boundary, localize first divergence, evaluate declared tolerances, and propose fixes, applying a requested one in apply mode.
-2. Feed identical raw rows through each pipeline and compare schema, feature names/order, transformations and model outputs at each boundary.
+1. Feed identical raw rows with aligned versions through each pipeline.
+2. Compare schema, feature names and order, transformations and model outputs at each boundary, and localize the first divergence against declared tolerances.
+3. Propose fixes, applying a requested one in apply mode.
 
 ## Technical method
 
@@ -55,8 +56,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the
 
 ## Deliver and verify
 
-- Parity report with stage-level differences and regression fixtures.
-- First divergent boundary, aligned inputs/versions and semantic versus numerical differences.
+- Parity report with the first divergent boundary, aligned inputs and versions, semantic versus numerical differences and regression fixtures.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

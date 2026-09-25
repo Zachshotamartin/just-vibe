@@ -33,8 +33,9 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 
 ## Execute
 
-1. Check inputs/loss/optimizer state, compare expected scales, isolate a small batch, propose overfit/gradient probes, running them in apply mode,, and test the leading cause.
-2. Inspect one batch's shapes, labels, scale, loss and gradients, locate the first non-finite value and compare optimizer updates with the intended objective.
+1. Isolate a small batch and inspect its shapes, labels, scale, loss and gradients against expected scales, and check optimizer state.
+2. Locate the first non-finite value and compare optimizer updates with the intended objective.
+3. Propose overfit and gradient probes that test the leading cause, running them in apply mode.
 
 ## Technical method
 
@@ -55,8 +56,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 
 ## Deliver and verify
 
-- Diagnosis, controlled evidence and, in apply mode, a minimal corrective change.
-- First divergent tensor/step, hypothesis evidence and bounded corrective probe.
+- Diagnosis with the first divergent tensor or step, hypothesis evidence, and a bounded corrective probe or, in apply mode, a minimal corrective change.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

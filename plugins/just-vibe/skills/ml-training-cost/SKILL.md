@@ -33,8 +33,8 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Separate startup/loading/compute/checkpoint time, inspect batch/resource utilization, identify bottlenecks, and propose measured optimizations or bounded profiling.
-2. Separate data loading, host-to-device transfer, compute, synchronization and checkpoint time; relate utilization to the same quality target and workload.
+1. Separate startup, data loading, host-to-device transfer, compute, synchronization and checkpoint time.
+2. Relate batch and resource utilization to the same quality target and workload, identify bottlenecks, and propose measured optimizations or bounded profiling.
 
 ## Technical method
 
@@ -54,8 +54,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Resource breakdown, unit-cost assumptions, and prioritized improvement experiments.
-- Timing/resource breakdown, verified price basis if used and bounded optimization plan.
+- Timing/resource breakdown with unit-cost assumptions and any verified price basis, and prioritized, bounded improvement experiments.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

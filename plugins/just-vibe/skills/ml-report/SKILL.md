@@ -33,8 +33,9 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Reconcile evidence, describe training/evaluation conditions, summarize baseline and slice results, document limitations and excluded uses, and identify missing release evidence.
-2. Reconcile every number with a run and denominator, separate validation selection from independent test evidence and document deployment population/excluded uses.
+1. Reconcile every number with a run and denominator.
+2. Describe training and evaluation conditions, separating validation selection from independent test evidence, and summarize baseline and slice results.
+3. Document the deployment population, limitations, excluded uses and missing release evidence.
 
 ## Technical method
 
@@ -54,8 +55,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Model report/card with provenance, metrics, operating assumptions, and open risks.
-- Model/data/version summary, baseline/slice evidence, limitations and release gaps.
+- Model report or card with model/data/version provenance, metrics, baseline/slice evidence, operating assumptions, limitations, open risks and release gaps.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

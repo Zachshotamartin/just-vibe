@@ -1,6 +1,6 @@
 ---
 name: ml-ablation
-description: "Measure contributions of features or model components. Use to estimate component contribution; ml-tune optimizes parameters."
+description: "Measure contributions of features or model components. Use to estimate component contribution; ml-tune optimizes parameters, and ml-explain attributes existing predictions without retraining."
 ---
 
 # ml-ablation
@@ -9,7 +9,7 @@ Measure contributions of features or model components.
 
 ## Choose this workflow
 
-Use to estimate component contribution; ml-tune optimizes parameters.
+Use to estimate component contribution; ml-tune optimizes parameters, and ml-explain attributes existing predictions without retraining.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [ML experimentation methods](../../references/packs/ml-experiments.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -33,8 +33,9 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 
 ## Execute
 
-1. Define one meaningful variation at a time or a justified factorial design, hold data/evaluation constant, repeat seeds when needed, and compare uncertainty/cost.
-2. State the causal comparison, hold data/protocol constant and repeat seeds or matched runs where variance could overwhelm the effect.
+1. State the causal comparison: one meaningful variation at a time or a justified factorial design.
+2. Hold data and evaluation protocol constant, and repeat seeds or matched runs where variance could overwhelm the effect.
+3. Compare each variant's effect with its uncertainty and cost.
 
 ## Technical method
 
@@ -55,8 +56,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 
 ## Deliver and verify
 
-- Ablation protocol or run results with attributable differences and caveats.
-- Variant matrix, controlled differences, uncertainty and cost/quality interpretation.
+- Ablation protocol or run results as a variant matrix with attributable differences, uncertainty, cost/quality interpretation and caveats.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

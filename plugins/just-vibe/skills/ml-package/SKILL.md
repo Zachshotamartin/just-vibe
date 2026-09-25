@@ -33,8 +33,9 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Execute
 
-1. Verify artifact provenance, bundle preprocessing and schema, pin compatible dependencies, record versions/checksums, and run known-input smoke/parity checks.
-2. Bundle preprocessing, feature order/schema, model identity, dependency constraints and known-input expectations; validate fresh-load parity in an isolated supported environment.
+1. Verify artifact provenance.
+2. Bundle preprocessing, feature order/schema, model identity and pinned compatible dependencies, recording versions and checksums.
+3. Validate fresh-load parity with known-input fixtures in an isolated supported environment.
 
 ## Technical method
 
@@ -54,8 +55,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Deliver and verify
 
-- Package, manifest, loading instructions, and expected-output fixtures.
-- Artifact manifest, checksums, input/output schema and fresh-load fixture results.
+- Package and manifest with checksums, input/output schema, loading instructions and fresh-load expected-output fixture results.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

@@ -23,7 +23,7 @@ Use the complete request appended to this invocation, preserving all constraints
 - **Reasonable default:** Prepare packaging/configuration and isolated checks without treating them as a live deployment.
 - **Ask only when needed:** Resolve the target, rollback compatibility and operating limits before rollout or load generation; missing production access does not block packaging.
 
-Resolve any task-specific tools, target identity and evidence before dependent actions. No external connection is assumed.
+Declared evidence requirements: `ml.artifacts`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
@@ -33,8 +33,9 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 
 ## Execute
 
-1. Define comparable benchmark conditions, separate cold/warm paths, measure bounded authorized workloads, identify bottlenecks, and check quality after optimizations.
-2. Specify hardware, precision, batch/concurrency and payload distribution; separate load/warmup from steady-state and measure tail behavior within caps.
+1. Specify hardware, precision, batch/concurrency and payload distribution as comparable benchmark conditions.
+2. Separate load and warmup from steady state, and measure bounded authorized workloads, including tail behavior within caps.
+3. Identify bottlenecks and check quality after any optimization.
 
 ## Technical method
 
@@ -55,8 +56,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 
 ## Deliver and verify
 
-- Benchmark protocol/results and optimization recommendation or authorized patch.
-- Benchmark conditions, sample size, cold/warm/tail metrics and quality comparison.
+- Benchmark protocol or results with conditions, sample size, cold/warm/tail metrics and quality comparison, and an optimization recommendation or authorized patch.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

@@ -33,8 +33,9 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 
 ## Execute
 
-1. Verify immutable inputs and dependency versions, reconstruct the procedure, run authorized bounded work, compare outputs/metrics within justified tolerance, and isolate deviations.
-2. Resolve exact data/artifact/code/dependency identities, reconstruct preprocessing and evaluation, and declare nondeterminism tolerances before execution.
+1. Resolve exact data, artifact, code and dependency identities.
+2. Reconstruct preprocessing and evaluation, and declare nondeterminism tolerances before execution.
+3. Run authorized bounded work, compare outputs and metrics within the declared tolerance, and isolate deviations.
 
 ## Technical method
 
@@ -55,8 +56,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 
 ## Deliver and verify
 
-- Reproduction record, matched/different conditions, measured result, and discrepancy analysis.
-- Reproduction manifest, deviations, observed differences and tolerance justification.
+- Reproduction record and manifest with matched and different conditions, the measured result, deviations and discrepancy analysis against the justified tolerance.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

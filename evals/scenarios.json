@@ -7825,7 +7825,7 @@
         {
           "kind": "edge",
           "mode": "plan",
-          "brief": "Tune with failed trials and a strict GPU-hour cap."
+          "brief": "Plan a search that tolerates failed trials under a strict GPU-hour cap."
         },
         {
           "kind": "blocked",

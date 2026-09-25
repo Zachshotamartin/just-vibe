@@ -33,8 +33,9 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 
 ## Execute
 
-1. Define validity-preserving perturbations, protect labels from invalid transformations, run bounded tests in apply mode, compare baseline sensitivity, and identify failure envelopes.
-2. Define which changes should preserve labels and expected behavior, cap the sweep and compare both failure rate and input validity against a baseline.
+1. Define validity-preserving perturbations: which changes should preserve labels and expected behavior.
+2. Cap the sweep and run bounded tests in apply mode, comparing failure rate and input validity against a baseline.
+3. Identify failure envelopes and unsupported regions.
 
 ## Technical method
 
@@ -54,8 +55,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 
 ## Deliver and verify
 
-- Robustness protocol/results and prioritized mitigations.
-- Perturbation contract, tested envelope, failures and unsupported regions.
+- Robustness protocol or results with the perturbation contract, tested envelope, failures, unsupported regions and prioritized mitigations.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

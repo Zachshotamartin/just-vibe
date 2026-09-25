@@ -57,8 +57,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 
 ## Deliver and verify
 
-- Training code/run record, checkpoints, metrics, and resume instructions.
-- Training configuration, resource cap, artifact/state manifest, metrics and demonstrated resume conditions.
+- Training code or run record with configuration, resource cap, artifact/state manifest, checkpoints, metrics and demonstrated resume conditions.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

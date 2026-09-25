@@ -66,7 +66,7 @@ export const intents = [
   { test: /\b(?:hard|easy|possible|costly)\s+to\s+(?:undo|reverse|change\s+later)\b|\b(?:one-way\s+door|two-way\s+door|lock-?in|locked\s+in|reversib\w*|exit\s+cost)\b/i, ids: ['decision-reversible'], reason: 'Reversibility of a decision' },
   { test: /\b(?:build|implement|try)\b[\s\S]*\b(?:alternatives|variants|two\s+versions|three\s+versions)\b/i, ids: ['compare'], reason: 'Working alternatives with common requirements' },
   { test: /\b(?:exercise|practice)\b[\s\S]*\b(?:project|repo|code)\b/i, ids: ['teach'], reason: 'Hands-on project learning' },
-  { test: /\b(?:mlflow|wandb|w&b)\b[\s\S]*\b(?:compare|export|runs?|metrics)\b|\bcompare\b[\s\S]*\b(?:mlflow|wandb)\b/i, ids: ['ml-evaluate'], reason: 'Recorded ML experiment comparison' },
+  { test: /\b(?:mlflow|wandb|w&b)\b[\s\S]*\b(?:compare|export|runs?|metrics)\b|\bcompare\b[\s\S]*\b(?:mlflow|wandb)\b/i, ids: ['ml-experiments', 'ml-evaluate'], reason: 'Recorded ML experiment comparison' },
   { test: /\b(?:evidence\s+report|acceptance\s+report|requirement-linked)\b/i, ids: ['verify'], reason: 'Requirement-linked verification evidence' },
   { test: /\b(?:claude|agents)\.md\b|\b(?:save|remember|persist|preserve)\b[\s\S]*\b(?:conversation|project\s+instructions|context|decisions|corrections)\b/i, ids: ['remember'], reason: 'Durable project instructions from conversation context' },
   // CI is provider-neutral unless GitHub is named; "checks" or "actions" alone are not CI.
@@ -102,6 +102,10 @@ export const intents = [
   { test: /\b(?:roll(?:ing)?\s*out|rollout|ship|deploy\w*|release|promote)\b[\s\S]*\b(?:production|prod|staging|live)\b|\b(?:production|prod|staging)\b[\s\S]*\b(?:roll(?:ing)?\s*out|rollout|deploy\w*)\b|\bcanary\s+(?:release|deploy\w*|rollout)\b/i, unlessText: /\b(?:model|classifier|ranker|recommender|vercel|migration|schema)\b/i, ids: ['deploy'], reason: 'Deploy to an environment' },
   // A rollout or canary of a service, app or build is a deployment; a model version is ml-rollout.
   { test: /\b(?:roll(?:ing)?\s*out|rollout|canary|blue.green|traffic\s+shift\w*)\b[\s\S]*\b(?:services?|api|backend|frontend|app|build|servers?|site|web\s*app|release)\b|\b(?:services?|api|backend|frontend|app|build|servers?|release)\b[\s\S]*\b(?:roll(?:ing)?\s*out|rollout|canary)\b/i, unlessText: /\b(?:model|classifier|ranker|recommender|embedding|feature\s+flags?)\b/i, ids: ['deploy'], reason: 'Service rollout or canary' },
+  // "Which features matter" asks for attribution of the current model; removing a feature and
+  // measuring held-out change is an ablation.
+  { name: 'feature-ablation', test: /^(?=[\s\S]*\bfeatures?\b)(?=[\s\S]*\b(?:drop|dropp\w*|remov\w*|without|leave\s+out|ablat\w*)\b)(?=[\s\S]*\b(?:accuracy|performance|score|auc|metrics?|contribut\w*|held.out)\b)/i, ids: ['ml-ablation', 'ml-explain'], reason: 'Feature contribution by removal' },
+  { unlessRules: ['feature-ablation'], test: /\bwhich\s+(?:\w+\s+){0,2}features?\s+(?:matter|drive|contribute|are\s+(?:the\s+)?(?:most\s+)?important)|\bfeature\s+importances?\b|\bwhat\s+drives\s+(?:the|this|our)\s+(?:model|predictions?|scores?)\b/i, ids: ['ml-explain', 'ml-ablation'], reason: 'Which features matter to a model' },
   // Where a reported number or field comes from is lineage, not a request trace.
   { test: /\bwhere\s+(?:does|do|did)\b[\s\S]{0,60}\b(?:numbers?|metrics?|fields?|columns?|figures?|kpis?|totals?)\b[\s\S]{0,40}\bcomes?\s+from\b|\b(?:data|column|field)\s+(?:lineage|provenance)\b|\bupstream\s+(?:tables?|sources?)\b/i, ids: ['data-lineage'], reason: 'Origin of a field or metric' },
   // Removing a public API surface needs consumer impact and deprecation before deletion.

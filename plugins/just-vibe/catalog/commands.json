@@ -16066,12 +16066,11 @@
       "readScope": "Define the modeling problem before selecting algorithms.",
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
       "procedure": [
-        "Specify unit of analysis, target/label horizon, information available at prediction time, action taken from predictions, baseline, and costs of errors.",
-        "State one prediction row's entity, timestamp, available information, label horizon and downstream action; compare a rule-based decision before choosing ML."
+        "State one prediction row's entity (the unit of analysis), timestamp, information available at prediction time, label horizon and the action taken from predictions.",
+        "Compare a rule-based decision or other baseline before choosing a model, and state the cost of each error type."
       ],
       "outputs": [
-        "Modeling brief with success metrics, eligibility/exclusions, deployment assumptions, and unresolved policy choices.",
-        "Task card with row grain, prediction moment, outcome horizon, action and error costs."
+        "Modeling brief and task card with row grain, prediction moment, outcome horizon, action, error costs, success metrics, eligibility/exclusions, deployment assumptions and unresolved policy choices."
       ],
       "verification": [
         "Target and prediction time are unambiguous; a proxy label's mismatch with the real objective is explicit."
@@ -16165,12 +16164,11 @@
       "readScope": "Task suitability, population coverage, missingness, dependencies, and collection bias.",
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
       "procedure": [
-        "Compare available fields/outcomes with task needs, inspect cohort/time coverage, assess missing-label patterns and selection processes, and identify unsupported deployment populations.",
-        "Compare collection/selection and follow-up windows with deployment population, inspect coverage by cohort/time and identify censored or missing outcomes."
+        "Compare the collection and selection process and follow-up windows with the task's needs and the deployment population.",
+        "Inspect coverage by cohort and time, identify censored or missing outcomes and missing-label patterns, and name deployment populations the data does not cover."
       ],
       "outputs": [
-        "Dataset readiness report with exclusions, risks, and needed collection/validation work.",
-        "Population/coverage table, missingness/selection risks and supported deployment claims."
+        "Dataset readiness report with a population/coverage table, missingness and selection risks, exclusions, supported deployment claims and needed collection or validation work."
       ],
       "verification": [
         "A dataset missing outcome follow-up is not treated as fully labeled; a deployment cohort absent from training is flagged."
@@ -16255,12 +16253,12 @@
       "readScope": "Label consistency, noise, disagreement, censoring, and missing outcomes.",
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
       "procedure": [
-        "Trace label construction, compare annotations/outcomes, distinguish disagreement from ambiguous policy, inspect timing and coverage, and propose adjudication/quality checks.",
-        "Trace label source, event horizon and maturity; distinguish true negatives, unobserved outcomes, contradictory annotations and policy ambiguity."
+        "Trace each label's source, construction, event horizon and maturity.",
+        "Compare annotations and outcomes, distinguishing true negatives, unobserved outcomes, contradictory annotations and policy ambiguity.",
+        "Propose adjudication and quality checks."
       ],
       "outputs": [
-        "Label audit with concrete patterns, estimated rates with denominators, and corrective options.",
-        "Label definition, maturity/coverage checks and reproducible disagreement examples."
+        "Label audit with the label definition, maturity/coverage checks, concrete patterns with rates and denominators, reproducible disagreement examples and corrective options."
       ],
       "verification": [
         "Unobserved outcomes are not automatically negative; conflicting annotations are tracked rather than silently overwritten."
@@ -16661,12 +16659,12 @@
       "readScope": "Sampling/weighting, evaluation, and operating-point options for rare outcomes.",
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
       "procedure": [
-        "Establish naive baselines, inspect per-class/sample counts, choose suitable metrics, compare resampling/weighting only within training folds, and assess deployment prevalence effects.",
-        "Compute baseline prevalence and class counts by split, choose task-relevant precision/recall measures and restrict resampling to training folds."
+        "Compute baseline prevalence, naive baselines and class counts by split.",
+        "Choose task-relevant precision/recall measures, and compare resampling or weighting only within training folds.",
+        "Assess how deployment prevalence changes the metrics and the threshold."
       ],
       "outputs": [
-        "Imbalance strategy with bounded experiments and threshold considerations.",
-        "Baselines, per-class denominators, resampling protocol and uncertainty limits."
+        "Imbalance strategy with baselines, per-class denominators, the resampling protocol, bounded experiments, threshold considerations and uncertainty limits."
       ],
       "verification": [
         "A high-accuracy all-negative model is not accepted as useful; resampled training prevalence is not confused with deployed probability calibration."
@@ -16753,12 +16751,11 @@
       "readScope": "Reproducible identity/provenance metadata; no automatic copying or committing of raw data.",
       "writeScope": "Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.",
       "procedure": [
-        "Record immutable references or hashes where feasible, schema, transformation/code versions, split identity, and creation parameters; verify referential accessibility.",
-        "Record source snapshot or content identity, transformation revision, schema, split membership and immutable access references without storing secrets or raw private data."
+        "Record source snapshot or content identity (immutable access references or hashes where feasible), transformation revision, schema, split membership and creation parameters, without storing secrets or raw private data.",
+        "Verify each reference's accessibility and mark mutable boundaries."
       ],
       "outputs": [
-        "Dataset manifest with lineage, reconstruction instructions, and known reproducibility limits.",
-        "Version manifest, provenance chain, accessibility check and mutable boundaries."
+        "Version manifest with the provenance chain, reconstruction instructions, accessibility check and known reproducibility limits or mutable boundaries."
       ],
       "verification": [
         "Changed source content changes identity or is detected; a mutable URL alone is not presented as an immutable version."
@@ -16842,12 +16839,12 @@
       "readScope": "Simple reproducible reference models, including a naive/rule-based comparator.",
       "writeScope": "Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the requested changes or execute the requested operation within its resolved target and limits. Local preparation does not authorize live, remote, destructive or paid actions; existing explicit session authorization still applies.",
       "procedure": [
-        "Match baseline to task, build leakage-safe preprocessing, fix evaluation protocol, run bounded training when authorized, and report score plus cost/uncertainty.",
-        "Include a task-appropriate constant/rule baseline and simple model, use the same splits and preprocessing fit boundaries and record resources alongside quality."
+        "Fix the evaluation protocol: the same splits and leakage-safe preprocessing fit boundaries for every compared model.",
+        "Include a task-appropriate constant or rule baseline and a simple model; run bounded training when authorized.",
+        "Report each score with its uncertainty, recording resources alongside quality."
       ],
       "outputs": [
-        "Baseline configuration/code and results if executed.",
-        "Data/split identity, baseline/model comparison, metric definitions and compute record."
+        "Baseline configuration or code with data/split identity, metric definitions, the baseline/model comparison and a compute record when executed."
       ],
       "verification": [
         "A naive comparator is included; all candidates use identical permitted evaluation data."
@@ -16938,8 +16935,7 @@
         "For resumable training inventory model, optimizer, scheduler, scaler when used, step, RNG and sampler/data position; checkpoint atomically and compare interrupted versus uninterrupted continuation under declared tolerances."
       ],
       "outputs": [
-        "Training code/run record, checkpoints, metrics, and resume instructions.",
-        "Training configuration, resource cap, artifact/state manifest, metrics and demonstrated resume conditions."
+        "Training code or run record with configuration, resource cap, artifact/state manifest, checkpoints, metrics and demonstrated resume conditions."
       ],
       "verification": [
         "Interrupted training can resume with identified state; NaNs or budget exhaustion stop clearly without a false completed result."
@@ -17054,12 +17050,12 @@
       "readScope": "Numerical instability, shape/device issues, data/target mismatch, gradients, and failure to learn.",
       "writeScope": "Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the requested changes or execute the requested operation within its resolved target and limits. Local preparation does not authorize live, remote, destructive or paid actions; existing explicit session authorization still applies.",
       "procedure": [
-        "Check inputs/loss/optimizer state, compare expected scales, isolate a small batch, propose overfit/gradient probes, running them in apply mode,, and test the leading cause.",
-        "Inspect one batch's shapes, labels, scale, loss and gradients, locate the first non-finite value and compare optimizer updates with the intended objective."
+        "Isolate a small batch and inspect its shapes, labels, scale, loss and gradients against expected scales, and check optimizer state.",
+        "Locate the first non-finite value and compare optimizer updates with the intended objective.",
+        "Propose overfit and gradient probes that test the leading cause, running them in apply mode."
       ],
       "outputs": [
-        "Diagnosis, controlled evidence and, in apply mode, a minimal corrective change.",
-        "First divergent tensor/step, hypothesis evidence and bounded corrective probe."
+        "Diagnosis with the first divergent tensor or step, hypothesis evidence, and a bounded corrective probe or, in apply mode, a minimal corrective change."
       ],
       "verification": [
         "NaNs are localized to their first source; an inability to overfit a tiny batch prompts pipeline investigation rather than a larger model."
@@ -17155,12 +17151,12 @@
       "readScope": "Bounded hyperparameter search; execution only within authorized resources.",
       "writeScope": "Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the requested changes or execute the requested operation within its resolved target and limits. Local preparation does not authorize live, remote, destructive or paid actions; existing explicit session authorization still applies.",
       "procedure": [
-        "Validate comparable trials, select search strategy, define pruning/failure behavior, log every trial, and choose by the predeclared validation criterion.",
-        "Freeze search space, split, objective, trial/resource caps and selection rule; keep failure/pruning records and compare candidates under equal evaluation conditions."
+        "Freeze the search space, split, objective, trial and resource caps and the selection rule before searching.",
+        "Select a search strategy with pruning and failure behavior, and log every trial, including failed and pruned ones.",
+        "Compare candidates under equal evaluation conditions and choose by the predeclared validation criterion; keep the confirmation set untouched."
       ],
       "outputs": [
-        "Search configuration, trial ledger, selected candidate, and cost/selection caveats.",
-        "Trial ledger, budgets consumed, selection rationale and untouched confirmation set."
+        "Search configuration and trial ledger with budgets consumed, the selected candidate, selection rationale, cost caveats and the untouched confirmation set."
       ],
       "verification": [
         "Trial failures remain visible; test labels never influence parameter selection."
@@ -17176,7 +17172,7 @@
         {
           "kind": "edge",
           "mode": "plan",
-          "brief": "Tune with failed trials and a strict GPU-hour cap."
+          "brief": "Plan a search that tolerates failed trials under a strict GPU-hour cap."
         },
         {
           "kind": "blocked",
@@ -17249,12 +17245,12 @@
       "readScope": "Isolate the contribution of specified components using controlled comparisons.",
       "writeScope": "Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the requested changes or execute the requested operation within its resolved target and limits. Local preparation does not authorize live, remote, destructive or paid actions; existing explicit session authorization still applies.",
       "procedure": [
-        "Define one meaningful variation at a time or a justified factorial design, hold data/evaluation constant, repeat seeds when needed, and compare uncertainty/cost.",
-        "State the causal comparison, hold data/protocol constant and repeat seeds or matched runs where variance could overwhelm the effect."
+        "State the causal comparison: one meaningful variation at a time or a justified factorial design.",
+        "Hold data and evaluation protocol constant, and repeat seeds or matched runs where variance could overwhelm the effect.",
+        "Compare each variant's effect with its uncertainty and cost."
       ],
       "outputs": [
-        "Ablation protocol or run results with attributable differences and caveats.",
-        "Variant matrix, controlled differences, uncertainty and cost/quality interpretation."
+        "Ablation protocol or run results as a variant matrix with attributable differences, uncertainty, cost/quality interpretation and caveats."
       ],
       "verification": [
         "Data changes do not confound the component comparison; noisy score differences are not declared decisive."
@@ -17298,7 +17294,7 @@
         "feature contribution",
         "ablation study"
       ],
-      "selection": "Use to estimate component contribution; ml-tune optimizes parameters.",
+      "selection": "Use to estimate component contribution; ml-tune optimizes parameters, and ml-explain attributes existing predictions without retraining.",
       "branches": [
         {
           "when": "removing a component changes another required contract",
@@ -17343,15 +17339,15 @@
       "readScope": "Compare existing experiments and their compatibility; no automatic reruns.",
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
       "procedure": [
-        "Reconcile data/split/code/config identities, normalize metric definitions, inspect failed/missing runs, compare quality and resources, and separate incompatible cohorts.",
-        "Reconcile dataset/split/code/config identities, metric denominator and selection history; include failed/pruned runs in total resource accounting.",
+        "Reconcile dataset, split, code and config identities, metric definitions and denominators, and selection history.",
+        "Inspect failed and missing runs, compare quality and resources with failed or pruned runs included in total resource accounting, and separate incompatible cohorts.",
         "For supplied binary/regression run exports, follow the experiments guide to import actual provider metadata and aligned prediction rows with dataset/split, code/model identity, preprocessing, seed and feature maps. Keep provider-reported metrics separate from recomputed metrics; do not log into a provider or train merely to import.",
         "Compare only fresh compatible task/dataset/split and row/target/slice identities. Suppress deltas when incompatible or stale. Explain overall and per-slice changes together, small denominators, missing dimensions, threshold changes, feature parity mismatches and temporal check coverage.",
         "Investigate an aggregate gain with a subgroup regression before making a recommendation. Supplied metadata is attributed evidence, matching feature maps do not execute preprocessing, and observed differences do not establish cause. Reconcile unexported/missing predictions and use project tooling for uncertainty, unsupported tasks or larger data."
       ],
       "outputs": [
-        "Experiment comparison, strongest supported result, and comparability gaps.",
-        "Comparable-run groups, quality/resource evidence and missing metadata."
+        "Experiment comparison in comparable-run groups with quality/resource evidence, the strongest supported result, comparability gaps and missing metadata.",
+        "For imported exports: normalized runs, actual input hashes, recomputed aggregate/slice metrics, comparability and parity/temporal findings."
       ],
       "verification": [
         "Different test populations are not ranked as directly comparable; failed trials are not silently omitted from cost accounting."
@@ -17441,12 +17437,12 @@
       "readScope": "Re-run a defined result with explicit reproducibility criteria.",
       "writeScope": "Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the requested changes or execute the requested operation within its resolved target and limits. Local preparation does not authorize live, remote, destructive or paid actions; existing explicit session authorization still applies.",
       "procedure": [
-        "Verify immutable inputs and dependency versions, reconstruct the procedure, run authorized bounded work, compare outputs/metrics within justified tolerance, and isolate deviations.",
-        "Resolve exact data/artifact/code/dependency identities, reconstruct preprocessing and evaluation, and declare nondeterminism tolerances before execution."
+        "Resolve exact data, artifact, code and dependency identities.",
+        "Reconstruct preprocessing and evaluation, and declare nondeterminism tolerances before execution.",
+        "Run authorized bounded work, compare outputs and metrics within the declared tolerance, and isolate deviations."
       ],
       "outputs": [
-        "Reproduction record, matched/different conditions, measured result, and discrepancy analysis.",
-        "Reproduction manifest, deviations, observed differences and tolerance justification."
+        "Reproduction record and manifest with matched and different conditions, the measured result, deviations and discrepancy analysis against the justified tolerance."
       ],
       "verification": [
         "Data/version mismatch is discovered before claiming reproduction; nondeterministic hardware differences use declared tolerances."
@@ -17541,12 +17537,11 @@
       "readScope": "Time, memory, utilization, data loading, and cost bottlenecks.",
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
       "procedure": [
-        "Separate startup/loading/compute/checkpoint time, inspect batch/resource utilization, identify bottlenecks, and propose measured optimizations or bounded profiling.",
-        "Separate data loading, host-to-device transfer, compute, synchronization and checkpoint time; relate utilization to the same quality target and workload."
+        "Separate startup, data loading, host-to-device transfer, compute, synchronization and checkpoint time.",
+        "Relate batch and resource utilization to the same quality target and workload, identify bottlenecks, and propose measured optimizations or bounded profiling."
       ],
       "outputs": [
-        "Resource breakdown, unit-cost assumptions, and prioritized improvement experiments.",
-        "Timing/resource breakdown, verified price basis if used and bounded optimization plan."
+        "Timing/resource breakdown with unit-cost assumptions and any verified price basis, and prioritized, bounded improvement experiments."
       ],
       "verification": [
         "Idle accelerator time caused by input loading is recognized; local elapsed time is not converted into a fabricated cloud bill."
@@ -17621,7 +17616,7 @@
       "aliases": [],
       "aliasOf": null,
       "defaultMode": "plan",
-      "modePolicy": "Inspect supplied evaluation results; apply for requested evaluator implementation or scoped evaluation execution.",
+      "modePolicy": "Plan an evaluation; inspect supplied results; apply for requested evaluator implementation or scoped evaluation execution.",
       "requiredInputs": [
         "model, dataset/split, task metrics, baseline, and inference budget. Explicit evaluation execution selects apply."
       ],
@@ -17640,16 +17635,12 @@
       "readScope": "Fixed-protocol performance evaluation, not model tuning.",
       "writeScope": "Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the requested changes or execute the requested operation within its resolved target and limits. Local preparation does not authorize live, remote, destructive or paid actions; existing explicit session authorization still applies.",
       "procedure": [
-        "Validate alignment and eligibility, run authorized predictions, compute declared metrics and appropriate uncertainty, compare baseline, and record excluded/missing cases.",
-        "Align predictions and labels by stable row identity, freeze eligibility/metric definitions and count missing, excluded and failed predictions before computing results.",
-        "For supplied binary/regression run exports, follow the experiments guide to import actual provider metadata and aligned prediction rows with dataset/split, code/model identity, preprocessing, seed and feature maps. Keep provider-reported metrics separate from recomputed metrics; do not log into a provider or train merely to import.",
-        "Compare only fresh compatible task/dataset/split and row/target/slice identities. Suppress deltas when incompatible or stale. Explain overall and per-slice changes together, small denominators, missing dimensions, threshold changes, feature parity mismatches and temporal check coverage.",
-        "Investigate an aggregate gain with a subgroup regression before making a recommendation. Supplied metadata is attributed evidence, matching feature maps do not execute preprocessing, and observed differences do not establish cause. Reconcile unexported/missing predictions and use project tooling for uncertainty, unsupported tasks or larger data."
+        "Align predictions and labels by stable row identity, and freeze eligibility and metric definitions.",
+        "Count missing, excluded and failed predictions, then compute results for the declared metrics with appropriate uncertainty against the baseline; run predictions only when authorized.",
+        "For supplied run exports, import and compare them with the experiments guide as ml-experiments does."
       ],
       "outputs": [
-        "Reproducible evaluation report with data/model identity, metrics, denominators, and limitations.",
-        "Model/data/split identity, denominators, baseline metrics and uncertainty method.",
-        "Normalized imported runs, actual input hashes, recomputed aggregate/slice metrics, comparability and parity/temporal findings."
+        "Reproducible evaluation report with model/data/split identity, metrics, denominators, baseline comparison, uncertainty method and limitations."
       ],
       "verification": [
         "Prediction/label misalignment fails validation; missing predictions are counted rather than silently dropped into better scores."
@@ -17716,7 +17707,7 @@
         },
         {
           "when": "aggregate performance improves while a slice regresses",
-          "then": "Show denominators and both outcomes, inspect parity/temporal issues and avoid ranking an incompatible evaluation."
+          "then": "Report both with denominators and use ml-slices for the cohort comparison before recommending the model."
         },
         {
           "when": "the request is for local preparation or implementation",
@@ -17768,12 +17759,12 @@
       "readScope": "Actionable failure patterns; no automatic retraining or relabeling.",
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
       "procedure": [
-        "Define errors according to task, group by meaningful factors, inspect representative cases and denominators, distinguish label problems, and propose targeted next experiments.",
-        "Define the error event and denominator, group by meaningful factors and compare representative failures with matched successes and possible label problems."
+        "Define the error event and its denominator according to the task.",
+        "Group the model's errors by meaningful factors, and compare representative failures with matched successes and possible label problems.",
+        "Propose targeted discriminating experiments."
       ],
       "outputs": [
-        "Error taxonomy, frequency/impact evidence, examples, and interventions to test.",
-        "Error taxonomy, cohort counts, examples and proposed discriminating experiments."
+        "Error taxonomy with cohort counts and impact, representative examples, and interventions to test as discriminating experiments."
       ],
       "verification": [
         "Common groups are judged against their population size; a few vivid cases do not imply prevalence."
@@ -17860,16 +17851,12 @@
       "readScope": "Performance across cohorts/time/conditions and coverage gaps.",
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
       "procedure": [
-        "Predefine important slices where possible, compute counts and metrics consistently, account for dependent samples, flag small groups, and distinguish exploratory comparisons.",
-        "Define important slices and overlap, compute consistent counts/metrics and distinguish planned from exploratory comparisons with small-sample limits.",
-        "For supplied binary/regression run exports, follow the experiments guide to import actual provider metadata and aligned prediction rows with dataset/split, code/model identity, preprocessing, seed and feature maps. Keep provider-reported metrics separate from recomputed metrics; do not log into a provider or train merely to import.",
-        "Compare only fresh compatible task/dataset/split and row/target/slice identities. Suppress deltas when incompatible or stale. Explain overall and per-slice changes together, small denominators, missing dimensions, threshold changes, feature parity mismatches and temporal check coverage.",
-        "Investigate an aggregate gain with a subgroup regression before making a recommendation. Supplied metadata is attributed evidence, matching feature maps do not execute preprocessing, and observed differences do not establish cause. Reconcile unexported/missing predictions and use project tooling for uncertainty, unsupported tasks or larger data."
+        "Predefine important slices and their overlap where possible, and account for dependent samples.",
+        "Compute counts and metrics consistently, flag small groups, and distinguish planned from exploratory comparisons.",
+        "For supplied run exports, import and compare them with the experiments guide as ml-experiments does."
       ],
       "outputs": [
-        "Slice table, uncertainty, worst-supported conditions, and follow-up data needs.",
-        "Slice definition, denominator, metric, uncertainty and coverage gaps.",
-        "Normalized imported runs, actual input hashes, recomputed aggregate/slice metrics, comparability and parity/temporal findings."
+        "Slice table with definitions, denominators, metrics, uncertainty, worst-supported conditions, coverage gaps and follow-up data needs."
       ],
       "verification": [
         "A tiny cohort's extreme score is qualified; missing cohorts are shown as no evidence rather than zero performance."
@@ -17970,12 +17957,11 @@
       "readScope": "Probability reliability assessment; fitting a calibrator uses a separate held-out calibration protocol in apply mode.",
       "writeScope": "Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the requested changes or execute the requested operation within its resolved target and limits. Local preparation does not authorize live, remote, destructive or paid actions; existing explicit session authorization still applies.",
       "procedure": [
-        "Validate probability semantics, inspect reliability by range/cohort, use appropriate scoring measures, and compare any fitted calibrator on untouched evaluation data.",
-        "Check probability semantics, reliability and proper scoring measures; fit any calibrator on permitted data separate from final evaluation and compare by cohort."
+        "Check probability semantics, then inspect reliability by range and cohort with proper scoring measures.",
+        "Fit any calibrator on permitted data separate from final evaluation, and compare it by cohort on untouched evaluation data."
       ],
       "outputs": [
-        "Calibration report or calibrated artifact with split provenance and checks.",
-        "Calibration protocol, reliability evidence and independent comparison."
+        "Calibration report or calibrated artifact with split provenance, the calibration protocol, reliability evidence and an independent comparison."
       ],
       "verification": [
         "Good ranking is not mistaken for calibrated probability; fitting and evaluating a calibrator on identical records is rejected."
@@ -18062,12 +18048,12 @@
       "readScope": "Select an operating point or decision policy; no production activation.",
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
       "procedure": [
-        "Compare threshold tradeoffs, model workload/capacity, handle ties and uncertainty, choose using validation data, and reserve independent confirmation.",
-        "Compute validation tradeoffs with denominators and tie handling, translate them into expected workload under stated volume/prevalence and reserve independent confirmation."
+        "Compute validation tradeoffs with denominators and tie handling.",
+        "Translate them into expected workload under the stated volume, prevalence and capacity, with uncertainty, and choose using validation data.",
+        "Reserve independent confirmation."
       ],
       "outputs": [
-        "Threshold recommendation, confusion/workload estimates, assumptions, and sensitivity.",
-        "Threshold policy, expected workload assumptions and independent evaluation requirement."
+        "Threshold policy and recommendation with confusion and workload estimates, assumptions, sensitivity and the independent evaluation requirement."
       ],
       "verification": [
         "A daily review cap is respected under declared volume assumptions; a changed prevalence is shown to affect workload/precision."
@@ -18152,12 +18138,12 @@
       "readScope": "Missing inputs, noise, boundary cases, and realistic distribution changes.",
       "writeScope": "Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the requested changes or execute the requested operation within its resolved target and limits. Local preparation does not authorize live, remote, destructive or paid actions; existing explicit session authorization still applies.",
       "procedure": [
-        "Define validity-preserving perturbations, protect labels from invalid transformations, run bounded tests in apply mode, compare baseline sensitivity, and identify failure envelopes.",
-        "Define which changes should preserve labels and expected behavior, cap the sweep and compare both failure rate and input validity against a baseline."
+        "Define validity-preserving perturbations: which changes should preserve labels and expected behavior.",
+        "Cap the sweep and run bounded tests in apply mode, comparing failure rate and input validity against a baseline.",
+        "Identify failure envelopes and unsupported regions."
       ],
       "outputs": [
-        "Robustness protocol/results and prioritized mitigations.",
-        "Perturbation contract, tested envelope, failures and unsupported regions."
+        "Robustness protocol or results with the perturbation contract, tested envelope, failures, unsupported regions and prioritized mitigations."
       ],
       "verification": [
         "Missing required inputs fail predictably; label-changing perturbations are not scored as ordinary invariance tests."
@@ -18243,12 +18229,11 @@
       "readScope": "Appropriate feature/behavior explanation with method limitations; not causal attribution by default.",
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
       "procedure": [
-        "Choose a method compatible with the model/question, inspect baseline/background dependence, check stability/correlated features, and connect explanations to actual examples.",
-        "State whether the question concerns one prediction or global behavior, select a compatible method and examine background data and correlated-feature sensitivity."
+        "State whether the question concerns one prediction or global behavior, and choose a compatible method.",
+        "Examine background or baseline data dependence, stability and correlated-feature sensitivity, and connect explanations to actual examples."
       ],
       "outputs": [
-        "Explanation, method/settings, supporting evidence, and limits.",
-        "Method/question fit, example explanations, stability checks and limitations."
+        "Explanation with method/question fit, settings, example explanations, stability checks and limitations."
       ],
       "verification": [
         "Correlated features are not treated as independent causal effects; unstable explanations are disclosed."
@@ -18293,7 +18278,7 @@
         "lime",
         "partial dependence"
       ],
-      "selection": "Use to interpret model behavior; explain describes code and teach explains concepts.",
+      "selection": "Use to interpret model behavior; explain describes code, teach explains concepts, and ml-ablation measures a feature group's contribution to held-out performance by retraining without it.",
       "branches": [
         {
           "when": "explanations vary strongly with reasonable baselines",
@@ -18334,12 +18319,12 @@
       "readScope": "Accurate model documentation and release assessment; no invented experiments or approval.",
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
       "procedure": [
-        "Reconcile evidence, describe training/evaluation conditions, summarize baseline and slice results, document limitations and excluded uses, and identify missing release evidence.",
-        "Reconcile every number with a run and denominator, separate validation selection from independent test evidence and document deployment population/excluded uses."
+        "Reconcile every number with a run and denominator.",
+        "Describe training and evaluation conditions, separating validation selection from independent test evidence, and summarize baseline and slice results.",
+        "Document the deployment population, limitations, excluded uses and missing release evidence."
       ],
       "outputs": [
-        "Model report/card with provenance, metrics, operating assumptions, and open risks.",
-        "Model/data/version summary, baseline/slice evidence, limitations and release gaps."
+        "Model report or card with model/data/version provenance, metrics, baseline/slice evidence, operating assumptions, limitations, open risks and release gaps."
       ],
       "verification": [
         "Every numerical claim traces to an actual run; missing cohort evidence is disclosed rather than generalized away."
@@ -18424,12 +18409,12 @@
       "readScope": "Reproducible inference package and metadata; no registry upload or deployment implicitly.",
       "writeScope": "Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.",
       "procedure": [
-        "Verify artifact provenance, bundle preprocessing and schema, pin compatible dependencies, record versions/checksums, and run known-input smoke/parity checks.",
-        "Bundle preprocessing, feature order/schema, model identity, dependency constraints and known-input expectations; validate fresh-load parity in an isolated supported environment."
+        "Verify artifact provenance.",
+        "Bundle preprocessing, feature order/schema, model identity and pinned compatible dependencies, recording versions and checksums.",
+        "Validate fresh-load parity with known-input fixtures in an isolated supported environment."
       ],
       "outputs": [
-        "Package, manifest, loading instructions, and expected-output fixtures.",
-        "Artifact manifest, checksums, input/output schema and fresh-load fixture results."
+        "Package and manifest with checksums, input/output schema, loading instructions and fresh-load expected-output fixture results."
       ],
       "verification": [
         "A fresh supported environment reproduces fixture outputs within tolerance; incompatible artifact/schema versions fail clearly."
@@ -18516,16 +18501,18 @@
         "mode",
         "budget"
       ],
-      "capabilities": [],
+      "capabilities": [
+        "ml.artifacts"
+      ],
       "readScope": "Online inference service code and isolated validation; live hosting requires a deployment request.",
       "writeScope": "Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.",
       "procedure": [
-        "Validate inputs, manage model lifecycle/readiness, enforce resource/time limits, map errors, add redacted observability, and test concurrent valid/invalid requests.",
-        "Define readiness for the correct artifact, input bounds, batching/concurrency and deadlines; validate shapes/types before inference and preserve version in responses/telemetry."
+        "Define readiness for the correct artifact, input bounds, batching/concurrency and deadlines.",
+        "Validate shapes and types before inference, enforce resource and time limits, map errors, and preserve the model version in responses and redacted telemetry.",
+        "Test concurrent valid and invalid requests."
       ],
       "outputs": [
-        "Service, configuration, operational checks, and performance evidence if measured.",
-        "Serving contract, lifecycle, failure handling and concurrent valid/invalid checks."
+        "Service and configuration with its serving contract, lifecycle, failure handling, operational checks and performance evidence if measured."
       ],
       "verification": [
         "Invalid shapes/types fail safely; readiness does not pass before the correct model is usable."
@@ -18605,16 +18592,18 @@
         "mode",
         "budget"
       ],
-      "capabilities": [],
+      "capabilities": [
+        "ml.artifacts"
+      ],
       "readScope": "Resumable batch inference; real dataset execution must be part of the request.",
       "writeScope": "Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.",
       "procedure": [
-        "Validate schemas, create stable row/partition identities, implement checkpointed writes, track failures and model versions, and test resume/replay on controlled input.",
-        "Freeze model and input snapshot identity, partition by stable keys, stage outputs and commit a manifest/checkpoint only after durable complete partitions."
+        "Freeze model and input snapshot identity, validate schemas, and partition by stable row keys.",
+        "Stage outputs and commit a manifest or checkpoint only after durable complete partitions, tracking failures and model versions.",
+        "Test resume and replay on controlled input."
       ],
       "outputs": [
-        "Batch job, progress/output manifest, error policy, and resume evidence.",
-        "Partition/model manifest, failure counts, output reconciliation and resume steps."
+        "Batch job with its partition/model manifest, progress and output reconciliation, error policy, failure counts and resume evidence."
       ],
       "verification": [
         "Restart does not duplicate completed outputs; invalid records are accounted for rather than silently lost."
@@ -18699,12 +18688,12 @@
       "readScope": "Preprocessing, feature order, types, defaults, model version, and numerical parity.",
       "writeScope": "Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the requested local implementation and perform relevant bounded checks while preserving unrelated work. Live data changes, remote actions and paid jobs require their resolved target and existing session authorization.",
       "procedure": [
-        "Align raw inputs and versions, compare each transformation boundary, localize first divergence, evaluate declared tolerances, and propose fixes, applying a requested one in apply mode.",
-        "Feed identical raw rows through each pipeline and compare schema, feature names/order, transformations and model outputs at each boundary."
+        "Feed identical raw rows with aligned versions through each pipeline.",
+        "Compare schema, feature names and order, transformations and model outputs at each boundary, and localize the first divergence against declared tolerances.",
+        "Propose fixes, applying a requested one in apply mode."
       ],
       "outputs": [
-        "Parity report with stage-level differences and regression fixtures.",
-        "First divergent boundary, aligned inputs/versions and semantic versus numerical differences."
+        "Parity report with the first divergent boundary, aligned inputs and versions, semantic versus numerical differences and regression fixtures."
       ],
       "verification": [
         "Reordered features are detected; expected floating-point variance is separated from semantic mismatch."
@@ -18797,16 +18786,18 @@
         "mode",
         "budget"
       ],
-      "capabilities": [],
+      "capabilities": [
+        "ml.artifacts"
+      ],
       "readScope": "Latency, throughput, memory, batching, warmup, and optimization tradeoffs.",
       "writeScope": "Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the requested changes or execute the requested operation within its resolved target and limits. Local preparation does not authorize live, remote, destructive or paid actions; existing explicit session authorization still applies.",
       "procedure": [
-        "Define comparable benchmark conditions, separate cold/warm paths, measure bounded authorized workloads, identify bottlenecks, and check quality after optimizations.",
-        "Specify hardware, precision, batch/concurrency and payload distribution; separate load/warmup from steady-state and measure tail behavior within caps."
+        "Specify hardware, precision, batch/concurrency and payload distribution as comparable benchmark conditions.",
+        "Separate load and warmup from steady state, and measure bounded authorized workloads, including tail behavior within caps.",
+        "Identify bottlenecks and check quality after any optimization."
       ],
       "outputs": [
-        "Benchmark protocol/results and optimization recommendation or authorized patch.",
-        "Benchmark conditions, sample size, cold/warm/tail metrics and quality comparison."
+        "Benchmark protocol or results with conditions, sample size, cold/warm/tail metrics and quality comparison, and an optimization recommendation or authorized patch."
       ],
       "verification": [
         "Tail latency and throughput are reported under stated load; quantization gains include a quality comparison."
@@ -18897,12 +18888,12 @@
       "readScope": "Distribution-change detection and investigation; no automatic retraining.",
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
       "procedure": [
-        "Align schemas/windows, choose meaningful per-feature and aggregate checks, account for sample size/seasonality, inspect effect sizes, and define follow-up on signals.",
-        "Align schema, sampling and seasonal windows, compare effect sizes and support changes and separate data-pipeline changes from population changes."
+        "Align schemas, sampling and seasonal windows of the baseline and current data.",
+        "Choose meaningful per-feature and aggregate checks, and compare effect sizes and support changes in light of sample size.",
+        "Separate data-pipeline changes from population changes, and define follow-up on signals."
       ],
       "outputs": [
-        "Drift protocol or report with baselines, thresholds, uncertainty, and investigation guidance.",
-        "Baseline/current identities, shift measures, sample sizes and next evidence needed."
+        "Drift protocol or report with baseline/current identities, shift measures and thresholds, sample sizes, uncertainty and the next evidence needed."
       ],
       "verification": [
         "A changed categorical support is detected; a statistically significant tiny shift is not automatically called model failure."
@@ -18947,7 +18938,7 @@
         "feature drift",
         "prediction drift"
       ],
-      "selection": "Use for observed input/prediction distribution change; ml-evaluate requires outcomes to establish quality, and ml-parity or ml-leakage explain an offline-versus-production gap that is not population change.",
+      "selection": "Use for observed input/prediction distribution change; ml-evaluate requires outcomes to establish quality, and ml-parity or ml-leakage explain an offline-versus-production gap that is not population change; ml-monitor implements production drift and quality monitors and alert wiring.",
       "branches": [
         {
           "when": "drift is statistically significant but outcomes are unavailable",
@@ -18982,16 +18973,18 @@
         "mode",
         "budget"
       ],
-      "capabilities": [],
+      "capabilities": [
+        "telemetry.read"
+      ],
       "readScope": "Operational health, data quality, model performance, and label-arrival monitoring.",
       "writeScope": "Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the requested changes or execute the requested operation within its resolved target and limits. Local preparation does not authorize live, remote, destructive or paid actions; existing explicit session authorization still applies.",
       "procedure": [
-        "Separate leading signals from outcome metrics, define joins and delay windows, choose thresholds and runbook actions, and implement only requested instrumentation/configuration.",
-        "Separate service, feature, prediction and delayed-outcome signals; define stable joins, label-lag windows and model-version attribution."
+        "Separate service, feature, prediction and delayed-outcome signals, distinguishing leading signals from outcome metrics.",
+        "Define stable joins, label-lag windows and model-version attribution, and choose thresholds and runbook actions.",
+        "Implement only requested instrumentation or configuration."
       ],
       "outputs": [
-        "Monitoring design or code with metric definitions, privacy controls, and alert tests.",
-        "Signal/window/join/threshold/action contract and delayed-label test cases."
+        "Monitoring design or code with the signal/window/join/threshold/action contract, metric definitions, privacy controls and delayed-label and alert tests."
       ],
       "verification": [
         "Delayed labels do not make recent unlabeled cases look correct; model-version changes remain distinguishable."
@@ -19074,16 +19067,18 @@
         "mode",
         "budget"
       ],
-      "capabilities": [],
+      "capabilities": [
+        "ml.artifacts"
+      ],
       "readScope": "Shadow/canary/staged rollout and recovery; execution only on explicitly authorized targets.",
       "writeScope": "Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the requested changes or execute the requested operation within its resolved target and limits. Local preparation does not authorize live, remote, destructive or paid actions; existing explicit session authorization still applies.",
       "procedure": [
-        "Check package/schema compatibility, define cohort routing and comparison metrics, preserve fallback artifacts, prepare staged gates, and verify authorized transitions against evidence.",
-        "Check feature/schema/artifact compatibility, define shadow/canary routing and predeclared stop criteria, and preserve a usable fallback plus traffic-switch mechanism."
+        "Check feature, schema, package and artifact compatibility, and preserve a usable fallback artifact and traffic-switch mechanism.",
+        "Define shadow or canary cohort routing, comparison metrics and predeclared stop criteria as staged gates.",
+        "Verify authorized transitions against evidence."
       ],
       "outputs": [
-        "Rollout plan or execution record with actual traffic/version state and rollback criteria.",
-        "Cohort/gate/metric plan, candidate/fallback identities and verified transitions."
+        "Rollout plan or execution record with the cohort/gate/metric plan, candidate and fallback identities, actual traffic/version state and rollback criteria."
       ],
       "verification": [
         "Canary failures halt progression; rollback accounts for incompatible feature/schema changes."

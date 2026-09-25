@@ -33,8 +33,8 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Specify unit of analysis, target/label horizon, information available at prediction time, action taken from predictions, baseline, and costs of errors.
-2. State one prediction row's entity, timestamp, available information, label horizon and downstream action; compare a rule-based decision before choosing ML.
+1. State one prediction row's entity (the unit of analysis), timestamp, information available at prediction time, label horizon and the action taken from predictions.
+2. Compare a rule-based decision or other baseline before choosing a model, and state the cost of each error type.
 
 ## Technical method
 
@@ -54,8 +54,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Modeling brief with success metrics, eligibility/exclusions, deployment assumptions, and unresolved policy choices.
-- Task card with row grain, prediction moment, outcome horizon, action and error costs.
+- Modeling brief and task card with row grain, prediction moment, outcome horizon, action, error costs, success metrics, eligibility/exclusions, deployment assumptions and unresolved policy choices.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

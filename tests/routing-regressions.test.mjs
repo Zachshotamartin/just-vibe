@@ -116,6 +116,9 @@ const FIRST = [
   ['B7-03', 'where does the revenue number on the finance dashboard come from', ['data-lineage']],
   ['B7-03', 'trace this field back to the source', ['data-lineage']],
   ['V-A2-06', 'remove the old /v1/users endpoint nobody calls anymore', ['api-breaking', 'cleanup']],
+  ['A8-04', 'compare these mlflow runs from last week', ['ml-experiments']],
+  ['B9-09', 'which features matter most for this model', ['ml-explain']],
+  ['B9-09', 'how much does the price feature contribute to accuracy if we drop it', ['ml-ablation']],
 ];
 const TOP3 = [
   ['A1-01', 'which file handles password reset?', ['explain', 'trace', 'orient', 'map']],

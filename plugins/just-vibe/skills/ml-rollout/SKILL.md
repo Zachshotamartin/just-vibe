@@ -23,7 +23,7 @@ Use the complete request appended to this invocation, preserving all constraints
 - **Reasonable default:** Prepare packaging/configuration and isolated checks without treating them as a live deployment.
 - **Ask only when needed:** Resolve the target, rollback compatibility and operating limits before rollout or load generation; missing production access does not block packaging.
 
-Resolve any task-specific tools, target identity and evidence before dependent actions. No external connection is assumed.
+Declared evidence requirements: `ml.artifacts`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
@@ -33,8 +33,9 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 
 ## Execute
 
-1. Check package/schema compatibility, define cohort routing and comparison metrics, preserve fallback artifacts, prepare staged gates, and verify authorized transitions against evidence.
-2. Check feature/schema/artifact compatibility, define shadow/canary routing and predeclared stop criteria, and preserve a usable fallback plus traffic-switch mechanism.
+1. Check feature, schema, package and artifact compatibility, and preserve a usable fallback artifact and traffic-switch mechanism.
+2. Define shadow or canary cohort routing, comparison metrics and predeclared stop criteria as staged gates.
+3. Verify authorized transitions against evidence.
 
 ## Technical method
 
@@ -55,8 +56,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: make the
 
 ## Deliver and verify
 
-- Rollout plan or execution record with actual traffic/version state and rollback criteria.
-- Cohort/gate/metric plan, candidate/fallback identities and verified transitions.
+- Rollout plan or execution record with the cohort/gate/metric plan, candidate and fallback identities, actual traffic/version state and rollback criteria.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

@@ -23,7 +23,7 @@ Use the complete request appended to this invocation, preserving all constraints
 - **Reasonable default:** Prepare packaging/configuration and isolated checks without treating them as a live deployment.
 - **Ask only when needed:** Resolve the target, rollback compatibility and operating limits before rollout or load generation; missing production access does not block packaging.
 
-Resolve any task-specific tools, target identity and evidence before dependent actions. No external connection is assumed.
+Declared evidence requirements: `ml.artifacts`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
@@ -33,8 +33,9 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Execute
 
-1. Validate inputs, manage model lifecycle/readiness, enforce resource/time limits, map errors, add redacted observability, and test concurrent valid/invalid requests.
-2. Define readiness for the correct artifact, input bounds, batching/concurrency and deadlines; validate shapes/types before inference and preserve version in responses/telemetry.
+1. Define readiness for the correct artifact, input bounds, batching/concurrency and deadlines.
+2. Validate shapes and types before inference, enforce resource and time limits, map errors, and preserve the model version in responses and redacted telemetry.
+3. Test concurrent valid and invalid requests.
 
 ## Technical method
 
@@ -54,8 +55,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Deliver and verify
 
-- Service, configuration, operational checks, and performance evidence if measured.
-- Serving contract, lifecycle, failure handling and concurrent valid/invalid checks.
+- Service and configuration with its serving contract, lifecycle, failure handling, operational checks and performance evidence if measured.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
