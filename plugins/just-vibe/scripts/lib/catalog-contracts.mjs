@@ -15,6 +15,8 @@ const SELF_WRITE = /\bapply\s+(?:for|to|on|when|requested|changes|the\s+selected
 // "Execution authorization" is not a mode or effect class; cite bounded local execution or a mode.
 const UNDEFINED_TERM = /\bexecution\s+authori[sz]ation\b|\bauthorized\s+(?:browser\s+)?execution\b/i;
 const MODE_CLAUSE = /^(?:inspect|plan|apply)\b|\b(?:inspect|plan|apply)\s+mode\b|\bapply\s+(?:for|only|when)\b/i;
+// An example that asks for a code change teaches apply mode; an audit or plan brief says so.
+const CHANGE_REQUEST = /^(?:fix|implement|refactor|deploy|repair|patch)\b/i;
 const UNCONDITIONAL_EDIT = /\b(?:make|implement|edit|write|modify|patch)\s+(?:(?:a|an|the|local|focused|requested)\s+)*(?:changes?|code|fix(?:es)?|patch(?:es)?|implementation)\b|\bimplementation\s+can\s+proceed\b/i;
 
 const described = c => [['modePolicy', c.modePolicy], ['readScope', c.readScope], ['selection', c.selection],
@@ -27,6 +29,7 @@ export function validateContracts(c) {
     if (UNDEFINED_TERM.test(text)) fail(label, field, 'uses undefined "execution authorization"; cite bounded local execution or name the mode.');
   }
   c.requiredInputs.forEach((text, i) => { if (MODE_CLAUSE.test(text)) fail(label, `requiredInputs[${i}]`, 'must list inputs, not a mode clause.'); });
+  c.examples.forEach((e, i) => { if (CHANGE_REQUEST.test(e.brief) && e.mode !== 'apply') fail(label, `examples[${i}].mode`, `is ${e.mode}, but the brief asks for a change; use apply or phrase it as an audit or plan.`); });
   if (canApply(c)) {
     if (c.writeScope === INSPECT_ONLY_SCOPE) fail(label, 'writeScope', 'forbids all source changes, but the mode policy grants apply; state the apply write boundary.');
     return;

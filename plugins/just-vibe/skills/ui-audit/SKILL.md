@@ -33,8 +33,8 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Inspect representative states and widths, follow the primary journey, identify concrete friction, and prioritize by user impact rather than personal taste.
-2. Walk the primary and recovery journey at representative widths with realistic long/empty content; tie findings to an action the user cannot understand or complete.
+1. Walk the primary and recovery journey at representative widths and states with realistic long and empty content.
+2. Tie each finding to an action the user cannot understand or complete, and prioritize by user impact rather than personal taste.
 
 ## Technical method
 
@@ -57,8 +57,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Annotated findings, affected states, and targeted recommendations.
-- State/viewport, user impact, evidence and prioritized correction per finding.
+- Findings annotated with state/viewport, user impact, evidence and a prioritized correction.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

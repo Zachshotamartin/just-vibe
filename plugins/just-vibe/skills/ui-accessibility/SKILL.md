@@ -23,7 +23,7 @@ Use the complete request appended to this invocation, preserving all constraints
 - **Reasonable default:** Reuse established visual conventions and preserve keyboard behavior; label unrendered changes as visually unverified.
 - **Ask only when needed:** Ask about an unresolved interaction or visual direction only when plausible choices materially differ; do not make a missing screenshot block source inspection.
 
-Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
+Declared evidence requirements: `project.read`, `browser.inspect`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
@@ -54,6 +54,8 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the
 - The task specifically involves gsap, motion design, framer motion, view transition, click path; load only the matching method: [Motion, visual direction and click paths](../../references/methods/motion-design.md).
 - Auditing a dialog or modal overlay: [dialog interaction](../../references/scenarios/dialog.md).
 - Auditing a menu button, tabs, disclosure, tooltip or popover: [menu, tabs, disclosure, tooltip and popover interaction](../../references/scenarios/menu.md).
+- Auditing a combobox or autocomplete: [combobox interaction](../../references/scenarios/combobox.md).
+- Auditing a date or range input: [date-picker interaction](../../references/scenarios/date-picker.md).
 
 ## Decision branches
 

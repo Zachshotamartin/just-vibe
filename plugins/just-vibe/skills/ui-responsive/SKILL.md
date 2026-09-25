@@ -23,7 +23,7 @@ Use the complete request appended to this invocation, preserving all constraints
 - **Reasonable default:** Reuse established visual conventions and preserve keyboard behavior; label unrendered changes as visually unverified.
 - **Ask only when needed:** Ask about an unresolved interaction or visual direction only when plausible choices materially differ; do not make a missing screenshot block source inspection.
 
-Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
+Declared evidence requirements: `project.read`, `browser.inspect`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
@@ -33,15 +33,16 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Execute
 
-1. Inspect intrinsic sizes and flow, reproduce failures, adjust layout constraints, and verify intermediate widths, long text, and relevant orientation changes.
-2. Find the intrinsic width constraint or overflow source, adjust layout at content-driven boundaries and test nearby widths with long text and keyboard focus.
+1. Reproduce the failure and inspect intrinsic sizes and flow to find the width constraint or overflow source.
+2. Adjust the layout at content-driven boundaries.
+3. Test nearby and intermediate widths, long text, keyboard focus and relevant orientation changes.
 
 ## Technical method
 
 - **Inspect:** Inspect layout constraints, intrinsic content size, breakpoints, zoom, touch targets and input methods.
 - **Method:** Repair the constraint causing overflow; choose reflow/order based on task meaning rather than arbitrary device names.
 - **Avoid misdiagnosis:** Hiding overflow can conceal controls; hover-only affordances fail on touch or keyboard.
-- **Check the result:** Test narrow and wide layouts, long text, zoom and both pointer/keyboard access without clipped essential content.
+- **Check the result:** When no product matrix exists, test at least 320 CSS px width without two-dimensional scrolling (256 px height for vertical scrollers, WCAG 1.4.10), 200% text resize (1.4.4), increased text spacing (1.4.12), both orientations (1.3.4) and 24 by 24 CSS px targets or equivalent spacing (2.5.8); essential content and pointer/keyboard access must remain unclipped.
 
 ## Read when relevant
 
@@ -57,8 +58,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Deliver and verify
 
-- Layout fixes and a viewport/input coverage record.
-- Viewport/content/input matrix and observed reachability/overflow results.
+- Layout fixes with a viewport/content/input matrix and observed reachability and overflow results.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

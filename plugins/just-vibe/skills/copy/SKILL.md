@@ -47,6 +47,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 - When a concrete decision or deliverable example would clarify this workflow: [General worked example](../../references/examples/general.md).
 - Creating, editing or reviewing frontend UI, copy, states or visual assets: [Frontend iconography](../../references/frontend-icons.md).
+- Checking truncation, empty and error states for interface copy: [UI methods](../../references/packs/ui.md).
 
 ## Decision branches
 

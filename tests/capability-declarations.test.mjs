@@ -49,3 +49,12 @@ test('visual workflows require browser evidence when they apply changes (A2-05)'
     assert.ok(!workflowRequirements(command, 'apply', 'Polish the spacing without opening a browser').some(r => r.id === 'browser'), `${id} honors a no-browser brief`);
   }
 });
+
+test('rendered-interaction workflows declare browser evidence; comparing supplied captures does not (A6-12)', t => {
+  const found = discoverCapabilities(folder(t));
+  for (const id of ['ui-accessibility', 'ui-responsive', 'ui-motion']) {
+    assert.ok(getCommand(catalog, id).capabilities.includes('browser.inspect'), id);
+    assert.notEqual(status(found, id).status, 'available', `${id} is not ready without an observed browser`);
+  }
+  assert.ok(!getCommand(catalog, 'ui-visual-diff').capabilities.includes('browser.inspect'), 'ui-visual-diff compares supplied captures by default');
+});

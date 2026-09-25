@@ -33,8 +33,9 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the
 
 ## Execute
 
-1. Establish the interaction baseline, inspect profiler commits, trace changing props/context/identities, fix the measured cause when requested, and compare behavior and timing.
-2. Capture the same interaction in a profiler, separate render from commit cost and trace the props/context identity responsible for expensive work.
+1. Capture a baseline of the same interaction in the profiler (React Performance Tracks where available), separating render from commit cost.
+2. Trace the props, context or identity responsible for the expensive work. Before adding manual memoization, check if React Compiler is enabled and if the component compiled or bailed out.
+3. When a fix is requested, change the measured cause, then repeat the interaction and compare behavior and timing.
 
 ## Technical method
 
@@ -56,8 +57,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the
 
 ## Deliver and verify
 
-- Render-cause analysis or patch with comparable evidence.
-- Interaction/profile conditions, dominant component/cause and comparable result.
+- Interaction/profile conditions, the dominant component and cause, and a comparable result or patch with its evidence.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -70,5 +70,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (inspect):** Analyze why changing a filter rerenders the full product grid using this profile.
-- **Edge (inspect):** Improve filter typing in a large product grid without stale selections.
+- **Edge (apply):** Improve filter typing in a large product grid without stale selections.
 - **Blocked (inspect):** Inspect likely render causes without profiler access; do not add blanket memoization.

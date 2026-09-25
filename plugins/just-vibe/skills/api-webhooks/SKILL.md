@@ -33,15 +33,16 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Execute
 
-1. Validate signatures against correct raw bytes, separate receipt from processing, implement durable deduplication, and test invalid, duplicate, delayed, and reordered messages.
-2. Verify signatures using provider-specified raw bytes and time rules, persist receipt identity before acknowledgment and separate deduplication from business processing.
+1. Verify signatures over the provider-specified raw bytes and time rules, comparing in constant time and accepting current and previous secrets during a bounded rotation period.
+2. Persist receipt identity before acknowledgment, and separate durable deduplication from business processing.
+3. Test invalid, duplicate, delayed and reordered messages.
 
 ## Technical method
 
 - **Inspect:** Read the provider's signature contract, raw-body handling, timestamp tolerance, event IDs and retry/order semantics.
-- **Method:** Verify authentic bytes before side effects, durably deduplicate delivery and business effects, and handle out-of-order versions deliberately.
+- **Method:** Verify authentic bytes before side effects with a constant-time comparison (for example crypto.timingSafeEqual or hmac.compare_digest), accepting current and previous secrets during a bounded rotation period; durably deduplicate delivery and business effects, and handle out-of-order versions deliberately.
 - **Avoid misdiagnosis:** Re-serialized JSON changes signed bytes; a valid signature does not prevent replay or duplicate processing.
-- **Check the result:** Test altered body, invalid/stale signature, concurrent duplicate, reversed event order and a crash before acknowledgment with synthetic fixtures.
+- **Check the result:** Test altered body, invalid/stale signature, a delivery signed with the previous secret during rotation, concurrent duplicate, reversed event order and a crash before acknowledgment with synthetic fixtures.
 
 ## Read when relevant
 
@@ -58,8 +59,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Deliver and verify
 
-- Webhook implementation, configuration names, and recovery/verification evidence.
-- Receipt/processing state machine and invalid, replayed, duplicate and reordered checks.
+- Webhook implementation and configuration names, a receipt/processing state machine, and invalid, replayed, duplicate and reordered checks.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

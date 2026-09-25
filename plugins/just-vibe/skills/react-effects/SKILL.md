@@ -35,13 +35,13 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 1. Classify each effect as synchronization with an external system or a derived computation. Derive render-only values directly where appropriate; do not add state/effects merely to mirror existing props.
 2. Trace dependency identity through setup, dependency change, cleanup and unmount. Check development replay/remount behavior against the installed framework version; cleanup must undo the resource acquired by that setup instance.
-3. For async synchronization, protect current identity on both fulfillment and rejection and define ownership of any shared work. Avoid suppressing dependency checks or using a permanent once flag to hide an incorrect lifetime.
+3. For async synchronization, protect current identity on both fulfillment and rejection and define ownership of any shared work. Avoid suppressing dependency checks or using a permanent once flag to hide an incorrect lifetime. For a current value the effect must read without resubscribing, use useEffectEvent on React 19.2 or later; on earlier versions, keep it in a ref that an effect updates.
 4. Verify rapid identity changes and repeated setup/cleanup with observable subscriptions, state and resource counts. Distinguish a verified lifecycle fix from a claimed performance improvement that has not been measured.
 
 ## Technical method
 
 - **Inspect:** Identify the external system, dependency identities, setup, cleanup and reset semantics of each affected effect.
-- **Method:** Move derived values to render where appropriate; make synchronization cleanup mirror setup and use supported patterns for current values.
+- **Method:** Move derived values to render where appropriate; make synchronization cleanup mirror setup and read non-reactive current values with useEffectEvent (React 19.2+) or a ref kept current on earlier versions.
 - **Avoid misdiagnosis:** Suppressing dependency warnings conceals stale closures; aborting a request cannot undo a completed server mutation.
 - **Check the result:** Exercise changed inputs, remount and unmount with controlled timers/promises and verify listeners, requests and subscriptions are released.
 

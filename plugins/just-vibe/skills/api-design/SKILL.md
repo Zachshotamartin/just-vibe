@@ -33,8 +33,9 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Inspect domain conventions and existing APIs, define consistent resources and operations, specify normal/error behavior, and check consumer usability and migration needs.
-2. Define resource identity, method semantics, validation, authorization, errors and versioning from actual consumer journeys; include one success and failure exchange.
+1. Inspect domain conventions, existing APIs and actual consumer journeys.
+2. Define resource identity, method semantics, validation, authorization, errors and versioning consistently with them, with one success and one failure exchange per operation.
+3. Check consumer usability and migration needs.
 
 ## Technical method
 
@@ -57,8 +58,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- API proposal with request/response examples, invariants, and acceptance scenarios.
-- Request/response examples, status/error meanings and consumer compatibility notes.
+- API proposal with request/response examples, status and error meanings, invariants, acceptance scenarios and consumer compatibility notes.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

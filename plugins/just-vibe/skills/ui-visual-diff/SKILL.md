@@ -23,7 +23,7 @@ Use the complete request appended to this invocation, preserving all constraints
 - **Reasonable default:** Reuse established visual conventions and preserve keyboard behavior; label unrendered changes as visually unverified.
 - **Ask only when needed:** Ask about an unresolved interaction or visual direction only when plausible choices materially differ; do not make a missing screenshot block source inspection.
 
-Declared evidence requirements: `browser.inspect`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
+Declared evidence requirements: `project.read`. Use actual host discovery or adequate supplied artifacts; unavailable evidence remains blocked/unknown.
 
 ## Scope
 
@@ -33,8 +33,9 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Normalize capture conditions, identify meaningful regions, separate dynamic content noise, and describe differences by user impact.
-2. Match viewport, DPR, fonts, content, theme and animation state; mask only justified nondeterminism and inspect changed regions before accepting baselines.
+1. Match viewport, DPR, fonts, content, theme and animation state across the captures.
+2. Mask only justified nondeterminism, identify the meaningful changed regions and describe differences by user impact.
+3. Inspect changed regions before accepting any baseline.
 
 ## Technical method
 
@@ -57,8 +58,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Compared images or annotated difference report with conditions and confidence.
-- Capture conditions, changed regions, accepted differences and remaining mismatches.
+- Annotated difference report with capture conditions, changed regions, accepted differences with reasons, remaining mismatches and confidence.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

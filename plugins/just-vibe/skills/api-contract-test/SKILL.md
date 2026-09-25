@@ -33,8 +33,8 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Execute
 
-1. Identify important assumptions, build provider/consumer assertions, control fixtures, verify valid and invalid exchanges, and integrate with relevant checks.
-2. Derive assertions from actual consumer assumptions, control fixture identity and verify the real provider boundary when a safe environment exists.
+1. Derive assertions from actual consumer assumptions, and control fixture identity and provenance.
+2. Verify valid and invalid exchanges, including the real provider boundary when a safe environment exists, and integrate the cases with the relevant checks.
 
 ## Technical method
 
@@ -56,8 +56,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Deliver and verify
 
-- Contract tests, fixture provenance, and execution results.
-- Contract cases, schema/semantic assertions and provider verification coverage.
+- Contract cases with schema and semantic assertions, fixture provenance, provider verification coverage and execution results.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

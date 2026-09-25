@@ -33,7 +33,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Execute
 
-1. Inspect existing primitives and the consumer contract. Choose state ownership, semantics and interaction behavior before implementing the narrow component API.
+1. Inspect existing primitives and the consumer contract. Choose state ownership, semantics and interaction behavior before implementing the narrow component API. On React 19 or later, accept ref as a regular prop; use forwardRef only for supported older versions.
 2. Select only the relevant scenario guide for dialogs, menus and other non-dialog overlays, comboboxes or date inputs; implement normal and recovery states, then verify real interactions and parent-controlled updates.
 
 ## Technical method

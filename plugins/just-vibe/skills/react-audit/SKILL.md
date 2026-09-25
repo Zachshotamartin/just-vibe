@@ -33,8 +33,8 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Trace props/state and lifecycle, identify reachable failure paths, inspect tests and framework constraints, and rank concrete risks.
-2. Identify React/framework version and server/client boundary, then trace state ownership, hook order, key identity and reachable interaction states.
+1. Identify the React/framework version, the server/client boundary and existing tests.
+2. Trace props, state ownership, hook order, key identity and lifecycle through reachable interaction states, and rank concrete risks by their reachable failure paths.
 
 ## Technical method
 
@@ -57,8 +57,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Findings with component locations, triggers, and repair suggestions.
-- Finding location, triggering interaction, state transition and severity rationale.
+- Findings with component location, triggering interaction, state transition, severity rationale and a repair suggestion.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

@@ -102,6 +102,8 @@ export const intents = [
   { test: /\b(?:roll(?:ing)?\s*out|rollout|ship|deploy\w*|release|promote)\b[\s\S]*\b(?:production|prod|staging|live)\b|\b(?:production|prod|staging)\b[\s\S]*\b(?:roll(?:ing)?\s*out|rollout|deploy\w*)\b|\bcanary\s+(?:release|deploy\w*|rollout)\b/i, unlessText: /\b(?:model|classifier|ranker|recommender|vercel|migration|schema)\b/i, ids: ['deploy'], reason: 'Deploy to an environment' },
   // A rollout or canary of a service, app or build is a deployment; a model version is ml-rollout.
   { test: /\b(?:roll(?:ing)?\s*out|rollout|canary|blue.green|traffic\s+shift\w*)\b[\s\S]*\b(?:services?|api|backend|frontend|app|build|servers?|site|web\s*app|release)\b|\b(?:services?|api|backend|frontend|app|build|servers?|release)\b[\s\S]*\b(?:roll(?:ing)?\s*out|rollout|canary)\b/i, unlessText: /\b(?:model|classifier|ranker|recommender|embedding|feature\s+flags?)\b/i, ids: ['deploy'], reason: 'Service rollout or canary' },
+  // Generating a client or SDK consumes a specification; api-openapi maintains the specification itself.
+  { test: /\b(?:generat\w*|codegen|scaffold\w*|build|create)\b[\s\S]*\b(?:client|sdk)s?\b[\s\S]*\b(?:openapi|swagger|spec|schema)\b|\b(?:client|sdk)s?\b[\s\S]*\bfrom\b[\s\S]*\b(?:openapi|swagger)\b|\b(?:openapi|swagger)\b[\s\S]*\b(?:client|sdk)\s+(?:generat\w*|codegen)\b/i, ids: ['api-client'], reason: 'Client or SDK from an API specification' },
   { test: /\b(?:partial|staged|unstaged|only\s+these|selected\s+files)\b[\s\S]*\bcommit|\bcommit\b[\s\S]*\b(?:partial|staged|unstaged|only\s+these|selected\s+files)\b/i, ids: ['git-commit', 'git-split'], reason: 'Commit scope and index preservation' },
 ];
 

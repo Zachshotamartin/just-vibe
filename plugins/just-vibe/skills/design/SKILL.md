@@ -50,6 +50,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 - Creating, editing or reviewing frontend UI, copy, states or visual assets: [Frontend iconography](../../references/frontend-icons.md).
 - The affected project uses Flutter: [Flutter](../../references/frameworks/flutter.md).
 - The affected project uses React Native / Expo: [React Native / Expo](../../references/frameworks/react-native.md).
+- Choosing states, viewports, token changes or capture conditions for visual work: [UI methods](../../references/packs/ui.md).
 
 ## Decision branches
 

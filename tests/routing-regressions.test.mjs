@@ -110,6 +110,9 @@ const FIRST = [
   ['B5-07', 'move our create react app project to vite', ['vite-setup']],
   ['B5-07', 'upgrade to vite 6 and check the plugins still work', ['vite-upgrade']],
   ['V-A5-04', 'are we leaking secrets into the frontend bundle', ['security-secrets', 'vite-env']],
+  ['V-A6-04', 'generate a TypeScript client from our OpenAPI spec', ['api-client']],
+  ['V-A6-04', 'generate an SDK from the openapi file', ['api-client']],
+  ['V-A6-04', 'our OpenAPI spec is out of date with the routes', ['api-openapi']],
 ];
 const TOP3 = [
   ['A1-01', 'which file handles password reset?', ['explain', 'trace', 'orient', 'map']],

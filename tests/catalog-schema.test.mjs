@@ -71,6 +71,7 @@ test('contracts that promise writes without an apply mode are rejected', () => {
     ['apply-capable workflow keeps the no-changes scope', contractCase('vite-chunks', c => { c.writeScope = 'No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.'; }), /Command vite-chunks: writeScope forbids all source changes/],
     ['undefined execution authorization', contractCase('coverage', c => { c.stopConditions[0] = 'Running new coverage jobs requires execution authorization.'; }), /undefined "execution authorization"/],
     ['mode clause in required inputs', contractCase('ci', c => { c.requiredInputs[0] = 'apply for requested fixes. Requires workflow files.'; }), /Command ci: requiredInputs\[0\] must list inputs/],
+    ['change request labelled inspect', contractCase('react-rerenders', c => { c.examples[1] = { kind: 'edge', mode: 'inspect', brief: 'Fix filter typing in a large product grid.' }; }), /Command react-rerenders: examples\[1\]\.mode is inspect, but the brief asks for a change/],
     ['pack default edits for an inspect-only workflow', contractCase('vite-config', (c, packs) => {
       c.modePolicy = 'Inspect; configuration files.'; c.writeScope = 'No source changes in inspect/plan.';
       packs.packs.find(p => p.id === 'vite').inputPolicy.assume = 'Make a local focused change when the brief identifies the behavior.';

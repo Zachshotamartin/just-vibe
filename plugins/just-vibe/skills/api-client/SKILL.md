@@ -1,6 +1,6 @@
 ---
 name: api-client
-description: "Build a typed client with authentication and error handling. Use for a typed transport boundary to a known API; integrate handles wider product wiring."
+description: "Build a typed client with authentication and error handling. Use for a typed transport boundary to a known API, including clients or SDKs generated from an OpenAPI spec; integrate handles wider product wiring."
 ---
 
 # api-client
@@ -9,7 +9,7 @@ Build a typed client with authentication and error handling.
 
 ## Choose this workflow
 
-Use for a typed transport boundary to a known API; integrate handles wider product wiring.
+Use for a typed transport boundary to a known API, including clients or SDKs generated from an OpenAPI spec; integrate handles wider product wiring.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [APIs methods](../../references/packs/api.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -33,8 +33,9 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Execute
 
-1. Verify contract/version, generate or write a narrow client, isolate credentials, preserve useful errors, and exercise controlled successful and failed responses.
-2. Resolve version/auth/schema, validate runtime response shape and preserve actionable status, retry-after and request IDs without leaking credentials.
+1. Resolve the API version, authentication and schema.
+2. Generate or write a narrow client that isolates credentials, validates runtime response shape and preserves actionable status, retry-after and request IDs without leaking credentials.
+3. Exercise controlled successful, refused, timed-out and malformed responses.
 
 ## Technical method
 
@@ -56,8 +57,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Deliver and verify
 
-- Client, usage/configuration documentation, and contract checks.
-- Client interface, configuration names and timeout/refusal/malformed-response checks.
+- Client interface with usage and configuration names, and timeout, refusal and malformed-response contract checks.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

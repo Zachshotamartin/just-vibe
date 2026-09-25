@@ -2796,6 +2796,11 @@
           "title": "React Native / Expo",
           "when": "The affected project uses React Native / Expo",
           "path": "references/frameworks/react-native.md"
+        },
+        {
+          "title": "UI methods",
+          "path": "references/packs/ui.md",
+          "when": "Choosing states, viewports, token changes or capture conditions for visual work"
         }
       ]
     },
@@ -2905,6 +2910,11 @@
           "title": "React Native / Expo",
           "when": "The affected project uses React Native / Expo",
           "path": "references/frameworks/react-native.md"
+        },
+        {
+          "title": "UI methods",
+          "path": "references/packs/ui.md",
+          "when": "Choosing states, viewports, token changes or capture conditions for visual work"
         }
       ]
     },
@@ -3026,6 +3036,11 @@
           "title": "Frontend iconography",
           "when": "Creating, editing or reviewing frontend UI, copy, states or visual assets",
           "path": "references/frontend-icons.md"
+        },
+        {
+          "title": "UI methods",
+          "path": "references/packs/ui.md",
+          "when": "Choosing states, viewports, token changes or capture conditions for visual work"
         }
       ]
     },
@@ -3126,6 +3141,11 @@
           "title": "Frontend iconography",
           "when": "Creating, editing or reviewing frontend UI, copy, states or visual assets",
           "path": "references/frontend-icons.md"
+        },
+        {
+          "title": "UI methods",
+          "path": "references/packs/ui.md",
+          "when": "Checking truncation, empty and error states for interface copy"
         }
       ]
     },
@@ -10613,12 +10633,11 @@
       "readScope": "Hooks, ownership, identity, effects, async boundaries, and component contracts.",
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
       "procedure": [
-        "Trace props/state and lifecycle, identify reachable failure paths, inspect tests and framework constraints, and rank concrete risks.",
-        "Identify React/framework version and server/client boundary, then trace state ownership, hook order, key identity and reachable interaction states."
+        "Identify the React/framework version, the server/client boundary and existing tests.",
+        "Trace props, state ownership, hook order, key identity and lifecycle through reachable interaction states, and rank concrete risks by their reachable failure paths."
       ],
       "outputs": [
-        "Findings with component locations, triggers, and repair suggestions.",
-        "Finding location, triggering interaction, state transition and severity rationale."
+        "Findings with component location, triggering interaction, state transition, severity rationale and a repair suggestion."
       ],
       "verification": [
         "A conditional hook or unstable key problem includes its trigger; a stylistic preference is not presented as a correctness bug."
@@ -10724,12 +10743,12 @@
       "readScope": "Unnecessary rendering, expensive render work, and state propagation.",
       "writeScope": "Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the requested local implementation and perform relevant bounded checks while preserving unrelated work. Live data changes, remote actions and paid jobs require their resolved target and existing session authorization.",
       "procedure": [
-        "Establish the interaction baseline, inspect profiler commits, trace changing props/context/identities, fix the measured cause when requested, and compare behavior and timing.",
-        "Capture the same interaction in a profiler, separate render from commit cost and trace the props/context identity responsible for expensive work."
+        "Capture a baseline of the same interaction in the profiler (React Performance Tracks where available), separating render from commit cost.",
+        "Trace the props, context or identity responsible for the expensive work. Before adding manual memoization, check if React Compiler is enabled and if the component compiled or bailed out.",
+        "When a fix is requested, change the measured cause, then repeat the interaction and compare behavior and timing."
       ],
       "outputs": [
-        "Render-cause analysis or patch with comparable evidence.",
-        "Interaction/profile conditions, dominant component/cause and comparable result."
+        "Interaction/profile conditions, the dominant component and cause, and a comparable result or patch with its evidence."
       ],
       "verification": [
         "The slow interaction improves measurably; memoization does not preserve stale data or break callbacks."
@@ -10744,7 +10763,7 @@
         },
         {
           "kind": "edge",
-          "mode": "inspect",
+          "mode": "apply",
           "brief": "Improve filter typing in a large product grid without stale selections."
         },
         {
@@ -10840,7 +10859,7 @@
       "procedure": [
         "Classify each effect as synchronization with an external system or a derived computation. Derive render-only values directly where appropriate; do not add state/effects merely to mirror existing props.",
         "Trace dependency identity through setup, dependency change, cleanup and unmount. Check development replay/remount behavior against the installed framework version; cleanup must undo the resource acquired by that setup instance.",
-        "For async synchronization, protect current identity on both fulfillment and rejection and define ownership of any shared work. Avoid suppressing dependency checks or using a permanent once flag to hide an incorrect lifetime.",
+        "For async synchronization, protect current identity on both fulfillment and rejection and define ownership of any shared work. Avoid suppressing dependency checks or using a permanent once flag to hide an incorrect lifetime. For a current value the effect must read without resubscribing, use useEffectEvent on React 19.2 or later; on earlier versions, keep it in a ref that an effect updates.",
         "Verify rapid identity changes and repeated setup/cleanup with observable subscriptions, state and resource counts. Distinguish a verified lifecycle fix from a claimed performance improvement that has not been measured."
       ],
       "outputs": [
@@ -10904,7 +10923,7 @@
       ],
       "technical": {
         "evidence": "Identify the external system, dependency identities, setup, cleanup and reset semantics of each affected effect.",
-        "method": "Move derived values to render where appropriate; make synchronization cleanup mirror setup and use supported patterns for current values.",
+        "method": "Move derived values to render where appropriate; make synchronization cleanup mirror setup and read non-reactive current values with useEffectEvent (React 19.2+) or a ref kept current on earlier versions.",
         "pitfall": "Suppressing dependency warnings conceals stale closures; aborting a request cannot undo a completed server mutation.",
         "check": "Exercise changed inputs, remount and unmount with controlled timers/promises and verify listeners, requests and subscriptions are released."
       },
@@ -10952,12 +10971,12 @@
       "readScope": "State location, derived values, synchronization, and transitions within the feature.",
       "writeScope": "Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the requested local implementation and perform relevant bounded checks while preserving unrelated work. Live data changes, remote actions and paid jobs require their resolved target and existing session authorization.",
       "procedure": [
-        "Identify authoritative values, remove redundant representations when safe, define transitions, choose the narrowest owner, and verify user-visible behavior.",
-        "Name each authoritative value and derived representation; model update/reset transitions and distinguish per-instance, shared and persisted state."
+        "Name each authoritative value and derived representation, and distinguish per-instance, shared and persisted state.",
+        "Model update and reset transitions, choose the narrowest owner, and remove redundant representations only when their synchronization is understood.",
+        "Verify the user-visible behavior."
       ],
       "outputs": [
-        "State model and proposed or implemented simplification with tests.",
-        "Ownership/transition table and checks for reset, independent instances and persistence."
+        "Ownership/transition table and the proposed or implemented simplification, with checks for reset, independent instances and persistence."
       ],
       "verification": [
         "Editing and resetting remain consistent; independent component instances do not accidentally share local state."
@@ -11064,7 +11083,7 @@
       "readScope": "Reusable component plus necessary integration/example; no unrelated design-system replacement.",
       "writeScope": "Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.",
       "procedure": [
-        "Inspect existing primitives and the consumer contract. Choose state ownership, semantics and interaction behavior before implementing the narrow component API.",
+        "Inspect existing primitives and the consumer contract. Choose state ownership, semantics and interaction behavior before implementing the narrow component API. On React 19 or later, accept ref as a regular prop; use forwardRef only for supported older versions.",
         "Select only the relevant scenario guide for dialogs, menus and other non-dialog overlays, comboboxes or date inputs; implement normal and recovery states, then verify real interactions and parent-controlled updates."
       ],
       "outputs": [
@@ -11207,12 +11226,12 @@
       "readScope": "Input state, validation, submission, errors, pending/success, and recovery.",
       "writeScope": "Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.",
       "procedure": [
-        "Reuse form conventions, separate client convenience from server authority, preserve input after failures, prevent unintended duplicates, and verify focus/error announcements.",
-        "Model editing, validating, submitting, rejected and successful states; preserve entered values and map server field/global errors to usable focus and announcements."
+        "Reuse the project's form conventions and separate client-side convenience validation from server authority.",
+        "Model editing, validating, submitting, rejected and successful states; preserve entered values after failures and prevent unintended duplicate submissions.",
+        "Map server field and global errors to usable focus and announcements, and verify them."
       ],
       "outputs": [
-        "Form implementation and behavior checks.",
-        "Field/error contract, submission state machine and keyboard/server-failure checks."
+        "Form implementation with its field/error contract and submission state machine, and keyboard and server-failure checks."
       ],
       "verification": [
         "Invalid input is actionable without losing data; server rejection and double submission have deliberate outcomes.",
@@ -11547,12 +11566,11 @@
       "readScope": "Hierarchy, consistency, content clarity, state coverage, and interaction barriers.",
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
       "procedure": [
-        "Inspect representative states and widths, follow the primary journey, identify concrete friction, and prioritize by user impact rather than personal taste.",
-        "Walk the primary and recovery journey at representative widths with realistic long/empty content; tie findings to an action the user cannot understand or complete."
+        "Walk the primary and recovery journey at representative widths and states with realistic long and empty content.",
+        "Tie each finding to an action the user cannot understand or complete, and prioritize by user impact rather than personal taste."
       ],
       "outputs": [
-        "Annotated findings, affected states, and targeted recommendations.",
-        "State/viewport, user impact, evidence and prioritized correction per finding."
+        "Findings annotated with state/viewport, user impact, evidence and a prioritized correction."
       ],
       "verification": [
         "A confusing recovery path has a reproducible example; established brand choices are not automatically labeled defects."
@@ -11660,12 +11678,12 @@
       "readScope": "Tokens and component conventions; implementing an adoption is a separate build or polish request.",
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
       "procedure": [
-        "Inventory existing values, identify a coherent scale, define semantic tokens and component states, and plan incremental adoption without visual regressions.",
-        "Inventory actual repeated values and component states; separate semantic roles from raw scales and define incremental adoption with representative specimens."
+        "Inventory actual repeated values and component states.",
+        "Define semantic token roles over a small coherent raw scale, and the component states they cover.",
+        "Plan incremental adoption with representative specimens that show no visual regressions."
       ],
       "outputs": [
-        "Typography/spacing/color/state system and a migration mapping for adoption.",
-        "Token roles/scales, component state matrix and migration examples."
+        "Token roles and scales for typography, spacing, color and state, a component state matrix, and a migration mapping with examples."
       ],
       "verification": [
         "Tokens express meaning across components; contrast and long-content behavior remain usable in representative states."
@@ -11681,7 +11699,7 @@
         {
           "kind": "edge",
           "mode": "plan",
-          "brief": "Consolidate spacing and color tokens across light and dark settings screens."
+          "brief": "Plan consolidating spacing and color tokens across light and dark settings screens."
         },
         {
           "kind": "blocked",
@@ -11773,12 +11791,12 @@
       "readScope": "Missing state behavior and presentation for the selected feature.",
       "writeScope": "Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.",
       "procedure": [
-        "Derive states from data and business rules, define transitions and recovery, implement accessible feedback, and exercise each state with controlled data.",
-        "Derive loading, empty, partial, stale, failed and success states from the data contract; define retry and back-navigation transitions before rendering them."
+        "Derive loading, empty, partial, stale, failed and success states from the data contract and business rules.",
+        "Define retry, recovery and back-navigation transitions before rendering the states, and implement accessible feedback.",
+        "Exercise each state with controlled data."
       ],
       "outputs": [
-        "State-complete UI plus transition/state verification.",
-        "State/trigger/message/action table and controlled fixture checks."
+        "State-complete UI with a state/trigger/message/action table and controlled fixture checks of each transition."
       ],
       "verification": [
         "Empty data is distinguished from failed loading; a retry preserves relevant user input and context."
@@ -11884,17 +11902,18 @@
         "budget"
       ],
       "capabilities": [
-        "project.read"
+        "project.read",
+        "browser.inspect"
       ],
       "readScope": "Layout adaptation including touch, pointer, zoom, and keyboard effects; shares primitives with `responsive`.",
       "writeScope": "Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.",
       "procedure": [
-        "Inspect intrinsic sizes and flow, reproduce failures, adjust layout constraints, and verify intermediate widths, long text, and relevant orientation changes.",
-        "Find the intrinsic width constraint or overflow source, adjust layout at content-driven boundaries and test nearby widths with long text and keyboard focus."
+        "Reproduce the failure and inspect intrinsic sizes and flow to find the width constraint or overflow source.",
+        "Adjust the layout at content-driven boundaries.",
+        "Test nearby and intermediate widths, long text, keyboard focus and relevant orientation changes."
       ],
       "outputs": [
-        "Layout fixes and a viewport/input coverage record.",
-        "Viewport/content/input matrix and observed reachability/overflow results."
+        "Layout fixes with a viewport/content/input matrix and observed reachability and overflow results."
       ],
       "verification": [
         "Content remains reachable at narrow widths and zoom; hover-only controls have a usable alternate interaction."
@@ -11953,7 +11972,7 @@
         "evidence": "Inspect layout constraints, intrinsic content size, breakpoints, zoom, touch targets and input methods.",
         "method": "Repair the constraint causing overflow; choose reflow/order based on task meaning rather than arbitrary device names.",
         "pitfall": "Hiding overflow can conceal controls; hover-only affordances fail on touch or keyboard.",
-        "check": "Test narrow and wide layouts, long text, zoom and both pointer/keyboard access without clipped essential content."
+        "check": "When no product matrix exists, test at least 320 CSS px width without two-dimensional scrolling (256 px height for vertical scrollers, WCAG 1.4.10), 200% text resize (1.4.4), increased text spacing (1.4.12), both orientations (1.3.4) and 24 by 24 CSS px targets or equivalent spacing (2.5.8); essential content and pointer/keyboard access must remain unclipped."
       },
       "guides": [
         {
@@ -12002,7 +12021,8 @@
         "budget"
       ],
       "capabilities": [
-        "project.read"
+        "project.read",
+        "browser.inspect"
       ],
       "readScope": "Semantic roles, labels, focus sequence and focus not obscured, keyboard interactions, pointer target size and dragging alternatives, contrast, reflow and text spacing, accessible authentication, consistent help, redundant entry, and announcements.",
       "writeScope": "Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the requested local implementation and perform relevant bounded checks while preserving unrelated work. Live data changes, remote actions and paid jobs require their resolved target and existing session authorization.",
@@ -12113,6 +12133,16 @@
           "path": "references/scenarios/menu.md",
           "title": "menu, tabs, disclosure, tooltip and popover interaction",
           "when": "Auditing a menu button, tabs, disclosure, tooltip or popover"
+        },
+        {
+          "path": "references/scenarios/combobox.md",
+          "title": "combobox interaction",
+          "when": "Auditing a combobox or autocomplete"
+        },
+        {
+          "path": "references/scenarios/date-picker.md",
+          "title": "date-picker interaction",
+          "when": "Auditing a date or range input"
         }
       ]
     },
@@ -12137,17 +12167,18 @@
         "budget"
       ],
       "capabilities": [
-        "project.read"
+        "project.read",
+        "browser.inspect"
       ],
       "readScope": "Purposeful transitions and feedback, not decorative animation across unrelated screens.",
       "writeScope": "Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.",
       "procedure": [
-        "Identify what motion communicates, select minimal properties/timing, implement cancellation and reduced-motion behavior, and inspect rapid/repeated interactions.",
-        "Define what state change motion communicates, implement interruption/cancellation and inspect repeated input plus reduced-motion preferences."
+        "Define the state change the motion communicates and select minimal properties and timing.",
+        "Implement interruption, cancellation and reduced-motion behavior.",
+        "Inspect rapid and repeated input under normal and reduced-motion preferences."
       ],
       "outputs": [
-        "Motion implementation and interaction/performance checks.",
-        "Motion/state purpose, interruption rules and normal/reduced-motion verification."
+        "Motion implementation with its state purpose and interruption rules, and normal, reduced-motion and performance checks."
       ],
       "verification": [
         "Reduced-motion users retain all information and actions; interrupted transitions do not strand the interface."
@@ -12249,17 +12280,17 @@
         "budget"
       ],
       "capabilities": [
-        "browser.inspect"
+        "project.read"
       ],
       "readScope": "Visual differences and regression classification; match applies visual fixes.",
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
       "procedure": [
-        "Normalize capture conditions, identify meaningful regions, separate dynamic content noise, and describe differences by user impact.",
-        "Match viewport, DPR, fonts, content, theme and animation state; mask only justified nondeterminism and inspect changed regions before accepting baselines."
+        "Match viewport, DPR, fonts, content, theme and animation state across the captures.",
+        "Mask only justified nondeterminism, identify the meaningful changed regions and describe differences by user impact.",
+        "Inspect changed regions before accepting any baseline."
       ],
       "outputs": [
-        "Compared images or annotated difference report with conditions and confidence.",
-        "Capture conditions, changed regions, accepted differences and remaining mismatches."
+        "Annotated difference report with capture conditions, changed regions, accepted differences with reasons, remaining mismatches and confidence."
       ],
       "verification": [
         "A layout shift is detected; a timestamp-only change is not misclassified as a design regression."
@@ -12366,12 +12397,12 @@
       "readScope": "One complete journey including cancellation, errors, navigation, and recovery.",
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
       "procedure": [
-        "Walk the journey, map decisions and state transitions, identify dead ends/friction, and propose improvements; ui-states or design implements accepted changes.",
-        "Trace entry, progress, validation, abandonment, retry and return paths; track which user input and permissions survive each transition."
+        "Walk the journey through entry, progress, validation, abandonment, retry and return paths, mapping decisions and state transitions.",
+        "Track which user input and permissions survive each transition, and identify dead ends and friction.",
+        "Propose improvements; ui-states or design implements accepted changes."
       ],
       "outputs": [
-        "Flow map, prioritized changes, and journey acceptance scenarios.",
-        "Journey/state map, dead ends, recovery changes and acceptance walkthrough."
+        "Journey/state map with dead ends, prioritized recovery changes and an acceptance walkthrough."
       ],
       "verification": [
         "Users can recover from a mid-flow failure; back navigation does not silently discard required state."
@@ -13536,12 +13567,12 @@
       "readScope": "Endpoint/interface shape, validation, response/error contracts, and evolution.",
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
       "procedure": [
-        "Inspect domain conventions and existing APIs, define consistent resources and operations, specify normal/error behavior, and check consumer usability and migration needs.",
-        "Define resource identity, method semantics, validation, authorization, errors and versioning from actual consumer journeys; include one success and failure exchange."
+        "Inspect domain conventions, existing APIs and actual consumer journeys.",
+        "Define resource identity, method semantics, validation, authorization, errors and versioning consistently with them, with one success and one failure exchange per operation.",
+        "Check consumer usability and migration needs."
       ],
       "outputs": [
-        "API proposal with request/response examples, invariants, and acceptance scenarios.",
-        "Request/response examples, status/error meanings and consumer compatibility notes."
+        "API proposal with request/response examples, status and error meanings, invariants, acceptance scenarios and consumer compatibility notes."
       ],
       "verification": [
         "Invalid and unauthorized requests have defined outcomes; new behavior does not silently break an existing consumer."
@@ -13649,12 +13680,12 @@
       "readScope": "Reconcile documented paths, schemas, authentication, responses, and examples with actual intended behavior.",
       "writeScope": "Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.",
       "procedure": [
-        "Inspect routes and serializers, compare schema coverage, resolve documentation-versus-code discrepancies, update the correct source, and validate references/examples.",
-        "Identify the authoritative schema source, compare serializers and route validators, then check references, required/null distinctions and representative examples."
+        "Identify the authoritative schema source, then compare its coverage with routes, serializers and route validators.",
+        "Resolve documentation-versus-code discrepancies in the authoritative source.",
+        "Validate references, required/null distinctions and representative examples."
       ],
       "outputs": [
-        "Validated specification and a list of remaining behavior discrepancies.",
-        "Covered routes, schema/example validation and unresolved runtime discrepancies."
+        "Validated specification with covered routes and schema/example validation, and a list of remaining runtime discrepancies."
       ],
       "verification": [
         "Examples conform to declared schemas; missing error responses are represented accurately."
@@ -13698,7 +13729,7 @@
         "openapi spec",
         "schema drift"
       ],
-      "selection": "Use to maintain an OpenAPI contract; api-breaking assesses compatibility between versions.",
+      "selection": "Use to maintain an OpenAPI contract; api-breaking assesses compatibility between versions, and client or SDK generation belongs to api-client.",
       "branches": [
         {
           "when": "generated schema disagrees with runtime behavior",
@@ -13755,12 +13786,11 @@
       "readScope": "Backward compatibility across schemas, semantics, authentication, errors, and timing/order guarantees.",
       "writeScope": "No source changes in inspect/plan. Save only requested planning artifacts. A separately requested repair uses the relevant implementation workflow.",
       "procedure": [
-        "Diff interfaces, inspect behavioral changes, identify affected consumers, classify compatibility impact, and propose rollout/deprecation steps.",
-        "Compare field presence/types, enum values, validation, defaults, error/status behavior, pagination and timing guarantees against identified consumers."
+        "Identify affected consumers, then diff the versions: field presence and types, enum values, validation, defaults, error/status behavior, pagination and timing guarantees.",
+        "Classify compatibility impact per consumer and propose rollout and deprecation steps."
       ],
       "outputs": [
-        "Breaking-change report with examples and migration options.",
-        "Change/consumer/impact matrix with compatibility bridge and unknown consumers."
+        "Change/consumer/impact matrix with examples, compatibility bridges or migration options, and unknown consumers."
       ],
       "verification": [
         "Narrowed validation is recognized as potentially breaking; an additive field is evaluated against actual strict-client behavior."
@@ -13862,12 +13892,11 @@
       "readScope": "Observable cross-boundary contracts; no reliance on live production state.",
       "writeScope": "Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.",
       "procedure": [
-        "Identify important assumptions, build provider/consumer assertions, control fixtures, verify valid and invalid exchanges, and integrate with relevant checks.",
-        "Derive assertions from actual consumer assumptions, control fixture identity and verify the real provider boundary when a safe environment exists."
+        "Derive assertions from actual consumer assumptions, and control fixture identity and provenance.",
+        "Verify valid and invalid exchanges, including the real provider boundary when a safe environment exists, and integrate the cases with the relevant checks."
       ],
       "outputs": [
-        "Contract tests, fixture provenance, and execution results.",
-        "Contract cases, schema/semantic assertions and provider verification coverage."
+        "Contract cases with schema and semantic assertions, fixture provenance, provider verification coverage and execution results."
       ],
       "verification": [
         "Removing a required response field fails; implementation changes preserving the contract remain valid."
@@ -13967,12 +13996,12 @@
       "readScope": "Error status, machine-readable codes, safe messages, propagation, and trace correlation.",
       "writeScope": "Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.",
       "procedure": [
-        "Inventory errors, preserve required compatibility, map domain failures deliberately, redact internals, and test representative client/server failures.",
-        "Inventory existing client-visible codes and shapes, map domain failures intentionally and preserve safe correlation IDs while redacting internal details."
+        "Inventory existing client-visible codes and shapes and the compatibility they must preserve.",
+        "Map domain failures to stable public errors deliberately, redacting internal details while preserving safe correlation IDs.",
+        "Test representative client and server failures: validation, authorization, dependency and unexpected errors."
       ],
       "outputs": [
-        "Consistent error handling, documented contract, and checks.",
-        "Error taxonomy, mapping locations and validation/auth/dependency failure cases."
+        "Error taxonomy and documented contract, the mapping locations, and checks for validation, authorization and dependency failures."
       ],
       "verification": [
         "Validation errors identify usable field problems; unexpected failures do not leak stack traces or credentials."
@@ -14022,6 +14051,10 @@
         {
           "when": "changing a code would break a known consumer",
           "then": "Add a compatibility path or a versioned transition instead of silently normalizing it."
+        },
+        {
+          "when": "no published error contract exists",
+          "then": "Prefer RFC 9457 Problem Details (application/problem+json) with stable type URIs and extension members for field errors; never break an existing published shape."
         }
       ],
       "technical": {
@@ -14074,12 +14107,12 @@
       "readScope": "Stable pagination and sorting semantics; implement when requested.",
       "writeScope": "Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the requested local implementation and perform relevant bounded checks while preserving unrelated work. Live data changes, remote actions and paid jobs require their resolved target and existing session authorization.",
       "procedure": [
-        "Choose deterministic ordering and tie-breakers, assess offset/cursor tradeoffs, bind cursors to filters/scope, and test inserts, deletes, ties, and end conditions.",
-        "Define deterministic ordering with a unique tie-breaker, scope cursor identity to filters/tenant and specify consistency under concurrent inserts/deletes."
+        "Choose deterministic ordering with a unique tie-breaker, and assess offset against cursor traversal.",
+        "Bind cursor identity to filters and tenant scope, and specify consistency under concurrent inserts and deletes.",
+        "Test ties, concurrent inserts and deletes, invalid cursors and end conditions."
       ],
       "outputs": [
-        "Pagination contract or implementation with concurrency-aware tests.",
-        "Ordering/cursor contract and tie, mutation, invalid-cursor and end-of-list checks."
+        "Ordering and cursor contract or implementation, with tie, mutation, invalid-cursor and end-of-list checks."
       ],
       "verification": [
         "Equal sort values do not create accidental duplication; invalid or mismatched cursors fail predictably."
@@ -14181,12 +14214,12 @@
       "readScope": "Verification, delivery/retry, replay handling, event ordering, and tracking for the specified integration.",
       "writeScope": "Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.",
       "procedure": [
-        "Validate signatures against correct raw bytes, separate receipt from processing, implement durable deduplication, and test invalid, duplicate, delayed, and reordered messages.",
-        "Verify signatures using provider-specified raw bytes and time rules, persist receipt identity before acknowledgment and separate deduplication from business processing."
+        "Verify signatures over the provider-specified raw bytes and time rules, comparing in constant time and accepting current and previous secrets during a bounded rotation period.",
+        "Persist receipt identity before acknowledgment, and separate durable deduplication from business processing.",
+        "Test invalid, duplicate, delayed and reordered messages."
       ],
       "outputs": [
-        "Webhook implementation, configuration names, and recovery/verification evidence.",
-        "Receipt/processing state machine and invalid, replayed, duplicate and reordered checks."
+        "Webhook implementation and configuration names, a receipt/processing state machine, and invalid, replayed, duplicate and reordered checks."
       ],
       "verification": [
         "Invalid signatures cause no business effect; retried events do not duplicate the intended effect."
@@ -14244,9 +14277,9 @@
       ],
       "technical": {
         "evidence": "Read the provider's signature contract, raw-body handling, timestamp tolerance, event IDs and retry/order semantics.",
-        "method": "Verify authentic bytes before side effects, durably deduplicate delivery and business effects, and handle out-of-order versions deliberately.",
+        "method": "Verify authentic bytes before side effects with a constant-time comparison (for example crypto.timingSafeEqual or hmac.compare_digest), accepting current and previous secrets during a bounded rotation period; durably deduplicate delivery and business effects, and handle out-of-order versions deliberately.",
         "pitfall": "Re-serialized JSON changes signed bytes; a valid signature does not prevent replay or duplicate processing.",
-        "check": "Test altered body, invalid/stale signature, concurrent duplicate, reversed event order and a crash before acknowledgment with synthetic fixtures."
+        "check": "Test altered body, invalid/stale signature, a delivery signed with the previous secret during rotation, concurrent duplicate, reversed event order and a crash before acknowledgment with synthetic fixtures."
       },
       "guides": [
         {
@@ -14297,12 +14330,12 @@
       "readScope": "Typed client boundary, serialization, errors, pagination, and permitted retries.",
       "writeScope": "Apply: only the requested local changes and relevant isolated verification. Inspect/plan requests remain inspection/planning. External actions require their exact action and target in session authorization.",
       "procedure": [
-        "Verify contract/version, generate or write a narrow client, isolate credentials, preserve useful errors, and exercise controlled successful and failed responses.",
-        "Resolve version/auth/schema, validate runtime response shape and preserve actionable status, retry-after and request IDs without leaking credentials."
+        "Resolve the API version, authentication and schema.",
+        "Generate or write a narrow client that isolates credentials, validates runtime response shape and preserves actionable status, retry-after and request IDs without leaking credentials.",
+        "Exercise controlled successful, refused, timed-out and malformed responses."
       ],
       "outputs": [
-        "Client, usage/configuration documentation, and contract checks.",
-        "Client interface, configuration names and timeout/refusal/malformed-response checks."
+        "Client interface with usage and configuration names, and timeout, refusal and malformed-response contract checks."
       ],
       "verification": [
         "Valid responses decode correctly; rate limits/timeouts produce bounded behavior without duplicating unsafe requests."
@@ -14347,7 +14380,7 @@
         "client library",
         "client sdk"
       ],
-      "selection": "Use for a typed transport boundary to a known API; integrate handles wider product wiring.",
+      "selection": "Use for a typed transport boundary to a known API, including clients or SDKs generated from an OpenAPI spec; integrate handles wider product wiring.",
       "branches": [
         {
           "when": "a mutating request times out",

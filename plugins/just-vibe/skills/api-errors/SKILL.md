@@ -33,8 +33,9 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Execute
 
-1. Inventory errors, preserve required compatibility, map domain failures deliberately, redact internals, and test representative client/server failures.
-2. Inventory existing client-visible codes and shapes, map domain failures intentionally and preserve safe correlation IDs while redacting internal details.
+1. Inventory existing client-visible codes and shapes and the compatibility they must preserve.
+2. Map domain failures to stable public errors deliberately, redacting internal details while preserving safe correlation IDs.
+3. Test representative client and server failures: validation, authorization, dependency and unexpected errors.
 
 ## Technical method
 
@@ -53,11 +54,11 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 ## Decision branches
 
 - **When changing a code would break a known consumer:** Add a compatibility path or a versioned transition instead of silently normalizing it.
+- **When no published error contract exists:** Prefer RFC 9457 Problem Details (application/problem+json) with stable type URIs and extension members for field errors; never break an existing published shape.
 
 ## Deliver and verify
 
-- Consistent error handling, documented contract, and checks.
-- Error taxonomy, mapping locations and validation/auth/dependency failure cases.
+- Error taxonomy and documented contract, the mapping locations, and checks for validation, authorization and dependency failures.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

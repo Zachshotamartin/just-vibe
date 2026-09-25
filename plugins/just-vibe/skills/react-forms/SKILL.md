@@ -33,8 +33,9 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Execute
 
-1. Reuse form conventions, separate client convenience from server authority, preserve input after failures, prevent unintended duplicates, and verify focus/error announcements.
-2. Model editing, validating, submitting, rejected and successful states; preserve entered values and map server field/global errors to usable focus and announcements.
+1. Reuse the project's form conventions and separate client-side convenience validation from server authority.
+2. Model editing, validating, submitting, rejected and successful states; preserve entered values after failures and prevent unintended duplicate submissions.
+3. Map server field and global errors to usable focus and announcements, and verify them.
 
 ## Technical method
 
@@ -57,8 +58,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Deliver and verify
 
-- Form implementation and behavior checks.
-- Field/error contract, submission state machine and keyboard/server-failure checks.
+- Form implementation with its field/error contract and submission state machine, and keyboard and server-failure checks.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

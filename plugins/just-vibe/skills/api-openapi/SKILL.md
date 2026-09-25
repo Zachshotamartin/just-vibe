@@ -1,6 +1,6 @@
 ---
 name: api-openapi
-description: "Create or reconcile OpenAPI documentation with implementation. Use to maintain an OpenAPI contract; api-breaking assesses compatibility between versions."
+description: "Create or reconcile OpenAPI documentation with implementation. Use to maintain an OpenAPI contract; api-breaking assesses compatibility between versions, and client or SDK generation belongs to api-client."
 ---
 
 # api-openapi
@@ -9,7 +9,7 @@ Create or reconcile OpenAPI documentation with implementation.
 
 ## Choose this workflow
 
-Use to maintain an OpenAPI contract; api-breaking assesses compatibility between versions.
+Use to maintain an OpenAPI contract; api-breaking assesses compatibility between versions, and client or SDK generation belongs to api-client.
 
 Read [shared execution](../../references/execution.md) for context/mode/authority handling and [APIs methods](../../references/packs/api.md) for tool selection and operational details. Resolve these paths from this skill file; all runtime assets ship inside the plugin.
 
@@ -33,8 +33,9 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Execute
 
-1. Inspect routes and serializers, compare schema coverage, resolve documentation-versus-code discrepancies, update the correct source, and validate references/examples.
-2. Identify the authoritative schema source, compare serializers and route validators, then check references, required/null distinctions and representative examples.
+1. Identify the authoritative schema source, then compare its coverage with routes, serializers and route validators.
+2. Resolve documentation-versus-code discrepancies in the authoritative source.
+3. Validate references, required/null distinctions and representative examples.
 
 ## Technical method
 
@@ -56,8 +57,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Deliver and verify
 
-- Validated specification and a list of remaining behavior discrepancies.
-- Covered routes, schema/example validation and unresolved runtime discrepancies.
+- Validated specification with covered routes and schema/example validation, and a list of remaining runtime discrepancies.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

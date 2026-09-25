@@ -33,8 +33,9 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the
 
 ## Execute
 
-1. Identify authoritative values, remove redundant representations when safe, define transitions, choose the narrowest owner, and verify user-visible behavior.
-2. Name each authoritative value and derived representation; model update/reset transitions and distinguish per-instance, shared and persisted state.
+1. Name each authoritative value and derived representation, and distinguish per-instance, shared and persisted state.
+2. Model update and reset transitions, choose the narrowest owner, and remove redundant representations only when their synchronization is understood.
+3. Verify the user-visible behavior.
 
 ## Technical method
 
@@ -56,8 +57,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the
 
 ## Deliver and verify
 
-- State model and proposed or implemented simplification with tests.
-- Ownership/transition table and checks for reset, independent instances and persistence.
+- Ownership/transition table and the proposed or implemented simplification, with checks for reset, independent instances and persistence.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

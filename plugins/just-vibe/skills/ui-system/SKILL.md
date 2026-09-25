@@ -33,8 +33,9 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Inventory existing values, identify a coherent scale, define semantic tokens and component states, and plan incremental adoption without visual regressions.
-2. Inventory actual repeated values and component states; separate semantic roles from raw scales and define incremental adoption with representative specimens.
+1. Inventory actual repeated values and component states.
+2. Define semantic token roles over a small coherent raw scale, and the component states they cover.
+3. Plan incremental adoption with representative specimens that show no visual regressions.
 
 ## Technical method
 
@@ -57,8 +58,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Typography/spacing/color/state system and a migration mapping for adoption.
-- Token roles/scales, component state matrix and migration examples.
+- Token roles and scales for typography, spacing, color and state, a component state matrix, and a migration mapping with examples.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 
@@ -71,5 +71,5 @@ Verify these observable conditions when applicable to the actual task; do not cl
 ## Example requests
 
 - **Normal (plan):** Plan semantic design tokens from the existing screens and brand constraints.
-- **Edge (plan):** Consolidate spacing and color tokens across light and dark settings screens.
+- **Edge (plan):** Plan consolidating spacing and color tokens across light and dark settings screens.
 - **Blocked (inspect):** Plan a system from existing UI without replacing unavailable brand assets.

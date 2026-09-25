@@ -12,7 +12,7 @@ For flows, enumerate entry, normal completion, cancellation, failure/retry and b
 
 ### State and viewport matrix
 
-Choose representative normal, empty, loading, error and long-content states for the actual journey. Inspect a narrow, intermediate and wide layout plus relevant zoom/input conditions. These are samples, not a claim of every device. Capture the viewport, DPR, theme, fonts and content when comparing visuals.
+Choose representative normal, empty, loading, error and long-content states for the actual journey. Inspect a narrow, intermediate and wide layout plus relevant zoom/input conditions. When the product defines no matrix, the minimum set is: 320 CSS px width without two-dimensional scrolling (256 px height for vertical scrollers, WCAG 2.2 1.4.10 Reflow), 200% text resize (1.4.4), increased text spacing (1.4.12), both orientations unless one is essential (1.3.4) and 24 by 24 CSS px targets or equivalent spacing (2.5.8). These are samples, not a claim of every device. Capture the viewport, DPR, theme, fonts and content when comparing visuals.
 
 For a narrow settings screen, identify the intrinsic constraint causing overflow: fixed width, unbreakable content, grid minimum or an oversized child. Reflow it and verify focus and actions remain reachable. Hiding required controls is not responsive repair.
 

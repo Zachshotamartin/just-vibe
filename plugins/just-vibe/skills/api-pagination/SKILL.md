@@ -33,8 +33,9 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the
 
 ## Execute
 
-1. Choose deterministic ordering and tie-breakers, assess offset/cursor tradeoffs, bind cursors to filters/scope, and test inserts, deletes, ties, and end conditions.
-2. Define deterministic ordering with a unique tie-breaker, scope cursor identity to filters/tenant and specify consistency under concurrent inserts/deletes.
+1. Choose deterministic ordering with a unique tie-breaker, and assess offset against cursor traversal.
+2. Bind cursor identity to filters and tenant scope, and specify consistency under concurrent inserts and deletes.
+3. Test ties, concurrent inserts and deletes, invalid cursors and end conditions.
 
 ## Technical method
 
@@ -56,8 +57,7 @@ Inspect/plan: inspect or propose; save requested artifacts only. Apply: edit the
 
 ## Deliver and verify
 
-- Pagination contract or implementation with concurrency-aware tests.
-- Ordering/cursor contract and tie, mutation, invalid-cursor and end-of-list checks.
+- Ordering and cursor contract or implementation, with tie, mutation, invalid-cursor and end-of-list checks.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

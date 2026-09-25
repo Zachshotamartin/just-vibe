@@ -33,8 +33,9 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Walk the journey, map decisions and state transitions, identify dead ends/friction, and propose improvements; ui-states or design implements accepted changes.
-2. Trace entry, progress, validation, abandonment, retry and return paths; track which user input and permissions survive each transition.
+1. Walk the journey through entry, progress, validation, abandonment, retry and return paths, mapping decisions and state transitions.
+2. Track which user input and permissions survive each transition, and identify dead ends and friction.
+3. Propose improvements; ui-states or design implements accepted changes.
 
 ## Technical method
 
@@ -57,8 +58,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Flow map, prioritized changes, and journey acceptance scenarios.
-- Journey/state map, dead ends, recovery changes and acceptance walkthrough.
+- Journey/state map with dead ends, prioritized recovery changes and an acceptance walkthrough.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

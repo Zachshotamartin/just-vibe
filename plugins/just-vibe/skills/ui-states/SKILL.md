@@ -33,8 +33,9 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Execute
 
-1. Derive states from data and business rules, define transitions and recovery, implement accessible feedback, and exercise each state with controlled data.
-2. Derive loading, empty, partial, stale, failed and success states from the data contract; define retry and back-navigation transitions before rendering them.
+1. Derive loading, empty, partial, stale, failed and success states from the data contract and business rules.
+2. Define retry, recovery and back-navigation transitions before rendering the states, and implement accessible feedback.
+3. Exercise each state with controlled data.
 
 ## Technical method
 
@@ -57,8 +58,7 @@ Apply: only the requested local changes and relevant isolated verification. Insp
 
 ## Deliver and verify
 
-- State-complete UI plus transition/state verification.
-- State/trigger/message/action table and controlled fixture checks.
+- State-complete UI with a state/trigger/message/action table and controlled fixture checks of each transition.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

@@ -33,8 +33,8 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Execute
 
-1. Diff interfaces, inspect behavioral changes, identify affected consumers, classify compatibility impact, and propose rollout/deprecation steps.
-2. Compare field presence/types, enum values, validation, defaults, error/status behavior, pagination and timing guarantees against identified consumers.
+1. Identify affected consumers, then diff the versions: field presence and types, enum values, validation, defaults, error/status behavior, pagination and timing guarantees.
+2. Classify compatibility impact per consumer and propose rollout and deprecation steps.
 
 ## Technical method
 
@@ -56,8 +56,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 ## Deliver and verify
 
-- Breaking-change report with examples and migration options.
-- Change/consumer/impact matrix with compatibility bridge and unknown consumers.
+- Change/consumer/impact matrix with examples, compatibility bridges or migration options, and unknown consumers.
 
 Verify these observable conditions when applicable to the actual task; do not claim they were exercised from merely reading this file:
 

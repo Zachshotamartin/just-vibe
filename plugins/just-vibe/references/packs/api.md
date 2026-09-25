@@ -22,6 +22,6 @@ For a timeline sorted by created_at, add a unique tie-breaker such as an immutab
 
 ### Webhook and client failure paths
 
-Signature checks must use the provider's required raw representation and verified version-specific rules. A valid signature authenticates delivery, not permission to duplicate the business effect. Persist receipt identity, acknowledge according to the provider contract and process with durable deduplication. Test concurrent duplicates and out-of-order updates.
+Signature checks must use the provider's required raw representation and verified version-specific rules, compare digests in constant time (`crypto.timingSafeEqual`, `hmac.compare_digest`) and accept the current and previous secret during a bounded rotation window so in-flight deliveries survive a key change. A valid signature authenticates delivery, not permission to duplicate the business effect. Persist receipt identity, acknowledge according to the provider contract and process with durable deduplication. Test concurrent duplicates and out-of-order updates.
 
 Client wrappers separate transport errors, malformed output, provider refusal and valid domain errors. Keep useful request IDs and retry timing while redacting credentials. A timed-out mutation may already have succeeded; use stable operation identity and reconciliation before another attempt.
