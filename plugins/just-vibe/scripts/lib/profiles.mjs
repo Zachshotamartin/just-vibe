@@ -1,24 +1,38 @@
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { loadCatalog, pluginRoot } from './catalog.mjs';
+import { fail, identifier, line, lines, record } from './catalog-schema.mjs';
 
 const text = value => typeof value === 'string' && Boolean(value.trim());
-const list = value => Array.isArray(value) && value.length > 0 && value.every(text);
+// Router and catalog entry points, not role methods; a profile link to them re-enters routing.
+export const META_WORKFLOWS = ['auto', 'do', 'help', 'tools', 'setup', 'profile', 'profiles'];
+const profileFields = ['id', 'name', 'family', 'summary', 'priorities', 'decision', 'verification', 'boundary', 'workflows', 'example', 'contribution'];
 
 export function validateProfiles(data, commands = loadCatalog()) {
   if (data?.schemaVersion !== 1 || !Array.isArray(data.families) || !Array.isArray(data.profiles)) throw new Error('Invalid profile catalog.');
-  const families = new Set(), ids = new Set();
+  const families = new Set(), ids = new Set(), names = new Set();
   for (const family of data.families) {
-    if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(family.id) || !text(family.name) || families.has(family.id)) throw new Error('Invalid profile family.');
+    if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(family?.id) || !text(family.name) || families.has(family.id)) throw new Error('Invalid profile family.');
+    record(family, `Profile family ${family.id}`, ['id', 'name']);
+    line(family.name, `Profile family ${family.id}`, 'name', { table: true });
     families.add(family.id);
   }
   for (const p of data.profiles) {
-    if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(p.id) || ids.has(p.id) || !families.has(p.family)) throw new Error(`Invalid profile identity: ${p.id}`);
+    if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(p?.id) || ids.has(p.id) || !families.has(p.family)) throw new Error(`Invalid profile identity: ${p?.id}`);
     ids.add(p.id);
-    for (const field of ['name', 'summary', 'decision', 'boundary', 'example', 'contribution']) if (!text(p[field])) throw new Error(`Missing profile ${field}: ${p.id}`);
-    for (const field of ['priorities', 'verification', 'workflows']) if (!list(p[field])) throw new Error(`Invalid profile ${field}: ${p.id}`);
-    if (new Set(p.workflows).size !== p.workflows.length || p.workflows.some(id => !commands.commands.some(c => c.id === id && !c.aliasOf))) throw new Error(`Unknown or duplicate canonical workflow in profile: ${p.id}`);
+    const label = `Profile ${p.id}`;
+    record(p, label, profileFields, ['searchTerms']);
+    for (const field of ['name', 'summary']) line(p[field], label, field, { table: true });
+    for (const field of ['decision', 'boundary', 'example', 'contribution']) line(p[field], label, field);
+    for (const field of ['priorities', 'verification']) lines(p[field], label, field, { max: 6 });
+    lines(p.workflows, label, 'workflows', { max: 5, each: identifier });
+    if (p.searchTerms !== undefined) lines(p.searchTerms, label, 'searchTerms', { max: 20 });
+    if (names.has(p.name.toLowerCase())) fail(label, 'name', 'duplicates another profile name.');
+    names.add(p.name.toLowerCase());
+    if (p.workflows.some(id => !commands.commands.some(c => c.id === id && !c.aliasOf))) throw new Error(`Unknown or duplicate canonical workflow in profile: ${p.id}`);
+    if (p.workflows.some(id => META_WORKFLOWS.includes(id))) fail(label, 'workflows', `must link task methods, not router or catalog commands (${META_WORKFLOWS.join(', ')}).`);
   }
+  for (const family of families) if (!data.profiles.some(p => p.family === family)) throw new Error(`Profile family has no profiles: ${family}`);
   return data;
 }
 

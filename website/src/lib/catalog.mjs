@@ -7,6 +7,7 @@ import {
   materializeAliases,
   validateCatalog,
 } from '../../../plugins/just-vibe/scripts/lib/catalog.mjs';
+import { validateProfiles } from '../../../plugins/just-vibe/scripts/lib/profiles.mjs';
 
 // Canonical package data is read at build time. No filesystem or agent code
 // enters the browser, and aliases retain the same contract as the CLI.
@@ -22,6 +23,8 @@ const catalog = materializeAliases({
   ),
 });
 validateCatalog(catalog, packSource);
+// Profiles use the same rules as the CLI: known canonical workflows, closed fields, unique names.
+validateProfiles(roles, catalog);
 export const commands = catalog.commands;
 export const packs = packSource.packs;
 export const profiles = roles.profiles;

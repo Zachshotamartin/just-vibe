@@ -6,6 +6,8 @@ import { loadCatalog, skillFile } from '../plugins/just-vibe/scripts/lib/catalog
 import { loadProfiles } from '../plugins/just-vibe/scripts/lib/profiles.mjs';
 import { generate } from './build-skills.mjs';
 import { validateReferences } from './lib/references.mjs';
+import { unresolvedWorkflowReferences } from './lib/workflow-references.mjs';
+import { loadMethods } from '../plugins/just-vibe/scripts/lib/method-library.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const read = path => JSON.parse(readFileSync(resolve(root, path), 'utf8'));
@@ -52,6 +54,8 @@ for (const c of catalog.commands) for (const guide of c.guides || []) {
 const referenceGraph = validateReferences(catalog.root);
 const profiles = loadProfiles();
 assert.deepEqual(readdirSync(resolve(catalog.root, 'references/profiles')).sort(), profiles.profiles.map(p => `${p.id}.md`).sort());
+const unresolved = unresolvedWorkflowReferences(catalog.root, { commands: catalog.commands, methods: loadMethods(), profiles: profiles.profiles, packs: catalog.packs });
+assert.deepEqual(unresolved, [], `Unknown workflow names: ${unresolved.map(u => `${u.where}: ${u.id}`).join('; ')}`);
 const behavioral = read('evals/releases/0.4.0-results.json');
 for (const command of catalog.commands) {
   const records = [];

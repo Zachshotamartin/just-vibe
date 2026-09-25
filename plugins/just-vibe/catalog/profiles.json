@@ -1387,7 +1387,7 @@
       "workflows": [
         "llm-tools",
         "llm-evals",
-        "auto"
+        "backend-idempotency"
       ],
       "example": "Design an agent that can recover from a failed diagnostic step.",
       "contribution": "Map context, tool effects and recovery state across an agent task; demonstrate constraint retention and uncertain-action reconciliation through multiple turns."

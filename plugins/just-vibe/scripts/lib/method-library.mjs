@@ -1,8 +1,40 @@
 import { readFileSync } from 'node:fs';
 import { object, cleanText } from './runtime-store.mjs';
+import { fail, identifier, line, lines, oneOf, record } from './catalog-schema.mjs';
 const source = new URL('../../catalog/methods.json', import.meta.url);
+const methodFields = ['id', 'pack', 'title', 'triggers', 'scope', 'inspect', 'procedure', 'failureCases', 'verification', 'example', 'references', 'executionModel', 'validation'];
+
+export function validateMethods(data) {
+  if (data?.schemaVersion !== 1 || !Array.isArray(data.methods)) throw Error('Invalid method catalog.');
+  const ids = new Set();
+  for (const m of data.methods) {
+    const label = `Method ${m?.id}`;
+    record(m, label, methodFields);
+    identifier(m.id, label, 'id');
+    if (ids.has(m.id)) fail(label, 'id', 'duplicates another method.');
+    ids.add(m.id);
+    identifier(m.pack, label, 'pack');
+    for (const field of ['title', 'scope', 'example']) line(m[field], label, field, { table: field === 'title' });
+    lines(m.triggers, label, 'triggers', { each: (t, l, f) => {
+      line(t, l, f);
+      if (t !== t.toLowerCase()) fail(l, f, 'must be lowercase.');
+    } });
+    for (const field of ['inspect', 'procedure', 'failureCases', 'verification']) lines(m[field], label, field);
+    lines(m.references, label, 'references', { min: 0, each: (r, l, f) => {
+      record(r, `${l} ${f}`, ['url', 'policy']);
+      line(r.policy, l, `${f}.policy`);
+      if (typeof r.url !== 'string' || !/^https:\/\/[^\s]+$/.test(r.url)) fail(l, `${f}.url`, 'must be an https URL.');
+    } });
+    oneOf(m.executionModel, label, 'executionModel', ['host-agent']);
+    record(m.validation, `${label} validation`, ['structural', 'live']);
+    oneOf(m.validation.structural, label, 'validation.structural', ['automated']);
+    oneOf(m.validation.live, label, 'validation.live', ['not-evaluated', 'evaluated']);
+  }
+  return data;
+}
+
 export function loadMethods() {
-  return JSON.parse(readFileSync(source, 'utf8')).methods;
+  return validateMethods(JSON.parse(readFileSync(source, 'utf8'))).methods;
 }
 export function findMethods(query, limit = 5) {
   const terms = query.toLowerCase().match(/[a-z0-9+#.-]+/g) || [];

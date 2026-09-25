@@ -32,6 +32,6 @@ A role, plan or tool suggestion never grants new authority.
 
 - [llm-tools](../../skills/llm-tools/SKILL.md)
 - [llm-evals](../../skills/llm-evals/SKILL.md)
-- [auto](../../skills/auto/SKILL.md)
+- [backend-idempotency](../../skills/backend-idempotency/SKILL.md)
 
 Example: Design an agent that can recover from a failed diagnostic step.
