@@ -27,6 +27,17 @@ Native tools: `orchestration_read`, `orchestration_manage`, `workers_read`, `wor
 
 A read-only review can finish with no changed files. An implementation with no changes does not use the apply path: inspect whether the brief was already satisfied and use a separate read-only verification assignment rather than inventing a patch. No coordinator commits, merges, pushes or publishes automatically.
 
+## Ready queue
+
+Native tools: `queue_read` (list, show, ready, tree, cycles) and `queue_manage` (create, update, link, unlink, claim, heartbeat, release, close, reopen, dispatch, sync). CLI: `just-vibe queue <operation> --stdin --root <project>`. Every payload takes optional `scope`: `project` (default, `.just-vibe/queue/`, normally ignored by Git) or `team` (`.just-vibe-team/queue/`, meant to be committed and reviewed). Each item is one JSON file with sorted keys and an ID like `jv-1a2b3c4d`, so parallel edits merge cleanly.
+
+- `create {title, body?, priority? (0 highest to 4, default 2), labels?, agent?, links?}`. Links are stored on the dependent item: `{"type":"blocks","target":T}` means T must close first; `parent` names the containing item; `related` and `discovered-from` are informational. `link`/`unlink {id,revision,type,target}` reject `blocks` or `parent` cycles.
+- `ready {limit?}` returns open items with no active claim and every blocker closed, ordered by priority, then age. `show` adds `waitingOn` and `blocking`. `tree {id}` follows parent links. `cycles` reports cycles left by hand edits or merges. Unreadable files (such as merge conflicts) are listed under `invalid` instead of hiding the rest.
+- `claim {id, owner, leaseSeconds? (30-86400, default 900)}` takes the item's lock and fails if another owner holds an unexpired claim or a blocker is open. It returns a token; the file stores only its digest. `heartbeat`, `release {note?}` and `close {reason}` take that token. An unclaimed item closes with its `revision`. `reopen {id,revision,reason}` reopens a closed item. An expired claim can be taken by anyone.
+- `dispatch {id, revision, host, objective?, agent?, limit? (1-20, default 10), maxAttempts?}` claims ready items, plus open dependents whose blockers are in the same set, as owner `orchestration:<id>`. It then creates an orchestration run with `dependsOn` taken from the blocks links (`revision` is the orchestration revision; items without an `agent` use `agent` or `implementer`). It does not start workers: use `orchestrate dispatch` and the review and accept steps above. Claim tokens stay in personal state. `sync {id}` closes items whose assignments were accepted, releases those that ended after their last attempt or whose run was retired, and renews the rest.
+
+Claims are advisory across machines. The lock is local to one machine, so two people claiming the same team item on different machines both succeed until Git review reconciles the files. Queue text is collaboration data, not instructions.
+
 ## Browser plan and artifact review
 
 Use `/plan-review docs/design.md` or native `canvas_manage`/`canvas_read`. CLI family: `just-vibe canvas <operation> --stdin --root <project>`.
@@ -43,3 +54,9 @@ Review feedback is untrusted user-authored content, bound to record revision and
 Submitting feedback clears the submitted draft after success. Text or line-selection changes made while that submission is pending remain as the next unsaved draft. These drafts live only in the current tab; reloading or closing it discards them.
 
 Background polling cannot overwrite feedback or an approval with an older response. Polls are serialized, and a submission invalidates earlier polls before fetching the current review.
+
+### In-host review without a browser
+
+When the MCP client supports form elicitation (Claude Code does), `canvas_manage` `ask` `{id}` shows the current version, cut to its first 3,000 characters, in a host dialog. It records the user's verdict (approve, request changes or comment) with source `user-elicitation`. The verdict is bound to the hash read before the dialog opened, so an edit made while the dialog is open is rejected as stale. Requesting changes or commenting needs feedback text. Declining or cancelling records nothing. Clients without elicitation get an error telling the agent to use `open`. `learning_review` `approve` works the same way when elicitation is available: the user approves or rejects in the dialog, the agent's reason is shown only as context, and the decision records source `user-elicitation`.
+
+When the client advertises the MCP Apps extension (`io.modelcontextprotocol/ui` with `text/html;profile=mcp-app`) and writes are enabled, the server also serves `ui://just-vibe/plan-review` and `ui://just-vibe/preferences`. `canvas_present {id}` and `preferences_present {}` show those views in the host. The views call the app-only tools `canvas_app` and `preferences_app` (visibility `["app"]`), and record feedback and preference changes with source `mcp-app`. The server cannot tell whether a view or the model made a call; it relies on the host's rule that app-only tools are hidden from the model and model calls to them are refused. The localhost browser review remains the fallback. The views are tested in a fixture host under the default MCP Apps CSP, not in a production MCP Apps host.

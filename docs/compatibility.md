@@ -71,3 +71,11 @@ Tracked `auto` and workflow runs no longer have a default wall-clock limit; set 
 PreToolUse hook events up to 64 MiB are evaluated and larger ones are denied; other hook events keep a 1 MiB bound. `session` and `quiz` accept `--root`, and checkpoint per-file paths use `/` on every platform. The npm archive now contains the plugin, installer, README, license, changelog, release and compatibility notes and localized pages; development, audit and evaluation records remain on GitHub.
 
 Routing, contract and profile changes were measured on a fixed corpus of 1,183 requests and the catalog's own examples. They were not evaluated with live model trials.
+
+## Unreleased execution and coordination
+
+Worker sandbox levels are opt-in through `workers configure`; the default stays `standard`. `host` passes each CLI's own sandbox settings to apply workers. `os` also wraps the worker in `sandbox-exec` on macOS or bubblewrap on Linux. On macOS it was tested with real `sandbox-exec` runs of fixture workers: writes outside the worktree, inspect-worker writes inside it and reads of a fake `~/.ssh` were denied. macOS refuses a nested seatbelt profile, so there `os` replaces the CLI's own sandbox and cannot limit network. On Linux only the bubblewrap arguments are tested. Windows has no os level. Live Claude and Codex workers have not been run under `host` or `os`.
+
+The ready queue (`queue` CLI family, `queue_read` and `queue_manage`) stores one JSON file per item. Claims use a local file lock and are advisory across machines. Concurrent claims were tested with eight processes on one machine.
+
+The MCP server now handles up to four requests at once and can send requests to the client. Form elicitation for plan reviews and lesson approvals, and the two MCP Apps views, turn on only when the client advertises those capabilities. Protocol behavior is covered by stream tests, and the views by a Playwright fixture host. Neither was tried in a live Claude Code session or a production MCP Apps host.

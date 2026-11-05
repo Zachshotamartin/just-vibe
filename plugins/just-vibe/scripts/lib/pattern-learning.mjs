@@ -333,6 +333,8 @@ export function patternLearning(root, operation, payload = {}, options = {}) {
             status: operation === 'approve' ? 'approved' : 'rejected',
             reason,
             at: timestamp(),
+            // Set only by a surface that asked the user directly, never by a payload.
+            ...(options.reviewSource ? { source: options.reviewSource } : {}),
           },
         ],
         candidates: state.candidates.map((c) =>
@@ -342,6 +344,7 @@ export function patternLearning(root, operation, payload = {}, options = {}) {
                 status: operation === 'approve' ? 'approved' : 'rejected',
                 reviewedAt: timestamp(),
                 reason,
+                ...(options.reviewSource ? { reviewSource: options.reviewSource } : {}),
                 ...(approved ? { change: approved, lessonId, resolutions } : {}),
               }
             : c,

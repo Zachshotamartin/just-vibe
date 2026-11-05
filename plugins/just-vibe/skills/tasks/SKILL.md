@@ -47,6 +47,7 @@ No source changes in inspect/plan. Save only requested planning artifacts. A sep
 
 - When a concrete decision or deliverable example would clarify this workflow: [General worked example](../../references/examples/general.md).
 - The user wants the tasks coordinated on a GitHub epic issue: [Context health, check presets, editor events and shared work](../../references/runtime-depth.md).
+- The user wants work items tracked, claimed or dispatched from a local or team queue: [Ready queue for tracked, claimable work items](../../references/composed-workflows.md).
 
 ## Decision branches
 

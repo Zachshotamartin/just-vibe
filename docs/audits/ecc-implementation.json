@@ -306,11 +306,11 @@
       "evidence": [
         {
           "path": "plugins/just-vibe/scripts/lib/orchestration.mjs",
-          "sha256": "a9c0a3423087c585700fde08429a53d52739d95f1943a15db1896c484ef4d010"
+          "sha256": "f3da48a2c640236d68d303c9fe5576b93bea4b4c5c39f564a3476a91b4f031c4"
         },
         {
           "path": "plugins/just-vibe/scripts/lib/workers.mjs",
-          "sha256": "d92265c15d9ba795b59dc44f751f5bae16b3c08310b287d871ab24b2ba086260"
+          "sha256": "6abef69cd729ebb079f0c0159761336c7025042c2e6a8535893a7a7ae036182e"
         },
         {
           "path": "tests/gap-closure.test.mjs",
@@ -872,7 +872,7 @@
         },
         {
           "path": "plugins/just-vibe/scripts/lib/orchestration.mjs",
-          "sha256": "a9c0a3423087c585700fde08429a53d52739d95f1943a15db1896c484ef4d010"
+          "sha256": "f3da48a2c640236d68d303c9fe5576b93bea4b4c5c39f564a3476a91b4f031c4"
         },
         {
           "path": "tests/expansion-contracts.test.mjs",

@@ -4,6 +4,7 @@ import { spawn } from 'node:child_process';
 import { readJson } from './lib/storage.mjs';
 import { commandInvocation } from './lib/command.mjs';
 import { redact, terminateOwnedGroup } from './lib/process.mjs';
+import { workerEnvironment } from './lib/worker-sandbox.mjs';
 
 const config = readJson(process.argv[2]),
   directory = dirname(process.argv[2]);
@@ -74,7 +75,13 @@ try {
       shell: false,
       detached: process.platform !== 'win32',
       stdio: ['pipe', 'pipe', 'pipe'],
-      env: { ...process.env, JUST_VIBE_WORKER: '1', NO_COLOR: '1' },
+      env: {
+        ...workerEnvironment(config.host, config.envPolicy),
+        // The os sandbox only permits writes to the job's own temp directory.
+        ...(config.temp ? { TMPDIR: config.temp, TMP: config.temp, TEMP: config.temp } : {}),
+        JUST_VIBE_WORKER: '1',
+        NO_COLOR: '1',
+      },
     });
     child.on('spawn', () => {
       state = 'running';

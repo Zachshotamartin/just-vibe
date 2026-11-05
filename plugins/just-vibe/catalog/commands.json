@@ -1481,6 +1481,11 @@
           "title": "Context health, check presets, editor events and shared work",
           "when": "The user wants the tasks coordinated on a GitHub epic issue",
           "path": "references/runtime-depth.md"
+        },
+        {
+          "title": "Ready queue for tracked, claimable work items",
+          "when": "The user wants work items tracked, claimed or dispatched from a local or team queue",
+          "path": "references/composed-workflows.md"
         }
       ]
     },

@@ -1,3 +1,4 @@
+import { mkdirSync } from 'node:fs';
 import {
   runtimeStore,
   object,
@@ -11,6 +12,7 @@ import { specialist } from './specialists.mjs';
 import { fileSet, identities, changed } from './workbench.mjs';
 import { fingerprint, compareSnapshot, within } from './storage.mjs';
 import { withFileLock } from './file-lock.mjs';
+import { assertAcyclic } from './graph.mjs';
 
 function reconcileReservations(run, jobs) {
   for (const item of run.items) {
@@ -27,6 +29,8 @@ export async function orchestrate(root, operation, payload = {}, options = {}) {
   const store = runtimeStore(root, options),
     state = store.get('orchestration') || { revision: 0, runs: [] };
   const locked = async (operation) => {
+    // The lock path resolves inside the personal home, which a fresh install may not have yet.
+    mkdirSync(store.home, { recursive: true, mode: 0o700 });
     const deadline = Date.now() + 2000;
     for (;;) {
       try {
@@ -96,17 +100,7 @@ export async function orchestrate(root, operation, payload = {}, options = {}) {
       )
     )
       throw Error('Assignments need unique IDs and existing distinct dependencies.');
-    const visited = new Set(),
-      active = new Set();
-    function visit(i) {
-      if (active.has(i.id)) throw Error('Assignment dependency cycle.');
-      if (visited.has(i.id)) return;
-      active.add(i.id);
-      i.dependsOn.forEach((d) => visit(items.find((other) => other.id === d)));
-      active.delete(i.id);
-      visited.add(i.id);
-    }
-    items.forEach(visit);
+    assertAcyclic(Object.fromEntries(items.map((i) => [i.id, i.dependsOn])), 'Assignment dependency cycle.');
     return save({
       id: payload.id,
       objective: cleanText(payload.objective, 'objective'),

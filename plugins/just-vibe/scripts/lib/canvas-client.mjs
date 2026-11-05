@@ -1,7 +1,8 @@
 // Runs only in the nonce-authorized review page; no application HTML is evaluated here.
-export function canvasClient() {
+// transport replaces fetch when the page runs inside an MCP Apps host.
+export function canvasClient(transport) {
   const $ = (id) => document.getElementById(id);
-  const token = location.hash.slice(1);
+  const token = transport ? 'mcp-app' : location.hash.slice(1);
   let record,
     anchor = null,
     draftGeneration = 0,
@@ -11,6 +12,7 @@ export function canvasClient() {
     busy = false,
     stopped = false;
   async function api(path, body) {
+    if (transport) return transport(path, body);
     const response = await fetch(path, {
       method: body ? 'POST' : 'GET',
       headers: { 'x-canvas-token': token, ...(body ? { 'content-type': 'application/json' } : {}) },
@@ -165,6 +167,7 @@ export function canvasClient() {
     stopped = true;
   } else {
     refresh();
-    setInterval(refresh, 3000);
+    // Each app refresh is a host tool call, so poll less often there.
+    setInterval(refresh, transport ? 10000 : 3000);
   }
 }

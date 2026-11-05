@@ -4,6 +4,7 @@ import { join } from 'node:path';
 import { runtimeStore, object, requireId, cleanText } from './runtime-store.mjs';
 import { digest } from './storage.mjs';
 import { runCommand, requireResult } from './process.mjs';
+import { assertAcyclic } from './graph.mjs';
 
 const prefix = '<!-- just-vibe-epic-v1\n';
 function identity(payload) {
@@ -203,17 +204,7 @@ function validateTasks(tasks) {
     )
       throw Error('Unknown task prerequisite.');
   }
-  const visited = new Set(),
-    active = new Set();
-  function visit(id) {
-    if (active.has(id)) throw Error('Task dependencies contain a cycle.');
-    if (visited.has(id)) return;
-    active.add(id);
-    tasks.find((t) => t.id === id).dependsOn.forEach(visit);
-    active.delete(id);
-    visited.add(id);
-  }
-  ids.forEach(visit);
+  assertAcyclic(Object.fromEntries(tasks.map((t) => [t.id, t.dependsOn])), 'Task dependencies contain a cycle.');
   return tasks;
 }
 export async function epic(root, operation, payload = {}, options = {}) {

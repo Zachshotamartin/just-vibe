@@ -19,6 +19,8 @@ function selected(store, input) {
 }
 const currentChange = lesson => lesson.history.find(v => v.version === lesson.current).change;
 
+const SURFACES = { operator: 'local-operator', 'mcp-app': 'mcp-app' };
+const surfaceName = options => SURFACES[options.preferenceSurface] || 'local-cli';
 export function preferences(root, operation, input = {}, options = {}) {
   const store = adaptiveStore(root, options);
   if (operation === 'list') {
@@ -33,7 +35,7 @@ export function preferences(root, operation, input = {}, options = {}) {
     if (lessons(store, { inactive: true }).filter(l => l.scope === input.scope).length >= 200) throw Error('Preference store is full; remove obsolete lessons first');
     const workflow = getCommand(loadCatalog(), input.workflow, { canonical: true }).id;
     const change = draftChange(input.draft), id = randomUUID(), at = new Date().toISOString();
-    const source = { kind: 'explicit-create', surface: options.preferenceSurface === 'operator' ? 'local-operator' : 'local-cli', excerpt: change.instruction, messageHash: digest(JSON.stringify(change)), observedAt: at };
+    const source = { kind: 'explicit-create', surface: surfaceName(options), excerpt: change.instruction, messageHash: digest(JSON.stringify(change)), observedAt: at };
     return saveLesson(store, input.scope, { kind: 'lesson', id, workflow, scope: input.scope, ...(input.scope === 'project' ? { root: store.root } : {}), active: true, current: 1, history: [{ version: 1, at, feedback: 'correction', source, change }] }, 0);
   }
   if (operation === 'activity') {
@@ -50,7 +52,7 @@ export function preferences(root, operation, input = {}, options = {}) {
     const task = store.task(input.taskId);
     if (task.revision !== input.revision) throw Error('Task changed; refresh before changing exclusions');
     if (!Array.isArray(input.lessonIds) || input.lessonIds.length > 400 || input.lessonIds.some(id => !lessons(store, { inactive: true }).some(l => l.id === id))) throw Error('Select known preference IDs');
-    return store.saveTask({ ...task, ignoredLessons: [...new Set(input.lessonIds)], updatedAt: new Date().toISOString(), preferenceOverrideSource: options.preferenceSurface === 'operator' ? 'local-operator' : 'local-cli' });
+    return store.saveTask({ ...task, ignoredLessons: [...new Set(input.lessonIds)], updatedAt: new Date().toISOString(), preferenceOverrideSource: surfaceName(options) });
   }
   if (operation === 'preview') {
     object(input, ['id', 'revision', 'draft', 'cases', 'host']);
@@ -87,7 +89,7 @@ export function preferences(root, operation, input = {}, options = {}) {
     const lesson = selected(store, input), change = draftChange(input.draft);
     if (lesson.history.length >= 50) throw Error('Lesson history is full; retire it and save a new instruction.');
     const version = lesson.history.length + 1, at = new Date().toISOString();
-    const source = { kind: 'explicit-edit', surface: options.preferenceSurface === 'operator' ? 'local-operator' : 'local-cli', excerpt: change.instruction, messageHash: digest(JSON.stringify(change)), observedAt: at };
+    const source = { kind: 'explicit-edit', surface: surfaceName(options), excerpt: change.instruction, messageHash: digest(JSON.stringify(change)), observedAt: at };
     return store.write(`${lesson.scope === 'user' ? 'adaptive' : store.project}/learning/${lesson.id}.json`,
       { ...lesson, current: version, history: [...lesson.history, { version, at, feedback: 'correction', source, change }] }, lesson.revision);
   }
