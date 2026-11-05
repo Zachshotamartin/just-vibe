@@ -9,7 +9,8 @@ import { prepareTrial, runTrial, parseEvents, regressionSensitivity } from '../e
 function fixture(t) {
   // Spaces and apostrophes exercise TAP's quoted paths as well as normal paths.
   const root = fs.realpathSync.native(fs.mkdtempSync(join(tmpdir(), "jv benchmark's review-")));
-  t.after(() => fs.rmSync(root, { recursive: true, force: true }));
+  // Windows can briefly hold a just-exited child's working directory open.
+  t.after(() => fs.rmSync(root, { recursive: true, force: true, maxRetries: 10, retryDelay: 100 }));
   return root;
 }
 test('benchmark capture preserves split UTF-8 in stdout and stderr', { skip: process.platform === 'win32' }, async t => {
