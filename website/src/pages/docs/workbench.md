@@ -47,6 +47,8 @@ Add `--allow-install` to enable project skill-adapter management. Select a host 
 | Get independent reviews           | `council`                     | Create independent inspect-only assignments, including different hosts, and retain disagreement.                     |
 | Verify a candidate                | `evaluation`                  | Bind checks and judgments to fresh source/artifact identities; export receipts and record reviewed promotion.        |
 | Explain the codebase              | `atlas`, `graph`              | Maintain anchored tours and provenance-aware local context.                                                          |
+| Navigate and check code           | `atlas`, `structural`         | Ask trusted language servers for definitions, references and diagnostics; scan with ast-grep rules.                  |
+| Test the tests                    | `mutation`                    | Run a trusted mutation tool as a job and judge only the mutants on changed lines.                                    |
 | Watch a deployment                | `canary`                      | Check explicit endpoints during a bounded interval and use opted-in change notifications.                            |
 | Inspect operations                | `usage`, `telemetry`          | Report actual observations; unknown costs stay unknown and usage is not a quality score.                             |
 | Update installations              | `updater`                     | Check, preview and apply a pinned archive while preserving selections and edited files; prepare rollback separately. |

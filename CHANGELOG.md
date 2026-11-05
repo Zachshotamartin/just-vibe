@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased
+
+- Navigate and check code with the project's own language servers: `atlas definition`, `references` and `diagnostics` start a trusted TypeScript, Pyright, gopls or rust-analyzer server for one bounded session (pull diagnostics when offered, otherwise the published set). A server runs only after it is configured and trusted as the runner `lsp-<id>`; `atlas servers` reports what is detected and trusted.
+- Report type errors in files edited during a turn: the automation setting `diagnostics: true` runs one language-server session per language at Stop, and `structural: [packs]` scans the same files with ast-grep rules. Findings come back in the Stop message and `.just-vibe/automation/review.json`.
+- Ship seven ast-grep rules for the checkable parts of the TypeScript, Python, Go, Kotlin and C# rule packs (`structural rules|status|scan`). Each names the prose rule it checks; a finding is a review prompt, not proof of a defect.
+- Add mutation testing as proof: `mutation start` runs a trusted Stryker, cargo-mutants or mutmut runner as a detached job (15-minute default, 60-minute limit, cancellable), and `mutation report` or the `mutation` proof collector narrows its report to the lines this change touched. Surviving or unreached mutants on changed lines fail the criterion.
+- Claude Code: `setup --target claude --code-intelligence on` registers language servers found on PATH through the plugin's `.lsp.json`, so Claude starts them itself and receives diagnostics after edits. Updates keep the setting, and doctor reports a changed server binary.
+
 ## 0.13.0
 
 - Route ordinary requests to the right workflow. On 1,183 realistic requests from the September 2026 review, the right workflow now ranks first for 63% (was 35%) and in the top three for 82% (was 53%); a ratchet on that corpus guards the rates.

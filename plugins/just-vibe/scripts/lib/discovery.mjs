@@ -40,7 +40,7 @@ export function discoverCapabilities(root = process.cwd(), { report, git = gitRe
       capabilities[id] = { ...value, source: 'host-report' };
     }
   }
-  const integrations = ['git', 'gh', 'vercel', 'node', 'python3', 'docker', 'codex', 'claude'].map(name => ({
+  const integrations = ['git', 'gh', 'vercel', 'node', 'python3', 'docker', 'codex', 'claude', 'ast-grep', 'typescript-language-server', 'pyright-langserver', 'gopls', 'rust-analyzer'].map(name => ({
     name, executable: Boolean(executable(name)), authenticated: 'unknown',
   }));
   return { schemaVersion: 1, root: project, observedAt: new Date().toISOString(), capabilities, integrations,

@@ -8,6 +8,8 @@ import { methodLibrary } from './method-library.mjs';
 import { gitHooks } from './git-hooks.mjs';
 import { dependencyIoc } from './dependency-ioc.mjs';
 import { codeAtlas } from './code-atlas.mjs';
+import { structural } from './structural-checks.mjs';
+import { mutation } from './mutation.mjs';
 import { contextGraph } from './context-graph.mjs';
 import { usageLedger } from './usage-ledger.mjs';
 import { council } from './council.mjs';
@@ -50,7 +52,9 @@ export const PLATFORM_OPERATIONS = {
   methods: ['list', 'search', 'show'],
   'git-hooks': ['status', 'preview', 'install', 'uninstall', 'check'],
   ioc: ['status', 'import', 'scan'],
-  atlas: ['list', 'map', 'create', 'show', 'validate', 'export'],
+  atlas: ['list', 'map', 'create', 'show', 'validate', 'export', 'servers', 'definition', 'references', 'diagnostics'],
+  structural: ['rules', 'status', 'scan'],
+  mutation: ['tools', 'plan', 'report', 'list', 'status', 'result', 'start', 'cancel'],
   graph: ['status', 'recall', 'save', 'link', 'pin', 'forget', 'compact', 'import'],
   usage: ['rates', 'pricing', 'observe', 'report', 'export', 'advise'],
   council: ['list', 'create', 'show', 'dispatch', 'collect', 'cancel', 'conclude', 'recover'],
@@ -194,6 +198,8 @@ export async function platformRuntime(family, root, operation, payload = {}, opt
   if (family === 'git-hooks') return gitHooks(root, operation, payload, options);
   if (family === 'ioc') return dependencyIoc(root, operation, payload, options);
   if (family === 'atlas') return codeAtlas(root, operation, payload, options);
+  if (family === 'structural') return structural(root, operation, payload, options);
+  if (family === 'mutation') return mutation(root, operation, payload, options);
   if (family === 'graph') return contextGraph(root, operation, payload, options);
   if (family === 'usage') return usageLedger(root, operation, payload, options);
   if (family === 'council') return council(root, operation, payload, options);

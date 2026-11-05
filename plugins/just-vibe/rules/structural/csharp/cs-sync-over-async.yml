@@ -1,0 +1,14 @@
+{
+  "id": "cs-sync-over-async",
+  "language": "CSharp",
+  "severity": "warning",
+  "message": "Blocking on a task can deadlock request threads and hides cancellation.",
+  "note": "Await the task and propagate the CancellationToken.",
+  "metadata": {
+    "pack": "csharp",
+    "rule": 1
+  },
+  "rule": {
+    "pattern": "$TASK.GetAwaiter().GetResult()"
+  }
+}

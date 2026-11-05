@@ -760,7 +760,7 @@
       "evidence": [
         {
           "path": "plugins/just-vibe/scripts/lib/code-atlas.mjs",
-          "sha256": "0f26993670ba745049812a1d0a1a35fa4cbce1ab8b8bd7cddd8d4f33acca904c"
+          "sha256": "4a372ac1a7c913c6530ceebd932ecc2735bb0d268f21ae5685408b7e10ded597"
         },
         {
           "path": "tests/extended-workbench.test.mjs",
@@ -2483,7 +2483,7 @@
         },
         {
           "path": "plugins/just-vibe/scripts/lib/bundle.mjs",
-          "sha256": "03d691c56537e38a4e0e97ad3d32105a35c0700c2a3624af214152f68bfe7bf0"
+          "sha256": "1afa94e3b7467230b0df7eba5712999f088f7a4aed4f6a6d3f049b0e5bd42650"
         },
         {
           "path": "tests/expansion-contracts.test.mjs",
@@ -2491,7 +2491,7 @@
         },
         {
           "path": "tests/bundle.test.mjs",
-          "sha256": "e86efdde003d7628155a5d3ce90af1323e787c55230262e817a3aa34f9579f8b"
+          "sha256": "a5c08299959673c9da6fefc971f6cae6a8a3eeda62deb3aaa2223d6edaa4b31b"
         },
         {
           "path": "tests/release-regressions.test.mjs",
