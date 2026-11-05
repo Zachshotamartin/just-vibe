@@ -1,7 +1,7 @@
 import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { join, relative } from 'node:path';
 import { pluginRoot, loadCatalog, commandDescription } from './catalog.mjs';
-import { selectPayload } from './selection.mjs';
+import { DEFAULT_SELECTION, selectPayload } from './selection.mjs';
 import { RULE_PACKS, renderRule } from './rule-packs.mjs';
 import { SPECIALISTS, specialistInstructions } from './specialists.mjs';
 import { object } from './runtime-store.mjs';
@@ -284,6 +284,8 @@ export function adapters(root, operation, payload = {}) {
       .filter(([, v]) => v !== undefined),
   );
   if (payload.profile !== undefined && payload.packs === undefined) selection.packs = [];
+  // A first installation without a choice lists the entry workflows; an existing one keeps its own.
+  if (!old && operation === 'install' && selection.profile === undefined && selection.packs === undefined) Object.assign(selection, DEFAULT_SELECTION);
   const { files, chosen } = adapterFiles(root, target, selection, { hooks });
   if (!['install', 'update', 'uninstall', 'doctor'].includes(operation))
     throw Error('Unknown adapter operation.');

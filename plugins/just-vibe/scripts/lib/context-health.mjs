@@ -1,6 +1,6 @@
 import { runtimeStore, object } from './runtime-store.mjs';
 import { digest } from './storage.mjs';
-import { gitRead } from './project.mjs';
+import { projectTopLevel } from './project.mjs';
 import { resolve } from 'node:path';
 import { editedFiles } from './edited-files.mjs';
 
@@ -161,7 +161,7 @@ export function healthHook(event, options = {}) {
   if (!event?.cwd || !event.session_id || event.agent_id || process.env.JUST_VIBE_WORKER === '1')
     return {};
   const root =
-    options.projectRoot || gitRead(event.cwd, ['rev-parse', '--show-toplevel']) || event.cwd;
+    options.projectRoot || projectTopLevel(event.cwd) || event.cwd;
   const host = options.host || (process.env.PLUGIN_ROOT ? 'codex' : 'claude');
   const payload = { host, sessionId: event.session_id };
   if (

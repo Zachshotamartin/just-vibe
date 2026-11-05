@@ -58,6 +58,15 @@ for (const name of skills) {
   }
 }
 assert.ok(existsSync(resolve(skillRoot, 'setup', '../../scripts/installer.mjs')));
+// New installs list only the entry workflows so their descriptions fit the hosts' shared skill
+// listing budget; keep that set small enough to leave room for other plugins.
+{
+  const { selectPayload } = await import('../plugins/just-vibe/scripts/lib/selection.mjs');
+  const { commandDescription } = await import('../plugins/just-vibe/scripts/lib/catalog.mjs');
+  const entry = selectPayload(catalog, { profile: 'entry' }).ids;
+  const chars = entry.reduce((n, id) => n + commandDescription(catalog.commands.find(c => c.id === id)).length, 0);
+  assert.ok(chars <= 4000, `The entry skill set has ${chars} description characters; keep it at or below 4,000.`);
+}
 for (const c of catalog.commands) assert.ok(existsSync(skillFile(catalog, c)));
 for (const c of catalog.commands) for (const guide of c.guides || []) {
   assert.ok(existsSync(resolve(catalog.root, guide.path)), `Missing conditional guide: ${c.id} -> ${guide.path}`);

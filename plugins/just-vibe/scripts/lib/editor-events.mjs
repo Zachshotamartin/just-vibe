@@ -23,10 +23,13 @@ export function editorContext(root, host, session, options = {}) {
   const saved = store.read(store.sessionPath(host, session));
   if (!saved?.taskId) return '';
   if (options.once && saved.contextDeliveredTaskId === saved.taskId) return '';
+  // Cursor delivers this once per task and OpenCode as a per-call system prompt; neither keeps a
+  // session-level copy, so both carry the full protocol.
   const context = activationContext(
     store,
     options.catalog || loadCatalog(),
     store.task(saved.taskId),
+    { protocol: true },
   );
   if (options.once)
     store.write(

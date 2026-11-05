@@ -123,6 +123,9 @@ const FIRST = [
   ['A3-15', 'install just-vibe for claude code', ['doctor']],
   ['B9-09', 'which features matter most for this model', ['ml-explain']],
   ['B9-09', 'how much does the price feature contribute to accuracy if we drop it', ['ml-ablation']],
+  // Found while measuring the efficiency pass: a question about misbehaving code asks for a diagnosis.
+  ['EP-A5', 'why does this function return null?', ['debug']],
+  ['EP-A5', 'figure out why parseDate returns undefined', ['debug']],
 ];
 const TOP3 = [
   ['V-A9-03', 'Roll out the new model to 5% of traffic first and roll back if error rates rise', ['ml-rollout']],
@@ -183,6 +186,7 @@ const NOT_FIRST = [
   ['R1-03', 'Refactor the cart module; skip the migration for now', 'db-migrate'],
   ['B7-02', 'refresh the materialized view every night', 'backend-auth'],
   ['A9-05', 'Compare training and serving transformations on these exact versioned inputs.', 'decide'],
+  ['EP-A5', 'why is this query plan doing a seq scan?', 'debug'],
 ];
 const NOT_TOP3 = [
   ['B1-02', 'it just crashes when I click save', 'teach'],
@@ -191,6 +195,9 @@ const NOT_TOP3 = [
   ['B8-01', 'restore the database to a point-in-time before the bad migration', 'ml-leakage'],
   ['B9-01', 'our PR-AUC dropped after retraining', 'pr'],
   ['V-A9-02', 'reduce the number of actions the agent\'s tools can take', 'github-fix-ci'],
+  // 'function' alone is not Vercel.
+  ['EP-A5', 'why does this function return null?', 'vercel-runtime'],
+  ['EP-A5', 'what does this function do?', 'vercel-runtime'],
 ];
 
 test('confirmed misroutes now reach the right workflow first', t => {

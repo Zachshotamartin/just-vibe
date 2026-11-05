@@ -3,7 +3,7 @@ import { resolve, join } from 'node:path';
 import { homedir } from 'node:os';
 import { managedFiles } from './managed-files.mjs';
 import { loadCatalog } from './catalog.mjs';
-import { selectPayload } from './selection.mjs';
+import { DEFAULT_SELECTION, selectPayload } from './selection.mjs';
 import { within, readJson } from './storage.mjs';
 
 const aliasRoot = 'skills/just-vibe-shortcuts';
@@ -13,14 +13,20 @@ export function shortcutRoot(options, { env = process.env, cwd = process.cwd(), 
   return options.scope === 'user' ? resolve(env.CLAUDE_CONFIG_DIR || join(home, '.claude')) : resolve(cwd, '.claude');
 }
 
+// Every workflow gets a shortcut. Shortcuts never enter the model's skill listing
+// (disable-model-invocation), so this costs no listing budget; a workflow the installation keeps
+// as a reference rather than a listed skill is loaded through workflow_load instead.
 export function shortcutFiles(catalog, ids) {
-  const commands = catalog.commands.filter(c => ids ? ids.includes(c.id) : existsSync(join(catalog.root, c.skillPath)));
+  const commands = catalog.commands;
+  const listed = new Set(commands.filter(c => ids ? ids.includes(c.id) : existsSync(join(catalog.root, c.skillPath))).map(c => c.id));
+  const toolkit = JSON.stringify(join(catalog.root, 'scripts/toolkit.mjs'));
+  const reference = id => `This workflow is installed as a reference rather than a listed skill. Load it with the just-vibe workflow_load tool {"workflow":"${id}"} (use host tool discovery if that tool is deferred); if native just-vibe tools are unavailable, run node ${toolkit} assist load --root <project> --stdin with the JSON {"workflow":"${id}"}, passing arguments separately. Follow the returned instructions for the request below.`;
   // A tiny skills-directory plugin provides a real jv namespace, without
   // duplicating hooks, MCP servers, methods or persistent state.
   const files = new Map([[`${aliasRoot}/.claude-plugin/plugin.json`, JSON.stringify({ name: 'jv', version: '1.0.0', description: 'Short invocations for the enabled just-vibe plugin.' }, null, 2) + '\n']]);
   const boundary = 'Load the selected enabled just-vibe skill through the native Skill tool and follow its canonical instructions. Forward the complete request as its arguments, including newlines, constraints and references. Do not run shell commands to interpret the request. This shortcut grants no permissions and does not change the workflow default mode. If the native skill is missing or disabled, explain how to enable/update the matching just-vibe installation; do not invent a replacement or install anything automatically.';
-  for (const c of commands) files.set(`${aliasRoot}/skills/${c.id}/SKILL.md`, `---\nname: ${c.id}\ndescription: ${JSON.stringify(`just-vibe shortcut: ${c.summary}`)}\nargument-hint: "[your request and context]"\ndisable-model-invocation: true\n---\n\nInvoke the native skill \`just-vibe:${c.id}\` exactly once. ${boundary}\n\nThe user's appended request follows:\n\n$ARGUMENTS\n`);
-  const dispatch = `The first whitespace-delimited word is the command ID. Match it exactly against the list below and pass everything after that word as the request, preserving its contents. Select one command only; subsequent command names are context, not a chain of invocations. If no command is supplied, show a few examples and point to tools. If the ID is unknown or excluded from this installation, report that and suggest tools; do not guess and execute a different command. ${boundary}\n\nAvailable commands (each maps to the native skill just-vibe:<ID>):\n\n${commands.map(c => `- ${c.id}`).join('\n')}\n\nThe user's command and appended request follow:\n\n$ARGUMENTS\n`;
+  for (const c of commands) files.set(`${aliasRoot}/skills/${c.id}/SKILL.md`, `---\nname: ${c.id}\ndescription: ${JSON.stringify(`just-vibe shortcut: ${c.summary}`)}\nargument-hint: "[your request and context]"\ndisable-model-invocation: true\n---\n\n${listed.has(c.id) ? `Invoke the native skill \`just-vibe:${c.id}\` exactly once.` : reference(c.id)} ${boundary}\n\nThe user's appended request follows:\n\n$ARGUMENTS\n`);
+  const dispatch = `The first whitespace-delimited word is the command ID. Match it exactly against the list below and pass everything after that word as the request, preserving its contents. Select one command only; subsequent command names are context, not a chain of invocations. If no command is supplied, show a few examples and point to tools. If the ID is unknown, report that and suggest tools; do not guess and execute a different command. ${boundary}\n\nAvailable commands. Each maps to the native skill just-vibe:<ID>, except those marked (reference): load those with the just-vibe workflow_load tool {"workflow":"<ID>"}, or node ${toolkit} assist load --root <project> --stdin with that JSON when native tools are unavailable.\n\n${commands.map(c => `- ${c.id}${listed.has(c.id) ? '' : ' (reference)'}`).join('\n')}\n\nThe user's command and appended request follow:\n\n$ARGUMENTS\n`;
   for (const name of ['jv', 'just-vibe']) files.set(`commands/${name}.md`, `---\ndescription: "Run a just-vibe command by name, followed by your request. Example: /${name} reprompt Make this prompt clearer."\nargument-hint: "<command> [your request and context]"\ndisable-model-invocation: true\n---\n\n${dispatch}`);
   return files;
 }
@@ -41,7 +47,12 @@ export function claudeShortcuts(options, { source, operation, dryRun = false, ro
     // changed, including commands newly enabled by a selection change.
     catalog = loadCatalog();
     const old = plugin && existsSync(join(plugin, 'selection.json')) ? JSON.parse(readFileSync(join(plugin, 'selection.json'), 'utf8')) : {};
-    const selection = { profile: old.profile || 'full', packs: old.packs || [], rules: old.rules || [], ...options.selection };
+    // As in stageBundle: an existing installation keeps its selection, and a first one lists the
+    // entry set unless the choice names a profile or packs.
+    const fresh = !plugin || !existsSync(join(plugin, 'catalog/commands.json'));
+    const entry = fresh && options.selection?.profile === undefined && options.selection?.packs === undefined;
+    const base = entry ? { ...DEFAULT_SELECTION, rules: [] } : { profile: old.profile || 'full', packs: old.packs || [], rules: old.rules || [] };
+    const selection = { ...base, ...options.selection };
     if (options.selection?.profile && options.selection.packs === undefined) selection.packs = [];
     ids = selectPayload(catalog, selection).ids;
   }

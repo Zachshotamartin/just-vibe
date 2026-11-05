@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { contextHealth } from './lib/context-health.mjs';
-import { gitRead } from './lib/project.mjs';
+import { projectTopLevel } from './lib/project.mjs';
 let data = '';
 for await (const chunk of process.stdin) {
   data += chunk;
@@ -11,7 +11,7 @@ try {
     cwd = event.workspace?.project_dir || event.cwd;
   const remaining = event.context_window?.remaining_percentage;
   if (cwd && event.session_id && Number.isFinite(remaining)) {
-    contextHealth(gitRead(cwd, ['rev-parse', '--show-toplevel']) || cwd, 'observe', {
+    contextHealth(projectTopLevel(cwd) || cwd, 'observe', {
       host: 'claude',
       sessionId: event.session_id,
       remainingPercent: remaining,

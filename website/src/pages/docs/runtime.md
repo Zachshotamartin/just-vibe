@@ -56,7 +56,7 @@ The static configuration scanner inspects agent instructions, permissions, hooks
 
 For one reviewed setup flow, use `just-vibe setup --guided --root /project`. It covers host/profile/rule choices and optional runtime capabilities. `--dry-run` previews without changes; existing MCP connections need a restart after access changes.
 
-Installation profiles (`--profile`) select full, core, frontend, backend or ML workflows; they are separate from the engineering role profiles. Individual packs and language rules can refine that selection. Updates retain the selected configuration. Reference methods remain readable even when they are excluded from native skill discovery.
+Installation profiles (`--profile`) select entry (the default for a first installation), full, core, frontend, backend or ML workflows; they are separate from the engineering role profiles. Individual packs and language rules can refine that selection. Updates retain the selected configuration. Reference methods remain readable even when they are excluded from native skill discovery.
 
 ```sh
 just-vibe setup --target claude --profile frontend --rules typescript,react

@@ -49,6 +49,8 @@ export const intents = [
 
   // Topics: the domain the work touches.
   { test: /^(?:please\s+)?(?:fix|repair|correct)\b(?=[\s\S]*(?:\b(?:bug|defect|function|method|error|crash)\b|\.[cm]?[jt]sx?\b))/i, ids: ['fix'], boost: 25, reason: 'Repair an identified code defect and verify its behavior' },
+  // Asking why code misbehaves is a diagnosis; a domain rule still names the area it touches.
+  { test: /\b(?:why|what(?:'s|\s+is)\s+causing)\b[\s\S]{0,80}?\b(?:(?:returns?|returning|returned|gives?|evaluates?\s+to|comes?\s+back(?:\s+as)?)\s+(?:an?\s+)?(?:null|undefined|nil|none|nan|empty|zero|false|garbage)|crash\w*|throws?|throwing|threw|errors?\s+out|5\d\d(?:s|ing)?|segfault\w*|panic\w*|hangs?|hanging|freez\w*|deadlock\w*|exceptions?)\b/i, ids: ['debug'], boost: 25, reason: 'Diagnose why code misbehaves before changing it' },
   { test: /^(?:please\s+)?(?:add|build|implement|create|ship)\s+(?:(?:a|an|the|new|our|another)\s+){0,2}(?:[\w-]+\s+){0,2}(?:feature|button|page|endpoint|screen|export|settings\s+page|toggle|dark\s+mode|dashboard)\b/i, ids: ['build'], boost: 25, reason: 'Implement a feature' },
   { test: /\b(?:verify|check|test)\b[\s\S]*\b(?:visitor|user\s+journey|upload|playback|acceptance)\b/i, ids: ['agent-qa', 'verify'], reason: 'Verify an observable visitor outcome in the browser' },
   { action: true, test: /^(?:please\s+)?(?:fix|patch|remediate|close|mitigate)\b[\s\S]*\b(?:sql\s+injection|injection|xss|cross.site\s+scripting|csrf|ssrf|path\s+traversal|deserialization|vulnerabilit(?:y|ies)|idor|security\s+(?:bug|hole|issue))/i, ids: ['security-fix'], reason: 'Remediate a known vulnerability' },

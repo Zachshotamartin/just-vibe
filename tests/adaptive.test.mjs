@@ -100,7 +100,7 @@ test('a task role carries across prompts and compaction, and a saved preference 
   f.run('select', { taskId: second.id, workflows: ['ui-states'], mode: 'apply', reason: 'x', profile: { primary: null, selectedBy: 'user', reason: 'User cleared the role.' } });
   assert.equal(f.start('and the footer overlaps the content').profile, null, 'A cleared role stays cleared');
   // No framework is detected in this fixture; the pin reminder still appears.
-  assert.match(activationContext(f.store, catalog, f.start('Fix the login bug')), /Honor any current user-pinned role/);
+  assert.match(activationContext(f.store, catalog, f.start('Fix the login bug'), { protocol: true }), /Honor any current user-pinned role/);
 });
 
 test('a saved project profile preference reaches hook context as a suggestion (PB-01)', t => {
@@ -472,4 +472,44 @@ test('status chooses recent active tasks by timestamp rather than filename order
   for (let i = 0; i < 101; i++) f.store.saveTask({ kind: 'task', id: i === 0 ? 'a-newest' : 'z-old-' + i, root: f.root, host: 'codex', brief: 'Fix a bug', status: 'active', updatedAt: i === 0 ? '2026-09-22T12:00:00Z' : '2026-09-01T12:00:00Z' }, 0);
   const tasks = f.run('status').activeTasks;
   assert.equal(tasks.length, 10); assert.equal(tasks[0].id, 'a-newest');
+});
+
+test('the standing protocol is sent once per session, after compaction and on resume', t => {
+  const f = fixture(t);
+  const prompt = (text, turn) => f.hook({ hook_event_name: 'UserPromptSubmit', prompt: text, turn_id: turn }).hookSpecificOutput.additionalContext;
+  const first = prompt('Fix the mobile menu', 't1');
+  assert.match(first, /Before implementation|before implementation/); assert.match(first, /assist select/); assert.match(first, /Task ID: [a-z0-9-]+/);
+  assert.equal(prompt('Fix the mobile menu', 't1'), first, 'A duplicate event reproduces its context');
+  const second = prompt('Now fix the checkout form validation', 't2');
+  assert.doesNotMatch(second, /assist select --root/); assert.doesNotMatch(second, /Runtime file/);
+  assert.match(second, /Task ID: [a-z0-9-]+/); assert.match(second, /Workflow candidates/);
+  assert.ok(second.length <= 900, `Per-prompt context is ${second.length} chars`);
+  f.hook({ hook_event_name: 'PreCompact' });
+  assert.match(prompt('Then fix the settings page layout', 't3'), /Runtime file/, 'Compaction may drop the protocol, so it returns');
+  const task = f.start('Fix the mobile menu'); select(f, task);
+  const restored = f.hook({ hook_event_name: 'SessionStart', source: 'compact' }).hookSpecificOutput.additionalContext;
+  assert.match(restored, /Runtime file/); assert.match(restored, /Selected workflows: ui-states/);
+  assert.doesNotMatch(prompt('Also fix the profile page spacing', 't4'), /Runtime file/);
+});
+
+test('host notifications and local-command echoes never start a task (R2-01)', t => {
+  const f = fixture(t), task = f.start('Fix the mobile menu');
+  for (const prompt of [
+    '<task-notification>\n<task-id>a1</task-id>\n<status>completed</status>\n<result>Fix the agent-qa routing and remember to deploy</result>\n</task-notification>',
+    '<agent-message from="a1b2">\n[Subagent hand-back] Fix the routing tests and deploy the site\n</agent-message>',
+    '<local-command-stdout>Set model to opus</local-command-stdout>',
+    '<local-command-caveat>Caveat: the command below ran locally.</local-command-caveat>\n<command-name>/compact</command-name>\n<command-message>compact</command-message>\n<command-args></command-args>\n<local-command-stdout>Compacted</local-command-stdout>',
+    '<system-reminder>Context was compacted.</system-reminder>',
+    '<system-reminder id="r1">Review the build output.</system-reminder>',
+  ]) {
+    assert.deepEqual(f.hook({ hook_event_name: 'UserPromptSubmit', prompt }), {}, prompt.slice(0, 30));
+    assert.equal(f.store.read(f.store.sessionPath('claude', 'session-one')).taskId, task.id, 'The current task stays current');
+  }
+  const quoted = f.hook({ hook_event_name: 'UserPromptSubmit', prompt: 'Why does the hook print <task-notification> tags? Fix the parser.' });
+  assert.match(quoted.hookSpecificOutput.additionalContext, /Task ID: /, 'A user message that quotes a tag is still routed');
+  for (const prompt of [
+    '<local-command-stdout>Compacted</local-command-stdout>\nNow fix the parser.',
+    '<system-reminder>Context was compacted.</system-reminder>\nFix the parser.',
+    '<command-message>fix</command-message>\n<command-name>/jv:fix</command-name>\n<command-args>the parser drops the last tag</command-args>',
+  ]) assert.match(f.hook({ hook_event_name: 'UserPromptSubmit', prompt }).hookSpecificOutput?.additionalContext || '', /Task ID: /, `Words of the user's own are routed: ${prompt.slice(0, 40)}`);
 });

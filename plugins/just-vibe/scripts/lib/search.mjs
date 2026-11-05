@@ -56,7 +56,16 @@ const ANCHORS = { arch: ['architecture', 'architectural'], db: ['db', 'sql', 'po
   security: ['security', 'vulnerability', 'attack'], backend: ['backend', 'server'], data: ['data', 'pipeline', 'etl', 'warehouse'],
   decision: ['decision', 'decide'], llm: ['llm', 'prompt', 'rag', 'embedding', 'chatbot'], api: ['api', 'endpoint'],
   ml: ['ml', 'model', 'prediction', 'training', 'dataset', 'classifier', 'prauc'] };
-const FAMILY_HIT = 3;
+// Every numeric choice in lexical scoring and candidate ranking. scripts/tune-routing.mjs searches
+// these against held-out folds of the routing corpus; callers may pass a copy with changed values.
+export const DEFAULT_WEIGHTS = Object.freeze({
+  // Lexical evidence (searchCommands).
+  familyHit: 3, idNamed: 8, idModeVerb: 7, idUnnamed: 4, termBase: 4, termCap: 9, expansion: 0.5,
+  summaryTiers: [4, 3, 2, 1], summaryDf: [2, 5, 12], detailTiers: [1, 0.5, 0], detailDf: [15, 40],
+  summaryHitDf: 5, genericDf: 13,
+  // Candidate ranking (rankCandidates).
+  explicitName: 1000, ruleBoost: 45, topicRuleCap: 10, rulePosition: 8, stackPack: 2, stackPackLexical: 4,
+});
 
 // Words whose final "ed" is part of the stem.
 const ED_STEMS = new Set(['embed', 'shred', 'bred', 'sled', 'fled']);
@@ -78,6 +87,9 @@ export function stem(word) {
 // Plural forms keep full name weight; -ing/-ed forms ("learning", "checked") are weaker evidence.
 const inflected = (surface, base) => surface !== base && surface !== `${base}s` && surface !== `${base}es` && !(base.endsWith('y') && surface === `${base.slice(0, -1)}ies`);
 
+// Everyday programming words that a family's own vocabulary reuses: "why does this function
+// return null" is not a Vercel Functions question until the request mentions Vercel.
+const ANCHORED_WORDS = { vercel: new Set(['function', 'runtime'].map(stem)) };
 const SYNONYMS = Object.fromEntries(Object.entries(SYNONYM_WORDS).map(([key, words]) => [stem(key), words.map(stem)]));
 
 export function normalize(text) {
@@ -94,13 +106,13 @@ function familyPrefixes(catalog) {
 }
 
 const indexes = new WeakMap();
-function buildIndex(catalog) {
+function buildIndex(catalog, genericDf) {
   const families = familyPrefixes(catalog);
   const entries = new Map();
   const summaryDf = {}, detailDf = {}, textDf = {};
   for (const command of catalog.commands) for (const t of new Set(stems([command.summary, command.selection, ...command.procedure, ...command.examples.map(e => e.brief)].join(' ')))) textDf[t] = (textDf[t] || 0) + 1;
   // A core id word is generic when many workflows use it (check, plan, model) or people use it everywhere (upgrade, system).
-  const generic = surface => textDf[stem(surface)] >= 13 || EVERYDAY.has(surface) || EVERYDAY.has(stem(surface));
+  const generic = surface => textDf[stem(surface)] >= genericDf || EVERYDAY.has(surface) || EVERYDAY.has(stem(surface));
   for (const command of catalog.commands) {
     const idTokens = command.id.split('-');
     const family = idTokens.length > 1 && families.has(idTokens[0]) ? idTokens[0] : null;
@@ -118,26 +130,27 @@ function buildIndex(catalog) {
   }
   return { entries, summaryDf, detailDf };
 }
-function index(catalog) {
-  if (!indexes.has(catalog)) indexes.set(catalog, buildIndex(catalog));
-  const built = indexes.get(catalog);
+function index(catalog, genericDf) {
+  // The generic-word threshold is applied while indexing, so each value keeps its own index.
+  if (!indexes.has(catalog)) indexes.set(catalog, new Map());
+  const byThreshold = indexes.get(catalog);
+  let built = byThreshold.get(genericDf);
   // Rebuild if the caller replaced command objects after the first search.
-  if (catalog.commands.some(c => !built.entries.has(c))) indexes.set(catalog, buildIndex(catalog));
-  return indexes.get(catalog);
+  if (!built || catalog.commands.some(c => !built.entries.has(c))) byThreshold.set(genericDf, (built = buildIndex(catalog, genericDf)));
+  return built;
 }
 
-const summaryWeight = df => (df <= 2 ? 4 : df <= 5 ? 3 : df <= 12 ? 2 : 1);
-const detailWeight = df => (df <= 15 ? 1 : df <= 40 ? 0.5 : 0);
+const tier = (df, limits, values) => { const i = limits.findIndex(limit => df <= limit); return values[i === -1 ? limits.length : i]; };
 const contains = (sequence, phrase) => sequence.some((_, i) => phrase.every((t, j) => sequence[i + j] === t));
 
-function scoreCommand(entry, query, { summaryDf, detailDf }) {
+function scoreCommand(entry, query, { summaryDf, detailDf }, w) {
   const own = new Set(query.filter(t => !t.expanded).map(t => t.stem));
   const sequence = query.filter(t => !t.expanded).map(t => t.stem);
   const coreStems = new Set(entry.core.map(t => t.stem));
   const anchors = entry.family ? (ANCHORS[entry.family] || [entry.family]).map(stem) : [];
   const familyHit = Boolean(entry.family) && anchors.some(a => own.has(a));
   const termHits = entry.terms.filter(term => (term.length === 1 ? own.has(term[0]) : contains(sequence, term)));
-  const summaryHit = [...own].some(t => !coreStems.has(t) && entry.summary.has(t) && summaryDf[t] <= 5);
+  const summaryHit = [...own].some(t => !coreStems.has(t) && entry.summary.has(t) && summaryDf[t] <= w.summaryHitDf);
   const matched = entry.core.filter(t => own.has(t.stem));
   const corroborated = familyHit || termHits.length > 0 || summaryHit;
   // -ing/-ed forms ("learning", "checked") count only with corroborating evidence.
@@ -154,16 +167,18 @@ function scoreCommand(entry, query, { summaryDf, detailDf }) {
     if (!entry.family && entry.core.length === 1) named = isStrong && (!HOMONYMS.has(token.surface) || corroborated);
     else if (entry.family) named = isStrong && (!token.generic || familyHit || termHits.length > 0 || (whole && !allGeneric));
     else named = isStrong && (!token.generic || adjacent || termHits.length > 0 || (whole && !allGeneric));
-    idScore += named ? (entry.general && MODE_VERBS.has(token.surface) && entry.core.length === 1 ? 7 : 8) : 4;
+    idScore += named ? (entry.general && MODE_VERBS.has(token.surface) && entry.core.length === 1 ? w.idModeVerb : w.idNamed) : w.idUnnamed;
   }
-  let score = idScore + (familyHit ? FAMILY_HIT : 0);
+  let score = idScore + (familyHit ? w.familyHit : 0);
   // A longer matched phrase is more specific evidence: one word 5, two words 6, up to 9.
-  for (const term of termHits) score += Math.min(4 + term.length, 9);
+  for (const term of termHits) score += Math.min(w.termBase + term.length, w.termCap);
   for (const token of query) {
     if (coreStems.has(token.stem) && !token.expanded) continue;
     if (termHits.some(term => term.includes(token.stem)) && !token.expanded) continue;
-    let value = entry.summary.has(token.stem) ? summaryWeight(summaryDf[token.stem]) : entry.detail.has(token.stem) ? detailWeight(detailDf[token.stem]) : 0;
-    if (token.expanded) value /= 2;
+    let value = entry.summary.has(token.stem) ? tier(summaryDf[token.stem], w.summaryDf, w.summaryTiers)
+      : entry.detail.has(token.stem) ? tier(detailDf[token.stem], w.detailDf, w.detailTiers) : 0;
+    if (token.expanded) value *= w.expansion;
+    if (!familyHit && ANCHORED_WORDS[entry.family]?.has(token.stem)) value = 0;
     score += value;
   }
   return Math.round(score * 10) / 10;
@@ -171,7 +186,7 @@ function scoreCommand(entry, query, { summaryDf, detailDf }) {
 
 export const bySafety = (a, b) => (MODE_ORDER[a.defaultMode] ?? 3) - (MODE_ORDER[b.defaultMode] ?? 3) || a.id.localeCompare(b.id);
 
-export function searchCommands(catalog, query = '', { pack, limit = 1000 } = {}) {
+export function searchCommands(catalog, query = '', { pack, limit = 1000, weights = DEFAULT_WEIGHTS } = {}) {
   if (pack && !catalog.packs.some(p => p.id === pack)) throw new Error(`Unknown pack: ${pack}`);
   if (!Number.isInteger(limit) || limit < 1 || limit > 1000) throw new Error('limit must be between 1 and 1000.');
   const exact = (parseInvocation(query)?.id || query.trim()).toLowerCase();
@@ -183,9 +198,9 @@ export function searchCommands(catalog, query = '', { pack, limit = 1000 } = {})
   const own = normalize(query);
   const expanded = own.flatMap(t => (SYNONYMS[t.stem] || []).filter(w => !own.some(o => o.stem === w)).map(w => ({ surface: w, stem: w, expanded: true })));
   const tokensForQuery = [...own, ...expanded];
-  const built = index(catalog);
+  const built = index(catalog, weights.genericDf);
   const scored = catalog.commands.filter(c => !pack || c.pack === pack).map(command => {
-    let score = scoreCommand(built.entries.get(command), tokensForQuery, built);
+    let score = scoreCommand(built.entries.get(command), tokensForQuery, built, weights);
     if (command === exactCommand) score = 100;
     if (exactPack && command.pack === exactPack.id) score += 40;
     return { command, score };

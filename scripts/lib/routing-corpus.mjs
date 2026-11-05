@@ -20,14 +20,14 @@ export function catalogExamples(catalog) {
 
 // Route every request through the lexical router and the automatic-assistance gate in an
 // empty, non-Git project with an empty just-vibe home, so saved preferences cannot bias results.
-export function measureRouting(requests, { catalog = loadCatalog(), assist: measureAssist = true } = {}) {
+export function measureRouting(requests, { catalog = loadCatalog(), assist: measureAssist = true, weights } = {}) {
   const root = mkdtempSync(join(tmpdir(), 'jv-route-root-'));
   const home = mkdtempSync(join(tmpdir(), 'jv-route-home-'));
   try {
     const discovery = discoverCapabilities(root);
     const context = routeContext(root);
     const rows = requests.map(item => {
-      const ids = recommend(catalog, discovery, item.request, { limit: 10, context }).recommendations.map(r => r.id);
+      const ids = recommend(catalog, discovery, item.request, { limit: 10, context, ...(weights ? { weights } : {}) }).recommendations.map(r => r.id);
       const assist = measureAssist ? assistantRuntime(root, 'route', { brief: item.request, host: 'claude' }, { catalog, home }) : {};
       const suggested = (assist.recommendations || []).map(r => r.id);
       return { ...item, ids, rank: ids.findIndex(id => item.accept.includes(id)) + 1,

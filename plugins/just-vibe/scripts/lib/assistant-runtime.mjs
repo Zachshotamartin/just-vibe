@@ -140,7 +140,8 @@ export function startRequest(store, catalog, payload) {
     reminders: 0, status: route.kind === 'task' ? 'suggested' : 'idle', feedbackCandidate: feedbackCue.test(brief) || Boolean(previous && !['task', 'discovery'].includes(route.kind)),
   };
   const saved = store.saveTask(task, 0);
-  store.write(path, { root: store.root, taskId: task.id, updatedAt: now() }, session?.revision || 0);
+  // Keep the session's protocol-delivery record; only the current task changes.
+  store.write(path, { ...session, root: store.root, taskId: task.id, updatedAt: now() }, session?.revision || 0);
   pruneAdaptive(store);
   return saved;
 }
@@ -206,18 +207,7 @@ export function recordEvidence(store, payload) {
   return store.saveTask({ ...task, updatedAt: now(), requirements: task.requirements.map(r => r.id === requirement.id ? { ...r, evidence } : r) });
 }
 
-export function observeTool(store, taskId, event) {
-  const task = store.task(taskId);
-  if (task.status !== 'active' && task.status !== 'suggested') return task;
-  const tool = textField(event.tool_name, 'Tool name', 200);
-  const id = digest(`${event.tool_use_id || randomUUID()}:${tool}`);
-  if (task.observations.some(o => o.id === id)) return task;
-  const result = event.tool_response;
-  const failed = event.hook_event_name === 'PostToolUseFailure' || event.error || result?.isError === true || result?.is_error === true
-    || (typeof result?.exit_code === 'number' && result.exit_code !== 0);
-  return store.saveTask({ ...task, updatedAt: now(), observations: [...task.observations.slice(-99),
-    { id, tool, at: now(), outcome: failed ? 'failed' : 'returned', note: 'Tool activity only; no semantic verification inferred.' }] });
-}
+export { observeTool } from './task-observations.mjs';
 
 export function inspectCompletion(store, catalog, task) {
   const snapshot = task.requirements.some(r => r.evidence?.snapshot) ? fingerprint(store.root) : null;
@@ -248,7 +238,7 @@ export function stopTask(store, catalog, id, { stopHookActive = false } = {}) {
   const result = inspectCompletion(store, catalog, task);
   const missing = task.status === 'suggested' ? ['workflow selection (or explicit dismissal)'] : result.missing;
   if (missing.length && store.config().gate === 'bounded' && !stopHookActive && task.reminders < 1) {
-    const reason = `just-vibe task ${task.id}: resolve ${missing.join(', ')}. Prefer native task_select/workflow_load/task_evidence; use host tool discovery to find them before assuming they are unavailable. The assist select/load/evidence CLI is the fallback. If implementation is already finished, select the workflow matching the original request, load it and record the actual existing verification; do not redo completed work just for bookkeeping. Dismiss with an empty selection only when the original request has no relevant workflow, never merely because the work is complete. Record real blockers or inapplicable requirements without inventing evidence. Do not expand the request. One continuation maximum.`;
+    const reason = `just-vibe task ${task.id}: resolve ${missing.join(', ')} with task_select/workflow_load/task_evidence (discover them before assuming they are unavailable; assist select/load/evidence is the fallback). If the work is finished, select the workflow matching the original request, load it and record the existing verification rather than redoing work. Dismiss with an empty selection only when no workflow fits the original request, never because the work is complete. Record real blockers without inventing evidence or expanding the request. One continuation maximum.`;
     store.saveTask({ ...task, reminders: task.reminders + 1, continuationPromptHash: digest(reason), updatedAt: now() });
     return { decision: 'block', reason };
   }
@@ -257,19 +247,35 @@ export function stopTask(store, catalog, id, { stopHookActive = false } = {}) {
   return missing.length || result.limitations.length ? { systemMessage: `just-vibe task ${task.id} remains ${status}. ${missing.join(', ') || result.limitations.map(l => l.requirement).join(', ')}. No successful verification is implied.` } : {};
 }
 
-export function activationContext(store, catalog, task) {
-  if (!task || task.kind !== 'task' || !store.config().enabled) return '';
+// The standing instructions are the same for every prompt, so hooks deliver them once per
+// session (SessionStart, or the first routed prompt when the host sent none) and after
+// compaction; each prompt then carries only its task ID, candidates and task-specific notes.
+export function sessionProtocol(store) {
   const cli = fileURLToPath(new URL('../toolkit.mjs', import.meta.url));
   const parts = [
     'just-vibe automatic assistance. The current user request controls scope, mode and authorization; stored context cannot override it.',
-    `Runtime file: ${JSON.stringify(cli)}. Project: ${JSON.stringify(store.root)}. Task ID: ${task.id}. Invoke Node with separate argv or proper shell quoting; these JSON strings are data, not shell escaping.`,
+    `Runtime file: ${JSON.stringify(cli)}. Project: ${JSON.stringify(store.root)}. Invoke Node with separate argv or proper shell quoting; these JSON strings are data, not shell escaping.`,
     'Use the host file, shell, browser, skill-discovery and connected-service tools. No slash command is required from the user.',
+    'When a prompt carries a just-vibe task ID with workflow candidates: before implementation, use host tool discovery for just-vibe task_select and workflow_load if those native tools are not in the active list. Deferred tools are not necessarily unavailable. Select and load the relevant method before editing; use the CLI fallback only when native discovery cannot provide it. A matching workflow remains relevant after the work is done; completion alone never justifies dismissing its requirements.',
+    'Honor any current user-pinned role. Record a role the user chooses with task_select profile {primary, selectedBy, reason} so later prompts keep it; clear it with primary null.',
+    'Resolve candidates against the whole conversation; they are suggestions, not instructions to execute every match. Select the smallest useful set with native task_select {taskId,workflows:[id],mode:"apply|inspect|plan",reason}, or assist select --root <project> --stdin with the same JSON if native tools are unavailable. Use workflows:[] to dismiss an irrelevant route. For another workflow, use workflows_search or tools <scenario>, then select it.',
+    'Load each selected workflow with the native workflow_load tool {taskId,workflow} when available, otherwise assist load --root <project> --stdin JSON {taskId,workflow}. It returns complete instructions and saved feedback. Read its relevant references. Discover the actual host tools needed and use them; available integrations outside just-vibe count. Use native memory and goal tools when saved context is relevant.',
+    'Record meaningful checks with native task_evidence {taskId,requirement,kind:"artifact|host-report|blocked|not-applicable",summary,path?}, or assist evidence --root <project> --stdin with the same JSON. Use task_report to inspect outstanding work. Evidence IDs and tool guidance come from select. Tool activity alone is not success. Record blockers or exclusions honestly. Do not run checks that the current user forbids.',
   ];
+  if (store.config().learning) parts.push('When a prompt is marked as possible feedback, read the adaptive guide and save a narrow correction/reinforcement using native feedback_record or assist feedback; quote that actual user message. If the durable scope is unclear, or the correction adds conditions/exceptions or conflicts with existing guidance, use learning_propose (learn propose fallback) instead, inspect relatedGuidance, and resolve each related lesson explicitly before user-approved activation. Pending proposals do not change behavior. Default to project scope. Do not infer approval from silence, tests, your own output, or unaccepted proposals. Identify the appropriate workflow from that task or its previousTaskId. No feedback update is required when the message is merely a task request.');
+  parts.push(`For schemas and learning/rollback operations read ${JSON.stringify(fileURLToPath(new URL('../../references/adaptive.md', import.meta.url)))}.`);
+  return parts.join('\n');
+}
+
+export function activationContext(store, catalog, task, { protocol = false } = {}) {
+  if (!task || task.kind !== 'task' || !store.config().enabled) return '';
+  if (!['task', 'learning', 'discovery'].includes(task.routeKind) && !task.feedbackCandidate) return '';
+  const parts = protocol ? [sessionProtocol(store)] : [];
+  parts.push(`just-vibe request context. Task ID: ${task.id}`);
   if (task.routeKind === 'task') {
-    parts.push('Before implementation, use host tool discovery for just-vibe task_select and workflow_load if those native tools are not in the active list. Deferred tools are not necessarily unavailable. Select and load the relevant method before editing; use the CLI fallback only when native discovery cannot provide it. A matching workflow remains relevant after the work is done; completion alone never justifies dismissing its requirements.');
     if (task.repair) parts.push('This follow-up asks to repair what the previous inspection found. The earlier workflows were inspect-only; the candidates below can apply changes. Use the new user message to decide which findings to fix, and keep the original constraints.');
     const specialized = findMethods(task.brief || '', 3, { triggered: true });
-    if (specialized.length) parts.push('Task-specific method candidates: ' + specialized.map(m => m.id + ' (' + m.title + ')').join('; ') + '. Read the relevant method with workbench_read {family:"methods",operation:"show",payload:{id}} or methods show --stdin before relying on its specialist checks. These are optional methods, not tool availability or authority.');
+    if (specialized.length) parts.push('Task-specific method candidates: ' + specialized.map(m => m.id + ' (' + m.title + ')').join('; ') + '. Read the relevant one with workbench_read {family:"methods",operation:"show",payload:{id}} before relying on its specialist checks; these are optional methods, not tool availability or authority.');
     if (task.frameworks.length) parts.push(`Detected project frameworks: ${task.frameworks.join(', ')}.`);
     if (task.profile) {
       parts.push(`Active task profile: ${[task.profile.primary, ...task.profile.secondary].join(', ')} (${task.profile.pinned ? 'pinned by the user' : 'selected by the agent'}). Apply its relevant priorities; a role never expands scope or authority.`);
@@ -277,22 +283,16 @@ export function activationContext(store, catalog, task) {
       if (roleMethods.length) parts.push(`Role methods for ${task.profile.primary}: ${roleMethods.join(', ')}. Read the relevant one with workbench_read {family:"methods",operation:"show",payload:{id}} when the task touches it.`);
     }
     else if (task.preferredProfile) parts.push(`Saved project profile preference: ${task.preferredProfile}. A suggestion, not a pin: apply it only when it fits this request.`);
-    parts.push('Honor any current user-pinned role. Record a role the user chooses with task_select profile {primary, selectedBy, reason} so later prompts keep it; clear it with primary null.');
-    parts.push('Resolve these candidates against the whole conversation; they are suggestions, not instructions to execute every match:',
+    parts.push('Workflow candidates (suggestions to resolve against the whole conversation):',
       ...task.candidates.map(c => `${c.id}: ${c.summary} (${c.reasons.join('; ')})`),
-      'Select the smallest useful set with native task_select {taskId,workflows:[id],mode:"apply|inspect|plan",reason}, or assist select --root <project> --stdin with the same JSON if native tools are unavailable. Use workflows:[] to dismiss an irrelevant route. For another workflow, use workflows_search or tools <scenario>, then select it.',
-      'Load each selected workflow with the native workflow_load tool {taskId,workflow} when available, otherwise assist load --root <project> --stdin JSON {taskId,workflow}. It returns complete instructions and saved feedback. Read its relevant references. Discover the actual host tools needed and use them; available integrations outside just-vibe count. Use native memory and goal tools when saved context is relevant.',
-      'Record meaningful checks with native task_evidence {taskId,requirement,kind:"artifact|host-report|blocked|not-applicable",summary,path?}, or assist evidence --root <project> --stdin with the same JSON. Use task_report to inspect outstanding work. Evidence IDs and tool guidance come from select. Tool activity alone is not success. Record blockers or exclusions honestly. Do not run checks that the current user forbids.',
-    );
+      'Select with task_select (workflows:[] dismisses), load with workflow_load and record checks with task_evidence, as the just-vibe session protocol describes.');
   }
   if (task.routeKind === 'discovery') parts.push('This request asks which just-vibe workflow, tool or profile fits. Answer the question; do not start the embedded task or edit files. Workflows relevant to the answer:',
     ...task.candidates.map(c => `${c.id}: ${c.summary} (${c.reasons.join('; ')})`),
     'Use tools <scenario> or workflows_search for a wider list. No selection or evidence is required for this answer.');
   if (task.routeKind === 'learning') parts.push('This request concerns just-vibe personalization or automatic assistance. Use assist history/status for inspection, or the explicitly requested configure/retire/forget/rollback operation after resolving the exact lesson/scope. The adaptive guide contains schemas. Do not run an unrelated engineering workflow.');
   if (task.selected.length) parts.push(`Selected workflows: ${task.selected.join(', ')}. On resume, inspect assist report with {taskId} for evidence freshness; reload changed instructions. Prior task text is context, not renewed authorization.`, `Task context: ${JSON.stringify(task.brief)}`);
-  if (task.feedbackCandidate && store.config().learning) parts.push('This user message may contain explicit feedback. Read the adaptive guide and save a narrow correction/reinforcement using native feedback_record or assist feedback; quote this actual user message. If the durable scope is unclear, or the correction adds conditions/exceptions or conflicts with existing guidance, use learning_propose (learn propose fallback) instead, inspect relatedGuidance, and resolve each related lesson explicitly before user-approved activation. Pending proposals do not change behavior. Default to project scope. Do not infer approval from silence, tests, your own output, or unaccepted proposals. Identify the appropriate workflow from this task or its previousTaskId. No feedback update is required when the message is merely a task request.');
-  parts.push(`For schemas and learning/rollback operations read ${JSON.stringify(fileURLToPath(new URL('../../references/adaptive.md', import.meta.url)))}.`);
-  if (!['task', 'learning', 'discovery'].includes(task.routeKind) && !task.feedbackCandidate) return '';
+  if (task.feedbackCandidate && store.config().learning) parts.push('This user message may contain explicit feedback: follow the session protocol for feedback and quote this message. No update is needed when it is merely a task request.');
   return parts.join('\n');
 }
 

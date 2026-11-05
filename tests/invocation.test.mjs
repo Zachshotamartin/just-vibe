@@ -67,8 +67,11 @@ test('shortcut lifecycle respects ownership, selection, dry runs and uninstall',
   const run = (operation, extra = {}) => claudeShortcuts(options, { root: config, source, operation, ...extra });
   run('install', { dryRun: true }); assert.equal(existsSync(config), false);
   run('install');
-  assert.ok(existsSync(join(config, 'skills/just-vibe-shortcuts/skills/reprompt/SKILL.md')));
-  assert.equal(existsSync(join(config, 'skills/just-vibe-shortcuts/skills/ml-train/SKILL.md')), false);
+  assert.match(readFileSync(join(config, 'skills/just-vibe-shortcuts/skills/reprompt/SKILL.md'), 'utf8'), /Invoke the native skill `just-vibe:reprompt`/);
+  // An excluded workflow keeps its shortcut, which loads the reference instead of a missing skill.
+  const excluded = readFileSync(join(config, 'skills/just-vibe-shortcuts/skills/ml-train/SKILL.md'), 'utf8');
+  assert.match(excluded, /workflow_load tool \{"workflow":"ml-train"\}/); assert.doesNotMatch(excluded, /Invoke the native skill/);
+  assert.match(readFileSync(join(config, 'commands/jv.md'), 'utf8'), /- ml-train \(reference\)\n/);
   assert.equal(run('doctor').installed, true);
   const changed = join(config, 'skills/just-vibe-shortcuts/skills/reprompt/SKILL.md'), original = readFileSync(changed, 'utf8');
   writeFileSync(changed, 'User edits');

@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { mkdtempSync, mkdirSync, rmSync, readdirSync, readFileSync, cpSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdtempSync, mkdirSync, rmSync, readdirSync, readFileSync, cpSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -26,7 +26,7 @@ function verifyCachedPayload(config, target) {
     }
   }
   assert.ok(toolkits.length, `${target}: installed runtime missing from the native cache`);
-  let verified = 0;
+  let verified = 0, listedCount = expectedSkills;
   for (const toolkit of toolkits) {
     const manifest = JSON.parse(readFileSync(resolve(toolkit, `../../.${target}-plugin/plugin.json`), 'utf8'));
     if (manifest.version !== expectedVersion) continue; // Hosts may retain caches from previous versions.
@@ -35,10 +35,17 @@ function verifyCachedPayload(config, target) {
       cwd: sandbox, encoding: 'utf8', timeout: 10_000,
     }));
     assert.equal(inventory.tools.length, expectedSkills);
-    assert.ok(inventory.tools.every(tool => tool.status !== 'uninstalled'));
+    // A first bundled install lists the entry workflows and keeps the rest as references; local and
+    // GitHub sources install everything. Either way, exactly the unselected workflows are references.
+    const selectionPath = resolve(toolkit, '../../selection.json');
+    const selection = existsSync(selectionPath) ? JSON.parse(readFileSync(selectionPath, 'utf8')) : null;
+    if (source === 'bundled') assert.equal(selection?.profile, 'entry', `${target}: a first bundled install should list the entry workflows`);
+    const listed = selection && new Set(selection.ids);
+    if (listed) listedCount = listed.size;
+    for (const tool of inventory.tools) assert.equal(tool.status === 'uninstalled', Boolean(listed && !listed.has(tool.id)), `${target}: ${tool.id} status ${tool.status}`);
   }
   assert.ok(verified, `${target}: current payload is missing from the native cache`);
-  console.log(`Verified ${expectedSkills} skills and the runnable v${expectedVersion} payload in ${target}'s native cache.`);
+  console.log(`Verified ${expectedSkills} workflows (${listedCount} listed, ${expectedSkills - listedCount} references) and the runnable v${expectedVersion} payload in ${target}'s native cache.`);
 }
 
 try {

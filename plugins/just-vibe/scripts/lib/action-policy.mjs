@@ -2,7 +2,7 @@ import { basename, relative, resolve, isAbsolute } from 'node:path';
 import { existsSync } from 'node:fs';
 import { digest, within, projectRoot } from './storage.mjs';
 import { runtimeStore, object, cleanText, revision, timestamp } from './runtime-store.mjs';
-import { gitRead } from './project.mjs';
+import { projectTopLevel } from './project.mjs';
 
 export const POLICY_RULES = ['quality-config', 'git-no-verify', 'git-force-push', 'git-discard'];
 const defaults = { enabled: false, rules: POLICY_RULES };
@@ -238,7 +238,7 @@ export function policy(root, operation, payload = {}, options = {}) {
 }
 export function policyHook(event, options = {}) {
   if (event?.hook_event_name !== 'PreToolUse' || typeof event.cwd !== 'string') return {};
-  const root = options.projectRoot || gitRead(event.cwd, ['rev-parse', '--show-toplevel']) || event.cwd;
+  const root = options.projectRoot || projectTopLevel(event.cwd) || event.cwd;
   try {
     const result = policy(
       root,
