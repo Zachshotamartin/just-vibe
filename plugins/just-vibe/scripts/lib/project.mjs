@@ -19,11 +19,9 @@ export function gitRead(root, args) {
 // Hooks resolve the project root on every tool call. Git finds a work tree by walking up to the
 // nearest .git entry, so the same walk answers without a ~10 ms subprocess. Anything unusual (a
 // path inside .git or a bare repository, another owner's repository, a malformed or linked
-// entry, or environment variables that redirect or bound git's own search) still asks git.
-const GIT_DISCOVERY_ENV = ['GIT_DIR', 'GIT_WORK_TREE', 'GIT_CEILING_DIRECTORIES', 'GIT_DISCOVERY_ACROSS_FILESYSTEM'];
-export function projectTopLevel(cwd, { git = gitRead, env = process.env } = {}) {
+// entry) still asks git. gitRead clears GIT_* variables, so neither answer follows GIT_DIR.
+export function projectTopLevel(cwd, { git = gitRead } = {}) {
   const ask = () => git(cwd, ['rev-parse', '--show-toplevel']);
-  if (GIT_DISCOVERY_ENV.some(name => env[name])) return ask();
   let dir, device;
   try { dir = realpathSync.native(resolve(cwd)); device = statSync(dir).dev; } catch { return null; }
   if (dir.split(sep).includes('.git')) return ask();

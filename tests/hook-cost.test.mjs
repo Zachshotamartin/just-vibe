@@ -36,14 +36,14 @@ test('the subprocess-free project lookup agrees with git in every layout hooks s
   assert.equal(projectTopLevel(broken, { git: () => (asked++, 'from-git') }), 'from-git');
   assert.equal(asked, 1);
   assert.equal(projectTopLevel(join(dir, 'missing')), null);
-  // Inside a bare repository (even one within a work tree), and wherever git's discovery
-  // variables apply, git decides.
+  // Inside a bare repository (even one within a work tree), git decides.
   const bare = join(repo, 'vendor.git'); git(dir, 'init', '-q', '--bare', bare);
   for (const cwd of [bare, join(bare, 'refs')]) assert.equal(projectTopLevel(cwd), gitRead(cwd, ['rev-parse', '--show-toplevel']), cwd);
-  asked = 0;
-  assert.equal(projectTopLevel(deep, { git: () => (asked++, 'from-git'), env: { GIT_DIR: join(nested, '.git') } }), 'from-git');
-  assert.equal(projectTopLevel(deep, { git: () => (asked++, 'from-git'), env: { GIT_CEILING_DIRECTORIES: dir } }), 'from-git');
-  assert.equal(asked, 2);
+  // Hooks may inherit GIT_DIR from a host shell; gitRead clears it, and the walk agrees.
+  const saved = process.env.GIT_DIR;
+  process.env.GIT_DIR = join(nested, '.git');
+  try { assert.equal(projectTopLevel(deep), gitRead(deep, ['rev-parse', '--show-toplevel'])); assert.equal(projectTopLevel(deep), repo); }
+  finally { if (saved === undefined) delete process.env.GIT_DIR; else process.env.GIT_DIR = saved; }
 });
 
 test('a tool observation never loads the router or the catalog', { skip: !module.registerHooks && 'needs module.registerHooks' }, t => {
