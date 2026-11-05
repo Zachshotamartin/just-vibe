@@ -37,6 +37,8 @@ test('ready orders open unblocked items by priority then age and hides active cl
   const first = await f.q('create', { title: 'Urgent first', priority: 0 });
   const second = await f.q('create', { title: 'Urgent second', priority: 0 });
   const blocked = await f.q('create', { title: 'Needs first', links: [{ type: 'blocks', target: first.id }] });
+  // Back-to-back creates can share a millisecond, and equal ages fall back to the random ID.
+  [low, first, second].forEach((item, index) => rewrite(f, item.id, current => ({ ...current, createdAt: new Date(Date.UTC(2026, 0, 1, 0, 0, index)).toISOString() })));
   assert.match(first.id, /^jv-[a-f0-9]{8}$/);
   let ready = await f.q('ready');
   assert.deepEqual(ready.items.map(i => i.id), [first.id, second.id, low.id]);
