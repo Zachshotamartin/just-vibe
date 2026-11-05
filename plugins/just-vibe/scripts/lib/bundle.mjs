@@ -3,7 +3,7 @@ import { cpSync, existsSync, lstatSync, mkdirSync, mkdtempSync, readFileSync, re
 import { join, dirname, resolve } from 'node:path';
 import { homedir } from 'node:os';
 import { fileURLToPath } from 'node:url';
-import { applySelection } from './selection.mjs';
+import { applySelection, DEFAULT_SELECTION } from './selection.mjs';
 import { loadCatalog } from './catalog.mjs';
 
 export const packageRoot = fileURLToPath(new URL('../../../../', import.meta.url));
@@ -102,7 +102,10 @@ export function stageBundle(destination, { root = packageRoot, replace = false, 
       cpSync(join(root, asset), join(staging, asset), { recursive: true, dereference: false });
     }
     if (existsSync(join(root, 'LICENSE'))) cpSync(join(root, 'LICENSE'), join(staging, 'LICENSE'));
-    const chosen = selection ? { ...existing?.selection, ...selection } : existing?.selection;
+    // An existing installation keeps what it has (no recorded selection means all skills); a first
+    // installation lists the entry set unless the choice names a profile or packs.
+    const inherited = existing ? existing.selection : selection?.profile === undefined && selection?.packs === undefined ? DEFAULT_SELECTION : undefined;
+    const chosen = selection || inherited ? { ...inherited, ...selection } : undefined;
     if (selection?.profile !== undefined && selection.packs === undefined) chosen.packs = [];
     if (chosen) applySelection(join(staging, 'plugins/just-vibe'), chosen, loadCatalog(join(root, 'plugins/just-vibe')));
     // Codex's compatibility MCP format does not expand Claude's plugin-root

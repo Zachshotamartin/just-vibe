@@ -2,7 +2,7 @@ import { existsSync, mkdirSync, openSync, closeSync, unlinkSync, writeFileSync }
 import { join, relative, extname, resolve, isAbsolute } from 'node:path';
 import { homedir } from 'node:os';
 import { atomicJson, digest, within, readJson, projectRoot, fingerprint, privateName } from './storage.mjs';
-import { gitRead } from './project.mjs';
+import { gitRead, projectTopLevel } from './project.mjs';
 import { runCommand, redact } from './process.mjs';
 import { editedFiles } from './edited-files.mjs';
 
@@ -86,7 +86,7 @@ export async function handleHook(event, { home, run = runCommand, projectRoot: b
   if (event.hook_event_name === 'PostToolUse' && !['Write', 'Edit', 'MultiEdit', 'apply_patch'].includes(event.tool_name)) return { skipped: 'not-an-edit' };
   // Use the exact configured project, or its Git root when launched in a subdirectory.
   let root = projectRoot(boundRoot || event.cwd);
-  if (!boundRoot && !existsSync(within(root, configPath))) root = gitRead(root, ['rev-parse', '--show-toplevel']) || root;
+  if (!boundRoot && !existsSync(within(root, configPath))) root = projectTopLevel(root) || root;
   const selected = config(root);
   if (!selected?.enabled) return { skipped: 'disabled' };
   if (trustRecord(root, home)?.configHash !== configHash(selected)) return { skipped: 'untrusted', message: 'just-vibe automation configuration changed or is untrusted. Review it with hooks status, then use hooks trust if intended.' };

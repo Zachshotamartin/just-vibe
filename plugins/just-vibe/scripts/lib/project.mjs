@@ -1,5 +1,5 @@
-import { readdirSync, readFileSync, realpathSync, statSync } from 'node:fs';
-import { join, resolve, relative } from 'node:path';
+import { existsSync, lstatSync, readdirSync, readFileSync, realpathSync, statSync } from 'node:fs';
+import { dirname, join, resolve, relative, sep } from 'node:path';
 import { spawnSync } from 'node:child_process';
 export { findExecutable } from './command.mjs';
 
@@ -14,6 +14,36 @@ export function gitRead(root, args) {
     env: { ...env, GIT_TERMINAL_PROMPT: '0' },
   });
   return result.status === 0 ? result.stdout.trim() : null;
+}
+
+// Hooks resolve the project root on every tool call. Git finds a work tree by walking up to the
+// nearest .git entry, so the same walk answers without a ~10 ms subprocess. Anything unusual (a
+// path inside .git or a bare repository, another owner's repository, a malformed or linked
+// entry) still asks git. gitRead clears GIT_* variables, so neither answer follows GIT_DIR.
+export function projectTopLevel(cwd, { git = gitRead } = {}) {
+  const ask = () => git(cwd, ['rev-parse', '--show-toplevel']);
+  let dir, device;
+  try { dir = realpathSync.native(resolve(cwd)); device = statSync(dir).dev; } catch { return null; }
+  if (dir.split(sep).includes('.git')) return ask();
+  for (;;) {
+    const entry = join(dir, '.git');
+    let stat = null;
+    try { stat = lstatSync(entry); } catch { /* not here; keep walking */ }
+    if (stat) {
+      const uid = process.getuid?.();
+      let valid = false;
+      try { valid = stat.isDirectory() ? existsSync(join(entry, 'HEAD')) : stat.isFile() && readFileSync(entry, 'utf8').startsWith('gitdir: '); } catch { /* ask git */ }
+      if (!valid || (uid !== undefined && stat.uid !== uid)) return ask();
+      // Git reports Windows paths with forward slashes; keep callers' strings identical.
+      return process.platform === 'win32' ? dir.replaceAll('\\', '/') : dir;
+    }
+    if (existsSync(join(dir, 'HEAD'))) return ask();
+    const parent = dirname(dir);
+    if (parent === dir) return null;
+    // Like git, stop at a mount point.
+    try { if (statSync(parent).dev !== device) return null; } catch { return ask(); }
+    dir = parent;
+  }
 }
 
 export function inspectProject(path = process.cwd(), { maxEntries = 3000, maxDepth = 5, git = gitRead } = {}) {

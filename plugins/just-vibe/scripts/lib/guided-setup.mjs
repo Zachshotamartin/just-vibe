@@ -62,7 +62,7 @@ export async function guidedSetup(
       );
     const profile = await choose(
       `Workflow profile (${Object.keys(INSTALL_PROFILES).join(', ')})`,
-      initial.selection?.profile || 'core',
+      initial.selection?.profile || 'entry',
     );
     const ruleText = await choose(
       'Rule packs, comma separated; none clears rules',
