@@ -64,10 +64,10 @@ export const repairFollowUp = text => REPAIR.test(text.trim());
 // Hosts deliver some events through the prompt hook that no user typed: Claude Code reports a
 // finished background task as a <task-notification> turn, a message from another agent session
 // as an <agent-message>, local slash commands as their captured output, and reminders on their
-// own. They continue the current task; routing them would create a task nobody asked for and a
+// own; the desktop app reports pull-request CI state as a <ci-monitor-event>. They continue the current task; routing them would create a task nobody asked for and a
 // Stop reminder to resolve it. The whole prompt must consist of such elements, so a user message
 // that quotes one, or adds its own words after one, is still a request.
-const HOST_ELEMENT = /\s*<(task-notification|agent-message|local-command-(?:caveat|stdout|stderr)|command-(?:name|message|args)|system-reminder)(?:\s[^>]*)?>[\s\S]*?<\/\1>/y;
+const HOST_ELEMENT = /\s*<(task-notification|agent-message|ci-monitor-event|local-command-(?:caveat|stdout|stderr)|command-(?:name|message|args)|system-reminder)(?:\s[^>]*)?>[\s\S]*?<\/\1>/y;
 export function hostEnvelope(prompt) {
   if (typeof prompt !== 'string') return null;
   const text = prompt.trimEnd(), tags = [];

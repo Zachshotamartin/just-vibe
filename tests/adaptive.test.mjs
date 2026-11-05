@@ -498,6 +498,7 @@ test('host notifications and local-command echoes never start a task (R2-01)', t
     '<task-notification>\n<task-id>a1</task-id>\n<status>completed</status>\n<result>Fix the agent-qa routing and remember to deploy</result>\n</task-notification>',
     '<agent-message from="a1b2">\n[Subagent hand-back] Fix the routing tests and deploy the site\n</agent-message>',
     '<local-command-stdout>Set model to opus</local-command-stdout>',
+    '<ci-monitor-event>Auto-fix was enabled for this session. Fix CI failures when they are reported. No action needed right now.</ci-monitor-event>',
     '<local-command-caveat>Caveat: the command below ran locally.</local-command-caveat>\n<command-name>/compact</command-name>\n<command-message>compact</command-message>\n<command-args></command-args>\n<local-command-stdout>Compacted</local-command-stdout>',
     '<system-reminder>Context was compacted.</system-reminder>',
     '<system-reminder id="r1">Review the build output.</system-reminder>',
