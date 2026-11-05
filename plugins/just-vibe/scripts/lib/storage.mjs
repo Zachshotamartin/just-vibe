@@ -24,10 +24,11 @@ export function within(root, path) {
       if (entryAt(inspect)?.isSymbolicLink()) throw Error('Symlink paths are not supported for managed state or evidence.');
       inspect = dirname(inspect);
     }
-    // The deepest existing entry can be a lock another process removes meanwhile.
+    // Resolve directories only. A file there can be a lock another process deletes
+    // meanwhile, and Windows then reports its open handle under \$Extend\$Deleted.
+    if (!entryAt(cursor)?.isDirectory() && dirname(cursor) !== cursor) { tail.unshift(basename(cursor)); cursor = dirname(cursor); }
     const real = realOrNull(cursor);
     if (real) full = resolve(real, ...tail);
-    else if (realOrNull(dirname(cursor))) full = resolve(realOrNull(dirname(cursor)), basename(cursor), ...tail);
   }
   const rel = relative(base, full);
   if (isAbsolute(rel) || rel === '..' || rel.startsWith(`..${sep}`)) throw Error('Path escapes the selected project.');
