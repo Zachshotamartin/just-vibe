@@ -26,13 +26,16 @@ try {
   page.on('pageerror', error => errors.push(error.message));
   const button = name => page.getByRole('button', { name, exact: true });
   const settled = () => page.evaluate(() => new Promise(done => requestAnimationFrame(() => requestAnimationFrame(done))));
+  // Released routes stay registered and pass requests through. Unrouting while the page reacts to the
+  // released response can strand its follow-up request in Playwright's interception teardown.
   async function holdResponse(pattern) {
-    const arrived = deferred(), release = deferred(); releases.push(release.resolve);
-    await page.route(pattern, async route => {
-      const response = await route.fetch(); arrived.resolve();
-      await release.promise; await route.fulfill({ response });
+    const arrived = deferred(), release = deferred(), held = []; let released = false; releases.push(release.resolve);
+    await page.route(pattern, route => {
+      if (released) return route.fallback();
+      const fulfilled = route.fetch().then(async response => { arrived.resolve(); await release.promise; await route.fulfill({ response }); });
+      held.push(fulfilled); return fulfilled;
     });
-    return { arrived: arrived.promise, release: async () => { release.resolve(); await page.unrouteAll({ behavior: 'wait' }); } };
+    return { arrived: arrived.promise, release: async () => { released = true; release.resolve(); await Promise.all(held); } };
   }
 
   await page.goto(app.url);
@@ -47,6 +50,26 @@ try {
   assert.equal(await page.locator('#rows article').count(), 0);
   await loading.release();
   await page.getByRole('heading', { name: 'fix', exact: true }).waitFor();
+
+  // A reload that overtakes an earlier load owns the view; the older response must not replace it.
+  const overtaken = deferred(), overtakenArrived = deferred(); let overtakenHeld = false; releases.push(overtaken.resolve);
+  await page.route('**/api/preferences', async route => {
+    if (overtakenHeld) return route.fallback();
+    overtakenHeld = true; overtakenArrived.resolve(); await overtaken.promise;
+    await route.fulfill({ json: { lessons: [], conflicts: [] } });
+  });
+  await button('Refresh').click(); await overtakenArrived.promise;
+  await button('Refresh').click();
+  await page.getByText('1 record', { exact: true }).waitFor();
+  // The load's generation check runs in the same task that parses the overtaken body.
+  await page.evaluate(() => {
+    const json = Response.prototype.json; window.overtakenParsed = false;
+    Response.prototype.json = async function () { const value = await json.call(this); if (new URL(this.url).pathname === '/api/preferences') window.overtakenParsed = true; return value; };
+  });
+  overtaken.resolve();
+  await page.waitForFunction(() => window.overtakenParsed);
+  assert.equal(await page.locator('#status').textContent(), '1 record', 'An overtaken load must not redraw or leave the view loading');
+  assert.equal(await page.locator('#rows article').count(), 1);
 
   // Task recency can differ from instruction-delivery recency.
   await page.route('**/api/preferences-activity', async route => {
@@ -235,7 +258,7 @@ try {
   await button('Save task exclusions').click(); assert.equal((await savedExclusions).status(), 200);
   assert.deepEqual(taskStore.task(task.id).ignoredLessons, []);
   assert.deepEqual(errors, []);
-  console.log('Dashboard races passed: loading/filtering, delivery order, exclusive preference saves and retry, duplicate creation, retained drafts, exact backup download, near-limit backup round trip, exact pending import, slow file reads and retained/rebased task exclusions.');
+  console.log('Dashboard races passed: loading/filtering, overtaken loads, delivery order, exclusive preference saves and retry, duplicate creation, retained drafts, exact backup download, near-limit backup round trip, exact pending import, slow file reads and retained/rebased task exclusions.');
 } catch (error) {
   const page = browser?.contexts()[0]?.pages()[0];
   if (page) console.error('Dashboard status at failure:', await page.locator('#status').textContent().catch(() => 'unavailable'));
