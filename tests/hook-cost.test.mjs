@@ -42,7 +42,7 @@ test('the subprocess-free project lookup agrees with git in every layout hooks s
   // Hooks may inherit GIT_DIR from a host shell; gitRead clears it, and the walk agrees.
   const saved = process.env.GIT_DIR;
   process.env.GIT_DIR = join(nested, '.git');
-  try { assert.equal(projectTopLevel(deep), gitRead(deep, ['rev-parse', '--show-toplevel'])); assert.equal(projectTopLevel(deep), repo); }
+  try { assert.equal(projectTopLevel(deep), gitRead(deep, ['rev-parse', '--show-toplevel'])); assert.equal(projectTopLevel(deep), gitRead(repo, ['rev-parse', '--show-toplevel'])); }
   finally { if (saved === undefined) delete process.env.GIT_DIR; else process.env.GIT_DIR = saved; }
 });
 
