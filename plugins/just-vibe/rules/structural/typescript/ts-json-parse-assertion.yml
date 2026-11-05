@@ -1,0 +1,21 @@
+{
+  "id": "ts-json-parse-assertion",
+  "language": "TypeScript",
+  "severity": "warning",
+  "message": "A type assertion on JSON.parse output does not validate the data.",
+  "note": "Narrow external data at runtime (a schema or type guard) before treating it as this type.",
+  "metadata": {
+    "pack": "typescript",
+    "rule": 1
+  },
+  "rule": {
+    "any": [
+      {
+        "pattern": "JSON.parse($$$ARGS) as $TYPE"
+      },
+      {
+        "pattern": "<$TYPE>JSON.parse($$$ARGS)"
+      }
+    ]
+  }
+}

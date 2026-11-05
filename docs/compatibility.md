@@ -64,6 +64,13 @@ Claude Code setup installs two dispatcher commands and an owned skills-directory
 
 Codex uses its native skill picker. The just-vibe router also accepts all four forms when supplied as ordinary prompt text through supported, trusted hooks; parser support does not register new custom commands in the Codex slash menu. Other editors retain their native skill interfaces. See [verification and limits](https://github.com/Zachshotamartin/just-vibe/blob/main/docs/audits/command-shortcuts-2026-09-21.md).
 
+## Unreleased code checks
+
+- **Language servers:** verified on macOS with typescript-language-server 4 (TypeScript 5) and Pyright 1.1 for definition, references and diagnostics; gopls and rust-analyzer use the same protocol path but were not run. A server must be trusted as runner `lsp-<id>` because it can execute project code (tsconfig plugins, build scripts). Sessions are bounded (1-120 s, default 30 s); a server that crashes or sends a message over 8 MiB fails the request instead of returning an empty result.
+- **Claude `.lsp.json`:** written with the documented `command`, `args` and `extensionToLanguage` keys for servers on PATH only. `claude plugin validate` does not check `.lsp.json`, and loading it in a live Claude Code session was not exercised.
+- **Structural rules:** checked against ast-grep 0.51.1. A trusted `ast-grep` runner must identify itself as ast-grep, because `sg` is a different program on some Linux systems.
+- **Mutation testing:** Stryker reports were checked from a real Stryker 9 run with the command test runner; cargo-mutants (`outcomes.json`) and mutmut 3 (`mutants/*.meta`, file scope, exit code 0 counts as a survivor) are parsed from recorded report shapes. Changed lines come from `git diff -U0` against HEAD or a base, plus untracked files.
+
 ## v0.13 review fixes
 
 Tracked `auto` and workflow runs no longer have a default wall-clock limit; set `budget.maxMinutes` (1–1440) to cap one. Stage and attempt budgets are unchanged. A continuation after an exhausted budget is a new run whose `context.continuationOf` names the prior run and the evidence carried forward.

@@ -133,6 +133,12 @@ export function runnerCurrent(runner, root) {
     return false;
   }
 }
+// The stored argv of a trusted, unchanged runner (not the redacted view), for callers that start
+// the trusted binary themselves: language servers, structural scanners and mutation jobs.
+export function trustedCommand(root, id, options = {}) {
+  const store = runtimeStore(root, options), record = (store.get('trusted-runners')?.runners || []).find((r) => r.id === id);
+  return record?.trusted && runnerCurrent(record, store.root) ? { command: record.command, hash: record.hash, timeoutMs: record.timeoutMs } : null;
+}
 const view = (record, root) => ({
   ...record,
   command: redactCommand(record.command),

@@ -219,6 +219,7 @@ export async function proofs(root, op, id, input = {}) {
         vercel: ["deployment", "team"],
         browser: ["url", "steps", "screenshots"],
         migrations: ["directory", "applied"],
+        mutation: ["tool", "report", "base", "mergeBase", "maxSurvived"],
       }[input.collector];
       if (!allowedOptions) throw Error("Unknown evidence collector.");
       object(input.options, allowedOptions);

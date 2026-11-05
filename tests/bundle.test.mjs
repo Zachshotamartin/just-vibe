@@ -164,3 +164,34 @@ test('a first install lists the entry workflows; an existing full install keeps 
   const recorded = JSON.parse(readFileSync(join(ruled, 'plugins/just-vibe/selection.json'), 'utf8'));
   assert.deepEqual([recorded.profile, recorded.rules], ['entry', ['typescript']]);
 });
+
+test('Claude code intelligence registers PATH language servers, survives updates and turns off', async t => {
+  const { chmodSync } = await import('node:fs');
+  const root = temporary(t), bin = join(root, 'bin'), destination = join(root, 'claude');
+  mkdirSync(bin);
+  for (const name of ['typescript-language-server', 'gopls']) {
+    const file = join(bin, process.platform === 'win32' ? `${name}.cmd` : name);
+    writeFileSync(file, process.platform === 'win32' ? '@echo off\r\n' : '#!/bin/sh\n');
+    chmodSync(file, 0o755);
+  }
+  const env = { PATH: bin, PATHEXT: '.CMD' }, marker = () => JSON.parse(readFileSync(join(destination, '.just-vibe-managed.json'), 'utf8'));
+  const lsp = join(destination, 'plugins/just-vibe/.lsp.json');
+  stageBundle(destination, { target: 'claude', codeIntelligence: true, env });
+  const servers = JSON.parse(readFileSync(lsp, 'utf8'));
+  assert.deepEqual(Object.keys(servers).sort(), ['go', 'typescript']);
+  assert.deepEqual(servers.typescript.args, ['--stdio']);
+  assert.equal(servers.go.extensionToLanguage['.go'], 'go');
+  assert.ok(Object.values(servers).every(s => Object.keys(s).every(k => ['command', 'args', 'extensionToLanguage'].includes(k))), 'only keys the strict .lsp.json schema accepts');
+  assert.deepEqual(marker().codeIntelligence.binaries.map(b => b.id).sort(), ['go', 'typescript']);
+  assert.match(marker().codeIntelligence.binaries[0].sha256, /^[0-9a-f]{64}$/);
+  stageBundle(destination, { target: 'claude', replace: true, env });
+  assert.ok(existsSync(lsp), 'an update keeps code intelligence on');
+  stageBundle(destination, { target: 'claude', replace: true, codeIntelligence: false, env });
+  assert.equal(existsSync(lsp), false);
+  assert.equal(marker().codeIntelligence, undefined);
+  const codex = join(root, 'codex');
+  stageBundle(codex, { target: 'codex', codeIntelligence: true, env });
+  assert.equal(existsSync(join(codex, 'plugins/just-vibe/.lsp.json')), false, 'Codex has no plugin language servers');
+  assert.equal(parseArgs(['setup', '--target', 'claude', '--code-intelligence', 'on']).codeIntelligence, true);
+  assert.throws(() => parseArgs(['setup', '--target', 'codex', '--code-intelligence', 'on']), /bundled Claude Code plugin/);
+});

@@ -15,7 +15,9 @@ export const WORKBENCH_ACCESS = {
     'mcp-health': ['status'],
     runners: ['list', 'show'],
     ioc: ['status', 'scan'],
-    atlas: ['list', 'map', 'show', 'validate'],
+    atlas: ['list', 'map', 'show', 'validate', 'servers'],
+    structural: ['rules', 'status'],
+    mutation: ['tools', 'plan', 'report', 'list', 'status', 'result'],
     graph: ['status', 'recall'],
     usage: ['rates', 'report', 'export', 'advise'],
     council: ['list', 'show'],
@@ -52,6 +54,10 @@ export const WORKBENCH_ACCESS = {
     ],
   },
   execute: {
+    // These start a trusted language server, scanner or test-running mutation tool.
+    atlas: ['definition', 'references', 'diagnostics'],
+    structural: ['scan'],
+    mutation: ['start', 'cancel'],
     qa: ['run'],
     'mcp-health': ['probe', 'observe', 'reconnect'],
     runners: ['run'],

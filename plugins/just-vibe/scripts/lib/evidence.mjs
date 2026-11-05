@@ -4,6 +4,7 @@ import { createRequire } from 'node:module';
 import { pathToFileURL } from 'node:url';
 import { runCommand, requireResult, redact, redactValue } from './process.mjs';
 import { within, readJson, projectRoot, digest } from './storage.mjs';
+import { mutationReport } from './mutation.mjs';
 
 const observed = (kind, target, data) => ({ schemaVersion: 1, kind, target, observedAt: new Date().toISOString(), ...data });
 const parse = source => { try { return JSON.parse(source); } catch { throw Error('Provider returned invalid JSON; update or inspect the installed CLI.'); } };
@@ -145,7 +146,14 @@ export async function browserEvidence({ root, url, steps, artifactDirectory }, l
   } finally { await browser.close(); }
 }
 
+// A finished mutation report narrowed to changed lines; surviving mutants fail the criterion.
+export function mutationEvidence({ root, tool, report, base, mergeBase, maxSurvived }) {
+  const summary = mutationReport(root, { tool, ...(report !== undefined ? { report } : {}), ...(base !== undefined ? { base } : {}), ...(mergeBase !== undefined ? { mergeBase } : {}), ...(maxSurvived !== undefined ? { maxSurvived } : {}) });
+  return observed('mutation', { tool, report: summary.report, against: summary.against }, summary);
+}
+
 export async function collectEvidence(kind, options, dependencies = {}) {
+  if (kind === 'mutation') return mutationEvidence(options);
   if (kind === 'github') return githubChecks(options, dependencies.run);
   if (kind === 'vercel') return vercelDiagnosis(options, dependencies.run);
   if (kind === 'migrations') return migrationEvidence(options);

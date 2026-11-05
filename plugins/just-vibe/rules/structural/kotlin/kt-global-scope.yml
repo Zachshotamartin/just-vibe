@@ -1,0 +1,15 @@
+{
+  "id": "kt-global-scope",
+  "language": "Kotlin",
+  "severity": "warning",
+  "message": "GlobalScope work outlives its caller and ignores structured cancellation.",
+  "note": "Launch from a lifecycle-bound CoroutineScope instead.",
+  "metadata": {
+    "pack": "kotlin",
+    "rule": 1
+  },
+  "rule": {
+    "kind": "call_expression",
+    "regex": "^GlobalScope\\s*\\.\\s*(?:launch|async)\\b"
+  }
+}
