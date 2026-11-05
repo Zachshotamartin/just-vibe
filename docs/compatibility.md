@@ -86,3 +86,10 @@ Routing, contract and profile changes were measured on a fixed corpus of 1,183 r
 - **Project root lookup:** hooks find the repository root by walking up to the nearest `.git` entry and, like Git, stop at a mount point. Paths inside `.git` or a bare repository, repositories owned by another user, and malformed or linked `.git` entries still ask Git. As before, the lookup ignores `GIT_DIR` and other `GIT_*` variables inherited from the host. On Windows the result keeps Git's forward slashes.
 - **First installations** list the `entry` profile; existing installations, including those installed before the profile existed, keep their selection on update. `--local` and `--github` sources install every workflow.
 
+## Unreleased execution and coordination
+
+Worker sandbox levels are opt-in through `workers configure`; the default stays `standard`. `host` passes each CLI's own sandbox settings to apply workers. `os` also wraps the worker in `sandbox-exec` on macOS or bubblewrap on Linux. On macOS it was tested with real `sandbox-exec` runs of fixture workers: writes outside the worktree, inspect-worker writes inside it and reads of a fake `~/.ssh` were denied. macOS refuses a nested seatbelt profile, so there `os` replaces the CLI's own sandbox and cannot limit network. On Linux only the bubblewrap arguments are tested. Windows has no os level. Live Claude and Codex workers have not been run under `host` or `os`.
+
+The ready queue (`queue` CLI family, `queue_read` and `queue_manage`) stores one JSON file per item. Claims use a local file lock and are advisory across machines. Concurrent claims were tested with eight processes on one machine.
+
+The MCP server now handles up to four requests at once and can send requests to the client. Form elicitation for plan reviews and lesson approvals, and the two MCP Apps views, turn on only when the client advertises those capabilities. Protocol behavior is covered by stream tests, and the views by a Playwright fixture host. Neither was tried in a live Claude Code session or a production MCP Apps host.

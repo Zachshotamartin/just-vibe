@@ -30,6 +30,7 @@ import { scanConfiguration } from './config-scan.mjs';
 import { patternLearning } from './pattern-learning.mjs';
 import { agents } from './specialists.mjs';
 import { workers } from './workers.mjs';
+import { workQueue } from './work-queue.mjs';
 import { adapters } from './editor-adapters.mjs';
 import { rules } from './rule-packs.mjs';
 import { activity } from './activity.mjs';
@@ -155,6 +156,7 @@ export const PLATFORM_OPERATIONS = {
     'propose',
   ],
   agents: ['list', 'show'],
+  queue: ['list', 'show', 'ready', 'tree', 'cycles', 'create', 'update', 'link', 'unlink', 'claim', 'heartbeat', 'release', 'close', 'reopen', 'dispatch', 'sync'],
   workers: [
     'list',
     'status',
@@ -226,6 +228,7 @@ export async function platformRuntime(family, root, operation, payload = {}, opt
   if (family === 'learn') return patternLearning(root, operation, payload, options);
   if (family === 'agents') return agents(operation, payload);
   if (family === 'workers') return workers(root, operation, payload, options);
+  if (family === 'queue') return workQueue(root, operation, payload, options);
   if (family === 'adapters') return adapters(root, operation, payload);
   if (family === 'rules') return rules(operation, payload);
   if (family === 'activity') return activity(root, operation, payload, options);

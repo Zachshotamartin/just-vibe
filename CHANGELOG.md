@@ -12,6 +12,10 @@
 - Ship seven ast-grep rules for the checkable parts of the TypeScript, Python, Go, Kotlin and C# rule packs (`structural rules|status|scan`). Each names the prose rule it checks; a finding is a review prompt, not proof of a defect.
 - Add mutation testing as proof: `mutation start` runs a trusted Stryker, cargo-mutants or mutmut runner as a detached job (15-minute default, 60-minute limit, cancellable), and `mutation report` or the `mutation` proof collector narrows its report to the lines this change touched. Surviving or unreached mutants on changed lines fail the criterion.
 - Claude Code: `setup --target claude --code-intelligence on` registers language servers found on PATH through the plugin's `.lsp.json`, so Claude starts them itself and receives diagnostics after edits. Updates keep the setting, and doctor reports a changed server binary.
+- Add worker sandbox levels. `host` passes each CLI's own sandbox and network settings; `os` also confines the worker with bubblewrap (Linux) or `sandbox-exec` (macOS, where it replaces the CLI's own sandbox because macOS cannot nest them) to its worktree, temp and CLI state, and hides credential files. `env: minimal` passes only runtime variables and the CLI's own auth. Status and results record the sandbox applied.
+- Add a ready queue of tracked work items with priorities, labels, blocks/parent links, cycle checks, token-based claims with leases, and `ready` ordering. Project queues stay local; team queues are one sorted JSON file per item for Git review. `queue dispatch` claims ready items into an orchestration run with dependencies from their links, and `queue sync` closes accepted items and releases failed ones.
+- Let the MCP server handle requests concurrently and ask the client questions. With form elicitation, `canvas_manage ask` and `learning_review approve` take the user's answer from a host dialog. With MCP Apps, plan review and preferences open as in-host views.
+- Share one cycle check across orchestration, GitHub epics and the queue, and create the personal state directory before the first orchestration lock.
 
 ## 0.13.0
 

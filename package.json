@@ -33,7 +33,7 @@
     "website:build": "npm --prefix website run build",
     "website:test": "npm --prefix website test",
     "test:runtime-browser": "node scripts/smoke-runtime-browser.mjs",
-    "test:canvas-browser": "node scripts/smoke-canvas-browser.mjs",
+    "test:canvas-browser": "node scripts/smoke-canvas-browser.mjs && node scripts/smoke-mcp-apps.mjs",
     "eval:hosts": "node scripts/eval-live-hosts.mjs",
     "audit:ecc": "node scripts/audit-ecc.mjs",
     "test:operator-browser": "node scripts/smoke-operator-browser.mjs && node scripts/smoke-operator-races.mjs",

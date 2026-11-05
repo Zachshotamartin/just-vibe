@@ -30,7 +30,8 @@ export function inspectCanvas(store, id) {
   } catch {}
   return { ...record, stale, effectiveVerdict: stale ? null : record.verdict };
 }
-export function submitCanvasFeedback(store, id, payload) {
+// source names the surface where the user gave the feedback; callers set it, payloads cannot.
+export function submitCanvasFeedback(store, id, payload, source = 'browser-review') {
   object(payload, ['revision', 'artifactHash', 'kind', 'text', 'anchor']);
   const current = inspectCanvas(store, id);
   if (current.stale || payload.artifactHash !== current.artifact.hash)
@@ -43,7 +44,7 @@ export function submitCanvasFeedback(store, id, payload) {
     text: cleanText(payload.text, 'feedback', 4000),
     at: timestamp(),
     artifactHash: current.artifact.hash,
-    source: 'browser-review',
+    source,
   };
   if (payload.kind === 'annotation') {
     if (
@@ -68,6 +69,7 @@ export function submitCanvasFeedback(store, id, payload) {
             reason: message.text,
             at: message.at,
             artifactHash: message.artifactHash,
+            source,
           }
         : current.verdict,
     },

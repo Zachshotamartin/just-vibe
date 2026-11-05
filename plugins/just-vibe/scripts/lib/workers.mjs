@@ -29,16 +29,21 @@ import { specialist, specialistInstructions } from './specialists.mjs';
 import { findExecutable } from './command.mjs';
 import { assistantRuntime } from './assistant-runtime.mjs';
 import { pluginRoot } from './catalog.mjs';
+import { homedir } from 'node:os';
+import { sandboxSettings, validateSandbox, hostSandboxArgs, appliedSandbox, replacesHostSandbox } from './worker-sandbox.mjs';
+import { osSandboxSupport, wrapCommand } from './os-sandbox.mjs';
 
 const ended = ['completed', 'failed', 'cancelled', 'expired'];
-export function workerCommand(host, agent) {
+export function workerCommand(host, agent, settings = sandboxSettings(), platform = process.platform) {
+  const sandbox = hostSandboxArgs(host, agent.mode, settings, platform);
   if (host === 'codex')
     return [
       'codex',
       'exec',
       '--ephemeral',
       '--sandbox',
-      agent.mode === 'inspect' ? 'read-only' : 'workspace-write',
+      // Under a macOS os sandbox Codex cannot start its own seatbelt; the outer profile confines it.
+      replacesHostSandbox(settings, platform) ? 'danger-full-access' : agent.mode === 'inspect' ? 'read-only' : 'workspace-write',
       '-c',
       'agents.enabled=false',
       '-c',
@@ -47,6 +52,7 @@ export function workerCommand(host, agent) {
       'approval_policy="never"',
       '--color',
       'never',
+      ...sandbox,
       '-',
     ];
   if (host === 'claude')
@@ -63,6 +69,7 @@ export function workerCommand(host, agent) {
       '{"mcpServers":{}}',
       '--max-turns',
       '20',
+      ...sandbox,
     ];
   throw Error('Workers support codex or claude.');
 }
@@ -116,8 +123,9 @@ export async function workers(root, operation, payload = {}, options = {}) {
       note: 'Process completion does not verify correctness. Workers may consume your host account usage. No automatic merge or publication.',
     };
   if (operation === 'configure') {
-    object(payload, ['revision', 'enabled', 'maxWorkers', 'timeoutSeconds']);
+    object(payload, ['revision', 'enabled', 'maxWorkers', 'timeoutSeconds', 'sandbox', 'network', 'env']);
     const next = { ...state, ...payload };
+    validateSandbox(sandboxSettings(next));
     if (
       typeof next.enabled !== 'boolean' ||
       !Number.isInteger(next.maxWorkers) ||
@@ -154,9 +162,13 @@ export async function workers(root, operation, payload = {}, options = {}) {
       throw Error('Worker concurrency limit reached; stop or finish an existing worker.');
     if (state.jobs.length >= 100) throw Error('Clean up old workers before starting more.');
     const agent = specialist(payload.agent),
-      command = options.command || workerCommand(payload.host, agent);
+      settings = validateSandbox(sandboxSettings(state)),
+      command = options.command || workerCommand(payload.host, agent, settings);
     if (!options.command && !findExecutable(command[0]))
       throw Error(`${command[0]} is not installed.`);
+    // Refuse before reserving a slot or creating a worktree.
+    const support = settings.level === 'os' ? (options.osSandbox || osSandboxSupport()) : null;
+    if (support && !support.available) throw Error(`The os worker sandbox is unavailable: ${support.reason}`);
     const brief = cleanText(payload.brief, 'worker brief', 12000),
       source = payload.source || 'working-tree';
     if (!['head', 'working-tree'].includes(source))
@@ -180,6 +192,7 @@ export async function workers(root, operation, payload = {}, options = {}) {
       source,
       createdAt: timestamp(),
       briefHash: digest(brief),
+      sandbox: appliedSandbox(payload.host, agent.mode, settings, support?.mechanism || null),
       ...(payload.assignment
         ? { assignment: cleanText(payload.assignment, 'assignment', 200) }
         : {}),
@@ -198,10 +211,26 @@ export async function workers(root, operation, payload = {}, options = {}) {
         mode: 0o600,
       });
       const method = assistantRuntime(root, 'load', { workflow: agent.workflow }, options);
+      const temp = join(full, 'tmp');
+      mkdirSync(temp, { mode: 0o700 });
+      const wrapped = support
+        ? wrapCommand(command, {
+            host: payload.host,
+            worktree: cwd,
+            gitDir: git(cwd, ['rev-parse', '--absolute-git-dir']).trim(),
+            temp,
+            home: options.userHome || homedir(),
+            readOnly: agent.mode === 'inspect',
+            support,
+          })
+        : null;
       const config = {
         token,
         cwd,
-        command,
+        command: wrapped ? wrapped.command : command,
+        host: payload.host,
+        envPolicy: settings.env,
+        ...(wrapped ? { temp } : {}),
         prompt: `${specialistInstructions(agent)}\n\nAssigned brief:\n${brief}\n\nSnapshot source: ${source}. Return findings to stdout. Never commit or publish.\n\nMaintained workflow method (the specialist's narrower scope still applies):\n${method.instructions}\n\nSupporting workflow references are inside ${pluginRoot}. Report unavailable references rather than inventing their contents.`,
         timeoutSeconds: state.timeoutSeconds,
       };
@@ -275,6 +304,7 @@ export async function workers(root, operation, payload = {}, options = {}) {
         })),
         verification: previous?.resultHash === resultHash ? previous : null,
         application: job.application || null,
+        sandbox: job.sandbox || { level: 'standard' },
       };
     if (operation === 'verify') {
       validateChecks(payload.checks);
