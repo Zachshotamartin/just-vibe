@@ -1,11 +1,14 @@
 import { existsSync, lstatSync, realpathSync, readFileSync, readlinkSync, mkdirSync, openSync, closeSync, writeFileSync, renameSync, unlinkSync, readdirSync } from 'node:fs';
-import { resolve, join, relative, sep, dirname, isAbsolute } from 'node:path';
+import { resolve, join, relative, sep, dirname, basename, isAbsolute } from 'node:path';
 import { createHash, randomUUID } from 'node:crypto';
 import { gitRead } from './project.mjs';
 import { withFileLock, atomicFile } from './file-lock.mjs';
 
 export const digest = value => createHash('sha256').update(value).digest('hex');
 export const projectRoot = root => realpathSync.native(resolve(root));
+// Another process may remove an entry at any moment; such an entry reads as absent.
+const entryAt = path => { try { return lstatSync(path); } catch { return null; } };
+const realOrNull = path => { try { return realpathSync.native(path); } catch { return null; } };
 export const privateName = name => /(?:^\.env(?:\.|$)|\.(?:pem|key|p12|pfx)$|credentials|secrets?\.)/i.test(name);
 
 export function within(root, path) {
@@ -18,19 +21,22 @@ export function within(root, path) {
     while (!existsSync(cursor)) { const parent = dirname(cursor); if (parent === cursor) break; tail.unshift(cursor.slice(parent.length).replace(/^[\\/]+/, '')); cursor = parent; }
     let inspect = cursor;
     while (inspect !== dirname(inspect)) {
-      if (lstatSync(inspect).isSymbolicLink()) throw Error('Symlink paths are not supported for managed state or evidence.');
+      if (entryAt(inspect)?.isSymbolicLink()) throw Error('Symlink paths are not supported for managed state or evidence.');
       inspect = dirname(inspect);
     }
-    if (existsSync(cursor)) full = resolve(realpathSync.native(cursor), ...tail);
+    // The deepest existing entry can be a lock another process removes meanwhile.
+    const real = realOrNull(cursor);
+    if (real) full = resolve(real, ...tail);
+    else if (realOrNull(dirname(cursor))) full = resolve(realOrNull(dirname(cursor)), basename(cursor), ...tail);
   }
   const rel = relative(base, full);
   if (isAbsolute(rel) || rel === '..' || rel.startsWith(`..${sep}`)) throw Error('Path escapes the selected project.');
   let cursor = base;
   for (const part of rel.split(sep).filter(Boolean)) {
     cursor = join(cursor, part);
-    if (existsSync(cursor) || (() => { try { return lstatSync(cursor).isSymbolicLink(); } catch { return false; } })()) {
-      if (lstatSync(cursor).isSymbolicLink()) throw Error('Symlink paths are not supported for managed state or evidence.');
-    }
+    // One lstat per part: a lock another process removes between two checks
+    // counts as missing instead of failing the caller with ENOENT.
+    if (entryAt(cursor)?.isSymbolicLink()) throw Error('Symlink paths are not supported for managed state or evidence.');
   }
   return full;
 }
