@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "name": "just-vibe",
+  "version": "0.14.0",
+  "registry": "https://registry.npmjs.org/",
+  "sourceCommit": "a99a9549dbf19e8b0ea3f30d6cb268a95f2289d1",
+  "sha256": "6da3a1ed7901d5dad5836e034b610990e57299b3b174e9046411543215116d29",
+  "integrity": "sha512-PlxZt+GASrSYGuRCDPAqUuFbuOQzEmFfZUVrKECu2Aj80emqZ1qbPL+bj1ss2RxBARGbe1KsNfbftMBa0rZLYQ==",
+  "shasum": "49f939ed3b8b2b9cc16c5e1265ce512fadbe702d",
+  "publishedAt": "2026-11-05T22:58:43.103Z",
+  "verifiedAt": "2026-11-05T22:59:36.000Z",
+  "distTag": "latest",
+  "registryExecution": "0.14.0",
+  "ci": {
+    "status": "passed",
+    "run": "https://github.com/Zachshotamartin/just-vibe/actions/runs/42123560443",
+    "jobs": "Ubuntu, macOS and Windows with Node 22 and 24, plus web acceptance, on the source commit"
+  },
+  "localValidation": {
+    "tests": 548,
+    "passed": 544,
+    "failed": 0,
+    "skipped": 4,
+    "skipReason": "Platform-specific tests on macOS",
+    "releaseNode": "v26.7.0",
+    "skillsValidated": 221,
+    "archiveFiles": 672,
+    "archivePackageManagers": [
+      "npm",
+      "pnpm 10.14.0",
+      "pnpm 12.5.1",
+      "Yarn 4.18.0"
+    ],
+    "operatorBrowser": "npm run test:operator-browser passed on the combined release tree",
+    "record": "0.14.0.md"
+  },
+  "publicationNote": "Published once. The registry returned 404 for about five minutes while it processed the accepted upload, so the publish script's immediate integrity check failed. Nothing was resubmitted; rerunning the script found the exact archive published, then verified its integrity and fresh-cache execution. Live host and model trials were not run; see 0.14.0.md for limits."
+}
