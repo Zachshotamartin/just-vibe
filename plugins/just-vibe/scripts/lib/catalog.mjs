@@ -152,6 +152,22 @@ export function loadCatalog(root = pluginRoot) {
   return { ...catalog, packs: packs.packs, root };
 }
 
+// An installed copy was validated by the release that built it. Newer authoring rules must not
+// block reading it to update, inspect or remove that installation, so only the fields that name
+// files are checked.
+export function loadInstalledCatalog(root) {
+  const packs = JSON.parse(readFileSync(resolve(root, 'catalog/packs.json'), 'utf8'));
+  const source = JSON.parse(readFileSync(resolve(root, 'catalog/commands.json'), 'utf8'));
+  if (source.schemaVersion !== 1 || !Array.isArray(source.commands) || !Array.isArray(packs.packs)) throw new Error('Unsupported installed catalog.');
+  const ids = new Set();
+  for (const c of source.commands) {
+    if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(c?.id) || ids.has(c.id) || typeof c.summary !== 'string'
+        || (!c.aliasOf && c.skillPath !== `skills/${c.id}/SKILL.md`)) throw new Error(`Invalid installed command: ${c?.id}`);
+    ids.add(c.id);
+  }
+  return { ...materializeAliases(source), packs: packs.packs, root };
+}
+
 export function getCommand(catalog, id, { canonical = false } = {}) {
   const name = commandName(id);
   let command = catalog.commands.find(c => c.id === name);

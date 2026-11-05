@@ -1,6 +1,6 @@
 {
   "name": "just-vibe",
-  "version": "0.14.0",
+  "version": "0.14.1",
   "description": "Engineering workflows and role profiles for coding agents.",
   "homepage": "https://just-vibe-tools.vercel.app/",
   "type": "module",

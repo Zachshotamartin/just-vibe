@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.14.1
+
+- Update, inspect and remove Claude Code installations made by 0.12.0 or earlier. 0.14.0 checked the installed copy against workflow rules added in 0.13.0, so `update --target claude` and `doctor --target claude` stopped with "Command compare: procedure[5] promises a write". An installed copy is now read with shape checks only. Codex installations were not affected.
+
 ## 0.14.0
 
 0.13.0 was prepared but not published to npm. This release also contains its changes, listed under 0.13.0.

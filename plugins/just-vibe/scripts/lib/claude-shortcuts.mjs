@@ -2,7 +2,7 @@ import { existsSync, mkdirSync, readFileSync, readdirSync } from 'node:fs';
 import { resolve, join } from 'node:path';
 import { homedir } from 'node:os';
 import { managedFiles } from './managed-files.mjs';
-import { loadCatalog } from './catalog.mjs';
+import { loadCatalog, loadInstalledCatalog } from './catalog.mjs';
 import { DEFAULT_SELECTION, selectPayload } from './selection.mjs';
 import { within, readJson } from './storage.mjs';
 
@@ -40,7 +40,7 @@ export function claudeShortcuts(options, { source, operation, dryRun = false, ro
   // Read the actual staged selection when available, rather than exposing skills
   // which a core/frontend/ML installation intentionally excluded.
   const plugin = source && join(source, 'plugins/just-vibe');
-  let catalog = loadCatalog(plugin && existsSync(join(plugin, 'catalog/commands.json')) ? plugin : undefined), ids;
+  let catalog = plugin && existsSync(join(plugin, 'catalog/commands.json')) ? loadInstalledCatalog(plugin) : loadCatalog(), ids;
   if (dryRun && operation === 'install' && !options.local && !options.github
       && (options.command === 'update' || !plugin || !existsSync(join(plugin, 'catalog/commands.json')))) {
     // Preflight the future payload before the native host or managed bundle is

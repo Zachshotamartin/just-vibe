@@ -88,6 +88,31 @@ test('shortcut lifecycle respects ownership, selection, dry runs and uninstall',
   assert.equal(existsSync(join(config, 'commands/jv.md')), false);
 });
 
+// Regression: 0.14.0 could not update, inspect or remove a Claude installation whose catalog came
+// from 0.12.0, because reading the installed copy applied the newer workflow contract rules.
+test('shortcuts read an installed catalog that newer contract rules reject', t => {
+  const root = fixture(t), source = join(root, 'source'), config = join(root, 'config');
+  stageBundle(source, { target: 'claude' });
+  const options = { target: 'claude', scope: 'user' };
+  claudeShortcuts(options, { root: config, source, operation: 'install' });
+  // 0.12.0 shipped compare without the apply clause that 0.13.0 added to its mode policy.
+  const path = join(source, 'plugins/just-vibe/catalog/commands.json'), installed = JSON.parse(readFileSync(path, 'utf8'));
+  const compare = installed.commands.find(c => c.id === 'compare');
+  compare.modePolicy = compare.modePolicy.replace(' A request to build or try alternatives uses apply mode.', '');
+  writeFileSync(path, JSON.stringify(installed, null, 2) + '\n');
+  assert.throws(() => loadCatalog(join(source, 'plugins/just-vibe')), /compare: procedure\[5\] promises a write/);
+  const health = claudeShortcuts(options, { root: config, source, operation: 'doctor' });
+  assert.equal(health.installed, true);
+  assert.deepEqual(health.conflicts, []);
+  claudeShortcuts({ ...options, command: 'update' }, { root: config, source, operation: 'install', dryRun: true });
+  claudeShortcuts(options, { root: config, source, operation: 'uninstall' });
+  assert.equal(existsSync(join(config, 'skills/just-vibe-shortcuts/skills/compare/SKILL.md')), false);
+  // Shape checks still guard the paths built from installed command IDs.
+  installed.commands[0].id = '../escape';
+  writeFileSync(path, JSON.stringify(installed, null, 2) + '\n');
+  assert.throws(() => claudeShortcuts(options, { root: config, source, operation: 'doctor' }), /Invalid installed command/);
+});
+
 test('selection expansion preflights new shortcut conflicts before changing the source', t => {
   const root = fixture(t), source = join(root, 'source'), config = join(root, 'config');
   stageBundle(source, { target: 'claude', selection: { profile: 'core' } });
