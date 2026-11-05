@@ -1,14 +1,14 @@
 #!/usr/bin/env node
 import { spawnSync } from 'node:child_process';
 import { existsSync, readFileSync, realpathSync } from 'node:fs';
-import { resolve } from 'node:path';
+import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { isDirectRun } from './lib/entrypoint.mjs';
 import { managedSource, stageBundle, inspectManaged, validateBundle, bundleFileHashes } from './lib/bundle.mjs';
 import { fileHash } from './lib/language-servers.mjs';
 import { commandInvocation } from './lib/command.mjs';
 import { adapters, ADAPTERS } from './lib/editor-adapters.mjs';
-import { selectPayload } from './lib/selection.mjs';
+import { ENTRY_SKILLS, LISTING_ADVICE_CHARS, listingSize, selectPayload } from './lib/selection.mjs';
 import { loadCatalog } from './lib/catalog.mjs';
 import { claudeShortcuts } from './lib/claude-shortcuts.mjs';
 
@@ -33,9 +33,9 @@ Commands:
 Options:
   --target codex|claude|cursor|opencode|copilot|gemini|kimi|qwen|windsurf|antigravity|zed|hermes|adal|codebuddy|joycode|kiro|openclaw|pi|trae
                          Host to configure (default: codex)
-  --profile full|core|frontend|backend|ml
-                         Select native skills (default: full)
-  --packs <comma-list>    Select specialist packs plus core workflows
+  --profile entry|full|core|frontend|backend|ml
+                         Select native skills (new installs: entry; updates keep theirs)
+  --packs <comma-list>    Select specialist packs plus core (or entry) workflows
   --rules <comma-list>    Include language/framework rule packs
   --code-intelligence on|off
                          Claude Code: register language servers found on PATH
@@ -291,6 +291,9 @@ export function install(options, { run = execute, log = console.log, source = so
     const problems = doctorProblems(options, state, source, shortcuts);
     if (problems.length) throw new Error(problems.length === 1 ? problems[0] : `just-vibe needs ${problems.length} repairs:\n${problems.map(p => `- ${p}`).join('\n')}`);
     log(`Healthy: ${PLUGIN}${state.installed.version ? ` v${state.installed.version}` : ''}.`);
+    const listing = listingSize(join(source, 'plugins/just-vibe'));
+    if (listing.skills) log(`Native skills listed: ${listing.skills} (${listing.descriptionChars} description characters).`);
+    if (listing.descriptionChars > LISTING_ADVICE_CHARS) log(`Hosts list skill descriptions within a shared budget, so descriptions may be dropped at this size. To list the ${ENTRY_SKILLS.length} entry workflows instead, run update --profile entry${options.target === 'claude' ? ' --target claude' : ''}; every other workflow stays available through routing and workflow_load.`);
     const intelligence = host === 'claude' && existsSync(source) ? inspectManaged(source)?.codeIntelligence : null;
     if (intelligence?.enabled) {
       const changed = intelligence.binaries.filter(b => fileHash(b.command) !== b.sha256).map(b => b.id);

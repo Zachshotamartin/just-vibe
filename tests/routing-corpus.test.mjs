@@ -5,7 +5,7 @@ import { loadCorpus, catalogExamples, measureRouting } from '../scripts/lib/rout
 
 // Ratchet: raise these when routing improves; lowering one needs a reviewed reason.
 // Corpus: 1,183 realistic requests from the September 2026 review (tests/fixtures/routing/corpus.json).
-const CORPUS = { first: 0.631, top3: 0.817, absent: 0.092, activates: 0.729, activeFirst: 0.653 };
+const CORPUS = { first: 0.633, top3: 0.818, absent: 0.091, activates: 0.729, activeFirst: 0.655 };
 // The catalog's own examples, excluding entry points the router never suggests.
 const EXAMPLES = { first: 0.75, top3: 0.911, absent: 0.021 };
 

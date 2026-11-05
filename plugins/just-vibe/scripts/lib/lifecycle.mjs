@@ -1,13 +1,12 @@
-import { handleHook } from './automation.mjs';
-import { assistantHook } from './assistant-hooks.mjs';
-import { policyHook } from './action-policy.mjs';
-import { healthHook } from './context-health.mjs';
-import { commitQualityHook } from './quality.mjs';
 import { behaviorHook, hookEnabled } from './behavior-rules.mjs';
-import { sessionLifecycleHook } from './native-sessions.mjs';
-import { mcpHealth } from './mcp-health.mjs';
-import { configurationInventory } from './config-inventory.mjs';
 import { investigationHook } from './investigation.mjs';
+
+// A hook process handles one event, so each feature module loads only when that event uses it.
+// PreToolUse, which runs before every tool call, then skips the routing and catalog modules.
+const load = {
+  policy: () => import('./action-policy.mjs').then((m) => m.policyHook),
+  commit: () => import('./quality.mjs').then((m) => m.commitQualityHook),
+};
 
 export async function lifecycle(event, options = {}) {
   if (!event.cwd) return {};
@@ -23,12 +22,9 @@ export async function lifecycle(event, options = {}) {
   const investigation = investigationHook(event, options);
   if (investigation.hookSpecificOutput?.permissionDecision === 'deny') return investigation;
   if (event.hook_event_name === 'PreToolUse') {
-    for (const [feature, run] of [
-      ['policy', policyHook],
-      ['commit', commitQualityHook],
-    ]) {
+    for (const feature of ['policy', 'commit']) {
       if (!enabled(feature)) continue;
-      const result = await run(event, options);
+      const result = await (await load[feature]())(event, options);
       if (result.hookSpecificOutput?.permissionDecision === 'deny') return result;
       if (result.systemMessage) messages.push(result.systemMessage);
     }
@@ -36,6 +32,7 @@ export async function lifecycle(event, options = {}) {
   }
   if (enabled('sessions')) {
     try {
+      const { sessionLifecycleHook } = await import('./native-sessions.mjs');
       const saved = sessionLifecycleHook(event, options);
       if (saved.systemMessage) messages.push(saved.systemMessage);
     } catch {
@@ -48,6 +45,7 @@ export async function lifecycle(event, options = {}) {
     /^mcp__[^_].*__/.test(event.tool_name || '')
   ) {
     try {
+      const [{ configurationInventory }, { mcpHealth }] = await Promise.all([import('./config-inventory.mjs'), import('./mcp-health.mjs')]);
       const name = event.tool_name.slice(5, event.tool_name.lastIndexOf('__'));
       const matches = configurationInventory(root, {}, options).servers.filter(
         (s) => s.name === name,
@@ -79,6 +77,7 @@ export async function lifecycle(event, options = {}) {
   }
   if (enabled('automation')) {
     try {
+      const { handleHook } = await import('./automation.mjs');
       const result = await handleHook(event, options);
       if (result.message) messages.push(result.message);
     } catch {
@@ -88,6 +87,10 @@ export async function lifecycle(event, options = {}) {
   let assistant = {};
   if (enabled('assistant')) {
     try {
+      // Tool observations skip the routing modules that prompts and Stop need.
+      const assistantHook = ['PostToolUse', 'PostToolUseFailure'].includes(event.hook_event_name)
+        ? (await import('./task-observations.mjs')).observeHook
+        : (await import('./assistant-hooks.mjs')).assistantHook;
       assistant = assistantHook(
         options.suppressFollowup && event.hook_event_name === 'Stop'
           ? { ...event, stop_hook_active: true }
@@ -100,6 +103,7 @@ export async function lifecycle(event, options = {}) {
   }
   if (enabled('health')) {
     try {
+      const { healthHook } = await import('./context-health.mjs');
       const result = healthHook(event, options);
       messages.push(...(result.warnings || []).map((w) => w.message));
     } catch {

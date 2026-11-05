@@ -144,6 +144,27 @@ test('a stale host cache is not reported as a successful update or healthy insta
   assert.throws(() => install(parseArgs(['update']), { ...fixture, run }), /Host still reports/);
 });
 
+test('a first install lists the entry workflows; an existing full install keeps every skill on update', t => {
+  const root = temporary(t), fresh = join(root, 'fresh'), full = join(root, 'full');
+  stageBundle(fresh, { target: 'claude' });
+  const selection = JSON.parse(readFileSync(join(fresh, 'plugins/just-vibe/selection.json'), 'utf8'));
+  assert.equal(selection.profile, 'entry');
+  assert.ok(existsSync(join(fresh, 'plugins/just-vibe/skills/fix/SKILL.md')));
+  // Excluded workflows stay installed as references that routing and workflow_load still read.
+  assert.equal(existsSync(join(fresh, 'plugins/just-vibe/skills/db-migrate/SKILL.md')), false);
+  assert.ok(existsSync(join(fresh, 'plugins/just-vibe/skills/db-migrate/REFERENCE.md')));
+  stageBundle(full, { target: 'claude', selection: { profile: 'full', packs: [] } });
+  stageBundle(full, { target: 'claude', replace: true });
+  assert.ok(existsSync(join(full, 'plugins/just-vibe/skills/db-migrate/SKILL.md')), 'Update keeps the full selection');
+  stageBundle(fresh, { target: 'claude', replace: true });
+  assert.equal(JSON.parse(readFileSync(join(fresh, 'plugins/just-vibe/selection.json'), 'utf8')).profile, 'entry', 'Update keeps the entry selection');
+  // Choosing only rule packs on a first install still lists the entry workflows, as editor adapters do.
+  const ruled = join(root, 'ruled');
+  stageBundle(ruled, { target: 'claude', selection: { rules: ['typescript'] } });
+  const recorded = JSON.parse(readFileSync(join(ruled, 'plugins/just-vibe/selection.json'), 'utf8'));
+  assert.deepEqual([recorded.profile, recorded.rules], ['entry', ['typescript']]);
+});
+
 test('Claude code intelligence registers PATH language servers, survives updates and turns off', async t => {
   const { chmodSync } = await import('node:fs');
   const root = temporary(t), bin = join(root, 'bin'), destination = join(root, 'claude');
