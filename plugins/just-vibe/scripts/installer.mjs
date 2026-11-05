@@ -1,10 +1,11 @@
 #!/usr/bin/env node
 import { spawnSync } from 'node:child_process';
-import { readFileSync, realpathSync } from 'node:fs';
+import { existsSync, readFileSync, realpathSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { isDirectRun } from './lib/entrypoint.mjs';
 import { managedSource, stageBundle, inspectManaged, validateBundle, bundleFileHashes } from './lib/bundle.mjs';
+import { fileHash } from './lib/language-servers.mjs';
 import { commandInvocation } from './lib/command.mjs';
 import { adapters, ADAPTERS } from './lib/editor-adapters.mjs';
 import { ENTRY_SKILLS, LISTING_ADVICE_CHARS, listingSize, selectPayload } from './lib/selection.mjs';
@@ -36,6 +37,9 @@ Options:
                          Select native skills (new installs: entry; updates keep theirs)
   --packs <comma-list>    Select specialist packs plus core (or entry) workflows
   --rules <comma-list>    Include language/framework rule packs
+  --code-intelligence on|off
+                         Claude Code: register language servers found on PATH
+                         (TypeScript, Pyright, gopls, rust-analyzer) through .lsp.json
   --root <directory>     Project root for editor file adapters
   --scope user|project|local
                          Claude installation scope (default: user)
@@ -68,7 +72,7 @@ export function parseArgs(args) {
     const arg = args[i];
     if (arg === '--help' || arg === '-h') return { ...options, command: 'help' };
     if (arg === '--version') return { ...options, command: 'version' };
-    if (['--target', '--scope', '--local', '--github', '--dry-run', '--profile', '--packs', '--rules', '--root', '--editor-hooks'].includes(arg)) {
+    if (['--target', '--scope', '--local', '--github', '--dry-run', '--profile', '--packs', '--rules', '--root', '--editor-hooks', '--code-intelligence'].includes(arg)) {
       if (flags.has(arg)) throw new Error(`Duplicate option: ${arg}`);
       flags.add(arg);
       if (arg === '--local') options.local = true;
@@ -89,6 +93,12 @@ export function parseArgs(args) {
   }
   if (!ADAPTERS.some(a => a.id === options.target)) throw new Error('Unsupported --target.');
   if (options.editorHooks && !['cursor','opencode','kiro'].includes(options.target)) throw Error('--editor-hooks requires Cursor, OpenCode or Kiro.');
+  if (options['code-intelligence'] !== undefined) {
+    if (!['on', 'off'].includes(options['code-intelligence'])) throw Error('--code-intelligence takes on or off.');
+    if (options.target !== 'claude' || options.local || options.github) throw Error('--code-intelligence applies to the bundled Claude Code plugin.');
+    options.codeIntelligence = options['code-intelligence'] === 'on';
+    delete options['code-intelligence'];
+  }
   if (options.target === 'hermes' && !options.root) throw Error('Hermes requires --root pointing to its configured HERMES_HOME, usually ~/.hermes.');
   if (!SCOPES.has(options.scope)) throw new Error('--scope must be user, project, or local.');
   if (options.local && options.github) throw new Error('--local and --github cannot be combined.');
@@ -284,6 +294,11 @@ export function install(options, { run = execute, log = console.log, source = so
     const listing = listingSize(join(source, 'plugins/just-vibe'));
     if (listing.skills) log(`Native skills listed: ${listing.skills} (${listing.descriptionChars} description characters).`);
     if (listing.descriptionChars > LISTING_ADVICE_CHARS) log(`Hosts list skill descriptions within a shared budget, so descriptions may be dropped at this size. To list the ${ENTRY_SKILLS.length} entry workflows instead, run update --profile entry${options.target === 'claude' ? ' --target claude' : ''}; every other workflow stays available through routing and workflow_load.`);
+    const intelligence = host === 'claude' && existsSync(source) ? inspectManaged(source)?.codeIntelligence : null;
+    if (intelligence?.enabled) {
+      const changed = intelligence.binaries.filter(b => fileHash(b.command) !== b.sha256).map(b => b.id);
+      log(`Code intelligence: ${intelligence.binaries.map(b => b.id).join(', ') || 'no language servers were found on PATH'}.${changed.length ? ` Changed since setup: ${changed.join(', ')}; review them and run update --code-intelligence on --target claude to record them again.` : ''}`);
+    }
     log('Automatic assistance requires a host with UserPromptSubmit/SessionStart/PostToolUse/Stop hooks and native hook trust. Installation health does not prove event delivery. Use assist status for local settings; inspect hooks in your host if ordinary requests do not activate workflows.');
     return;
   }
@@ -292,7 +307,7 @@ export function install(options, { run = execute, log = console.log, source = so
   if (host === 'claude') shortcuts(options, { source, operation: options.command === 'uninstall' ? 'uninstall' : 'install', dryRun: true });
   let expectedVersion;
   if (!options.github && !options.local && ['setup', 'update'].includes(options.command)) {
-    const version = prepare(source, { target: options.target, replace: options.command === 'update', ...(options.selection ? { selection: options.selection } : {}) });
+    const version = prepare(source, { target: options.target, replace: options.command === 'update', ...(options.selection ? { selection: options.selection } : {}), ...(options.codeIntelligence !== undefined ? { codeIntelligence: options.codeIntelligence } : {}) });
     expectedVersion = version;
     log(`Bundled source: v${version} at ${source}.`);
   }

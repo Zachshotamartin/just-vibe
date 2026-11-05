@@ -66,9 +66,10 @@ export function terminateOwnedGroup(child) {
   });
 }
 
-export async function runCommand(command, { cwd, timeoutMs = 15000, maxBytes = 512 * 1024, env = process.env, signal } = {}) {
+// Long jobs (mutation testing) raise timeoutLimitMs explicitly; everything else stays within two minutes.
+export async function runCommand(command, { cwd, timeoutMs = 15000, maxBytes = 512 * 1024, env = process.env, signal, timeoutLimitMs = 120000 } = {}) {
   if (!Array.isArray(command) || !command.length || command.some(s => typeof s !== 'string' || s.includes('\0'))) throw Error('Command must be an argv array.');
-  if (!Number.isInteger(timeoutMs) || timeoutMs < 1 || timeoutMs > 120000) throw Error('Invalid command timeout.');
+  if (!Number.isInteger(timeoutMs) || timeoutMs < 1 || timeoutMs > timeoutLimitMs) throw Error('Invalid command timeout.');
   if (signal?.aborted) return { status: null, stdout: '', stderr: '', cancelled: true, timedOut: false, truncated: false };
   let child;
   try {

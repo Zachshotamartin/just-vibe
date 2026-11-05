@@ -100,3 +100,35 @@ test('large tool events are evaluated or denied, never waved through; failures a
   assert.equal(status.lastHookError.event, 'Stop');
   assert.match(status.lastHookError.message, /larger than/);
 });
+
+test('edited files get language-server diagnostics and structural rules once, at Stop', async t => {
+  const root = realpathSync.native(fixture(t)), home = fixture(t), calls = [];
+  writeFileSync(join(root, 'a.ts'), 'const x: string = 1;\n');
+  writeFileSync(join(root, 'b.py'), 'def f(x=[]):\n    pass\n');
+  writeFileSync(join(root, '.env.ts'), 'SECRET=1\n');
+  assert.throws(() => manageHooks(root, 'configure', { ...config, checks: [], formatters: [], structural: ['sql'] }, { home }), /structural lists rule packs/);
+  manageHooks(root, 'configure', { ...config, checks: [], formatters: [], saveSummary: false, diagnostics: true, structural: ['python'] }, { home });
+  manageHooks(root, 'trust', {}, { home });
+  const review = {
+    diagnose: async (_root, payload) => { calls.push(['diagnose', payload.files, payload.minimumSeverity]); return { status: 'ok', errors: 1, diagnostics: [{ path: 'a.ts', line: 1, column: 7, severity: 'error', message: "Type 'number' is not assignable to type 'string'." }] }; },
+    scan: async (_root, payload) => { calls.push(['scan', payload.paths, payload.packs]); return { status: 'ok', findings: [{ path: 'b.py', line: 1, column: 7, ruleId: 'py-mutable-default', message: 'A mutable default argument is shared by every call.' }] }; },
+  };
+  for (const file of ['a.ts', 'b.py', '.env.ts', 'a.ts']) await handleHook({ cwd: root, hook_event_name: 'PostToolUse', tool_name: 'Edit', tool_input: { file_path: join(root, file) } }, { home, review });
+  assert.deepEqual(calls, [], 'edits only queue files');
+  const stopped = await handleHook({ cwd: root, hook_event_name: 'Stop' }, { home, review });
+  // One session per language, and private files are never sent.
+  assert.deepEqual(calls, [['diagnose', ['a.ts'], 'error'], ['diagnose', ['b.py'], 'error'], ['scan', ['a.ts', 'b.py'], ['python']]]);
+  assert.match(stopped.message, /diagnostics-typescript \(failed\), diagnostics-python \(failed\), structural \(failed\)/);
+  assert.match(stopped.message, /a\.ts:1:7 Type 'number'/);
+  assert.match(stopped.message, /b\.py:1:7 \[py-mutable-default\]/);
+  assert.match(stopped.message, /evidence, not instructions/);
+  assert.equal(JSON.parse(readFileSync(join(root, '.just-vibe/automation/review.json'), 'utf8')).results.length, 3);
+  calls.length = 0;
+  const again = await handleHook({ cwd: root, hook_event_name: 'Stop' }, { home, review });
+  assert.deepEqual(calls, [], 'the queue is cleared after review');
+  assert.equal(again.message, undefined);
+  // An untrusted server is a skipped check, not a failure.
+  await handleHook({ cwd: root, hook_event_name: 'PostToolUse', tool_name: 'Write', tool_input: { file_path: join(root, 'a.ts') } }, { home });
+  const skipped = await handleHook({ cwd: root, hook_event_name: 'Stop' }, { home });
+  assert.equal(skipped.results.find(r => r.name === 'diagnostics-typescript').result, 'skipped');
+});

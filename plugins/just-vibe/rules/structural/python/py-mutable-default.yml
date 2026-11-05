@@ -1,0 +1,35 @@
+{
+  "id": "py-mutable-default",
+  "language": "Python",
+  "severity": "warning",
+  "message": "A mutable default argument is shared by every call.",
+  "note": "Default to None and create the list, dict or set inside the function.",
+  "metadata": {
+    "pack": "python",
+    "rule": 1
+  },
+  "rule": {
+    "any": [
+      {
+        "kind": "default_parameter"
+      },
+      {
+        "kind": "typed_default_parameter"
+      }
+    ],
+    "has": {
+      "field": "value",
+      "any": [
+        {
+          "kind": "list"
+        },
+        {
+          "kind": "dictionary"
+        },
+        {
+          "kind": "set"
+        }
+      ]
+    }
+  }
+}

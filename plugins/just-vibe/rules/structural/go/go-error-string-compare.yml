@@ -1,0 +1,24 @@
+{
+  "id": "go-error-string-compare",
+  "language": "Go",
+  "severity": "warning",
+  "message": "Comparing error text breaks when errors are wrapped or reworded.",
+  "note": "Use errors.Is or errors.As against the sentinel or type.",
+  "metadata": {
+    "pack": "go",
+    "rule": 2
+  },
+  "rule": {
+    "any": [
+      {
+        "pattern": "$E.Error() == $S"
+      },
+      {
+        "pattern": "$E.Error() != $S"
+      },
+      {
+        "pattern": "$S == $E.Error()"
+      }
+    ]
+  }
+}

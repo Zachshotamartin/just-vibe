@@ -5,6 +5,7 @@ import { homedir } from 'node:os';
 import { fileURLToPath } from 'node:url';
 import { applySelection, DEFAULT_SELECTION } from './selection.mjs';
 import { loadCatalog } from './catalog.mjs';
+import { claudeLspConfiguration } from './language-servers.mjs';
 
 export const packageRoot = fileURLToPath(new URL('../../../../', import.meta.url));
 const marker = '.just-vibe-managed.json';
@@ -75,7 +76,7 @@ function rejectLinks(path) {
 
 // Only the explicit package payload is copied. A failed copy leaves the previous source intact.
 // Retain a valid managed copy on host failure so the same operation can be retried.
-export function stageBundle(destination, { root = packageRoot, replace = false, selection, target = 'codex' } = {}) {
+export function stageBundle(destination, { root = packageRoot, replace = false, selection, target = 'codex', codeIntelligence, env = process.env } = {}) {
   const existing = inspectManaged(destination);
   if (selection && existing && !replace && JSON.stringify(selection) !== JSON.stringify(existing.selection)) throw Error('Use update to change an existing installation selection.');
   if (existing && !replace) { validateBundle(destination); return existing.version; }
@@ -116,8 +117,15 @@ export function stageBundle(destination, { root = packageRoot, replace = false, 
       args: [join(resolve(destination), 'plugins/just-vibe/scripts/mcp.mjs')],
       env_vars: ['JUST_VIBE_HOME'],
     } } }, null, 2) + '\n');
+    // Claude code intelligence is opt-in and kept across updates; servers are detected again each time.
+    let intelligence;
+    if (target === 'claude' && (codeIntelligence ?? existing?.codeIntelligence?.enabled)) {
+      const { servers, binaries } = claudeLspConfiguration({ env });
+      if (Object.keys(servers).length) writeFileSync(join(staging, 'plugins/just-vibe/.lsp.json'), JSON.stringify(servers, null, 2) + '\n');
+      intelligence = { enabled: true, binaries };
+    }
     validateBundle(staging);
-    writeFileSync(join(staging, marker), `${JSON.stringify({ schemaVersion: 1, owner: 'just-vibe', version, files: bundleFileHashes(staging), ...(chosen ? { selection: chosen } : {}) })}\n`);
+    writeFileSync(join(staging, marker), `${JSON.stringify({ schemaVersion: 1, owner: 'just-vibe', version, files: bundleFileHashes(staging), ...(chosen ? { selection: chosen } : {}), ...(intelligence ? { codeIntelligence: intelligence } : {}) })}\n`);
     if (existsSync(destination)) {
       backup = `${staging}-previous`;
       renameSync(destination, backup);

@@ -1,0 +1,15 @@
+{
+  "id": "py-bare-except",
+  "language": "Python",
+  "severity": "warning",
+  "message": "A bare except also catches KeyboardInterrupt, SystemExit and programming errors.",
+  "note": "Catch the specific exceptions this code can handle, and keep the traceback.",
+  "metadata": {
+    "pack": "python",
+    "rule": 3
+  },
+  "rule": {
+    "kind": "except_clause",
+    "regex": "^except\\s*:"
+  }
+}

@@ -3,8 +3,14 @@ import { dirname, relative } from 'node:path';
 import { runtimeStore, object, requireId, cleanText, timestamp } from './runtime-store.mjs';
 import { boundedText, boundedList, walkFiles, integer } from './capability-io.mjs';
 import { within, digest, privateName } from './storage.mjs';
+import { languageServerStatus, definition, references, diagnostics } from './language-servers.mjs';
 
 export function codeAtlas(root, operation, payload = {}, options = {}) {
+  // Compiler-resolved navigation comes from a trusted language server; map stays lexical.
+  if (operation === 'servers') return languageServerStatus(root, options).then(servers => ({ servers, note: 'A detected server starts only after it is configured and trusted as its lsp-<id> runner.' }));
+  if (operation === 'definition') return definition(root, payload, options);
+  if (operation === 'references') return references(root, payload, options);
+  if (operation === 'diagnostics') return diagnostics(root, payload, options);
   const store = runtimeStore(root, options);
   if (operation === 'map') {
     object(payload, ['paths']);

@@ -7,13 +7,13 @@ const ignored = new Set(['.git', 'node_modules', '.venv', 'venv', 'dist', 'build
 const secretName = /(?:^\.env(?:\.|$)|\.(?:pem|key|p12|pfx)$|credentials|secrets?\.)/i;
 const interesting = /^(?:AGENTS\.md|CLAUDE\.md|README(?:\.md)?|package\.json|pyproject\.toml|requirements[^/]*\.txt|Cargo\.toml|go\.mod|Dockerfile[^/]*|compose\.ya?ml|(?:vite|next|vitest|jest|playwright)\.config\.[a-z]+|vercel\.json|prisma\.schema|schema\.prisma|Gemfile|pom\.xml|Makefile)$/;
 
-export function gitRead(root, args) {
+export function gitRead(root, args, { maxBuffer = 512 * 1024, timeout = 5000, trim = true } = {}) {
   const env = Object.fromEntries(Object.entries(process.env).filter(([key]) => !key.startsWith('GIT_')));
   const result = spawnSync('git', ['--no-optional-locks', '--no-pager', '--no-replace-objects', '-c', 'core.fsmonitor=false', '-C', root, ...args], {
-    encoding: 'utf8', timeout: 5000, maxBuffer: 512 * 1024, shell: false, stdio: ['ignore', 'pipe', 'pipe'],
+    encoding: 'utf8', timeout, maxBuffer, shell: false, stdio: ['ignore', 'pipe', 'pipe'],
     env: { ...env, GIT_TERMINAL_PROMPT: '0' },
   });
-  return result.status === 0 ? result.stdout.trim() : null;
+  return result.status === 0 ? (trim ? result.stdout.trim() : result.stdout) : null;
 }
 
 // Hooks resolve the project root on every tool call. Git finds a work tree by walking up to the
