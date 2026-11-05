@@ -60,3 +60,23 @@ const REPAIR_OBJECT = String.raw`(?:it|that|them|those|these|this|all(?:\s+of\s+
 const REPAIR = new RegExp(String.raw`^(?:(?:please|now|ok(?:ay)?|yes|great|thanks|go\s+ahead\s+and|then|so|and)[,\s]+)*(?:fix|repair|patch|remediate|address|resolve|implement)\s+${REPAIR_OBJECT}(?:\s+(?:too|as\s+well|now|please|for\s+me))?[.!\s]*$`, 'i');
 export const repairFollowUp = text => REPAIR.test(text.trim());
 
+
+// Hosts deliver some events through the prompt hook that no user typed: Claude Code reports a
+// finished background task as a <task-notification> turn, a message from another agent session
+// as an <agent-message>, local slash commands as their captured output, and reminders on their
+// own; the desktop app reports pull-request CI state as a <ci-monitor-event>. They continue the current task; routing them would create a task nobody asked for and a
+// Stop reminder to resolve it. The whole prompt must consist of such elements, so a user message
+// that quotes one, or adds its own words after one, is still a request.
+const HOST_ELEMENT = /\s*<(task-notification|agent-message|ci-monitor-event|local-command-(?:caveat|stdout|stderr)|command-(?:name|message|args)|system-reminder)(?:\s[^>]*)?>[\s\S]*?<\/\1>/y;
+export function hostEnvelope(prompt) {
+  if (typeof prompt !== 'string') return null;
+  const text = prompt.trimEnd(), tags = [];
+  for (HOST_ELEMENT.lastIndex = 0; HOST_ELEMENT.lastIndex < text.length;) {
+    const match = HOST_ELEMENT.exec(text);
+    if (!match) return null;
+    tags.push(match[1]);
+  }
+  // A slash command's name and arguments are a request unless a local-command caveat says it ran locally.
+  if (!tags.length || (tags.some(tag => tag.startsWith('command-')) && !tags.includes('local-command-caveat'))) return null;
+  return tags.find(tag => tag !== 'system-reminder') || 'system-reminder';
+}

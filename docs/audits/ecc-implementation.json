@@ -526,7 +526,7 @@
         },
         {
           "path": "plugins/just-vibe/scripts/lib/lifecycle.mjs",
-          "sha256": "7719b93bf03c893a799cb34b330837941c38241db53e87606ab5705ae7d4d9f5"
+          "sha256": "82a10e4d5cc644eceb4394930fa89436e02b827ad9708beb24da70b9d0c4384e"
         },
         {
           "path": "tests/capability-runtime.test.mjs",
@@ -2319,11 +2319,11 @@
       "evidence": [
         {
           "path": "plugins/just-vibe/scripts/lib/editor-adapters.mjs",
-          "sha256": "7775d4dd9169d9a6bbc94515ea07c4998fc06ffd14e46ddf2037c88b8617f0af"
+          "sha256": "3e8f454a08acfc72fbe4f8da34091f90fca6be1251928e643a70c47a844d7bc1"
         },
         {
           "path": "plugins/just-vibe/scripts/lib/editor-events.mjs",
-          "sha256": "8a518b1e95c795ed89a7dc5a290f09be3d0b33742499489428f29db0042fae55"
+          "sha256": "6de0f2b96928004dbb052de4eb356f205ae21750858cedf0458d9d1fa4dc58e5"
         },
         {
           "path": "plugins/just-vibe/scripts/lib/opencode-plugin.mjs",
@@ -2483,7 +2483,7 @@
         },
         {
           "path": "plugins/just-vibe/scripts/lib/bundle.mjs",
-          "sha256": "03d691c56537e38a4e0e97ad3d32105a35c0700c2a3624af214152f68bfe7bf0"
+          "sha256": "8e116aa3abd82aa398f816ebdebadda02645f6650d849cab1d5395d24ae3b028"
         },
         {
           "path": "tests/expansion-contracts.test.mjs",
@@ -2491,7 +2491,7 @@
         },
         {
           "path": "tests/bundle.test.mjs",
-          "sha256": "e86efdde003d7628155a5d3ce90af1323e787c55230262e817a3aa34f9579f8b"
+          "sha256": "b5fba3fe789bbd1ddc6c8fbeb20a373129b37988345e59c6bd4781f2d06c2ab8"
         },
         {
           "path": "tests/release-regressions.test.mjs",

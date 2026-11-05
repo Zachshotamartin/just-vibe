@@ -72,6 +72,13 @@ PreToolUse hook events up to 64 MiB are evaluated and larger ones are denied; ot
 
 Routing, contract and profile changes were measured on a fixed corpus of 1,183 requests and the catalog's own examples. They were not evaluated with live model trials.
 
+## Unreleased efficiency changes
+
+- **Prompt context:** the automatic-assistance protocol is sent with the first routed prompt of each session and again on SessionStart resume/compact, after PreCompact clears the delivered record. Hosts that compact without either event keep the per-prompt pointer to the select/load/evidence tools but may lose the full protocol until the next resume. Cursor (once per task) and OpenCode (per-call system prompt) still receive the full protocol.
+- **Prompt-hook envelopes:** prompts made only of `<task-notification>`, `<agent-message>` (a message from another agent session), `<ci-monitor-event>` (pull-request CI state from the desktop app), `<local-command-stdout>`, `<local-command-stderr>` or `<local-command-caveat>` elements (with the `<command-name>`, `<command-message>` and `<command-args>` of a local command) and `<system-reminder>` blocks continue the current task. A prompt that quotes such a tag or adds other text is routed, and so is a slash command without a local-command caveat.
+- **Project root lookup:** hooks find the repository root by walking up to the nearest `.git` entry and, like Git, stop at a mount point. Paths inside `.git` or a bare repository, repositories owned by another user, and malformed or linked `.git` entries still ask Git. As before, the lookup ignores `GIT_DIR` and other `GIT_*` variables inherited from the host. On Windows the result keeps Git's forward slashes.
+- **First installations** list the `entry` profile; existing installations, including those installed before the profile existed, keep their selection on update. `--local` and `--github` sources install every workflow.
+
 ## Unreleased execution and coordination
 
 Worker sandbox levels are opt-in through `workers configure`; the default stays `standard`. `host` passes each CLI's own sandbox settings to apply workers. `os` also wraps the worker in `sandbox-exec` on macOS or bubblewrap on Linux. On macOS it was tested with real `sandbox-exec` runs of fixture workers: writes outside the worktree, inspect-worker writes inside it and reads of a fake `~/.ssh` were denied. macOS refuses a nested seatbelt profile, so there `os` replaces the CLI's own sandbox and cannot limit network. On Linux only the bubblewrap arguments are tested. Windows has no os level. Live Claude and Codex workers have not been run under `host` or `os`.

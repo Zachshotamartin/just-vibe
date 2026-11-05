@@ -1,6 +1,7 @@
 import { realpathSync, statSync, readFileSync, accessSync, constants } from 'node:fs';
 import { resolve } from 'node:path';
 import { CAPABILITIES, HOSTS, availability, searchCommands, invocation, getCommand } from './catalog.mjs';
+import { DEFAULT_WEIGHTS } from './search.mjs';
 import { findExecutable, gitRead } from './project.mjs';
 import { routeContext, rankCandidates, intentSignals, executionStrategy } from './routing.mjs';
 
@@ -58,8 +59,8 @@ export function toolEntry(catalog, discovery, command, host) {
     validation: command.validation, ...availability(catalog, command, discovery.capabilities, HOSTS.includes(host) ? host : 'claude') };
 }
 
-export function listTools(catalog, discovery, { query = '', pack, available = false, all = false, host = 'claude', limit = 1000 } = {}) {
-  return searchCommands(catalog, query, { pack, limit: 1000 }).map(({ command, score }) => ({
+export function listTools(catalog, discovery, { query = '', pack, available = false, all = false, host = 'claude', limit = 1000, weights = DEFAULT_WEIGHTS } = {}) {
+  return searchCommands(catalog, query, { pack, limit: 1000, weights }).map(({ command, score }) => ({
     ...toolEntry(catalog, discovery, command, host), score,
   })).filter(c => (all || !['planned', 'uninstalled', 'unsupported'].includes(c.status)) && (!available || c.status === 'available')).slice(0, limit);
 }
@@ -67,7 +68,7 @@ export function listTools(catalog, discovery, { query = '', pack, available = fa
 // Routing reads the first 16,000 characters, the same bound as the hook path: intent rules scan
 // with unbounded gaps, so a pasted megabyte log would take minutes. The full brief is still returned.
 export const ROUTE_TEXT = 16000;
-export function recommend(catalog, discovery, brief, { host = 'claude', limit = 3, context = routeContext(discovery.root) } = {}) {
+export function recommend(catalog, discovery, brief, { host = 'claude', limit = 3, context = routeContext(discovery.root), weights = DEFAULT_WEIGHTS } = {}) {
   if (typeof brief !== 'string' || !brief.trim()) throw new Error('A routing goal is required.');
   if (!Number.isInteger(limit) || limit < 1 || limit > 1000) throw Error('limit must be between 1 and 1000.');
   const routed = brief.length > ROUTE_TEXT ? brief.slice(0, ROUTE_TEXT) : brief;
@@ -84,7 +85,7 @@ export function recommend(catalog, discovery, brief, { host = 'claude', limit = 
       available: candidate.status === 'available' ? [candidate] : [], unavailable: candidate.status === 'available' ? [] : [candidate] };
   }
   const query = signals.positive.trim();
-  const matches = (/[a-z0-9]/i.test(query) ? listTools(catalog, discovery, { query, host, all: true, limit: catalog.commands.length }) : [])
+  const matches = (/[a-z0-9]/i.test(query) ? listTools(catalog, discovery, { query, host, all: true, limit: catalog.commands.length, weights }) : [])
     .filter(c => !UNROUTED.includes(c.id));
   // A rule names workflows the words may not; it adds them with no lexical credit, so the
   // rule boost and the request text decide the order rather than a synthetic exact-id score.
@@ -101,7 +102,7 @@ export function recommend(catalog, discovery, brief, { host = 'claude', limit = 
     if (existing) { existing.matchedNames.push(match.id); existing.score = Math.max(existing.score, match.score); continue; }
     unique.set(id, { ...toolEntry(catalog, discovery, canonical, host), score: match.score, matchedNames: [match.id] });
   }
-  const candidates = rankCandidates([...unique.values()], routed, context, signals);
+  const candidates = rankCandidates([...unique.values()], routed, context, signals, weights);
   return { brief, executableHere: false,
     ...(routed !== brief ? { routedCharacters: ROUTE_TEXT } : {}),
     context, strategy: executionStrategy(routed, candidates), recommendations: candidates.slice(0, limit),

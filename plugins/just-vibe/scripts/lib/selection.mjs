@@ -9,8 +9,17 @@ import {
 import { join } from 'node:path';
 import { RULE_PACKS, renderRule } from './rule-packs.mjs';
 import { object } from './runtime-store.mjs';
+// Hosts list every native skill's description in a shared, size-limited budget; all 221 overflow
+// it and lose their descriptions. New installs therefore list a small set of entry workflows. Every
+// other workflow stays installed as a reference that routing, workflows_search and workflow_load
+// still reach, so excluding a skill only removes its listing.
+export const ENTRY_SKILLS = ['auto', 'help', 'tools', 'fix', 'debug', 'build', 'review', 'plan', 'test', 'refactor',
+  'explain', 'verify', 'goal', 'remember', 'reprompt', 'pr', 'security'];
+// Selection for an installation with no explicit choice and no earlier one to keep.
+export const DEFAULT_SELECTION = Object.freeze({ profile: 'entry', packs: [] });
 export const INSTALL_PROFILES = {
   full: null,
+  entry: ENTRY_SKILLS,
   core: ['general', 'installation'],
   frontend: [
     'general',
@@ -58,19 +67,38 @@ export function selectPayload(catalog, selection = {}) {
   const rules = selection.rules || [];
   if (!Array.isArray(rules) || rules.some((r) => !RULE_PACKS.some((p) => p.id === r)))
     throw Error('Unknown language rule pack.');
+  // The entry profile names workflows; added packs extend it rather than replacing it with core.
+  const entry = profile === 'entry';
   const selectedPacks = packs.length
-    ? new Set(['general', 'installation', ...packs])
-    : profile === 'full'
+    ? new Set(entry ? packs : ['general', 'installation', ...packs])
+    : profile === 'full' || entry
       ? null
       : new Set(INSTALL_PROFILES[profile]);
   const ids = catalog.commands
-    .filter((c) => !selectedPacks || selectedPacks.has(c.pack))
+    .filter((c) => (entry ? ENTRY_SKILLS.includes(c.id) || selectedPacks?.has(c.pack) : !selectedPacks || selectedPacks.has(c.pack)))
     .map((c) => c.id);
   for (const id of [...ids]) {
     const c = catalog.commands.find((c) => c.id === id);
     if (c.aliasOf && !ids.includes(c.aliasOf)) ids.push(c.aliasOf);
   }
   return { schemaVersion: 1, profile, packs, rules: [...new Set(rules)], ids: ids.sort() };
+}
+// Hosts truncate or drop skill descriptions once a shared listing budget is exceeded; the exact
+// budget is host-defined, so this is advice rather than a failure.
+export const LISTING_ADVICE_CHARS = 8000;
+export function listingSize(plugin) {
+  const skills = join(plugin, 'skills');
+  let count = 0, chars = 0;
+  if (!existsSync(skills)) return { skills: 0, descriptionChars: 0 };
+  for (const entry of readdirSync(skills, { withFileTypes: true })) {
+    const path = join(skills, entry.name, 'SKILL.md');
+    if (!entry.isDirectory() || !existsSync(path)) continue;
+    const line = readFileSync(path, 'utf8').split('\n', 6).find((l) => l.startsWith('description: '));
+    if (!line) continue;
+    count++;
+    try { chars += JSON.parse(line.slice(13)).length; } catch { chars += line.length - 13; }
+  }
+  return { skills: count, descriptionChars: chars };
 }
 export function applySelection(plugin, selection, catalog) {
   const resolved = selectPayload(catalog, selection),

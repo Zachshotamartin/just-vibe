@@ -21,7 +21,7 @@ npx just-vibe@latest setup
 npx just-vibe@latest setup --target claude
 ```
 
-The installer keeps the bundled plugin under `~/.just-vibe`, then registers it through the host's plugin manager. It survives package-manager cache cleanup. Start a new conversation afterward; host hook trust remains a separate host choice. Installation does not connect services or grant tool access.
+The installer keeps the bundled plugin under `~/.just-vibe`, then registers it through the host's plugin manager. A first installation lists 17 entry workflows as native skills so hosts keep their descriptions; every other workflow stays installed and reachable through ordinary requests, `/jv <name>` and `workflow_load`. Add `--profile full` to list all of them; updates keep the existing selection. It survives package-manager cache cleanup. Start a new conversation afterward; host hook trust remains a separate host choice. Installation does not connect services or grant tool access.
 
 Prefer an installed CLI? Use `npm install -g just-vibe`, `pnpm add -g just-vibe`, or `yarn global add just-vibe` with Yarn Classic, then run `just-vibe setup`. A project dependency also works with your package manager's executable runner. [Installation and compatibility](https://just-vibe-tools.vercel.app/docs/installation/).
 

@@ -3,6 +3,7 @@ import { existsSync, readFileSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 import { readPreferences } from './continuity.mjs';
 import { parseInvocation } from './invocation.mjs';
+import { DEFAULT_WEIGHTS } from './search.mjs';
 import { promptRewrite, ruleText, matchIntents } from './intents.mjs';
 import { effectSignals, remoteSelection } from './effects.mjs';
 
@@ -67,7 +68,7 @@ export function intentSignals(brief) {
 }
 
 const MODE_ORDER = { inspect: 0, plan: 1, apply: 2 };
-export function rankCandidates(candidates, brief, context, signals = intentSignals(brief)) {
+export function rankCandidates(candidates, brief, context, signals = intentSignals(brief), w = DEFAULT_WEIGHTS) {
   const { positive, excluded, matches } = signals;
   const actionRequested = matches.some(rule => rule.action || rule.damp);
   const named = isLesson(brief) ? new Set() : new Set((positive.match(/\b[a-z][a-z0-9]*(?:-[a-z0-9]+)+\b/g) || []));
@@ -75,15 +76,15 @@ export function rankCandidates(candidates, brief, context, signals = intentSigna
     const reasons = [];
     let score = c.score;
     const lexical = c.score;
-    if (named.has(c.id) || c.matchedNames.some(id => named.has(id))) { score += 1000; reasons.push('Workflow named explicitly'); }
+    if (named.has(c.id) || c.matchedNames.some(id => named.has(id))) { score += w.explicitName; reasons.push('Workflow named explicitly'); }
     let ruled = false;
     for (const rule of matches) if (rule.ids.includes(c.id)) {
       // When the request names a kind of work, domain topic rules only break ties.
-      const boost = actionRequested && !rule.action && !rule.damp ? Math.min(rule.boost ?? 45, 10) : rule.boost ?? 45;
-      ruled = true; score += boost - rule.ids.indexOf(c.id) * 8; reasons.push(rule.reason);
+      const boost = actionRequested && !rule.action && !rule.damp ? Math.min(rule.boost ?? w.ruleBoost, w.topicRuleCap) : rule.boost ?? w.ruleBoost;
+      ruled = true; score += boost - rule.ids.indexOf(c.id) * w.rulePosition; reasons.push(rule.reason);
     }
     // Project context breaks ties between workflows the request already supports; it is not evidence by itself.
-    if (context.packs.includes(c.pack) && (ruled || lexical >= 4)) { score += 2; reasons.push(`Fits detected ${context.frameworks.join(', ')} project`); }
+    if (context.packs.includes(c.pack) && (ruled || lexical >= w.stackPackLexical)) { score += w.stackPack; reasons.push(`Fits detected ${context.frameworks.join(', ')} project`); }
     // Availability is reported, not ranked: an honest capability declaration must not lose relevance.
     if (c.status !== 'available') reasons.push(`Prerequisites ${c.status}; inspect before execution`);
     if (!reasons.length) reasons.push('Request terms match this workflow');
