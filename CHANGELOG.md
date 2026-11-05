@@ -1,6 +1,8 @@
 # Changelog
 
-## Unreleased
+## 0.14.0
+
+0.13.0 was prepared but not published to npm. This release also contains its changes, listed under 0.13.0.
 
 - Send the automatic-assistance protocol once per session (first routed prompt, resume and compaction) instead of with every prompt. A routed prompt now adds about 600 characters of context instead of about 3,000.
 - Treat background-task notifications, messages from other agent sessions, desktop CI monitor events and local-command echoes delivered through the prompt hook as part of the current task: they no longer create a task, suggest workflows or make Stop ask for a selection. A prompt that adds the user's own words to them is still routed.
@@ -15,6 +17,7 @@
 - Add worker sandbox levels. `host` passes each CLI's own sandbox and network settings; `os` also confines the worker with bubblewrap (Linux) or `sandbox-exec` (macOS, where it replaces the CLI's own sandbox because macOS cannot nest them) to its worktree, temp and CLI state, and hides credential files. `env: minimal` passes only runtime variables and the CLI's own auth. Status and results record the sandbox applied.
 - Add a ready queue of tracked work items with priorities, labels, blocks/parent links, cycle checks, token-based claims with leases, and `ready` ordering. Project queues stay local; team queues are one sorted JSON file per item for Git review. `queue dispatch` claims ready items into an orchestration run with dependencies from their links, and `queue sync` closes accepted items and releases failed ones.
 - Let the MCP server handle requests concurrently and ask the client questions. With form elicitation, `canvas_manage ask` and `learning_review approve` take the user's answer from a host dialog. With MCP Apps, plan review and preferences open as in-host views.
+- Stop failing with ENOENT when another process removes a lock or state file while its managed path is being checked. A service stop could fail this way on Windows.
 - Share one cycle check across orchestration, GitHub epics and the queue, and create the personal state directory before the first orchestration lock.
 
 ## 0.13.0
