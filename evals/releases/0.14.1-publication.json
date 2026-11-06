@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "name": "just-vibe",
+  "version": "0.14.1",
+  "registry": "https://registry.npmjs.org/",
+  "sourceCommit": "25f7b3c794b1e9f4ec05c9b958f47576c970285d",
+  "sha256": "91597ebd2c4efbbb290613bdfd5147e7c9135861e9b33d4f5ed7048a9b247c4b",
+  "integrity": "sha512-IOmqsO1fG3YgJNeiBlYdmI8oSYW2/UuKicUHTXaZocQ3hFsyWPa19ilMhl+DzEfDmG74EiC0bPPYHUSkbeq8NA==",
+  "shasum": "f7776ecddfa14e89826d748bec139876175f4b12",
+  "publishedAt": "2026-11-06T01:25:20.133Z",
+  "verifiedAt": "2026-11-06T01:26:28.000Z",
+  "distTag": "latest",
+  "registryExecution": "0.14.1",
+  "ci": {
+    "status": "passed",
+    "run": "https://github.com/Zachshotamartin/just-vibe/actions/runs/42133546892",
+    "jobs": "Ubuntu, macOS and Windows with Node 22 and 24, plus web acceptance, on the source commit"
+  },
+  "localValidation": {
+    "tests": 549,
+    "passed": 545,
+    "failed": 0,
+    "skipped": 4,
+    "skipReason": "Platform-specific tests on macOS",
+    "releaseNode": "v26.7.0",
+    "skillsValidated": 221,
+    "archiveFiles": 672,
+    "archivePackageManagers": [
+      "npm",
+      "pnpm 10.14.0",
+      "pnpm 12.5.1",
+      "Yarn 4.18.0"
+    ],
+    "upgradeFromPrevious": "In isolated JUST_VIBE_HOME and CLAUDE_CONFIG_DIR directories, a just-vibe 0.12.0 Claude installation was updated to 0.14.1, first with the prepared archive before publication and then with just-vibe@0.14.1 from the registry. Both kept the 221-skill selection and 224 shortcut files, and doctor reported the installation healthy.",
+    "record": "0.14.1.md"
+  },
+  "publicationNote": "The first publish attempt failed before upload because npm's browser sign-in expired; the registry still listed 0.14.0 as latest. The second attempt was accepted, and the registry listed the version about three minutes later. Rerunning the publish script found the exact archive published, then verified its integrity and fresh-cache execution."
+}
