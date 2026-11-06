@@ -28,7 +28,11 @@ import { counts, publishedVersion, sourceUnreleased, version } from '../../lib/c
     <strong>{counts.profiles} role profiles</strong>, and{' '}
     <strong>{counts.packs} specialist packs</strong>.
   </p>
-  <h2>New in 0.14.0</h2>
+  <h2>New in 0.14.1</h2>
+  <ul>
+    <li>Claude Code installations made by 0.12.0 or earlier can be updated, checked with doctor and removed again. In 0.14.0, <code>update --target claude</code> stopped with an error about the <code>compare</code> workflow before replacing anything.</li>
+  </ul>
+  <h2>Previously in 0.14.0</h2>
   <p>0.13.0 was prepared but not published to npm, so 0.14.0 also contains its changes.</p>
   <ul>
     <li>Language-server navigation and diagnostics through the project's own trusted TypeScript, Pyright, gopls or rust-analyzer, plus an opt-in check that reports type errors in files edited during a turn.</li>
